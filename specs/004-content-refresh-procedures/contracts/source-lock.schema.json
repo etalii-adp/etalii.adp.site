@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://etalii.net/adp/contracts/source-lock.schema.json",
+  "title": "Source lock",
+  "description": "sources/<short>/source.lock.json: the source record of every file a refresh procedure brought into this repository (spec 004 FR-005).",
+  "type": "object",
+  "required": ["procedure", "refreshedAt", "sourceHeads", "files", "withdrawn"],
+  "additionalProperties": false,
+  "properties": {
+    "procedure": { "enum": ["refresh-dedl", "refresh-screenshots", "refresh-catalogue", "refresh-hosts"] },
+    "refreshedAt": { "type": "string", "format": "date-time" },
+    "local": {
+      "const": true,
+      "description": "Present only for runs against a local checkout (--source). refresh:verify rejects any lock carrying it."
+    },
+    "sourceHeads": {
+      "description": "Head of develop in each source repository at fetch time.",
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/repository" },
+      "additionalProperties": { "$ref": "#/$defs/sha" }
+    },
+    "releases": {
+      "description": "Latest published release per source repository at fetch time (research R10). Absent for procedures that do not use releases; a repository with no release maps to null.",
+      "type": "object",
+      "propertyNames": { "$ref": "#/$defs/repository" },
+      "additionalProperties": {
+        "oneOf": [
+          { "type": "null" },
+          {
+            "type": "object",
+            "required": ["tag", "commit"],
+            "additionalProperties": false,
+            "properties": {
+              "tag": { "type": "string" },
+              "commit": { "$ref": "#/$defs/sha" }
+            }
+          }
+        ]
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "repository", "sourcePath", "commit", "gitBlob", "sha256", "licence"],
+        "additionalProperties": false,
+        "properties": {
+          "path": { "type": "string", "description": "Relative to sources/<short>/." },
+          "repository": { "$ref": "#/$defs/repository" },
+          "sourcePath": { "type": "string" },
+          "commit": { "$ref": "#/$defs/sha", "description": "Latest commit on develop that touched sourcePath." },
+          "gitBlob": { "$ref": "#/$defs/sha", "description": "Git blob SHA of sourcePath at commit; compared by Resolve to detect change without downloading." },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "licence": { "type": "string", "description": "SPDX identifier from the source repository, or \"unstated\"." }
+        }
+      }
+    },
+    "withdrawn": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "sourcePath", "withdrawnAt", "lastCommit"],
+        "additionalProperties": false,
+        "properties": {
+          "path": { "type": "string" },
+          "sourcePath": { "type": "string" },
+          "withdrawnAt": { "type": "string", "format": "date-time" },
+          "lastCommit": { "$ref": "#/$defs/sha" },
+          "replacedBy": { "type": ["string", "null"] }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "repository": { "type": "string", "pattern": "^[A-Za-z0-9-]+/[A-Za-z0-9._-]+$" }
+  }
+}

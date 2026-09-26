@@ -1,0 +1,86 @@
+---
+// Replaces Starlight's Footer: a site map of both parts, the licence and the sources
+// (FR-017, FR-008, contracts/site-navigation.md item 6).
+import { parts, sectionsOf } from '../data/sections';
+---
+
+<footer class="adp-footer not-content">
+	<nav aria-label="Site map" class="adp-sitemap">
+		{
+			parts.map((part) => (
+				<div>
+					<h2>{part.label}</h2>
+					<ul>
+						{sectionsOf(part.id).map((section) => (
+							<li>
+								<a href={section.href}>{section.label}</a>
+								{section.status === 'coming' && <span class="adp-coming">Coming</span>}
+							</li>
+						))}
+					</ul>
+				</div>
+			))
+		}
+		<div>
+			<h2>Source</h2>
+			<ul>
+				<li><a href="https://github.com/etalii-adp">etalii-adp on GitHub</a></li>
+				<li><a href="https://github.com/etalii-adp/etalii.adp.site">Site repository</a></li>
+			</ul>
+		</div>
+	</nav>
+	<p>
+		Site text, images and code licensed under{' '}
+		<a href="https://github.com/etalii-adp/etalii.adp.site/blob/develop/LICENSE">Apache-2.0</a>.{' '}
+		ADP icon from{' '}
+		<a href="https://github.com/etalii-adp/etalii.adp.ide.standalone">etalii-adp/etalii.adp.ide.standalone</a>.
+	</p>
+</footer>
+
+<style>
+	.adp-footer {
+		margin-top: 4rem;
+		padding-top: 2rem;
+		border-top: 1px solid var(--sl-color-gray-5);
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+	}
+	.adp-sitemap {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+		gap: 1.5rem;
+	}
+	h2 {
+		margin: 0 0 0.5rem;
+		font-size: var(--sl-text-sm);
+		font-weight: 700;
+		color: var(--sl-color-white);
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	li {
+		margin-block: 0.375rem;
+	}
+	a {
+		color: var(--sl-color-gray-2);
+	}
+	a:hover {
+		color: var(--sl-color-text-accent);
+	}
+	.adp-coming {
+		margin-inline-start: 0.5rem;
+		padding: 0 0.5rem;
+		border: 1px solid currentColor;
+		border-radius: 999rem;
+		font-size: var(--sl-text-2xs);
+	}
+	p {
+		margin-top: 2rem;
+		padding-bottom: 2rem;
+	}
+</style>
