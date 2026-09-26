@@ -1,0 +1,19 @@
+---
+// The three focus areas on the home page (FR-005, US1 AS2). Illustrations are decorative; the text carries the meaning.
+import { getCollection } from 'astro:content';
+import { focusAreaIds, inOrder } from '../data/order';
+
+const areas = inOrder(await getCollection('focusAreas'), focusAreaIds);
+---
+
+<ul class="adp-cards not-content">
+	{
+		areas.map(({ data }) => (
+			<li class="adp-card">
+				<img src={data.illustration.src} alt="" width="160" height="120" loading="lazy" decoding="async" />
+				<h3>{data.name}</h3>
+				<p>{data.problem}</p>
+			</li>
+		))
+	}
+</ul>

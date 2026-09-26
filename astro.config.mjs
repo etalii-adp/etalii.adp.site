@@ -17,6 +17,7 @@ export default defineConfig({
 			locales: { root: { label: 'English', lang: 'en' } },
 			favicon: '/favicon.svg',
 			pagefind: false,
+			pagination: false,
 			customCss: ['./src/styles/theme.css'],
 			components: {
 				SiteTitle: './src/components/Logo.astro',

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Original artwork for etalii.net/adp, Apache-2.0: two clusters, round and square nodes, meeting at a shared frame. -->
+  <style>
+    .a { stroke: #32cd32; }
+    .af { fill: #32cd32; }
+    .g { stroke: #aeb6be; }
+    .gf { fill: #aeb6be; }
+    .t { fill: #32cd32; fill-opacity: 0.15; }
+    @media (prefers-color-scheme: light) {
+      .a { stroke: #16782a; } .af { fill: #16782a; } .g { stroke: #49525b; } .gf { fill: #49525b; } .t { fill: #16782a; fill-opacity: 0.12; }
+    }
+  </style>
+  <path class="g" d="M28 34 L50 58 M22 80 L50 58 M50 58 H68 M92 58 H110 M110 58 L134 32 M110 58 L138 84" stroke-width="1.5"/>
+  <circle class="gf" cx="28" cy="34" r="7"/>
+  <circle class="gf" cx="22" cy="80" r="6"/>
+  <circle class="gf" cx="50" cy="58" r="8"/>
+  <rect class="a" x="104" y="52" width="12" height="12" rx="2"/>
+  <rect class="a" x="128" y="26" width="12" height="12" rx="2"/>
+  <rect class="a" x="132" y="78" width="12" height="12" rx="2"/>
+  <rect class="a t" x="68" y="44" width="24" height="28" rx="5"/>
+  <path class="a" d="M74 54 H86 M74 62 H82" stroke-width="2"/>
+</svg>

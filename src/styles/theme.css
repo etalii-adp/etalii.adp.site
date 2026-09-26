@@ -62,3 +62,107 @@ h4,
 	font-family: var(--adp-font-display);
 	letter-spacing: -0.01em;
 }
+
+/*
+ * Home page hero: a dark-gray band in both schemes, with a green glow and faint grid lines
+ * (CSS gradients only), after aspire.dev and speckit.org. Tokens are redefined inside the band so
+ * text and buttons keep the dark-scheme contrast even when the page is light.
+ */
+.hero {
+	--sl-color-white: var(--adp-band-heading);
+	--sl-color-gray-2: var(--adp-band-text);
+	--sl-color-black: var(--adp-band-bg);
+	--sl-color-text-accent: var(--adp-band-accent);
+	color-scheme: dark;
+	position: relative;
+	isolation: isolate;
+	margin-block-start: 1rem;
+	padding: 2rem 1.25rem;
+	border-radius: 1.25rem;
+	border: 1px solid rgb(110 231 110 / 0.18);
+	background:
+		radial-gradient(ellipse 60% 70% at 75% 35%, var(--adp-band-glow), transparent 70%),
+		repeating-linear-gradient(0deg, var(--adp-band-line) 0 1px, transparent 1px 2.5rem),
+		repeating-linear-gradient(90deg, var(--adp-band-line) 0 1px, transparent 1px 2.5rem),
+		var(--adp-band-bg);
+	color: var(--adp-band-text);
+	overflow: hidden;
+}
+.hero .tagline strong {
+	display: block;
+	margin-block-end: 0.5rem;
+	color: var(--adp-band-accent);
+	font-family: var(--adp-font-display);
+	font-size: 1.15em;
+}
+.hero .sl-link-button.secondary {
+	border-color: rgb(230 233 236 / 0.5);
+}
+@media (min-width: 50rem) {
+	.hero {
+		padding: 3rem 3rem;
+	}
+}
+
+/* Focus-area and host cards: a responsive grid, one column below 50rem. */
+.adp-cards {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 1rem;
+	margin: 1.5rem 0 0;
+	padding: 0;
+	list-style: none;
+}
+@media (min-width: 50rem) {
+	.adp-cards {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+	.adp-cards.adp-hosts {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+.adp-card {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 1.25rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 0.75rem;
+	background: var(--sl-color-gray-6);
+}
+.adp-card img {
+	width: 100%;
+	max-width: 10rem;
+	height: auto;
+	margin-block-end: 0.5rem;
+}
+.adp-card h3 {
+	margin: 0;
+	font-size: var(--sl-text-h4);
+	color: var(--sl-color-white);
+}
+.adp-card p {
+	margin: 0;
+}
+.adp-state {
+	align-self: flex-start;
+	padding: 0.125rem 0.625rem;
+	border: 1px solid currentColor;
+	border-radius: 999rem;
+	font-size: var(--sl-text-sm);
+	font-weight: 600;
+	color: var(--sl-color-text-accent);
+}
+.adp-state[data-state='planned'] {
+	color: var(--sl-color-gray-2);
+}
+.adp-note {
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-3);
+	font-style: italic;
+}
+.adp-source {
+	margin-block-start: 1rem;
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-3);
+}

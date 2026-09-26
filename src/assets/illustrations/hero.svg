@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 420" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Original artwork for etalii.net/adp, Apache-2.0. Abstract: a perspective grid, a branch of nodes and layered frames echoing the ADP icon. Not a picture of the product. -->
+  <style>
+    .grid { stroke: #6ee76e; stroke-width: 1; }
+    .frame { stroke: #32cd32; stroke-width: 3; }
+    .ghost { stroke: #6ee76e; stroke-width: 1.5; }
+    .branch { stroke: #e6e9ec; stroke-width: 4; }
+    .node { fill: #e6e9ec; }
+    .link { stroke: #aeb6be; stroke-width: 1.5; stroke-dasharray: 2 7; }
+    .dot { fill: #6ee76e; }
+  </style>
+  <defs>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#32cd32" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#32cd32" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="1"/>
+    </linearGradient>
+    <mask id="floor"><rect x="0" y="210" width="480" height="210" fill="url(#fade)"/></mask>
+    <linearGradient id="face" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#32cd32" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#32cd32" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="320" cy="170" r="160" fill="url(#glow)"/>
+
+  <g class="grid" mask="url(#floor)" opacity="0.8">
+    <path d="M300 210 L-180 420 M300 210 L-40 420 M300 210 L100 420 M300 210 L240 420 M300 210 L360 420 M300 210 L480 420 M300 210 L620 420 M300 210 L780 420"/>
+    <path d="M0 226 H480 M0 244 H480 M0 268 H480 M0 300 H480 M0 344 H480 M0 404 H480"/>
+  </g>
+
+  <g class="ghost" opacity="0.35">
+    <rect x="236" y="54" width="170" height="170" rx="22"/>
+  </g>
+  <g class="ghost" opacity="0.6">
+    <rect x="256" y="74" width="150" height="150" rx="20"/>
+  </g>
+  <rect x="276" y="94" width="130" height="130" rx="18" class="frame" fill="url(#face)"/>
+
+  <path class="branch" d="M118 48 V352"/>
+  <circle class="node" cx="118" cy="96" r="13"/>
+  <circle class="node" cx="118" cy="304" r="13"/>
+  <path class="branch" d="M118 304 C118 206 160 159 276 159"/>
+
+  <path class="link" d="M341 224 V300 H420 M406 159 H452 M341 94 V36 H196"/>
+  <circle class="dot" cx="420" cy="300" r="6"/>
+  <circle class="dot" cx="452" cy="159" r="6"/>
+  <circle class="dot" cx="196" cy="36" r="6"/>
+  <circle class="dot" cx="341" cy="159" r="5"/>
+  <circle class="dot" cx="309" cy="127" r="3" opacity="0.7"/>
+  <circle class="dot" cx="373" cy="191" r="3" opacity="0.7"/>
+</svg>

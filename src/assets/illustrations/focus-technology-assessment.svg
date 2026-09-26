@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Original artwork for etalii.net/adp, Apache-2.0: a balance weighing two stacks of frames. -->
+  <style>
+    .a { stroke: #32cd32; }
+    .af { fill: #32cd32; }
+    .g { stroke: #aeb6be; }
+    .gf { fill: #aeb6be; }
+    .t { fill: #32cd32; fill-opacity: 0.15; }
+    @media (prefers-color-scheme: light) {
+      .a { stroke: #16782a; } .af { fill: #16782a; } .g { stroke: #49525b; } .gf { fill: #49525b; } .t { fill: #16782a; fill-opacity: 0.12; }
+    }
+  </style>
+  <path class="g" d="M80 22 V100 M60 104 H100 M28 38 H132"/>
+  <path class="g" d="M80 22 L74 30 H86 Z"/>
+  <path class="g" d="M36 38 L26 70 M36 38 L46 70 M124 38 L114 70 M124 38 L134 70" stroke-width="1.5"/>
+  <path class="g" d="M20 70 H52 M108 70 H140"/>
+  <rect class="a t" x="26" y="52" width="20" height="16" rx="3"/>
+  <rect class="a" x="30" y="44" width="12" height="8" rx="2" stroke-width="2"/>
+  <rect class="a t" x="112" y="56" width="24" height="12" rx="3"/>
+  <circle class="af" cx="80" cy="22" r="4"/>
+</svg>
