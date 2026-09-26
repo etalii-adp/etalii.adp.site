@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://etalii.net/adp/schemas/hosts.schema.json",
+  "title": "IDE hosts",
+  "description": "The four IDE hosts ADP runs in, as held in src/data/hosts.yaml. Astro's content collection enforces the same rules with zod.",
+  "type": "array",
+  "minItems": 4,
+  "maxItems": 4,
+  "prefixItems": [
+    { "$ref": "#/$defs/host", "properties": { "id": { "const": "standalone" } } },
+    { "$ref": "#/$defs/host", "properties": { "id": { "const": "intellij" } } },
+    { "$ref": "#/$defs/host", "properties": { "id": { "const": "vscode" } } },
+    { "$ref": "#/$defs/host", "properties": { "id": { "const": "eclipse" } } }
+  ],
+  "items": false,
+  "$defs": {
+    "host": {
+      "type": "object",
+      "required": ["id", "name", "summary", "state", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "enum": ["standalone", "intellij", "vscode", "eclipse"] },
+        "name": { "type": "string", "minLength": 1 },
+        "summary": { "type": "string", "minLength": 1 },
+        "state": { "enum": ["available", "in-progress", "planned"] },
+        "link": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "linkLabel": { "type": "string", "minLength": 1 },
+        "unavailableNote": { "type": "string", "minLength": 1 },
+        "source": { "$ref": "#/$defs/sourceRecord" }
+      },
+      "dependentRequired": { "link": ["linkLabel"] },
+      "allOf": [
+        {
+          "if": { "properties": { "state": { "const": "available" } } },
+          "then": { "required": ["link"] }
+        },
+        {
+          "if": { "not": { "required": ["link"] } },
+          "then": { "required": ["unavailableNote"] }
+        }
+      ]
+    },
+    "sourceRecord": {
+      "type": "object",
+      "required": ["repository", "path", "revision", "taken", "method", "licence"],
+      "additionalProperties": false,
+      "properties": {
+        "repository": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$" },
+        "path": { "type": "string", "minLength": 1 },
+        "revision": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "taken": { "type": "string", "format": "date" },
+        "method": { "enum": ["manual", "procedure"] },
+        "licence": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}
