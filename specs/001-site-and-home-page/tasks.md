@@ -130,7 +130,7 @@ description: "Task list for the site and home page"
 - [X] T043 [P] Measure the home page's first-load transfer (sum of `dist/adp/index.html` and every asset it references) and keep it under 500 KB (plan, Performance Goals); record the figure in the pull request description
 - [X] T044 [P] Update `README.md` with how to run the site locally (`npm ci`, `npm run dev`, `npm run build`, `npm run check`) and where publishing happens (the `deploy` workflow on `develop`)
 - [X] T045 Run every local scenario of [quickstart.md](quickstart.md) (1–11) against `npm run preview` and note the results in the pull request description
-- [ ] T046 Ask the owner of `etalii-adp/etalii.adp.ide.standalone` to confirm the ADP icon may be published under this site's Apache-2.0 licence (or to add a licence to that repository), and update `src/assets/brand/SOURCE.md` with the answer; the pull request must not be merged before this is settled (plan, Dependencies; research R9)
+- [x] T046 Ask the owner of `etalii-adp/etalii.adp.ide.standalone` to confirm the ADP icon may be published under this site's Apache-2.0 licence (or to add a licence to that repository), and update `src/assets/brand/SOURCE.md` with the answer; the pull request must not be merged before this is settled (plan, Dependencies; research R9)
 - [x] T047 After the pull request is merged into `develop`, run the "After merge" checks of [quickstart.md](quickstart.md) (`curl` for HTTP→HTTPS, `www`, `/adp` without slash, the root redirect and two 404s) and report the results on the merged pull request
 
 ---
