@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Input**: User description: "A website for ADP that is both a product site and a documentation site from the start (1C). The first page introduces ADP: the idea, the focus areas, the IDE hosts and where to get them (2A). Published with GitHub Pages and visible at etalii.net/adp (3A, 4B). English only (5A)."
+**Input**: User description (clarified 2026-09-26: Apache-2.0, repository renamed to `adp`, `etalii.net` redirects to `/adp`): "A website for ADP that is both a product site and a documentation site from the start (1C). The first page introduces ADP: the idea, the focus areas, the IDE hosts and where to get them (2A). Published with GitHub Pages and visible at etalii.net/adp (3A, 4B). English only (5A)."
 
 ## Context
 
@@ -87,7 +87,8 @@ A visitor reads the site on a phone, with a screen reader, in dark mode or with 
 - A visitor opens a page that does not exist under `/adp`: they see a page-not-found page with the site's navigation, not a bare host error.
 - An old link from before a page was moved: the visitor is sent to the new location.
 - An IDE host has no public install yet: the home page says so rather than linking to nothing.
-- The rest of `etalii.net` outside `/adp` is not part of this site and is not changed by it.
+- A visitor opens `https://etalii.net` or `https://www.etalii.net`: they are sent to `https://etalii.net/adp`.
+- A visitor opens an address on `etalii.net` outside `/adp` that does not exist: they are sent to `https://etalii.net/adp`, or shown a page-not-found page that links to it.
 
 ## Requirements *(mandatory)*
 
@@ -109,7 +110,8 @@ A visitor reads the site on a phone, with a screen reader, in dark mode or with 
 - **FR-014**: Pages MUST be readable with scripting disabled, at phone width without horizontal scrolling, and in light and dark colour schemes.
 - **FR-015**: The site MUST NOT set cookies, track visitors or load resources from third parties.
 - **FR-016**: All content MUST be in English.
-- **FR-017**: Every page MUST show the site's content licence in its footer. [NEEDS CLARIFICATION: which licence covers the site's own text and images?]
+- **FR-017**: Every page MUST show the site's licence, Apache-2.0, in its footer.
+- **FR-018**: A request for the root of `etalii.net` (with or without `www.`) MUST be sent to `https://etalii.net/adp`.
 
 ### Key Entities
 
@@ -129,8 +131,7 @@ A visitor reads the site on a phone, with a screen reader, in dark mode or with 
 
 ## Assumptions
 
-- `etalii.net` is Peter's domain and its DNS can be changed to serve this site at `/adp`. How the `/adp` path is achieved with GitHub Pages is a planning decision; GitHub Pages serves a repository under a path named after the repository, so the plan must choose between renaming this repository, publishing from a repository named `adp`, or another route.
-- The rest of `etalii.net` is outside this feature and must keep working.
-- This repository becomes public before the first publish, as GitHub Pages on the free plan requires.
+- `etalii.net` is Peter's domain and is used for ADP only. Its root belongs to the organization's Pages site, `etalii-adp.github.io`, whose one job is the redirect of FR-018; that repository is part of this feature.
+- This repository is renamed to `adp` and made public before the first publish, as GitHub Pages on the free plan requires; the organization's Pages site is public too.
 - IDE host states are taken from the IDE repositories (constitution principle II); spec 004 defines how they are refreshed.
 - The GitHub demo files (`index.html`, `package.json`) are replaced by this feature.

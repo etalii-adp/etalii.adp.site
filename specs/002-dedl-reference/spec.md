@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Input**: User description: "The DEDL specification rendered as browsable pages, generated from etalii.adp (2B)."
+**Input**: User description (clarified 2026-09-26: the schema is served at its `$id`, `etalii.net/adp/dedl/schema/...`): "The DEDL specification rendered as browsable pages, generated from etalii.adp (2B)."
 
 ## Context
 
@@ -99,7 +99,7 @@ Any reader sees, on every page of the reference, which version of DEDL it shows,
 - **FR-006**: Each published DEDL version MUST have its own addresses, which stay valid after newer versions are published.
 - **FR-007**: A version-independent address MUST always show the most recently published version.
 - **FR-008**: Pages of a superseded version MUST say that a newer version exists and link to it.
-- **FR-009**: The JSON Schema MUST be published unchanged at a versioned address and served as JSON. [NEEDS CLARIFICATION: the schema's `$schema` and `$id` addresses in the source currently point at `dedl.adp.ubigia.net`; should the site serve the schema at that address's path under `etalii.net/adp`, should the source move its identifiers to `etalii.net/adp`, or should the site only offer it for download?]
+- **FR-009**: The JSON Schema MUST be published unchanged, and served as JSON, at the address its own `$id` names: `https://etalii.net/adp/dedl/schema/<version>/dedl.schema.json` (moved there in `etalii-adp/etalii.adp` on 2026-09-26).
 - **FR-010**: Every example definition and document in the source MUST be published unchanged, viewable and downloadable, with its name.
 - **FR-011**: Every reference page MUST show the DEDL version, the source repository, the source revision, the generation date, and a link to the source at that revision.
 - **FR-012**: A construct that cannot be rendered faithfully MUST be shown as verbatim source text.

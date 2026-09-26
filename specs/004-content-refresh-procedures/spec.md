@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Input**: User description: "Agent formulated procedures for updating the screenshots and DEDL and other material."
+**Input**: User description (clarified 2026-09-26: screenshots are imported, never retaken; procedures run on every source change as well as on request): "Agent formulated procedures for updating the screenshots and DEDL and other material."
 
 ## Context
 
@@ -47,7 +47,7 @@ An agent is asked to refresh the screenshots. It follows the procedure, brings i
 
 1. **Given** a screenshot changed in its source, **When** the procedure runs, **Then** the pull request contains the new image, its caption and its new source revision.
 2. **Given** a screenshot that fails its size budget or its source's stated expectations, **When** the procedure runs, **Then** it keeps the previous image and lists the problem in the pull request.
-3. **Given** a designer that became usable in a host but has no screenshot in that host's repository, **When** the procedure runs, **Then** it reports the gap rather than inventing an image. [NEEDS CLARIFICATION: should this procedure only publish screenshots already committed in the source repositories, or should it also retake them by running each IDE host itself?]
+3. **Given** a designer that became usable in a host but has no screenshot in that host's repository, **When** the procedure runs, **Then** it reports the gap rather than inventing an image.
 
 ---
 
@@ -118,7 +118,8 @@ A maintainer adds a new kind of sourced content to the site and writes its refre
 - **FR-009**: A procedure's pull request MUST state the source revisions before and after, a summary of what changed, and each verification step's result.
 - **FR-010**: A combined procedure MUST run all refresh procedures and open one pull request per procedure that found changes.
 - **FR-011**: The procedures MUST share one template and be listed in one index stating what each refreshes and from where.
-- **FR-012**: Procedures MUST be runnable on request by naming them to an agent. [NEEDS CLARIFICATION: should they also run by themselves, on a schedule (for example weekly) or whenever a source repository changes?]
+- **FR-012**: Procedures MUST be runnable on request by naming them to an agent, and MUST run by themselves whenever a source they read changes on its repository's `develop` branch.
+- **FR-013**: The screenshot procedure MUST only publish screenshots already committed in the source repositories; it MUST NOT retake them.
 
 ### Key Entities
 
@@ -140,5 +141,6 @@ A maintainer adds a new kind of sourced content to the site and writes its refre
 
 - The agent running a procedure has read access to every source repository and can push a branch and open a pull request in this one.
 - Source repositories keep their content where the procedures say; when a source moves its content, the procedure is amended in the same way as any other change.
-- Screenshots are produced in their source repositories by their own capture procedures (for example `docs/screenshots/capture.mjs` in the standalone repository) unless the clarification above decides otherwise.
+- Screenshots are produced in their source repositories by their own capture procedures (for example `docs/screenshots/capture.mjs` in the standalone repository); this site only publishes them.
+- A change reaching a source's `develop` branch can start a run in this repository; how is a planning decision.
 - The owner reviews and merges every pull request; no procedure merges its own.

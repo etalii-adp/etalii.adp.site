@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Input**: User description: "A designer catalogue, one page per designer with screenshots (2C)."
+**Input**: User description (clarified 2026-09-26: identified-only types go in a separate ideas list): "A designer catalogue, one page per designer with screenshots (2C)."
 
 ## Context
 
@@ -86,7 +86,7 @@ A maintainer changes a designer's state or retakes its screenshots in its source
 - A designer is removed or renamed in its source: its old page address leads to its new page, or to a page saying it was withdrawn.
 - A screenshot in a source repository is missing or fails its size budget: the refresh reports it and keeps the previous image rather than publishing a broken one.
 - A designer has no screenshot yet although it is implemented: the page says a screenshot is pending instead of showing a placeholder that looks like the product.
-- Some diagram types in the standalone catalogue are candidates only (state "identified"): they may appear in a separate "ideas" list rather than in the main catalogue. [NEEDS CLARIFICATION: should identified-only diagram types appear in the catalogue at all, and if so, how prominently?]
+- Some diagram types in the standalone catalogue are candidates only (state "identified"): they appear in a separate "ideas" list below the catalogue, not in it.
 
 ## Requirements *(mandatory)*
 
@@ -105,6 +105,7 @@ A maintainer changes a designer's state or retakes its screenshots in its source
 - **FR-011**: A renamed or withdrawn designer's old address MUST lead to its new page or to a withdrawal notice.
 - **FR-012**: Every screenshot MUST have alternative text that describes what it shows.
 - **FR-013**: Images MUST be small enough that a designer page loads its images in under 1 MB in total.
+- **FR-014**: Diagram types that are only identified in every host MUST appear in a separate "ideas" list below the catalogue, with name, origin tag and links to theory, and MUST NOT get a designer page.
 
 ### Key Entities
 
