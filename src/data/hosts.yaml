@@ -1,0 +1,55 @@
+# The four IDE hosts ADP runs in, in their fixed order (data-model "IDE host", contracts/hosts.schema.json).
+# A host links only to something a visitor can reach; while a repository is private it says so instead.
+# Taken by hand on 2026-09-26 (plan, Complexity Tracking); spec 004 replaces this with a procedure.
+
+- id: standalone
+  name: Standalone
+  summary: A web workspace that runs on its own, next to any repository, with no IDE required.
+  state: in-progress
+  unavailableNote: Not public yet
+  source:
+    repository: etalii-adp/etalii.adp.ide.standalone
+    path: readme.md
+    revision: 78b9cd7a793befa9f103268a973b3bd4e8f679dc
+    taken: 2026-09-26
+    method: manual
+    licence: none
+
+- id: intellij
+  name: IntelliJ Platform
+  summary: A plug-in that opens designers as real editors in IntelliJ IDEA, Rider, WebStorm and the other JetBrains IDEs.
+  state: in-progress
+  unavailableNote: Not public yet
+  source:
+    repository: etalii-adp/etalii.adp.ide.intellij
+    path: README.md
+    revision: fd61f5940b890214971e4abf5a383260ef92fb92
+    taken: 2026-09-26
+    method: manual
+    licence: Apache-2.0
+
+- id: vscode
+  name: Visual Studio Code
+  summary: An extension that brings the same designers to Visual Studio Code.
+  state: planned
+  unavailableNote: Not public yet
+  source:
+    repository: etalii-adp/etalii.adp.ide.vscode
+    path: CLAUDE.md
+    revision: 4c9c6b05cce5f7788223c2632a91c928f6f216e6
+    taken: 2026-09-26
+    method: manual
+    licence: none
+
+- id: eclipse
+  name: Eclipse
+  summary: A plug-in that brings the same designers to the Eclipse IDE.
+  state: planned
+  unavailableNote: Not public yet
+  source:
+    repository: etalii-adp/etalii.adp.ide.eclipse
+    path: CLAUDE.md
+    revision: a87f09130023d2a6b81e0bdc4c500bbff187f6f8
+    taken: 2026-09-26
+    method: manual
+    licence: none

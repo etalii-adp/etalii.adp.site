@@ -1,0 +1,16 @@
+# The three task families ADP targets (FR-005). The site's own words, so no source record.
+
+- id: technology-assessment
+  name: Technology assessment
+  problem: Weighing a new technology means holding options, actors and consequences side by side. A designer made for (constructive) technology assessment lays them out so trade-offs can be seen and argued over, not buried in a document.
+  illustration: ../assets/illustrations/focus-technology-assessment.svg
+
+- id: humans-and-agents
+  name: Humans and agents together
+  problem: When people and software agents work on the same task, each needs to see what the other is doing and why. A shared, specialized view gives both the same picture of the work and its state.
+  illustration: ../assets/illustrations/focus-humans-and-agents.svg
+
+- id: textual-clarity
+  name: Clarity in textual data
+  problem: Structure hidden in logs, notes and plain-text formats is hard to see line by line. A designer tuned to one format shows that structure directly, while the text stays the source of truth.
+  illustration: ../assets/illustrations/focus-textual-clarity.svg

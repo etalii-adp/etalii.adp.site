@@ -1,0 +1,25 @@
+# Checks every pull request into develop: the site builds, its internal links resolve and every page
+# passes the accessibility, phone-width, no-script and privacy checks (FR-012). It has no Pages
+# permissions, so a pull request never changes the published site (FR-011).
+name: ci
+
+on:
+  pull_request:
+    branches: [develop]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - run: npm run check
