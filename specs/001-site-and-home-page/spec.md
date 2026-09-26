@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Input**: User description (clarified 2026-09-26: Apache-2.0, repository renamed to `adp`, `etalii.net` redirects to `/adp`): "A website for ADP that is both a product site and a documentation site from the start (1C). The first page introduces ADP: the idea, the focus areas, the IDE hosts and where to get them (2A). Published with GitHub Pages and visible at etalii.net/adp (3A, 4B). English only (5A)."
+**Input**: User description (clarified 2026-09-26: Apache-2.0, published through the organization Pages site, repository keeps its name, `etalii.net` redirects to `/adp`): "A website for ADP that is both a product site and a documentation site from the start (1C). The first page introduces ADP: the idea, the focus areas, the IDE hosts and where to get them (2A). Published with GitHub Pages and visible at etalii.net/adp (3A, 4B). English only (5A)."
 
 ## Context
 
@@ -131,7 +131,7 @@ A visitor reads the site on a phone, with a screen reader, in dark mode or with 
 
 ## Assumptions
 
-- `etalii.net` is Peter's domain and is used for ADP only. Its root belongs to the organization's Pages site, `etalii-adp.github.io`, whose one job is the redirect of FR-018; that repository is part of this feature.
-- This repository is renamed to `adp` and made public before the first publish, as GitHub Pages on the free plan requires; the organization's Pages site is public too.
+- `etalii.net` is Peter's domain and is used for ADP only. It belongs to the organization's Pages site, `etalii-adp.github.io`, which is public. That repository receives this site in its `adp/` folder and carries the redirect of FR-018; its content is part of this feature.
+- This repository keeps its name and does not use GitHub Pages itself. Publishing into the organization's Pages site needs a credential with write access to that repository only.
 - IDE host states are taken from the IDE repositories (constitution principle II); spec 004 defines how they are refreshed.
 - The GitHub demo files (`index.html`, `package.json`) are replaced by this feature.
