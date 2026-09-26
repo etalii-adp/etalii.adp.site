@@ -64,6 +64,8 @@ A designer author or implementer downloads the JSON Schema and the example defin
 1. **Given** the DEDL reference, **When** an author looks for the schema, **Then** they can view it and download it as the unchanged source file.
 2. **Given** a published version, **When** a tool requests the schema at its published versioned address, **Then** it receives the exact source file, served as JSON.
 3. **Given** the example definitions and documents, **When** the author opens one, **Then** they see it with its name and purpose, and can download it unchanged.
+4. **Given** an example definition, **When** the author opens it, **Then** they see what it demonstrates, which sections of the specification it illustrates, and at least one picture of its structure made from the example itself.
+5. **Given** an example definition that an IDE host can load, **When** the author opens it, **Then** they also see screenshots from that host of the definition in use and of a diagram made with it; for an example no host can load yet, the page says so.
 
 ---
 
@@ -106,6 +108,11 @@ Any reader sees, on every page of the reference, which version of DEDL it shows,
 - **FR-013**: A refresh that cannot read the source MUST publish nothing and leave the current reference unchanged.
 - **FR-014**: The reference MUST be searchable by word across all its pages. Search MAY require scripting; the pages themselves MUST NOT (constitution principle IV).
 - **FR-015**: The reference MUST state the licence of the specification material, as given by its source repository.
+- **FR-016**: Every example MUST be documented: its purpose, the constructs it demonstrates with links to the sections that define them, and at least one visual of its structure generated from the example file itself.
+- **FR-017**: When an IDE host can load an example definition, the example's page MUST show screenshots, captured in that host's repository, of the definition in use and of a diagram created with it. Until then the page MUST state that no host runs the example yet (constitution principle III).
+- **FR-018**: Diagrams written as text in the source (for example Mermaid) MUST be shown as pictures that read without scripting, in light and dark colour schemes, with a text alternative.
+- **FR-019**: The aspects of the reference MUST be linked in both directions: a section to the schema definitions and examples it describes, a schema definition and an example to the sections that describe them, and a glossary term to its entry.
+- **FR-020**: Search results MUST name the version and section of each hit, and search MUST cover one version at a time, the latest by default.
 
 ### Key Entities
 
@@ -113,6 +120,7 @@ Any reader sees, on every page of the reference, which version of DEDL it shows,
 - **Section**: a top-level part of the specification or an appendix, with a number, a title and headings inside it.
 - **Schema**: the JSON Schema file for one DEDL version.
 - **Example**: a definition or document file shipped with the specification, with a name and the DEDL version it belongs to.
+- **Visual**: a picture of a specification construct or an example: a diagram drawn from text in the source, a view generated from an example file, or a screenshot captured in an IDE host's repository.
 
 ## Success Criteria *(mandatory)*
 
@@ -127,7 +135,7 @@ Any reader sees, on every page of the reference, which version of DEDL it shows,
 ## Assumptions
 
 - The DEDL source keeps its current shape: one prose document in Markdown, one JSON Schema and example files in one folder per specification. A change to that shape is handled by amending this spec.
-- Other definition languages specified later in `etalii-adp/etalii.adp` follow the same pattern and can be added to the reference without a new mechanism; adding them is a separate specification.
+- Other definition languages specified later in `etalii-adp/etalii.adp` follow the same pattern and can be added to the reference without a new mechanism; adding them is a separate specification. The first is expected to be a sibling language for designers that are not diagram-based (forms, tables, structured text); its name is still open, and the plan proposes one.
 - `etalii-adp/etalii.adp` is public, so the site's build can read it without credentials.
 - Refreshing the reference when the source changes is defined by spec 004.
 - The licence of the specification material is whatever `etalii-adp/etalii.adp` states; it has no licence file yet, which the source repository must resolve before the first publish.
