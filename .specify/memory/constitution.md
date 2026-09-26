@@ -7,7 +7,7 @@ Sync Impact Report
 - Sections added: Hosting and Content Constraints, Development Workflow, Governance
 - Templates: plan-template.md, spec-template.md and tasks-template.md need no change; their
   Constitution Check gate reads the principles below.
-- Resolved 2026-09-26: content licence Apache-2.0; site built here and published through the organization Pages site, which also redirects the root of etalii.net (repository keeps its name, Peter, 2026-09-26).
+- Resolved 2026-09-26: content licence Apache-2.0; this repository alone holds etalii.net on GitHub Pages, with the site under /adp and a redirect at the root (Peter, 2026-09-26).
 -->
 
 # etalii.adp.site Constitution
@@ -66,8 +66,8 @@ Start with the smallest site that does the job and grow it by specification. Too
 ## Hosting and Content Constraints
 
 - The site is published with GitHub Pages and served at `https://etalii.net/adp`. Every link and asset MUST work under the `/adp` path prefix.
-- The site is built in this repository and published into the `adp/` folder of the organization's Pages site, `etalii-adp.github.io`, which holds the `etalii.net` domain and redirects its root to `/adp`. This repository does not use GitHub Pages itself, because a project site is served under its repository's name.
-- The organization's Pages site is public, which GitHub Pages on the free plan requires.
+- This repository is the only one involved: its GitHub Pages site carries the custom domain `etalii.net`, publishes the site in its `adp/` folder, and redirects the root of the domain to `/adp`. No other repository is created for it.
+- This repository is public, which GitHub Pages on the free plan requires.
 - The site is in English only.
 - The site's own text, images and code are licensed under the Apache License, Version 2.0 (`LICENSE`).
 - Sourced content keeps the licence of its source repository, stated beside it.
