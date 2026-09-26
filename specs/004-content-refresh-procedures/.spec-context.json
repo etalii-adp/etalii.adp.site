@@ -2,8 +2,8 @@
   "workflow": "speckit",
   "specName": "Content Refresh Procedures",
   "branch": "claude/project-thread-yu2w2z",
-  "currentStep": "specify",
-  "status": "specified",
+  "currentStep": "tasks",
+  "status": "ready-to-implement",
   "history": [
     {
       "step": "specify",
@@ -11,6 +11,35 @@
       "kind": "start",
       "by": "extension",
       "at": "2026-09-26T17:06:47.738Z"
+    },
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-09-26T19:18:38.949Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-09-26T19:18:38.954Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-09-26T20:12:24.213Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-09-26T20:18:22.982Z"
     }
-  ]
+  ],
+  "telemetryInstanceId": "f576f38d-c716-491b-ab0f-c304240c8619"
 }
