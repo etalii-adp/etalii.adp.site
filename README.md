@@ -1,4 +1,7 @@
-# Welcome to your organization's demo respository
-This code repository (or "repo") is designed to demonstrate the best GitHub has to offer with the least amount of noise.
+# etalii.adp.site
 
-The repo includes an `index.html` file (so it can render a web page), two GitHub Actions workflows, and a CSS stylesheet dependency.
+The website for ADP, A Different Perspective: a range of specialized diagram and text designers, highly tuned for specific tasks, including (constructive technology) assessment, collaboration between humans and agents, and bringing clarity to textual data.
+
+## How work is done here
+
+Every change starts as a specification, using GitHub Spec Kit with the SpecKit Companion extension. See `CLAUDE.md` and the features under `specs/`.
