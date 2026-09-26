@@ -2,6 +2,8 @@
  * ADP site theme: green on dark gray, dark scheme first (research R8).
  * Starlight reads these tokens; `:root` is the dark scheme, `:root[data-theme='light']` the light one.
  * The site follows the system scheme; there is no theme selector (research R10).
+ * Final values: research R8's starting values pass axe WCAG 2.2 AA in both schemes unchanged
+ * (npm run check, 2026-09-26); the gray scales around them were chosen to pass as well.
  */
 @import '@fontsource-variable/space-grotesk';
 

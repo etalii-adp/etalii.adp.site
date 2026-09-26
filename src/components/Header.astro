@@ -1,0 +1,104 @@
+---
+// Replaces Starlight's Header: logo, the two site parts with the current one marked, and the source link
+// (contracts/site-navigation.md item 2, FR-003, FR-008). No search and no theme selector (research R10).
+import { Icon } from '@astrojs/starlight/components';
+import Logo from './Logo.astro';
+import { parts } from '../data/sections';
+
+const currentPart = Astro.locals.starlightRoute.entry.data.part;
+---
+
+<div class="adp-header">
+	<Logo />
+	<nav aria-label="Site parts" class="adp-parts">
+		<ul>
+			{
+				parts.map((part) => (
+					<li>
+						<a href={part.href} aria-current={part.id === currentPart ? 'true' : undefined}>
+							{part.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+	<a href="https://github.com/etalii-adp" class="adp-source-link">
+		<Icon name="github" size="1.25rem" />
+		<span class="adp-source-text">Source on GitHub</span>
+	</a>
+</div>
+
+<style>
+	.adp-header {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		height: 100%;
+		min-width: 0;
+	}
+	.adp-parts {
+		margin-inline-start: auto;
+	}
+	.adp-parts ul {
+		display: flex;
+		gap: 0.75rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.adp-parts a,
+	.adp-source-link {
+		display: flex;
+		align-items: center;
+		gap: 0.375rem;
+		padding-block: 0.25rem;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+		text-decoration: none;
+		white-space: nowrap;
+	}
+	.adp-parts a:hover,
+	.adp-source-link:hover {
+		color: var(--sl-color-white);
+	}
+	.adp-parts a[aria-current='true'] {
+		color: var(--sl-color-white);
+		font-weight: 700;
+		text-decoration: underline;
+		text-decoration-color: var(--sl-color-accent);
+		text-decoration-thickness: 2px;
+		text-underline-offset: 0.35em;
+	}
+	@media (max-width: 49.99rem) {
+		.adp-header :global(.site-caption) {
+			display: none;
+		}
+		.adp-source-text {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			overflow: hidden;
+			clip: rect(0 0 0 0);
+			white-space: nowrap;
+		}
+	}
+	/* On the narrowest phones the icon alone stands for the logo; the link keeps its accessible name. */
+	@media (max-width: 29.99rem) {
+		.adp-header :global(.site-logo-text) {
+			display: none;
+		}
+	}
+	@media (min-width: 50rem) {
+		.adp-header {
+			gap: 1.5rem;
+		}
+		.adp-parts ul {
+			gap: 1.5rem;
+		}
+		.adp-parts a,
+		.adp-source-link {
+			font-size: var(--sl-text-base);
+		}
+	}
+</style>
