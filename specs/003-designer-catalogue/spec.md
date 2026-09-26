@@ -6,13 +6,15 @@
 
 **Status**: Draft
 
-**Input**: User description (clarified 2026-09-26: identified-only types go in a separate ideas list): "A designer catalogue, one page per designer with screenshots (2C)."
+**Input**: User description (clarified 2026-09-26: identified-only types go in a separate ideas list; amended 2026-09-26 from review: screenshot descriptions, focus areas maintained in Notion, per-host availability in the Notion table, descriptive text site-owned and refreshed from Notion, all source repositories public under Apache-2.0): "A designer catalogue, one page per designer with screenshots (2C)."
 
 ## Context
 
 ADP's value is in its individual designers: each one is tuned for one task. Today the only overview is `docs/diagrams.md` in `etalii-adp/etalii.adp.ide.standalone`, a catalogue of diagram types with a state per type (identified, specified, to-do, work in progress, prototype, implemented) and an origin tag such as `freeplane/mindmap`, plus a set of reproducible screenshots in `docs/screenshots/`. The IntelliJ repository has its own designer (FreeMind mind maps), and VS Code and Eclipse have none yet. None of this is visible to someone outside the repositories, and no single place says which designer runs in which IDE.
 
-This feature adds a catalogue to the site (spec 001): an overview of every designer and one page per designer, showing what it is for, what it looks like, and where it runs. Content is taken from the repositories that build the designers (constitution principle II) by the procedures of spec 004.
+Much of the thinking about designers happens in Notion: the ADP "Diagrams" database holds, per diagram type, its purpose, description, family, theory and a state column per IDE host. Designers are grouped by the focus areas (domains or problem areas) they serve, such as (constructive) technology assessment; spec 001 names the first three, more are added over time, and that grouping is worked out in Notion too.
+
+This feature adds a catalogue to the site (spec 001): an overview of every designer and one page per designer, showing what it is for, what it looks like, which focus areas it serves and where it runs. Facts and screenshots are taken from the repositories that build the designers (constitution principle II), and descriptive text from the Notion database, by the procedures of spec 004.
 
 Roles: a **visitor** wants to know whether ADP has a designer for their task; a **user** wants to know how to get and use one; a **maintainer** keeps the catalogue current.
 
@@ -48,6 +50,8 @@ A visitor opens a designer's page and understands what task it is for, what it l
 2. **Given** an implemented or prototype designer, **When** a visitor looks at the page, **Then** it shows at least one screenshot of the real designer, with a caption saying which IDE host and which version it was taken from.
 3. **Given** a designer page, **When** a visitor looks for its notation's background, **Then** they find links to the notation's own theory or standard, where one exists.
 4. **Given** a designer defined in DEDL, **When** a visitor looks for its definition, **Then** the page links to the definition and to the DEDL reference (spec 002).
+5. **Given** a screenshot on a designer page, **When** a visitor looks at it, **Then** a description beside it says what is visible in the image and why that matters for the designer's task.
+6. **Given** a designer page, **When** a visitor wants related designers, **Then** the page names the focus areas the designer serves, each linking to the overview narrowed to that focus area.
 
 ---
 
@@ -63,6 +67,7 @@ A user sees, on a designer's page, in which IDE hosts it is available, in which 
 
 1. **Given** a designer page, **When** a user looks at availability, **Then** they see one entry per IDE host with its state and, where available, a link to install or build it.
 2. **Given** a host where the designer does not exist, **When** it is listed, **Then** it says "not planned" or "planned", never omits the host silently.
+3. **Given** the Notion designer table, **When** a maintainer looks up a designer, **Then** its per-host columns show the same availability as the catalogue, and a difference between the two is reported rather than left to drift.
 
 ---
 
@@ -101,18 +106,22 @@ A maintainer changes a designer's state or retakes its screenshots in its source
 - **FR-007**: A designer that is not usable in any host MUST NOT show a screenshot presented as the product.
 - **FR-008**: A designer page MUST link to its notation's theory or standard where one exists, and to its DEDL definition and the DEDL reference where it has one.
 - **FR-009**: Every fact and image in the catalogue MUST record the source repository and revision it was taken from, and the page MUST show them.
-- **FR-010**: The catalogue MUST be generated from its sources by the procedures of spec 004, not edited by hand on the site side.
+- **FR-010**: The catalogue MUST be generated from its sources by the procedures of spec 004. Facts (states per host) and screenshots MUST NOT be edited by hand on the site side. Descriptive text (purpose, why a specialized visualization helps, file formats, focus areas, screenshot descriptions) is owned by the site and MUST be refreshed from the Notion designer database wherever the database holds it.
 - **FR-011**: A renamed or withdrawn designer's old address MUST lead to its new page or to a withdrawal notice.
 - **FR-012**: Every screenshot MUST have alternative text that describes what it shows.
 - **FR-013**: Images MUST be small enough that a designer page loads its images in under 1 MB in total.
 - **FR-014**: Diagram types that are only identified in every host MUST appear in a separate "ideas" list below the catalogue, with name, origin tag and links to theory, and MUST NOT get a designer page.
+- **FR-015**: Every screenshot MUST carry a description, beside the image and readable without it, of what is visible and why that matters for the designer's task; this is in addition to its alternative text.
+- **FR-016**: A designer MUST be assignable to zero or more focus areas (domains or problem areas). The set of focus areas MUST be open-ended, maintained in Notion and taken over by the refresh; a new focus area appears on the site without a change to the site's code. The first set, chosen by the owner on 2026-09-26, is: (constructive) technology assessment; collaboration between humans and agents; bringing clarity to textual data; systems and strategy; knowledge and semantics; software delivery; planning and roadmapping; psychological and societal insights.
+- **FR-017**: The Notion designer table MUST record, per designer, its availability in each IDE host, kept in step with the catalogue; when the two disagree, the refresh MUST report the difference and the catalogue MUST follow the IDE repositories.
 
 ### Key Entities
 
 - **Designer**: one specialized diagram, designer or text editor, identified by its origin tag (for example `freeplane/mindmap`), with a name, purpose, focus areas, file formats and links to theory and definition.
+- **Focus area**: a domain or problem area designers serve, such as (constructive) technology assessment, with a name and a short problem statement; the set grows over time.
 - **Host availability**: the state of one designer in one IDE host, with the source repository and revision it was read from and an install link where available.
 - **State**: one of a shared set (for example identified, specified, in progress, prototype, available), used for every designer and host.
-- **Screenshot**: an image of a designer in one host, with a caption, alternative text, source repository and revision.
+- **Screenshot**: an image of a designer in one host, with a caption, alternative text, a description of what is visible and why it matters, source repository and revision.
 
 ## Success Criteria *(mandatory)*
 
@@ -121,7 +130,8 @@ A maintainer changes a designer's state or retakes its screenshots in its source
 - **SC-001**: Every designer that is implemented or a prototype in any host's repository appears in the catalogue; a comparison against the source catalogues finds none missing.
 - **SC-002**: Every state shown in the catalogue matches its source at the recorded revision.
 - **SC-003**: A visitor can find whether a designer exists for a named task and which IDEs it runs in within one minute of opening the site.
-- **SC-004**: Every screenshot has alternative text and passes the size budget.
+- **SC-004**: Every screenshot has alternative text and a description, and passes the size budget.
+- **SC-005**: After a refresh, the Notion designer table's per-host columns and the catalogue agree for every designer, or the refresh's report lists each difference.
 
 ## Assumptions
 
@@ -129,4 +139,6 @@ A maintainer changes a designer's state or retakes its screenshots in its source
 - The origin tag (`<vendor>/<diagram-type>`) is the shared identity of a designer across hosts.
 - The site's states are a mapping of each source's states; the mapping is defined in planning and applied by the procedures of spec 004.
 - Screenshots are taken in their source repositories by their own capture procedures; this site only publishes them.
-- Focus areas are the three of spec 001; a designer may belong to more than one, or to none yet.
+- The three focus areas of spec 001 are the first three of FR-016; a designer may belong to more than one focus area, or to none yet.
+- The Notion "Diagrams" database is reachable by the refresh, and it gains properties for each diagram type's focus areas, why a specialized visualization helps, and file formats.
+- Every source repository the catalogue publishes from is public and licensed under Apache-2.0 with a copyright statement for Peter Vrenken, 2026, so its screenshots and text may be republished with their licence stated beside them.

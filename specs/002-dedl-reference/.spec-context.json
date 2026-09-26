@@ -2,8 +2,8 @@
   "workflow": "speckit",
   "specName": "DEDL Reference",
   "branch": "claude/project-thread-yu2w2z",
-  "currentStep": "specify",
-  "status": "specified",
+  "currentStep": "plan",
+  "status": "planning",
   "history": [
     {
       "step": "specify",
@@ -11,6 +11,59 @@
       "kind": "start",
       "by": "extension",
       "at": "2026-09-26T17:06:47.563Z"
+    },
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-09-26T19:13:33.124Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-09-26T19:13:33.133Z"
+    }
+  ],
+  "telemetryInstanceId": "7579133a-cbf5-4826-bf31-71f263cdad06",
+  "reviewComments": [
+    {
+      "id": "ref-1790449734065-9uym1",
+      "doc": "spec",
+      "anchor": {
+        "heading": null,
+        "blockText": "**Created**: 2026-09-26\r",
+        "line": 5
+      },
+      "comment": "Take into consideration that also a second specification will be added, focussed on non-diagram based designers. I do not know the abbreviation yet so feel free to propose. It should be short and catchy though, in the same lines as DEDL.",
+      "status": "applied",
+      "createdAt": "2026-09-26T19:08:54.066Z"
+    },
+    {
+      "id": "ref-1790449777273-2u679",
+      "doc": "spec",
+      "anchor": {
+        "heading": null,
+        "blockText": "A designer author today has to read that material as raw files in a repository. This feature publishes it in the documentation part of the site (spec 001) as a reference they can browse, search, link into and cite by version, without the site ever becoming a second copy that drifts (constitution principle II).\r",
+        "line": 15
+      },
+      "comment": "There should be a search option, and sufficient linkage between the different aspects of the specification.",
+      "status": "applied",
+      "createdAt": "2026-09-26T19:09:37.274Z"
+    },
+    {
+      "id": "ref-1790449907611-p93ry",
+      "doc": "spec",
+      "anchor": {
+        "heading": null,
+        "blockText": "\r",
+        "line": 43
+      },
+      "comment": "Also make sure that the examples are sufficiently documented and visualized, so use mermaid diagrams and images wherever possible. In case that we achieve real definitions that can be used in one or more of the IDE's you need to start adding screenshots as well that represent the actual example definition operational and used to create a diagram.",
+      "status": "applied",
+      "createdAt": "2026-09-26T19:11:47.612Z"
     }
   ]
 }
