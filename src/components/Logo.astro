@@ -1,0 +1,44 @@
+---
+// Replaces Starlight's SiteTitle: the ADP icon, the wordmark and the catch-line name (research R8, R9).
+import icon from '../assets/brand/adp-icon.svg';
+---
+
+<a href="/adp/" class="site-logo" aria-label="ADP – A Different Perspective, home">
+	<img src={icon.src} alt="" width="32" height="32" />
+	<span class="site-logo-text">
+		<span class="site-wordmark" translate="no">ADP</span>
+		<span class="site-caption">A Different Perspective</span>
+	</span>
+</a>
+
+<style>
+	.site-logo {
+		display: flex;
+		align-items: center;
+		gap: 0.625rem;
+		min-width: 0;
+		color: var(--sl-color-white);
+		text-decoration: none;
+	}
+	img {
+		width: 2rem;
+		height: 2rem;
+		flex-shrink: 0;
+	}
+	.site-logo-text {
+		display: flex;
+		flex-direction: column;
+		line-height: 1.05;
+		min-width: 0;
+	}
+	.site-wordmark {
+		font-size: 1.375rem;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+	}
+	.site-caption {
+		font-size: var(--sl-text-2xs);
+		color: var(--sl-color-gray-2);
+		white-space: nowrap;
+	}
+</style>

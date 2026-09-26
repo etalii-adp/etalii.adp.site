@@ -1,0 +1,64 @@
+/*
+ * ADP site theme: green on dark gray, dark scheme first (research R8).
+ * Starlight reads these tokens; `:root` is the dark scheme, `:root[data-theme='light']` the light one.
+ * The site follows the system scheme; there is no theme selector (research R10).
+ */
+@import '@fontsource-variable/space-grotesk';
+
+:root {
+	--adp-font-display: 'Space Grotesk Variable', var(--sl-font-system);
+
+	/* Dark scheme */
+	--sl-color-accent-low: #123a1b;
+	--sl-color-accent: #32cd32; /* the icon's own lime green */
+	--sl-color-accent-high: #6ee76e; /* links on dark */
+
+	--sl-color-white: #ffffff;
+	--sl-color-gray-1: #eef1f3;
+	--sl-color-gray-2: #e6e9ec; /* body text */
+	--sl-color-gray-3: #aeb6be;
+	--sl-color-gray-4: #737c86;
+	--sl-color-gray-5: #353b42;
+	--sl-color-gray-6: #1e2227; /* raised surfaces */
+	--sl-color-black: #15181c; /* background */
+
+	--sl-color-text-invert: #15181c; /* dark-gray text on green buttons */
+	--sl-color-bg-accent: var(--sl-color-accent);
+
+	/* The hero band stays dark gray in both schemes. */
+	--adp-band-bg: #15181c;
+	--adp-band-text: #e6e9ec;
+	--adp-band-heading: #ffffff;
+	--adp-band-accent: #6ee76e;
+	--adp-band-line: rgb(110 231 110 / 0.07);
+	--adp-band-glow: rgb(50 205 50 / 0.18);
+}
+
+:root[data-theme='light'] {
+	--sl-color-accent-low: #cfeed5;
+	--sl-color-accent: #16782a;
+	--sl-color-accent-high: #0e4d1b;
+
+	--sl-color-white: #16191d; /* headings */
+	--sl-color-gray-1: #1f2429;
+	--sl-color-gray-2: #2b3137; /* body text */
+	--sl-color-gray-3: #49525b;
+	--sl-color-gray-4: #6f7882;
+	--sl-color-gray-5: #c3cac7;
+	--sl-color-gray-6: #e6ebe8;
+	--sl-color-gray-7: #eef2f0;
+	--sl-color-black: #f6f8f7; /* background */
+
+	--sl-color-text-accent: var(--sl-color-accent);
+	--sl-color-text-invert: #ffffff;
+	--sl-color-bg-accent: var(--sl-color-accent);
+}
+
+h1,
+h2,
+h3,
+h4,
+.site-wordmark {
+	font-family: var(--adp-font-display);
+	letter-spacing: -0.01em;
+}
