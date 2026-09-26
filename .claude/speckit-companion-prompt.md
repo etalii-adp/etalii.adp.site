@@ -1,1 +1,1 @@
-/speckit-constitution
+/speckit-companion-resume specs/004-content-refresh-procedures

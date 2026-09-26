@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://etalii.net/adp/schemas/catalogue/designer.schema.json",
+  "title": "Designer catalogue record",
+  "description": "One file under src/content/catalogue/designers/<vendor>/<diagram-type>.json. See data-model.md for the rules this schema cannot express (membership, screenshot/state consistency).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["origin", "name", "kind", "purpose", "task", "whySpecialized", "fileFormats", "family", "focusAreas", "theory", "definition", "hosts", "screenshots", "sources"],
+  "properties": {
+    "origin": { "$ref": "#/$defs/origin" },
+    "name": { "type": "string", "minLength": 1 },
+    "kind": { "enum": ["diagram", "designer", "editor"] },
+    "purpose": { "type": "string", "minLength": 1, "maxLength": 140 },
+    "task": { "type": "string", "minLength": 1 },
+    "whySpecialized": { "type": "string", "minLength": 1 },
+    "fileFormats": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["extension", "name", "reads", "writes"],
+        "properties": {
+          "extension": { "type": "string", "pattern": "^\\.[A-Za-z0-9.]+$" },
+          "name": { "type": "string", "minLength": 1 },
+          "reads": { "type": "boolean" },
+          "writes": { "type": "boolean" }
+        }
+      }
+    },
+    "family": { "type": "string", "minLength": 1 },
+    "focusAreas": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/slug" } },
+    "theory": { "type": "array", "items": { "$ref": "#/$defs/link" } },
+    "definition": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["url", "dedlVersion"],
+          "properties": {
+            "url": { "type": "string", "format": "uri" },
+            "dedlVersion": { "type": "string", "minLength": 1 }
+          }
+        }
+      ]
+    },
+    "hosts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["standalone", "intellij", "vscode", "eclipse"],
+      "properties": {
+        "standalone": { "$ref": "#/$defs/hostAvailability" },
+        "intellij": { "$ref": "#/$defs/hostAvailability" },
+        "vscode": { "$ref": "#/$defs/hostAvailability" },
+        "eclipse": { "$ref": "#/$defs/hostAvailability" }
+      }
+    },
+    "screenshots": { "type": "array", "items": { "$ref": "#/$defs/screenshot" } },
+    "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/sourceRecord" } }
+  },
+  "$defs": {
+    "origin": { "type": "string", "pattern": "^[a-z0-9.-]+/[a-z0-9.-]+$" },
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "hostId": { "enum": ["standalone", "intellij", "vscode", "eclipse"] },
+    "stateId": { "enum": ["not-planned", "idea", "planned", "in-progress", "prototype", "implemented", "available"] },
+    "link": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "url"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "format": "uri" }
+      }
+    },
+    "sourceRecord": { "oneOf": [{ "$ref": "#/$defs/gitSourceRecord" }, { "$ref": "#/$defs/notionSourceRecord" }] },
+    "gitSourceRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "repository", "path", "revision", "retrievedAt", "licence"],
+      "properties": {
+        "kind": { "const": "git" },
+        "repository": { "type": "string", "pattern": "^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$" },
+        "path": { "type": "string", "minLength": 1 },
+        "revision": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "retrievedAt": { "type": "string", "format": "date-time" },
+        "licence": { "type": ["string", "null"] }
+      }
+    },
+    "notionSourceRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "page", "revision", "retrievedAt", "licence"],
+      "properties": {
+        "kind": { "const": "notion" },
+        "page": { "type": "string", "pattern": "^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$" },
+        "revision": { "type": "string", "format": "date-time" },
+        "retrievedAt": { "type": "string", "format": "date-time" },
+        "licence": { "const": "Apache-2.0" }
+      }
+    },
+    "hostAvailability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "sourceState", "localName", "install", "build", "source"],
+      "properties": {
+        "state": { "$ref": "#/$defs/stateId" },
+        "sourceState": { "type": ["string", "null"] },
+        "localName": { "type": ["string", "null"] },
+        "install": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/actionLink" }] },
+        "build": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/actionLink" }] },
+        "source": { "$ref": "#/$defs/sourceRecord" },
+        "notionDiffers": { "type": ["string", "null"] }
+      },
+      "if": { "properties": { "state": { "const": "available" } } },
+      "then": { "properties": { "install": { "$ref": "#/$defs/actionLink" } } },
+      "else": { "properties": { "install": { "type": "null" } } }
+    },
+    "actionLink": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["url", "label"],
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "label": { "type": "string", "minLength": 1 }
+      }
+    },
+    "screenshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "host", "file", "caption", "alt", "visible", "whyItMatters", "width", "height", "bytes", "publishable", "source"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^(standalone|intellij|vscode|eclipse)--[a-z0-9-]+$" },
+        "host": { "$ref": "#/$defs/hostId" },
+        "file": { "type": "string", "pattern": "\\.png$" },
+        "caption": { "type": "string", "minLength": 1 },
+        "alt": { "type": "string", "minLength": 1 },
+        "visible": { "type": "string", "minLength": 1 },
+        "whyItMatters": { "type": "string" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "publishable": { "type": "boolean" },
+        "source": { "$ref": "#/$defs/gitSourceRecord" }
+      },
+      "if": { "properties": { "publishable": { "const": true } } },
+      "then": { "properties": { "whyItMatters": { "minLength": 1 } } }
+    }
+  }
+}

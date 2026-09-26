@@ -2,8 +2,8 @@
   "workflow": "speckit",
   "specName": "Designer Catalogue",
   "branch": "claude/project-thread-yu2w2z",
-  "currentStep": "specify",
-  "status": "specified",
+  "currentStep": "plan",
+  "status": "planned",
   "history": [
     {
       "step": "specify",
@@ -11,6 +11,113 @@
       "kind": "start",
       "by": "extension",
       "at": "2026-09-26T17:06:47.646Z"
+    },
+    {
+      "step": "specify",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-09-26T19:41:39.411Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-09-26T19:41:39.417Z"
+    },
+    {
+      "step": "plan",
+      "substep": "research",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-26T19:50:30.945Z"
+    },
+    {
+      "step": "plan",
+      "substep": "design",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-26T19:53:43.050Z"
+    },
+    {
+      "step": "plan",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-09-26T19:53:54.514Z"
     }
-  ]
+  ],
+  "telemetryInstanceId": "3770302d-bb70-4180-97e2-ca6896b96082",
+  "reviewComments": [
+    {
+      "id": "ref-1790450133410-xra9x",
+      "doc": "spec",
+      "anchor": {
+        "heading": null,
+        "blockText": "**Status**: Draft\r",
+        "line": 7
+      },
+      "comment": "Wherever possible also add screenshots for the individual designer/diagram, and descriptions on what is visible on the screenshots and why it is important.",
+      "status": "applied",
+      "createdAt": "2026-09-26T19:15:33.410Z"
+    },
+    {
+      "id": "ref-1790450196381-f9etn",
+      "doc": "spec",
+      "anchor": {
+        "heading": null,
+        "blockText": "This feature adds a catalogue to the site (spec 001): an overview of every designer and one page per designer, showing what it is for, what it looks like, and where it runs. Content is taken from the repositories that build the designers (constitution principle II) by the procedures of spec 004.\r",
+        "line": 15
+      },
+      "comment": "In terms of finding we also will be adding different domains/problem areas in time. a lot of this work will happen in notion. \n\nfor example (Constructive) Technology Assessment, but also please find a few more.",
+      "status": "applied",
+      "createdAt": "2026-09-26T19:16:36.381Z"
+    },
+    {
+      "id": "ref-1790450237579-41qqz",
+      "doc": "spec",
+      "anchor": {
+        "heading": null,
+        "blockText": "**Acceptance Scenarios**:\r",
+        "line": 45
+      },
+      "comment": "Start adding information to the notion table in which IDE the designer is available.",
+      "status": "applied",
+      "createdAt": "2026-09-26T19:17:17.579Z"
+    }
+  ],
+  "approach": "Static Astro pages under /adp/designers/ generated from data files that a refresh script writes from the standalone diagrams.md, each host's screenshots, a Notion export committed to etalii-adp/etalii.adp, and host releases. Every record carries repository and revision; one site-wide seven-state mapping separates implemented from available; per-facet pages give filtering without scripting and stub pages keep retired addresses.",
+  "decisions": [
+    {
+      "decision": "Notion authors focus areas, purpose texts and per-host states; an export procedure commits them to etalii-adp/etalii.adp catalogue/designers.yaml, which the site reads at a git revision",
+      "why": "Owner choice 2026-09-26; keeps constitution principle II without amendment",
+      "rejected": "Reading the Notion API directly; keeping Notion private; exporting into this repository"
+    },
+    {
+      "decision": "Seven site states with Implemented (not yet released) separate from Available (public install)",
+      "why": "All IDE repositories and releases are private; principle III forbids presenting them as obtainable",
+      "rejected": "Reusing the six source states as-is"
+    },
+    {
+      "decision": "Astro static site with content collections and astro:assets",
+      "why": "Schema-validated source records (FR-009/012), image derivation for the 1 MB budget (FR-013), zero-JS output",
+      "rejected": "Eleventy, Hugo, hand-written generator"
+    },
+    {
+      "decision": "Per-facet static pages for focus area, host and state, with an optional script-enhanced combined filter",
+      "why": "FR-002 requires filtering with scripting disabled, and an accessible announcement of results needs script",
+      "rejected": "CSS :has() filtering; script-only filtering"
+    },
+    {
+      "decision": "Redirect and withdrawal stub pages generated from redirects.yaml",
+      "why": "GitHub Pages has no server-side redirects (FR-011)",
+      "rejected": "JS redirect in 404 page; deleting old pages"
+    }
+  ],
+  "step_summaries": {
+    "plan": {
+      "summary": "Plan, research (F1-F6, D1-D12), data model, 3 contracts and quickstart for a sourced, static designer catalogue; Notion per-host columns added and filled"
+    }
+  }
 }
