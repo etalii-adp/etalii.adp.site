@@ -1,12 +1,13 @@
 <!--
 Sync Impact Report
-- Version: template → 1.0.0 (first ratification draft)
+- Version: template → 1.0.0 (initial ratification, 2026-09-26)
 - Principles added: I. One Site for Product and Documentation; II. Sourced, Never Retyped;
   III. Truthful About What Exists; IV. Readable by Everyone, Anywhere; V. Maintainable by Agents;
   VI. Simplicity
 - Sections added: Hosting and Content Constraints, Development Workflow, Governance
-- Templates: plan-template.md, spec-template.md and tasks-template.md need no change; their
-  Constitution Check gate reads the principles below.
+- Templates: plan-template.md (Constitution Check, Complexity Tracking), spec-template.md and
+  tasks-template.md checked; they are generic and read the principles below, so none needs a change.
+- Deferred: none.
 - Resolved 2026-09-26: content licence Apache-2.0; this repository alone holds etalii.net on GitHub Pages, with the site under /adp and a redirect at the root (Peter, 2026-09-26).
 -->
 
@@ -84,4 +85,4 @@ Start with the smallest site that does the job and grow it by specification. Too
 
 This constitution supersedes other practices in this repository. Amendments are made through `/speckit-constitution`, recorded in version control, and versioned semantically: MAJOR for removing or redefining a principle, MINOR for adding a principle or materially expanding guidance, PATCH for clarifications. Reviews of plans and changes MUST verify compliance with the principles above; runtime guidance for agents lives in `CLAUDE.md`.
 
-**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): set when Peter approves this draft | **Last Amended**: 2026-09-26
+**Version**: 1.0.0 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-09-26
