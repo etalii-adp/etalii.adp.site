@@ -5,6 +5,7 @@
 import { catalogueHosts } from '../../lib/catalogue/hosts';
 import type { Designer, HostAvailability } from '../../lib/catalogue/types';
 import StateLabel from './StateLabel.astro';
+import TableScroll from './TableScroll.astro';
 
 interface Props {
 	designer: Designer;
@@ -28,43 +29,45 @@ const howToGet = (availability: HostAvailability): string | null => {
 };
 ---
 
-<table class="adp-availability">
-	<caption>Availability per IDE host</caption>
-	<thead>
-		<tr>
-			<th scope="col">Host</th>
-			<th scope="col">State</th>
-			<th scope="col">How to get it</th>
-		</tr>
-	</thead>
-	<tbody>
-		{
-			catalogueHosts.map((host) => {
-				const availability = designer.hosts[host.id];
-				return (
-					<tr>
-						<th scope="row">
-							{host.name}
-							{availability.localName && availability.localName !== designer.name && <span class="adp-note"> (called {availability.localName} here)</span>}
-						</th>
-						<td>
-							<StateLabel state={availability.state} />
-						</td>
-						<td>
-							{availability.install ? <a href={availability.install.url}>{availability.install.label}</a> : howToGet(availability)}
-							{availability.build && (
-								<>
-									{' · '}
-									<a href={availability.build.url}>{availability.build.label}</a>
-								</>
-							)}
-						</td>
-					</tr>
-				);
-			})
-		}
-	</tbody>
-</table>
+<TableScroll label="Availability per IDE host">
+	<table class="adp-availability">
+		<caption>Availability per IDE host</caption>
+		<thead>
+			<tr>
+				<th scope="col">Host</th>
+				<th scope="col">State</th>
+				<th scope="col">How to get it</th>
+			</tr>
+		</thead>
+		<tbody>
+			{
+				catalogueHosts.map((host) => {
+					const availability = designer.hosts[host.id];
+					return (
+						<tr>
+							<th scope="row">
+								{host.name}
+								{availability.localName && availability.localName !== designer.name && <span class="adp-note"> (called {availability.localName} here)</span>}
+							</th>
+							<td>
+								<StateLabel state={availability.state} />
+							</td>
+							<td>
+								{availability.install ? <a href={availability.install.url}>{availability.install.label}</a> : howToGet(availability)}
+								{availability.build && (
+									<>
+										{' · '}
+										<a href={availability.build.url}>{availability.build.label}</a>
+									</>
+								)}
+							</td>
+						</tr>
+					);
+				})
+			}
+		</tbody>
+	</table>
+</TableScroll>
 
 <style>
 	caption {

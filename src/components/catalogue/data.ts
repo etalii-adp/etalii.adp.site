@@ -7,7 +7,16 @@ import type { Designer, FocusArea, Idea, Redirect, Screenshot, SourceRecord } fr
 
 const byOrigin = <T extends { origin: string }>(a: T, b: T) => (a.origin < b.origin ? -1 : a.origin > b.origin ? 1 : 0);
 
-export async function catalogue() {
+type SiteCatalogue = { designers: Designer[]; ideas: Idea[]; focusAreas: FocusArea[]; sources: SourceRecord[] };
+let loaded: Promise<SiteCatalogue> | undefined;
+
+/** The catalogue, read once per build; Astro warns on every read of an empty collection. */
+export function catalogue(): Promise<SiteCatalogue> {
+	loaded ??= load();
+	return loaded;
+}
+
+async function load(): Promise<SiteCatalogue> {
 	const designers = (await getCollection('designers')).map((entry) => entry.data as Designer).sort(byOrigin);
 	const ideas = (await getCollection('ideas')).map((entry) => entry.data as Idea).sort(byOrigin);
 	const focusAreas = (await getCollection('catalogueFocusAreas')).map((entry) => entry.data as FocusArea).sort((a, b) => a.order - b.order);

@@ -6,6 +6,7 @@ import AvailabilityTable from './AvailabilityTable.astro';
 import { bestState, isUsable } from './data';
 import ScreenshotFigure from './ScreenshotFigure.astro';
 import SourceList from './SourceList.astro';
+import TableScroll from './TableScroll.astro';
 import type { Designer, FocusArea } from '../../lib/catalogue/types';
 
 interface Props {
@@ -47,28 +48,30 @@ const head = [
 		<h3>File formats</h3>
 		{
 			designer.fileFormats.length > 0 ? (
-				<table>
-					<thead>
-						<tr>
-							<th scope="col">Extension</th>
-							<th scope="col">Format</th>
-							<th scope="col">Reads</th>
-							<th scope="col">Writes</th>
-						</tr>
-					</thead>
-					<tbody>
-						{designer.fileFormats.map((format) => (
+				<TableScroll label="File formats">
+					<table>
+						<thead>
 							<tr>
-								<td>
-									<code>{format.extension}</code>
-								</td>
-								<td>{format.name}</td>
-								<td>{format.reads ? 'Yes' : 'No'}</td>
-								<td>{format.writes ? 'Yes' : 'No'}</td>
+								<th scope="col">Extension</th>
+								<th scope="col">Format</th>
+								<th scope="col">Reads</th>
+								<th scope="col">Writes</th>
 							</tr>
-						))}
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							{designer.fileFormats.map((format) => (
+								<tr>
+									<td>
+										<code>{format.extension}</code>
+									</td>
+									<td>{format.name}</td>
+									<td>{format.reads ? 'Yes' : 'No'}</td>
+									<td>{format.writes ? 'Yes' : 'No'}</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</TableScroll>
 			) : (
 				<p>{notDescribed}</p>
 			)

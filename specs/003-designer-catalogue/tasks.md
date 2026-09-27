@@ -360,18 +360,18 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 **Purpose**: the post-build catalogue checks, secrets, documentation and validation against the real sources.
 
-- [ ] T049 Write `scripts/catalogue/check.ts` (`npm run check:catalogue`, research D12). It runs over `dist/adp/designers/**/index.html` and uses `assembleCatalogue()` for the expectations. It prints each failure with its page and exits 1 on any.
+- [x] **T049** Write `scripts/catalogue/check.ts` (`npm run check:catalogue`, research D12). It runs over `dist/adp/designers/**/index.html` and uses `assembleCatalogue()` for the expectations. It prints each failure with its page and exits 1 on any.
   - Every designer page has a Sources list and at least one `adp:source` meta, each matching a lock entry (FR-009).
   - Every `<img>` has non-empty `alt` (FR-012).
   - No page of a designer below Prototype in every host has an `<img>` inside `<main>` (FR-007).
   - For each designer page, the bytes of every `<img src>` plus the largest `srcset` candidate of each `<picture><source>`, resolved under `dist/`, total at most 1 048 576. It prints the heaviest page and its total (FR-013).
   - Every `redirects.json` entry has a page at its old address.
   - Every publishable screenshot shown has a non-empty "Why it matters" (FR-015).
-- [ ] T050 [P] Write `tests/unit/catalogue/check.test.ts`, which runs `check.ts` over a tiny hand-made `dist/` in a temporary folder with one failing case per rule of T049.
+- [x] **T050** [P] Write `tests/unit/catalogue/check.test.ts`, which runs `check.ts` over a tiny hand-made `dist/` in a temporary folder with one failing case per rule of T049.
 - [ ] T051 [P] Store `NOTION_TOKEN` as a repository secret for spec 004's refresh workflow only (research D9). In `.github/workflows/` (spec 004's refresh workflow), pass it to the catalogue and screenshots jobs as `env: NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}`. Never pass it to `ci.yml` or `deploy.yml`. Tell the owner that the Notion integration must be shared with the "Diagrams" database (plan § Dependencies).
-- [ ] T052 [P] Add a "Designers" row to the documentation index `src/content/docs/docs/index.mdx` if it lists sections by hand, linking `/adp/designers/`.
-- [ ] T053 [P] Check phone width and dark mode (quickstart § 4 step 6). In `tests/catalogue.spec.ts`, at a 360 px viewport under `colorScheme: 'dark'`, `/adp/designers/` and `/adp/designers/freeplane/mindmap/` have `document.documentElement.scrollWidth <= 360` and no axe violations.
-- [ ] T054 Run `npm run test:catalogue`, `npm run build` and `npm run check` in the worktree, and fix every failure.
+- [x] **T052** [P] Add a "Designers" row to the documentation index `src/content/docs/docs/index.mdx` if it lists sections by hand, linking `/adp/designers/`.
+- [x] **T053** [P] Check phone width and dark mode (quickstart § 4 step 6). In `tests/catalogue.spec.ts`, at a 360 px viewport under `colorScheme: 'dark'`, `/adp/designers/` and `/adp/designers/freeplane/mindmap/` have `document.documentElement.scrollWidth <= 360` and no axe violations.
+- [x] **T054** Run `npm run test:catalogue`, `npm run build` and `npm run check` in the worktree, and fix every failure.
 - [ ] T055 With spec 004 on `develop`: run `npm run refresh -- catalogue`, `npm run refresh -- screenshots` and `npm run refresh -- hosts` (each `--dry-run` first), then `npm run catalogue:notion` and `npm run catalogue:report`. Check the expectations of quickstart § 1, adjusted for Decision 1:
   - 26 or more designers and 64 or fewer ideas;
   - the listed gaps: no licence for the standalone repository, no draw.io origin tag, no `Why specialized` or `Focus areas` column;

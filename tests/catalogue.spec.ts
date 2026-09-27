@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 import { assembleCatalogue } from '../src/lib/catalogue/assemble.ts';
 import { catalogueHosts } from '../src/lib/catalogue/hosts.ts';
@@ -187,6 +188,21 @@ test.describe('redirects', () => {
 				expect(html).not.toContain('http-equiv="refresh"');
 				expect(html).toContain(`This designer was withdrawn on <time datetime="${redirect.since}">${redirect.since}</time>: ${redirect.reason}`);
 			}
+		});
+	}
+});
+
+test.describe('phone width and dark mode', () => {
+	const addresses = ['/adp/designers/', ...(catalogue.designers.some((d) => d.origin === 'freeplane/mindmap') ? ['/adp/designers/freeplane/mindmap/'] : [])];
+	for (const address of addresses) {
+		test(`${address} fits 360 px in the dark scheme without axe violations`, async ({ browser }) => {
+			const context = await browser.newContext({ viewport: { width: 360, height: 800 }, colorScheme: 'dark' });
+			const page = await context.newPage();
+			await page.goto(address);
+			expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(360);
+			const { violations } = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze();
+			expect(violations.map((violation) => violation.id)).toEqual([]);
+			await context.close();
 		});
 	}
 });
