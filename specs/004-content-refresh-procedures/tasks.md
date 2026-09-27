@@ -17,7 +17,7 @@ description: "Task list for Content Refresh Procedures"
 
 - **[P]**: Can run in parallel (different files, no dependency on an incomplete task)
 - **[Story]**: The user story the task belongs to (US1–US5)
-- Every path is relative to the repository root of the worktree `C:\git\etalii.adp.site-004`
+- Every path is relative to the repository root of the worktree `.claude/worktrees/004-content-refresh-procedures/`
 
 ## Path Conventions
 

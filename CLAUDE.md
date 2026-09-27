@@ -22,6 +22,7 @@ Specs say *what* and *why*; plans say *how*. Do not put implementation choices i
 
 - `develop` is the integration branch.
 - One feature per branch, named `features/<number>-<name>` (Spec Kit's `branch_prefix` is set to `features`). The one exception is `claude/<name>`, which Claude's cloud sessions are handed by their harness.
+- A feature branch is built in its own git worktree at `.claude/worktrees/<number>-<name>/` inside this repository (git-ignored), not in a sibling folder. Bring the branch up to date with `origin/develop` (fast-forward) before starting work in it.
 - A feature branch is never merged locally into `develop`. When its work is done, push the branch from the worktree it was built in to `origin` and open a pull request into `develop`; nothing reaches `develop` except through a pull request. There is no branch protection, so this holds by convention alone: never push to `develop` directly.
 - Pull requests are merged with a merge commit, never a squash or a rebase.
 - When the pull request is merged or closed, delete the branch locally and on `origin`, and remove the worktree.
