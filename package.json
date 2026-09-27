@@ -12,12 +12,18 @@
     "preview": "sirv dist --port 4321",
     "check:links": "linkinator index.html 404.html --config linkinator.config.json",
     "check:pages": "playwright test",
-    "check": "npm run check:links && npm run check:pages"
+    "check": "npm run check:links && npm run check:pages",
+    "refresh": "node scripts/refresh/run.mjs",
+    "refresh:decide": "node scripts/refresh/decide.mjs",
+    "refresh:verify": "node scripts/refresh/verify.mjs",
+    "refresh:lint": "node scripts/refresh/lint.mjs",
+    "test": "node --test \"scripts/refresh/**/*.test.mjs\""
   },
   "dependencies": {
     "@astrojs/starlight": "^0.42.4",
     "@fontsource-variable/space-grotesk": "^5.3.0",
-    "astro": "^7.3.5"
+    "astro": "^7.3.5",
+    "parse5": "^8.0.1"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
