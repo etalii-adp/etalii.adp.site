@@ -7,8 +7,8 @@ import { redirects } from './src/data/redirects.ts';
 import { sectionsOf } from './src/data/sections.ts';
 
 // The documentation sidebar, from the documentation-part sections; "Coming" on those not written yet (research R6).
-// Links rather than docs slugs, because some sections (the DEDL reference) are pages outside the docs collection;
-// Starlight adds the base to a sidebar link itself.
+// Links rather than docs slugs, because some sections (the DEDL reference, the designer catalogue) are pages
+// outside the docs collection; Starlight adds the base (/adp) to a sidebar link itself.
 const sidebar = sectionsOf('documentation').map((section) => ({
 	label: section.label,
 	link: section.href.replace(/^\/adp\//, '/'),

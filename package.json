@@ -16,8 +16,13 @@
     "reference:refresh": "tsx scripts/reference/refresh.ts",
     "check:reference": "tsx scripts/reference/check.ts",
     "check:links": "linkinator index.html 404.html --config linkinator.config.json",
+    "check:catalogue": "node scripts/catalogue/check.ts",
     "check:pages": "playwright test",
-    "check": "npm run check:links && npm run check:pages"
+    "check": "npm run check:links && npm run check:catalogue && npm run check:pages",
+    "catalogue:notion": "node scripts/catalogue/notion.ts",
+    "catalogue:report": "node scripts/catalogue/report.ts",
+    "catalogue:sync-notion": "node scripts/catalogue/sync-notion.ts",
+    "test:catalogue": "node --test \"tests/unit/catalogue/**/*.test.ts\""
   },
   "dependencies": {
     "@astrojs/starlight": "^0.42.4",

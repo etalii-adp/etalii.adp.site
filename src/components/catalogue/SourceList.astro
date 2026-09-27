@@ -1,0 +1,71 @@
+---
+// Where the catalogue's content came from (FR-009, constitution principle II). A git record links the file at its
+// revision; a Notion record gives its edit date. `compact` renders one line for the overview's footer, with one
+// entry per repository revision and the Notion rows counted once.
+import type { SourceRecord } from '../../lib/catalogue/types';
+
+interface Props {
+	sources: SourceRecord[];
+	compact?: boolean;
+}
+
+const { sources, compact = false } = Astro.props;
+const git = sources.filter((record) => record.kind === 'git');
+const notion = sources.filter((record) => record.kind === 'notion');
+const date = (iso: string) => iso.slice(0, 10);
+const short = (revision: string) => revision.slice(0, 7);
+const fileUrl = (record: Extract<SourceRecord, { kind: 'git' }>) => `https://github.com/${record.repository}/blob/${record.revision}/${record.path}`;
+
+const revisions = git.filter((record, index) => git.findIndex((other) => other.repository === record.repository && other.revision === record.revision) === index);
+const lastEdited = notion.map((record) => record.revision).sort().at(-1);
+---
+
+{
+	compact ? (
+		<p class="adp-source">
+			Catalogue assembled from{' '}
+			{revisions.length === 0 && notion.length === 0 && 'no sources yet'}
+			{revisions.map((record, index) => (
+				<>
+					{index > 0 && ', '}
+					<a href={`https://github.com/${record.repository}/tree/${record.revision}`}>
+						<code>
+							{record.repository}@{short(record.revision)}
+						</code>
+					</a>
+				</>
+			))}
+			{notion.length > 0 && (
+				<>
+					{revisions.length > 0 && ' and '}
+					{notion.length} {notion.length === 1 ? 'row' : 'rows'} of the Notion “Diagrams” database, last edited <time datetime={lastEdited}>{date(lastEdited!)}</time>
+				</>
+			)}
+			.
+		</p>
+	) : (
+		<ul class="adp-sources">
+			{git.map((record) => (
+				<li>
+					<a href={fileUrl(record)}>
+						<code>
+							{record.repository}@{short(record.revision)}
+						</code>
+					</a>{' '}
+					<code>{record.path}</code>, {record.licence ? `licence ${record.licence}` : 'no licence, not published'}
+				</li>
+			))}
+			{notion.map((record) => (
+				<li>
+					Notion, edited <time datetime={record.revision}>{date(record.revision)}</time> (page <code>{record.page}</code>), licence {record.licence}
+				</li>
+			))}
+		</ul>
+	)
+}
+
+<style>
+	code {
+		overflow-wrap: anywhere;
+	}
+</style>

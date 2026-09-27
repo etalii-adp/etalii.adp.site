@@ -37,7 +37,7 @@ export const sections: readonly Section[] = [
 	{ id: 'docs', label: 'Documentation', part: 'documentation', href: '/adp/docs/', status: 'available', deliveredBy: '001' },
 	// Coming until a version of DEDL is published (spec 002; its source needs a licence first).
 	{ id: 'dedl', label: 'DEDL reference', part: 'documentation', href: '/adp/dedl/', status: hasPublishedVersion('dedl') ? 'available' : 'coming', deliveredBy: '002' },
-	{ id: 'designers', label: 'Designers', part: 'documentation', href: '/adp/designers/', status: 'coming', deliveredBy: '003' },
+	{ id: 'designers', label: 'Designers', part: 'documentation', href: '/adp/designers/', status: 'available', deliveredBy: '003' },
 ];
 
 export const sectionIds = sections.map((section) => section.id) as [string, ...string[]];

@@ -29,6 +29,7 @@ jobs:
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium
       - run: npm run test
+      - run: npm run test:catalogue
       - run: npm run build
       - run: npm run check:reference
       - run: npm run check

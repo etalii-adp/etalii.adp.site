@@ -1,0 +1,22 @@
+{
+  "procedure": "refresh-catalogue",
+  "refreshedAt": "2026-09-27T00:00:00Z",
+  "sourceHeads": {
+    "etalii-adp/etalii.adp.ide.standalone": "1a954628a960aaef81d7b2d4521929579f3541e6"
+  },
+  "releases": {
+    "etalii-adp/etalii.adp.ide.standalone": null
+  },
+  "files": [
+    {
+      "path": "standalone/diagrams.md",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/diagrams.md",
+      "commit": "9831d6465ed9c9a9d9bb04ae34bca95769f27c73",
+      "gitBlob": "2b8f453fe168c3b69fa2aa18a9555b2d377e9016",
+      "sha256": "213b2cee9507e2e10aacafa1efb205c656eadbc473bc3cdd6b81733bf5c076cb",
+      "licence": "Apache-2.0"
+    }
+  ],
+  "withdrawn": []
+}

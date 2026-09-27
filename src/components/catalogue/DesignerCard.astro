@@ -1,0 +1,92 @@
+---
+// One designer on the overview and the facet pages (FR-001): name, purpose, origin tag, the four host states as
+// text, and a thumbnail only when a screenshot is publishable. The data-* attributes feed CatalogueFilter.
+import { Image } from 'astro:assets';
+import { catalogueHosts } from '../../lib/catalogue/hosts';
+import { states } from '../../lib/catalogue/states';
+import type { Designer } from '../../lib/catalogue/types';
+import { bestState, designerHref, isUsable, screenshotImage } from './data';
+import StateLabel from './StateLabel.astro';
+
+interface Props {
+	designer: Designer;
+}
+
+const { designer } = Astro.props;
+const best = bestState(designer.hosts);
+const usable = isUsable(best);
+const thumbnail = usable ? designer.screenshots.find((screenshot) => screenshot.publishable) : undefined;
+const image = thumbnail ? screenshotImage(thumbnail) : undefined;
+const hostsWithState = catalogueHosts
+	.filter(({ id }) => states[designer.hosts[id].state].rank >= states.planned.rank)
+	.map(({ id }) => `${id}:${designer.hosts[id].state}`);
+---
+
+<li class="adp-designer" data-origin={designer.origin} data-focus={designer.focusAreas.join(' ')} data-hosts={hostsWithState.join(' ')} data-state={best}>
+	{image && thumbnail && <Image src={image} alt={thumbnail.alt} width={Math.min(480, image.width)} format="webp" loading="lazy" decoding="async" />}
+	<h3><a href={designerHref(designer.origin)}>{designer.name}</a></h3>
+	<p>{designer.purpose}</p>
+	<p class="adp-origin"><code>{designer.origin}</code>{!usable && <span class="adp-note"> · Not yet usable</span>}</p>
+	<dl class="adp-designer-hosts">
+		{
+			catalogueHosts.map((host) => (
+				<div>
+					<dt>{host.name}</dt>
+					<dd>
+						<StateLabel state={designer.hosts[host.id].state} />
+					</dd>
+				</div>
+			))
+		}
+	</dl>
+</li>
+
+<style>
+	.adp-designer {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		min-width: 0;
+		padding: 1.25rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.75rem;
+		background: var(--sl-color-gray-6);
+	}
+	.adp-designer[hidden] {
+		display: none;
+	}
+	.adp-designer img {
+		width: 100%;
+		height: auto;
+		border-radius: 0.375rem;
+	}
+	h3 {
+		margin: 0;
+		font-size: var(--sl-text-h4);
+	}
+	p {
+		margin: 0;
+	}
+	.adp-origin code {
+		overflow-wrap: anywhere;
+	}
+	.adp-designer-hosts {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0.25rem;
+		margin: 0.25rem 0 0;
+		font-size: var(--sl-text-sm);
+	}
+	.adp-designer-hosts div {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: 0.25rem 0.5rem;
+	}
+	.adp-designer-hosts dt {
+		font-weight: 400;
+	}
+	.adp-designer-hosts dd {
+		margin: 0;
+	}
+</style>

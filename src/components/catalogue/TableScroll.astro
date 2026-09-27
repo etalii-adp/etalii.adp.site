@@ -1,0 +1,33 @@
+---
+// A table that may be wider than a phone screen: it scrolls inside a labelled region that a keyboard can reach
+// (WCAG 2.1.1, axe "scrollable-region-focusable"), instead of Starlight's unfocusable scrolling table.
+interface Props {
+	label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<div class="adp-table-scroll" role="region" aria-label={label} tabindex="0">
+	<slot />
+</div>
+
+<style>
+	.adp-table-scroll {
+		overflow-x: auto;
+		margin-block-start: 1rem;
+	}
+	.adp-table-scroll :global(table) {
+		display: table;
+		width: 100%;
+		margin: 0;
+	}
+	/* State labels wrap inside a table, so a narrow screen rarely needs to scroll at all. */
+	.adp-table-scroll :global(.adp-state) {
+		white-space: normal;
+	}
+	.adp-table-scroll:focus-visible {
+		outline: 2px solid var(--sl-color-text-accent);
+		outline-offset: 2px;
+	}
+</style>

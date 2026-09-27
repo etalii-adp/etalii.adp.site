@@ -1,10 +1,12 @@
-import { readdirSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 
 // Every built page is checked (FR-012, FR-014, FR-015, FR-017, SC-003): the pages under dist/adp/ and the
-// root 404 page. The root index.html is the redirect of FR-018 and is checked on its own below.
+// root 404 page. The root index.html is the redirect of FR-018 and is checked on its own below. Other pages that
+// only redirect (a renamed designer's stub, spec 003 FR-011) navigate away as they load; tests/catalogue.spec.ts
+// checks them, and their target is checked here.
 const dist = 'dist';
 
 function htmlFiles(dir: string): string[] {
@@ -25,7 +27,9 @@ function addressOf(file: string): string {
 // one example, the examples index, a latest copy and search. check:reference covers every page.
 const referencePage = /^\/adp\/dedl\/(?!$|search\/$)/;
 const referenceSample = /^\/adp\/dedl\/(?:[0-9.]+\/(?:layer-3-notation-visual-definition\/|schema\/|examples\/(?:statemachine\/)?)?|latest\/foundations\/)$/;
+const redirectsAway = (file: string) => /<meta http-equiv="refresh"/.test(readFileSync(file, 'utf8'));
 const pages = [...htmlFiles(join(dist, 'adp')), join(dist, '404.html')]
+	.filter((file) => !redirectsAway(file))
 	.map(addressOf)
 	.filter((address) => !referencePage.test(address) || referenceSample.test(address))
 	.sort();
@@ -38,7 +42,7 @@ async function expectNoViolations(page: Page) {
 }
 
 test('the build contains the pages of this feature', () => {
-	expect(pages).toEqual(expect.arrayContaining(['/404.html', '/adp/', '/adp/docs/', '/adp/dedl/', '/adp/designers/']));
+	expect(pages).toEqual(expect.arrayContaining(['/404.html', '/adp/', '/adp/docs/', '/adp/dedl/', '/adp/designers/', '/adp/designers/focus/technology-assessment/']));
 });
 
 for (const address of pages) {
