@@ -1,0 +1,46 @@
+---
+// The ideas list (FR-014): candidates that no host has planned yet. Apart from the catalogue, with no thumbnails
+// and no designer pages.
+import type { Idea } from '../../lib/catalogue/types';
+
+interface Props {
+	ideas: Idea[];
+}
+
+const { ideas } = Astro.props;
+---
+
+<section class="adp-ideas" aria-labelledby="ideas">
+	<h2 id="ideas">Ideas</h2>
+	<p>These are candidates for a designer. No host is building them yet, and each may or may not become one.</p>
+	{
+		ideas.length > 0 ? (
+			<ul>
+				{ideas.map((idea) => (
+					<li>
+						{idea.name} <code>{idea.origin}</code>
+						{idea.theory.length > 0 && (
+							<>
+								{' · '}
+								{idea.theory.map((link, index) => (
+									<>
+										{index > 0 && ', '}
+										<a href={link.url}>{link.title}</a>
+									</>
+								))}
+							</>
+						)}
+					</li>
+				))}
+			</ul>
+		) : (
+			<p class="adp-note">No ideas are listed yet.</p>
+		)
+	}
+</section>
+
+<style>
+	.adp-ideas code {
+		overflow-wrap: anywhere;
+	}
+</style>

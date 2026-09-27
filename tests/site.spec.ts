@@ -30,7 +30,7 @@ async function expectNoViolations(page: Page) {
 }
 
 test('the build contains the pages of this feature', () => {
-	expect(pages).toEqual(expect.arrayContaining(['/404.html', '/adp/', '/adp/docs/', '/adp/dedl/', '/adp/designers/']));
+	expect(pages).toEqual(expect.arrayContaining(['/404.html', '/adp/', '/adp/docs/', '/adp/dedl/', '/adp/designers/', '/adp/designers/focus/technology-assessment/']));
 });
 
 for (const address of pages) {

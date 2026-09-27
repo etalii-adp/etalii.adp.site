@@ -1,0 +1,47 @@
+---
+// A site state as text (FR-005). Colour and border only add to the label, never replace it (WCAG 1.4.1).
+import { states } from '../../lib/catalogue/states';
+import type { StateId } from '../../lib/catalogue/types';
+
+interface Props {
+	state: StateId;
+}
+
+const { state } = Astro.props;
+---
+
+<span class={`adp-state adp-state--${state}`}>{states[state].label}</span>
+
+<style>
+	.adp-state {
+		display: inline-block;
+		padding: 0 0.5rem;
+		border: 1px solid currentColor;
+		border-radius: 999rem;
+		font-size: var(--sl-text-xs);
+		font-weight: 600;
+		line-height: 1.6;
+		white-space: nowrap;
+		color: var(--sl-color-gray-3);
+	}
+	/* Not usable yet: a dashed outline in the muted text colour. */
+	.adp-state--not-planned,
+	.adp-state--idea,
+	.adp-state--planned,
+	.adp-state--in-progress {
+		border-style: dashed;
+	}
+	.adp-state--in-progress {
+		color: var(--sl-color-gray-2);
+	}
+	/* Usable: a solid outline in the accent text colour, filled when it can be installed. */
+	.adp-state--prototype,
+	.adp-state--implemented {
+		color: var(--sl-color-text-accent);
+	}
+	.adp-state--available {
+		color: var(--sl-color-text-invert);
+		background: var(--sl-color-accent);
+		border-color: var(--sl-color-accent);
+	}
+</style>

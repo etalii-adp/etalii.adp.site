@@ -1,0 +1,42 @@
+---
+// The designers of one IDE host, grouped by their state there (FR-002, US3, contracts/site-addresses.md).
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { catalogue } from '../../../components/catalogue/data';
+import DesignerList from '../../../components/catalogue/DesignerList.astro';
+import FacetLinks from '../../../components/catalogue/FacetLinks.astro';
+import { catalogueHosts, type CatalogueHost } from '../../../lib/catalogue/hosts';
+import { facetStates, states } from '../../../lib/catalogue/states';
+
+export function getStaticPaths() {
+	return catalogueHosts.map((host) => ({ params: { host: host.id }, props: { host } }));
+}
+
+const { host } = Astro.props as { host: CatalogueHost };
+const { designers, focusAreas } = await catalogue();
+const groups = [...facetStates].reverse().map((state) => ({ state, designers: designers.filter((designer) => designer.hosts[host.id].state === state) }));
+const notPlanned = designers.filter((designer) => designer.hosts[host.id].state === 'not-planned').length;
+---
+
+<StarlightPage
+	frontmatter={{
+		title: `Designers: ${host.name}`,
+		description: `The ADP designers in ${host.name}, grouped by their state there.`,
+		part: 'documentation',
+		section: 'designers',
+	}}
+>
+	<p>
+		The designers that {host.name} has, or plans to have, grouped by their state in that host. {notPlanned}
+		{notPlanned === 1 ? ' designer is' : ' designers are'} not planned for {host.name} and left out.
+	</p>
+	<FacetLinks focusAreas={focusAreas} current={`/adp/designers/hosts/${host.id}/`} />
+	{
+		groups.map((group) => (
+			<section aria-labelledby={`state-${group.state}`}>
+				<h2 id={`state-${group.state}`}>{states[group.state].label}</h2>
+				<DesignerList designers={group.designers} empty="None." />
+			</section>
+		))
+	}
+	<p><a href="/adp/designers/">All designers</a></p>
+</StarlightPage>

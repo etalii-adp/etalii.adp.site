@@ -196,7 +196,7 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ### Tests for User Story 1
 
-- [ ] T021 [P] [US1] Write `tests/catalogue.spec.ts`, section "overview". Derive every expectation from `assembleCatalogue()` over the same inputs as the build, with no hard-coded counts.
+- [x] **T021** [P] [US1] Write `tests/catalogue.spec.ts`, section "overview". Derive every expectation from `assembleCatalogue()` over the same inputs as the build, with no hard-coded counts.
   - With `javaScriptEnabled: false`, `/adp/designers/` contains every designer's name, purpose, origin tag and the four host state labels as text (FR-001).
   - Designers are grouped under their focus areas, with "Other designers" last. A focus area with no designers shows "No designers yet".
   - The facet links to every `focus/`, `hosts/` and `states/` page resolve (FR-002).
@@ -206,24 +206,24 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ### Implementation for User Story 1
 
-- [ ] T022 [P] [US1] Write `src/components/catalogue/StateLabel.astro`: the state label as text inside `<span class="adp-state adp-state--<id>">`. Colour is only an addition (WCAG 1.4.1), and the contrast holds in both colour schemes (tokens in `src/styles/theme.css`).
-- [ ] T023 [P] [US1] Write `src/components/catalogue/DesignerCard.astro`.
+- [x] **T022** [P] [US1] Write `src/components/catalogue/StateLabel.astro`: the state label as text inside `<span class="adp-state adp-state--<id>">`. Colour is only an addition (WCAG 1.4.1), and the contrast holds in both colour schemes (tokens in `src/styles/theme.css`).
+- [x] **T023** [P] [US1] Write `src/components/catalogue/DesignerCard.astro`.
   - It shows the name linked to the designer page, the purpose, the origin in `<code>`, and a `<dl>` of the four hosts with `StateLabel`.
   - The thumbnail is the first publishable screenshot, through `astro:assets` `<Image>` in WebP at no more than 480 px wide, with `loading="lazy"`. The image comes from `import.meta.glob('/sources/screenshots/**/*.png', { eager: true })`, keyed by `file`. There is no image at all when none is publishable.
   - A designer whose best state is not usable adds "Not yet usable".
   - It carries `data-focus`, `data-hosts` (`host:state` pairs) and `data-state` (best state) for the filter.
-- [ ] T024 [P] [US1] Write `src/components/catalogue/IdeasList.astro`: a heading "Ideas", one short sentence saying these are candidates not being built, and a list of name, origin and theory links. There are no thumbnails and no page links.
-- [ ] T025 [P] [US1] Write `src/components/catalogue/FacetLinks.astro`: three `<nav>` link lists (focus areas in `order`; the four hosts; the states `planned` to `available`) to `/adp/designers/focus/<slug>/`, `/adp/designers/hosts/<id>/` and `/adp/designers/states/<id>/`. It marks the current facet with `aria-current="page"`.
-- [ ] T026 [US1] Write `src/components/catalogue/CatalogueFilter.astro`, the only client script (depends on T023). It renders nothing without scripting. With scripting, it inserts a `<fieldset>` of checkboxes per facet and a `<p aria-live="polite">` "N designers shown". It hides non-matching cards with the `hidden` attribute: OR within a facet, AND across facets. It keeps no state across page loads.
-- [ ] T027 [US1] Write `src/pages/designers/index.astro` with `StarlightPage` (frontmatter `title: "Designers"`, `description`, `part: "documentation"`, `section: "designers"`) (depends on T022–T026).
+- [x] **T024** [P] [US1] Write `src/components/catalogue/IdeasList.astro`: a heading "Ideas", one short sentence saying these are candidates not being built, and a list of name, origin and theory links. There are no thumbnails and no page links.
+- [x] **T025** [P] [US1] Write `src/components/catalogue/FacetLinks.astro`: three `<nav>` link lists (focus areas in `order`; the four hosts; the states `planned` to `available`) to `/adp/designers/focus/<slug>/`, `/adp/designers/hosts/<id>/` and `/adp/designers/states/<id>/`. It marks the current facet with `aria-current="page"`.
+- [x] **T026** [US1] Write `src/components/catalogue/CatalogueFilter.astro`, the only client script (depends on T023). It renders nothing without scripting. With scripting, it inserts a `<fieldset>` of checkboxes per facet and a `<p aria-live="polite">` "N designers shown". It hides non-matching cards with the `hidden` attribute: OR within a facet, AND across facets. It keeps no state across page loads.
+- [x] **T027** [US1] Write `src/pages/designers/index.astro` with `StarlightPage` (frontmatter `title: "Designers"`, `description`, `part: "documentation"`, `section: "designers"`) (depends on T022–T026).
   - An intro paragraph; `FacetLinks`; the cards grouped by focus area in `order` (a designer appears under each of its areas), then "Other designers"; `CatalogueFilter`; `IdeasList`.
   - A footer line "Catalogue assembled from" listing each source as `repository@short-revision` (FR-009).
   - Delete `src/content/docs/designers/index.mdx`, which it replaces.
-- [ ] T028 [P] [US1] Write `src/pages/designers/focus/[area].astro`: `getStaticPaths` over `catalogueFocusAreas`. It shows the name, the problem statement (when non-empty), `FacetLinks` and the cards of that area, or "No designers yet".
-- [ ] T029 [P] [US1] Write `src/pages/designers/hosts/[host].astro`: `getStaticPaths` over the four hosts. It shows the cards grouped by that host's state, from `available` down to `planned`. Designers `not-planned` there are left out, and one line says how many were left out.
-- [ ] T030 [P] [US1] Write `src/pages/designers/states/[state].astro`: `getStaticPaths` over `planned`, `in-progress`, `prototype`, `implemented` and `available` only (contracts/site-addresses.md: no `idea` or `not-planned` pages). It shows the cards whose best state is that state.
-- [ ] T031 [US1] In `src/data/sections.ts`, set the `designers` section's `status` to `'available'`. In `tests/site.spec.ts`, add `/adp/designers/focus/technology-assessment/` to the pages the build must contain.
-- [ ] T032 [P] [US1] In `src/components/FocusAreas.astro`, link each home-page focus-area card's heading to `/adp/designers/focus/<id>/` (the ids are shared with `focus-areas.json`, T017).
+- [x] **T028** [P] [US1] Write `src/pages/designers/focus/[area].astro`: `getStaticPaths` over `catalogueFocusAreas`. It shows the name, the problem statement (when non-empty), `FacetLinks` and the cards of that area, or "No designers yet".
+- [x] **T029** [P] [US1] Write `src/pages/designers/hosts/[host].astro`: `getStaticPaths` over the four hosts. It shows the cards grouped by that host's state, from `available` down to `planned`. Designers `not-planned` there are left out, and one line says how many were left out.
+- [x] **T030** [P] [US1] Write `src/pages/designers/states/[state].astro`: `getStaticPaths` over `planned`, `in-progress`, `prototype`, `implemented` and `available` only (contracts/site-addresses.md: no `idea` or `not-planned` pages). It shows the cards whose best state is that state.
+- [x] **T031** [US1] In `src/data/sections.ts`, set the `designers` section's `status` to `'available'`. In `tests/site.spec.ts`, add `/adp/designers/focus/technology-assessment/` to the pages the build must contain.
+- [x] **T032** [P] [US1] In `src/components/FocusAreas.astro`, link each home-page focus-area card's heading to `/adp/designers/focus/<id>/` (the ids are shared with `focus-areas.json`, T017).
 
 **Checkpoint**: `npm run build && npm run check` passes. The overview and facet pages work with scripting off, and axe finds no violations.
 

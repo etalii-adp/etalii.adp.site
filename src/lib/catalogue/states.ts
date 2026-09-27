@@ -17,6 +17,9 @@ export const states: Record<StateId, { label: string; rank: number; usable: bool
 	available: { label: 'Available', rank: 6, usable: true },
 };
 
+/** The states with a facet page (contracts/site-addresses.md): ideas are listed on the overview only, and "not planned" is never a membership. */
+export const facetStates: readonly StateId[] = ['planned', 'in-progress', 'prototype', 'implemented', 'available'];
+
 export const defaultStatesConfig = 'procedures/config/states.json';
 
 /** `procedures/config/states.json`: the site states and, per host, source state label → site state. */

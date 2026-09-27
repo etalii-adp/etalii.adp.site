@@ -34,7 +34,7 @@ export const sections: readonly Section[] = [
 	{ id: 'home', label: 'Home', part: 'product', href: '/adp/', status: 'available', deliveredBy: '001' },
 	{ id: 'docs', label: 'Documentation', part: 'documentation', href: '/adp/docs/', status: 'available', deliveredBy: '001' },
 	{ id: 'dedl', label: 'DEDL reference', part: 'documentation', href: '/adp/dedl/', status: 'coming', deliveredBy: '002' },
-	{ id: 'designers', label: 'Designers', part: 'documentation', href: '/adp/designers/', status: 'coming', deliveredBy: '003' },
+	{ id: 'designers', label: 'Designers', part: 'documentation', href: '/adp/designers/', status: 'available', deliveredBy: '003' },
 ];
 
 export const sectionIds = sections.map((section) => section.id) as [string, ...string[]];
