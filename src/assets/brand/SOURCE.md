@@ -11,6 +11,6 @@
 | Method | `manual` |
 | Licence | Apache-2.0, as this site: confirmed by the owner, Peter (`vrenken`), on 2026-09-26 |
 
-The square variant, `avatar/v3/2-two-perspectives.svg`, is the repository's social preview image on GitHub and is not part of the site.
+The repository's social preview image on GitHub is a 1280 × 640 banner of the home page hero: its background, title, catch phrase and one-sentence statement on the left, and this mark on the right. It was rendered from these files on 2026-09-27, uploaded by Peter (`vrenken`) the same day, and is not part of the site.
 
 To update the icon, copy the file again and change the date above.
