@@ -11,7 +11,7 @@ Brings the site's designer catalogue (spec 003) up to each IDE host's own catalo
 | etalii-adp/etalii.adp.ide.vscode | develop | `docs/diagrams.md` | private (not present yet) |
 | etalii-adp/etalii.adp.ide.eclipse | develop | `docs/diagrams.md` | private (not present yet) |
 
-The run also reads `docs/diagrams.md` at each host's latest published release, for the release cap below.
+The run also reads `docs/diagrams.md` at each host's latest published release, to record each designer's release state.
 
 ## Updates
 
@@ -21,7 +21,7 @@ The run also reads `docs/diagrams.md` at each host's latest published release, f
 - `procedures/config/states.json`, only when a decision is answered.
 - The spec 003 designer pages and catalogue overview are built from these files.
 
-A designer's site state is its `develop` state mapped through `procedures/config/states.json`, then capped at the host's latest release: a designer the release does not yet have at `prototype` or `available` is shown as `in progress`. For example, a designer marked Implemented on `develop` the day after a release that had it as Prototype stays `prototype` until the next release, because no user can install the newer one yet.
+A designer's site state is its `develop` state mapped through `procedures/config/states.json`, and is never lowered (spec 003 research D3, owner's decision of 2026-09-27). The release state is recorded next to it, so the pull request and the page can say what a user can install. For example, a designer marked Implemented on `develop` the day after a release that had it as Prototype is shown as `implemented`, with `releaseState` Prototype.
 
 IntelliJ has no `docs/diagrams.md` yet, so its FreeMind and draw.io designers are not listed; every pull request says so until `etalii-adp/etalii.adp.ide.intellij` adds one in the standalone's format. Its README is not retyped into the catalogue (constitution principle II).
 
@@ -42,7 +42,7 @@ IntelliJ has no `docs/diagrams.md` yet, so its FreeMind and draw.io designers ar
 
 ## Decisions
 
-**How should the source state "<label>" in <host> map to a site state?** Raised when a host's catalogue uses a state label that `procedures/config/states.json` has no mapping for (for example a new `🧪 Experimental`). The options are the site states: `identified`, `specified`, `in progress`, `prototype`, `available`, `planned`, `not planned`. The answer is written to `procedures/config/states.json` under `mappings.<host>.<label>`. Ask it as a selection with exactly those options, then run `npm run refresh:decide -- catalogue <answer>` and run the procedure again; the mapping change becomes part of the same pull request.
+**How should the source state "<label>" in <host> map to a site state?** Raised when a host's catalogue uses a state label that `procedures/config/states.json` has no mapping for (for example a new `🧪 Experimental`). The options are the site states: `not-planned`, `idea`, `planned`, `in-progress`, `prototype`, `implemented`, `available`. The answer is written to `procedures/config/states.json` under `mappings.<host>.<label>`. Ask it as a selection with exactly those options, then run `npm run refresh:decide -- catalogue <answer>` and run the procedure again; the mapping change becomes part of the same pull request.
 
 ## Verification
 
