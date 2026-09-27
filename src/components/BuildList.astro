@@ -25,9 +25,9 @@ import { badgeOrigin, builds, organisation } from '../data/builds';
 							? 'N/A'
 							: build.public
 								? (
-										<a href={`${organisation}/${build.repository}/actions/workflows/${build.workflow}`}>
+										<a href={`${organisation}/${build.repository}/actions/workflows/${build.workflow}?query=branch%3Adevelop`}>
 											<img
-												src={`${badgeOrigin}/etalii-adp/${build.repository}/actions/workflows/${build.workflow}/badge.svg`}
+												src={`${badgeOrigin}/etalii-adp/${build.repository}/actions/workflows/${build.workflow}/badge.svg?branch=develop`}
 												alt={`${build.workflow} status of ${build.repository}`}
 												height="20"
 												referrerpolicy="no-referrer"
