@@ -1,5 +1,5 @@
 // refresh-catalogue: each IDE host's designer catalogue (docs/diagrams.md), copied verbatim and turned into
-// sources/catalogue/<host>/catalogue.json with site states, capped at the host's latest release (research R10).
+// sources/catalogue/<host>/catalogue.json with site states: the mapped `develop` state, with the release state recorded.
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { NeedsDecision } from '../lib/decision.mjs';

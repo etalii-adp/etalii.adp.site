@@ -109,7 +109,7 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ### Implementation for the foundation
 
-- [ ] T011 Amend `procedures/config/states.json` (spec 004's file; needs 004 on `develop`, otherwise do this last in Phase 2 and use the fixture copy meanwhile).
+- [x] T011 Amend `procedures/config/states.json` (spec 004's file; needs 004 on `develop`, otherwise do this last in Phase 2 and use the fixture copy meanwhile).
   - Set `siteStates` to `["not-planned", "idea", "planned", "in-progress", "prototype", "implemented", "available"]`.
   - Set `mappings.standalone` to `{ "Not planned": "not-planned", "Identified": "idea", "Specified": "planned", "To-do": "planned", "Work-in-progress": "in-progress", "Prototype": "prototype", "Implemented": "implemented" }`. Use the same map for `intellij`, `vscode` and `eclipse`, the shared source vocabulary.
   - Keep `hostStates` unchanged; it is spec 001's.

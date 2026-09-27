@@ -62,7 +62,7 @@ describe('refresh:lint', () => {
 	});
 
 	it('names a mapping value that is not a site state', () => {
-		expectProblem(copy((dir, edit) => edit('config/states.json', (t) => t.replace('"Implemented": "available"', '"Implemented": "shipped"'))), /states\.json: mappings\.standalone\["Implemented"\] is "shipped", which is not a site state/);
+		expectProblem(copy((dir, edit) => edit('config/states.json', (t) => t.replace('"Implemented": "implemented"', '"Implemented": "shipped"'))), /states\.json: mappings\.standalone\["Implemented"\] is "shipped", which is not a site state/);
 	});
 
 	it('names a screenshot origin that is not in the vendor/type form', () => {

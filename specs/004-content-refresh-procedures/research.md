@@ -127,6 +127,8 @@ Each step's result (pass or fail, with the output of any failure) goes into the 
 
 ## R10. The state mapping and host states
 
+> **Amended 2026-09-27 by spec 003 (owner's decision, spec 003 research D3, task T011).** The site uses spec 003's seven states (`not-planned`, `idea`, `planned`, `in-progress`, `prototype`, `implemented`, `available`), and ✅ Implemented maps to `implemented`. The release cap below no longer applies: a designer's state is its mapped `develop` state, never lowered, and `releaseState` is only recorded. Usable designers are those at `prototype`, `implemented` or `available`, and a host is `available` only when it also has a release to install. The text below is kept as the original decision.
+
 **Decision**: the site's shared states (spec 003 FR-005) and their mapping from each source's states live in `procedures/config/states.json`. The standalone catalogue's states map as follows:
 
 | Source state (standalone `docs/diagrams.md`) | Site state |

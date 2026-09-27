@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
-import { capAtRelease, mapState, parseCatalogue, stripStateEmoji } from './catalogue-table.mjs';
+import { isUnderway, isUsable, mapState, parseCatalogue, stripStateEmoji } from './catalogue-table.mjs';
 
 const markdown = readFileSync(new URL('../fixtures/standalone/docs/diagrams.md', import.meta.url), 'utf8');
 const states = JSON.parse(readFileSync(new URL('../../../procedures/config/states.json', import.meta.url), 'utf8'));
@@ -57,23 +57,22 @@ describe('stripStateEmoji and mapState', () => {
 	});
 
 	it('maps a known label and reports an unknown one', () => {
-		assert.equal(mapState('standalone', 'Implemented', states), 'available');
-		assert.equal(mapState('standalone', 'To-do', states), 'specified');
+		assert.equal(mapState('standalone', 'Implemented', states), 'implemented');
+		assert.equal(mapState('standalone', 'To-do', states), 'planned');
+		assert.equal(mapState('standalone', 'Not planned', states), 'not-planned');
 		assert.deepEqual(mapState('standalone', 'Experimental', states), { unmapped: 'Experimental' });
 	});
 });
 
-describe('capAtRelease', () => {
-	it('keeps states that claim no use', () => {
-		assert.equal(capAtRelease('specified', null), 'specified');
-		assert.equal(capAtRelease('in progress', null), 'in progress');
+describe('isUsable and isUnderway', () => {
+	it('counts prototype, implemented and available as usable (spec 003, 2026-09-27)', () => {
+		for (const state of ['prototype', 'implemented', 'available']) assert.equal(isUsable(state), true, state);
+		for (const state of ['not-planned', 'idea', 'planned', 'in-progress']) assert.equal(isUsable(state), false, state);
 	});
 
-	it('caps usable states at the release (research R10)', () => {
-		assert.equal(capAtRelease('available', 'available'), 'available');
-		assert.equal(capAtRelease('available', 'prototype'), 'prototype');
-		assert.equal(capAtRelease('prototype', 'available'), 'prototype');
-		assert.equal(capAtRelease('available', null), 'in progress');
-		assert.equal(capAtRelease('prototype', 'specified'), 'in progress');
+	it('counts in-progress and later as underway', () => {
+		assert.equal(isUnderway('in-progress'), true);
+		assert.equal(isUnderway('implemented'), true);
+		assert.equal(isUnderway('planned'), false);
 	});
 });
