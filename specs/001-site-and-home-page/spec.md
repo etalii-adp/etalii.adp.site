@@ -108,7 +108,7 @@ A visitor reads the site on a phone, with a screen reader, in dark mode or with 
 - **FR-012**: Checks on every pull request MUST report whether the site builds, whether all internal links resolve and whether every page passes WCAG 2.2 AA automated checks.
 - **FR-013**: A failed build MUST leave the previously published site in place.
 - **FR-014**: Pages MUST be readable with scripting disabled, at phone width without horizontal scrolling, and in light and dark colour schemes.
-- **FR-015**: The site MUST NOT set cookies, track visitors or load resources from third parties.
+- **FR-015**: The site MUST NOT set cookies, track visitors or load resources from third parties. The one exception is the GitHub Actions status badges in the home page's build table (amended 2026-09-27 at the owner's request): a live build status can only come from GitHub, so those images are loaded from `https://github.com`.
 - **FR-016**: All content MUST be in English.
 - **FR-017**: Every page MUST show the site's licence, Apache-2.0, in its footer.
 - **FR-018**: A request for the root of `etalii.net` (with or without `www.`) MUST be sent to `https://etalii.net/adp`.

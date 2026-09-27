@@ -1,8 +1,7 @@
 /**
  * The build workflow of each repository in the etalii-adp organisation, in the order of the table in the
- * organisation profile (etalii-adp/.github, profile/README.md), which shows the live status badges.
- * This site loads nothing from another origin (tests/site.spec.ts), so it links to each workflow instead
- * of showing its badge. Keep both lists in step when a repository gains a workflow or becomes public.
+ * organisation profile (etalii-adp/.github, profile/README.md). Both show GitHub's live status badge of each
+ * workflow. Keep the two in step when a repository gains a workflow or becomes public.
  */
 
 export interface Build {
@@ -23,3 +22,6 @@ export const builds: readonly Build[] = [
 ];
 
 export const organisation = 'https://github.com/etalii-adp';
+
+/** Where the status badges come from: the one other origin a page may load from (spec 001 FR-015). */
+export const badgeOrigin = 'https://github.com';

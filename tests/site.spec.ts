@@ -2,6 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
+import { badgeOrigin } from '../src/data/builds';
 
 // Every built page is checked (FR-012, FR-014, FR-015, FR-017, SC-003): the pages under dist/adp/ and the
 // root 404 page. The root index.html is the redirect of FR-018 and is checked on its own below. Other pages that
@@ -97,9 +98,14 @@ for (const address of pages) {
 			await context.close();
 		});
 
-		test('loads nothing from another origin and sets no cookies', async ({ page, context, baseURL }) => {
+		test('loads nothing from another origin, bar the home page\'s build badges, and sets no cookies', async ({ page, context, baseURL }) => {
 			const origins = new Set<string>();
-			page.on('request', (request) => origins.add(new URL(request.url()).origin));
+			page.on('request', (request) => {
+				const url = new URL(request.url());
+				// The build status badges on the home page are the one allowed exception (FR-015).
+				if (isHome && url.origin === badgeOrigin && url.pathname.endsWith('/badge.svg')) return;
+				origins.add(url.origin);
+			});
 			await page.goto(address, { waitUntil: 'networkidle' });
 			expect([...origins]).toEqual([new URL(baseURL!).origin]);
 			expect(await context.cookies()).toEqual([]);
