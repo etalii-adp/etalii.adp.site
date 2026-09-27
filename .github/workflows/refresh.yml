@@ -1,0 +1,115 @@
+# Runs the refresh procedures by themselves (spec 004 FR-012, research R5): every hour, on request from the Actions
+# tab, and when a source repository sends `source-changed`. Each run is the same `npm run refresh` a person or an
+# agent runs, and ends in a pull request, a "current" report, a "Refresh blocked" issue or a failure.
+# It needs a GitHub App token (research R7): four sources are private, and pull requests opened with GITHUB_TOKEN
+# would not start the site's checks. See procedures/README.md § Automatic runs.
+name: Refresh
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+    inputs:
+      procedure:
+        description: The refresh procedure to run
+        type: choice
+        options: [all, dedl, screenshots, catalogue, hosts]
+        default: all
+  repository_dispatch:
+    types: [source-changed]
+
+permissions:
+  contents: read
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      procedures: ${{ steps.plan.outputs.procedures }}
+    steps:
+      - id: plan
+        env:
+          EVENT: ${{ github.event_name }}
+          CHOSEN: ${{ inputs.procedure }}
+          SOURCE: ${{ github.event.client_payload.repository }}
+        run: |
+          case "$EVENT" in
+            workflow_dispatch) list="[\"${CHOSEN:-all}\"]" ;;
+            repository_dispatch)
+              case "$SOURCE" in
+                etalii-adp/etalii.adp) list='["dedl"]' ;;
+                etalii-adp/etalii.adp.ide.*) list='["screenshots", "catalogue", "hosts"]' ;;
+                *) echo "::error::source-changed names no source of a refresh procedure: '$SOURCE'"; exit 1 ;;
+              esac ;;
+            *) list='["all"]' ;;
+          esac
+          echo "procedures=$list" >> "$GITHUB_OUTPUT"
+
+  refresh:
+    needs: plan
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        procedure: ${{ fromJSON(needs.plan.outputs.procedures) }}
+    concurrency:
+      group: refresh-${{ matrix.procedure }}
+      cancel-in-progress: false
+    env:
+      HAS_APP: ${{ secrets.REFRESH_APP_ID != '' && secrets.REFRESH_APP_PRIVATE_KEY != '' }}
+      HAS_TOKEN: ${{ secrets.REFRESH_TOKEN != '' }}
+    steps:
+      # `app-id` is deprecated in v3 in favour of `client-id`; switch both the input and the secret together.
+      - id: app
+        if: env.HAS_APP == 'true'
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.REFRESH_APP_ID }}
+          private-key: ${{ secrets.REFRESH_APP_PRIVATE_KEY }}
+          owner: etalii-adp
+          repositories: etalii.adp.site,etalii.adp,etalii.adp.ide.standalone,etalii.adp.ide.intellij,etalii.adp.ide.vscode,etalii.adp.ide.eclipse
+
+      - if: env.HAS_APP != 'true' && env.HAS_TOKEN != 'true'
+        run: |
+          echo "::error::Set REFRESH_APP_ID and REFRESH_APP_PRIVATE_KEY (or the stopgap REFRESH_TOKEN) as repository secrets; see procedures/README.md"
+          exit 1
+
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          token: ${{ steps.app.outputs.token || secrets.REFRESH_TOKEN }}
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      # The site's own checks run in the Verify stage (npm run check drives a browser).
+      - run: npx playwright install --with-deps chromium
+
+      - name: Commit as the App (or as the stopgap token's bot name)
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token || secrets.REFRESH_TOKEN }}
+          SLUG: ${{ steps.app.outputs.app-slug }}
+        run: |
+          if [ -n "$SLUG" ]; then
+            id=$(gh api "/users/${SLUG}%5Bbot%5D" --jq .id)
+            git config user.name "${SLUG}[bot]"
+            git config user.email "${id}+${SLUG}[bot]@users.noreply.github.com"
+          else
+            git config user.name "adp-site-refresh[bot]"
+            git config user.email "adp-site-refresh[bot]@users.noreply.github.com"
+          fi
+
+      # Exit 1 (a draft pull request) and 3 (a "Refresh blocked" issue) carry their own signal; only 2 fails the job.
+      - name: npm run refresh -- ${{ matrix.procedure }}
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token || secrets.REFRESH_TOKEN }}
+        run: |
+          set +e
+          npm run --silent refresh -- "${{ matrix.procedure }}"
+          code=$?
+          if [ "$code" -eq 2 ]; then exit 1; fi
+          exit 0
