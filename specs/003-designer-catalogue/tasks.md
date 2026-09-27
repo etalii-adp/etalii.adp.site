@@ -64,11 +64,11 @@ The plan, research, data model and quickstart are brought in line in T057.
 **Purpose**: the worktree, scripts, compiler settings and folders.
 
 - [x] **T001** Create the worktree `C:\git\etalii.adp.site-003` on the existing branch `features/003-designer-catalogue` (`git worktree add ../etalii.adp.site-003 features/003-designer-catalogue`), then merge `origin/develop` into it. The branch predates the spec 001 skeleton; merging develop into a feature branch is allowed, the reverse is not. Copy `specs/003-designer-catalogue/tasks.md` from the main worktree if it is not yet on the branch. Check whether spec 004 is on `develop`: `scripts/refresh/run.mjs` and `procedures/config/states.json` exist. Record the answer in the first commit message. Phases 2–6 run against fixtures either way; T011, T047, T048 and T055 need 004.
-- [ ] T002 Update `package.json` `scripts`. Add `"catalogue:notion": "node scripts/catalogue/notion.ts"`, `"catalogue:report": "node scripts/catalogue/report.ts"`, `"catalogue:sync-notion": "node scripts/catalogue/sync-notion.ts"`, `"check:catalogue": "node scripts/catalogue/check.ts"` and `"test:catalogue": "node --test \"tests/unit/catalogue/**/*.test.ts\""`. Change `"check"` to `"npm run check:links && npm run check:catalogue && npm run check:pages"`. If spec 004's `"test"` script exists, leave it and add nothing to it.
-- [ ] T003 [P] In `tsconfig.json`, add `"compilerOptions": { "allowImportingTsExtensions": true, "erasableSyntaxOnly": true }` beside the existing `extends`.
-- [ ] T004 [P] In `playwright.config.ts`, add `testIgnore: 'unit/**'` so Playwright does not pick up the `node --test` files under `tests/unit/`.
-- [ ] T005 [P] Create the folders `src/lib/catalogue/`, `src/components/catalogue/`, `src/pages/designers/`, `src/content/catalogue/`, `scripts/catalogue/` and `tests/unit/catalogue/fixtures/`.
-- [ ] T006 [P] In `.github/workflows/ci.yml`, add a step `- run: npm run test:catalogue` after `npm ci`, before `npm run build`.
+- [x] **T002** Update `package.json` `scripts`. Add `"catalogue:notion": "node scripts/catalogue/notion.ts"`, `"catalogue:report": "node scripts/catalogue/report.ts"`, `"catalogue:sync-notion": "node scripts/catalogue/sync-notion.ts"`, `"check:catalogue": "node scripts/catalogue/check.ts"` and `"test:catalogue": "node --test \"tests/unit/catalogue/**/*.test.ts\""`. Change `"check"` to `"npm run check:links && npm run check:catalogue && npm run check:pages"`. If spec 004's `"test"` script exists, leave it and add nothing to it.
+- [x] **T003** [P] In `tsconfig.json`, add `"compilerOptions": { "allowImportingTsExtensions": true, "erasableSyntaxOnly": true }` beside the existing `extends`.
+- [x] **T004** [P] In `playwright.config.ts`, add `testIgnore: 'unit/**'` so Playwright does not pick up the `node --test` files under `tests/unit/`.
+- [x] **T005** [P] Create the folders `src/lib/catalogue/`, `src/components/catalogue/`, `src/pages/designers/`, `src/content/catalogue/`, `scripts/catalogue/` and `tests/unit/catalogue/fixtures/`.
+- [x] **T006** [P] In `.github/workflows/ci.yml`, add a step `- run: npm run test:catalogue` after `npm ci`, before `npm run build`.
 
 ---
 
