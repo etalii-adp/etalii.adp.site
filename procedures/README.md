@@ -4,6 +4,7 @@ The site's sourced content (the DEDL reference, the designer catalogue, the scre
 
 | Id | Title | Refreshes | Sources (repository: paths) |
 |---|---|---|---|
+| [`refresh-dedl`](refresh-dedl.md) | Refresh the DEDL reference | `sources/dedl/`: the DEDL specification, schema and examples, a folder per version (spec 002) | etalii-adp/etalii.adp: `specifications/dedl/*` |
 
 ## Outcomes and exit codes
 

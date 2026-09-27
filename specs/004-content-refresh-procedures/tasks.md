@@ -160,8 +160,8 @@ These rules apply to every task below. They are stated once here so that they do
 
 ### Tests for User Story 1
 
-- [ ] T026 [P] [US1] Create the fixture `scripts/refresh/fixtures/etalii.adp/specifications/dedl/`. It contains a short `DEDL-specification.md` with a header `Version` line of `0.1` and at least three `##` sections, a `dedl.schema.json` whose `$id` ends in `/dedl/schema/0.1/dedl.schema.json`, and two small example files (`erd.dedl`, `timeline.document.json`).
-- [ ] T027 [P] [US1] Write `scripts/refresh/procedures/dedl.test.mjs`, using `fixtures/repo.mjs` and `run.mjs --dry-run`. Cover:
+- [X] T026 [P] [US1] Create the fixture `scripts/refresh/fixtures/etalii.adp/specifications/dedl/`. It contains a short `DEDL-specification.md` with a header `Version` line of `0.1` and at least three `##` sections, a `dedl.schema.json` whose `$id` ends in `/dedl/schema/0.1/dedl.schema.json`, and two small example files (`erd.dedl`, `timeline.document.json`).
+- [X] T027 [P] [US1] Write `scripts/refresh/procedures/dedl.test.mjs`, using `fixtures/repo.mjs` and `run.mjs --dry-run`. Cover:
   - (a) the first run imports into `sources/dedl/0.1/` with a lock entry per file;
   - (b) an unchanged second run is `current` (US1-2);
   - (c) one changed sentence gives exactly one changed file and one changed section, with its line count;
@@ -172,13 +172,13 @@ These rules apply to every task below. They are stated once here so that they do
 
 ### Implementation for User Story 1
 
-- [ ] T028 [US1] Implement `scripts/refresh/procedures/dedl.mjs`, which follows research R12 (depends on T019). It has `id: 'refresh-dedl'`, `short: 'dedl'`, `what: 'DEDL reference'`, and `sources: [{ repository: 'etalii-adp/etalii.adp', ref: 'develop', paths: ['specifications/dedl/*'], host: null }]`, with `usesReleases: false`. The procedure:
+- [X] T028 [US1] Implement `scripts/refresh/procedures/dedl.mjs`, which follows research R12 (depends on T019). It has `id: 'refresh-dedl'`, `short: 'dedl'`, `what: 'DEDL reference'`, and `sources: [{ repository: 'etalii-adp/etalii.adp', ref: 'develop', paths: ['specifications/dedl/*'], host: null }]`, with `usesReleases: false`. The procedure:
   - reads the version from the specification's header `Version` line and from the version segment of the schema's `$id`, and fails when they disagree, naming both;
   - writes into `sources/dedl/<version>/` and never rewrites an older version's folder. Only the highest version is replaced; when the version is new, a folder is added beside the old ones;
   - compares the sections of the specification, split on `##` headings, and marks each as added, removed or changed with its changed-line count;
   - reports the schema and each example as changed or unchanged;
   - provides `renderDetails` for the "What changed" table and the line "New version <v> published beside <old>".
-- [ ] T029 [P] [US1] Write `procedures/refresh-dedl.md` from `procedures/_template.md`, with the title "Refresh the DEDL reference":
+- [X] T029 [P] [US1] Write `procedures/refresh-dedl.md` from `procedures/_template.md`, with the title "Refresh the DEDL reference":
   - **Sources**: `etalii-adp/etalii.adp`, `develop`, `specifications/dedl/`, public.
   - **Updates**: `sources/dedl/<version>/` and `sources/dedl/source.lock.json`, used by the spec 002 pages.
   - **Steps**: run `npm run refresh -- dedl`, then handle each of the five outcomes.
@@ -186,7 +186,7 @@ These rules apply to every task below. They are stated once here so that they do
   - **Verification**: the three steps of research R8.
   - **Pull request**: `refresh/dedl`, both title patterns, and the body per contracts/pull-request.md.
   - **When the source moves**: update `sources` in `scripts/refresh/procedures/dedl.mjs` and the Sources table in this document together.
-- [ ] T030 [US1] Add the `refresh-dedl` row to `procedures/README.md`, and the title "Refresh the DEDL reference" to the "Refreshing sourced content" section of `CLAUDE.md`.
+- [X] T030 [US1] Add the `refresh-dedl` row to `procedures/README.md`, and the title "Refresh the DEDL reference" to the "Refreshing sourced content" section of `CLAUDE.md`.
 
 **Checkpoint**: US1 works on its own. Quickstart scenarios 1–3 pass as dry runs, and scenarios 2 and 4 pass against the real source once the branch can be pushed.
 
