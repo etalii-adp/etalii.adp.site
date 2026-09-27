@@ -68,7 +68,8 @@ The Notion database "Diagrams" (`collection://3e7be2fd-05b6-8079-932d-000bfa0609
 
 ### D3. One site state set, mapped from the source states
 
-- **Decision**: The site uses seven states, defined once and used by specs 001, 003 and 004. The mapping is in [data-model.md](data-model.md#state).
+- **Decision**: The site uses seven states, defined once and used by specs 001, 003 and 004. The mapping is in [data-model.md](data-model.md#state). It is kept in spec 004's `procedures/config/states.json` (`siteStates` and `mappings` per host), which the refresh procedures and the catalogue both read; the catalogue's `src/lib/catalogue/states.ts` holds only the labels, ranks and which states are usable.
+- **Release rule** (owner's decision, 2026-09-27): a host's state is its source state, mapped, and is never lowered. It replaces spec 004's cap at the latest release. "Implemented" becomes "Available" only when `sources/hosts/hosts.json` gives that host `available` with a release to link to and the host repository has a licence; the install link is that release.
 
 | Site state | Source states | Shown |
 |---|---|---|
@@ -106,7 +107,7 @@ The Notion database "Diagrams" (`collection://3e7be2fd-05b6-8079-932d-000bfa0609
 
 ### D7. Stable addresses and redirects on GitHub Pages
 
-- **Decision**: A designer's address is `/adp/designers/<vendor>/<diagram-type>/`, taken directly from its origin tag, and an idea has no page of its own. When a source renames or removes an origin, the refresh adds an entry to `src/content/catalogue/redirects.yaml` in this repository. The build then emits a stub page at the old address: a meta refresh plus a visible link and `rel=canonical` for a rename, or a withdrawal notice for a removal.
+- **Decision**: A designer's address is `/adp/designers/<vendor>/<diagram-type>/`, taken directly from its origin tag, and an idea has no page of its own. When a source renames or removes an origin that had a page, `npm run catalogue:report` stops and asks, and the answer (`--rename` or `--withdraw`) adds an entry to `src/content/catalogue/redirects.json` in this repository. The build then emits a stub page at the old address: a meta refresh plus a visible link and `rel=canonical` for a rename, or a withdrawal notice for a removal.
 - **Rationale**: GitHub Pages cannot do server-side redirects. A stub page is the only mechanism that works under `/adp`, and it keeps the link visible for readers without scripting.
 - **Alternatives considered**: A JavaScript redirect in the 404 page (fails without scripting, and returns a 404 status). Deleting old pages (breaks FR-011).
 
@@ -156,13 +157,13 @@ These are not built by this feature, but the catalogue is incomplete or cannot b
 ### D12. Checks
 
 - **Decision**:
-  - Vitest for the refresh's parsers and the mapping: the `diagrams.md` table, the screenshot readme table, the Notion API response, the Notion sync and the state mapping, tested against fixtures copied from the sources at a known revision.
+  - `node --test` (`npm run test:catalogue`), with Node's TypeScript type stripping and no test dependency, for the assembly, the state mapping, the Notion API response, the Notion sync, the report and the post-build check. The fixtures are shaped like spec 004's `sources/` output, which parses `diagrams.md` and the screenshot readme, and include a recorded Notion query response.
   - Post-build checks, with the page lists taken from `dist/` so no page is skipped:
     - Every sourced record shows its source and revision (FR-009).
     - Every image has non-empty alt text (FR-012).
     - No designer that is below Prototype in every host has a screenshot (FR-007).
     - Every designer page stays under the image budget (FR-013).
-    - Every `redirects.yaml` entry resolves.
+    - Every `redirects.json` entry resolves.
   - Links and WCAG 2.2 AA are checked by the site-wide checks spec 001 defines, which cover the catalogue's pages like any other.
 - **Rationale**: Principle V requires each procedure to verify its own result, and the constitution requires CI checks for links, accessibility and source records.
 

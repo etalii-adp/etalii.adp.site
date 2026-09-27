@@ -1,0 +1,97 @@
+---
+// The frame of every reference page: spec 001's site layout (StarlightPage, with the site header,
+// breadcrumbs and footer) with the version's table of contents as its sidebar, plus the reference's own
+// parts around the source text (contracts/rendering-rules.md "Added around the source text").
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import type { LoadedVersion } from '../../lib/reference/load';
+import type { RenderedHeading } from '../../lib/reference/render';
+import { searchHref, sidebarFor } from '../../lib/reference/site';
+import Provenance from './Provenance.astro';
+import Toc from './Toc.astro';
+import VersionBanner from './VersionBanner.astro';
+
+interface Props {
+	/** The version shown; undefined on the landing while no version is published. */
+	version?: LoadedVersion;
+	/** The version or `latest`. */
+	segment?: string;
+	title: string;
+	description: string;
+	/** Slug of the current page, for the table of contents; empty for the cover. */
+	current?: string;
+	/** Headings for "On this page". */
+	headings?: RenderedHeading[];
+	/** The versioned twin of a `latest` page (research D3). */
+	canonical?: string;
+	/** The id of the page's own source heading, which the page title stands for. */
+	anchorId?: string;
+	/** The newest published version; pages of an older one show the newer-version banner (FR-008). */
+	latest?: LoadedVersion;
+	/** The page's slug within its version, for the banner's link (section slug, `schema`, `examples/<stem>`). */
+	slug?: string;
+	/** False for `latest` copies and stubs, which stay out of the search index (research D12). */
+	searchable?: boolean;
+	/** False on the search page itself, which has its own. */
+	searchBox?: boolean;
+}
+
+const { version, segment = version?.record.version ?? '', title, description, current, headings = [], canonical, anchorId, latest, slug, searchable = true, searchBox = true } = Astro.props;
+const superseded = version && latest && version !== latest;
+// Search (research D12): versioned pages carry their language and version as filters, and version and
+// section as the metadata each result shows (FR-020); `latest` copies and stubs are not indexed at all.
+const indexed = searchable && version && segment !== 'latest';
+
+const head = canonical ? [{ tag: 'link' as const, attrs: { rel: 'canonical', href: new URL(canonical, Astro.site).href } }] : [];
+const onThisPage = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+---
+
+<StarlightPage
+	frontmatter={{
+		title,
+		description,
+		part: 'documentation',
+		section: 'dedl',
+		head,
+		tableOfContents: onThisPage.length > 1 ? { minHeadingLevel: 2, maxHeadingLevel: 3 } : false,
+		pagefind: searchable,
+	}}
+	sidebar={version ? sidebarFor(version, segment) : undefined}
+	headings={onThisPage}
+>
+	<div class="ref-page">
+		{anchorId && <span id={anchorId} class="ref-anchor" />}
+		{
+			indexed && (
+				<div hidden data-pagefind-ignore>
+					<span data-pagefind-filter="language">{version.language.id}</span>
+					<span data-pagefind-filter="version">{version.record.version}</span>
+					<span data-pagefind-meta="version">{version.record.version}</span>
+					<span data-pagefind-meta="section">{title}</span>
+				</div>
+			)
+		}
+		{superseded && <VersionBanner version={version} latest={latest} slug={slug} />}
+		{
+			version && searchBox && (
+				<form class="ref-search-form not-content" action={searchHref(version.language.id)} method="get" role="search" data-pagefind-ignore>
+					<label for="ref-search-q">Search {version.language.short} {version.record.version}</label>
+					<input id="ref-search-q" name="q" type="search" autocomplete="off" />
+					<input type="hidden" name="v" value={version.record.version} />
+					<button type="submit">Search</button>
+				</form>
+			)
+		}
+		<slot name="banner" />
+		{
+			version && current !== undefined && (
+				<details class="ref-toc-disclosure">
+					<summary>Contents of {version.language.short} {version.record.version}</summary>
+					<Toc version={version} segment={segment} current={current} withCover />
+				</details>
+			)
+		}
+		<slot />
+		<slot name="after" />
+		{version && <Provenance version={version} />}
+	</div>
+</StarlightPage>

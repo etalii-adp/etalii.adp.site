@@ -1,0 +1,40 @@
+---
+// A grid of designer cards, or "No designers yet" when there are none.
+import type { Designer } from '../../lib/catalogue/types';
+import DesignerCard from './DesignerCard.astro';
+
+interface Props {
+	designers: Designer[];
+	empty?: string;
+}
+
+const { designers, empty = 'No designers yet.' } = Astro.props;
+---
+
+{
+	designers.length > 0 ? (
+		<ul class="adp-designers not-content">
+			{designers.map((designer) => (
+				<DesignerCard designer={designer} />
+			))}
+		</ul>
+	) : (
+		<p class="adp-note adp-empty">{empty}</p>
+	)
+}
+
+<style>
+	.adp-designers {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
+		margin: 1rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+	@media (min-width: 50rem) {
+		.adp-designers {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+</style>

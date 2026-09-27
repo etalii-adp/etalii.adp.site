@@ -2,8 +2,8 @@
   "workflow": "speckit",
   "specName": "DEDL Reference",
   "branch": "claude/project-thread-yu2w2z",
-  "currentStep": "tasks",
-  "status": "ready-to-implement",
+  "currentStep": "implement",
+  "status": "completed",
   "history": [
     {
       "step": "specify",
@@ -39,6 +39,578 @@
       "kind": "complete",
       "by": "extension",
       "at": "2026-09-26T20:17:02.547Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-09-27T01:20:32.161Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T001",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:42:45.062Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T002",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:43:16.597Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T003",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:44:37.245Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T004",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:44:37.525Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T005",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:44:37.784Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T006",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:44:38.044Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T007",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:48:16.016Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T008",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:48:16.296Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T009",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:48:16.563Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T010",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:48:16.819Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T011",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:50:23.003Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T012",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:50:23.287Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T013",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:50:23.581Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T014",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:51:49.637Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T015",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:51:50.054Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T016",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:53:12.337Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T017",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:53:12.637Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T018",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:54:47.477Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T019",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:54:47.774Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T021",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:54:48.081Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T020",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:55:15.949Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T022",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:56:23.355Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T023",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:56:23.680Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T024",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:57:28.723Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T025",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:57:29.057Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T026",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:03:10.052Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T027",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:03:10.769Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T028",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:03:11.243Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T029",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:03:11.689Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T030",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:03:12.947Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T031",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:03:13.392Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T032",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:03:13.823Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T033",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:03:14.318Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T034",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:06:06.125Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T035",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:06:06.467Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T036",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:06:06.816Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T037",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:06:07.132Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T038",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:06:07.454Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T039",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:06:07.775Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T040",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:06:08.078Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T041",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:08:04.121Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T042",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:08:04.529Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T043",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:17:31.926Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T044",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:17:32.249Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T045",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:17:32.585Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T046",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:17:32.898Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T047",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:17:33.220Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T048",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:17:33.529Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T049",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:17:33.839Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T050",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:17:34.150Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T051",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:17:34.493Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T052",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:17:34.850Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T053",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:17:35.195Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T054",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:17:35.540Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T055",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:17:35.924Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T056",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:18:33.055Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T057",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:18:33.393Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T058",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:18:33.751Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T059",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:21:29.192Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T060",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:21:29.583Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T061",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:21:29.976Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T062",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:21:30.372Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T063",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:21:30.765Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T064",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:28:10.914Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T065",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:28:11.286Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T066",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:30:02.476Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T067",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:30:02.855Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T068",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:30:03.238Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:30:03.238Z"
+    },
+    {
+      "step": "implement",
+      "substep": "run-tests",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:30:24Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-09-27T07:51:15.984Z"
     }
   ],
   "telemetryInstanceId": "7579133a-cbf5-4826-bf31-71f263cdad06",
@@ -79,5 +651,757 @@
       "status": "applied",
       "createdAt": "2026-09-26T19:11:47.612Z"
     }
-  ]
+  ],
+  "task_summaries": {
+    "T001": {
+      "status": "DONE",
+      "did": "Confirmed spec 001's Starlight/Astro skeleton (base /adp, layout, documentation navigation, CI with link and WCAG checks) is on develop and fast-forwarded features/002-dedl-reference to it in worktree C:\\git\\etalii.adp.site-002.",
+      "files": []
+    },
+    "T002": {
+      "status": "DONE",
+      "did": "Added the unified/remark/rehype toolchain, github-slugger, rehype-mermaid, ajv, ajv-formats and shiki, dev dependencies playwright, pagefind, vitest and tsx, and scripts test, reference:refresh, check:reference and a Pagefind build:search step run by build.",
+      "files": [
+        "package.json",
+        "package-lock.json"
+      ],
+      "concerns": [
+        "shiki is added as a direct dependency (it was only transitive through Astro) because render.ts imports it."
+      ]
+    },
+    "T003": {
+      "status": "DONE",
+      "did": "Created the language registry with the single DEDL entry, valid against $defs/Languages.",
+      "files": [
+        "src/content/reference/languages.json"
+      ]
+    },
+    "T004": {
+      "status": "DONE",
+      "did": "Added TypeScript types for the stored snapshot (Language, Version, SourceRecord, FileRecord) with their schema constraints in doc comments, and the derived Page, Heading, Link, SchemaDefinition, Example, Visual and Screenshot.",
+      "files": [
+        "src/lib/reference/types.ts"
+      ]
+    },
+    "T005": {
+      "status": "DONE",
+      "did": "Pinned the six source files at aaef333 byte for byte (verified against GitHub blob hashes), with source.json (licence NOASSERTION), a -text .gitattributes rule and a README.",
+      "files": [
+        "tests/reference/fixtures/dedl-aaef333/dedl/0.1/source.json",
+        "tests/reference/fixtures/dedl-aaef333/dedl/0.1/source/*",
+        "tests/reference/fixtures/README.md",
+        ".gitattributes"
+      ],
+      "concerns": [
+        "The fixture uses the snapshot layout <language>/<version>/ under tests/reference/fixtures/dedl-aaef333/ so REFERENCE_CONTENT_DIR can point at it directly; the task text placed the files one level higher."
+      ]
+    },
+    "T006": {
+      "status": "DONE",
+      "did": "Added vitest.config.ts over tests/**/*.test.ts and a cached Playwright browser download to the CI and deploy workflows, which already install Chromium.",
+      "files": [
+        "vitest.config.ts",
+        ".github/workflows/ci.yml",
+        ".github/workflows/deploy.yml"
+      ]
+    },
+    "T007": {
+      "status": "DONE",
+      "did": "Wrote anchor tests: GitHub heading ids (checked against every source TOC link), heading numbers, number-free page slugs, reserved slugs and duplicate-id failure.",
+      "files": [
+        "tests/reference/anchors.test.ts",
+        "tests/reference/fixture.ts"
+      ]
+    },
+    "T008": {
+      "status": "DONE",
+      "did": "Wrote splitter tests: version/status/date, cover plus 21 sections, every H2 after the TOC on a page, TOC dropped, thematic-break rule, informative headings, number-free titles, prev/next and the unknown-H2 failure.",
+      "files": [
+        "tests/reference/split.test.ts"
+      ]
+    },
+    "T009": {
+      "status": "DONE",
+      "did": "Wrote rendering tests for the allowlist, raw HTML and unknown nodes shown verbatim with the note, unchanged code text with JSON highlighting, and the labelled table scroll region.",
+      "files": [
+        "tests/reference/verbatim-fallback.test.ts"
+      ]
+    },
+    "T010": {
+      "status": "DONE",
+      "did": "Wrote refresh tests with a fake GitHub: missing or unidentifiable licence, version mismatches, unreachable source, current snapshot (exit 3), new version beside the old, unclassified file, dry run and section diff report.",
+      "files": [
+        "tests/reference/refresh.test.ts"
+      ]
+    },
+    "T011": {
+      "status": "DONE",
+      "did": "Implemented the loader: languages.json and each source.json validated with ajv against the contract schema, SHA-256 of every file verified, versions ordered numerically, REFERENCE_CONTENT_DIR override, memoised split and schema.",
+      "files": [
+        "src/lib/reference/load.ts"
+      ],
+      "concerns": [
+        "The loader reads the JSON Schema straight from specs/002-dedl-reference/contracts/ so the contract stays the single definition of the stored shapes."
+      ]
+    },
+    "T012": {
+      "status": "DONE",
+      "did": "Implemented GitHub heading ids, heading numbers (5.10, A.2, appendix letters), number-free page slugs with the reserved-slug check, and the anchor and number maps with the duplicate-id failure.",
+      "files": [
+        "src/lib/reference/anchors.ts"
+      ]
+    },
+    "T013": {
+      "status": "DONE",
+      "did": "Implemented the splitter (rules S1-S4): version, status and date, cover without the hand-written TOC, 21 section pages with titles, numbers, informative flags, prev/next and headings, and the unknown-H2 failure.",
+      "files": [
+        "src/lib/reference/split.ts"
+      ]
+    },
+    "T014": {
+      "status": "DONE",
+      "did": "Implemented the node-type allowlist and the verbatim fallback: a block that is or holds a disallowed node (raw HTML, definitions, ...) becomes its source lines in pre.verbatim with the note.",
+      "files": [
+        "src/lib/reference/rehype-verbatim-fallback.ts"
+      ],
+      "concerns": [
+        "The fallback runs on the Markdown tree (a remark step with a remark-rehype handler) so it sees nodes as parsed; the file keeps the rehype- name the plan gave it."
+      ]
+    },
+    "T015": {
+      "status": "DONE",
+      "did": "Implemented the render pipeline with GitHub heading ids and level shift, table scroll regions, focusable code blocks, build-time Shiki JSON highlighting in light and dark, and ordered remark/rehype plugin slots.",
+      "files": [
+        "src/lib/reference/render.ts",
+        "tests/reference/verbatim-fallback.test.ts"
+      ]
+    },
+    "T016": {
+      "status": "DONE",
+      "did": "Created ReferenceLayout (StarlightPage with the site chrome, the version's TOC as sidebar, On this page headings, canonical override, page anchor, banner/after/provenance slots and a no-script TOC disclosure for narrow screens) and Toc with aria-current; added address helpers in site.ts.",
+      "files": [
+        "src/components/reference/ReferenceLayout.astro",
+        "src/components/reference/Toc.astro",
+        "src/lib/reference/site.ts"
+      ],
+      "concerns": [
+        "Starlight owns <main>, so data-pagefind-body goes on the reference content wrapper inside it (T059) rather than on <main>."
+      ]
+    },
+    "T017": {
+      "status": "DONE",
+      "did": "Added reference.css (registered in Starlight customCss): table scroll regions with visible focus, pre.verbatim with its note, dual-scheme Shiki colours, the page anchor and the narrow-screen TOC.",
+      "files": [
+        "src/styles/reference.css",
+        "astro.config.mjs"
+      ]
+    },
+    "T018": {
+      "status": "DONE",
+      "did": "Implemented reference:refresh per its contract: resolves the revision, downloads the folder and licence through the GitHub API (token from GH_TOKEN, GITHUB_TOKEN or gh when present), runs the S1 checks, classifies roles, writes through a temporary folder and exits 0, 1 or 3.",
+      "files": [
+        "scripts/reference/refresh.ts"
+      ]
+    },
+    "T019": {
+      "status": "DONE",
+      "did": "Added the Markdown report: language, version and revision before and after with compare links, changed files with sizes, sections added/removed/changed, and warnings (unclassified files, Mermaid without alt text).",
+      "files": [
+        "scripts/reference/refresh.ts",
+        "tests/reference/refresh.test.ts"
+      ],
+      "concerns": [
+        "Embedded-example mismatches are reported by the build (examples.ts, T048) rather than by the refresh report."
+      ]
+    },
+    "T021": {
+      "status": "DONE",
+      "did": "Ran npm run reference:refresh -- dedl against the real source: exit 1, source has no licence, nothing written (git status clean); a nonexistent revision also exits 1 with source unreachable.",
+      "files": [],
+      "concerns": [
+        "No snapshot is committed under src/content/reference/dedl/: etalii-adp/etalii.adp still has no LICENSE, so the refresh refuses it. Rerun and commit the snapshot once the licence exists; the reference cannot be published before."
+      ]
+    },
+    "T020": {
+      "status": "DONE",
+      "did": "Created check:reference with a registry of checks over dist/, CHECK/WARN output and exit 0 or 1, and registered the licence check (NOASSERTION counts as no licence).",
+      "files": [
+        "scripts/reference/check.ts"
+      ]
+    },
+    "T022": {
+      "status": "DONE",
+      "did": "Wrote linker tests: T1 anchor links, T2 number forms (only the number linked, unmatched numbers untouched), T4 first-occurrence glossary links with exclusions, text unchanged, and the link graph entries.",
+      "files": [
+        "tests/reference/link-references.test.ts"
+      ]
+    },
+    "T023": {
+      "status": "DONE",
+      "did": "Wrote key-word tests: each of the ten phrases marked when it is the whole bold text, nothing else marked, 14 occurrences in the fixture.",
+      "files": [
+        "tests/reference/keywords.test.ts",
+        "tests/reference/split.test.ts"
+      ]
+    },
+    "T024": {
+      "status": "DONE",
+      "did": "Implemented the linker: T1 anchor links to their page, T2 section numbers in the contract's forms (number only, only when a heading has it), T4 first-occurrence glossary links with ids on the glossary entries, the T3 extension point, and the link graph with the nearest heading.",
+      "files": [
+        "src/lib/reference/remark-link-references.ts",
+        "tests/reference/link-references.test.ts"
+      ],
+      "concerns": [
+        "Appendix C holds 27 terms, not the ~40 research.md estimated; the test pins 27."
+      ]
+    },
+    "T025": {
+      "status": "DONE",
+      "did": "Implemented rehype-keywords (T5) and styled strong.kw bold, in small caps and amber with AA contrast in both schemes.",
+      "files": [
+        "src/lib/reference/rehype-keywords.ts",
+        "src/styles/reference.css"
+      ]
+    },
+    "T026": {
+      "status": "DONE",
+      "did": "Registered the linker and key-word marker in render.ts through referencePlugins, added rule T6 (an aria-hidden Informative label beside the heading text), and renderVersion, which renders every page of a version once and collects its link graph.",
+      "files": [
+        "src/lib/reference/render.ts",
+        "src/styles/reference.css"
+      ]
+    },
+    "T027": {
+      "status": "DONE",
+      "did": "Created the section route over every language, published version and section page, rendered inside ReferenceLayout with number and title, the version TOC as sidebar and previous/next links.",
+      "files": [
+        "src/pages/[language]/[version]/[section].astro",
+        "src/lib/reference/routes.ts"
+      ]
+    },
+    "T028": {
+      "status": "DONE",
+      "did": "Created the version cover: title, version line, status, metadata table, Status of this document and the generated table of contents.",
+      "files": [
+        "src/pages/[language]/[version]/index.astro"
+      ]
+    },
+    "T029": {
+      "status": "DONE",
+      "did": "Created the language landing at /adp/dedl/: latest version line and TOC, all versions, links to schema, schema file, examples and search, and a truthful not-yet-published state when no snapshot exists.",
+      "files": [
+        "src/pages/[language]/index.astro",
+        "src/content/docs/dedl/index.mdx"
+      ],
+      "concerns": [
+        "Removed spec 001 placeholder src/content/docs/dedl/index.mdx, which held the same address."
+      ]
+    },
+    "T030": {
+      "status": "DONE",
+      "did": "Created ReverseLinks, listing under Referenced from the sections whose anchor or number links point at the page.",
+      "files": [
+        "src/components/reference/ReverseLinks.astro"
+      ]
+    },
+    "T031": {
+      "status": "DONE",
+      "did": "Added the byte-identical prose endpoint (/adp/dedl/<v>/DEDL-specification.md, text/markdown) and the link-graph endpoint reference-links.json.",
+      "files": [
+        "src/pages/[language]/[version]/[prose].ts",
+        "src/pages/[language]/[version]/reference-links.json.ts"
+      ]
+    },
+    "T032": {
+      "status": "DONE",
+      "did": "Kept /adp/dedl/ in spec 001 navigation and made its Coming badge follow whether a version is published; switched the documentation sidebar to base-relative links (the DEDL landing is not a docs entry) and corrected the docs blurb to Diagram Editor Definition Language.",
+      "files": [
+        "src/data/sections.ts",
+        "src/lib/reference/published.ts",
+        "astro.config.mjs",
+        "src/content/docs/docs/index.mdx"
+      ]
+    },
+    "T033": {
+      "status": "DONE",
+      "did": "Registered the heading check (every heading id on its expected page, versioned and latest) and the internal link and fragment check over /adp/<language>/.",
+      "files": [
+        "scripts/reference/check.ts"
+      ]
+    },
+    "T034": {
+      "status": "DONE",
+      "did": "Added a visible, keyboard-reachable # link beside every h2-h6 (outside the heading element, aria-label Link to <heading>), styled quiet until hover or focus.",
+      "files": [
+        "src/lib/reference/render.ts",
+        "src/styles/reference.css"
+      ]
+    },
+    "T035": {
+      "status": "DONE",
+      "did": "Every route under [version] ranges over the published versions plus latest (routes.ts); latest pages render the newest version with rel=canonical to the versioned twin (Starlight's own canonical replaced) and pagefind:false.",
+      "files": [
+        "src/lib/reference/routes.ts",
+        "src/components/reference/ReferenceLayout.astro",
+        "src/pages/[language]/[version]/index.astro",
+        "src/pages/[language]/[version]/[section].astro"
+      ],
+      "concerns": [
+        "Search exclusion uses Starlight frontmatter pagefind:false, which drops data-pagefind-body, rather than data-pagefind-ignore=all."
+      ]
+    },
+    "T036": {
+      "status": "DONE",
+      "did": "Created VersionBanner, shown by ReferenceLayout on every page of a superseded version, linking to the same page in the latest version when it exists there, else to its cover.",
+      "files": [
+        "src/components/reference/VersionBanner.astro",
+        "src/components/reference/ReferenceLayout.astro",
+        "src/styles/reference.css"
+      ]
+    },
+    "T037": {
+      "status": "DONE",
+      "did": "Implemented stubs.ts: for each older page slug the latest lacks, moved-to when a heading with the same number-free title exists in the latest version, else removed in the next version, with the last version that had it.",
+      "files": [
+        "src/lib/reference/stubs.ts"
+      ]
+    },
+    "T038": {
+      "status": "DONE",
+      "did": "Rendered the stubs at /adp/<language>/latest/<old-slug>/ from the section route, inside ReferenceLayout and out of search.",
+      "files": [
+        "src/pages/[language]/[version]/[section].astro"
+      ]
+    },
+    "T039": {
+      "status": "DONE_WITH_CONCERNS",
+      "did": "Added the versioning fixture, generated from the pinned 0.1 fixture with a 0.2 copy that drops section 16, and the mode reference-versioning-test (npm run build:versioning-test) that points REFERENCE_CONTENT_DIR at it.",
+      "files": [
+        "scripts/reference/versioning-fixture.ts",
+        "scripts/reference/versioning-mode.ts",
+        "astro.config.mjs",
+        "package.json",
+        ".gitignore"
+      ],
+      "concerns": [
+        "The test version is 0.2, not 0.2-test as quickstart 4 says, because source.json versions must match the contract's version pattern (digits and dots).",
+        "The fixture is generated into the git-ignored tests/reference/fixtures/.generated/ on each such build instead of being committed, to avoid a second 700 KB copy."
+      ]
+    },
+    "T040": {
+      "status": "DONE",
+      "did": "Registered the versions check: superseded pages carry the banner and latest ones do not, every latest copy has rel=canonical to its versioned twin and no search marker, and every older slug resolves under latest/ (verified on the versioning build).",
+      "files": [
+        "scripts/reference/check.ts"
+      ]
+    },
+    "T041": {
+      "status": "DONE",
+      "did": "Wrote visuals tests: the metamodel class diagram (node and relation types, typed attributes, abstract, inheritance, containment), the eight-layer map with item counts and empty layers, the document-structure flowchart, accTitle/accDescr and captions.",
+      "files": [
+        "tests/reference/visuals.test.ts"
+      ]
+    },
+    "T042": {
+      "status": "DONE",
+      "did": "Added T3 cases: $defs/Name and code spans equal to a $defs name link to schema/#def-Name, nothing in code blocks, links recorded in the graph.",
+      "files": [
+        "tests/reference/link-references.test.ts"
+      ],
+      "concerns": [
+        "These cases passed on first run: rule T3 was already written into the linker with T024, so they could not fail first as the TDD order intends."
+      ]
+    },
+    "T043": {
+      "status": "DONE",
+      "did": "Added the schema endpoint emitting the snapshot bytes unchanged at /adp/<language>/schema/<v>/<schema>, failing the build when that path differs from the schema's $id.",
+      "files": [
+        "src/pages/[language]/schema/[version]/[file].ts"
+      ]
+    },
+    "T044": {
+      "status": "DONE",
+      "did": "Implemented schema.ts: $defs as SchemaDefinition records with $ref targets and anchors, layers from Appendix A.2's two-column table (all 141 grouped for 0.1), warnings for unlisted or unknown names.",
+      "files": [
+        "src/lib/reference/schema.ts"
+      ]
+    },
+    "T045": {
+      "status": "DONE",
+      "did": "Enabled rule T3 on every page by giving the linker the schema's $defs names; schema links are recorded in the graph with kind schema.",
+      "files": [
+        "src/lib/reference/render.ts",
+        "src/lib/reference/remark-link-references.ts"
+      ],
+      "concerns": [
+        "The T3 code itself was written with the linker in T024; this task wires in the $defs names."
+      ]
+    },
+    "T046": {
+      "status": "DONE",
+      "did": "Created SchemaDefinition: def-<Name> heading with a link, its layer, Described in (linking sections plus its layer section), and its JSON highlighted with $ref values linked to their anchors.",
+      "files": [
+        "src/components/reference/SchemaDefinition.astro",
+        "src/lib/reference/schema-html.ts",
+        "src/lib/reference/site.ts"
+      ]
+    },
+    "T047": {
+      "status": "DONE",
+      "did": "Created the schema browser: all $defs grouped by the Appendix A.2 layers (unlisted last), with a download link to the file at its $id address.",
+      "files": [
+        "src/pages/[language]/[version]/schema.astro",
+        "src/styles/reference.css"
+      ],
+      "concerns": [
+        "The schema page is about 1.8 MB of HTML because each highlighted token carries light and dark colours inline; it compresses well but is the heaviest page."
+      ]
+    },
+    "T048": {
+      "status": "DONE",
+      "did": "Implemented examples.ts: one example per definition or document file with stem, label, purpose, embedding 17.x section (matched by file name), its introduction as What it demonstrates, layer counts and the embedded-copy comparison (all four match).",
+      "files": [
+        "src/lib/reference/examples.ts"
+      ],
+      "concerns": [
+        "Sections 17.2 and 17.3 describe their examples in paragraphs, not a bullet list, so What it demonstrates is the section text before its File line."
+      ]
+    },
+    "T049": {
+      "status": "DONE",
+      "did": "Implemented the metamodel class diagram, eight-layer map and document-structure flowchart generators, each with accTitle, accDescr and the Generated from caption.",
+      "files": [
+        "src/lib/reference/visuals.ts"
+      ],
+      "concerns": [
+        "Layer-map nodes are not clickable inside the SVG picture (an img cannot hold links), so the example page lists the eight layers as links with their item counts right below the map."
+      ]
+    },
+    "T050": {
+      "status": "DONE",
+      "did": "Rendered Mermaid at build time with rehype-mermaid (img-svg, dark) into a light/dark picture with alt text from accTitle/accDescr, caption and a details element holding the Mermaid text (Visual.astro); rule B3 does the same for mermaid fences in the prose, with the paragraph-before fallback.",
+      "files": [
+        "src/lib/reference/mermaid.ts",
+        "src/components/reference/Visual.astro",
+        "src/lib/reference/render.ts",
+        "tests/reference/verbatim-fallback.test.ts"
+      ],
+      "concerns": [
+        "rehype-mermaid runs inside the reference render pipeline and mermaid.ts, not in astro.config.mjs, because the reference is rendered by its own unified pipeline rather than Astro Markdown."
+      ]
+    },
+    "T051": {
+      "status": "DONE",
+      "did": "Created ExampleScreenshots, which renders grouped screenshots when given rows and otherwise the notice No IDE host runs this example yet.",
+      "files": [
+        "src/components/reference/ExampleScreenshots.astro"
+      ],
+      "concerns": [
+        "Spec 003 shared screenshot reader is not on develop, so the notice is always shown for now; say so in the pull request description."
+      ]
+    },
+    "T052": {
+      "status": "DONE",
+      "did": "Created the example page: name and purpose, section link, What it demonstrates with layer names linked, generated visuals with the data-not-notation note for documents, layer links with counts, the highlighted file with a download link, and ExampleScreenshots.",
+      "files": [
+        "src/pages/[language]/[version]/examples/[stem].astro",
+        "src/lib/reference/example-pages.ts",
+        "src/styles/reference.css"
+      ]
+    },
+    "T053": {
+      "status": "DONE",
+      "did": "Created the examples index and the byte-identical example file endpoint (.json as application/json).",
+      "files": [
+        "src/pages/[language]/[version]/examples/index.astro",
+        "src/pages/[language]/[version]/examples/files/[file].ts"
+      ]
+    },
+    "T054": {
+      "status": "DONE",
+      "did": "Recorded example links from the 17.x sections in the link graph, and extended ReverseLinks with Examples explained here and, on layer sections, Illustrated by with item counts.",
+      "files": [
+        "src/lib/reference/render.ts",
+        "src/components/reference/ReverseLinks.astro",
+        "src/pages/[language]/[version]/[section].astro"
+      ]
+    },
+    "T055": {
+      "status": "DONE",
+      "did": "Registered the examples check (ajv draft 2020-12 with formats: the three definitions against the schema root and the document against $defs/Document, all valid) and the bytes check for the schema, prose and example files.",
+      "files": [
+        "scripts/reference/check.ts"
+      ]
+    },
+    "T056": {
+      "status": "DONE",
+      "did": "Created Provenance: version, status and date, repository, 7-character revision linking to the prose at the full revision, generation date, licence (not stated by the source yet while it is NOASSERTION), and Report a problem linking to the source repository's issues.",
+      "files": [
+        "src/components/reference/Provenance.astro",
+        "src/styles/reference.css"
+      ],
+      "concerns": [
+        "Spec 003 source-record rendering is not on develop, so the reference renders its own; align them when spec 003 lands."
+      ]
+    },
+    "T057": {
+      "status": "DONE",
+      "did": "Rendered Provenance from ReferenceLayout, so it appears on covers, sections, stubs, the schema browser, example pages, the landing and search whenever a version is published.",
+      "files": [
+        "src/components/reference/ReferenceLayout.astro"
+      ]
+    },
+    "T058": {
+      "status": "DONE",
+      "did": "Registered the provenance check: every page under /adp/<language>/ carries the block with a 40-character revision and a licence value.",
+      "files": [
+        "scripts/reference/check.ts"
+      ]
+    },
+    "T059": {
+      "status": "DONE",
+      "did": "Marked versioned reference pages for Pagefind with language and version filters and version and section meta (hidden, content-ignored); latest copies and stubs have no data-pagefind-body; heading links are kept out of excerpts.",
+      "files": [
+        "src/components/reference/ReferenceLayout.astro",
+        "src/lib/reference/render.ts",
+        "src/components/reference/SchemaDefinition.astro"
+      ]
+    },
+    "T060": {
+      "status": "DONE",
+      "did": "Replaced the Pagefind CLI step with build:search (scripts/reference/search-index.ts, Pagefind Node API): indexes only /adp/<language>/<version>/ pages into dist/adp/pagefind/, writes indexed.json, and succeeds with nothing to index when no version is published.",
+      "files": [
+        "scripts/reference/search-index.ts",
+        "package.json"
+      ],
+      "concerns": [
+        "The Node API is used instead of the CLI so an empty site (no licensed snapshot yet, as in CI today) does not fail the build."
+      ]
+    },
+    "T061": {
+      "status": "DONE",
+      "did": "Created /adp/<language>/search/: Pagefind UI self-hosted, a version selector holding search to one version (latest by default, ?v= and ?q= honoured), results titled with section and version, and a noscript message linking the table of contents, glossary and schema browser; generated only when a version is published.",
+      "files": [
+        "src/pages/[language]/search.astro",
+        "src/styles/reference.css"
+      ]
+    },
+    "T062": {
+      "status": "DONE",
+      "did": "Added a search box to every reference page that submits q and the current version to the search page, which the Pagefind script takes up.",
+      "files": [
+        "src/components/reference/ReferenceLayout.astro",
+        "src/styles/reference.css"
+      ]
+    },
+    "T063": {
+      "status": "DONE",
+      "did": "Registered the search check: every section page of the latest version is in the index listing and no latest copy is.",
+      "files": [
+        "scripts/reference/check.ts"
+      ]
+    },
+    "T064": {
+      "status": "DONE",
+      "did": "Added npm run test and, after the build, npm run check:reference to the CI and deploy workflows, plus a reference-fixture CI job that builds from the pinned fixture (and the two-version fixture) and runs check:reference and the page checks.",
+      "files": [
+        ".github/workflows/ci.yml",
+        ".github/workflows/deploy.yml",
+        "scripts/reference/check.ts"
+      ],
+      "concerns": [
+        "In a fixture build (REFERENCE_CONTENT_DIR set) the licence check warns instead of failing, since fixture builds are never published; the real snapshot path still fails without a licence."
+      ]
+    },
+    "T065": {
+      "status": "DONE",
+      "did": "Extended spec 001's page checks to the reference by sampling one page of each kind (landing, cover, section 6, schema, examples index, an example, a latest copy, search); all pass WCAG 2.2 AA in both schemes, 360 px, no-script and privacy on the fixture build with no fixes needed.",
+      "files": [
+        "tests/site.spec.ts",
+        "playwright.config.ts"
+      ],
+      "concerns": [
+        "The schema browser needs test.slow(): axe takes over 30 s on its roughly 1.8 MB of highlighted JSON.",
+        "Playwright now matches *.spec.ts only, because its default also picked up the Vitest *.test.ts files.",
+        "Spec 001 linkinator step scans only the root redirect (12 links) and does not follow it into /adp/; the reference relies on check:reference for its internal links."
+      ]
+    },
+    "T066": {
+      "status": "DONE",
+      "did": "Measured the fixture build: section 6 is 199 KB (30 KB gzip), section 17 553 KB (32 KB gzip), the schema page 1.78 MB (54 KB gzip); a full build with Mermaid and Pagefind takes 8 s locally. Recorded in the pull-request description draft.",
+      "files": [],
+      "concerns": [
+        "Sections 6 and 17 exceed the plan target of about 150 KB, mostly because highlighted JSON carries its light and dark colours inline per token; moving Shiki to class-based colours would roughly halve the HTML (proposed as a follow-up).",
+        "CI build time is not measured yet; the first CI run of the pull request will show it."
+      ]
+    },
+    "T067": {
+      "status": "DONE",
+      "did": "Drafted the five upstream issues for etalii-adp/etalii.adp (licence, publisher name in 2.1, examples/ paths, explicit section links, diagrams with accTitle/accDescr), checked against develop a33ce5d; none is opened.",
+      "files": [],
+      "concerns": [
+        "The issues are not opened: the task requires the owner to confirm first."
+      ]
+    },
+    "T068": {
+      "status": "DONE",
+      "did": "Ran every quickstart scenario against the fixture build (and the refusal scenarios against the real source) and recorded the results in the pull-request description draft; all pass or deviate only as documented.",
+      "files": [],
+      "concerns": [
+        "Scenarios 1a and 1c against the real source wait for its licence; they pass in the unit tests with a fake GitHub.",
+        "Quickstart 3 says section 9 has a bold MUST; it has none. The 14 key words are on the cover and in section 2, all marked."
+      ]
+    }
+  },
+  "currentTask": "T068",
+  "verified": [
+    {
+      "what": "unit tests (splitter, anchors, linker, key words, verbatim fallback, Mermaid, visuals, refresh)",
+      "command": "npm run test",
+      "result": "71 passed in 7 files"
+    },
+    {
+      "what": "fixture build and reference checks",
+      "command": "REFERENCE_CONTENT_DIR=tests/reference/fixtures/dedl-aaef333 npm run build && npm run check:reference",
+      "result": "62 pages, 28 indexed; 8 checks, 0 failures, 1 warning (fixture has no licence)"
+    },
+    {
+      "what": "site page checks on the fixture build (WCAG 2.2 AA light and dark, 360 px, no-script, privacy)",
+      "command": "npx playwright test",
+      "result": "110 passed (schema page marked slow)"
+    },
+    {
+      "what": "two-version build: banners, latest canonical links, stubs",
+      "command": "npm run build:versioning-test && check:reference with the versioning fixture",
+      "result": "89 pages, 8 checks, 0 failures, 2 licence warnings"
+    },
+    {
+      "what": "plain build as CI and deploy run it today (no snapshot)",
+      "command": "npm run test && npm run build && npm run check:reference && npm run check",
+      "result": "all pass; 54 page tests; /adp/dedl/ shows Not published yet"
+    },
+    {
+      "what": "refresh against the real source",
+      "command": "npm run reference:refresh -- dedl",
+      "result": "exit 1, source has no licence, nothing written (expected until etalii-adp/etalii.adp has a LICENSE)"
+    },
+    {
+      "what": "manual pass in a browser: sections, examples, search, dark mode, 360 px",
+      "command": "Playwright screenshots of the served fixture build",
+      "result": "renders as intended; code-block overflow found and fixed"
+    }
+  ],
+  "coverage": {
+    "FR-001": {
+      "tests": [
+        "tests/reference/refresh.test.ts; load.ts SHA-256 verification; check:reference bytes"
+      ]
+    },
+    "FR-002": {
+      "tests": [
+        "tests/reference/split.test.ts (22 pages); check:reference headings; ReferenceLayout sidebar + Toc"
+      ]
+    },
+    "FR-003": {
+      "tests": [
+        "tests/reference/verbatim-fallback.test.ts; tests/reference/keywords.test.ts"
+      ]
+    },
+    "FR-004": {
+      "tests": [
+        "tests/reference/link-references.test.ts (T1",
+        "T2); check:reference links"
+      ]
+    },
+    "FR-005": {
+      "tests": [
+        "tests/reference/anchors.test.ts; check:reference headings; heading links in render.ts"
+      ]
+    },
+    "FR-006": {
+      "tests": [
+        "check:reference versions on the versioning fixture (0.1 pages kept after 0.2)"
+      ]
+    },
+    "FR-007": {
+      "tests": [
+        "check:reference versions (latest canonical",
+        "every older slug resolves under latest/)"
+      ]
+    },
+    "FR-008": {
+      "tests": [
+        "check:reference versions (banner on superseded pages)"
+      ]
+    },
+    "FR-009": {
+      "tests": [
+        "check:reference bytes; schema endpoint fails build if $id path differs; curl content type"
+      ]
+    },
+    "FR-010": {
+      "tests": [
+        "check:reference bytes (example files)"
+      ]
+    },
+    "FR-011": {
+      "tests": [
+        "check:reference provenance"
+      ]
+    },
+    "FR-012": {
+      "tests": [
+        "tests/reference/verbatim-fallback.test.ts (B4)"
+      ]
+    },
+    "FR-013": {
+      "tests": [
+        "tests/reference/refresh.test.ts (unreachable",
+        "no licence",
+        "mismatch: nothing written)"
+      ]
+    },
+    "FR-014": {
+      "tests": [
+        "check:reference search; browser search pass; site.spec no-script on search page"
+      ]
+    },
+    "FR-015": {
+      "tests": [
+        "check:reference licence; refresh refuses without licence (T021)"
+      ]
+    },
+    "FR-016": {
+      "tests": [
+        "tests/reference/visuals.test.ts; example pages"
+      ]
+    },
+    "FR-017": {
+      "tests": [
+        "ExampleScreenshots notice (no host yet; spec 003 reader not on develop)"
+      ]
+    },
+    "FR-018": {
+      "tests": [
+        "tests/reference/verbatim-fallback.test.ts (B3); Visual.astro; dark-mode screenshots"
+      ]
+    },
+    "FR-019": {
+      "tests": [
+        "tests/reference/link-references.test.ts (T3",
+        "T4",
+        "graph); ReverseLinks; SchemaDefinition Described in"
+      ]
+    },
+    "FR-020": {
+      "tests": [
+        "search.astro version filter; browser search pass (results name section and version)"
+      ]
+    }
+  },
+  "step_summaries": {
+    "implement": {
+      "summary": "DEDL reference under /adp/dedl/ built from verbatim snapshots: split and linked section pages, versioned and latest addresses, schema at its $id, visualised examples, provenance, Pagefind search, refresh and check commands; checked against the pinned fixture because the source has no licence yet"
+    }
+  }
 }

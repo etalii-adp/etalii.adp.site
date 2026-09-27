@@ -24,5 +24,8 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Refresh procedures' run output
+# Refresh procedures' run output, including the catalogue reports of spec 003 that spec 004 puts in its pull request body
 .refresh/
+
+# Reference fixtures generated for tests (spec 002)
+tests/reference/fixtures/.generated/

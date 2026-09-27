@@ -1,0 +1,42 @@
+---
+// The cover of a version (US1 AS1): title, version line, status, date, metadata table,
+// "Status of this document", and the generated table of contents (rendering rules S1, S2).
+import ReferenceLayout from '../../../components/reference/ReferenceLayout.astro';
+import Toc from '../../../components/reference/Toc.astro';
+import { renderVersion } from '../../../lib/reference/render';
+import { versionRoutes, type VersionRoute } from '../../../lib/reference/routes';
+import { pageHref } from '../../../lib/reference/site';
+
+export function getStaticPaths() {
+	return versionRoutes().map((route) => ({ params: { language: route.language, version: route.segment }, props: { route } }));
+}
+
+interface Props {
+	route: VersionRoute;
+}
+
+const { route } = Astro.props;
+const { version, segment, language } = route;
+const split = version.split();
+const rendered = await renderVersion(version, segment);
+const body = rendered.pages.get('')!;
+const description = `The ${version.language.name} specification, version ${version.record.version} (${version.record.status}, ${version.record.date}): cover and table of contents.`;
+---
+
+<ReferenceLayout
+	version={version}
+	segment={segment}
+	title={split.title}
+	description={description}
+	current=""
+	headings={[...body.headings, { depth: 2, slug: 'ref-contents', text: 'Contents' }]}
+	anchorId={split.titleId}
+	canonical={route.isLatestCopy ? pageHref(language, version.record.version, '') : undefined}
+	latest={route.latest}
+	slug=""
+	searchable={!route.isLatestCopy}
+>
+	<Fragment set:html={body.html} />
+	<h2 id="ref-contents">Contents</h2>
+	<Toc version={version} segment={segment} current="" />
+</ReferenceLayout>

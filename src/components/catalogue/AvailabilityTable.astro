@@ -1,0 +1,81 @@
+---
+// Availability per IDE host (US3): always four rows, in the site's host order. "Available" needs a public install;
+// an implemented or prototype designer says "Not yet released" (constitution principle III). A Notion value that
+// differs from the repository (notionDiffers) is for the refresh report, never for visitors.
+import { catalogueHosts } from '../../lib/catalogue/hosts';
+import type { Designer, HostAvailability } from '../../lib/catalogue/types';
+import StateLabel from './StateLabel.astro';
+import TableScroll from './TableScroll.astro';
+
+interface Props {
+	designer: Designer;
+}
+
+const { designer } = Astro.props;
+const howToGet = (availability: HostAvailability): string | null => {
+	switch (availability.state) {
+		case 'available':
+			return null;
+		case 'implemented':
+		case 'prototype':
+			return 'Not yet released';
+		case 'in-progress':
+			return 'In progress';
+		case 'planned':
+			return 'Planned';
+		default:
+			return 'Not planned';
+	}
+};
+---
+
+<TableScroll label="Availability per IDE host">
+	<table class="adp-availability">
+		<caption>Availability per IDE host</caption>
+		<thead>
+			<tr>
+				<th scope="col">Host</th>
+				<th scope="col">State</th>
+				<th scope="col">How to get it</th>
+			</tr>
+		</thead>
+		<tbody>
+			{
+				catalogueHosts.map((host) => {
+					const availability = designer.hosts[host.id];
+					return (
+						<tr>
+							<th scope="row">
+								{host.name}
+								{availability.localName && availability.localName !== designer.name && <span class="adp-note"> (called {availability.localName} here)</span>}
+							</th>
+							<td>
+								<StateLabel state={availability.state} />
+							</td>
+							<td>
+								{availability.install ? <a href={availability.install.url}>{availability.install.label}</a> : howToGet(availability)}
+								{availability.build && (
+									<>
+										{' · '}
+										<a href={availability.build.url}>{availability.build.label}</a>
+									</>
+								)}
+							</td>
+						</tr>
+					);
+				})
+			}
+		</tbody>
+	</table>
+</TableScroll>
+
+<style>
+	caption {
+		text-align: start;
+		font-weight: 600;
+		padding-block-end: 0.5rem;
+	}
+	th[scope='row'] {
+		font-weight: 400;
+	}
+</style>

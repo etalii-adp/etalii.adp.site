@@ -14,7 +14,7 @@ These scenarios prove the feature end to end. Each names the spec requirement it
 ## 0. Offline checks (no GitHub)
 
 ```sh
-npm test               # parsers, diffing, lock writing, PR body rendering, against fixtures
+npm run test:refresh   # parsers, diffing, lock writing, PR body rendering, against fixtures
 npm run refresh:lint   # every procedure has the template's sections and is indexed (FR-011)
 npm run refresh:verify # current sources/ matches its locks (FR-005)
 ```
@@ -106,7 +106,7 @@ Run on 2026-09-27 on Windows 11 (Node.js 26.3, `gh` 2.101), at commit `da7866e` 
 
 | Scenario | How it was run | Outcome |
 |---|---|---|
-| 0. Offline checks | `npm test`, `npm run refresh:lint`, `npm run refresh:verify` | All three exit 0; 112 tests pass in about 30 s. |
+| 0. Offline checks | `npm run test:refresh`, `npm run refresh:lint`, `npm run refresh:verify` | All three exit 0; 112 tests pass in about 30 s. |
 | 1. DEDL: a changed sentence | `scripts/refresh/procedures/dedl.test.mjs` (c), against the DEDL fixture | `delivered`; exactly one changed file and one changed section (`2. Foundations`, 2 lines); the diff under `sources/dedl/0.1/` is that sentence. |
 | 3. DEDL: a new version | `dedl.test.mjs` (d, e), and against a throwaway clone of `etalii-adp/etalii.adp` | Header alone at 0.2: `failed`, "the specification header says 0.2, the schema $id says 0.1". Both at 0.2: `delivered`, `sources/dedl/0.2/` with 6 files, the site's build and checks passing; with the fixture, `0.1/` byte for byte unchanged and the title `publish 0.2 beside 0.1`. |
 | 5. Screenshots | `screenshots.test.mjs`, against the standalone fixture with generated PNGs | A changed valid image with its expectation; a 400 KB image rejected ("over 300 KB budget") with the previous copy kept; a wrong viewport and an unlisted image rejected by name; `c4/context` listed under Gaps; `capture.mjs` neither copied nor run. |

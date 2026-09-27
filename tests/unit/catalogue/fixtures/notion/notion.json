@@ -1,0 +1,123 @@
+{
+  "retrievedAt": "2026-09-27T00:30:00.000Z",
+  "rows": [
+    {
+      "page": "1a2b3c4d-0000-4000-8000-000000000001",
+      "lastEditedTime": "2026-09-26T18:01:00.000Z",
+      "origin": "freeplane/mindmap",
+      "name": "Mind map",
+      "type": "Designer",
+      "purpose": "Lay out ideas as a tree around one central topic.",
+      "description": "Brainstorming and structuring notes as a hierarchy of topics.",
+      "whySpecialized": "A tree shows how ideas branch and group, which a list of bullet points hides.",
+      "fileExtension": ".mm",
+      "focusAreas": [
+        "Knowledge and semantics",
+        "Clarity in textual data"
+      ],
+      "family": "Knowledge and semantics",
+      "subfamily": "Mind maps",
+      "theory": "See https://en.wikipedia.org/wiki/Mind_map and https://docs.freeplane.org/",
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": "✅ Implemented",
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "1a2b3c4d-0000-4000-8000-000000000005",
+      "lastEditedTime": "2026-09-26T18:05:00.000Z",
+      "origin": "jgraph/drawio",
+      "name": "draw.io diagram",
+      "type": "Designer",
+      "purpose": "Draw free-form diagrams in the draw.io format.",
+      "description": "General diagrams that no specialized designer covers yet.",
+      "whySpecialized": null,
+      "fileExtension": ".drawio",
+      "focusAreas": [],
+      "family": "General diagrams",
+      "subfamily": null,
+      "theory": null,
+      "hosts": {
+        "standalone": null,
+        "intellij": "✅ Implemented",
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "1a2b3c4d-0000-4000-8000-000000000003",
+      "lastEditedTime": "2026-09-26T18:03:00.000Z",
+      "origin": "neo4j/cypher",
+      "name": "Cypher graph",
+      "type": "Diagram",
+      "purpose": null,
+      "description": null,
+      "whySpecialized": null,
+      "fileExtension": ".cypher, .cql",
+      "focusAreas": [],
+      "family": "Graphs",
+      "subfamily": null,
+      "theory": null,
+      "hosts": {
+        "standalone": "📝 Specified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "1a2b3c4d-0000-4000-8000-000000000004",
+      "lastEditedTime": "2026-09-26T18:04:00.000Z",
+      "origin": "rdf/turtle",
+      "name": "RDF Turtle",
+      "type": "Diagram",
+      "purpose": "Edit RDF graphs in the Turtle syntax.",
+      "description": null,
+      "whySpecialized": null,
+      "fileExtension": ".ttl",
+      "focusAreas": [
+        "Knowledge and semantics"
+      ],
+      "family": "Knowledge and semantics",
+      "subfamily": "RDF",
+      "theory": "https://www.w3.org/TR/turtle/",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "1a2b3c4d-0000-4000-8000-000000000002",
+      "lastEditedTime": "2026-09-26T18:02:00.000Z",
+      "origin": "wardley/map",
+      "name": "Wardley map",
+      "type": "Diagram",
+      "purpose": "Map a value chain against the evolution of each component.",
+      "description": "Strategy discussions about what to build, buy or outsource.",
+      "whySpecialized": null,
+      "fileExtension": ".owm",
+      "focusAreas": [
+        "Systems and strategy",
+        "Diagramming practice"
+      ],
+      "family": "Systems and strategy",
+      "subfamily": null,
+      "theory": null,
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": "⛔ Not planned"
+      },
+      "previousOrigin": null
+    }
+  ]
+}

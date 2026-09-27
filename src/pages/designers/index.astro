@@ -1,0 +1,49 @@
+---
+// The catalogue overview (FR-001, FR-002, FR-014, contracts/site-addresses.md): every designer grouped by focus
+// area, then "Other designers", then the ideas list. Complete without scripting; CatalogueFilter only adds to it.
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import CatalogueFilter from '../../components/catalogue/CatalogueFilter.astro';
+import { catalogue } from '../../components/catalogue/data';
+import DesignerList from '../../components/catalogue/DesignerList.astro';
+import FacetLinks from '../../components/catalogue/FacetLinks.astro';
+import IdeasList from '../../components/catalogue/IdeasList.astro';
+import SourceList from '../../components/catalogue/SourceList.astro';
+
+const { designers, ideas, focusAreas, sources } = await catalogue();
+const groups = focusAreas.map((area) => ({ id: `focus-${area.slug}`, name: area.name, designers: designers.filter((designer) => designer.focusAreas.includes(area.slug)) }));
+const known = new Set(focusAreas.map((area) => area.slug));
+const others = designers.filter((designer) => !designer.focusAreas.some((slug) => known.has(slug)));
+if (others.length > 0) groups.push({ id: 'other-designers', name: 'Other designers', designers: others });
+---
+
+<StarlightPage
+	frontmatter={{
+		title: 'Designers',
+		description: 'Every ADP designer, grouped by focus area, with its purpose and its state in each IDE host, followed by the ideas for new ones.',
+		part: 'documentation',
+		section: 'designers',
+	}}
+>
+	<p>
+		Each ADP designer is made for one task where a specialized view beats a generic diagram or plain text. This catalogue lists all {designers.length}
+		{designers.length === 1 ? ' designer' : ' designers'}, grouped by the focus area they serve, with their state in each of the four IDE hosts. A designer
+		that serves several focus areas is listed under each. The states are read from the hosts' own repositories; nothing is shown as available unless you can
+		install it.
+	</p>
+
+	<FacetLinks focusAreas={focusAreas} />
+	<CatalogueFilter focusAreas={focusAreas} />
+
+	{
+		groups.map((group) => (
+			<section class="adp-catalogue-group" aria-labelledby={group.id}>
+				<h2 id={group.id}>{group.name}</h2>
+				<DesignerList designers={group.designers} />
+			</section>
+		))
+	}
+
+	<IdeasList ideas={ideas} />
+
+	<SourceList sources={sources} compact />
+</StarlightPage>

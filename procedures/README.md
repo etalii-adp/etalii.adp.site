@@ -42,7 +42,7 @@ The job summary and every refresh pull request name the date of the previous sch
 
 **The 60-day risk.** GitHub switches off a scheduled workflow in a public repository after 60 days without activity in it, and says so only in the Actions tab. If the previous scheduled run shown in a pull request or job summary is "none in 7 days", re-enable the workflow with `gh workflow enable refresh.yml` (or the button in the Actions tab). `repository_dispatch` keeps working while the schedule is off.
 
-`.github/workflows/refresh-checks.yml` runs `npm test`, `npm run refresh:lint` and `npm run refresh:verify` on every pull request into `develop`, so a hand edit under `sources/` fails its checks.
+`.github/workflows/refresh-checks.yml` runs `npm run test:refresh`, `npm run refresh:lint` and `npm run refresh:verify` on every pull request into `develop`, so a hand edit under `sources/` fails its checks.
 
 ## Adding a procedure
 
@@ -52,7 +52,7 @@ When the site takes a new kind of content from a source repository:
 2. Add `scripts/refresh/procedures/<id>.mjs`, a module implementing the interface described at the top of `scripts/refresh/run.mjs` (its `sources`, and an `apply` that returns the files to copy and derive), with a `<id>.test.mjs` beside it that runs it against a fixture source through `--source`. The procedure owns `sources/<id>/`, and no other procedure writes there.
 3. Add its row to the table at the top of this file.
 4. Add its title to the "Refreshing sourced content" section of `CLAUDE.md`; add its id to the `procedure` choices of `workflow_dispatch` in `.github/workflows/refresh.yml`, to the `repository_dispatch` mapping there when it reads a new repository, and to `PROCEDURES` in `scripts/refresh/run.mjs` so that `all` runs it.
-5. Run `npm test` and `npm run refresh:lint`; both exit 0 when the procedure is complete and indexed.
+5. Run `npm run test:refresh` and `npm run refresh:lint`; both exit 0 when the procedure is complete and indexed.
 
 ## Answering a decision
 

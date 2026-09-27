@@ -1,5 +1,6 @@
 ---
 // The three focus areas on the home page (FR-005, US1 AS2). Illustrations are decorative; the text carries the meaning.
+// Each heading links to that focus area's designers (spec 003); the ids are shared with src/content/catalogue/focus-areas.json.
 import { getCollection } from 'astro:content';
 import { focusAreaIds, inOrder } from '../data/order';
 
@@ -11,7 +12,9 @@ const areas = inOrder(await getCollection('focusAreas'), focusAreaIds);
 		areas.map(({ data }) => (
 			<li class="adp-card">
 				<img src={data.illustration.src} alt="" width="160" height="120" loading="lazy" decoding="async" />
-				<h3>{data.name}</h3>
+				<h3>
+					<a href={`/adp/designers/focus/${data.id}/`}>{data.name}</a>
+				</h3>
 				<p>{data.problem}</p>
 			</li>
 		))

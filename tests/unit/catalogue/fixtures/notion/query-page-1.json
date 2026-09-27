@@ -1,0 +1,475 @@
+{
+  "object": "list",
+  "results": [
+    {
+      "object": "page",
+      "id": "1a2b3c4d-0000-4000-8000-000000000001",
+      "created_time": "2026-09-26T10:00:00.000Z",
+      "last_edited_time": "2026-09-26T18:01:00.000Z",
+      "archived": false,
+      "in_trash": false,
+      "parent": {
+        "type": "data_source_id",
+        "data_source_id": "3e7be2fd-05b6-8079-932d-000bfa0609af"
+      },
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "Mind map",
+              "text": {
+                "content": "Mind map",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Origin": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "freeplane/mindmap",
+              "text": {
+                "content": "freeplane/mindmap",
+                "link": null
+              }
+            }
+          ]
+        },
+        "One line purpose": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Lay out ideas as a tree around one central topic.",
+              "text": {
+                "content": "Lay out ideas as a tree around one central topic.",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Description": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Brainstorming and structuring notes as a hierarchy of topics.",
+              "text": {
+                "content": "Brainstorming and structuring notes as a hierarchy of topics.",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Why specialized": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "A tree shows how ideas branch and group, which a list of bullet points hides.",
+              "text": {
+                "content": "A tree shows how ideas branch and group, which a list of bullet points hides.",
+                "link": null
+              }
+            }
+          ]
+        },
+        "File extension (if single file)": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": ".mm",
+              "text": {
+                "content": ".mm",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Theory": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "See https://en.wikipedia.org/wiki/Mind_map and https://docs.freeplane.org/",
+              "text": {
+                "content": "See https://en.wikipedia.org/wiki/Mind_map and https://docs.freeplane.org/",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Type": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "Designer",
+            "color": "default"
+          }
+        },
+        "Family": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "Knowledge and semantics",
+            "color": "default"
+          }
+        },
+        "Subfamily": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "Mind maps",
+            "color": "default"
+          }
+        },
+        "Standalone": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "⚗️ Prototype",
+            "color": "default"
+          }
+        },
+        "IntelliJ": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "✅ Implemented",
+            "color": "default"
+          }
+        },
+        "VS Code": {
+          "type": "select",
+          "select": null
+        },
+        "Eclipse": {
+          "type": "select",
+          "select": null
+        },
+        "Focus areas": {
+          "type": "multi_select",
+          "multi_select": [
+            {
+              "id": "opt",
+              "name": "Knowledge and semantics",
+              "color": "default"
+            },
+            {
+              "id": "opt",
+              "name": "Clarity in textual data",
+              "color": "default"
+            }
+          ]
+        },
+        "State": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "Prototype",
+            "color": "default"
+          }
+        },
+        "Rarity": {
+          "type": "select",
+          "select": null
+        }
+      },
+      "url": "https://www.notion.so/1a2b3c4d000040008000000000000001"
+    },
+    {
+      "object": "page",
+      "id": "1a2b3c4d-0000-4000-8000-000000000002",
+      "created_time": "2026-09-26T10:00:00.000Z",
+      "last_edited_time": "2026-09-26T18:02:00.000Z",
+      "archived": false,
+      "in_trash": false,
+      "parent": {
+        "type": "data_source_id",
+        "data_source_id": "3e7be2fd-05b6-8079-932d-000bfa0609af"
+      },
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "Wardley map",
+              "text": {
+                "content": "Wardley map",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Origin": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "wardley/map",
+              "text": {
+                "content": "wardley/map",
+                "link": null
+              }
+            }
+          ]
+        },
+        "One line purpose": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Map a value chain against the evolution of each component.",
+              "text": {
+                "content": "Map a value chain against the evolution of each component.",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Description": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Strategy discussions about what to build, buy or outsource.",
+              "text": {
+                "content": "Strategy discussions about what to build, buy or outsource.",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Why specialized": {
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "File extension (if single file)": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": ".owm",
+              "text": {
+                "content": ".owm",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Theory": {
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Type": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "Diagram",
+            "color": "default"
+          }
+        },
+        "Family": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "Systems and strategy",
+            "color": "default"
+          }
+        },
+        "Subfamily": {
+          "type": "select",
+          "select": null
+        },
+        "Standalone": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "⚗️ Prototype",
+            "color": "default"
+          }
+        },
+        "IntelliJ": {
+          "type": "select",
+          "select": null
+        },
+        "VS Code": {
+          "type": "select",
+          "select": null
+        },
+        "Eclipse": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "⛔ Not planned",
+            "color": "default"
+          }
+        },
+        "Focus areas": {
+          "type": "multi_select",
+          "multi_select": [
+            {
+              "id": "opt",
+              "name": "Systems and strategy",
+              "color": "default"
+            },
+            {
+              "id": "opt",
+              "name": "Diagramming practice",
+              "color": "default"
+            }
+          ]
+        },
+        "State": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "Prototype",
+            "color": "default"
+          }
+        },
+        "Rarity": {
+          "type": "select",
+          "select": null
+        }
+      },
+      "url": "https://www.notion.so/1a2b3c4d000040008000000000000002"
+    },
+    {
+      "object": "page",
+      "id": "1a2b3c4d-0000-4000-8000-000000000003",
+      "created_time": "2026-09-26T10:00:00.000Z",
+      "last_edited_time": "2026-09-26T18:03:00.000Z",
+      "archived": false,
+      "in_trash": false,
+      "parent": {
+        "type": "data_source_id",
+        "data_source_id": "3e7be2fd-05b6-8079-932d-000bfa0609af"
+      },
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "Cypher graph",
+              "text": {
+                "content": "Cypher graph",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Origin": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "neo4j/cypher",
+              "text": {
+                "content": "neo4j/cypher",
+                "link": null
+              }
+            }
+          ]
+        },
+        "One line purpose": {
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Description": {
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Why specialized": {
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "File extension (if single file)": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": ".cypher, .cql",
+              "text": {
+                "content": ".cypher, .cql",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Theory": {
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Type": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "Diagram",
+            "color": "default"
+          }
+        },
+        "Family": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "Graphs",
+            "color": "default"
+          }
+        },
+        "Subfamily": {
+          "type": "select",
+          "select": null
+        },
+        "Standalone": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "📝 Specified",
+            "color": "default"
+          }
+        },
+        "IntelliJ": {
+          "type": "select",
+          "select": null
+        },
+        "VS Code": {
+          "type": "select",
+          "select": null
+        },
+        "Eclipse": {
+          "type": "select",
+          "select": null
+        },
+        "Focus areas": {
+          "type": "multi_select",
+          "multi_select": []
+        },
+        "State": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "Prototype",
+            "color": "default"
+          }
+        },
+        "Rarity": {
+          "type": "select",
+          "select": null
+        }
+      },
+      "url": "https://www.notion.so/1a2b3c4d000040008000000000000003"
+    }
+  ],
+  "next_cursor": "cursor-page-2",
+  "has_more": true,
+  "type": "page_or_data_source",
+  "page_or_data_source": {}
+}

@@ -14,9 +14,14 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
+# Runner choice: every job runs on `vars.RUNS_ON` when that repository (or organisation) variable is set,
+# and on GitHub's hosted `ubuntu-latest` otherwise. The value is a JSON label list or string, for example
+# `["self-hosted","linux"]` to use a self-hosted Linux runner while the hosted minutes are spent. GitHub
+# cannot pick "whichever runner is free" by itself: a job's labels must all match one runner, so the
+# switch is this variable.
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ fromJSON(vars.RUNS_ON || '"ubuntu-latest"') }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -24,8 +29,16 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      # Chromium serves the page checks and the build-time Mermaid rendering of the DEDL reference
+      # (spec 002 research D10); the browser download is cached between runs.
+      - uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium
+      - run: npm run test
       - run: npm run build
+      - run: npm run check:reference
       - run: npm run check
       - uses: actions/upload-pages-artifact@v5
         with:
@@ -33,7 +46,7 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ${{ fromJSON(vars.RUNS_ON || '"ubuntu-latest"') }}
     permissions:
       pages: write
       id-token: write

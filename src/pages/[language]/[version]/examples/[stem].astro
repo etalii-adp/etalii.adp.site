@@ -1,0 +1,115 @@
+---
+// One page per example (US3 AS3–AS5, FR-016, research D9): name and purpose, what it demonstrates with the
+// section that explains it, views generated from the file, the file itself, and IDE screenshots.
+import ExampleScreenshots from '../../../../components/reference/ExampleScreenshots.astro';
+import ReferenceLayout from '../../../../components/reference/ReferenceLayout.astro';
+import Visual from '../../../../components/reference/Visual.astro';
+import { examplesOf, type ExampleModel } from '../../../../lib/reference/examples';
+import { exampleFileHref, renderDemonstrates } from '../../../../lib/reference/example-pages';
+import { highlightJson } from '../../../../lib/reference/render';
+import { versionRoutes, type VersionRoute } from '../../../../lib/reference/routes';
+import { examplesHref, layerSections, pageHref } from '../../../../lib/reference/site';
+import { documentStructureVisual, LAYERS, layerMapVisual, metamodelVisual } from '../../../../lib/reference/visuals';
+import { toHtml } from 'hast-util-to-html';
+
+export function getStaticPaths() {
+	return versionRoutes().flatMap((route) =>
+		examplesOf(route.version).map((example) => ({ params: { language: route.language, version: route.segment, stem: example.stem }, props: { route, example } }))
+	);
+}
+
+interface Props {
+	route: VersionRoute;
+	example: ExampleModel;
+}
+
+const { route, example } = Astro.props;
+const { version, segment, language } = route;
+const revision = version.record.source.revision;
+const isDefinition = example.file.role === 'definition';
+const layers = layerSections(version, segment);
+const visuals = isDefinition
+	? [metamodelVisual(example.file.name, example.parsed, revision), layerMapVisual(example.file.name, example.parsed, revision, layers)]
+	: [documentStructureVisual(example.file.name, example.parsed, revision)];
+const demonstrates = await renderDemonstrates(version, segment, example);
+const fileHtml = toHtml(await highlightJson(version.file(example.file.name).toString('utf8').replace(/\r?\n$/, '')));
+const title = example.label.replace(/^\d+(?:\.\d+)*\s+/, '');
+const sectionHref = example.sectionPage ? pageHref(language, segment, example.sectionPage, example.section) : null;
+const download = exampleFileHref(language, segment, example.file.name);
+---
+
+<ReferenceLayout
+	version={version}
+	segment={segment}
+	title={title}
+	description={`${isDefinition ? 'Example definition' : 'Example document'} ${example.file.name} of ${version.language.short} ${version.record.version}${example.doc ? `: ${example.doc}` : '.'}`}
+	headings={[
+		...(demonstrates ? [{ depth: 2, slug: 'ref-demonstrates', text: 'What it demonstrates' }] : []),
+		{ depth: 2, slug: 'ref-views', text: 'Views generated from the file' },
+		{ depth: 2, slug: 'ref-file', text: 'The file' },
+		{ depth: 2, slug: 'ref-in-an-ide', text: 'In an IDE' },
+	]}
+	canonical={route.isLatestCopy ? examplesHref(language, version.record.version, example.stem) : undefined}
+	latest={route.latest}
+	slug={`examples/${example.stem}`}
+	searchable={!route.isLatestCopy}
+>
+	<p>
+		{isDefinition ? 'Example definition' : 'Example document'} <code>{example.file.name}</code>
+		{example.doc && <>: {example.doc}</>}
+	</p>
+	{
+		sectionHref && (
+			<p>
+				It is explained in <a href={sectionHref}>{example.sectionTitle}</a>.
+			</p>
+		)
+	}
+	{
+		demonstrates && (
+			<>
+				<h2 id="ref-demonstrates">What it demonstrates</h2>
+				<p class="ref-from-source">From {example.sectionTitle}:</p>
+				<div class="ref-quoted">
+					<Fragment set:html={demonstrates} />
+				</div>
+			</>
+		)
+	}
+	<h2 id="ref-views">Views generated from the file</h2>
+	{
+		isDefinition ? (
+			<p>
+				These views are drawn by this site from <code>{example.file.name}</code> itself: its metamodel, and the layers it fills. They are not the notation the
+				definition draws; that appears in an IDE that runs it.
+			</p>
+		) : (
+			<p>
+				This view is drawn by this site from <code>{example.file.name}</code> itself. It shows the data in the document, not the notation the designer draws.
+			</p>
+		)
+	}
+	{visuals.map((visual) => <Visual visual={visual} />)}
+	{
+		isDefinition && (
+			<ul class="ref-layers">
+				{LAYERS.map((layer) => {
+					const section = layers.find((s) => s.layer === layer.layer);
+					const count = example.layers[layer.layer];
+					return (
+						<li>
+							{section ? <a href={section.href}>{`Layer ${layer.layer} — ${section.title}`}</a> : `Layer ${layer.layer} — ${layer.name}`}
+							{count === undefined ? ': not used' : `: ${count} items`}
+						</li>
+					);
+				})}
+			</ul>
+		)
+	}
+	<h2 id="ref-file">The file</h2>
+	<p>
+		<a href={download} download={example.file.name}>Download <code>{example.file.name}</code></a> ({example.file.size.toLocaleString('en')} bytes, unchanged from the source).
+	</p>
+	<Fragment set:html={fileHtml} />
+	<ExampleScreenshots example={`${language}/${version.record.version}/${example.file.name}`} />
+</ReferenceLayout>

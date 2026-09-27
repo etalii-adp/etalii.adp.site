@@ -1,0 +1,86 @@
+[
+  {
+    "origin": "ansible/playbook",
+    "name": "Ansible playbook",
+    "group": "6. Software delivery",
+    "developState": "To-do",
+    "theory": [],
+    "example": "",
+    "releaseState": null,
+    "state": "planned"
+  },
+  {
+    "origin": "freeplane/mindmap",
+    "name": "Mind map",
+    "group": "5. Knowledge and semantics",
+    "developState": "Prototype",
+    "theory": [
+      {
+        "label": "Mind map",
+        "href": "https://en.wikipedia.org/wiki/Mind_map"
+      }
+    ],
+    "example": "examples/mindmap.mm",
+    "releaseState": null,
+    "state": "prototype"
+  },
+  {
+    "origin": "generic/timeline",
+    "name": "Timeline",
+    "group": "7. Planning",
+    "developState": "Work-in-progress",
+    "theory": [],
+    "example": "",
+    "releaseState": null,
+    "state": "in-progress"
+  },
+  {
+    "origin": "neo4j/cypher",
+    "name": "Cypher graph",
+    "group": "5. Knowledge and semantics",
+    "developState": "Specified",
+    "theory": [
+      {
+        "label": "openCypher",
+        "href": "https://opencypher.org/"
+      }
+    ],
+    "example": "",
+    "releaseState": null,
+    "state": "planned"
+  },
+  {
+    "origin": "rdf/turtle",
+    "name": "RDF Turtle",
+    "group": "5. Knowledge and semantics",
+    "developState": "Identified",
+    "theory": [
+      {
+        "label": "RDF 1.1 Turtle",
+        "href": "https://www.w3.org/TR/turtle/"
+      }
+    ],
+    "example": "",
+    "releaseState": null,
+    "state": "idea"
+  },
+  {
+    "origin": "wardley/map",
+    "name": "Wardley map",
+    "group": "4. Systems and strategy",
+    "developState": "Implemented",
+    "theory": [
+      {
+        "label": "Wardley mapping notes",
+        "href": "theory/wardley.md"
+      },
+      {
+        "label": "Wardley maps",
+        "href": "https://learnwardleymapping.com/"
+      }
+    ],
+    "example": "examples/map.owm",
+    "releaseState": null,
+    "state": "implemented"
+  }
+]

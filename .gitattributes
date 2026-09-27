@@ -9,3 +9,6 @@ sources/** -text
 
 # Test fixtures stand in for source repositories, so they are kept byte for byte too.
 scripts/refresh/fixtures/** -text
+
+# The pinned source fixture is compared byte for byte; never convert its line endings.
+tests/reference/fixtures/** -text

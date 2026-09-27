@@ -1,0 +1,110 @@
+---
+// The only client script in the catalogue (research D6): combined filters over the overview's cards. Without
+// scripting this renders an empty element and the per-facet pages of FacetLinks do the filtering. OR within a
+// facet, AND across facets; nothing is remembered between page loads.
+import { catalogueHosts } from '../../lib/catalogue/hosts';
+import { facetStates, states } from '../../lib/catalogue/states';
+import type { FocusArea } from '../../lib/catalogue/types';
+
+interface Props {
+	focusAreas: FocusArea[];
+}
+
+const { focusAreas } = Astro.props;
+const facets = [
+	{ key: 'focus', legend: 'Focus area', options: focusAreas.map((area) => ({ value: area.slug, label: area.name })) },
+	{ key: 'hosts', legend: 'Host', options: catalogueHosts.map((host) => ({ value: host.id, label: host.name })) },
+	{ key: 'state', legend: 'Best state', options: facetStates.map((state) => ({ value: state, label: states[state].label })) },
+];
+---
+
+<div class="adp-filter not-content" data-adp-filter={JSON.stringify(facets)}></div>
+
+<script>
+	type Facet = { key: 'focus' | 'hosts' | 'state'; legend: string; options: { value: string; label: string }[] };
+
+	for (const root of document.querySelectorAll<HTMLElement>('[data-adp-filter]')) {
+		const facets = JSON.parse(root.dataset.adpFilter!) as Facet[];
+		const form = document.createElement('form');
+		form.setAttribute('aria-label', 'Filter designers');
+		form.addEventListener('submit', (event) => event.preventDefault());
+
+		for (const facet of facets) {
+			const fieldset = document.createElement('fieldset');
+			const legend = document.createElement('legend');
+			legend.textContent = facet.legend;
+			fieldset.append(legend);
+			for (const option of facet.options) {
+				const label = document.createElement('label');
+				const input = document.createElement('input');
+				input.type = 'checkbox';
+				input.name = facet.key;
+				input.value = option.value;
+				label.append(input, ` ${option.label}`);
+				fieldset.append(label);
+			}
+			form.append(fieldset);
+		}
+		const status = document.createElement('p');
+		status.setAttribute('aria-live', 'polite');
+		status.className = 'adp-filter-status';
+		root.append(form, status);
+
+		const cards = [...document.querySelectorAll<HTMLElement>('.adp-designer')];
+		const values = (card: HTMLElement, key: Facet['key']): string[] => {
+			if (key === 'hosts') return (card.dataset.hosts ?? '').split(' ').filter(Boolean).map((pair) => pair.split(':')[0]);
+			return (key === 'focus' ? card.dataset.focus ?? '' : card.dataset.state ?? '').split(' ').filter(Boolean);
+		};
+
+		const update = () => {
+			const chosen = facets.map((facet) => ({
+				key: facet.key,
+				values: [...form.querySelectorAll<HTMLInputElement>(`input[name="${facet.key}"]:checked`)].map((input) => input.value),
+			}));
+			const shown = new Set<string>();
+			for (const card of cards) {
+				const match = chosen.every(({ key, values: wanted }) => wanted.length === 0 || values(card, key).some((value) => wanted.includes(value)));
+				card.hidden = !match;
+				if (match) shown.add(card.dataset.origin!);
+			}
+			for (const group of document.querySelectorAll<HTMLElement>('.adp-catalogue-group')) {
+				group.hidden = group.querySelector('.adp-designer:not([hidden])') === null && group.querySelector('.adp-designer') !== null;
+			}
+			status.textContent = `${shown.size} ${shown.size === 1 ? 'designer' : 'designers'} shown`;
+		};
+		form.addEventListener('change', update);
+		update();
+	}
+</script>
+
+<style>
+	.adp-filter :global(form) {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0.75rem;
+		margin-block: 1rem 0;
+	}
+	@media (min-width: 50rem) {
+		.adp-filter :global(form) {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+	.adp-filter :global(fieldset) {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		margin: 0;
+		padding: 0.75rem 1rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.5rem;
+		font-size: var(--sl-text-sm);
+	}
+	.adp-filter :global(legend) {
+		padding-inline: 0.25rem;
+		font-weight: 600;
+	}
+	.adp-filter :global(.adp-filter-status) {
+		margin-block: 0.75rem 0;
+		font-weight: 600;
+	}
+</style>

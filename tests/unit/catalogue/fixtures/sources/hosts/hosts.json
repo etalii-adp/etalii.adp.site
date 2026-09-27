@@ -1,0 +1,54 @@
+[
+  {
+    "host": "standalone",
+    "repository": "etalii-adp/etalii.adp.ide.standalone",
+    "state": "in progress",
+    "facts": {
+      "catalogueCommit": "9831d6465ed9c9a9d9bb04ae34bca95769f27c73",
+      "usableDesigners": 2,
+      "designersInProgress": 4,
+      "latestRelease": null,
+      "developHead": "fc065abdf60d9363e0da0f520aa77f2d13a1930e"
+    },
+    "link": "https://github.com/etalii-adp/etalii.adp.ide.standalone"
+  },
+  {
+    "host": "intellij",
+    "repository": "etalii-adp/etalii.adp.ide.intellij",
+    "state": "planned",
+    "facts": {
+      "catalogueCommit": null,
+      "usableDesigners": 0,
+      "designersInProgress": 0,
+      "latestRelease": null,
+      "developHead": "f8cbd8ea876901228a27d6b5938a91c4fd0a656c"
+    },
+    "link": "https://github.com/etalii-adp/etalii.adp.ide.intellij"
+  },
+  {
+    "host": "vscode",
+    "repository": "etalii-adp/etalii.adp.ide.vscode",
+    "state": "planned",
+    "facts": {
+      "catalogueCommit": null,
+      "usableDesigners": 0,
+      "designersInProgress": 0,
+      "latestRelease": null,
+      "developHead": "02f12f2b9940dad60649133ae82ab2fc563cb67d"
+    },
+    "link": "https://github.com/etalii-adp/etalii.adp.ide.vscode"
+  },
+  {
+    "host": "eclipse",
+    "repository": "etalii-adp/etalii.adp.ide.eclipse",
+    "state": "planned",
+    "facts": {
+      "catalogueCommit": null,
+      "usableDesigners": 0,
+      "designersInProgress": 0,
+      "latestRelease": null,
+      "developHead": "4e3d2d388545cb418418dd3d9e5056d0209c4c53"
+    },
+    "link": "https://github.com/etalii-adp/etalii.adp.ide.eclipse"
+  }
+]

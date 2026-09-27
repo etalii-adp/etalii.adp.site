@@ -1,0 +1,81 @@
+---
+// The landing of a definition language (contracts/site-addresses.md "Pages"): the latest version's cover
+// line and table of contents, every published version, and links to the schema, the examples and search.
+// While no version is published, it says so and points at the source (constitution principle III).
+import ReferenceLayout from '../../components/reference/ReferenceLayout.astro';
+import Toc from '../../components/reference/Toc.astro';
+import { languages, versionsOf } from '../../lib/reference/load';
+import { examplesHref, pageHref, schemaFileHref, schemaPageHref, searchHref } from '../../lib/reference/site';
+import type { Language } from '../../lib/reference/types';
+
+export function getStaticPaths() {
+	return languages().map((language) => ({ params: { language: language.id }, props: { language } }));
+}
+
+interface Props {
+	language: Language;
+}
+
+const { language } = Astro.props;
+const versions = versionsOf(language.id);
+const latest = versions.at(-1);
+const sourceHref = `https://github.com/${language.repository}/tree/${language.branch}/${language.path}`;
+const description = latest
+	? `The ${language.name} specification, version ${latest.record.version} (${latest.record.status}), section by section, with its schema and examples.`
+	: `The ${language.name} reference: no version is published on this site yet.`;
+---
+
+<ReferenceLayout version={latest} title={language.name} description={description}>
+	<p>
+		The specification of {language.short}, published from <a href={sourceHref}><code>{language.path}</code> in {language.repository}</a>. Every page says which
+		version and source revision it shows, and errors are reported to the source repository.
+	</p>
+	{
+		latest ? (
+			<>
+				<h2 id="ref-latest">Latest version</h2>
+				<p>
+					<a href={pageHref(language.id, latest.record.version, '')}>
+						{language.short} {latest.record.version}, {latest.record.status}
+					</a>, dated {latest.record.date}. The address <a href={pageHref(language.id, 'latest', '')}><code>{pageHref(language.id, 'latest', '')}</code></a> always shows
+					the most recent version.
+				</p>
+				<Toc version={latest} segment={latest.record.version} withCover />
+				<h2 id="ref-schema-examples">Schema, examples and search</h2>
+				<ul>
+					<li>
+						<a href={schemaPageHref(language.id, latest.record.version)}>Schema browser</a>, and the schema file itself at{' '}
+						<a href={schemaFileHref(latest)}>
+							<code>{schemaFileHref(latest)}</code>
+						</a>, the address of its <code>$id</code>
+					</li>
+					<li>
+						<a href={examplesHref(language.id, latest.record.version)}>Examples</a>, each documented and drawn from its file
+					</li>
+					<li>
+						<a href={searchHref(language.id)}>Search the specification</a>
+					</li>
+				</ul>
+				<h2 id="ref-versions">All versions</h2>
+				<ul>
+					{[...versions].reverse().map((version) => (
+						<li>
+							<a href={pageHref(language.id, version.record.version, '')}>
+								{language.short} {version.record.version}
+							</a>, {version.record.status}, {version.record.date}
+							{version === latest ? ' (latest)' : ' (superseded)'}
+						</li>
+					))}
+				</ul>
+			</>
+		) : (
+			<>
+				<h2 id="ref-not-published">Not published yet</h2>
+				<p>
+					No version of {language.short} has been published on this site yet. The site publishes a version once its source states a licence and the refresh brings
+					it in; until then, read the specification in <a href={sourceHref}>its repository</a>.
+				</p>
+			</>
+		)
+	}
+</ReferenceLayout>

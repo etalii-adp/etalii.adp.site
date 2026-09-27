@@ -1,0 +1,26 @@
+---
+// On every page of a superseded version: a newer version exists, with a link to the same page in it
+// when it still has one, else to its cover (FR-008, research D13).
+import type { LoadedVersion } from '../../lib/reference/load';
+import { pageHref } from '../../lib/reference/site';
+
+interface Props {
+	version: LoadedVersion;
+	latest: LoadedVersion;
+	/** The page's slug within a version (section slug, `schema`, `examples/…`), or undefined for pages outside a version. */
+	slug?: string;
+}
+
+const { version, latest, slug } = Astro.props;
+const language = latest.language.id;
+const sectionSlugs = new Set(latest.split().sections.map((s) => s.page.slug));
+const sameInLatest = slug === '' || (slug !== undefined && (sectionSlugs.has(slug) || slug === 'schema' || slug.startsWith('examples')));
+const target = pageHref(language, latest.record.version, sameInLatest ? slug! : '');
+---
+
+<aside class="ref-version-banner not-content" aria-label="Newer version" data-pagefind-ignore>
+	<p>
+		You are reading {version.language.short} {version.record.version}. A newer version of {latest.language.short} exists:{' '}
+		<a href={target}>{latest.record.version}</a>{sameInLatest ? ' (this page in it)' : ' (its cover)'}.
+	</p>
+</aside>
