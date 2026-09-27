@@ -24,6 +24,16 @@ Every run prints `outcome: <outcome>` as its last line, and writes `.refresh/sum
 
 Options for every procedure: `--dry-run` does everything in a temporary worktree and pushes nothing (the diff is written to `.refresh/diff.patch`); `--no-deliver` leaves the changes in the working tree on branch `refresh/<id>`; `--base <branch>` starts from another branch than `develop`; `--source <owner/name>=<path>` reads a source from a local checkout (only with `--dry-run` or `--no-deliver`).
 
+## Adding a procedure
+
+When the site takes a new kind of content from a source repository:
+
+1. Copy [`_template.md`](_template.md) to `refresh-<id>.md` and fill in every section.
+2. Add `scripts/refresh/procedures/<id>.mjs`, a module implementing the interface described at the top of `scripts/refresh/run.mjs` (its `sources`, and an `apply` that returns the files to copy and derive), with a `<id>.test.mjs` beside it that runs it against a fixture source through `--source`. The procedure owns `sources/<id>/`, and no other procedure writes there.
+3. Add its row to the table at the top of this file.
+4. Add its title to the "Refreshing sourced content" section of `CLAUDE.md`; add its id to the `procedure` choices of `workflow_dispatch` in `.github/workflows/refresh.yml`, to the `repository_dispatch` mapping there when it reads a new repository, and to `PROCEDURES` in `scripts/refresh/run.mjs` so that `all` runs it.
+5. Run `npm test` and `npm run refresh:lint`; both exit 0 when the procedure is complete and indexed.
+
 ## Answering a decision
 
 A decision is the only question a procedure asks: how to map a source state the site does not know yet, or which designer a new screenshot shows. The run stops with `needs-decision` and writes the question to `.refresh/decision.json`, with its `question`, `subject`, `options`, the mapping file it will change (`writeTo`) and the place in it (`key`).

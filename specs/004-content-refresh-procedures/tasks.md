@@ -302,7 +302,7 @@ These rules apply to every task below. They are stated once here so that they do
 
 **Independent Test**: quickstart scenario 10. A copy of the template without **Verification** and without an index row fails lint, naming both. Completing both makes lint pass.
 
-- [ ] T048 [P] [US5] Write `scripts/refresh/lint.test.mjs` against a temporary copy of `procedures/`, using `lint.mjs --dir <dir>`. Cover:
+- [X] T048 [P] [US5] Write `scripts/refresh/lint.test.mjs` against a temporary copy of `procedures/`, using `lint.mjs --dir <dir>`. Cover:
   - a missing section, and sections out of order;
   - a procedure file not in the index, and an index row with no file;
   - a Sources table that disagrees with the module's `sources` (repository or paths);
@@ -310,14 +310,14 @@ These rules apply to every task below. They are stated once here so that they do
   - a `screenshots.json` origin that is not in the `vendor/type` form;
   - a step that mentions editing `sources/`, and the phrase "ask the owner" outside **Decisions**;
   - the real `procedures/` folder passing.
-- [ ] T049 [US5] Implement `scripts/refresh/lint.mjs` (`npm run refresh:lint`), which follows [contracts/cli.md](contracts/cli.md) and [contracts/procedure-document.md](contracts/procedure-document.md) § Rules. It checks every `procedures/refresh-*.md` for:
+- [X] T049 [US5] Implement `scripts/refresh/lint.mjs` (`npm run refresh:lint`), which follows [contracts/cli.md](contracts/cli.md) and [contracts/procedure-document.md](contracts/procedure-document.md) § Rules. It checks every `procedures/refresh-*.md` for:
   - the `#` title and the `##` sections `Sources`, `Updates`, `Before you start`, `Steps`, `Decisions`, `Verification`, `Pull request` and `When the source moves`, exactly in this order;
   - exactly one row in the `procedures/README.md` table;
   - a Sources table whose repositories and paths equal the module `scripts/refresh/procedures/<short>.mjs` (`refresh-all` is exempt);
   - no "ask the owner" outside **Decisions**, and no instruction to edit files under `sources/`.
 
   It also checks `procedures/config/states.json` (every mapping value is in `siteStates`) and `procedures/config/screenshots.json`. It prints one line per problem with its file and exits 1 on any problem.
-- [ ] T050 [US5] Add an "Adding a procedure" section to `procedures/README.md`, in five numbered steps:
+- [X] T050 [US5] Add an "Adding a procedure" section to `procedures/README.md`, in five numbered steps:
   1. copy `_template.md` to `refresh-<id>.md`;
   2. add `scripts/refresh/procedures/<short>.mjs` implementing the module interface of `run.mjs`, with a test;
   3. add the index row;
