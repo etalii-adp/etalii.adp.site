@@ -17,7 +17,7 @@ description: "Task list for Content Refresh Procedures"
 
 - **[P]**: Can run in parallel (different files, no dependency on an incomplete task)
 - **[Story]**: The user story the task belongs to (US1–US5)
-- Every path is relative to the repository root of the worktree `C:\git\etalii.adp.site-004`
+- Every path is relative to the repository root of the worktree `.claude/worktrees/004-content-refresh-procedures/`
 
 ## Path Conventions
 
@@ -42,10 +42,10 @@ These rules apply to every task below. They are stated once here so that they do
 
 **Purpose**: package scripts, dependency and folders.
 
-- [x] T001 Update `package.json`: add the scripts `"refresh": "node scripts/refresh/run.mjs"`, `"refresh:decide": "node scripts/refresh/decide.mjs"`, `"refresh:verify": "node scripts/refresh/verify.mjs"`, `"refresh:lint": "node scripts/refresh/lint.mjs"` and `"test": "node --test \"scripts/refresh/**/*.test.mjs\""`, and add `"engines": { "node": ">=22" }`. Keep the existing fields, which spec 001 replaces.
-- [x] T002 Add `parse5` as the only runtime dependency (`npm install parse5`), and commit the resulting `package-lock.json`.
-- [x] T003 [P] Add `.refresh/` to `.gitignore`, under a `# Refresh procedures' run output` comment.
-- [x] T004 [P] Create the folders `procedures/config/`, `scripts/refresh/lib/`, `scripts/refresh/procedures/`, `scripts/refresh/fixtures/` and `sources/`. Put a `.gitkeep` in `sources/` so that the folder exists before the first refresh.
+- [X] T001 Update `package.json`: add the scripts `"refresh": "node scripts/refresh/run.mjs"`, `"refresh:decide": "node scripts/refresh/decide.mjs"`, `"refresh:verify": "node scripts/refresh/verify.mjs"`, `"refresh:lint": "node scripts/refresh/lint.mjs"` and `"test": "node --test \"scripts/refresh/**/*.test.mjs\""`, and add `"engines": { "node": ">=22" }`. Keep the existing fields, which spec 001 replaces.
+- [X] T002 Add `parse5` as the only runtime dependency (`npm install parse5`), and commit the resulting `package-lock.json`.
+- [X] T003 [P] Add `.refresh/` to `.gitignore`, under a `# Refresh procedures' run output` comment.
+- [X] T004 [P] Create the folders `procedures/config/`, `scripts/refresh/lib/`, `scripts/refresh/procedures/`, `scripts/refresh/fixtures/` and `sources/`. Put a `.gitkeep` in `sources/` so that the folder exists before the first refresh.
 
 ---
 
@@ -57,19 +57,19 @@ These rules apply to every task below. They are stated once here so that they do
 
 ### Tests for the foundation
 
-- [ ] T005 [P] Write the fixture-repository helper in `scripts/refresh/fixtures/repo.mjs`. `makeRepo(files, { commits, tags })` creates a git repository in `os.tmpdir()` from an object of path → content. It commits on branch `develop`, can add further commits and `v*` tags, and returns `{ dir, head, cleanup }`. Every test uses it for `--source`.
-- [ ] T006 [P] Write `scripts/refresh/lib/lock.test.mjs`. Cover: SHA-256 of a file, reading and writing a lock that validates against `specs/004-content-refresh-procedures/contracts/source-lock.schema.json`, comparing a resolved file set with the lock's `gitBlob` values (equal, a changed blob, an added file, a removed file), comparing `releases`, recording a withdrawal (`path`, `sourcePath`, `withdrawnAt`, `lastCommit`, `replacedBy` set when an added file has the same `gitBlob` as the withdrawn one), and rejecting a lock with `"local": true`.
-- [ ] T007 [P] Write `scripts/refresh/lib/png.test.mjs`. Cover: reading the width and height from the IHDR chunk of a small PNG built in the test, and rejecting a non-PNG buffer, a truncated header and a file whose first chunk is not IHDR.
-- [ ] T008 [P] Write `scripts/refresh/lib/summary.test.mjs`. Render the pull request body from a sample change summary and assert every section of [contracts/pull-request.md](contracts/pull-request.md), in order: Source revisions (short SHAs with compare links), What changed, Source caveats (only when present), Withdrawn ("None" when empty), Verification (✅, ❌ or ⚪ per step, with a `<details>` block holding a failure's output), Review notes (only when present), and the footer line. Also assert the title patterns `Refresh <what>: <before7>..<after7>` and `Refresh DEDL reference: publish <new> beside <old>`.
-- [ ] T009 [P] Write `scripts/refresh/run.test.mjs` against a stub procedure module in `scripts/refresh/fixtures/stub-procedure.mjs`, using a fixture source and `--dry-run`. Cover: an unchanged source gives `outcome: current` and exit 0; a changed file gives `delivered` with `.refresh/summary.json` and `.refresh/pr-body.md` written; an unreachable `--source` path gives `failed`, exit 2, names the source and leaves `sources/` unchanged; a stub that raises a decision gives exit 3 and a `.refresh/decision.json` with the keys `procedure`, `question`, `subject`, `options`, `writeTo` and `key`; the `refresh-` prefix is accepted; an unknown id fails with the list of valid ids.
-- [ ] T010 [P] Write `scripts/refresh/verify.test.mjs`. Build `sources/` trees in a temporary folder (with `verify.mjs` taking `--root <dir>` for tests) and assert one failure line per violation from [contracts/site-integration.md](contracts/site-integration.md) § Source-record check: an unlisted file, a missing file, a SHA-256 mismatch, `"local": true`, a `commit` that is not 40 hex characters, a `repository` not among the procedure's declared sources, and, with a fake build output folder, an `adp:source` meta pointing to no lock entry and an `adp:sourced` page with no `adp:source` meta. An empty `sources/` passes.
-- [ ] T011 [P] Write `scripts/refresh/decide.test.mjs`. Assert that an answer from the decision's `options` is written at `key` in the `writeTo` JSON file (keeping the file's formatting: two-space indentation and a final newline), that an answer not in `options` fails without writing, and that a missing `.refresh/decision.json` fails with a clear message.
-- [ ] T012 [P] Write `scripts/refresh/lib/catalogue-table.test.mjs` with the fixture `scripts/refresh/fixtures/standalone/docs/diagrams.md`. Copy the structure of the standalone catalogue: an HTML `<table>` inside Markdown with the columns State, Origin, Diagram, Theory and Example, rows under `<h3>`/`<h4>` group headings, and cells with `<code>`, `<a>` and `&nbsp;`. Assert the parsed rows (`origin`, `name`, `group`, `developState`, `theory[] {label, href}`, `example`), the state label with its emoji stripped for lookup (`⚗️ Prototype` → `Prototype`), and that a duplicate `origin` fails, naming both rows.
+- [X] T005 [P] Write the fixture-repository helper in `scripts/refresh/fixtures/repo.mjs`. `makeRepo(files, { commits, tags })` creates a git repository in `os.tmpdir()` from an object of path → content. It commits on branch `develop`, can add further commits and `v*` tags, and returns `{ dir, head, cleanup }`. Every test uses it for `--source`.
+- [X] T006 [P] Write `scripts/refresh/lib/lock.test.mjs`. Cover: SHA-256 of a file, reading and writing a lock that validates against `specs/004-content-refresh-procedures/contracts/source-lock.schema.json`, comparing a resolved file set with the lock's `gitBlob` values (equal, a changed blob, an added file, a removed file), comparing `releases`, recording a withdrawal (`path`, `sourcePath`, `withdrawnAt`, `lastCommit`, `replacedBy` set when an added file has the same `gitBlob` as the withdrawn one), and rejecting a lock with `"local": true`.
+- [X] T007 [P] Write `scripts/refresh/lib/png.test.mjs`. Cover: reading the width and height from the IHDR chunk of a small PNG built in the test, and rejecting a non-PNG buffer, a truncated header and a file whose first chunk is not IHDR.
+- [X] T008 [P] Write `scripts/refresh/lib/summary.test.mjs`. Render the pull request body from a sample change summary and assert every section of [contracts/pull-request.md](contracts/pull-request.md), in order: Source revisions (short SHAs with compare links), What changed, Source caveats (only when present), Withdrawn ("None" when empty), Verification (✅, ❌ or ⚪ per step, with a `<details>` block holding a failure's output), Review notes (only when present), and the footer line. Also assert the title patterns `Refresh <what>: <before7>..<after7>` and `Refresh DEDL reference: publish <new> beside <old>`.
+- [X] T009 [P] Write `scripts/refresh/run.test.mjs` against a stub procedure module in `scripts/refresh/fixtures/stub-procedure.mjs`, using a fixture source and `--dry-run`. Cover: an unchanged source gives `outcome: current` and exit 0; a changed file gives `delivered` with `.refresh/summary.json` and `.refresh/pr-body.md` written; an unreachable `--source` path gives `failed`, exit 2, names the source and leaves `sources/` unchanged; a stub that raises a decision gives exit 3 and a `.refresh/decision.json` with the keys `procedure`, `question`, `subject`, `options`, `writeTo` and `key`; the `refresh-` prefix is accepted; an unknown id fails with the list of valid ids.
+- [X] T010 [P] Write `scripts/refresh/verify.test.mjs`. Build `sources/` trees in a temporary folder (with `verify.mjs` taking `--root <dir>` for tests) and assert one failure line per violation from [contracts/site-integration.md](contracts/site-integration.md) § Source-record check: an unlisted file, a missing file, a SHA-256 mismatch, `"local": true`, a `commit` that is not 40 hex characters, a `repository` not among the procedure's declared sources, and, with a fake build output folder, an `adp:source` meta pointing to no lock entry and an `adp:sourced` page with no `adp:source` meta. An empty `sources/` passes.
+- [X] T011 [P] Write `scripts/refresh/decide.test.mjs`. Assert that an answer from the decision's `options` is written at `key` in the `writeTo` JSON file (keeping the file's formatting: two-space indentation and a final newline), that an answer not in `options` fails without writing, and that a missing `.refresh/decision.json` fails with a clear message.
+- [X] T012 [P] Write `scripts/refresh/lib/catalogue-table.test.mjs` with the fixture `scripts/refresh/fixtures/standalone/docs/diagrams.md`. Copy the structure of the standalone catalogue: an HTML `<table>` inside Markdown with the columns State, Origin, Diagram, Theory and Example, rows under `<h3>`/`<h4>` group headings, and cells with `<code>`, `<a>` and `&nbsp;`. Assert the parsed rows (`origin`, `name`, `group`, `developState`, `theory[] {label, href}`, `example`), the state label with its emoji stripped for lookup (`⚗️ Prototype` → `Prototype`), and that a duplicate `origin` fails, naming both rows.
 
 ### Implementation of the foundation
 
-- [ ] T013 [P] Implement `scripts/refresh/lib/png.mjs`: `readPngSize(buffer)` checks the 8-byte PNG signature and a first chunk `IHDR`, and returns `{ width, height }`. It throws a descriptive error otherwise.
-- [ ] T014 [P] Implement `scripts/refresh/lib/github.mjs`, the only module that calls `gh` (using `execFile` with `gh api` and JSON output). It provides:
+- [X] T013 [P] Implement `scripts/refresh/lib/png.mjs`: `readPngSize(buffer)` checks the 8-byte PNG signature and a first chunk `IHDR`, and returns `{ width, height }`. It throws a descriptive error otherwise.
+- [X] T014 [P] Implement `scripts/refresh/lib/github.mjs`, the only module that calls `gh` (using `execFile` with `gh api` and JSON output). It provides:
   - `developHead(repo, ref)`;
   - `lastCommitForPath(repo, ref, path)`, which uses the commits API with `path=`;
   - `listTree(repo, commit, globs)`, which returns `[{ path, gitBlob }]` from the git trees API with `recursive=1`;
@@ -82,7 +82,7 @@ These rules apply to every task below. They are stated once here so that they do
   - `previousScheduledRun(workflowFile)`, which returns the date of the latest `schedule` run of `refresh.yml`, or `null` when there was none in 7 days.
 
   Every call that fails throws an error naming the repository and the call.
-- [ ] T015 [P] Implement `scripts/refresh/lib/local.mjs`, the same read interface as the source-read half of `github.mjs`, for a local checkout passed with `--source <owner/name>=<path>`:
+- [X] T015 [P] Implement `scripts/refresh/lib/local.mjs`, the same read interface as the source-read half of `github.mjs`, for a local checkout passed with `--source <owner/name>=<path>`:
   - `developHead` is the checkout's `HEAD`;
   - `lastCommitForPath` uses `git log -1 --format=%H -- <path>`;
   - `listTree` uses `git ls-tree -r <commit>`;
@@ -91,21 +91,21 @@ These rules apply to every task below. They are stated once here so that they do
   - `licence` returns `"unstated"`.
 
   Also implement `sourceReader(repo, options)` in the same file, which returns the local reader when `--source` names that repository and the `github.mjs` reader otherwise.
-- [ ] T016 Implement `scripts/refresh/lib/lock.mjs` (depends on T013). It provides:
+- [X] T016 Implement `scripts/refresh/lib/lock.mjs` (depends on T013). It provides:
   - `sha256(file)`;
   - `readLock(dir)` and `writeLock(dir, lock)`, which sort `files` and `withdrawn` by `path`, write two-space JSON with a final newline, and validate the shape of `contracts/source-lock.schema.json` by hand, with no schema library;
   - `compareResolved(lock, resolved, releases)`, which returns `{ current, added, changed, removed }` by comparing `gitBlob` values and the `releases` object;
   - `applyWithdrawals(lock, removed, now)`, which adds entries with `withdrawnAt` in ISO 8601 and `lastCommit`, and sets `replacedBy` when an added file has the same `gitBlob`.
 
   Set `"local": true` whenever any source was read through `local.mjs`.
-- [ ] T017 [P] Implement `scripts/refresh/lib/summary.mjs`. It provides:
+- [X] T017 [P] Implement `scripts/refresh/lib/summary.mjs`. It provides:
   - `buildSummary({ before, after, files, details, withdrawals, caveats, reviewNotes, verification })`, which follows data-model.md § Change summary;
   - `renderPrBody(summary, { procedure, runLink, previousScheduledRun })`, which follows [contracts/pull-request.md](contracts/pull-request.md). Its footer reads `Opened by procedure \`refresh-<id>\` (procedures/refresh-<id>.md), run <local | workflow run link>. Previous scheduled run: <date, or "none in 7 days: check that the Refresh workflow is enabled">.`;
   - `renderTitle(procedure, summary)`, which takes the "what" from the procedure module;
   - `renderDecisionIssue(decision)`, whose body states the question, the subject, a `- [ ]` checklist of the options, and how to answer: run `npm run refresh:decide -- <id> <answer>` interactively, or edit `writeTo` in a pull request.
 
   Each procedure module supplies its own `What changed` Markdown through a `renderDetails(details)` hook.
-- [ ] T018 Implement `scripts/refresh/verify.mjs` (`npm run refresh:verify`), which follows [contracts/site-integration.md](contracts/site-integration.md) § Source-record check (depends on T016). It walks every `sources/<short>/` folder except `.gitkeep`, reads its lock, and checks:
+- [X] T018 Implement `scripts/refresh/verify.mjs` (`npm run refresh:verify`), which follows [contracts/site-integration.md](contracts/site-integration.md) § Source-record check (depends on T016). It walks every `sources/<short>/` folder except `.gitkeep`, reads its lock, and checks:
   - that every file is listed and every listed file exists with a matching SHA-256;
   - that there is no `local`;
   - that every `commit` matches `^[0-9a-f]{40}$`;
@@ -114,7 +114,7 @@ These rules apply to every task below. They are stated once here so that they do
   When `package.json` has `adp.out` and that folder exists, it also parses each built `.html` file's `<head>` and checks two things: every `adp:source` meta resolves to a lock entry (`<repository>@<commit>:<sourcePath>`), and every page with `<meta name="adp:sourced" content="true">` has at least one `adp:source` meta.
 
   It prints one line per violation, exits 1 on any violation and 0 otherwise, and accepts `--root <dir>` for tests.
-- [ ] T019 Implement the stage runner `scripts/refresh/run.mjs` (depends on T014–T018). It covers the stages Resolve → Fetch → Apply → Verify → Deliver, with the options of [contracts/cli.md](contracts/cli.md): `<id>`, `--dry-run`, `--no-deliver`, `--base <branch>` (default `develop`) and `--source <owner/name>=<path>`, which can be repeated. The procedure module interface is:
+- [X] T019 Implement the stage runner `scripts/refresh/run.mjs` (depends on T014–T018). It covers the stages Resolve → Fetch → Apply → Verify → Deliver, with the options of [contracts/cli.md](contracts/cli.md): `<id>`, `--dry-run`, `--no-deliver`, `--base <branch>` (default `develop`) and `--source <owner/name>=<path>`, which can be repeated. The procedure module interface is:
 
   ```text
   { id, short, what, sources[{repository, ref:'develop', paths[], host}],
@@ -129,19 +129,19 @@ These rules apply to every task below. They are stated once here so that they do
   - **Deliver** first makes sure the labels `refresh` and `refresh:<short>` exist. It then commits with the message `Refresh <what>` and the trailer `Refreshed-by: refresh-<short>`, pushes the branch with `--force`, and runs `findOpenPr`, followed by `updatePr` or `createPr`. The pull request is a draft when any Verify step failed. `--dry-run` skips Deliver.
 
   After every run, it writes `.refresh/summary.json` and `.refresh/pr-body.md` in the invoking checkout, prints one line per stage and then `outcome: <outcome> [<pr-url>]`, removes the temporary worktree, and exits with the contract's code.
-- [ ] T020 Implement `scripts/refresh/decide.mjs` (`npm run refresh:decide -- <id> <answer>`), which follows [contracts/cli.md](contracts/cli.md) (depends on T019 for the decision file format). It reads `.refresh/decision.json`, checks that `<id>` matches its `procedure` and that `<answer>` is one of `options`, and sets the dotted `key` in `writeTo` to the answer. It writes two-space JSON with a final newline and prints the changed line.
-- [ ] T021 [P] Create `procedures/config/states.json` from data-model.md § Site state and research R10:
+- [X] T020 Implement `scripts/refresh/decide.mjs` (`npm run refresh:decide -- <id> <answer>`), which follows [contracts/cli.md](contracts/cli.md) (depends on T019 for the decision file format). It reads `.refresh/decision.json`, checks that `<id>` matches its `procedure` and that `<answer>` is one of `options`, and sets the dotted `key` in `writeTo` to the answer. It writes two-space JSON with a final newline and prints the changed line.
+- [X] T021 [P] Create `procedures/config/states.json` from data-model.md § Site state and research R10:
   - `"siteStates": ["identified", "specified", "in progress", "prototype", "available", "planned", "not planned"]`;
   - `"hostStates": ["planned", "in progress", "available"]`;
   - `"mappings"` for each of `standalone`, `intellij`, `vscode` and `eclipse`, each `{ "Identified": "identified", "Specified": "specified", "To-do": "specified", "Work-in-progress": "in progress", "Prototype": "prototype", "Implemented": "available" }` (keys are the source labels without their emoji). The IDE repositories are to use the standalone's format (research, source survey).
-- [ ] T022 Implement `scripts/refresh/lib/catalogue-table.mjs` (depends on T021). It is shared by the screenshot, catalogue and hosts procedures, so that each stays independent of the others' output.
+- [X] T022 Implement `scripts/refresh/lib/catalogue-table.mjs` (depends on T021). It is shared by the screenshot, catalogue and hosts procedures, so that each stays independent of the others' output.
   - `parseCatalogue(markdown)` uses `parse5` to parse the HTML table in `docs/diagrams.md`. It returns rows `{ origin, name, group, developState, theory: [{label, href}], example }`, where `group` is the nearest preceding `<h3>`/`<h4>` or Markdown `###`/`####` heading. A duplicate `origin` fails, naming both rows.
   - `mapState(host, label, states)` returns a site state, or `{ unmapped: label }`.
   - `capAtRelease(developSite, releaseSite)` implements research R10: `prototype` or `available` above the release state becomes `in progress`; if there is no release row (`null`), the maximum is `in progress`. The order is `identified < specified < in progress < prototype < available`.
   - `designersFor(host, reader)` reads `docs/diagrams.md` at the `develop` head and at the latest release tag. It returns entries with `developState`, `releaseState` (or `null`) and the capped `state`, plus `{ missingCatalogue: true }` when the file does not exist.
-- [ ] T023 [P] Create `procedures/_template.md`: the section list of [contracts/procedure-document.md](contracts/procedure-document.md) as a fill-in file, with each placeholder in angle brackets. Include the rules of that contract as a short comment block at the top: the only questions are decisions, no hand edits under `sources/`, and `npm run refresh -- <id>` is the one entry point.
-- [ ] T024 [P] Create `procedures/README.md`, the index of procedures (FR-011). It has a one-paragraph introduction and a table with the columns `Id`, `Title`, `Refreshes`, `Sources (repository: paths)`. The table starts without rows, and each story adds its row. It also has the sections "Outcomes and exit codes" (from contracts/cli.md) and "Answering a decision" (research R9, interactive and automatic).
-- [ ] T025 Add a "Refreshing sourced content" section to `CLAUDE.md`, after "Conventions". Its content:
+- [X] T023 [P] Create `procedures/_template.md`: the section list of [contracts/procedure-document.md](contracts/procedure-document.md) as a fill-in file, with each placeholder in angle brackets. Include the rules of that contract as a short comment block at the top: the only questions are decisions, no hand edits under `sources/`, and `npm run refresh -- <id>` is the one entry point.
+- [X] T024 [P] Create `procedures/README.md`, the index of procedures (FR-011). It has a one-paragraph introduction and a table with the columns `Id`, `Title`, `Refreshes`, `Sources (repository: paths)`. The table starts without rows, and each story adds its row. It also has the sections "Outcomes and exit codes" (from contracts/cli.md) and "Answering a decision" (research R9, interactive and automatic).
+- [X] T025 Add a "Refreshing sourced content" section to `CLAUDE.md`, after "Conventions". Its content:
   - naming a procedure is enough, and the procedure documents are indexed in [procedures/README.md](procedures/README.md);
   - follow the procedure document step by step, and never edit `sources/` by hand;
   - on `needs-decision`, read `.refresh/decision.json` and ask the person with a selection whose options are the decision's `options`, then run `npm run refresh:decide` and re-run the procedure.
@@ -160,8 +160,8 @@ These rules apply to every task below. They are stated once here so that they do
 
 ### Tests for User Story 1
 
-- [ ] T026 [P] [US1] Create the fixture `scripts/refresh/fixtures/etalii.adp/specifications/dedl/`. It contains a short `DEDL-specification.md` with a header `Version` line of `0.1` and at least three `##` sections, a `dedl.schema.json` whose `$id` ends in `/dedl/schema/0.1/dedl.schema.json`, and two small example files (`erd.dedl`, `timeline.document.json`).
-- [ ] T027 [P] [US1] Write `scripts/refresh/procedures/dedl.test.mjs`, using `fixtures/repo.mjs` and `run.mjs --dry-run`. Cover:
+- [X] T026 [P] [US1] Create the fixture `scripts/refresh/fixtures/etalii.adp/specifications/dedl/`. It contains a short `DEDL-specification.md` with a header `Version` line of `0.1` and at least three `##` sections, a `dedl.schema.json` whose `$id` ends in `/dedl/schema/0.1/dedl.schema.json`, and two small example files (`erd.dedl`, `timeline.document.json`).
+- [X] T027 [P] [US1] Write `scripts/refresh/procedures/dedl.test.mjs`, using `fixtures/repo.mjs` and `run.mjs --dry-run`. Cover:
   - (a) the first run imports into `sources/dedl/0.1/` with a lock entry per file;
   - (b) an unchanged second run is `current` (US1-2);
   - (c) one changed sentence gives exactly one changed file and one changed section, with its line count;
@@ -172,13 +172,13 @@ These rules apply to every task below. They are stated once here so that they do
 
 ### Implementation for User Story 1
 
-- [ ] T028 [US1] Implement `scripts/refresh/procedures/dedl.mjs`, which follows research R12 (depends on T019). It has `id: 'refresh-dedl'`, `short: 'dedl'`, `what: 'DEDL reference'`, and `sources: [{ repository: 'etalii-adp/etalii.adp', ref: 'develop', paths: ['specifications/dedl/*'], host: null }]`, with `usesReleases: false`. The procedure:
+- [X] T028 [US1] Implement `scripts/refresh/procedures/dedl.mjs`, which follows research R12 (depends on T019). It has `id: 'refresh-dedl'`, `short: 'dedl'`, `what: 'DEDL reference'`, and `sources: [{ repository: 'etalii-adp/etalii.adp', ref: 'develop', paths: ['specifications/dedl/*'], host: null }]`, with `usesReleases: false`. The procedure:
   - reads the version from the specification's header `Version` line and from the version segment of the schema's `$id`, and fails when they disagree, naming both;
   - writes into `sources/dedl/<version>/` and never rewrites an older version's folder. Only the highest version is replaced; when the version is new, a folder is added beside the old ones;
   - compares the sections of the specification, split on `##` headings, and marks each as added, removed or changed with its changed-line count;
   - reports the schema and each example as changed or unchanged;
   - provides `renderDetails` for the "What changed" table and the line "New version <v> published beside <old>".
-- [ ] T029 [P] [US1] Write `procedures/refresh-dedl.md` from `procedures/_template.md`, with the title "Refresh the DEDL reference":
+- [X] T029 [P] [US1] Write `procedures/refresh-dedl.md` from `procedures/_template.md`, with the title "Refresh the DEDL reference":
   - **Sources**: `etalii-adp/etalii.adp`, `develop`, `specifications/dedl/`, public.
   - **Updates**: `sources/dedl/<version>/` and `sources/dedl/source.lock.json`, used by the spec 002 pages.
   - **Steps**: run `npm run refresh -- dedl`, then handle each of the five outcomes.
@@ -186,7 +186,7 @@ These rules apply to every task below. They are stated once here so that they do
   - **Verification**: the three steps of research R8.
   - **Pull request**: `refresh/dedl`, both title patterns, and the body per contracts/pull-request.md.
   - **When the source moves**: update `sources` in `scripts/refresh/procedures/dedl.mjs` and the Sources table in this document together.
-- [ ] T030 [US1] Add the `refresh-dedl` row to `procedures/README.md`, and the title "Refresh the DEDL reference" to the "Refreshing sourced content" section of `CLAUDE.md`.
+- [X] T030 [US1] Add the `refresh-dedl` row to `procedures/README.md`, and the title "Refresh the DEDL reference" to the "Refreshing sourced content" section of `CLAUDE.md`.
 
 **Checkpoint**: US1 works on its own. Quickstart scenarios 1–3 pass as dry runs, and scenarios 2 and 4 pass against the real source once the branch can be pushed.
 
@@ -200,8 +200,8 @@ These rules apply to every task below. They are stated once here so that they do
 
 ### Tests for User Story 2
 
-- [ ] T031 [P] [US2] Extend the standalone fixture with `scripts/refresh/fixtures/standalone/docs/screenshots/`. Add a `readme.md` copying the source's format: the images table with the columns image, document opened and what must be visible; the stated 1600×900 viewport; the budgets "each image ≤ 300 KB, `workspace.png` ≤ 1 MB"; and a "Known artefact" section. Tests generate the PNG files at run time (valid 1600×900 PNGs, one over budget, one with wrong dimensions), so no binary fixtures are committed.
-- [ ] T032 [P] [US2] Write `scripts/refresh/procedures/screenshots.test.mjs`. Cover:
+- [X] T031 [P] [US2] Extend the standalone fixture with `scripts/refresh/fixtures/standalone/docs/screenshots/`. Add a `readme.md` copying the source's format: the images table with the columns image, document opened and what must be visible; the stated 1600×900 viewport; the budgets "each image ≤ 300 KB, `workspace.png` ≤ 1 MB"; and a "Known artefact" section. Tests generate the PNG files at run time (valid 1600×900 PNGs, one over budget, one with wrong dimensions), so no binary fixtures are committed.
+- [X] T032 [P] [US2] Write `scripts/refresh/procedures/screenshots.test.mjs`. Cover:
   - (a) a changed valid image is accepted with its `expectation`, `document`, `bytes`, `width` and `height` in `screenshots.json` (US2-1);
   - (b) a 400 KB image is rejected with "over 300 KB budget", and the previous copy and its lock entry are kept (US2-2);
   - (c) a wrong size or an image missing from the expectations table is rejected with the failing check named;
@@ -213,8 +213,8 @@ These rules apply to every task below. They are stated once here so that they do
 
 ### Implementation for User Story 2
 
-- [ ] T033 [P] [US2] Create `procedures/config/screenshots.json` with the shape `{ "<host>": { "<file>.png": "<vendor>/<type>" } }`. Fill in the `standalone` entries for the 7 committed PNGs: read `docs/screenshots/readme.md` and `docs/diagrams.md` of `etalii-adp/etalii.adp.ide.standalone` on `develop` with `gh api`, and link each image to the origin its "Document opened" column shows. Use empty objects for `intellij`, `vscode` and `eclipse`.
-- [ ] T034 [US2] Implement `scripts/refresh/procedures/screenshots.mjs`, which follows research R11 and data-model.md § Screenshot (depends on T019 and T022). It has `id: 'refresh-screenshots'`, `short: 'screenshots'` and `what: 'screenshots'`, with one source per IDE repository (`etalii-adp/etalii.adp.ide.standalone`, `.intellij`, `.vscode`, `.eclipse`) and `paths: ['docs/screenshots/*.png', 'docs/screenshots/readme.md', 'docs/diagrams.md']`. `usesReleases` is true, because gaps use the capped state. The procedure:
+- [X] T033 [P] [US2] Create `procedures/config/screenshots.json` with the shape `{ "<host>": { "<file>.png": "<vendor>/<type>" } }`. Fill in the `standalone` entries for the 7 committed PNGs: read `docs/screenshots/readme.md` and `docs/diagrams.md` of `etalii-adp/etalii.adp.ide.standalone` on `develop` with `gh api`, and link each image to the origin its "Document opened" column shows. Use empty objects for `intellij`, `vscode` and `eclipse`.
+- [X] T034 [US2] Implement `scripts/refresh/procedures/screenshots.mjs`, which follows research R11 and data-model.md § Screenshot (depends on T019 and T022). It has `id: 'refresh-screenshots'`, `short: 'screenshots'` and `what: 'screenshots'`, with one source per IDE repository (`etalii-adp/etalii.adp.ide.standalone`, `.intellij`, `.vscode`, `.eclipse`) and `paths: ['docs/screenshots/*.png', 'docs/screenshots/readme.md', 'docs/diagrams.md']`. `usesReleases` is true, because gaps use the capped state. The procedure:
   - parses the readme's expectations table, viewport and budgets;
   - checks each changed PNG, in this order: listed in the table, a PNG (`readPngSize`), within its budget (`budgetBytes` 300 KB, or 1 MB for `workspace.png`), and matching the viewport;
   - writes accepted images to `sources/screenshots/<host>/<file>`. A rejected image keeps its previous file and its previous lock entry, and gets `status: 'rejected'` with its reason;
@@ -224,13 +224,13 @@ These rules apply to every task below. They are stated once here so that they do
   - adds the readme's "Known artefact" section, detected by its heading, as a source caveat;
   - adds the review note "check each image shows what its expectation says", listing each accepted image with its expectation;
   - does not copy `readme.md` or `diagrams.md` into `sources/`: they are read inputs only, and their blob SHAs still take part in Resolve.
-- [ ] T035 [P] [US2] Write `procedures/refresh-screenshots.md` from the template, with the title "Refresh the screenshots":
+- [X] T035 [P] [US2] Write `procedures/refresh-screenshots.md` from the template, with the title "Refresh the screenshots":
   - **Sources**: the four IDE repositories and their paths, with standalone marked private and the others marked private (not present yet).
   - **Updates**: `sources/screenshots/<host>/`, and `procedures/config/screenshots.json` when a decision is answered.
   - **Decisions**: "Which designer does this image show?", with the host's origins as options.
   - **Verification**: the three steps of research R8, plus reading the review notes.
   - A plain statement that the procedure never retakes screenshots, and that fixes to an image belong in its source repository (FR-013).
-- [ ] T036 [US2] Add the `refresh-screenshots` row to `procedures/README.md`, and the title "Refresh the screenshots" to `CLAUDE.md`.
+- [X] T036 [US2] Add the `refresh-screenshots` row to `procedures/README.md`, and the title "Refresh the screenshots" to `CLAUDE.md`.
 
 **Checkpoint**: US1 and US2 work independently. Quickstart scenario 5 passes as a dry run.
 
@@ -244,7 +244,7 @@ These rules apply to every task below. They are stated once here so that they do
 
 ### Tests for User Story 3
 
-- [ ] T037 [P] [US3] Write `scripts/refresh/procedures/catalogue.test.mjs`, using the standalone fixture's `docs/diagrams.md`. Cover:
+- [X] T037 [P] [US3] Write `scripts/refresh/procedures/catalogue.test.mjs`, using the standalone fixture's `docs/diagrams.md`. Cover:
   - (a) changing `freeplane/mindmap` from Prototype to Implemented without a tag changes nothing published (the state stays `prototype`, with `developState` `Implemented` and `releaseState` `Prototype`), while `sources/catalogue/standalone/diagrams.md` and its lock entry do change;
   - (b) after tagging `v9.9.9`, the state becomes `prototype → available`, and the summary lists only that designer (US3-1);
   - (c) a row absent at the release is `in progress`;
@@ -253,7 +253,7 @@ These rules apply to every task below. They are stated once here so that they do
   - (f) added and withdrawn designers are listed;
   - (g) a host without `docs/diagrams.md` is reported as "no catalogue at `docs/diagrams.md`" in the details, and is not a failure;
   - (h) a duplicate origin fails, naming both rows.
-- [ ] T038 [P] [US3] Write `scripts/refresh/procedures/hosts.test.mjs`. Cover:
+- [X] T038 [P] [US3] Write `scripts/refresh/procedures/hosts.test.mjs`. Cover:
   - (a) a VS Code fixture with no `docs/diagrams.md` is `planned`;
   - (b) one ⚗️ Prototype row and no release is `in progress`, with the facts `catalogueCommit`, `usableDesigners: 0`, `designersInProgress: 1`, `latestRelease: null` and `developHead` (US3-3);
   - (c) adding a release whose catalogue has the row as Prototype makes it `available`, with `link` pointing to the release;
@@ -261,21 +261,21 @@ These rules apply to every task below. They are stated once here so that they do
 
 ### Implementation for User Story 3
 
-- [ ] T039 [US3] Implement `scripts/refresh/procedures/catalogue.mjs`, which follows research R10 and data-model.md § Designer entry (depends on T019 and T022). It has `id: 'refresh-catalogue'`, `short: 'catalogue'` and `what: 'designer catalogue'`, with one source per IDE repository on `paths: ['docs/diagrams.md']` and `usesReleases: true`. `releases` in the lock records `{ tag, commit }`, or `null` per repository. The procedure:
+- [X] T039 [US3] Implement `scripts/refresh/procedures/catalogue.mjs`, which follows research R10 and data-model.md § Designer entry (depends on T019 and T022). It has `id: 'refresh-catalogue'`, `short: 'catalogue'` and `what: 'designer catalogue'`, with one source per IDE repository on `paths: ['docs/diagrams.md']` and `usesReleases: true`. `releases` in the lock records `{ tag, commit }`, or `null` per repository. The procedure:
   - copies `docs/diagrams.md` verbatim to `sources/catalogue/<host>/diagrams.md`;
   - regenerates `sources/catalogue/<host>/catalogue.json` with `{ origin, name, group, developState, releaseState, state, theory, example }`, sorted by group, then origin;
   - raises a decision for the first unmapped state label per run: the question is `How should the source state "<label>" in <host> map to a site state?`, the options are `siteStates`, and the answer is written to `procedures/config/states.json` under `mappings.<host>.<label>`;
   - reports hosts with no catalogue;
   - provides a `renderDetails` table with the columns origin, host, old → new, `developState` and `releaseState`, followed by the added and withdrawn designers.
-- [ ] T040 [US3] Implement `scripts/refresh/procedures/hosts.mjs`, which follows research R10 and data-model.md § Host state (depends on T022). It has `id: 'refresh-hosts'`, `short: 'hosts'` and `what: 'IDE host states'`, with the same four sources on `paths: ['docs/diagrams.md']` and `usesReleases: true`. It writes only the derived `sources/hosts/hosts.json`, one entry per host, with `{ host, repository, state, facts: { catalogueCommit, usableDesigners, designersInProgress, latestRelease, developHead }, link }`. Its lock lists `hosts.json` with the four repositories' heads in `sourceHeads`, and `verify.mjs` accepts derived files through a per-procedure `derivedFiles` list declared in the module. The derivation rules:
+- [X] T040 [US3] Implement `scripts/refresh/procedures/hosts.mjs`, which follows research R10 and data-model.md § Host state (depends on T022). It has `id: 'refresh-hosts'`, `short: 'hosts'` and `what: 'IDE host states'`, with the same four sources on `paths: ['docs/diagrams.md']` and `usesReleases: true`. It writes only the derived `sources/hosts/hosts.json`, one entry per host, with `{ host, repository, state, facts: { catalogueCommit, usableDesigners, designersInProgress, latestRelease, developHead }, link }`. Its lock lists `hosts.json` with the four repositories' heads in `sourceHeads`, and `verify.mjs` accepts derived files through a per-procedure `derivedFiles` list declared in the module. The derivation rules:
   - `available` when at least one designer is `prototype` or `available` after the release cap;
   - otherwise `in progress` when at least one row's `develop` state maps to `in progress` or later;
   - otherwise `planned`.
 
   Resolve compares the catalogue blob SHAs and releases. Apply treats an unchanged `hosts.json` as `current`.
-- [ ] T041 [P] [US3] Write `procedures/refresh-catalogue.md` from the template, with the title "Refresh the designer catalogue". Its **Decisions** section covers the unmapped source state: the options are the site states, and the answer goes to `procedures/config/states.json`. It explains the release cap in two sentences with one example, and names the external gap for IntelliJ, which needs a `docs/diagrams.md` (plan § Dependencies).
-- [ ] T042 [P] [US3] Write `procedures/refresh-hosts.md` from the template, with the title "Refresh the IDE host states". It states the three derivation rules, and **Decisions** is "None".
-- [ ] T043 [US3] Add the `refresh-catalogue` and `refresh-hosts` rows to `procedures/README.md`, and both titles to `CLAUDE.md`.
+- [X] T041 [P] [US3] Write `procedures/refresh-catalogue.md` from the template, with the title "Refresh the designer catalogue". Its **Decisions** section covers the unmapped source state: the options are the site states, and the answer goes to `procedures/config/states.json`. It explains the release cap in two sentences with one example, and names the external gap for IntelliJ, which needs a `docs/diagrams.md` (plan § Dependencies).
+- [X] T042 [P] [US3] Write `procedures/refresh-hosts.md` from the template, with the title "Refresh the IDE host states". It states the three derivation rules, and **Decisions** is "None".
+- [X] T043 [US3] Add the `refresh-catalogue` and `refresh-hosts` rows to `procedures/README.md`, and both titles to `CLAUDE.md`.
 
 **Checkpoint**: all four single procedures work independently. Quickstart scenarios 6 and 7 pass as dry runs.
 
@@ -287,10 +287,10 @@ These rules apply to every task below. They are stated once here so that they do
 
 **Independent Test**: quickstart scenario 8, run as `--dry-run` with one unreachable `--source`. `dedl` fails and names `etalii-adp/etalii.adp`, the other three complete, the table lists four outcomes, and the exit code is 2.
 
-- [ ] T044 [P] [US4] Write `scripts/refresh/run-all.test.mjs`. Cover: one unreachable source fails only that procedure, and the others still run (US4-2); the exit code is the highest of the four; the table has the columns procedure, outcome and pull request or failure; with `GITHUB_STEP_SUMMARY` set to a temporary file, the table is appended to that file; `.refresh/<short>/summary.json` exists per procedure, with the top-level `.refresh/summary.json` holding the combined table.
-- [ ] T045 [US4] Implement the `all` id in `scripts/refresh/run.mjs` (depends on T028, T034, T039 and T040), which follows research R13. It runs `dedl`, `screenshots`, `catalogue` and `hosts` in that order, each through the same stage runner in its own temporary worktree, passing every `--source`, `--dry-run` and `--base` through. It catches each procedure's error as `failed`, writes each procedure's files under `.refresh/<short>/`, and prints the summary table (and appends it to `$GITHUB_STEP_SUMMARY` when set). It exits with the highest code.
-- [ ] T046 [P] [US4] Write `procedures/refresh-all.md` from the template, with the title "Refresh the whole site". **Sources** is "The sources of each procedure below", with links. **Pull request** is "None of its own: one per procedure that found changes". Its steps tell the reader how to act on each row of the summary table, using that procedure's own document.
-- [ ] T047 [US4] Add the `refresh-all` row to `procedures/README.md`, and the title "Refresh the whole site" to `CLAUDE.md`.
+- [X] T044 [P] [US4] Write `scripts/refresh/run-all.test.mjs`. Cover: one unreachable source fails only that procedure, and the others still run (US4-2); the exit code is the highest of the four; the table has the columns procedure, outcome and pull request or failure; with `GITHUB_STEP_SUMMARY` set to a temporary file, the table is appended to that file; `.refresh/<short>/summary.json` exists per procedure, with the top-level `.refresh/summary.json` holding the combined table.
+- [X] T045 [US4] Implement the `all` id in `scripts/refresh/run.mjs` (depends on T028, T034, T039 and T040), which follows research R13. It runs `dedl`, `screenshots`, `catalogue` and `hosts` in that order, each through the same stage runner in its own temporary worktree, passing every `--source`, `--dry-run` and `--base` through. It catches each procedure's error as `failed`, writes each procedure's files under `.refresh/<short>/`, and prints the summary table (and appends it to `$GITHUB_STEP_SUMMARY` when set). It exits with the highest code.
+- [X] T046 [P] [US4] Write `procedures/refresh-all.md` from the template, with the title "Refresh the whole site". **Sources** is "The sources of each procedure below", with links. **Pull request** is "None of its own: one per procedure that found changes". Its steps tell the reader how to act on each row of the summary table, using that procedure's own document.
+- [X] T047 [US4] Add the `refresh-all` row to `procedures/README.md`, and the title "Refresh the whole site" to `CLAUDE.md`.
 
 **Checkpoint**: US4 works. Quickstart scenario 8 passes.
 
@@ -302,7 +302,7 @@ These rules apply to every task below. They are stated once here so that they do
 
 **Independent Test**: quickstart scenario 10. A copy of the template without **Verification** and without an index row fails lint, naming both. Completing both makes lint pass.
 
-- [ ] T048 [P] [US5] Write `scripts/refresh/lint.test.mjs` against a temporary copy of `procedures/`, using `lint.mjs --dir <dir>`. Cover:
+- [X] T048 [P] [US5] Write `scripts/refresh/lint.test.mjs` against a temporary copy of `procedures/`, using `lint.mjs --dir <dir>`. Cover:
   - a missing section, and sections out of order;
   - a procedure file not in the index, and an index row with no file;
   - a Sources table that disagrees with the module's `sources` (repository or paths);
@@ -310,14 +310,14 @@ These rules apply to every task below. They are stated once here so that they do
   - a `screenshots.json` origin that is not in the `vendor/type` form;
   - a step that mentions editing `sources/`, and the phrase "ask the owner" outside **Decisions**;
   - the real `procedures/` folder passing.
-- [ ] T049 [US5] Implement `scripts/refresh/lint.mjs` (`npm run refresh:lint`), which follows [contracts/cli.md](contracts/cli.md) and [contracts/procedure-document.md](contracts/procedure-document.md) § Rules. It checks every `procedures/refresh-*.md` for:
+- [X] T049 [US5] Implement `scripts/refresh/lint.mjs` (`npm run refresh:lint`), which follows [contracts/cli.md](contracts/cli.md) and [contracts/procedure-document.md](contracts/procedure-document.md) § Rules. It checks every `procedures/refresh-*.md` for:
   - the `#` title and the `##` sections `Sources`, `Updates`, `Before you start`, `Steps`, `Decisions`, `Verification`, `Pull request` and `When the source moves`, exactly in this order;
   - exactly one row in the `procedures/README.md` table;
   - a Sources table whose repositories and paths equal the module `scripts/refresh/procedures/<short>.mjs` (`refresh-all` is exempt);
   - no "ask the owner" outside **Decisions**, and no instruction to edit files under `sources/`.
 
   It also checks `procedures/config/states.json` (every mapping value is in `siteStates`) and `procedures/config/screenshots.json`. It prints one line per problem with its file and exits 1 on any problem.
-- [ ] T050 [US5] Add an "Adding a procedure" section to `procedures/README.md`, in five numbered steps:
+- [X] T050 [US5] Add an "Adding a procedure" section to `procedures/README.md`, in five numbered steps:
   1. copy `_template.md` to `refresh-<id>.md`;
   2. add `scripts/refresh/procedures/<short>.mjs` implementing the module interface of `run.mjs`, with a test;
   3. add the index row;
@@ -332,9 +332,9 @@ These rules apply to every task below. They are stated once here so that they do
 
 **Purpose**: runs that start by themselves hourly, on request and on `source-changed`, using a GitHub App token. Blocked decisions become issues, and every pull request runs `npm test`, `refresh:lint` and `refresh:verify`.
 
-- [ ] T051 Add blocked-issue handling to `scripts/refresh/run.mjs` (depends on T014, T017 and T045). When the `GITHUB_ACTIONS` environment variable is `true` and a procedure's outcome is `needs-decision`, it calls `upsertIssue('Refresh blocked: refresh-<short>', renderDecisionIssue(decision), ['refresh-blocked'])`. When that procedure's outcome is anything other than `needs-decision` and `failed`, it closes an open issue with that title with the comment `Resolved: run <link> no longer needs a decision.` Interactive runs never open issues. Add a case for both behaviours to `scripts/refresh/run.test.mjs` with `github.mjs` stubbed.
-- [ ] T052 Add the previous scheduled run to the pull request footer and the job summary. In `scripts/refresh/run.mjs`, call `previousScheduledRun('refresh.yml')` once per run and pass it to `renderPrBody` and to the `all` table. On failure or outside CI, use `null`, rendered as "none in 7 days: check that the Refresh workflow is enabled" when in CI and "not checked (local run)" when not (research R5).
-- [ ] T053 Create `.github/workflows/refresh.yml`, which follows [contracts/cli.md](contracts/cli.md) § GitHub workflow and research R5 and R7:
+- [X] T051 Add blocked-issue handling to `scripts/refresh/run.mjs` (depends on T014, T017 and T045). When the `GITHUB_ACTIONS` environment variable is `true` and a procedure's outcome is `needs-decision`, it calls `upsertIssue('Refresh blocked: refresh-<short>', renderDecisionIssue(decision), ['refresh-blocked'])`. When that procedure's outcome is anything other than `needs-decision` and `failed`, it closes an open issue with that title with the comment `Resolved: run <link> no longer needs a decision.` Interactive runs never open issues. Add a case for both behaviours to `scripts/refresh/run.test.mjs` with `github.mjs` stubbed.
+- [X] T052 Add the previous scheduled run to the pull request footer and the job summary. In `scripts/refresh/run.mjs`, call `previousScheduledRun('refresh.yml')` once per run and pass it to `renderPrBody` and to the `all` table. On failure or outside CI, use `null`, rendered as "none in 7 days: check that the Refresh workflow is enabled" when in CI and "not checked (local run)" when not (research R5).
+- [X] T053 Create `.github/workflows/refresh.yml`, which follows [contracts/cli.md](contracts/cli.md) § GitHub workflow and research R5 and R7:
   - **Name**: `Refresh`.
   - **Triggers**: `schedule` `cron: '17 * * * *'`; `workflow_dispatch` with the input `procedure` (a `choice` of `all`, `dedl`, `screenshots`, `catalogue` and `hosts`, default `all`); `repository_dispatch` with `types: [source-changed]`.
   - **Permissions**: `contents: read`.
@@ -349,8 +349,8 @@ These rules apply to every task below. They are stated once here so that they do
     7. `npm run refresh -- ${{ matrix.procedure }}`, with `GH_TOKEN` set to the token.
 
     Exit code 3 is not treated as a job failure, because the issue is the signal. Exit code 1 is also accepted, because the draft pull request is the signal. Exit code 2 fails the job.
-- [ ] T054 [P] Create `.github/workflows/refresh-checks.yml`, which runs on `pull_request` and `push` to `develop`. It uses Node 22, runs `npm ci`, and then runs `npm test`, `npm run refresh:lint` and `npm run refresh:verify`, so that a hand edit under `sources/` fails CI (constitution principle II). Add a header comment saying that spec 001's CI may absorb these three steps.
-- [ ] T055 [P] Add an "Automatic runs" section to `procedures/README.md`. It covers:
+- [X] T054 [P] Create `.github/workflows/refresh-checks.yml`, which runs on `pull_request` and `push` to `develop`. It uses Node 22, runs `npm ci`, and then runs `npm test`, `npm run refresh:lint` and `npm run refresh:verify`, so that a hand edit under `sources/` fails CI (constitution principle II). Add a header comment saying that spec 001's CI may absorb these three steps.
+- [X] T055 [P] Add an "Automatic runs" section to `procedures/README.md`. It covers:
   - the three triggers, and that a scheduled run with nothing changed ends at Resolve;
   - the owner's one-time setup: create the GitHub App "ADP site refresh" with `contents: read` on the five sources and `contents: write`, `pull-requests: write` and `issues: write` on this repository; install it; set the secrets `REFRESH_APP_ID` and `REFRESH_APP_PRIVATE_KEY`, or the stopgap fine-grained token `REFRESH_TOKEN`; and enable "Automatically delete head branches";
   - the 60-day schedule risk, and how to re-enable the workflow with `gh workflow enable refresh.yml`;
@@ -362,11 +362,11 @@ These rules apply to every task below. They are stated once here so that they do
 
 ## Phase 9: Polish & Cross-Cutting Concerns
 
-- [ ] T056 [P] Check cross-platform behaviour. Run `npm test` on Windows (this worktree) and confirm that locks, summaries and `adp:source` values use `/` separators, that the `node_modules` link in temporary worktrees works as a junction, and that temporary worktrees are removed after both success and failure (`git worktree list` shows none left).
-- [ ] T057 Run quickstart scenarios 0, 1, 3, 5, 6, 7, 8 and 10 from [quickstart.md](quickstart.md) as dry runs against fixtures and local clones, and record each outcome in a short "Validation" section at the end of `specs/004-content-refresh-procedures/quickstart.md`, with the date and the commit.
-- [ ] T058 Run `npm run refresh -- all --dry-run` against the real sources with the developer's `gh` login. Confirm that a run with nothing changed finishes in under one minute per procedure (plan § Performance Goals), that the private sources are readable, and that the source caveat for the standalone screenshots appears. Record the timings in the same Validation section.
-- [ ] T059 [P] Review `procedures/*.md`, `procedures/README.md` and the new `CLAUDE.md` sections for constitution principle V: every step is executable without asking for steps, the only questions are the listed decisions, and no Markdown line is wrapped at a fixed width (the repository's convention).
-- [ ] T060 Run `npm test`, `npm run refresh:lint` and `npm run refresh:verify` together as the final gate, and make sure all three exit 0 before the feature's pull request is opened.
+- [X] T056 [P] Check cross-platform behaviour. Run `npm test` on Windows (this worktree) and confirm that locks, summaries and `adp:source` values use `/` separators, that the `node_modules` link in temporary worktrees works as a junction, and that temporary worktrees are removed after both success and failure (`git worktree list` shows none left).
+- [X] T057 Run quickstart scenarios 0, 1, 3, 5, 6, 7, 8 and 10 from [quickstart.md](quickstart.md) as dry runs against fixtures and local clones, and record each outcome in a short "Validation" section at the end of `specs/004-content-refresh-procedures/quickstart.md`, with the date and the commit.
+- [X] T058 Run `npm run refresh -- all --dry-run` against the real sources with the developer's `gh` login. Confirm that a run with nothing changed finishes in under one minute per procedure (plan § Performance Goals), that the private sources are readable, and that the source caveat for the standalone screenshots appears. Record the timings in the same Validation section.
+- [X] T059 [P] Review `procedures/*.md`, `procedures/README.md` and the new `CLAUDE.md` sections for constitution principle V: every step is executable without asking for steps, the only questions are the listed decisions, and no Markdown line is wrapped at a fixed width (the repository's convention).
+- [X] T060 Run `npm test`, `npm run refresh:lint` and `npm run refresh:verify` together as the final gate, and make sure all three exit 0 before the feature's pull request is opened.
 
 ---
 

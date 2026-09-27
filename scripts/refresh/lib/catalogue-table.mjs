@@ -1,0 +1,152 @@
+// Reads a host's designer catalogue (`docs/diagrams.md`: an HTML table inside Markdown) and applies the site's
+// state mapping with the release cap (research R10). Shared by the screenshot, catalogue and hosts procedures, so
+// that each stays independent of the others' output.
+import { parse } from 'parse5';
+
+export const CATALOGUE_PATH = 'docs/diagrams.md';
+
+/** The states that claim a user can use a designer, in rising order below them. */
+const ORDER = ['identified', 'specified', 'in progress', 'prototype', 'available'];
+const USABLE = ['prototype', 'available'];
+
+const text = (node) => {
+	if (node.nodeName === '#text') return node.value;
+	return (node.childNodes ?? []).map(text).join('');
+};
+
+const clean = (value) => value.replace(/[\s ]+/g, ' ').trim();
+
+const children = (node, name) => (node.childNodes ?? []).filter((child) => child.nodeName === name);
+
+function links(node, found = []) {
+	if (node.nodeName === 'a') {
+		const href = node.attrs.find((attr) => attr.name === 'href')?.value ?? null;
+		found.push({ label: clean(text(node)), href });
+		return found;
+	}
+	for (const child of node.childNodes ?? []) links(child, found);
+	return found;
+}
+
+/** A Theory or Example cell as `[{ label, href }]`: its links, or its text with no link; empty for "—". */
+function references(cell) {
+	const found = links(cell);
+	if (found.length) return found;
+	const value = clean(text(cell));
+	return value && value !== '—' && value !== '-' ? [{ label: value, href: null }] : [];
+}
+
+/** A state label without its leading emoji, for lookup in the mapping: `⚗️ Prototype` → `Prototype`. */
+export function stripStateEmoji(label) {
+	return clean(label).replace(/^[^\p{L}\p{N}]+/u, '');
+}
+
+/**
+ * Parses the catalogue table: rows `{ origin, name, group, developState, theory, example }`, where `group` is the
+ * nearest preceding `<h3>`/`<h4>` (or Markdown `###`/`####`) heading and `developState` the State label without
+ * its emoji. A duplicate origin fails, naming both rows.
+ */
+export function parseCatalogue(markdown) {
+	const document = parse(markdown, { sourceCodeLocationInfo: true });
+	const rows = [];
+	const seen = new Map();
+	let group = null;
+	let columns = null;
+
+	const visit = (node) => {
+		if (node.nodeName === '#text') {
+			for (const match of node.value.matchAll(/^#{3,4}\s+(.+?)\s*#*\s*$/gm)) group = clean(match[1]);
+			return;
+		}
+		if (node.nodeName === 'h3' || node.nodeName === 'h4') {
+			group = clean(text(node));
+			return;
+		}
+		if (node.nodeName === 'tr') {
+			const headers = children(node, 'th').map((th) => clean(text(th)).toLowerCase());
+			if (headers.includes('origin') && headers.includes('state')) {
+				columns = Object.fromEntries(headers.map((name, index) => [name, index]));
+				return;
+			}
+			const cells = children(node, 'td');
+			if (columns && cells.length >= Object.keys(columns).length) {
+				addRow(cells, node.sourceCodeLocation?.startLine);
+				return;
+			}
+		}
+		for (const child of node.childNodes ?? []) visit(child);
+		if (node.content) visit(node.content);
+	};
+
+	const addRow = (cells, line) => {
+		const cell = (name) => cells[columns[name]];
+		const origin = clean(text(cell('origin')));
+		const name = clean(text(cell('diagram')));
+		const where = `line ${line} (${name})`;
+		if (seen.has(origin)) throw new Error(`duplicate origin "${origin}" in the catalogue: ${seen.get(origin)} and ${where}`);
+		seen.set(origin, where);
+		rows.push({
+			origin,
+			name,
+			group,
+			developState: stripStateEmoji(text(cell('state'))),
+			theory: columns.theory === undefined ? [] : references(cell('theory')),
+			example: columns.example === undefined ? [] : references(cell('example')),
+		});
+	};
+
+	visit(document);
+	return rows;
+}
+
+/** The site state for a source label in `host`, or `{ unmapped: label }` when the mapping has none. */
+export function mapState(host, label, states) {
+	const site = states.mappings?.[host]?.[label];
+	return site === undefined ? { unmapped: label } : site;
+}
+
+const rank = (state) => ORDER.indexOf(state);
+
+/**
+ * Caps a designer's `develop` state at its release state (research R10): `prototype` or `available` stay only as
+ * far as the release confirms them, and become `in progress` when the release has the designer at a lower state
+ * or not at all (`releaseSite` null).
+ */
+export function capAtRelease(developSite, releaseSite) {
+	if (!USABLE.includes(developSite)) return developSite;
+	if (!USABLE.includes(releaseSite)) return 'in progress';
+	return rank(developSite) <= rank(releaseSite) ? developSite : releaseSite;
+}
+
+export function isUsable(state) {
+	return USABLE.includes(state);
+}
+
+/** Whether a mapped state is `in progress` or later (Work-in-progress, Prototype or Implemented). */
+export function isUnderway(state) {
+	return rank(state) >= rank('in progress');
+}
+
+/**
+ * Reads `docs/diagrams.md` of `host` at `head` (the `develop` head) and at `release.commit`, and returns
+ * `{ entries, text, gitBlob? }` with each entry's `developState`, `releaseState` (or null) and capped `state`, or
+ * `{ missingCatalogue: true }` when the file does not exist. An entry whose label the mapping lacks gets
+ * `unmapped: <label>` and `state: null`.
+ */
+export async function designersFor(host, reader, { head, release, states }) {
+	const developText = await reader.readFileAt(head, CATALOGUE_PATH);
+	if (developText === null) return { missingCatalogue: true };
+	const releaseText = release ? await reader.readFileAt(release.commit, CATALOGUE_PATH) : null;
+	const releaseRows = new Map(releaseText === null ? [] : parseCatalogue(releaseText).map((row) => [row.origin, row]));
+	const entries = parseCatalogue(developText).map((row) => {
+		const releaseState = releaseRows.get(row.origin)?.developState ?? null;
+		const develop = mapState(host, row.developState, states);
+		const released = releaseState === null ? null : mapState(host, releaseState, states);
+		const unmapped = typeof develop === 'object' ? develop.unmapped : typeof released === 'object' && released !== null ? released.unmapped : undefined;
+		const entry = { ...row, releaseState, developSite: typeof develop === 'string' ? develop : null };
+		entry.state = unmapped ? null : capAtRelease(develop, released);
+		if (unmapped) entry.unmapped = unmapped;
+		return entry;
+	});
+	return { entries, text: developText };
+}

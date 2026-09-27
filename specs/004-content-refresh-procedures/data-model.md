@@ -49,7 +49,7 @@ The repository and revision a sourced item on the site was taken from (FR-005). 
 | `sha256` | 64-hex | Of the file as committed here. The source-record check recomputes it. |
 | `licence` | SPDX id or `"unstated"` | Taken from the source repository's licence (constitution: sourced content keeps its licence). |
 
-A lock also carries `procedure`, `refreshedAt` (ISO 8601), `sourceHeads` (repository → head SHA of `develop` at fetch time), `releases` (repository → latest release tag and its commit, for the catalogue and hosts procedures; research R10) and `withdrawn` (see Withdrawal).
+A lock also carries `procedure`, `refreshedAt` (ISO 8601), `sourceHeads` (repository → head SHA of `develop` at fetch time), `releases` (repository → latest release tag and its commit, for the catalogue and hosts procedures; research R10) and `withdrawn` (see Withdrawal). Three optional records were added during implementation: `inputs` (source files a procedure reads but does not copy, such as a screenshot readme, with their commit and blob, so Resolve compares them too), `derived` (the path and SHA-256 of each generated file, such as `catalogue.json`, so a hand edit is caught) and `config` (the SHA-256 of each mapping file the run applied, so a merged mapping change alone starts a refresh).
 
 ## Refresh run
 

@@ -22,6 +22,8 @@ Specs say *what* and *why*; plans say *how*. Do not put implementation choices i
 
 - `develop` is the integration branch.
 - One feature per branch, named `features/<number>-<name>` (Spec Kit's `branch_prefix` is set to `features`). The one exception is `claude/<name>`, which Claude's cloud sessions are handed by their harness.
+- A third category, `refresh/<procedure>` (for example `refresh/dedl`), is written only by a refresh procedure (see "Refreshing sourced content"). It is recreated from `develop` and force-pushed on every run, so never commit to it by hand; the owner merges its pull request like any other.
+- A feature branch is built in its own git worktree at `.claude/worktrees/<number>-<name>/` inside this repository (git-ignored), not in a sibling folder. Bring the branch up to date with `origin/develop` (fast-forward) before starting work in it.
 - A feature branch is never merged locally into `develop`. When its work is done, push the branch from the worktree it was built in to `origin` and open a pull request into `develop`; nothing reaches `develop` except through a pull request. There is no branch protection, so this holds by convention alone: never push to `develop` directly.
 - Pull requests are merged with a merge commit, never a squash or a rebase.
 - When the pull request is merged or closed, delete the branch locally and on `origin`, and remove the worktree.
@@ -31,3 +33,15 @@ Specs say *what* and *why*; plans say *how*. Do not put implementation choices i
 - End commit messages written by an agent with a `Co-Authored-By:` trailer naming the model.
 - Shell scripts for Spec Kit are the PowerShell variants (`.specify/scripts/powershell/`).
 - When writing markdown files do not split lines to ensure a maximum line length is honored.
+
+## Refreshing sourced content
+
+The DEDL reference, the designer catalogue, the screenshots and the IDE host states are copied from their source repositories into `sources/` by written procedures, indexed in [procedures/README.md](procedures/README.md). Naming a procedure is enough to run it:
+
+- "Refresh the DEDL reference": [procedures/refresh-dedl.md](procedures/refresh-dedl.md)
+- "Refresh the screenshots": [procedures/refresh-screenshots.md](procedures/refresh-screenshots.md)
+- "Refresh the designer catalogue": [procedures/refresh-catalogue.md](procedures/refresh-catalogue.md)
+- "Refresh the IDE host states": [procedures/refresh-hosts.md](procedures/refresh-hosts.md)
+- "Refresh the whole site": [procedures/refresh-all.md](procedures/refresh-all.md)
+
+When asked to run one of them, open its document in `procedures/` and follow it step by step. Never edit a file under `sources/` by hand; every change there comes from `npm run refresh`. When a run ends with `needs-decision`, read `.refresh/decision.json` and ask the person its `question` as a selection whose options are exactly its `options`; then run `npm run refresh:decide -- <id> <answer>` and run the procedure again.

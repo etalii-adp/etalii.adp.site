@@ -7,7 +7,7 @@
   "required": ["procedure", "refreshedAt", "sourceHeads", "files", "withdrawn"],
   "additionalProperties": false,
   "properties": {
-    "procedure": { "enum": ["refresh-dedl", "refresh-screenshots", "refresh-catalogue", "refresh-hosts"] },
+    "procedure": { "type": "string", "pattern": "^refresh-[a-z][a-z0-9-]*$", "description": "The id of the procedure that owns this folder, for example refresh-dedl." },
     "refreshedAt": { "type": "string", "format": "date-time" },
     "local": {
       "const": true,
@@ -36,6 +36,39 @@
             }
           }
         ]
+      }
+    },
+    "config": {
+      "description": "SHA-256 (of the text with LF line endings) of each procedures/config/ file the run applied, so a merged mapping change alone starts a refresh. Absent for procedures that read no mapping.",
+      "type": "object",
+      "additionalProperties": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+    },
+    "inputs": {
+      "description": "Source files a procedure reads but does not copy (for example a screenshot readme). Resolve compares their blobs like those of files.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["repository", "sourcePath", "commit", "gitBlob"],
+        "additionalProperties": false,
+        "properties": {
+          "repository": { "$ref": "#/$defs/repository" },
+          "sourcePath": { "type": "string" },
+          "commit": { "$ref": "#/$defs/sha" },
+          "gitBlob": { "$ref": "#/$defs/sha" }
+        }
+      }
+    },
+    "derived": {
+      "description": "Files the procedure generates from its sources and mappings (catalogue.json, screenshots.json, hosts.json). They have no source record of their own; refresh:verify checks their SHA-256 so a hand edit is caught.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "sha256"],
+        "additionalProperties": false,
+        "properties": {
+          "path": { "type": "string", "description": "Relative to sources/<short>/." },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        }
       }
     },
     "files": {

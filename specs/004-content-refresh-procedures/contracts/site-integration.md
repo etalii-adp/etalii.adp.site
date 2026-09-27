@@ -36,7 +36,8 @@ Until spec 001 provides items 1, 2 and 4, the Verify stage reports those steps a
 
 This check fails if any of the following holds:
 
-- A file under `sources/<short>/` (other than the lock itself) has no entry in that folder's lock.
+- A file under `sources/<short>/` (other than the lock itself) has no entry in that folder's lock, either as a source record (`files`) or as a derived file (`derived`) that the procedure's module declares in `derivedFiles`.
+- A derived file is missing, or its SHA-256 differs from the lock.
 - A lock entry's file is missing, or its SHA-256 differs from the file.
 - A lock has `"local": true` (a test or quickstart run leaked into a commit).
 - A lock entry's `commit` is not 40 hexadecimal characters, or its `repository` is not in the procedure's declared sources.

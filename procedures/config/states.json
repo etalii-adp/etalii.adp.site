@@ -1,0 +1,50 @@
+{
+  "siteStates": [
+    "identified",
+    "specified",
+    "in progress",
+    "prototype",
+    "available",
+    "planned",
+    "not planned"
+  ],
+  "hostStates": [
+    "planned",
+    "in progress",
+    "available"
+  ],
+  "mappings": {
+    "standalone": {
+      "Identified": "identified",
+      "Specified": "specified",
+      "To-do": "specified",
+      "Work-in-progress": "in progress",
+      "Prototype": "prototype",
+      "Implemented": "available"
+    },
+    "intellij": {
+      "Identified": "identified",
+      "Specified": "specified",
+      "To-do": "specified",
+      "Work-in-progress": "in progress",
+      "Prototype": "prototype",
+      "Implemented": "available"
+    },
+    "vscode": {
+      "Identified": "identified",
+      "Specified": "specified",
+      "To-do": "specified",
+      "Work-in-progress": "in progress",
+      "Prototype": "prototype",
+      "Implemented": "available"
+    },
+    "eclipse": {
+      "Identified": "identified",
+      "Specified": "specified",
+      "To-do": "specified",
+      "Work-in-progress": "in progress",
+      "Prototype": "prototype",
+      "Implemented": "available"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+# Checks the refresh procedures on every pull request into develop and every push to it: their tests, that every
+# procedure follows the template and is indexed, and that every file under sources/ matches its source record, so a
+# hand edit there fails (constitution principle II). The site's ci.yml may absorb these three steps later.
+name: refresh-checks
+
+on:
+  pull_request:
+    branches: [develop]
+  push:
+    branches: [develop]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run test:refresh
+      - run: npm run refresh:lint
+      - run: npm run refresh:verify

@@ -1,0 +1,14 @@
+{
+  "standalone": {
+    "azure-pipeline.png": "azure-devops/pipeline",
+    "dependency-graph.png": "generic/dependencies",
+    "markdown-editor.png": "none",
+    "mindmap.png": "freeplane/mindmap",
+    "timeline.png": "generic/timeline",
+    "wardley-map.png": "wardley/map",
+    "workspace.png": "c4/container"
+  },
+  "intellij": {},
+  "vscode": {},
+  "eclipse": {}
+}

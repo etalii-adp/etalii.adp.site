@@ -22,7 +22,12 @@
     "catalogue:notion": "node scripts/catalogue/notion.ts",
     "catalogue:report": "node scripts/catalogue/report.ts",
     "catalogue:sync-notion": "node scripts/catalogue/sync-notion.ts",
-    "test:catalogue": "node --test \"tests/unit/catalogue/**/*.test.ts\""
+    "test:catalogue": "node --test \"tests/unit/catalogue/**/*.test.ts\"",
+    "refresh": "node scripts/refresh/run.mjs",
+    "refresh:decide": "node scripts/refresh/decide.mjs",
+    "refresh:verify": "node scripts/refresh/verify.mjs",
+    "refresh:lint": "node scripts/refresh/lint.mjs",
+    "test:refresh": "node --test \"scripts/refresh/**/*.test.mjs\""
   },
   "dependencies": {
     "@astrojs/starlight": "^0.42.4",
@@ -34,6 +39,7 @@
     "hast-util-to-html": "^9.0.5",
     "hast-util-to-string": "^3.0.1",
     "mdast-util-to-string": "^4.0.0",
+    "parse5": "^8.0.1",
     "rehype-mermaid": "^3.0.0",
     "rehype-stringify": "^10.0.1",
     "remark-gfm": "^4.0.1",

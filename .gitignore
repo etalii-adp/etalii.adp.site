@@ -14,6 +14,9 @@ __pycache__/
 # Agent-local settings (may hold machine-specific or private state)
 .claude/settings.local.json
 
+# Feature worktrees (see CLAUDE.md, "Branches and delivery")
+.claude/worktrees/
+
 # Spec Kit companion's local run trace
 .trace.jsonl
 
@@ -21,7 +24,7 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Reports written by the catalogue scripts for a refresh pull request (spec 003); spec 004 includes them in its body
+# Refresh procedures' run output, including the catalogue reports of spec 003 that spec 004 puts in its pull request body
 .refresh/
 
 # Reference fixtures generated for tests (spec 002)
