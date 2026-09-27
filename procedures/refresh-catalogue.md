@@ -19,7 +19,8 @@ The run also reads `docs/diagrams.md` at each host's latest published release, t
 - `sources/catalogue/<host>/catalogue.json`: one entry per designer with its origin, name, group, theory, example, its state as written on `develop` (`developState`) and at the latest release (`releaseState`), and its site `state`.
 - `sources/catalogue/source.lock.json`: the source record of each catalogue, and each host's latest release.
 - `procedures/config/states.json`, only when a decision is answered.
-- `src/content/catalogue/notion.json`: the Notion "Diagrams" snapshot (`npm run catalogue:notion`), and the host values written back to Notion (`npm run catalogue:sync-notion`).
+- `src/content/catalogue/notion.json`: the Notion "Diagrams" snapshot (`npm run catalogue:notion`).
+- Notion's host columns, only after the pull request is merged: `.github/workflows/catalogue-sync.yml` runs `npm run catalogue:sync-notion` on every push to `develop` that changes `sources/catalogue/`, so Notion is never ahead of the site.
 - `src/content/catalogue/focus-areas.json`: a focus area Notion uses that the file does not have yet, added by `npm run catalogue:notion`.
 - `src/content/catalogue/published.json`: the designers that have a page (`npm run catalogue:report`).
 - `src/content/catalogue/redirects.json`: a renamed or withdrawn designer, only when that decision is answered.
@@ -41,7 +42,7 @@ IntelliJ has no `docs/diagrams.md` yet, so its FreeMind and draw.io designers ar
 
 1. Run `npm run refresh -- catalogue`. It prints one line per stage: `resolve` (each host's `develop` head, whether its catalogue exists, and its latest release), `fetch`, `apply`, `verify` and `deliver`, and ends with `outcome: <outcome>`. The run takes spec 003's catalogue steps itself, in the run's worktree:
    - after Apply and before Verify, `npm run catalogue:notion` (skipped when `NOTION_TOKEN` is not set), then `npm run catalogue:report`, whose exit 3 ends the run with `needs-decision`;
-   - after a successful Verify, `npm run catalogue:sync-notion`, which writes Notion's host columns only when the run delivers. A dry run or a failed verification only reports what it would write.
+   - after Verify, `npm run catalogue:sync-notion -- --dry-run`, which lists in the pull request the Notion host values that will change once it is merged. The run itself never writes to Notion.
 2. Act on the outcome:
    - `current` (exit 0): no catalogue and no release changed. Report that the catalogue is current; there is nothing else to do.
    - `delivered` (exit 0): report the pull request link it printed, with the designers whose state changed, the designers added and withdrawn, and the gaps listed under "Designer catalogue".

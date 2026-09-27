@@ -1,0 +1,55 @@
+# Writes the IDE hosts' designer states back to Notion's "Diagrams" host columns (spec 003 FR-017, research D13)
+# once a catalogue refresh is merged into develop. By the owner's decision of 2026-09-27 this happens only after
+# merge, so Notion is never ahead of the site; the refresh pull request itself only lists what will change.
+name: catalogue-sync
+
+on:
+  push:
+    branches: [develop]
+    paths:
+      - 'sources/catalogue/**'
+      - 'procedures/config/states.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: catalogue-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip without NOTION_TOKEN
+        id: token
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: |
+          if [ -z "$NOTION_TOKEN" ]; then
+            echo "::notice::NOTION_TOKEN is not set, so Notion's host columns were not updated."
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - if: steps.token.outputs.present == 'true'
+        uses: actions/checkout@v7
+
+      - if: steps.token.outputs.present == 'true'
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - if: steps.token.outputs.present == 'true'
+        run: npm ci
+
+      - if: steps.token.outputs.present == 'true'
+        name: npm run catalogue:sync-notion
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: |
+          npm run --silent catalogue:sync-notion
+          if [ -f .refresh/catalogue-notion-sync.md ]; then cat .refresh/catalogue-notion-sync.md >> "$GITHUB_STEP_SUMMARY"; fi

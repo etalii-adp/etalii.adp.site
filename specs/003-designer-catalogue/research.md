@@ -169,6 +169,8 @@ These are not built by this feature, but the catalogue is incomplete or cannot b
 
 ### D13. Keeping Notion's host columns in step (FR-017)
 
+> **Amended 2026-09-27 (owner):** the write-back runs only after a catalogue refresh is merged into `develop` (`.github/workflows/catalogue-sync.yml`); the refresh pull request lists the changes with `--dry-run`.
+
 - **Decision**: After a successful refresh, `catalogue:sync-notion` compares every Notion row's four host columns with the catalogue's per-host state. Where the host has its own catalogue (standalone today), the repository's state is written into the Notion column; where it has none, Notion is the source and nothing is written. Every difference, and every value written, is listed in the refresh report that spec 004's pull request carries. `--dry-run` reports without writing. The write-back never runs when the refresh stopped.
 - **Rationale**: FR-017 and SC-005: Notion and the catalogue agree, or the report lists each difference, and the catalogue follows the IDE repositories. Notion is a working area, not the published site, so writing it outside a pull request does not bypass principle V's review of site changes; the deviation is recorded in the plan.
 - **Alternatives considered**: Reporting differences only (Notion keeps drifting, which the owner's review comment asked to avoid). Letting Notion win (contradicts principle III, since the code decides what exists).

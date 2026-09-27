@@ -43,8 +43,10 @@ export default {
 		return [report, skipped].filter(Boolean);
 	},
 
-	async afterVerify(ctx, { write, log }) {
-		const synced = await syncNotion(ctx.root, { write, log });
+	// Notion's host columns are written only after the refresh pull request is merged (catalogue-sync.yml, owner's
+	// decision of 2026-09-27), so Notion is never ahead of the site; the run only reports what that will write.
+	async afterVerify(ctx, { log }) {
+		const synced = await syncNotion(ctx.root, { write: false, log });
 		return synced ? [synced] : [];
 	},
 
