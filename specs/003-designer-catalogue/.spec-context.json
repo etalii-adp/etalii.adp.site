@@ -513,6 +513,14 @@
       "kind": "complete",
       "by": "ai",
       "at": "2026-09-27T18:37:50Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T058",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T18:38:31.330Z"
     }
   ],
   "telemetryInstanceId": "3770302d-bb70-4180-97e2-ca6896b96082",
@@ -600,10 +608,10 @@
       "summary": "58 tasks in 7 phases (US1 12, US2 5, US3 5, US4 6), building on spec 004 sources/ output, with the seven-state set in states.json"
     },
     "implement": {
-      "summary": "Designer catalogue built on spec 004's sources/ contract and tested against fixtures: overview, facet, designer and redirect pages, catalogue:notion, catalogue:sync-notion, catalogue:report and check:catalogue; 52 of 58 tasks done, 6 wait on spec 004 or the owner"
+      "summary": "The catalogue and screenshots refreshes now run the catalogue steps and own the catalogue files (T047, T048, PR #19); T055 is blocked on the catalogue not assembling and on NOTION_TOKEN"
     }
   },
-  "currentTask": "T048",
+  "currentTask": "T058",
   "task_summaries": {
     "T001": {
       "status": "DONE",
@@ -1040,6 +1048,17 @@
         "scripts/refresh/lib/catalogue-site.test.mjs",
         "scripts/refresh/run.test.mjs",
         "scripts/refresh/fixtures/procedures/stub.mjs"
+      ]
+    },
+    "T058": {
+      "status": "DONE",
+      "did": "The branch went to develop in #11; the cross-feature work followed in #16 (T011, T051) and #19 (T047, T048), whose body lists the owner decisions, the changes to spec 004 and the gaps found.",
+      "files": [
+        "https://github.com/etalii-adp/etalii.adp.site/pull/11",
+        "https://github.com/etalii-adp/etalii.adp.site/pull/19"
+      ],
+      "concerns": [
+        "The gaps from .refresh/catalogue-report.md are not listed: the real catalogue refresh fails on ansible/structure's 209-character name used as its purpose, and T055 stays open."
       ]
     }
   },
