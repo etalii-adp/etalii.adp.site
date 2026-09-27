@@ -195,3 +195,73 @@
 .ref-stub p {
 	margin: 0;
 }
+
+/* Schema definitions (research D8). */
+.ref-def {
+	margin-top: 2rem;
+}
+.sl-markdown-content .ref-def-meta {
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-3);
+}
+.sl-markdown-content .ref-def .shiki a {
+	color: inherit;
+	text-decoration: underline;
+	text-underline-offset: 0.2em;
+}
+
+/* Generated views and example pages (research D9, D10). */
+.ref-visual {
+	margin-block: 1.5rem;
+}
+.ref-visual-picture {
+	overflow-x: auto;
+	padding: 0.75rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 0.5rem;
+}
+.ref-visual-picture img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	margin-inline: auto;
+}
+.ref-visual figcaption {
+	margin-top: 0.5rem;
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-3);
+}
+.ref-visual details {
+	margin-top: 0.5rem;
+	font-size: var(--sl-text-sm);
+}
+.ref-visual summary {
+	cursor: pointer;
+}
+.ref-quoted {
+	padding-inline-start: 1rem;
+	border-inline-start: 3px solid var(--sl-color-gray-5);
+}
+.sl-markdown-content .ref-from-source,
+.sl-markdown-content .ref-example-kind {
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-3);
+}
+.ref-examples {
+	padding-inline-start: 0;
+	list-style: none;
+}
+.ref-examples > li {
+	margin-block: 1rem;
+}
+.ref-examples .ref-example-kind {
+	margin-inline-start: 0.5rem;
+}
+.ref-no-host {
+	font-style: italic;
+}
+
+/* Code blocks scroll inside themselves, never the page. */
+.sl-markdown-content pre {
+	overflow-x: auto;
+}

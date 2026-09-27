@@ -1,0 +1,68 @@
+---
+// The schema browser of a version (US3, research D8): every `$defs` entry, grouped by the layers of
+// Appendix A.2 (definitions A.2 does not list come last), and the raw schema for download.
+import ReferenceLayout from '../../../components/reference/ReferenceLayout.astro';
+import SchemaDefinition from '../../../components/reference/SchemaDefinition.astro';
+import { headingId } from '../../../lib/reference/anchors';
+import { renderVersion } from '../../../lib/reference/render';
+import { versionRoutes, type VersionRoute } from '../../../lib/reference/routes';
+import { schemaModel } from '../../../lib/reference/schema';
+import { layerSections, pageHref, schemaFileHref, schemaPageHref, tocEntries } from '../../../lib/reference/site';
+
+export function getStaticPaths() {
+	return versionRoutes().map((route) => ({ params: { language: route.language, version: route.segment }, props: { route } }));
+}
+
+interface Props {
+	route: VersionRoute;
+}
+
+const { route } = Astro.props;
+const { version, segment, language } = route;
+const model = schemaModel(version);
+const names = new Set(model.definitions.map((d) => d.name));
+const byName = new Map(model.definitions.map((d) => [d.name, d]));
+const { graph } = await renderVersion(version, segment);
+const layers = layerSections(version, segment);
+const labels = new Map(tocEntries(version, segment).map((e) => [e.slug, e.label]));
+const order = [...labels.keys()];
+
+function describedIn(name: string) {
+	const pages = [...new Set(graph.filter((l) => l.kind === 'schema' && l.to.fragment === `def-${name}`).map((l) => l.from.page))];
+	return pages.sort((a, b) => order.indexOf(a) - order.indexOf(b)).map((page) => ({ label: labels.get(page) ?? `Cover of ${version.language.short} ${version.record.version}`, href: pageHref(language, segment, page) }));
+}
+
+const groups = [
+	...model.layers.map((layer) => ({ label: layer.label, id: `layer-${headingId(layer.label)}`, definitions: layer.names.map((n) => byName.get(n)!) })),
+	...(model.definitions.some((d) => !d.layer) ? [{ label: 'Not listed in Appendix A.2', id: 'layer-unlisted', definitions: model.definitions.filter((d) => !d.layer) }] : []),
+];
+const file = schemaFileHref(version);
+---
+
+<ReferenceLayout
+	version={version}
+	segment={segment}
+	title={`${version.language.short} ${version.record.version} schema`}
+	description={`The ${model.definitions.length} definitions of the ${version.language.name} JSON Schema, version ${version.record.version}, grouped by layer and linked to the sections that describe them.`}
+	headings={groups.map((g) => ({ depth: 2, slug: g.id, text: g.label }))}
+	canonical={route.isLatestCopy ? schemaPageHref(language, version.record.version) : undefined}
+	latest={route.latest}
+	slug="schema"
+	searchable={!route.isLatestCopy}
+>
+	<p>
+		The JSON Schema of {version.language.short} {version.record.version} (<code>{version.language.schema}</code>) has {model.definitions.length} definitions. They are
+		grouped here by the layers of Appendix A.2. The file itself is published unchanged at <a href={file} download={version.language.schema}><code>{file}</code></a>, the
+		address of its <code>$id</code>, for validators and editors.
+	</p>
+	{
+		groups.map((group) => (
+			<section aria-labelledby={group.id}>
+				<h2 id={group.id}>{group.label}</h2>
+				{group.definitions.map((definition) => (
+					<SchemaDefinition definition={definition} names={names} describedIn={describedIn(definition.name)} layerSections={layers} />
+				))}
+			</section>
+		))
+	}
+</ReferenceLayout>

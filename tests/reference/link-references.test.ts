@@ -92,6 +92,30 @@ describe('T4: glossary terms', () => {
 	});
 });
 
+describe('T3: schema definitions', () => {
+	const defs = new Set(['SnapRule', 'Definition', 'Label']);
+	const schemaContext = () => context('foundations', { defs });
+
+	it('links `$defs/Name` and a code span equal to a $defs name to the schema browser', async () => {
+		const html = await render('See `$defs/SnapRule`, a `Label` and `other`.', schemaContext());
+		expect(html).toContain(`<a href="${base}schema/#def-SnapRule" class="ref-link ref-schema"><code>$defs/SnapRule</code></a>`);
+		expect(html).toContain(`<a href="${base}schema/#def-Label" class="ref-link ref-schema"><code>Label</code></a>`);
+		expect(html).toContain('<code>other</code>');
+		expect(html).not.toContain('def-other');
+	});
+
+	it('never links inside code blocks', async () => {
+		const html = await render(['```', '$defs/SnapRule', 'Label', '```'].join('\n'), schemaContext());
+		expect(html).not.toContain('ref-schema');
+	});
+
+	it('records schema links in the graph', async () => {
+		const graph: Link[] = [];
+		await render('A `SnapRule`.', context('foundations', { defs, graph }));
+		expect(graph).toEqual([{ from: { page: 'foundations', heading: null }, to: { page: 'schema', fragment: 'def-SnapRule' }, kind: 'schema', text: 'SnapRule' }]);
+	});
+});
+
 describe('the link graph', () => {
 	it('records every link with from, to, kind and text', async () => {
 		const graph: Link[] = [];

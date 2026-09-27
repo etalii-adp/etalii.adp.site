@@ -82,3 +82,27 @@ export function sidebarFor(version: LoadedVersion, segment: string): SidebarItem
 export function shortRevision(revision: string): string {
 	return revision.slice(0, 7);
 }
+
+export interface LayerSection {
+	/** 1–8. */
+	layer: number;
+	/** "Metamodel", "Coordinate systems, placement and snapping". */
+	title: string;
+	href: string;
+	slug: string;
+}
+
+/** The sections that define the layers: `Layer <n> — <title>` (the "Layer n" sections of the prose). */
+export function layerSections(version: LoadedVersion, segment: string): LayerSection[] {
+	return version
+		.split()
+		.sections.map(({ page }) => ({ page, match: /^Layer (\d+) — (.+)$/.exec(page.title) }))
+		.filter(({ match }) => match)
+		.map(({ page, match }) => ({ layer: Number(match![1]), title: match![2], href: pageHref(version.language.id, segment, page.slug), slug: page.slug }));
+}
+
+/** The layer section of an Appendix A.2 layer label such as `2 · Coordinates`, if it has one. */
+export function sectionOfLayerLabel(label: string | null, sections: LayerSection[]): LayerSection | undefined {
+	const n = label ? /^(\d+)\s*·/.exec(label)?.[1] : undefined;
+	return n ? sections.find((s) => s.layer === Number(n)) : undefined;
+}

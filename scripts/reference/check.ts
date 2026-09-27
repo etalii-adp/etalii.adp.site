@@ -6,8 +6,10 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import Ajv2020 from 'ajv/dist/2020.js';
+import addFormats from 'ajv-formats';
 import { languages, versionsOf, type LoadedVersion } from '../../src/lib/reference/load';
-import { LATEST, languageHref, pageHref, versionHref } from '../../src/lib/reference/site';
+import { LATEST, languageHref, pageHref, schemaFileHref, versionHref } from '../../src/lib/reference/site';
 
 export interface CheckContext {
 	/** The build output, `dist/`. */
@@ -143,6 +145,56 @@ checks.push({
 					const address = pageHref(language, LATEST, page.slug);
 					if (html(address) === undefined) fail(`${version.record.version} page "${page.slug}" does not resolve under latest/ (neither page nor stub)`, address);
 				}
+			}
+		}
+	},
+});
+
+// -- Examples valid against their schema (SC-003) -----------------------------------------------------
+
+checks.push({
+	name: 'examples',
+	run({ versions, fail }) {
+		for (const version of versions) {
+			const schema = version.schema();
+			// Draft 2020-12 with formats; not strict, because the schema may use annotation keywords ajv does not know.
+			const ajv = new Ajv2020({ allErrors: true, strict: false });
+			addFormats(ajv);
+			ajv.addSchema(schema);
+			for (const file of version.record.files.filter((f) => f.role === 'definition' || f.role === 'document')) {
+				const validate = ajv.getSchema(file.role === 'definition' ? schema.$id : `${schema.$id}#/$defs/Document`);
+				if (!validate) {
+					fail(`the schema has no ${file.role === 'definition' ? 'root' : '$defs/Document'} to validate ${file.name} against`, version.dir);
+					continue;
+				}
+				if (!validate(JSON.parse(version.file(file.name).toString('utf8')))) {
+					const errors = validate.errors!.slice(0, 5).map((e) => `${e.instancePath || '/'} ${e.message}`).join('; ');
+					fail(`${file.name} does not validate against ${version.language.schema} ${version.record.version}: ${errors}`, join(version.dir, 'source', file.name));
+				}
+			}
+		}
+	},
+});
+
+// -- Published files byte-identical to the snapshot (FR-009, FR-010) --------------------------------------
+
+checks.push({
+	name: 'bytes',
+	run({ versions, bytes, fail }) {
+		for (const version of versions) {
+			const language = version.language.id;
+			const expected: [string, string][] = [[schemaFileHref(version), version.language.schema]];
+			const segments = version === versions.filter((v) => v.language.id === language).at(-1) ? [version.record.version, LATEST] : [version.record.version];
+			for (const segment of segments) {
+				expected.push([`${versionHref(language, segment)}${version.language.prose}`, version.language.prose]);
+				for (const file of version.record.files.filter((f) => f.role === 'definition' || f.role === 'document')) {
+					expected.push([`${versionHref(language, segment)}examples/files/${file.name}`, file.name]);
+				}
+			}
+			for (const [address, name] of expected) {
+				const published = bytes(address);
+				if (!published) fail(`${name} is not published`, address);
+				else if (!published.equals(version.file(name))) fail(`${name} differs from the snapshot`, address);
 			}
 		}
 	},

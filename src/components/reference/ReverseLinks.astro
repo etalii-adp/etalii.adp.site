@@ -1,7 +1,10 @@
 ---
-// "Referenced from": the sections that link to this page, from the link graph (research D5, FR-019).
+// Links back to this page from the rest of the reference (research D5, FR-019):
+// "Referenced from" (the sections that link to it), "Examples explained here" (the example pages of the
+// examples the page embeds) and "Illustrated by" (on a layer section, the examples that fill that layer).
+import type { ExampleModel } from '../../lib/reference/examples';
 import type { LoadedVersion } from '../../lib/reference/load';
-import { pageHref, tocEntries } from '../../lib/reference/site';
+import { examplesHref, pageHref, tocEntries } from '../../lib/reference/site';
 import type { Link } from '../../lib/reference/types';
 
 interface Props {
@@ -10,28 +13,64 @@ interface Props {
 	graph: Link[];
 	/** Slug of this page. */
 	slug: string;
+	examples: ExampleModel[];
+	/** The layer this page defines, when it is a layer section. */
+	layer?: number;
 }
 
-const { version, segment, graph, slug } = Astro.props;
+const { version, segment, graph, slug, examples, layer } = Astro.props;
+const language = version.language.id;
 const labels = new Map(tocEntries(version, segment).map((e) => [e.slug, e.label]));
 labels.set('', `Cover of ${version.language.short} ${version.record.version}`);
+const order = [...labels.keys()];
+const name = (example: ExampleModel) => example.label.replace(/^\d+(?:\.\d+)*\s+/, '');
 
 const from = [...new Set(graph.filter((l) => l.to.page === slug && l.from.page !== slug && (l.kind === 'anchor' || l.kind === 'number')).map((l) => l.from.page))].sort(
-	(a, b) => [...labels.keys()].indexOf(a) - [...labels.keys()].indexOf(b)
+	(a, b) => order.indexOf(a) - order.indexOf(b)
 );
+const explained = examples.filter((e) => graph.some((l) => l.kind === 'example' && l.from.page === slug && l.to.page === `examples/${e.stem}`));
+const illustrating = layer === undefined ? [] : examples.filter((e) => e.layers[layer] !== undefined);
 ---
 
 {
-	from.length > 0 && (
-		<section class="ref-reverse not-content" aria-labelledby="ref-referenced-from" data-pagefind-ignore>
-			<h2 id="ref-referenced-from">Referenced from</h2>
-			<ul>
-				{from.map((page) => (
-					<li>
-						<a href={pageHref(version.language.id, segment, page)}>{labels.get(page) ?? page}</a>
-					</li>
-				))}
-			</ul>
+	(from.length > 0 || explained.length > 0 || illustrating.length > 0) && (
+		<section class="ref-reverse not-content" aria-label="Links to this page" data-pagefind-ignore>
+			{explained.length > 0 && (
+				<>
+					<h2 id="ref-examples-explained">Examples explained here</h2>
+					<ul>
+						{explained.map((e) => (
+							<li>
+								<a href={examplesHref(language, segment, e.stem)}>{name(e)}</a> (<code>{e.file.name}</code>)
+							</li>
+						))}
+					</ul>
+				</>
+			)}
+			{illustrating.length > 0 && (
+				<>
+					<h2 id="ref-illustrated-by">Illustrated by</h2>
+					<ul>
+						{illustrating.map((e) => (
+							<li>
+								<a href={examplesHref(language, segment, e.stem)}>{name(e)}</a>: {e.layers[layer!]} items in this layer
+							</li>
+						))}
+					</ul>
+				</>
+			)}
+			{from.length > 0 && (
+				<>
+					<h2 id="ref-referenced-from">Referenced from</h2>
+					<ul>
+						{from.map((page) => (
+							<li>
+								<a href={pageHref(language, segment, page)}>{labels.get(page) ?? page}</a>
+							</li>
+						))}
+					</ul>
+				</>
+			)}
 		</section>
 	)
 }

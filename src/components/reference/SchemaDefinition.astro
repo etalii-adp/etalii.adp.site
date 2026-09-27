@@ -1,0 +1,48 @@
+---
+// One `$defs` entry on the schema page: its name (anchor `def-<Name>`), its layer, its JSON with `$ref`s
+// linked, and "Described in" — the sections that link to it, and its layer's section (FR-019).
+import { definitionHtml } from '../../lib/reference/schema-html';
+import type { LayerSection } from '../../lib/reference/site';
+import { sectionOfLayerLabel } from '../../lib/reference/site';
+import type { SchemaDefinition as Definition } from '../../lib/reference/types';
+
+interface Props {
+	definition: Definition;
+	names: Set<string>;
+	/** Sections that link to this definition, in document order: label and address. */
+	describedIn: { label: string; href: string }[];
+	layerSections: LayerSection[];
+}
+
+const { definition, names, describedIn, layerSections } = Astro.props;
+const layerSection = sectionOfLayerLabel(definition.layer, layerSections);
+const described = [...describedIn];
+if (layerSection && !described.some((d) => d.href === layerSection.href)) {
+	described.push({ label: `Layer ${layerSection.layer} — ${layerSection.title}`, href: layerSection.href });
+}
+const html = await definitionHtml(definition.json, names);
+---
+
+<section class="ref-def" aria-labelledby={definition.anchor}>
+	<div class="ref-heading ref-heading-h3">
+		<h3 id={definition.anchor}><code>{definition.name}</code></h3>
+		<a class="heading-link" href={`#${definition.anchor}`} aria-label={`Link to ${definition.name}`}><span aria-hidden="true">#</span></a>
+	</div>
+	<p class="ref-def-meta">
+		Layer: {definition.layer ?? 'not listed in Appendix A.2'}
+		{
+			described.length > 0 && (
+				<>
+					{' · '}Described in:{' '}
+					{described.map((d, i) => (
+						<>
+							{i > 0 && ', '}
+							<a href={d.href}>{d.label}</a>
+						</>
+					))}
+				</>
+			)
+		}
+	</p>
+	<Fragment set:html={html} />
+</section>

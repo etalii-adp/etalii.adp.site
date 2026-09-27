@@ -13,6 +13,8 @@ import { createHighlighter, type Highlighter } from 'shiki';
 import { unified, type PluggableList } from 'unified';
 import { visit, SKIP } from 'unist-util-visit';
 import { headingId } from './anchors';
+import { examplesOf } from './examples';
+import { mermaidElement, proseDiagramAlt } from './mermaid';
 import type { LoadedVersion } from './load';
 import { rehypeKeywords } from './rehype-keywords';
 import { remarkVerbatimFallback, verbatimHandlers } from './rehype-verbatim-fallback';
@@ -106,7 +108,33 @@ function rehypeCode() {
 			if (classes.includes('verbatim')) return SKIP;
 			const code = node.children.find((c): c is Element => c.type === 'element' && c.tagName === 'code');
 			const language = ((code?.properties.className as string[] | undefined) ?? []).find((c) => c.startsWith('language-'));
-			if (code && language === 'language-json') {
+			if (code && language === 'language-mermaid') {
+				// B3: a picture in light and dark, with the Mermaid text as its alternative.
+				const text = hastToString(code).replace(/\n$/, '');
+				const previous = parent.children.slice(0, index).reverse().find((c): c is Element => c.type === 'element');
+				const { alt } = proseDiagramAlt(text, previous?.tagName === 'p' ? hastToString(previous) : null);
+				jobs.push(
+					mermaidElement(text, alt).then((picture) => {
+						parent.children[index] = {
+							type: 'element',
+							tagName: 'figure',
+							properties: { className: ['ref-visual'], dataKind: 'source-diagram' },
+							children: [
+								{ type: 'element', tagName: 'div', properties: { className: ['ref-visual-picture'] }, children: [picture] },
+								{
+									type: 'element',
+									tagName: 'details',
+									properties: {},
+									children: [
+										{ type: 'element', tagName: 'summary', properties: {}, children: [{ type: 'text', value: 'Diagram as text (Mermaid)' }] },
+										{ type: 'element', tagName: 'pre', properties: { tabIndex: 0 }, children: [{ type: 'element', tagName: 'code', properties: {}, children: [{ type: 'text', value: text }] }] },
+									],
+								},
+							],
+						};
+					})
+				);
+			} else if (code && language === 'language-json') {
 				jobs.push(
 					highlightJson(hastToString(code).replace(/\n$/, '')).then((pre) => {
 						parent.children[index] = pre as ElementContent;
@@ -244,6 +272,7 @@ async function doRenderVersion(version: LoadedVersion, segment: string): Promise
 	const graph: Link[] = [];
 	const pages = new Map<string, Rendered>();
 	const parts = [split.cover, ...split.sections];
+	const defs = new Set(Object.keys(version.schema().$defs ?? {}));
 	for (const part of parts) {
 		const context: LinkContext = {
 			language: version.language.id,
@@ -252,12 +281,17 @@ async function doRenderVersion(version: LoadedVersion, segment: string): Promise
 			anchors: split.anchors,
 			numbers: split.numbers,
 			glossary,
-			defs: new Set(),
+			defs,
 			graph,
 		};
 		// The page's own title heading (the H1 on the cover, the H2 of a section) is the page title.
 		const body = part.nodes.filter((n, i) => !(i === 0 && n.type === 'heading') && !(n.type === 'heading' && n.depth === 1));
 		pages.set(part.page.slug, await renderNodes(body, { source: split.source, shift: part.page.kind === 'cover' ? 0 : 1, ...referencePlugins(context) }));
+	}
+	// Each section that embeds an example links to the example's page (FR-019, research D5).
+	for (const example of examplesOf(version)) {
+		if (example.sectionPage === null) continue;
+		graph.push({ from: { page: example.sectionPage, heading: example.section }, to: { page: `examples/${example.stem}`, fragment: null }, kind: 'example', text: example.file.name });
 	}
 	return { pages, graph, glossary };
 }

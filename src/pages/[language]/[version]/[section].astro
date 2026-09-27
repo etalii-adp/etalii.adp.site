@@ -5,7 +5,8 @@ import ReferenceLayout from '../../../components/reference/ReferenceLayout.astro
 import ReverseLinks from '../../../components/reference/ReverseLinks.astro';
 import { renderVersion } from '../../../lib/reference/render';
 import { versionRoutes, type VersionRoute } from '../../../lib/reference/routes';
-import { pageHref, tocEntries } from '../../../lib/reference/site';
+import { examplesOf } from '../../../lib/reference/examples';
+import { layerSections, pageHref, tocEntries } from '../../../lib/reference/site';
 import { stubsOf, type Stub } from '../../../lib/reference/stubs';
 
 export function getStaticPaths() {
@@ -32,6 +33,8 @@ const labels = new Map(tocEntries(version, segment).map((e) => [e.slug, e.label]
 const page = stub ? undefined : version.split().sections.find((s) => s.page.slug === slug)!.page;
 const rendered = await renderVersion(version, segment);
 const body = page ? rendered.pages.get(slug)! : undefined;
+const examples = examplesOf(version);
+const layer = layerSections(version, segment).find((l) => l.slug === slug)?.layer;
 const where = page && (/^[A-Z]$/.test(page.number ?? '') ? `Appendix ${page.number}` : `Section ${page.number}`);
 ---
 
@@ -52,7 +55,7 @@ const where = page && (/^[A-Z]$/.test(page.number ?? '') ? `Appendix ${page.numb
 		>
 			<Fragment set:html={body.html} />
 			<Fragment slot="after">
-				<ReverseLinks version={version} segment={segment} graph={rendered.graph} slug={slug} />
+				<ReverseLinks version={version} segment={segment} graph={rendered.graph} slug={slug} examples={examples} layer={layer} />
 				<nav class="ref-prev-next not-content" aria-label="Previous and next section" data-pagefind-ignore>
 					{page.prev !== null && (
 						<a rel="prev" href={pageHref(language, segment, page.prev)}>
