@@ -3,3 +3,5 @@
 
 # Shell scripts must stay LF everywhere, or bash fails on the carriage returns.
 *.sh text eol=lf
+# The pinned source fixture is compared byte for byte; never convert its line endings.
+tests/reference/fixtures/** -text

@@ -1,0 +1,53 @@
+{
+  "language": "dedl",
+  "version": "0.1",
+  "status": "Working Draft",
+  "date": "2026-09-25",
+  "source": {
+    "kind": "git",
+    "repository": "etalii-adp/etalii.adp",
+    "path": "specifications/dedl",
+    "revision": "aaef3334992b1b70bc6728b793d2f63bb71a40cb",
+    "licence": "NOASSERTION",
+    "copyright": null
+  },
+  "files": [
+    {
+      "name": "DEDL-specification.md",
+      "role": "prose",
+      "sha256": "9bcfd0930e582e56dea05dd7c9779e235ef4d40d030dc54824187358f7ac34d5",
+      "size": 450757
+    },
+    {
+      "name": "dedl.schema.json",
+      "role": "schema",
+      "sha256": "b17d5a19cb2fb45505eaa1e087097d8728bdfdeb7965d6927085106e79989cdf",
+      "size": 210140
+    },
+    {
+      "name": "erd.dedl",
+      "role": "definition",
+      "sha256": "83f28ea8736c1e924933838c74ec230ace111a2bb00a2690dca74d06b2df316b",
+      "size": 9671
+    },
+    {
+      "name": "statemachine.dedl",
+      "role": "definition",
+      "sha256": "e44d369bb4b7bb7a27891581ea00ca89d3908e4486975eb32e2c8582fbacc44d",
+      "size": 22806
+    },
+    {
+      "name": "timeline.dedl",
+      "role": "definition",
+      "sha256": "1e44d4286147d2655022740de22765d07670de518b1e98c661b1f58ea6f1da97",
+      "size": 15373
+    },
+    {
+      "name": "timeline.document.json",
+      "role": "document",
+      "sha256": "120eee320cf4924814dd0c4dd96d99efa610fc3dc396ca237c38789e1fd9fd82",
+      "size": 2181
+    }
+  ],
+  "retrieved": "2026-09-27T01:43:52Z"
+}
