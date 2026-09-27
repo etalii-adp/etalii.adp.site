@@ -2,8 +2,8 @@
   "workflow": "speckit",
   "specName": "Designer Catalogue",
   "branch": "claude/project-thread-yu2w2z",
-  "currentStep": "plan",
-  "status": "planned",
+  "currentStep": "implement",
+  "status": "implementing",
   "history": [
     {
       "step": "specify",
@@ -46,6 +46,179 @@
       "kind": "complete",
       "by": "extension",
       "at": "2026-09-26T19:53:54.514Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-09-27T01:20:50.468Z"
+    },
+    {
+      "step": "tasks",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:44:57Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-09-27T01:49:26.256Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T001",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:52:03.668Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T002",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:52:23.289Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T003",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:52:23.534Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T004",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:52:23.781Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T005",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:52:24.041Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T006",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:52:24.295Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T007",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:55:00.708Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T008",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:55:07.656Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T012",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:55:38.878Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T013",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:55:39.212Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T009",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:56:12.917Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T014",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:56:13.178Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T015",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:56:52.643Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T016",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:56:53.089Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T017",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:57:20.481Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T010",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:00:17.428Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T018",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:00:17.721Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T019",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:03:27.204Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T020",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:03:27.525Z"
     }
   ],
   "telemetryInstanceId": "3770302d-bb70-4180-97e2-ca6896b96082",
@@ -113,11 +286,191 @@
       "decision": "Redirect and withdrawal stub pages generated from redirects.yaml",
       "why": "GitHub Pages has no server-side redirects (FR-011)",
       "rejected": "JS redirect in 404 page; deleting old pages"
+    },
+    {
+      "decision": "Build on spec 004: the catalogue reads sources/catalogue, sources/screenshots, sources/hosts and procedures/config/states.json; its own S1/S2/S4 readers and screenshot-designers.yaml are dropped",
+      "why": "Owner choice 2026-09-27; 004 site-integration contract binds spec 003",
+      "rejected": "Following 003 plan as written; re-planning 003 first"
+    },
+    {
+      "decision": "States.json is amended to 003 seven states; the 004 release cap is replaced by: never downgrade, available needs a public install",
+      "why": "Owner choice 2026-09-27; one shared state set, principle III",
+      "rejected": "004 state set with the release cap"
     }
   ],
   "step_summaries": {
     "plan": {
       "summary": "Plan, research (F1-F6, D1-D12), data model, 3 contracts and quickstart for a sourced, static designer catalogue; Notion per-host columns added and filled"
+    },
+    "tasks": {
+      "summary": "58 tasks in 7 phases (US1 12, US2 5, US3 5, US4 6), building on spec 004 sources/ output, with the seven-state set in states.json"
     }
-  }
+  },
+  "currentTask": "T020",
+  "task_summaries": {
+    "T001": {
+      "status": "DONE",
+      "did": "Created worktree C:\\git\\etalii.adp.site-003 on features/003-designer-catalogue, fast-forwarded to origin/develop, added tasks.md; spec 004 is not on develop",
+      "files": [
+        "specs/003-designer-catalogue/tasks.md"
+      ]
+    },
+    "T002": {
+      "status": "DONE",
+      "did": "Added catalogue:notion, catalogue:report, catalogue:sync-notion, check:catalogue and test:catalogue scripts; check now runs check:catalogue",
+      "files": [
+        "package.json"
+      ]
+    },
+    "T003": {
+      "status": "DONE",
+      "did": "Enabled allowImportingTsExtensions and erasableSyntaxOnly so Node can run the catalogue TypeScript directly",
+      "files": [
+        "tsconfig.json"
+      ]
+    },
+    "T004": {
+      "status": "DONE",
+      "did": "Playwright ignores tests/unit/**, which node --test runs",
+      "files": [
+        "playwright.config.ts"
+      ]
+    },
+    "T005": {
+      "status": "DONE",
+      "did": "Created the catalogue folders for lib, components, pages, content, scripts and unit-test fixtures",
+      "files": [
+        "src/lib/catalogue/",
+        "src/components/catalogue/",
+        "src/pages/designers/",
+        "src/content/catalogue/",
+        "scripts/catalogue/",
+        "tests/unit/catalogue/fixtures/"
+      ]
+    },
+    "T006": {
+      "status": "DONE",
+      "did": "CI runs npm run test:catalogue after npm ci, before the build",
+      "files": [
+        ".github/workflows/ci.yml"
+      ]
+    },
+    "T007": {
+      "status": "DONE",
+      "did": "Source fixtures shaped like spec 004 output: standalone catalogue with one row per source state, four screenshots (three real 32x18 PNGs, one rejected), hosts.json and the seven-state states.json",
+      "files": [
+        "tests/unit/catalogue/fixtures/sources/",
+        "tests/unit/catalogue/fixtures/config/states.json"
+      ]
+    },
+    "T008": {
+      "status": "DONE",
+      "did": "Recorded-shape Notion query response in two pages (has_more/next_cursor) with five tagged rows, one untagged row, an unknown focus area, an empty purpose and a Standalone value that differs from the catalogue",
+      "files": [
+        "tests/unit/catalogue/fixtures/notion/query-page-1.json",
+        "tests/unit/catalogue/fixtures/notion/query-page-2.json"
+      ]
+    },
+    "T012": {
+      "status": "DONE",
+      "did": "Wrote the data-model types (SourceRecord, FocusArea, HostAvailability, Screenshot, Designer, Idea, Redirect, CatalogueReport) with their constraints as doc comments; task and whySpecialized are nullable",
+      "files": [
+        "src/lib/catalogue/types.ts"
+      ]
+    },
+    "T013": {
+      "status": "DONE",
+      "did": "The four hosts in src/data/order.ts order with name, repository and Notion column",
+      "files": [
+        "src/lib/catalogue/hosts.ts"
+      ]
+    },
+    "T009": {
+      "status": "DONE",
+      "did": "Unit tests for the state mapping, ranks, bestState, isUsable, emoji stripping and UnmappedStateError",
+      "files": [
+        "tests/unit/catalogue/states.test.ts"
+      ]
+    },
+    "T014": {
+      "status": "DONE",
+      "did": "Seven site states with labels, ranks and usable; loadMapping validates procedures/config/states.json; mapSourceState, bestState, isUsable; 6/6 tests pass",
+      "files": [
+        "src/lib/catalogue/states.ts"
+      ]
+    },
+    "T015": {
+      "status": "DONE",
+      "did": "readSources reads each host's catalogue.json and screenshots.json with their locks and hosts.json; a missing host folder is a gap; toSourceRecord builds git records from lock entries",
+      "files": [
+        "src/lib/catalogue/sources.ts"
+      ]
+    },
+    "T016": {
+      "status": "DONE",
+      "did": "NotionRow type, readNotionSnapshot (empty when the file is missing) and toNotionSourceRecord with the site's Apache-2.0 licence",
+      "files": [
+        "src/lib/catalogue/notion-snapshot.ts"
+      ]
+    },
+    "T017": {
+      "status": "DONE",
+      "did": "Site-owned catalogue files: eight focus areas (first three reuse spec 001 ids and texts, five with empty problems), empty screenshot-notes, file-formats, redirects, published and notion snapshot, and a README saying who writes each",
+      "files": [
+        "src/content/catalogue/focus-areas.json",
+        "src/content/catalogue/screenshot-notes.json",
+        "src/content/catalogue/file-formats.json",
+        "src/content/catalogue/redirects.json",
+        "src/content/catalogue/published.json",
+        "src/content/catalogue/notion.json",
+        "src/content/catalogue/README.md"
+      ]
+    },
+    "T010": {
+      "status": "DONE",
+      "did": "Assemble tests (a)-(l) over the fixtures plus membership, empty-input and available-with-release cases, with shared helpers",
+      "files": [
+        "tests/unit/catalogue/assemble.test.ts",
+        "tests/unit/catalogue/helpers.ts"
+      ]
+    },
+    "T018": {
+      "status": "DONE",
+      "did": "assembleCatalogue joins catalogue rows and Notion rows by origin, maps host states, keeps implemented apart from available, builds text, theory, screenshots, membership and a report; 21/21 unit tests pass",
+      "files": [
+        "src/lib/catalogue/assemble.ts",
+        "src/lib/catalogue/notion-api.ts"
+      ]
+    },
+    "T019": {
+      "status": "DONE",
+      "did": "Added designers, ideas, catalogueFocusAreas and catalogueRedirects collections with a memoized catalogueLoader and zod schemas enforcing purpose length, four hosts, install iff available, why-it-matters when publishable and 40-hex revisions; builds with empty sources and with fixtures",
+      "files": [
+        "src/content.config.ts"
+      ]
+    },
+    "T020": {
+      "status": "DONE",
+      "did": "catalogue:notion fetches the Diagrams data source with cursor paging (or --fixture), keeps earlier text when a property is empty, appends unknown focus areas, supports --dry-run and exits 2 without NOTION_TOKEN; 8 tests, plus a committed fixture snapshot",
+      "files": [
+        "scripts/catalogue/notion.ts",
+        "tests/unit/catalogue/notion.test.ts",
+        "tests/unit/catalogue/fixtures/notion/notion.json"
+      ]
+    }
+  },
+  "concerns": [
+    {
+      "note": "T007: Locks are placed per spec 004 contract at sources/<short>/source.lock.json, not per host as T007 says; a cypher.png for a planned designer was added so T010(g) has a case",
+      "step": "implement"
+    },
+    {
+      "note": "T015: Reads locks at sources/<short>/source.lock.json with host-relative paths, per spec 004's contract",
+      "step": "implement"
+    },
+    {
+      "note": "T018: Without procedures/config/states.json (spec 004 not merged) the mapping is loaded only when something needs mapping, so an empty sources/ still builds",
+      "step": "implement"
+    }
+  ]
 }

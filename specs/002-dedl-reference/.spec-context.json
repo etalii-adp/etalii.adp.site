@@ -2,8 +2,8 @@
   "workflow": "speckit",
   "specName": "DEDL Reference",
   "branch": "claude/project-thread-yu2w2z",
-  "currentStep": "tasks",
-  "status": "ready-to-implement",
+  "currentStep": "implement",
+  "status": "implementing",
   "history": [
     {
       "step": "specify",
@@ -39,6 +39,277 @@
       "kind": "complete",
       "by": "extension",
       "at": "2026-09-26T20:17:02.547Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-09-27T01:20:32.161Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T001",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:42:45.062Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T002",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:43:16.597Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T003",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:44:37.245Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T004",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:44:37.525Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T005",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:44:37.784Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T006",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:44:38.044Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T007",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:48:16.016Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T008",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:48:16.296Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T009",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:48:16.563Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T010",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:48:16.819Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T011",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:50:23.003Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T012",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:50:23.287Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T013",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:50:23.581Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T014",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:51:49.637Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T015",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:51:50.054Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T016",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:53:12.337Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T017",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:53:12.637Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T018",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:54:47.477Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T019",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:54:47.774Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T021",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:54:48.081Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T020",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:55:15.949Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T022",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:56:23.355Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T023",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:56:23.680Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T024",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:57:28.723Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T025",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T01:57:29.057Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T026",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:03:10.052Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T027",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:03:10.769Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T028",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:03:11.243Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T029",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:03:11.689Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T030",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:03:12.947Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T031",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:03:13.392Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T032",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:03:13.823Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T033",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T02:03:14.318Z"
     }
   ],
   "telemetryInstanceId": "7579133a-cbf5-4826-bf31-71f263cdad06",
@@ -79,5 +350,284 @@
       "status": "applied",
       "createdAt": "2026-09-26T19:11:47.612Z"
     }
-  ]
+  ],
+  "task_summaries": {
+    "T001": {
+      "status": "DONE",
+      "did": "Confirmed spec 001's Starlight/Astro skeleton (base /adp, layout, documentation navigation, CI with link and WCAG checks) is on develop and fast-forwarded features/002-dedl-reference to it in worktree C:\\git\\etalii.adp.site-002.",
+      "files": []
+    },
+    "T002": {
+      "status": "DONE",
+      "did": "Added the unified/remark/rehype toolchain, github-slugger, rehype-mermaid, ajv, ajv-formats and shiki, dev dependencies playwright, pagefind, vitest and tsx, and scripts test, reference:refresh, check:reference and a Pagefind build:search step run by build.",
+      "files": [
+        "package.json",
+        "package-lock.json"
+      ],
+      "concerns": [
+        "shiki is added as a direct dependency (it was only transitive through Astro) because render.ts imports it."
+      ]
+    },
+    "T003": {
+      "status": "DONE",
+      "did": "Created the language registry with the single DEDL entry, valid against $defs/Languages.",
+      "files": [
+        "src/content/reference/languages.json"
+      ]
+    },
+    "T004": {
+      "status": "DONE",
+      "did": "Added TypeScript types for the stored snapshot (Language, Version, SourceRecord, FileRecord) with their schema constraints in doc comments, and the derived Page, Heading, Link, SchemaDefinition, Example, Visual and Screenshot.",
+      "files": [
+        "src/lib/reference/types.ts"
+      ]
+    },
+    "T005": {
+      "status": "DONE",
+      "did": "Pinned the six source files at aaef333 byte for byte (verified against GitHub blob hashes), with source.json (licence NOASSERTION), a -text .gitattributes rule and a README.",
+      "files": [
+        "tests/reference/fixtures/dedl-aaef333/dedl/0.1/source.json",
+        "tests/reference/fixtures/dedl-aaef333/dedl/0.1/source/*",
+        "tests/reference/fixtures/README.md",
+        ".gitattributes"
+      ],
+      "concerns": [
+        "The fixture uses the snapshot layout <language>/<version>/ under tests/reference/fixtures/dedl-aaef333/ so REFERENCE_CONTENT_DIR can point at it directly; the task text placed the files one level higher."
+      ]
+    },
+    "T006": {
+      "status": "DONE",
+      "did": "Added vitest.config.ts over tests/**/*.test.ts and a cached Playwright browser download to the CI and deploy workflows, which already install Chromium.",
+      "files": [
+        "vitest.config.ts",
+        ".github/workflows/ci.yml",
+        ".github/workflows/deploy.yml"
+      ]
+    },
+    "T007": {
+      "status": "DONE",
+      "did": "Wrote anchor tests: GitHub heading ids (checked against every source TOC link), heading numbers, number-free page slugs, reserved slugs and duplicate-id failure.",
+      "files": [
+        "tests/reference/anchors.test.ts",
+        "tests/reference/fixture.ts"
+      ]
+    },
+    "T008": {
+      "status": "DONE",
+      "did": "Wrote splitter tests: version/status/date, cover plus 21 sections, every H2 after the TOC on a page, TOC dropped, thematic-break rule, informative headings, number-free titles, prev/next and the unknown-H2 failure.",
+      "files": [
+        "tests/reference/split.test.ts"
+      ]
+    },
+    "T009": {
+      "status": "DONE",
+      "did": "Wrote rendering tests for the allowlist, raw HTML and unknown nodes shown verbatim with the note, unchanged code text with JSON highlighting, and the labelled table scroll region.",
+      "files": [
+        "tests/reference/verbatim-fallback.test.ts"
+      ]
+    },
+    "T010": {
+      "status": "DONE",
+      "did": "Wrote refresh tests with a fake GitHub: missing or unidentifiable licence, version mismatches, unreachable source, current snapshot (exit 3), new version beside the old, unclassified file, dry run and section diff report.",
+      "files": [
+        "tests/reference/refresh.test.ts"
+      ]
+    },
+    "T011": {
+      "status": "DONE",
+      "did": "Implemented the loader: languages.json and each source.json validated with ajv against the contract schema, SHA-256 of every file verified, versions ordered numerically, REFERENCE_CONTENT_DIR override, memoised split and schema.",
+      "files": [
+        "src/lib/reference/load.ts"
+      ],
+      "concerns": [
+        "The loader reads the JSON Schema straight from specs/002-dedl-reference/contracts/ so the contract stays the single definition of the stored shapes."
+      ]
+    },
+    "T012": {
+      "status": "DONE",
+      "did": "Implemented GitHub heading ids, heading numbers (5.10, A.2, appendix letters), number-free page slugs with the reserved-slug check, and the anchor and number maps with the duplicate-id failure.",
+      "files": [
+        "src/lib/reference/anchors.ts"
+      ]
+    },
+    "T013": {
+      "status": "DONE",
+      "did": "Implemented the splitter (rules S1-S4): version, status and date, cover without the hand-written TOC, 21 section pages with titles, numbers, informative flags, prev/next and headings, and the unknown-H2 failure.",
+      "files": [
+        "src/lib/reference/split.ts"
+      ]
+    },
+    "T014": {
+      "status": "DONE",
+      "did": "Implemented the node-type allowlist and the verbatim fallback: a block that is or holds a disallowed node (raw HTML, definitions, ...) becomes its source lines in pre.verbatim with the note.",
+      "files": [
+        "src/lib/reference/rehype-verbatim-fallback.ts"
+      ],
+      "concerns": [
+        "The fallback runs on the Markdown tree (a remark step with a remark-rehype handler) so it sees nodes as parsed; the file keeps the rehype- name the plan gave it."
+      ]
+    },
+    "T015": {
+      "status": "DONE",
+      "did": "Implemented the render pipeline with GitHub heading ids and level shift, table scroll regions, focusable code blocks, build-time Shiki JSON highlighting in light and dark, and ordered remark/rehype plugin slots.",
+      "files": [
+        "src/lib/reference/render.ts",
+        "tests/reference/verbatim-fallback.test.ts"
+      ]
+    },
+    "T016": {
+      "status": "DONE",
+      "did": "Created ReferenceLayout (StarlightPage with the site chrome, the version's TOC as sidebar, On this page headings, canonical override, page anchor, banner/after/provenance slots and a no-script TOC disclosure for narrow screens) and Toc with aria-current; added address helpers in site.ts.",
+      "files": [
+        "src/components/reference/ReferenceLayout.astro",
+        "src/components/reference/Toc.astro",
+        "src/lib/reference/site.ts"
+      ],
+      "concerns": [
+        "Starlight owns <main>, so data-pagefind-body goes on the reference content wrapper inside it (T059) rather than on <main>."
+      ]
+    },
+    "T017": {
+      "status": "DONE",
+      "did": "Added reference.css (registered in Starlight customCss): table scroll regions with visible focus, pre.verbatim with its note, dual-scheme Shiki colours, the page anchor and the narrow-screen TOC.",
+      "files": [
+        "src/styles/reference.css",
+        "astro.config.mjs"
+      ]
+    },
+    "T018": {
+      "status": "DONE",
+      "did": "Implemented reference:refresh per its contract: resolves the revision, downloads the folder and licence through the GitHub API (token from GH_TOKEN, GITHUB_TOKEN or gh when present), runs the S1 checks, classifies roles, writes through a temporary folder and exits 0, 1 or 3.",
+      "files": [
+        "scripts/reference/refresh.ts"
+      ]
+    },
+    "T019": {
+      "status": "DONE",
+      "did": "Added the Markdown report: language, version and revision before and after with compare links, changed files with sizes, sections added/removed/changed, and warnings (unclassified files, Mermaid without alt text).",
+      "files": [
+        "scripts/reference/refresh.ts",
+        "tests/reference/refresh.test.ts"
+      ],
+      "concerns": [
+        "Embedded-example mismatches are reported by the build (examples.ts, T048) rather than by the refresh report."
+      ]
+    },
+    "T021": {
+      "status": "DONE",
+      "did": "Ran npm run reference:refresh -- dedl against the real source: exit 1, source has no licence, nothing written (git status clean); a nonexistent revision also exits 1 with source unreachable.",
+      "files": [],
+      "concerns": [
+        "No snapshot is committed under src/content/reference/dedl/: etalii-adp/etalii.adp still has no LICENSE, so the refresh refuses it. Rerun and commit the snapshot once the licence exists; the reference cannot be published before."
+      ]
+    },
+    "T020": {
+      "status": "DONE",
+      "did": "Created check:reference with a registry of checks over dist/, CHECK/WARN output and exit 0 or 1, and registered the licence check (NOASSERTION counts as no licence).",
+      "files": [
+        "scripts/reference/check.ts"
+      ]
+    },
+    "T022": {
+      "status": "DONE",
+      "did": "Wrote linker tests: T1 anchor links, T2 number forms (only the number linked, unmatched numbers untouched), T4 first-occurrence glossary links with exclusions, text unchanged, and the link graph entries.",
+      "files": [
+        "tests/reference/link-references.test.ts"
+      ]
+    },
+    "T023": {
+      "status": "DONE",
+      "did": "Wrote key-word tests: each of the ten phrases marked when it is the whole bold text, nothing else marked, 14 occurrences in the fixture.",
+      "files": [
+        "tests/reference/keywords.test.ts",
+        "tests/reference/split.test.ts"
+      ]
+    },
+    "T024": {
+      "status": "DONE",
+      "did": "Implemented the linker: T1 anchor links to their page, T2 section numbers in the contract's forms (number only, only when a heading has it), T4 first-occurrence glossary links with ids on the glossary entries, the T3 extension point, and the link graph with the nearest heading.",
+      "files": [
+        "src/lib/reference/remark-link-references.ts",
+        "tests/reference/link-references.test.ts"
+      ],
+      "concerns": [
+        "Appendix C holds 27 terms, not the ~40 research.md estimated; the test pins 27."
+      ]
+    },
+    "T025": {
+      "status": "DONE",
+      "did": "Implemented rehype-keywords (T5) and styled strong.kw bold, in small caps and amber with AA contrast in both schemes.",
+      "files": [
+        "src/lib/reference/rehype-keywords.ts",
+        "src/styles/reference.css"
+      ]
+    },
+    "T026": {
+      "status": "DONE",
+      "did": "Registered the linker and key-word marker in render.ts through referencePlugins, added rule T6 (an aria-hidden Informative label beside the heading text), and renderVersion, which renders every page of a version once and collects its link graph.",
+      "files": [
+        "src/lib/reference/render.ts",
+        "src/styles/reference.css"
+      ]
+    },
+    "T027": {
+      "status": "DONE",
+      "did": "Created the section route over every language, published version and section page, rendered inside ReferenceLayout with number and title, the version TOC as sidebar and previous/next links.",
+      "files": [
+        "src/pages/[language]/[version]/[section].astro",
+        "src/lib/reference/routes.ts"
+      ]
+    },
+    "T028": {
+      "status": "DONE",
+      "did": "Created the version cover: title, version line, status, metadata table, Status of this document and the generated table of contents.",
+      "files": [
+        "src/pages/[language]/[version]/index.astro"
+      ]
+    },
+    "T029": {
+      "status": "DONE",
+      "did": "Created the language landing at /adp/dedl/: latest version line and TOC, all versions, links to schema, schema file, examples and search, and a truthful not-yet-published state when no snapshot exists.",
+      "files": [
+        "src/pages/[language]/index.astro",
+        "src/content/docs/dedl/index.mdx"
+      ],
+      "concerns": [
+        "Removed spec 001 placeholder src/content/docs/dedl/index.mdx, which held the same address."
+      ]
+    },
+    "T030": {
+      "status": "DONE",
+      "did": "Created ReverseLinks, listing under Referenced from the sections whose anchor or number links point at the page.",
+      "files": [
+        "src/components/reference/ReverseLinks.astro"
+      ]
+    },
+    "T031": {
+      "status": "DONE",
+      "did": "Added the byte-identical prose endpoint (/adp/dedl/<v>/DEDL-specification.md, text/markdown) and the link-graph endpoint reference-links.json.",
+      "files": [
+        "src/pages/[language]/[version]/[prose].ts",
+        "src/pages/[language]/[version]/reference-links.json.ts"
+      ]
+    },
+    "T032": {
+      "status": "DONE",
+      "did": "Kept /adp/dedl/ in spec 001 navigation and made its Coming badge follow whether a version is published; switched the documentation sidebar to base-relative links (the DEDL landing is not a docs entry) and corrected the docs blurb to Diagram Editor Definition Language.",
+      "files": [
+        "src/data/sections.ts",
+        "src/lib/reference/published.ts",
+        "astro.config.mjs",
+        "src/content/docs/docs/index.mdx"
+      ]
+    },
+    "T033": {
+      "status": "DONE",
+      "did": "Registered the heading check (every heading id on its expected page, versioned and latest) and the internal link and fragment check over /adp/<language>/.",
+      "files": [
+        "scripts/reference/check.ts"
+      ]
+    }
+  },
+  "currentTask": "T033"
 }
