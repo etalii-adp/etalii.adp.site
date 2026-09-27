@@ -320,18 +320,18 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ### Tests for User Story 4
 
-- [ ] T043 [P] [US4] Write `tests/unit/catalogue/report.test.ts` against copies of the fixtures in a temporary folder:
+- [x] **T043** [P] [US4] Write `tests/unit/catalogue/report.test.ts` against copies of the fixtures in a temporary folder:
   - (a) changing `wardley/map`'s `developState` to `Prototype` reports `wardley/map · standalone · implemented → prototype`;
   - (b) changing `rdf/turtle` from Identified to Specified reports "moved from ideas to catalogue (standalone: Identified → Specified)";
   - (c) removing `neo4j/cypher`, with it in `published.json`, exits 3 and prints the question "`neo4j/cypher` is no longer in any source. Renamed to (origin) or withdrawn (reason)?" without writing;
   - (d) running with `--withdraw neo4j/cypher --reason "…"` appends `{ from, to: null, reason, since, source }` to `redirects.json` and removes `neo4j/cypher` from `published.json`;
   - (e) `--rename neo4j/cypher=neo4j/graph` appends `{ from, to }`, but only when `neo4j/graph` is a designer;
   - (f) a second run makes no change.
-- [ ] T044 [P] [US4] Add a section "redirects" to `tests/catalogue.spec.ts`. For every `catalogueRedirects` entry, the old address returns a page. A rename has `<meta http-equiv="refresh">` to the new address, `rel=canonical` and a visible link. A withdrawal has no refresh, and shows the reason and the date (FR-011).
+- [x] **T044** [P] [US4] Add a section "redirects" to `tests/catalogue.spec.ts`. For every `catalogueRedirects` entry, the old address returns a page. A rename has `<meta http-equiv="refresh">` to the new address, `rel=canonical` and a visible link. A withdrawal has no refresh, and shows the reason and the date (FR-011).
 
 ### Implementation for User Story 4
 
-- [ ] T045 [US4] Write `scripts/catalogue/report.ts` (`npm run catalogue:report [--withdraw <origin> --reason <text>] [--rename <old>=<new>]`), which makes T043 pass.
+- [x] **T045** [US4] Write `scripts/catalogue/report.ts` (`npm run catalogue:report [--withdraw <origin> --reason <text>] [--rename <old>=<new>]`), which makes T043 pass.
   - It runs `assembleCatalogue()` over the working tree and over `git show HEAD:` copies of `sources/` and `src/content/catalogue/`, in a temporary folder.
   - It writes `.refresh/catalogue-report.md` with these sections:
     - "State changes": `origin · host · old → new`;
@@ -341,7 +341,7 @@ The plan, research, data model and quickstart are brought in line in T057.
     - "Gaps": missing texts, empty focus-area problems, hosts without catalogues, missing prerequisites of plan § Dependencies.
   - An origin that disappeared without a redirect exits 3 with the question of T043 (c), offering Notion's `previousOrigin` as the likely rename. It never guesses a rename from similar names (data-model § Redirect).
   - Otherwise it rewrites `published.json` to the current designer origins and exits 0.
-- [ ] T046 [US4] Extend `src/pages/designers/[vendor]/[type].astro` so `getStaticPaths` also covers every `catalogueRedirects` entry (depends on T036).
+- [x] **T046** [US4] Extend `src/pages/designers/[vendor]/[type].astro` so `getStaticPaths` also covers every `catalogueRedirects` entry (depends on T036).
   - A rename renders the stub of contracts/site-addresses.md § Redirect stub inside `StarlightPage`, with `head` metas `refresh`, `canonical` and `robots noindex`, and the text "This designer is now at <link>".
   - A withdrawal renders a normal page with "This designer was withdrawn on <since>: <reason>".
   - Neither page carries `adp:sourced`.

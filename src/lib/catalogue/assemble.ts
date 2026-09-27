@@ -48,6 +48,8 @@ export interface Catalogue {
 	report: CatalogueReport;
 	/** Every record the catalogue was assembled from, for the overview's footer (FR-009). */
 	sources: SourceRecord[];
+	/** Per origin, including ideas and origins in neither set: each host's state, for catalogue:report. */
+	hostStates: Record<string, Record<HostId, { state: StateId; sourceState: string | null }>>;
 }
 
 const originPattern = /^[a-z0-9.-]+\/[a-z0-9.-]+$/;
@@ -167,6 +169,7 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 
 	const designers: Designer[] = [];
 	const ideas: Idea[] = [];
+	const hostStates: Catalogue['hostStates'] = {};
 	const origins = [...new Set([...catalogueRows.keys(), ...notionByOrigin.keys()])].sort();
 
 	for (const origin of origins) {
@@ -231,6 +234,9 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 		}
 
 		const best = bestState(hosts);
+		hostStates[origin] = Object.fromEntries(
+			catalogueHosts.map(({ id }) => [id, { state: hosts[id].state, sourceState: hosts[id].sourceState }]),
+		) as Record<HostId, { state: StateId; sourceState: string | null }>;
 		const catalogueFamily = firstRow ? familyName(firstRow.group) : null;
 		const family = catalogueFamily || notion?.family || 'Other';
 		if (catalogueFamily && notion?.family && notion.family !== catalogueFamily) {
@@ -379,5 +385,6 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 		redirects: [...redirects].sort(byKey((redirect) => redirect.from)),
 		report,
 		sources: unique([...designers.flatMap((designer) => designer.sources), ...ideas.map((idea) => idea.source)]),
+		hostStates,
 	};
 }

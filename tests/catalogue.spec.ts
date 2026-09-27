@@ -168,3 +168,25 @@ test.describe('availability', () => {
 		});
 	}
 });
+
+test.describe('redirects', () => {
+	for (const redirect of catalogue.redirects) {
+		test(`${redirect.from} keeps resolving (FR-011)`, async ({ request }) => {
+			const response = await request.get(`/adp/designers/${redirect.from}/`);
+			expect(response.status()).toBe(200);
+			const html = await response.text();
+			expect(html).not.toContain('name="adp:sourced"');
+			if (redirect.to) {
+				const href = `/adp/designers/${redirect.to}/`;
+				const tags = html.replaceAll(/\s*\/>/g, '>');
+				expect(tags).toContain(`<meta http-equiv="refresh" content="0; url=${href}">`);
+				expect(tags).toContain(`<link rel="canonical" href="https://etalii.net${href}">`);
+				expect(tags).toContain('<meta name="robots" content="noindex">');
+				expect(html).toMatch(new RegExp(`This designer is now at <a href="${href}"`));
+			} else {
+				expect(html).not.toContain('http-equiv="refresh"');
+				expect(html).toContain(`This designer was withdrawn on <time datetime="${redirect.since}">${redirect.since}</time>: ${redirect.reason}`);
+			}
+		});
+	}
+});

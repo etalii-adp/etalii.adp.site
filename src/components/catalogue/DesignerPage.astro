@@ -1,0 +1,146 @@
+---
+// One page per designer (FR-003 to FR-009, FR-012, FR-015), in the order of contracts/site-addresses.md § A designer
+// page. Every git source is named in an adp:source meta for spec 004's source-record check.
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import AvailabilityTable from './AvailabilityTable.astro';
+import { bestState, isUsable } from './data';
+import ScreenshotFigure from './ScreenshotFigure.astro';
+import SourceList from './SourceList.astro';
+import type { Designer, FocusArea } from '../../lib/catalogue/types';
+
+interface Props {
+	designer: Designer;
+	focusAreas: FocusArea[];
+}
+
+const { designer, focusAreas } = Astro.props;
+const usable = isUsable(bestState(designer.hosts));
+const screenshots = designer.screenshots.filter((screenshot) => screenshot.publishable);
+const areas = designer.focusAreas.map((slug) => focusAreas.find((area) => area.slug === slug)).filter((area) => area !== undefined);
+const kinds = { diagram: 'Diagram', designer: 'Designer', editor: 'Editor' } as const;
+const notDescribed = 'Not described yet.';
+const head = [
+	...designer.sources
+		.filter((record) => record.kind === 'git')
+		.map((record) => ({ tag: 'meta' as const, attrs: { name: 'adp:source', content: `${record.repository}@${record.revision}:${record.path}` } })),
+	{ tag: 'meta' as const, attrs: { name: 'adp:sourced', content: 'true' } },
+];
+---
+
+<StarlightPage frontmatter={{ title: designer.name, description: designer.purpose, part: 'documentation', section: 'designers', head }}>
+	<p class="adp-lede">{designer.purpose}</p>
+	<p>
+		{kinds[designer.kind]} · origin tag <code>{designer.origin}</code> · {designer.family}
+	</p>
+
+	<section id="availability" aria-labelledby="availability-heading">
+		<h2 id="availability-heading">Availability</h2>
+		<AvailabilityTable designer={designer} />
+	</section>
+
+	<section aria-labelledby="what-it-is-for">
+		<h2 id="what-it-is-for">What it is for</h2>
+		<h3>The task</h3>
+		<p>{designer.task ?? notDescribed}</p>
+		<h3>Why a specialized view helps</h3>
+		<p>{designer.whySpecialized ?? notDescribed}</p>
+		<h3>File formats</h3>
+		{
+			designer.fileFormats.length > 0 ? (
+				<table>
+					<thead>
+						<tr>
+							<th scope="col">Extension</th>
+							<th scope="col">Format</th>
+							<th scope="col">Reads</th>
+							<th scope="col">Writes</th>
+						</tr>
+					</thead>
+					<tbody>
+						{designer.fileFormats.map((format) => (
+							<tr>
+								<td>
+									<code>{format.extension}</code>
+								</td>
+								<td>{format.name}</td>
+								<td>{format.reads ? 'Yes' : 'No'}</td>
+								<td>{format.writes ? 'Yes' : 'No'}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			) : (
+				<p>{notDescribed}</p>
+			)
+		}
+	</section>
+
+	{
+		usable && (
+			<section aria-labelledby="screenshots">
+				<h2 id="screenshots">Screenshots</h2>
+				{screenshots.length > 0 ? (
+					screenshots.map((screenshot) => <ScreenshotFigure screenshot={screenshot} />)
+				) : (
+					<p class="adp-pending">Screenshot pending. A screenshot is shown once its source is licensed and described.</p>
+				)}
+			</section>
+		)
+	}
+
+	<section aria-labelledby="background">
+		<h2 id="background">Background</h2>
+		{
+			designer.theory.length > 0 ? (
+				<ul>
+					{designer.theory.map((link) => (
+						<li>
+							<a href={link.url}>{link.title}</a>
+						</li>
+					))}
+				</ul>
+			) : (
+				<p>No background links yet.</p>
+			)
+		}
+		{
+			designer.definition && (
+				<p>
+					Defined in DEDL {designer.definition.dedlVersion}: <a href={designer.definition.url}>the designer's definition</a>. See the{' '}
+					<a href="/adp/dedl/">DEDL reference</a>.
+				</p>
+			)
+		}
+	</section>
+
+	<section aria-labelledby="focus-areas">
+		<h2 id="focus-areas">Focus areas</h2>
+		{
+			areas.length > 0 ? (
+				<ul>
+					{areas.map((area) => (
+						<li>
+							<a href={`/adp/designers/focus/${area.slug}/`}>{area.name}</a>
+						</li>
+					))}
+				</ul>
+			) : (
+				<p>Not in a focus area yet.</p>
+			)
+		}
+	</section>
+
+	<section aria-labelledby="sources">
+		<h2 id="sources">Sources</h2>
+		<SourceList sources={designer.sources} />
+	</section>
+</StarlightPage>
+
+<style>
+	.adp-lede {
+		font-size: var(--sl-text-lg);
+	}
+	code {
+		overflow-wrap: anywhere;
+	}
+</style>
