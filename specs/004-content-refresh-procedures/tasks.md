@@ -42,10 +42,10 @@ These rules apply to every task below. They are stated once here so that they do
 
 **Purpose**: package scripts, dependency and folders.
 
-- [ ] T001 Update `package.json`: add the scripts `"refresh": "node scripts/refresh/run.mjs"`, `"refresh:decide": "node scripts/refresh/decide.mjs"`, `"refresh:verify": "node scripts/refresh/verify.mjs"`, `"refresh:lint": "node scripts/refresh/lint.mjs"` and `"test": "node --test \"scripts/refresh/**/*.test.mjs\""`, and add `"engines": { "node": ">=22" }`. Keep the existing fields, which spec 001 replaces.
-- [ ] T002 Add `parse5` as the only runtime dependency (`npm install parse5`), and commit the resulting `package-lock.json`.
-- [ ] T003 [P] Add `.refresh/` to `.gitignore`, under a `# Refresh procedures' run output` comment.
-- [ ] T004 [P] Create the folders `procedures/config/`, `scripts/refresh/lib/`, `scripts/refresh/procedures/`, `scripts/refresh/fixtures/` and `sources/`. Put a `.gitkeep` in `sources/` so that the folder exists before the first refresh.
+- [x] T001 Update `package.json`: add the scripts `"refresh": "node scripts/refresh/run.mjs"`, `"refresh:decide": "node scripts/refresh/decide.mjs"`, `"refresh:verify": "node scripts/refresh/verify.mjs"`, `"refresh:lint": "node scripts/refresh/lint.mjs"` and `"test": "node --test \"scripts/refresh/**/*.test.mjs\""`, and add `"engines": { "node": ">=22" }`. Keep the existing fields, which spec 001 replaces.
+- [x] T002 Add `parse5` as the only runtime dependency (`npm install parse5`), and commit the resulting `package-lock.json`.
+- [x] T003 [P] Add `.refresh/` to `.gitignore`, under a `# Refresh procedures' run output` comment.
+- [x] T004 [P] Create the folders `procedures/config/`, `scripts/refresh/lib/`, `scripts/refresh/procedures/`, `scripts/refresh/fixtures/` and `sources/`. Put a `.gitkeep` in `sources/` so that the folder exists before the first refresh.
 
 ---
 

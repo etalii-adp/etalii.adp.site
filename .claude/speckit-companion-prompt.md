@@ -1,1 +1,1 @@
-/speckit-companion-resume specs/004-content-refresh-procedures
+/speckit-companion-resume specs\003-designer-catalogue
