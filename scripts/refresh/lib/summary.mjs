@@ -12,8 +12,9 @@ export const VERIFY_STEPS = [
 
 const ICON = { passed: '✅ passed', failed: '❌ failed', 'not available': '⚪ not available' };
 
-export function buildSummary({ before = {}, after = {}, files = [], details = {}, withdrawals = [], caveats = [], reviewNotes = [], verification = [] }) {
-	return { before, after, files, details, withdrawals, caveats, reviewNotes, verification };
+/** `reports` are Markdown sections a procedure's own site steps add after "What changed" (spec 003's catalogue report). */
+export function buildSummary({ before = {}, after = {}, files = [], details = {}, withdrawals = [], caveats = [], reviewNotes = [], verification = [], reports = [] }) {
+	return { before, after, files, details, withdrawals, caveats, reviewNotes, verification, reports };
 }
 
 const commitLink = (repo, sha) => `https://github.com/${repo}/commit/${sha}`;
@@ -97,6 +98,7 @@ export function renderPrBody(summary, { procedure, runLink = 'local', previousSc
 	const sections = [renderRevisions(summary)];
 	const details = procedure.renderDetails ? procedure.renderDetails(summary.details, summary) : '';
 	sections.push(`## What changed\n\n${details?.trim() || renderFiles(summary.files)}`);
+	sections.push(...(summary.reports ?? []).map((report) => report.trim()).filter(Boolean));
 	if (summary.caveats.length) sections.push(renderCaveats(summary.caveats));
 	sections.push(renderWithdrawn(summary.withdrawals));
 	sections.push(renderVerification(summary.verification));
@@ -130,8 +132,12 @@ export function renderDecisionIssue(decision) {
 		'',
 		'**How to answer** (either way, the next run proceeds and this issue closes itself):',
 		'',
-		`- Interactively: run \`npm run refresh -- ${shortId}\`, then \`npm run refresh:decide -- ${shortId} <answer>\` with one of the options, then \`npm run refresh -- ${shortId}\` again. The answer becomes part of the refresh pull request.`,
-		`- Or in a pull request: set \`${key}\` in \`${decision.writeTo}\` to one of the options.`,
+		...(decision.answerWith
+			? [...decision.answerWith.map((step, i) => `${i + 1}. ${step}`), '', `Or in a pull request: add the entry to \`${decision.writeTo}\`.`]
+			: [
+					`- Interactively: run \`npm run refresh -- ${shortId}\`, then \`npm run refresh:decide -- ${shortId} <answer>\` with one of the options, then \`npm run refresh -- ${shortId}\` again. The answer becomes part of the refresh pull request.`,
+					`- Or in a pull request: set \`${key}\` in \`${decision.writeTo}\` to one of the options.`,
+				]),
 		'',
 	].join('\n');
 }

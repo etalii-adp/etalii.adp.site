@@ -1,10 +1,11 @@
-// npm run catalogue:report [-- --withdraw <origin> --reason <text>] [-- --rename <old>=<new>]
+// npm run catalogue:report [-- --withdraw <origin> --reason <text>] [-- --rename <old>=<new>] [-- --no-write]
 //
 // Run after spec 004's catalogue or screenshot refresh (spec 003 US4). It compares the catalogue assembled from the
 // working tree with the one at HEAD, writes .refresh/catalogue-report.md for the pull request, and rewrites
 // src/content/catalogue/published.json to the designers that now have a page. A published designer that no longer
 // is one needs an answer, as any decision in spec 004: renamed (--rename) or withdrawn (--withdraw). Without one it
-// exits 3, asks, and writes nothing. It never guesses a rename (data-model § Redirect).
+// exits 3, asks, and writes nothing. It never guesses a rename (data-model § Redirect). With --no-write it only
+// writes the report and asks nothing: the screenshots refresh uses it, as the catalogue files are not its to change.
 // Exit codes: 0 done, 1 the catalogue does not assemble, 2 usage or a wrong answer, 3 a question to answer.
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
@@ -81,6 +82,11 @@ export function main(args: string[], options: ReportOptions = {}): number {
 	const withdraw = option(args, '--withdraw');
 	const reason = option(args, '--reason');
 	const rename = option(args, '--rename');
+	const noWrite = args.includes('--no-write');
+	if (noWrite && (withdraw || rename)) {
+		console.error('--no-write cannot record an answer; leave it out with --withdraw or --rename.');
+		return 2;
+	}
 	if (withdraw && !reason) {
 		console.error('--withdraw needs --reason "<why>", which is shown on the withdrawal notice.');
 		return 2;
@@ -145,7 +151,7 @@ export function main(args: string[], options: ReportOptions = {}): number {
 	}
 
 	// A published designer that disappeared without a redirect is a question, and nothing is written.
-	if (current.report.membership.length > 0) {
+	if (current.report.membership.length > 0 && !noWrite) {
 		for (const item of current.report.membership) {
 			const renamedTo = /renamed to (\S+)\)/.exec(item.message)?.[1];
 			console.log(
@@ -161,7 +167,7 @@ export function main(args: string[], options: ReportOptions = {}): number {
 	const report = render(current, previous);
 	mkdirSync(reportDir, { recursive: true });
 	writeFileSync(join(reportDir, 'catalogue-report.md'), report);
-	writeFileSync(publishedFile, json(current.designers.map((designer) => designer.origin)));
+	if (!noWrite) writeFileSync(publishedFile, json(current.designers.map((designer) => designer.origin)));
 	console.log(report);
 	return 0;
 }

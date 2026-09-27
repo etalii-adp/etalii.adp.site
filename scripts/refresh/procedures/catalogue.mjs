@@ -1,9 +1,12 @@
 // refresh-catalogue: each IDE host's designer catalogue (docs/diagrams.md), copied verbatim and turned into
 // sources/catalogue/<host>/catalogue.json with site states: the mapped `develop` state, with the release state recorded.
+// Then spec 003's catalogue steps: the Notion snapshot and the catalogue report before Verify, and the Notion host
+// columns after it. Only this procedure changes the catalogue files under src/content/catalogue/.
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { NeedsDecision } from '../lib/decision.mjs';
 import { CATALOGUE_PATH, designersFor } from '../lib/catalogue-table.mjs';
+import { CATALOGUE_SITE_FILES, REDIRECTS_FILE, catalogueReport, syncNotion, takeNotionSnapshot } from '../lib/catalogue-site.mjs';
 
 export const HOSTS = ['standalone', 'intellij', 'vscode', 'eclipse'];
 const ide = (host) => ({ repository: `etalii-adp/etalii.adp.ide.${host}`, ref: 'develop', paths: [CATALOGUE_PATH], host });
@@ -31,6 +34,19 @@ export default {
 	usesReleases: true,
 	derivedFiles: ['*/catalogue.json'],
 	configFiles: ['states.json'],
+	siteFiles: CATALOGUE_SITE_FILES,
+	carriedFiles: [REDIRECTS_FILE],
+
+	async afterApply(ctx, { log }) {
+		const skipped = await takeNotionSnapshot(ctx.root, { log });
+		const report = await catalogueReport(ctx.root, { procedure: this.id });
+		return [report, skipped].filter(Boolean);
+	},
+
+	async afterVerify(ctx, { write, log }) {
+		const synced = await syncNotion(ctx.root, { write, log });
+		return synced ? [synced] : [];
+	},
 
 	async apply(ctx) {
 		const files = [];

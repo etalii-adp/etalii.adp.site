@@ -4,10 +4,15 @@
 // A procedure module (scripts/refresh/procedures/<short>.mjs) default-exports:
 //   { id, short, what, sources: [{ repository, ref: 'develop', paths: [globs], host }], usesReleases,
 //     derivedFiles?: [globs under sources/<short>/], configFiles?: [names under procedures/config/],
-//     lockEntries?(lock), apply(ctx), renderDetails(details, summary), title?(summary) }
+//     siteFiles?: [paths outside sources/ that only it changes], carriedFiles?: [answer files, carried as configFiles],
+//     lockEntries?(lock), apply(ctx), afterApply?(ctx, { log }), afterVerify?(ctx, { write, log }),
+//     renderDetails(details, summary), title?(summary) }
 // `apply(ctx)` returns `{ files: [{ path, from }], keep: [paths], derived: [{ path, content }], inputs: [source files],
 // details, caveats, reviewNotes }`, where a source file is `{ repository, host, sourcePath, gitBlob, commit, licence,
-// file }` as fetched into a temporary folder. It throws NeedsDecision when a mapping has no answer.
+// file }` as fetched into a temporary folder. It throws NeedsDecision when a mapping has no answer. `afterApply`
+// runs in the worktree once sources/<short>/ is written, before Verify, and may also throw NeedsDecision;
+// `afterVerify` runs after Verify, with `write` set only for a delivered run whose verification passed. Both
+// return Markdown sections for the pull request body.
 import { appendFileSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmdirSync, rmSync, statSync, symlinkSync, unlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join, relative, resolve } from 'node:path';
@@ -16,7 +21,7 @@ import { NeedsDecision } from './lib/decision.mjs';
 import { LOCK_FILE, applyWithdrawals, compareResolved, parseLock, readLock, sameRecord, sha256, textHash, writeLock } from './lib/lock.mjs';
 import { loadGithub, sourceReader } from './lib/local.mjs';
 import { buildSummary, renderDecisionIssue, renderPrBody, renderPreviousRun, renderTitle, VERIFY_STEPS } from './lib/summary.mjs';
-import { git, posix, runCaptured, short, writeJson } from './lib/util.mjs';
+import { git, posix, run, runCaptured, short, writeJson } from './lib/util.mjs';
 import { verify } from './verify.mjs';
 
 const here = fileURLToPath(new URL('.', import.meta.url));
@@ -203,17 +208,17 @@ export async function runProcedure(procedure, options, { cwd = process.cwd(), ou
 		} else {
 			await git(cwd, ['switch', '--quiet', '-C', `refresh/${shortId}`, baseRef]);
 		}
-		// The mapping files this procedure reads travel with it when they differ from the base, so an answered
-		// decision is part of the same pull request (research R9); other procedures' mappings stay out of it.
+		// The mapping files this procedure reads, and the files its answers are written to, travel with it when they
+		// differ from the base, so an answered decision is part of the same pull request (research R9); other
+		// procedures' mappings stay out of it.
 		const configCopied = [];
-		const configDir = join(cwd, 'procedures', 'config');
-		for (const name of (procedure.configFiles ?? []).filter((n) => existsSync(join(configDir, n)))) {
-			const path = `procedures/config/${name}`;
-			const mine = readFileSync(join(configDir, name), 'utf8').replaceAll('\r\n', '\n');
+		const carried = [...(procedure.configFiles ?? []).map((name) => `procedures/config/${name}`), ...(procedure.carriedFiles ?? [])];
+		for (const path of carried.filter((p) => existsSync(join(cwd, p)))) {
+			const mine = readFileSync(join(cwd, path), 'utf8').replaceAll('\r\n', '\n');
 			const base = await showAt(cwd, baseRef, path);
 			if (base === null || base.replaceAll('\r\n', '\n') !== mine) {
 				if (root !== cwd) {
-					mkdirSync(join(root, 'procedures', 'config'), { recursive: true });
+					mkdirSync(dirname(join(root, path)), { recursive: true });
 					writeFileSync(join(root, path), mine);
 				}
 				configCopied.push({ path, change: base === null ? 'added' : 'changed' });
@@ -247,11 +252,16 @@ export async function runProcedure(procedure, options, { cwd = process.cwd(), ou
 		const counts = ['added', 'changed', 'removed'].map((c) => `${sourced.filter((f) => f.change === c).length} ${c}`).join(', ');
 		stage('apply', `${counts} in sources/${shortId}${configCopied.length ? ` and ${configCopied.length} mapping file${configCopied.length === 1 ? '' : 's'}` : ''}`);
 
-		// Verify: the site's build and checks when it defines them (R8), and always the source-record check.
+		// The procedure's own site steps on the applied sources (spec 003's catalogue report), then Verify: the site's
+		// build and checks when it defines them (R8), and always the source-record check.
 		nodeModulesLink = linkNodeModules(cwd, root);
+		const reports = [...((await procedure.afterApply?.(ctx, { log: (text) => stage('apply', text) })) ?? [])];
 		const verification = await runVerification(root, local);
 		stage('verify', verification.map((v) => `${v.step} ${v.status}`).join(', '));
 		const failedStep = verification.some((v) => v.status === 'failed');
+		reports.push(...((await procedure.afterVerify?.(ctx, { write: deliver && !failedStep, log: (text) => stage('verify', text) })) ?? []));
+		const siteFiles = await changedSiteFiles(root, procedure.siteFiles ?? [], configCopied);
+		files.push(...siteFiles);
 
 		const summary = buildSummary({
 			before: previous?.sourceHeads ?? {},
@@ -262,6 +272,7 @@ export async function runProcedure(procedure, options, { cwd = process.cwd(), ou
 			caveats: applied.caveats ?? [],
 			reviewNotes: applied.reviewNotes ?? [],
 			verification,
+			reports,
 		});
 		summary.title = renderTitle(procedure, summary);
 		const body = renderPrBody(summary, { procedure, runLink: runLink(), previousScheduledRun: await previousScheduledRun() });
@@ -269,7 +280,11 @@ export async function runProcedure(procedure, options, { cwd = process.cwd(), ou
 		result.outcome = failedStep ? 'delivered-draft' : 'delivered';
 
 		// The paths a run may change; procedures/config/ only once the base or this run has it.
-		const changedPaths = [`sources/${shortId}`, ...(existsSync(join(root, 'procedures', 'config')) ? ['procedures/config'] : [])];
+		const changedPaths = [
+			`sources/${shortId}`,
+			...(existsSync(join(root, 'procedures', 'config')) ? ['procedures/config'] : []),
+			...new Set([...configCopied, ...siteFiles].map((f) => f.path).filter((p) => !p.startsWith('procedures/config/'))),
+		];
 		if (options.dryRun && worktree) {
 			await git(root, ['add', '--all', '--', ...changedPaths]);
 			writeFileSync(join(out, 'diff.patch'), await git(root, ['diff', '--cached', '--', ...changedPaths]).then((d) => `${d}\n`));
@@ -322,6 +337,20 @@ export async function runProcedure(procedure, options, { cwd = process.cwd(), ou
 		}
 		if (worktree) await git(cwd, ['worktree', 'prune']).catch(() => {});
 	}
+}
+
+/** The procedure's site files that differ from the base in `root`, leaving out those already carried in. */
+async function changedSiteFiles(root, paths, carried) {
+	if (!paths.length) return [];
+	const known = new Set(carried.map((f) => f.path));
+	// Not through git(), which trims: the first line's leading space is part of its status.
+	const status = await run('git', ['status', '--porcelain', '--untracked-files=all', '--', ...paths], { cwd: root });
+	return status
+		.split('\n')
+		.map((line) => line.trimEnd())
+		.filter(Boolean)
+		.map((line) => ({ path: posix(line.slice(3)), change: line.startsWith('??') || line[0] === 'A' ? 'added' : line.includes('D') ? 'removed' : 'changed' }))
+		.filter((f) => !known.has(f.path));
 }
 
 function loadConfig(root) {

@@ -100,3 +100,13 @@ test('(f) a second run makes no change', () => {
 	assert.equal(run.run().code, 0);
 	assert.deepEqual(files(), first);
 });
+
+test('--no-write only reports: no question, and published.json and redirects.json stay as they are', () => {
+	const run = setup(remove('neo4j/cypher'), allDesigners);
+	const { code } = run.run(['--no-write']);
+	assert.equal(code, 0);
+	assert.match(run.report(), /## Designer catalogue/);
+	assert.deepEqual(run.read('published.json'), allDesigners);
+	assert.deepEqual(run.read('redirects.json'), []);
+	assert.equal(run.run(['--no-write', '--withdraw', 'neo4j/cypher', '--reason', 'x']).code, 2);
+});

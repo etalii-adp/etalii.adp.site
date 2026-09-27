@@ -483,6 +483,36 @@
       "kind": "complete",
       "by": "ai",
       "at": "2026-09-27T02:38:40.283Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "start",
+      "by": "extension",
+      "at": "2026-09-27T13:21:45.391Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T047",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T18:32:49.648Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T048",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T18:37:36.197Z"
+    },
+    {
+      "step": "implement",
+      "substep": "run-tests",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-09-27T18:37:50Z"
     }
   ],
   "telemetryInstanceId": "3770302d-bb70-4180-97e2-ca6896b96082",
@@ -573,7 +603,7 @@
       "summary": "Designer catalogue built on spec 004's sources/ contract and tested against fixtures: overview, facet, designer and redirect pages, catalogue:notion, catalogue:sync-notion, catalogue:report and check:catalogue; 52 of 58 tasks done, 6 wait on spec 004 or the owner"
     }
   },
-  "currentTask": "T011",
+  "currentTask": "T048",
   "task_summaries": {
     "T001": {
       "status": "DONE",
@@ -979,6 +1009,38 @@
         "specs/003-designer-catalogue/quickstart.md",
         "specs/003-designer-catalogue/contracts/catalogue-data.schema.json"
       ]
+    },
+    "T047": {
+      "status": "DONE",
+      "did": "Documented and wired spec 003's catalogue steps into the catalogue and screenshots refresh procedures: catalogue:notion and catalogue:report after Apply, catalogue:sync-notion after Verify, the report and Notion sync in the pull request body, and the redirects decision.",
+      "files": [
+        "procedures/refresh-catalogue.md",
+        "procedures/refresh-screenshots.md",
+        "procedures/README.md",
+        "scripts/refresh/lib/catalogue-site.mjs",
+        "scripts/refresh/lib/summary.mjs",
+        "scripts/refresh/decide.mjs",
+        "scripts/refresh/lib/decision.mjs",
+        "scripts/catalogue/report.ts",
+        "tests/unit/catalogue/report.test.ts"
+      ],
+      "concerns": [
+        "The run performs the steps itself (afterApply/afterVerify hooks) rather than the reader typing them, because refresh stages run in one command.",
+        "The screenshots procedure runs catalogue:report --no-write only, so the catalogue files keep a single owner.",
+        "A catalogue run whose sources are current skips the Notion steps, so a Notion-only change waits for the next source change."
+      ]
+    },
+    "T048": {
+      "status": "DONE",
+      "did": "Made the four catalogue files refresh-catalogue's own targets (siteFiles, with redirects.json carried like an answered mapping), committed only by that procedure, with a test that no other procedure lists them.",
+      "files": [
+        "scripts/refresh/run.mjs",
+        "scripts/refresh/procedures/catalogue.mjs",
+        "scripts/refresh/procedures/screenshots.mjs",
+        "scripts/refresh/lib/catalogue-site.test.mjs",
+        "scripts/refresh/run.test.mjs",
+        "scripts/refresh/fixtures/procedures/stub.mjs"
+      ]
     }
   },
   "concerns": [
@@ -1067,6 +1129,36 @@
       "what": "Unmapped state stops the build",
       "command": "build with Experimental in a fixture catalogue.json",
       "result": "exit 1, message names the file, origin and state"
+    },
+    {
+      "what": "refresh procedure tests",
+      "command": "npm run test:refresh",
+      "result": "119 passed, 0 failed"
+    },
+    {
+      "what": "unit tests",
+      "command": "npm test",
+      "result": "71 passed"
+    },
+    {
+      "what": "catalogue unit tests",
+      "command": "npm run test:catalogue",
+      "result": "49 passed"
+    },
+    {
+      "what": "procedure docs lint",
+      "command": "npm run refresh:lint",
+      "result": "every procedure follows the template"
+    },
+    {
+      "what": "real screenshots dry run",
+      "command": "npm run refresh -- screenshots --dry-run",
+      "result": "delivered; PR body has the Designer catalogue section; diff only under sources/screenshots"
+    },
+    {
+      "what": "real catalogue dry run",
+      "command": "npm run refresh -- catalogue --dry-run",
+      "result": "failed: catalogue does not assemble, ansible/structure name (209 chars) used as purpose exceeds 140 without a Notion snapshot"
     }
   ],
   "coverage": {
@@ -1154,8 +1246,7 @@
         "T049"
       ],
       "tests": [
-        "tests/catalogue.spec.ts designer page sources and metas",
-        "tests/unit/catalogue/check.test.ts rule 1"
+        "scripts/refresh/lib/catalogue-site.test.mjs (catalogue files owned by refresh-catalogue only)"
       ]
     },
     "FR-010": {
@@ -1227,7 +1318,8 @@
         "T042"
       ],
       "tests": [
-        "tests/unit/catalogue/sync-notion.test.ts"
+        "scripts/refresh/run.test.mjs (site steps after Verify",
+        "write only when delivered)"
       ]
     }
   }

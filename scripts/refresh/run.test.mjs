@@ -98,6 +98,41 @@ describe('run.mjs', () => {
 		assert.equal(decision.procedure, 'refresh-stub');
 	});
 
+	it('runs the site steps after Apply and after Verify, delivering only its own site files and the answer it carries', () => {
+		source.commit({ 'data/b.txt': 'beta, changed\n' });
+		site.commit({ 'site/answer.json': '[]\n' }, 'An empty answer file');
+		writeFileSync(join(site.dir, 'site', 'answer.json'), '["answered"]\n');
+		try {
+			const run = site.refresh(['stub', '--dry-run', '--source', arg], { ...env, STUB_MODE: 'site' });
+			assert.equal(run.code, 0, run.output);
+			assert.match(run.stdout, /^apply: stub site step$/m);
+			const body = site.read('.refresh/pr-body.md');
+			assert.ok(body.indexOf('## What changed') < body.indexOf('## Stub report'), body);
+			assert.match(body, /## Stub after verify\n\nwrite=false/, 'a dry run never writes after Verify');
+			const files = site.json('.refresh/summary.json').files;
+			assert.deepEqual(files.filter((f) => f.path.startsWith('site/')), [
+				{ path: 'site/answer.json', change: 'changed' },
+				{ path: 'site/owned.json', change: 'added' },
+			]);
+			const diff = site.read('.refresh/diff.patch');
+			assert.match(diff, /\+\["owned"\]/);
+			assert.match(diff, /\+\["answered"\]/);
+			assert.doesNotMatch(diff, /not owned/);
+			assert.ok(!site.exists('site/owned.json'), 'a dry run leaves the checkout untouched');
+		} finally {
+			site.git(['checkout', '--', 'site/answer.json']);
+		}
+	});
+
+	it('raises a decision from the step after Apply, which refresh:decide refuses with its own steps', () => {
+		const run = site.refresh(['stub', '--dry-run', '--source', arg], { ...env, STUB_MODE: 'site-decision' });
+		assert.equal(run.code, 3, run.output);
+		assert.deepEqual(site.json('.refresh/decision.json').answerWith, ['Run `answer --rename`.', 'Run the refresh again.']);
+		const decide = site.decide('stub', 'rename');
+		assert.equal(decide.code, 1);
+		assert.match(decide.stderr, /not answered with refresh:decide:\n1\. Run `answer --rename`\.\n2\. Run the refresh again\./);
+	});
+
 	it('accepts the refresh- prefix', () => {
 		const run = site.refresh(['refresh-stub', '--dry-run', '--source', arg], env);
 		assert.notEqual(run.code, 2, run.output);
