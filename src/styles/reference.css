@@ -1,0 +1,89 @@
+/*
+ * The DEDL reference (spec 002): table scroll regions, verbatim blocks, highlighted JSON, key words and the
+ * parts the reference adds around the source text. Colours come from the site theme (theme.css), so both
+ * schemes follow it.
+ */
+
+/* Wide tables scroll inside their own focusable region; the page never scrolls sideways (rule B2). */
+.table-scroll {
+	max-width: 100%;
+	overflow-x: auto;
+	margin-block: 1rem;
+}
+.sl-markdown-content .table-scroll > table {
+	display: table;
+	overflow: visible;
+	margin: 0;
+}
+.table-scroll:focus-visible,
+.sl-markdown-content pre:focus-visible {
+	outline: 2px solid var(--sl-color-text-accent);
+	outline-offset: 2px;
+}
+
+/* Constructs shown as written in the source (rule B4). */
+.verbatim-block {
+	margin-block: 1rem;
+}
+.sl-markdown-content pre.verbatim {
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+	border: 1px dashed var(--sl-color-gray-4);
+}
+.sl-markdown-content .verbatim-note {
+	margin-top: 0.25rem;
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-3);
+	font-style: italic;
+}
+
+/* JSON highlighted at build time in both schemes (rule B1). */
+.sl-markdown-content .shiki {
+	color: var(--shiki-light);
+	background-color: var(--shiki-light-bg);
+}
+.sl-markdown-content .shiki span {
+	color: var(--shiki-light);
+}
+:root:not([data-theme='light']) .sl-markdown-content .shiki {
+	color: var(--shiki-dark);
+	background-color: var(--shiki-dark-bg);
+}
+:root:not([data-theme='light']) .sl-markdown-content .shiki span {
+	color: var(--shiki-dark);
+}
+
+/* The anchor of the page's own source heading, which the page title stands for. */
+.ref-anchor {
+	display: block;
+	scroll-margin-top: calc(var(--sl-nav-height) + 1rem);
+}
+
+/* The table of contents inside the page, for narrow screens where the sidebar sits behind the menu. */
+.ref-toc-disclosure {
+	margin-block: 1rem;
+	padding: 0.5rem 0.75rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 0.5rem;
+}
+.ref-toc-disclosure summary {
+	cursor: pointer;
+	font-weight: 600;
+	color: var(--sl-color-white);
+}
+@media (min-width: 50rem) {
+	.ref-toc-disclosure {
+		display: none;
+	}
+}
+.ref-toc ul {
+	padding-inline-start: 0;
+	list-style: none;
+}
+.ref-toc li {
+	margin-block: 0.25rem;
+}
+.ref-toc a[aria-current='page'] {
+	font-weight: 700;
+	color: var(--sl-color-white);
+}

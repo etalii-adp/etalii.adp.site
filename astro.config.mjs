@@ -26,7 +26,7 @@ export default defineConfig({
 			favicon: '/favicon.svg',
 			pagefind: false,
 			pagination: false,
-			customCss: ['./src/styles/theme.css'],
+			customCss: ['./src/styles/theme.css', './src/styles/reference.css'],
 			sidebar,
 			components: {
 				Header: './src/components/Header.astro',
