@@ -37,8 +37,7 @@ const description = latest
 				<p>
 					<a href={pageHref(language.id, latest.record.version, '')}>
 						{language.short} {latest.record.version}, {latest.record.status}
-					</a>
-					, dated {latest.record.date}. The address <a href={pageHref(language.id, 'latest', '')}><code>{pageHref(language.id, 'latest', '')}</code></a> always shows
+					</a>, dated {latest.record.date}. The address <a href={pageHref(language.id, 'latest', '')}><code>{pageHref(language.id, 'latest', '')}</code></a> always shows
 					the most recent version.
 				</p>
 				<Toc version={latest} segment={latest.record.version} withCover />
@@ -48,8 +47,7 @@ const description = latest
 						<a href={schemaPageHref(language.id, latest.record.version)}>Schema browser</a>, and the schema file itself at{' '}
 						<a href={schemaFileHref(latest)}>
 							<code>{schemaFileHref(latest)}</code>
-						</a>
-						, the address of its <code>$id</code>
+						</a>, the address of its <code>$id</code>
 					</li>
 					<li>
 						<a href={examplesHref(language.id, latest.record.version)}>Examples</a>, each documented and drawn from its file
@@ -64,8 +62,7 @@ const description = latest
 						<li>
 							<a href={pageHref(language.id, version.record.version, '')}>
 								{language.short} {version.record.version}
-							</a>
-							, {version.record.status}, {version.record.date}
+							</a>, {version.record.status}, {version.record.date}
 							{version === latest ? ' (latest)' : ' (superseded)'}
 						</li>
 					))}

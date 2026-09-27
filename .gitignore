@@ -20,3 +20,6 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
+
+# Reference fixtures generated for tests (spec 002)
+tests/reference/fixtures/.generated/

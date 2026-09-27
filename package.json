@@ -10,6 +10,7 @@
     "dev": "astro dev",
     "build": "astro build && npm run build:search && node scripts/assemble-root.mjs",
     "build:search": "pagefind --site dist/adp",
+    "build:versioning-test": "astro build --mode reference-versioning-test && npm run build:search && node scripts/assemble-root.mjs",
     "preview": "sirv dist --port 4321",
     "test": "vitest run",
     "reference:refresh": "tsx scripts/reference/refresh.ts",

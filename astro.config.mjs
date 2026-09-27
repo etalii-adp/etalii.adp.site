@@ -1,4 +1,6 @@
 // @ts-check
+// First: `--mode reference-versioning-test` points the reference at its versioning fixture (spec 002, quickstart 4).
+import './scripts/reference/versioning-mode.ts';
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import { redirects } from './src/data/redirects.ts';

@@ -32,6 +32,9 @@ const description = `The ${version.language.name} specification, version ${versi
 	headings={[...body.headings, { depth: 2, slug: 'ref-contents', text: 'Contents' }]}
 	anchorId={split.titleId}
 	canonical={route.isLatestCopy ? pageHref(language, version.record.version, '') : undefined}
+	latest={route.latest}
+	slug=""
+	searchable={!route.isLatestCopy}
 >
 	<Fragment set:html={body.html} />
 	<h2 id="ref-contents">Contents</h2>

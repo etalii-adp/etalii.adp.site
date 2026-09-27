@@ -181,6 +181,36 @@ function rehypeInformative() {
 	};
 }
 
+// -- Heading links (FR-005) --------------------------------------------------------------------------
+
+/**
+ * Gives every heading of level 2–6 a visible, keyboard-reachable link to itself, beside the heading and
+ * never inside its text, so that the heading's own text and accessible name stay as in the source.
+ */
+function rehypeHeadingLinks() {
+	return (tree: HastRoot) => {
+		visit(tree, 'element', (node: Element, index, parent) => {
+			if (!/^h[2-6]$/.test(node.tagName) || !parent || index === undefined || typeof node.properties.id !== 'string') return;
+			const label = hastToString({ ...node, children: node.children.filter((c) => !(c.type === 'element' && (c.properties.className as string[] | undefined)?.includes('ref-informative'))) }).trim();
+			parent.children[index] = {
+				type: 'element',
+				tagName: 'div',
+				properties: { className: ['ref-heading', `ref-heading-${node.tagName}`] },
+				children: [
+					node,
+					{
+						type: 'element',
+						tagName: 'a',
+						properties: { className: ['heading-link'], href: `#${node.properties.id}`, ariaLabel: `Link to ${label}` },
+						children: [{ type: 'element', tagName: 'span', properties: { ariaHidden: 'true' }, children: [{ type: 'text', value: '#' }] }],
+					},
+				],
+			};
+			return SKIP;
+		});
+	};
+}
+
 // -- A whole version ---------------------------------------------------------------------------------
 
 export interface RenderedVersion {
@@ -195,7 +225,7 @@ export interface RenderedVersion {
 export function referencePlugins(context: LinkContext): Pick<RenderOptions, 'remarkPlugins' | 'rehypePlugins'> {
 	return {
 		remarkPlugins: [[remarkLinkReferences, context]],
-		rehypePlugins: [rehypeKeywords, rehypeInformative],
+		rehypePlugins: [rehypeKeywords, rehypeInformative, rehypeHeadingLinks],
 	};
 }
 

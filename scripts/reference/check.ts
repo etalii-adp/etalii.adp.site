@@ -7,7 +7,7 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { languages, versionsOf, type LoadedVersion } from '../../src/lib/reference/load';
-import { LATEST, languageHref, pageHref } from '../../src/lib/reference/site';
+import { LATEST, languageHref, pageHref, versionHref } from '../../src/lib/reference/site';
 
 export interface CheckContext {
 	/** The build output, `dist/`. */
@@ -106,6 +106,42 @@ checks.push({
 					if (fragment && path.endsWith('/') && !idsOf(html(path)!).has(decodeURIComponent(fragment))) {
 						fail(`link to ${target} names a fragment the page does not have`, address);
 					}
+				}
+			}
+		}
+	},
+});
+
+// -- Versions: banner, canonical, latest addresses (FR-006 to FR-008, SC-004) ----------------------------
+
+checks.push({
+	name: 'versions',
+	run({ versions, pages, html, fail }) {
+		for (const language of new Set(versions.map((v) => v.language.id))) {
+			const own = versions.filter((v) => v.language.id === language);
+			const latest = own.at(-1)!;
+			for (const version of own) {
+				const prefix = versionHref(language, version.record.version);
+				for (const address of pages(language).filter((a) => a.startsWith(prefix))) {
+					const page = html(address)!;
+					if (version !== latest && !page.includes('ref-version-banner')) fail(`a page of superseded version ${version.record.version} lacks the newer-version banner`, address);
+					if (version === latest && page.includes('ref-version-banner')) fail('a page of the latest version shows the newer-version banner', address);
+				}
+			}
+			const latestPrefix = versionHref(language, LATEST);
+			const twinPrefix = versionHref(language, latest.record.version);
+			for (const address of pages(language).filter((a) => a.startsWith(latestPrefix))) {
+				const page = html(address)!;
+				if (page.includes('class="ref-stub"')) continue;
+				const canonical = /<link rel="canonical" href="([^"]*)"/.exec(page)?.[1];
+				const twin = new URL(twinPrefix + address.slice(latestPrefix.length), 'https://etalii.net').href;
+				if (canonical !== twin) fail(`latest copy has rel="canonical" ${canonical ?? 'missing'}, expected ${twin}`, address);
+				if (page.includes('data-pagefind-body')) fail('latest copy is marked for the search index', address);
+			}
+			for (const version of own) {
+				for (const { page } of version.split().sections) {
+					const address = pageHref(language, LATEST, page.slug);
+					if (html(address) === undefined) fail(`${version.record.version} page "${page.slug}" does not resolve under latest/ (neither page nor stub)`, address);
 				}
 			}
 		}

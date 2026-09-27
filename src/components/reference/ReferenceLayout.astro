@@ -7,6 +7,7 @@ import type { LoadedVersion } from '../../lib/reference/load';
 import type { RenderedHeading } from '../../lib/reference/render';
 import { sidebarFor } from '../../lib/reference/site';
 import Toc from './Toc.astro';
+import VersionBanner from './VersionBanner.astro';
 
 interface Props {
 	/** The version shown; undefined on the landing while no version is published. */
@@ -23,9 +24,16 @@ interface Props {
 	canonical?: string;
 	/** The id of the page's own source heading, which the page title stands for. */
 	anchorId?: string;
+	/** The newest published version; pages of an older one show the newer-version banner (FR-008). */
+	latest?: LoadedVersion;
+	/** The page's slug within its version, for the banner's link (section slug, `schema`, `examples/<stem>`). */
+	slug?: string;
+	/** False for `latest` copies and stubs, which stay out of the search index (research D12). */
+	searchable?: boolean;
 }
 
-const { version, segment = version?.record.version ?? '', title, description, current, headings = [], canonical, anchorId } = Astro.props;
+const { version, segment = version?.record.version ?? '', title, description, current, headings = [], canonical, anchorId, latest, slug, searchable = true } = Astro.props;
+const superseded = version && latest && version !== latest;
 
 const head = canonical ? [{ tag: 'link' as const, attrs: { rel: 'canonical', href: new URL(canonical, Astro.site).href } }] : [];
 const onThisPage = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
@@ -39,12 +47,14 @@ const onThisPage = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 		section: 'dedl',
 		head,
 		tableOfContents: onThisPage.length > 1 ? { minHeadingLevel: 2, maxHeadingLevel: 3 } : false,
+		pagefind: searchable,
 	}}
 	sidebar={version ? sidebarFor(version, segment) : undefined}
 	headings={onThisPage}
 >
 	<div class="ref-page">
 		{anchorId && <span id={anchorId} class="ref-anchor" />}
+		{superseded && <VersionBanner version={version} latest={latest} slug={slug} />}
 		<slot name="banner" />
 		{
 			version && current !== undefined && (
