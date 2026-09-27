@@ -244,7 +244,7 @@ These rules apply to every task below. They are stated once here so that they do
 
 ### Tests for User Story 3
 
-- [ ] T037 [P] [US3] Write `scripts/refresh/procedures/catalogue.test.mjs`, using the standalone fixture's `docs/diagrams.md`. Cover:
+- [X] T037 [P] [US3] Write `scripts/refresh/procedures/catalogue.test.mjs`, using the standalone fixture's `docs/diagrams.md`. Cover:
   - (a) changing `freeplane/mindmap` from Prototype to Implemented without a tag changes nothing published (the state stays `prototype`, with `developState` `Implemented` and `releaseState` `Prototype`), while `sources/catalogue/standalone/diagrams.md` and its lock entry do change;
   - (b) after tagging `v9.9.9`, the state becomes `prototype → available`, and the summary lists only that designer (US3-1);
   - (c) a row absent at the release is `in progress`;
@@ -253,7 +253,7 @@ These rules apply to every task below. They are stated once here so that they do
   - (f) added and withdrawn designers are listed;
   - (g) a host without `docs/diagrams.md` is reported as "no catalogue at `docs/diagrams.md`" in the details, and is not a failure;
   - (h) a duplicate origin fails, naming both rows.
-- [ ] T038 [P] [US3] Write `scripts/refresh/procedures/hosts.test.mjs`. Cover:
+- [X] T038 [P] [US3] Write `scripts/refresh/procedures/hosts.test.mjs`. Cover:
   - (a) a VS Code fixture with no `docs/diagrams.md` is `planned`;
   - (b) one ⚗️ Prototype row and no release is `in progress`, with the facts `catalogueCommit`, `usableDesigners: 0`, `designersInProgress: 1`, `latestRelease: null` and `developHead` (US3-3);
   - (c) adding a release whose catalogue has the row as Prototype makes it `available`, with `link` pointing to the release;
@@ -261,21 +261,21 @@ These rules apply to every task below. They are stated once here so that they do
 
 ### Implementation for User Story 3
 
-- [ ] T039 [US3] Implement `scripts/refresh/procedures/catalogue.mjs`, which follows research R10 and data-model.md § Designer entry (depends on T019 and T022). It has `id: 'refresh-catalogue'`, `short: 'catalogue'` and `what: 'designer catalogue'`, with one source per IDE repository on `paths: ['docs/diagrams.md']` and `usesReleases: true`. `releases` in the lock records `{ tag, commit }`, or `null` per repository. The procedure:
+- [X] T039 [US3] Implement `scripts/refresh/procedures/catalogue.mjs`, which follows research R10 and data-model.md § Designer entry (depends on T019 and T022). It has `id: 'refresh-catalogue'`, `short: 'catalogue'` and `what: 'designer catalogue'`, with one source per IDE repository on `paths: ['docs/diagrams.md']` and `usesReleases: true`. `releases` in the lock records `{ tag, commit }`, or `null` per repository. The procedure:
   - copies `docs/diagrams.md` verbatim to `sources/catalogue/<host>/diagrams.md`;
   - regenerates `sources/catalogue/<host>/catalogue.json` with `{ origin, name, group, developState, releaseState, state, theory, example }`, sorted by group, then origin;
   - raises a decision for the first unmapped state label per run: the question is `How should the source state "<label>" in <host> map to a site state?`, the options are `siteStates`, and the answer is written to `procedures/config/states.json` under `mappings.<host>.<label>`;
   - reports hosts with no catalogue;
   - provides a `renderDetails` table with the columns origin, host, old → new, `developState` and `releaseState`, followed by the added and withdrawn designers.
-- [ ] T040 [US3] Implement `scripts/refresh/procedures/hosts.mjs`, which follows research R10 and data-model.md § Host state (depends on T022). It has `id: 'refresh-hosts'`, `short: 'hosts'` and `what: 'IDE host states'`, with the same four sources on `paths: ['docs/diagrams.md']` and `usesReleases: true`. It writes only the derived `sources/hosts/hosts.json`, one entry per host, with `{ host, repository, state, facts: { catalogueCommit, usableDesigners, designersInProgress, latestRelease, developHead }, link }`. Its lock lists `hosts.json` with the four repositories' heads in `sourceHeads`, and `verify.mjs` accepts derived files through a per-procedure `derivedFiles` list declared in the module. The derivation rules:
+- [X] T040 [US3] Implement `scripts/refresh/procedures/hosts.mjs`, which follows research R10 and data-model.md § Host state (depends on T022). It has `id: 'refresh-hosts'`, `short: 'hosts'` and `what: 'IDE host states'`, with the same four sources on `paths: ['docs/diagrams.md']` and `usesReleases: true`. It writes only the derived `sources/hosts/hosts.json`, one entry per host, with `{ host, repository, state, facts: { catalogueCommit, usableDesigners, designersInProgress, latestRelease, developHead }, link }`. Its lock lists `hosts.json` with the four repositories' heads in `sourceHeads`, and `verify.mjs` accepts derived files through a per-procedure `derivedFiles` list declared in the module. The derivation rules:
   - `available` when at least one designer is `prototype` or `available` after the release cap;
   - otherwise `in progress` when at least one row's `develop` state maps to `in progress` or later;
   - otherwise `planned`.
 
   Resolve compares the catalogue blob SHAs and releases. Apply treats an unchanged `hosts.json` as `current`.
-- [ ] T041 [P] [US3] Write `procedures/refresh-catalogue.md` from the template, with the title "Refresh the designer catalogue". Its **Decisions** section covers the unmapped source state: the options are the site states, and the answer goes to `procedures/config/states.json`. It explains the release cap in two sentences with one example, and names the external gap for IntelliJ, which needs a `docs/diagrams.md` (plan § Dependencies).
-- [ ] T042 [P] [US3] Write `procedures/refresh-hosts.md` from the template, with the title "Refresh the IDE host states". It states the three derivation rules, and **Decisions** is "None".
-- [ ] T043 [US3] Add the `refresh-catalogue` and `refresh-hosts` rows to `procedures/README.md`, and both titles to `CLAUDE.md`.
+- [X] T041 [P] [US3] Write `procedures/refresh-catalogue.md` from the template, with the title "Refresh the designer catalogue". Its **Decisions** section covers the unmapped source state: the options are the site states, and the answer goes to `procedures/config/states.json`. It explains the release cap in two sentences with one example, and names the external gap for IntelliJ, which needs a `docs/diagrams.md` (plan § Dependencies).
+- [X] T042 [P] [US3] Write `procedures/refresh-hosts.md` from the template, with the title "Refresh the IDE host states". It states the three derivation rules, and **Decisions** is "None".
+- [X] T043 [US3] Add the `refresh-catalogue` and `refresh-hosts` rows to `procedures/README.md`, and both titles to `CLAUDE.md`.
 
 **Checkpoint**: all four single procedures work independently. Quickstart scenarios 6 and 7 pass as dry runs.
 

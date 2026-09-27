@@ -40,5 +40,7 @@ The DEDL reference, the designer catalogue, the screenshots and the IDE host sta
 
 - "Refresh the DEDL reference": [procedures/refresh-dedl.md](procedures/refresh-dedl.md)
 - "Refresh the screenshots": [procedures/refresh-screenshots.md](procedures/refresh-screenshots.md)
+- "Refresh the designer catalogue": [procedures/refresh-catalogue.md](procedures/refresh-catalogue.md)
+- "Refresh the IDE host states": [procedures/refresh-hosts.md](procedures/refresh-hosts.md)
 
 When asked to run one of them, open its document in `procedures/` and follow it step by step. Never edit a file under `sources/` by hand; every change there comes from `npm run refresh`. When a run ends with `needs-decision`, read `.refresh/decision.json` and ask the person its `question` as a selection whose options are exactly its `options`; then run `npm run refresh:decide -- <id> <answer>` and run the procedure again.

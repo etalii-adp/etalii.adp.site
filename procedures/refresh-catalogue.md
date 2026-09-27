@@ -1,0 +1,65 @@
+# Refresh the designer catalogue
+
+Brings the site's designer catalogue (spec 003) up to each IDE host's own catalogue, `docs/diagrams.md`, and maps each designer's state there to the site's shared states. States change less often than text, but mislead most when stale (constitution principle III).
+
+## Sources
+
+| Repository | Ref | Paths | Visibility |
+|---|---|---|---|
+| etalii-adp/etalii.adp.ide.standalone | develop | `docs/diagrams.md` | private |
+| etalii-adp/etalii.adp.ide.intellij | develop | `docs/diagrams.md` | private (not present yet) |
+| etalii-adp/etalii.adp.ide.vscode | develop | `docs/diagrams.md` | private (not present yet) |
+| etalii-adp/etalii.adp.ide.eclipse | develop | `docs/diagrams.md` | private (not present yet) |
+
+The run also reads `docs/diagrams.md` at each host's latest published release, for the release cap below.
+
+## Updates
+
+- `sources/catalogue/<host>/diagrams.md`: the host's catalogue, verbatim.
+- `sources/catalogue/<host>/catalogue.json`: one entry per designer with its origin, name, group, theory, example, its state as written on `develop` (`developState`) and at the latest release (`releaseState`), and its site `state`.
+- `sources/catalogue/source.lock.json`: the source record of each catalogue, and each host's latest release.
+- `procedures/config/states.json`, only when a decision is answered.
+- The spec 003 designer pages and catalogue overview are built from these files.
+
+A designer's site state is its `develop` state mapped through `procedures/config/states.json`, then capped at the host's latest release: a designer the release does not yet have at `prototype` or `available` is shown as `in progress`. For example, a designer marked Implemented on `develop` the day after a release that had it as Prototype stays `prototype` until the next release, because no user can install the newer one yet.
+
+IntelliJ has no `docs/diagrams.md` yet, so its FreeMind and draw.io designers are not listed; every pull request says so until `etalii-adp/etalii.adp.ide.intellij` adds one in the standalone's format. Its README is not retyped into the catalogue (constitution principle II).
+
+## Before you start
+
+- `gh auth status` shows a login with read access to the four IDE repositories and write access to this repository.
+- A clean checkout of this repository, with Node.js 24 and `npm ci` done.
+
+## Steps
+
+1. Run `npm run refresh -- catalogue`. It prints one line per stage: `resolve` (each host's `develop` head, whether its catalogue exists, and its latest release), `fetch`, `apply`, `verify` and `deliver`, and ends with `outcome: <outcome>`.
+2. Act on the outcome:
+   - `current` (exit 0): no catalogue and no release changed. Report that the catalogue is current; there is nothing else to do.
+   - `delivered` (exit 0): report the pull request link it printed, with the designers whose state changed, and the designers added and withdrawn.
+   - `delivered-draft` (exit 1): the pull request is a draft because a verification step failed. Report the link and the failing step; the failing output is in the pull request body.
+   - `needs-decision` (exit 3): see Decisions.
+   - `failed` (exit 2): nothing was changed. Report the line starting with `failed:`. A duplicate origin in a catalogue names both rows; that is corrected in the host's repository, not here.
+
+## Decisions
+
+**How should the source state "<label>" in <host> map to a site state?** Raised when a host's catalogue uses a state label that `procedures/config/states.json` has no mapping for (for example a new `🧪 Experimental`). The options are the site states: `identified`, `specified`, `in progress`, `prototype`, `available`, `planned`, `not planned`. The answer is written to `procedures/config/states.json` under `mappings.<host>.<label>`. Ask it as a selection with exactly those options, then run `npm run refresh:decide -- catalogue <answer>` and run the procedure again; the mapping change becomes part of the same pull request.
+
+## Verification
+
+The run verifies its own result before delivering (contracts/site-integration.md):
+
+1. Site builds (`npm run build`).
+2. Links and accessibility (`npm run check`).
+3. Source records (`npm run refresh:verify`): the catalogues match their lock, and `catalogue.json` matches the hash recorded for it, so a hand edit is caught.
+
+A failed step makes the pull request a draft, with the step's output under "Verification".
+
+## Pull request
+
+- Branch `refresh/catalogue`, into `develop`, labelled `refresh` and `refresh:catalogue`. A later run updates the same pull request.
+- Title `Refresh designer catalogue: <before>..<after>` (short SHAs of the host whose revision moved).
+- Body: Source revisions, What changed (a table of designers whose state changed, with the `develop` and release source states; designers added; designers withdrawn; hosts without a catalogue), Withdrawn, Verification and the footer, per contracts/pull-request.md.
+
+## When the source moves
+
+If a host moves its catalogue, change `sources` in `scripts/refresh/procedures/catalogue.mjs` and the Sources table above together, in one pull request; `npm run refresh:lint` checks that the two agree. The hosts procedure reads the same file, so change `scripts/refresh/procedures/hosts.mjs` and [refresh-hosts.md](refresh-hosts.md) with it.
