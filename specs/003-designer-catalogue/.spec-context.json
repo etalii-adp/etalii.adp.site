@@ -521,6 +521,22 @@
       "kind": "complete",
       "by": "ai",
       "at": "2026-09-27T18:38:31.330Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T011",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-09-27T18:38:51.223Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "task": "T051",
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-09-27T18:38:51.223Z"
     }
   ],
   "telemetryInstanceId": "3770302d-bb70-4180-97e2-ca6896b96082",
@@ -611,7 +627,7 @@
       "summary": "The catalogue and screenshots refreshes now run the catalogue steps and own the catalogue files (T047, T048, PR #19); T055 is blocked on the catalogue not assembling and on NOTION_TOKEN"
     }
   },
-  "currentTask": "T058",
+  "currentTask": "T055",
   "task_summaries": {
     "T001": {
       "status": "DONE",
