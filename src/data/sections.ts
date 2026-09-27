@@ -4,6 +4,8 @@
  * delivers a new section adds it here (contracts/site-navigation.md).
  */
 
+import { hasPublishedVersion } from '../lib/reference/published';
+
 export type PartId = 'product' | 'documentation';
 
 export interface Part {
@@ -33,7 +35,8 @@ export const parts: readonly Part[] = [
 export const sections: readonly Section[] = [
 	{ id: 'home', label: 'Home', part: 'product', href: '/adp/', status: 'available', deliveredBy: '001' },
 	{ id: 'docs', label: 'Documentation', part: 'documentation', href: '/adp/docs/', status: 'available', deliveredBy: '001' },
-	{ id: 'dedl', label: 'DEDL reference', part: 'documentation', href: '/adp/dedl/', status: 'coming', deliveredBy: '002' },
+	// Coming until a version of DEDL is published (spec 002; its source needs a licence first).
+	{ id: 'dedl', label: 'DEDL reference', part: 'documentation', href: '/adp/dedl/', status: hasPublishedVersion('dedl') ? 'available' : 'coming', deliveredBy: '002' },
 	{ id: 'designers', label: 'Designers', part: 'documentation', href: '/adp/designers/', status: 'available', deliveredBy: '003' },
 ];
 

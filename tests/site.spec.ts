@@ -22,10 +22,16 @@ function addressOf(file: string): string {
 	return path.endsWith('/index.html') ? path.slice(0, -'index.html'.length) : path;
 }
 
+// The DEDL reference (spec 002) builds some sixty pages per version from one template each; its checks here
+// cover one page of each kind (spec 002 quickstart 8): the landing, a cover, section 6, the schema browser,
+// one example, the examples index, a latest copy and search. check:reference covers every page.
+const referencePage = /^\/adp\/dedl\/(?!$|search\/$)/;
+const referenceSample = /^\/adp\/dedl\/(?:[0-9.]+\/(?:layer-3-notation-visual-definition\/|schema\/|examples\/(?:statemachine\/)?)?|latest\/foundations\/)$/;
 const redirectsAway = (file: string) => /<meta http-equiv="refresh"/.test(readFileSync(file, 'utf8'));
 const pages = [...htmlFiles(join(dist, 'adp')), join(dist, '404.html')]
 	.filter((file) => !redirectsAway(file))
 	.map(addressOf)
+	.filter((address) => !referencePage.test(address) || referenceSample.test(address))
 	.sort();
 const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 
@@ -44,6 +50,8 @@ for (const address of pages) {
 	const isNotFound = address.endsWith('404.html');
 
 	test.describe(address, () => {
+		// The schema browser holds every highlighted definition of the DEDL schema; axe needs longer there.
+		if (/^\/adp\/dedl\/[^/]+\/schema\/$/.test(address)) test.slow();
 		for (const colorScheme of ['light', 'dark'] as const) {
 			test(`passes WCAG 2.2 AA in the ${colorScheme} scheme`, async ({ browser }) => {
 				const context = await browser.newContext({ colorScheme });

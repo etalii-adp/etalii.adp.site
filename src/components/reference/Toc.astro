@@ -1,0 +1,56 @@
+---
+// The generated table of contents of a version (rendering rule S2): the cover, the sections and the
+// appendices, the current page marked with aria-current="page".
+import type { LoadedVersion } from '../../lib/reference/load';
+import { pageHref, tocEntries } from '../../lib/reference/site';
+
+interface Props {
+	version: LoadedVersion;
+	/** A version or `latest`. */
+	segment: string;
+	/** Slug of the current page; empty for the cover, undefined when the page is none of these. */
+	current?: string;
+	/** Also list the cover. */
+	withCover?: boolean;
+}
+
+const { version, segment, current, withCover = false } = Astro.props;
+const entries = tocEntries(version, segment);
+const sections = entries.filter((e) => !e.appendix);
+const appendices = entries.filter((e) => e.appendix);
+const coverHref = pageHref(version.language.id, segment, '');
+---
+
+<nav class="ref-toc" aria-label={`Table of contents, ${version.language.short} ${version.record.version}`}>
+	{
+		withCover && (
+			<p class="ref-toc-cover">
+				<a href={coverHref} aria-current={current === '' ? 'page' : undefined}>
+					Cover: title, status and metadata
+				</a>
+			</p>
+		)
+	}
+	<ul>
+		{
+			sections.map((entry) => (
+				<li>
+					<a href={entry.href} aria-current={entry.slug === current ? 'page' : undefined}>
+						{entry.label}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+	<ul>
+		{
+			appendices.map((entry) => (
+				<li>
+					<a href={entry.href} aria-current={entry.slug === current ? 'page' : undefined}>
+						{entry.label}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</nav>

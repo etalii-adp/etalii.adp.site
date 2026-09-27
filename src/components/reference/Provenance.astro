@@ -1,0 +1,43 @@
+---
+// Where the page came from (US4, FR-011, FR-015, research D14): version, status and date; repository;
+// revision linked to the prose at that revision; when this site generated the page; the licence; and where
+// to report a problem — the source repository, not this site. Spec 003's source-record rendering is not on
+// develop yet, so the reference renders its own.
+import type { LoadedVersion } from '../../lib/reference/load';
+import { shortRevision } from '../../lib/reference/site';
+
+interface Props {
+	version: LoadedVersion;
+}
+
+const { version } = Astro.props;
+const { record, language } = version;
+const { repository, revision, licence, copyright } = record.source;
+const sourceHref = `https://github.com/${repository}/blob/${revision}/${record.source.path}/${language.prose}`;
+const generated = new Date().toISOString().slice(0, 10);
+const licenceKnown = licence && licence !== 'NOASSERTION';
+---
+
+<aside class="ref-provenance not-content" aria-labelledby="ref-provenance-title" data-revision={revision} data-licence={licence} data-pagefind-ignore>
+	<h2 id="ref-provenance-title">Source</h2>
+	<dl>
+		<dt>Specification</dt>
+		<dd>{language.short} {record.version}, {record.status}, {record.date}</dd>
+		<dt>Repository</dt>
+		<dd><a href={`https://github.com/${repository}`}>{repository}</a></dd>
+		<dt>Revision</dt>
+		<dd>
+			<a href={sourceHref}><code>{shortRevision(revision)}</code></a> of <code>{record.source.path}/{language.prose}</code>
+		</dd>
+		<dt>Generated</dt>
+		<dd>{generated}, by this site from that revision, unchanged</dd>
+		<dt>Licence</dt>
+		<dd>
+			{licenceKnown ? licence : 'not stated by the source yet'}
+			{copyright && <>, {copyright}</>}
+		</dd>
+	</dl>
+	<p>
+		Found an error? <a href={`https://github.com/${repository}/issues`}>Report a problem to {repository}</a>, where the specification is written.
+	</p>
+</aside>
