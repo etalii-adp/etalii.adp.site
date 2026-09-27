@@ -13,12 +13,12 @@ export interface Build {
 }
 
 export const builds: readonly Build[] = [
-	{ repository: 'etalii.adp', public: true },
-	{ repository: 'etalii.adp.ide.intellij', public: false },
-	{ repository: 'etalii.adp.ide.standalone', public: false, workflow: 'build.yml' },
-	{ repository: 'etalii.adp.ide.vscode', public: false },
-	{ repository: 'etalii.adp.ide.eclipse', public: false },
-	{ repository: 'etalii.adp.site', public: true, workflow: 'deploy.yml' },
+	{ repository: 'etalii.adp', public: true, workflow: 'build.yml' },
+	{ repository: 'etalii.adp.ide.intellij', public: true, workflow: 'build.yml' },
+	{ repository: 'etalii.adp.ide.standalone', public: true, workflow: 'build.yml' },
+	{ repository: 'etalii.adp.ide.vscode', public: true, workflow: 'build.yml' },
+	{ repository: 'etalii.adp.ide.eclipse', public: true, workflow: 'build.yml' },
+	{ repository: 'etalii.adp.site', public: true, workflow: 'build.yml' },
 ];
 
 export const organisation = 'https://github.com/etalii-adp';

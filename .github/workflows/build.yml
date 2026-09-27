@@ -1,24 +1,23 @@
-# Checks every pull request into develop: the unit tests pass, the site builds, the DEDL reference passes
-# check:reference, its internal links resolve and every page passes the accessibility, phone-width,
-# no-script and privacy checks (FR-012). It has no Pages
-# permissions, so a pull request never changes the published site (FR-011).
-name: ci
+# The site's Build workflow (etalii.adp spec 001-ci-and-badges). It runs on every pull request into develop and
+# on every change to develop, and its badge stands for this repository. It checks that the unit tests pass, the
+# site builds, the DEDL reference passes check:reference, its internal links resolve and every page passes the
+# accessibility, phone-width, no-script and privacy checks (FR-012). It has no Pages permissions, so it never
+# changes the published site (FR-011); deploy.yml publishes.
+name: Build
 
 on:
   pull_request:
     branches: [develop]
+  push:
+    branches: [develop]
+  workflow_dispatch:
 
 permissions:
   contents: read
 
-# Runner choice: every job runs on `vars.RUNS_ON` when that repository (or organisation) variable is set,
-# and on GitHub's hosted `ubuntu-latest` otherwise. The value is a JSON label list or string, for example
-# `["self-hosted","linux"]` to use a self-hosted Linux runner while the hosted minutes are spent. GitHub
-# cannot pick "whichever runner is free" by itself: a job's labels must all match one runner, so the
-# switch is this variable.
 jobs:
   check:
-    runs-on: ${{ fromJSON(vars.RUNS_ON || '"ubuntu-latest"') }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -42,7 +41,7 @@ jobs:
   # The DEDL reference (spec 002) built from its pinned test fixture, so that its pages are checked before a
   # licensed snapshot exists. This build is never published; its licence check reports a warning, not a failure.
   reference-fixture:
-    runs-on: ${{ fromJSON(vars.RUNS_ON || '"ubuntu-latest"') }}
+    runs-on: ubuntu-latest
     env:
       REFERENCE_CONTENT_DIR: tests/reference/fixtures/dedl-aaef333
     steps:
