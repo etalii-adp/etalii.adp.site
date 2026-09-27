@@ -98,4 +98,18 @@ describe('renderDecisionIssue', () => {
 		assert.ok(body.includes('npm run refresh:decide -- catalogue <answer>'));
 		assert.ok(body.includes('`mappings → standalone → Experimental` in `procedures/config/states.json`'));
 	});
+
+	it('gives the steps of a decision answered by another command, and no refresh:decide', () => {
+		const body = renderDecisionIssue({
+			procedure: 'refresh-catalogue',
+			question: '`neo4j/cypher` is no longer in any source. Renamed to (origin) or withdrawn (reason)?',
+			subject: 'src/content/catalogue/redirects.json: neo4j/cypher',
+			options: ['rename', 'withdraw'],
+			writeTo: 'src/content/catalogue/redirects.json',
+			answerWith: ['Run the refresh with --no-deliver.', 'Answer with catalogue:report.'],
+		});
+		assert.ok(body.includes('1. Run the refresh with --no-deliver.\n2. Answer with catalogue:report.'));
+		assert.ok(body.includes('add the entry to `src/content/catalogue/redirects.json`'));
+		assert.ok(!body.includes('refresh:decide'));
+	});
 });

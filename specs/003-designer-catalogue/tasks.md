@@ -345,12 +345,12 @@ The plan, research, data model and quickstart are brought in line in T057.
   - A rename renders the stub of contracts/site-addresses.md § Redirect stub inside `StarlightPage`, with `head` metas `refresh`, `canonical` and `robots noindex`, and the text "This designer is now at <link>".
   - A withdrawal renders a normal page with "This designer was withdrawn on <since>: <reason>".
   - Neither page carries `adp:sourced`.
-- [ ] T047 [US4] In `procedures/refresh-catalogue.md` and `procedures/refresh-screenshots.md` (spec 004's, template sections kept), add to **Steps**, after Apply and before Verify:
+- [x] **T047** [US4] In `procedures/refresh-catalogue.md` and `procedures/refresh-screenshots.md` (spec 004's, template sections kept), add to **Steps**, after Apply and before Verify:
   - `npm run catalogue:notion` (needs `NOTION_TOKEN`; skip with a note in the pull request when it is absent);
   - `npm run catalogue:report`, whose exit 3 is answered like any other decision, through `--withdraw` or `--rename`;
   - after a successful Verify, `npm run catalogue:sync-notion`.
   Add `src/content/catalogue/notion.json`, `published.json`, `redirects.json` and `focus-areas.json` to **Updates**, and include `.refresh/catalogue-report.md` and `.refresh/catalogue-notion-sync.md` in the pull request body. Then run `npm run refresh:lint`.
-- [ ] T048 [US4] In `scripts/refresh/procedures/catalogue.mjs` and `screenshots.mjs` (spec 004), add the catalogue files of T047 to the procedure's allowed targets. Check first that no other procedure lists them, since targets never overlap (004 data-model § Procedure). Run `npm test`.
+- [x] **T048** [US4] In `scripts/refresh/procedures/catalogue.mjs` and `screenshots.mjs` (spec 004), add the catalogue files of T047 to the procedure's allowed targets. Check first that no other procedure lists them, since targets never overlap (004 data-model § Procedure). Run `npm test`.
 
 **Checkpoint**: quickstart § 5 passes end to end.
 

@@ -19,7 +19,13 @@ The run also reads `docs/diagrams.md` at each host's latest published release, t
 - `sources/catalogue/<host>/catalogue.json`: one entry per designer with its origin, name, group, theory, example, its state as written on `develop` (`developState`) and at the latest release (`releaseState`), and its site `state`.
 - `sources/catalogue/source.lock.json`: the source record of each catalogue, and each host's latest release.
 - `procedures/config/states.json`, only when a decision is answered.
+- `src/content/catalogue/notion.json`: the Notion "Diagrams" snapshot (`npm run catalogue:notion`), and the host values written back to Notion (`npm run catalogue:sync-notion`).
+- `src/content/catalogue/focus-areas.json`: a focus area Notion uses that the file does not have yet, added by `npm run catalogue:notion`.
+- `src/content/catalogue/published.json`: the designers that have a page (`npm run catalogue:report`).
+- `src/content/catalogue/redirects.json`: a renamed or withdrawn designer, only when that decision is answered.
 - The spec 003 designer pages and catalogue overview are built from these files.
+
+Only this procedure changes the four files under `src/content/catalogue/`; the screenshots procedure runs the catalogue report for its pull request but leaves them as they are.
 
 A designer's site state is its `develop` state mapped through `procedures/config/states.json`, and is never lowered (spec 003 research D3, owner's decision of 2026-09-27). The release state is recorded next to it, so the pull request and the page can say what a user can install. For example, a designer marked Implemented on `develop` the day after a release that had it as Prototype is shown as `implemented`, with `releaseState` Prototype.
 
@@ -29,13 +35,16 @@ IntelliJ has no `docs/diagrams.md` yet, so its FreeMind and draw.io designers ar
 
 - `gh auth status` shows a login with read access to the four IDE repositories and write access to this repository.
 - A clean checkout of this repository, with Node.js 24 and `npm ci` done.
+- `NOTION_TOKEN` set to the token of the Notion integration shared with the "Diagrams" database. Without it the run still delivers, skips both Notion steps, and says so in the pull request.
 
 ## Steps
 
-1. Run `npm run refresh -- catalogue`. It prints one line per stage: `resolve` (each host's `develop` head, whether its catalogue exists, and its latest release), `fetch`, `apply`, `verify` and `deliver`, and ends with `outcome: <outcome>`.
+1. Run `npm run refresh -- catalogue`. It prints one line per stage: `resolve` (each host's `develop` head, whether its catalogue exists, and its latest release), `fetch`, `apply`, `verify` and `deliver`, and ends with `outcome: <outcome>`. The run takes spec 003's catalogue steps itself, in the run's worktree:
+   - after Apply and before Verify, `npm run catalogue:notion` (skipped when `NOTION_TOKEN` is not set), then `npm run catalogue:report`, whose exit 3 ends the run with `needs-decision`;
+   - after a successful Verify, `npm run catalogue:sync-notion`, which writes Notion's host columns only when the run delivers. A dry run or a failed verification only reports what it would write.
 2. Act on the outcome:
    - `current` (exit 0): no catalogue and no release changed. Report that the catalogue is current; there is nothing else to do.
-   - `delivered` (exit 0): report the pull request link it printed, with the designers whose state changed, and the designers added and withdrawn.
+   - `delivered` (exit 0): report the pull request link it printed, with the designers whose state changed, the designers added and withdrawn, and the gaps listed under "Designer catalogue".
    - `delivered-draft` (exit 1): the pull request is a draft because a verification step failed. Report the link and the failing step; the failing output is in the pull request body.
    - `needs-decision` (exit 3): see Decisions.
    - `failed` (exit 2): nothing was changed. Report the line starting with `failed:`. A duplicate origin in a catalogue names both rows; that is corrected in the host's repository, not here.
@@ -43,6 +52,12 @@ IntelliJ has no `docs/diagrams.md` yet, so its FreeMind and draw.io designers ar
 ## Decisions
 
 **How should the source state "<label>" in <host> map to a site state?** Raised when a host's catalogue uses a state label that `procedures/config/states.json` has no mapping for (for example a new `🧪 Experimental`). The options are the site states: `not-planned`, `idea`, `planned`, `in-progress`, `prototype`, `implemented`, `available`. The answer is written to `procedures/config/states.json` under `mappings.<host>.<label>`. Ask it as a selection with exactly those options, then run `npm run refresh:decide -- catalogue <answer>` and run the procedure again; the mapping change becomes part of the same pull request.
+
+**`<origin>` is no longer in any source. Renamed to (origin) or withdrawn (reason)?** Raised by `npm run catalogue:report` when a designer that has a page is in no catalogue and no Notion row any more. It never guesses a rename; when a Notion row records the designer as its previous origin, the question says so. The options are `rename`, with the new origin, and `withdraw`, with a reason shown on the withdrawal notice. It is not answered with `refresh:decide`:
+
+1. Run `npm run refresh -- catalogue --no-deliver`, which leaves the refreshed catalogue in the working tree.
+2. Ask the owner, then answer with the command the question printed: `npm run catalogue:report -- --rename <origin>=<new origin>` or `npm run catalogue:report -- --withdraw <origin> --reason "<why>"`. It adds the entry to `src/content/catalogue/redirects.json`.
+3. Run `npm run refresh -- catalogue` again. The changed `redirects.json` travels into the run, like an answered mapping, and becomes part of the same pull request.
 
 ## Verification
 
@@ -58,7 +73,7 @@ A failed step makes the pull request a draft, with the step's output under "Veri
 
 - Branch `refresh/catalogue`, into `develop`, labelled `refresh` and `refresh:catalogue`. A later run updates the same pull request.
 - Title `Refresh designer catalogue: <before>..<after>` (short SHAs of the host whose revision moved).
-- Body: Source revisions, What changed (a table of designers whose state changed, with the `develop` and release source states; designers added; designers withdrawn; hosts without a catalogue), Withdrawn, Verification and the footer, per contracts/pull-request.md.
+- Body: Source revisions, What changed (a table of designers whose state changed, with the `develop` and release source states; designers added; designers withdrawn; hosts without a catalogue), Designer catalogue (`.refresh/catalogue-report.md`: state changes, membership, screenshots pending, Notion differences, disagreements and gaps), Notion host columns (`.refresh/catalogue-notion-sync.md`, or a note that Notion was skipped), Withdrawn, Verification and the footer, per contracts/pull-request.md.
 
 ## When the source moves
 

@@ -24,6 +24,7 @@ export function decide(id, answer, { cwd = process.cwd() } = {}) {
 		const any = existsSync(join(cwd, '.refresh', 'decision.json'));
 		throw new Error(any ? `.refresh/decision.json is not a decision of refresh-${shortId}` : `no pending decision: .refresh/decision.json does not exist; run npm run refresh -- ${shortId} first`);
 	}
+	if (decision.answerWith) throw new Error(`this decision is not answered with refresh:decide:\n${decision.answerWith.map((step, i) => `${i + 1}. ${step}`).join('\n')}`);
 	if (!decision.options.includes(answer)) throw new Error(`"${answer}" is not one of the options: ${decision.options.join(', ')}`);
 
 	const file = join(cwd, decision.writeTo);

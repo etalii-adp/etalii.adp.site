@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs';
 import { basename } from 'node:path';
 import { NeedsDecision } from '../lib/decision.mjs';
 import { CATALOGUE_PATH, designersFor, isUsable } from '../lib/catalogue-table.mjs';
+import { catalogueReport } from '../lib/catalogue-site.mjs';
 import { readPngSize } from '../lib/png.mjs';
 
 const README = 'docs/screenshots/readme.md';
@@ -98,6 +99,12 @@ export default {
 	usesReleases: true,
 	derivedFiles: ['*/screenshots.json'],
 	configFiles: ['screenshots.json', 'states.json'],
+
+	/** Spec 003's catalogue report, for the pull request only: the catalogue files are refresh-catalogue's to change. */
+	async afterApply(ctx) {
+		const report = await catalogueReport(ctx.root, { write: false, procedure: this.id });
+		return report ? [report] : [];
+	},
 
 	async apply(ctx) {
 		const previous = new Map((ctx.previous?.files ?? []).map((f) => [f.path, f]));
