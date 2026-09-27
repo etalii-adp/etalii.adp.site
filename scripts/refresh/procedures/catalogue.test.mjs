@@ -37,7 +37,7 @@ describe('refresh-catalogue', () => {
 		env.site.accept('catalogue');
 	});
 
-	it('writes the verbatim catalogue and catalogue.json with mapped, capped states', () => {
+	it('writes the verbatim catalogue and catalogue.json with mapped states', () => {
 		assert.equal(env.site.read('sources/catalogue/standalone/diagrams.md'), markdown);
 		assert.deepEqual(entry('standalone', 'freeplane/mindmap'), {
 			origin: 'freeplane/mindmap',
@@ -49,12 +49,12 @@ describe('refresh-catalogue', () => {
 			theory: [{ label: 'Freeplane', href: 'https://www.freeplane.org/' }],
 			example: [{ label: 'Freeplane example maps', href: 'https://www.freeplane.org/wiki/index.php/Gallery' }],
 		});
-		assert.equal(entry('standalone', 'generic/timeline').state, 'available');
-		assert.equal(entry('standalone', 'c4/code').state, 'specified');
+		assert.equal(entry('standalone', 'generic/timeline').state, 'implemented');
+		assert.equal(entry('standalone', 'c4/code').state, 'planned');
 	});
 
-	it('(d) keeps every designer of a host without a release at in progress or below', () => {
-		assert.equal(entry('vscode', 'generic/timeline').state, 'in progress');
+	it('(d) shows a designer of a host without a release at its mapped state, never lowered', () => {
+		assert.equal(entry('vscode', 'generic/timeline').state, 'implemented');
 		assert.equal(entry('vscode', 'generic/timeline').releaseState, null);
 	});
 
@@ -63,36 +63,36 @@ describe('refresh-catalogue', () => {
 		assert.match(env.site.read('.refresh/pr-body.md'), /- intellij: no catalogue at `docs\/diagrams\.md` in etalii-adp\/etalii\.adp\.ide\.intellij/);
 	});
 
-	it('(a) keeps a designer implemented on develop at its release state until a release confirms it', () => {
+	it('(a) shows a designer implemented on develop as implemented, recording the release state', () => {
 		env.standalone.commit({ [CATALOGUE]: setState(markdown, 'freeplane/mindmap', '⚗️&nbsp;Prototype', '✅&nbsp;Implemented') });
 		const result = env.run('--no-deliver');
 		assert.equal(result.code, 0, result.output);
 		const summary = env.site.json('.refresh/summary.json');
-		assert.deepEqual(summary.details.changes, [{ host: 'standalone', origin: 'freeplane/mindmap', from: 'prototype', to: 'prototype', developState: 'Implemented', releaseState: 'Prototype' }]);
+		assert.deepEqual(summary.details.changes, [{ host: 'standalone', origin: 'freeplane/mindmap', from: 'prototype', to: 'implemented', developState: 'Implemented', releaseState: 'Prototype' }]);
 		assert.ok(summary.files.some((f) => f.path === 'sources/catalogue/standalone/diagrams.md' && f.change === 'changed'));
-		assert.equal(entry('standalone', 'freeplane/mindmap').state, 'prototype');
+		assert.equal(entry('standalone', 'freeplane/mindmap').state, 'implemented');
 		env.site.accept('catalogue');
 	});
 
-	it('(b) moves it to available once a release has it, listing only that designer', () => {
+	it('(b) records the new release state once a release has it, listing only that designer', () => {
 		env.standalone.tag('v9.9.9');
 		const result = env.run('--no-deliver');
 		assert.equal(result.code, 0, result.output);
 		const summary = env.site.json('.refresh/summary.json');
-		assert.deepEqual(summary.details.changes.map((c) => [c.origin, c.from, c.to]), [['freeplane/mindmap', 'prototype', 'available']]);
-		assert.match(env.site.read('.refresh/pr-body.md'), /\| `freeplane\/mindmap` \| standalone \| prototype → available \| Implemented \| Implemented \|/);
+		assert.deepEqual(summary.details.changes.map((c) => [c.origin, c.from, c.to]), [['freeplane/mindmap', 'implemented', 'implemented']]);
+		assert.match(env.site.read('.refresh/pr-body.md'), /\| `freeplane\/mindmap` \| standalone \| implemented \(unchanged\) \| Implemented \| Implemented \|/);
 		assert.equal(env.site.json('sources/catalogue/source.lock.json').releases['etalii-adp/etalii.adp.ide.standalone'].tag, 'v9.9.9');
 		env.site.accept('catalogue');
 	});
 
-	it('(c, f) puts a row absent from the release at in progress, and lists added and withdrawn designers', () => {
+	it('(c, f) shows a row absent from the release at its mapped state, and lists added and withdrawn designers', () => {
 		const next = withRow(env.standalone.git(['show', 'HEAD:docs/diagrams.md']), row('✅&nbsp;Implemented', 'w3c/sparql', 'SPARQL query')).replace(/<tr>.*<code>uml\/class<\/code>.*<\/tr>\n/, '');
 		env.standalone.commit({ [CATALOGUE]: next });
 		const result = env.run();
 		assert.equal(result.code, 0, result.output);
 		const { details } = env.site.json('.refresh/summary.json');
-		assert.deepEqual(details.added, [{ host: 'standalone', origin: 'w3c/sparql', name: 'SPARQL query', state: 'in progress' }]);
-		assert.deepEqual(details.withdrawn, [{ host: 'standalone', origin: 'uml/class', name: 'Class diagram', state: 'identified' }]);
+		assert.deepEqual(details.added, [{ host: 'standalone', origin: 'w3c/sparql', name: 'SPARQL query', state: 'implemented' }]);
+		assert.deepEqual(details.withdrawn, [{ host: 'standalone', origin: 'uml/class', name: 'Class diagram', state: 'idea' }]);
 	});
 
 	it('(h) fails on a duplicate origin, naming both rows', () => {

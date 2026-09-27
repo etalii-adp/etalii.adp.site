@@ -60,7 +60,7 @@ describe('run.mjs', () => {
 	it('leaves out a changed mapping file that the procedure does not read', () => {
 		const states = join(site.dir, 'procedures', 'config', 'states.json');
 		const original = readFileSync(states, 'utf8');
-		writeFileSync(states, original.replace('"To-do": "specified"', '"To-do": "identified"'));
+		writeFileSync(states, original.replace('"To-do": "planned"', '"To-do": "idea"'));
 		try {
 			const run = site.refresh(['stub', '--dry-run', '--source', arg], env);
 			assert.equal(run.code, 0, run.output);

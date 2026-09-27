@@ -112,7 +112,7 @@ Specialises the source records of `refresh-dedl`.
 
 | Field | Type | Notes |
 |---|---|---|
-| `siteStates` | ordered list | `identified`, `specified`, `in progress`, `prototype`, `available`, `planned`, `not planned`. This is the shared set of spec 003 FR-005. |
+| `siteStates` | ordered list | `not-planned`, `idea`, `planned`, `in-progress`, `prototype`, `implemented`, `available`. This is the shared set of spec 003 FR-005 (amended by spec 003 T011, 2026-09-27). |
 | `hostStates` | ordered list | `planned`, `in progress`, `available` (spec 001 FR-006). |
 | `mappings` | map host → (source state label → site state) | The standalone mapping is in research R10. A source state missing from its host's map triggers a decision. |
 
@@ -129,7 +129,7 @@ The catalogue procedure turns each host's `docs/diagrams.md` into `sources/catal
 | `group` | string | The enclosing `<h3>`/`<h4>` heading. |
 | `developState` | string | For example `Prototype`, as written in the source on `develop`. |
 | `releaseState` | string or null | As written in the catalogue at the host's latest release tag; null when there is no release or the row is absent there. |
-| `state` | site state | `developState` mapped through `states.json`, then capped at the mapped `releaseState`: `prototype` or `available` above the release state becomes `in progress` (research R10). |
+| `state` | site state | `developState` mapped through `states.json`, never lowered; `releaseState` is only recorded (research R10 as amended by spec 003, 2026-09-27). |
 | `theory` | list of `{label, href}` | The Theory column. |
 | `example` | string or link | The Example column. |
 
@@ -158,7 +158,7 @@ The catalogue procedure turns each host's `docs/diagrams.md` into `sources/catal
 | `host` | enum | `standalone`, `intellij`, `vscode`, `eclipse`. |
 | `repository` | `owner/name` | |
 | `state` | host state | Derived per research R10. |
-| `facts` | object | `catalogueCommit` (or null), `usableDesigners` (count of `prototype` or `available` after the release cap), `designersInProgress` (count of rows whose `develop` state maps to `in progress` or later), `latestRelease` (`{tag, commit}`, or null), `developHead` (SHA). |
+| `facts` | object | `catalogueCommit` (or null), `usableDesigners` (count of `prototype`, `implemented` or `available`), `designersInProgress` (count of rows whose `develop` state maps to `in-progress` or later), `latestRelease` (`{tag, commit}`, or null), `developHead` (SHA). |
 | `link` | URL | The latest release when there is one, otherwise the repository. Spec 001 edge case: no public install → the page says so. |
 
 ## Withdrawal
@@ -180,6 +180,6 @@ Procedure 1 ──reads──▶ n Source
 Procedure 1 ──owns───▶ 1 sources/<short>/ folder ──has──▶ 1 source.lock.json ──lists──▶ n Source record
                                                                           └──lists──▶ n Withdrawal
 Refresh run n ──of───▶ 1 Procedure ──produces──▶ 0..1 Pull request (branch refresh/<short>)
-State mapping 1 ──maps──▶ Designer entry.developState ─(capped by releaseState)─▶ Designer entry.state
+State mapping 1 ──maps──▶ Designer entry.developState ─(mapped)─▶ Designer entry.state
 Screenshot map 1 ──links─▶ Screenshot.file ─▶ Designer entry.origin
 ```

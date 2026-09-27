@@ -109,7 +109,7 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ### Implementation for the foundation
 
-- [ ] T011 Amend `procedures/config/states.json` (spec 004's file; needs 004 on `develop`, otherwise do this last in Phase 2 and use the fixture copy meanwhile).
+- [x] T011 Amend `procedures/config/states.json` (spec 004's file; needs 004 on `develop`, otherwise do this last in Phase 2 and use the fixture copy meanwhile).
   - Set `siteStates` to `["not-planned", "idea", "planned", "in-progress", "prototype", "implemented", "available"]`.
   - Set `mappings.standalone` to `{ "Not planned": "not-planned", "Identified": "idea", "Specified": "planned", "To-do": "planned", "Work-in-progress": "in-progress", "Prototype": "prototype", "Implemented": "implemented" }`. Use the same map for `intellij`, `vscode` and `eclipse`, the shared source vocabulary.
   - Keep `hostStates` unchanged; it is spec 001's.
@@ -368,7 +368,7 @@ The plan, research, data model and quickstart are brought in line in T057.
   - Every `redirects.json` entry has a page at its old address.
   - Every publishable screenshot shown has a non-empty "Why it matters" (FR-015).
 - [x] **T050** [P] Write `tests/unit/catalogue/check.test.ts`, which runs `check.ts` over a tiny hand-made `dist/` in a temporary folder with one failing case per rule of T049.
-- [ ] T051 [P] Store `NOTION_TOKEN` as a repository secret for spec 004's refresh workflow only (research D9). In `.github/workflows/` (spec 004's refresh workflow), pass it to the catalogue and screenshots jobs as `env: NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}`. Never pass it to `ci.yml` or `deploy.yml`. Tell the owner that the Notion integration must be shared with the "Diagrams" database (plan § Dependencies).
+- [x] T051 [P] Store `NOTION_TOKEN` as a repository secret for spec 004's refresh workflow only (research D9). In `.github/workflows/` (spec 004's refresh workflow), pass it to the catalogue and screenshots jobs as `env: NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}`. Never pass it to `ci.yml` or `deploy.yml`. Tell the owner that the Notion integration must be shared with the "Diagrams" database (plan § Dependencies).
 - [x] **T052** [P] Add a "Designers" row to the documentation index `src/content/docs/docs/index.mdx` if it lists sections by hand, linking `/adp/designers/`.
 - [x] **T053** [P] Check phone width and dark mode (quickstart § 4 step 6). In `tests/catalogue.spec.ts`, at a 360 px viewport under `colorScheme: 'dark'`, `/adp/designers/` and `/adp/designers/freeplane/mindmap/` have `document.documentElement.scrollWidth <= 360` and no axe violations.
 - [x] **T054** Run `npm run test:catalogue`, `npm run build` and `npm run check` in the worktree, and fix every failure.
@@ -380,7 +380,7 @@ The plan, research, data model and quickstart are brought in line in T057.
   Do not commit anything under `sources/` by hand; those files arrive through 004's pull requests.
 - [x] **T056** Run quickstart § 4 (visitor scenarios) and § 6 (failure scenarios) against `npm run preview`, and note each result in the pull request description.
 - [x] **T057** Amend `specs/003-designer-catalogue/plan.md` (Summary, Technical Context, Project Structure, Complexity Tracking: remove the `screenshot-designers.yaml` row), `research.md` (D3: state the release rule and that the set lives in `procedures/config/states.json`; D12: `node --test`), `data-model.md` (§ Files: the files of T017; the nullable `task` and `whySpecialized`) and `quickstart.md` (commands: `catalogue:notion`, `catalogue:report`, `test:catalogue`; spec 004's `refresh` commands) to match the deviations table at the top of this file. Update `contracts/catalogue-data.schema.json` for the nullable fields.
-- [ ] T058 Push `features/003-designer-catalogue` to `origin` and open a pull request into `develop`, to be merged with a merge commit. The body lists the owner decisions of 2026-09-27, the cross-feature changes to spec 004 (T011, T047, T048), and the gaps from `.refresh/catalogue-report.md`, and ends with the Claude Code attribution line.
+- [x] T058 Push `features/003-designer-catalogue` to `origin` and open a pull request into `develop`, to be merged with a merge commit. The body lists the owner decisions of 2026-09-27, the cross-feature changes to spec 004 (T011, T047, T048), and the gaps from `.refresh/catalogue-report.md`, and ends with the Claude Code attribution line.
 
 ---
 

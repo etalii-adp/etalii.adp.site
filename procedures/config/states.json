@@ -1,12 +1,12 @@
 {
   "siteStates": [
-    "identified",
-    "specified",
-    "in progress",
-    "prototype",
-    "available",
+    "not-planned",
+    "idea",
     "planned",
-    "not planned"
+    "in-progress",
+    "prototype",
+    "implemented",
+    "available"
   ],
   "hostStates": [
     "planned",
@@ -15,36 +15,40 @@
   ],
   "mappings": {
     "standalone": {
-      "Identified": "identified",
-      "Specified": "specified",
-      "To-do": "specified",
-      "Work-in-progress": "in progress",
+      "Not planned": "not-planned",
+      "Identified": "idea",
+      "Specified": "planned",
+      "To-do": "planned",
+      "Work-in-progress": "in-progress",
       "Prototype": "prototype",
-      "Implemented": "available"
+      "Implemented": "implemented"
     },
     "intellij": {
-      "Identified": "identified",
-      "Specified": "specified",
-      "To-do": "specified",
-      "Work-in-progress": "in progress",
+      "Not planned": "not-planned",
+      "Identified": "idea",
+      "Specified": "planned",
+      "To-do": "planned",
+      "Work-in-progress": "in-progress",
       "Prototype": "prototype",
-      "Implemented": "available"
+      "Implemented": "implemented"
     },
     "vscode": {
-      "Identified": "identified",
-      "Specified": "specified",
-      "To-do": "specified",
-      "Work-in-progress": "in progress",
+      "Not planned": "not-planned",
+      "Identified": "idea",
+      "Specified": "planned",
+      "To-do": "planned",
+      "Work-in-progress": "in-progress",
       "Prototype": "prototype",
-      "Implemented": "available"
+      "Implemented": "implemented"
     },
     "eclipse": {
-      "Identified": "identified",
-      "Specified": "specified",
-      "To-do": "specified",
-      "Work-in-progress": "in progress",
+      "Not planned": "not-planned",
+      "Identified": "idea",
+      "Specified": "planned",
+      "To-do": "planned",
+      "Work-in-progress": "in-progress",
       "Prototype": "prototype",
-      "Implemented": "available"
+      "Implemented": "implemented"
     }
   }
 }

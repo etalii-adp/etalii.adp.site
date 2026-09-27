@@ -1,13 +1,14 @@
 // Reads a host's designer catalogue (`docs/diagrams.md`: an HTML table inside Markdown) and applies the site's
-// state mapping with the release cap (research R10). Shared by the screenshot, catalogue and hosts procedures, so
+// state mapping. By the owner's decision of 2026-09-27 (spec 003) the `develop` state is shown as mapped, never
+// capped at the release; the release state is only recorded. Shared by the screenshot, catalogue and hosts procedures, so
 // that each stays independent of the others' output.
 import { parse } from 'parse5';
 
 export const CATALOGUE_PATH = 'docs/diagrams.md';
 
-/** The states that claim a user can use a designer, in rising order below them. */
-const ORDER = ['identified', 'specified', 'in progress', 'prototype', 'available'];
-const USABLE = ['prototype', 'available'];
+/** The site states in rising order (spec 003 data-model § State), and those that claim a user can use a designer. */
+const ORDER = ['not-planned', 'idea', 'planned', 'in-progress', 'prototype', 'implemented', 'available'];
+const USABLE = ['prototype', 'implemented', 'available'];
 
 const text = (node) => {
 	if (node.nodeName === '#text') return node.value;
@@ -107,29 +108,18 @@ export function mapState(host, label, states) {
 
 const rank = (state) => ORDER.indexOf(state);
 
-/**
- * Caps a designer's `develop` state at its release state (research R10): `prototype` or `available` stay only as
- * far as the release confirms them, and become `in progress` when the release has the designer at a lower state
- * or not at all (`releaseSite` null).
- */
-export function capAtRelease(developSite, releaseSite) {
-	if (!USABLE.includes(developSite)) return developSite;
-	if (!USABLE.includes(releaseSite)) return 'in progress';
-	return rank(developSite) <= rank(releaseSite) ? developSite : releaseSite;
-}
-
 export function isUsable(state) {
 	return USABLE.includes(state);
 }
 
-/** Whether a mapped state is `in progress` or later (Work-in-progress, Prototype or Implemented). */
+/** Whether a mapped state is `in-progress` or later (Work-in-progress, Prototype or Implemented). */
 export function isUnderway(state) {
-	return rank(state) >= rank('in progress');
+	return rank(state) >= rank('in-progress');
 }
 
 /**
  * Reads `docs/diagrams.md` of `host` at `head` (the `develop` head) and at `release.commit`, and returns
- * `{ entries, text, gitBlob? }` with each entry's `developState`, `releaseState` (or null) and capped `state`, or
+ * `{ entries, text, gitBlob? }` with each entry's `developState`, `releaseState` (or null) and mapped `state`, or
  * `{ missingCatalogue: true }` when the file does not exist. An entry whose label the mapping lacks gets
  * `unmapped: <label>` and `state: null`.
  */
@@ -144,7 +134,7 @@ export async function designersFor(host, reader, { head, release, states }) {
 		const released = releaseState === null ? null : mapState(host, releaseState, states);
 		const unmapped = typeof develop === 'object' ? develop.unmapped : typeof released === 'object' && released !== null ? released.unmapped : undefined;
 		const entry = { ...row, releaseState, developSite: typeof develop === 'string' ? develop : null };
-		entry.state = unmapped ? null : capAtRelease(develop, released);
+		entry.state = unmapped ? null : develop;
 		if (unmapped) entry.unmapped = unmapped;
 		return entry;
 	});

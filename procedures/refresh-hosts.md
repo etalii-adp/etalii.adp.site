@@ -19,8 +19,8 @@ Brings the state of each IDE host on the home page (spec 001) up to date: standa
 
 A host's state follows three rules, in order:
 
-1. **available**: at least one of its designers is `prototype` or `available` after the release cap (see [refresh-catalogue.md](refresh-catalogue.md)), which implies a published release to install;
-2. **in progress**: otherwise, its `docs/diagrams.md` has at least one designer whose `develop` state maps to `in progress` or later (Work-in-progress, Prototype or Implemented);
+1. **available**: at least one of its designers is `prototype`, `implemented` or `available` (see [refresh-catalogue.md](refresh-catalogue.md)), and the host has a published release to install;
+2. **in progress**: otherwise, its `docs/diagrams.md` has at least one designer whose `develop` state maps to `in-progress` or later (Work-in-progress, Prototype or Implemented);
 3. **planned**: otherwise, including a host with no `docs/diagrams.md`.
 
 ## Before you start

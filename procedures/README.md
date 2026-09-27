@@ -6,7 +6,7 @@ The site's sourced content (the DEDL reference, the designer catalogue, the scre
 |---|---|---|---|
 | [`refresh-dedl`](refresh-dedl.md) | Refresh the DEDL reference | `sources/dedl/`: the DEDL specification, schema and examples, a folder per version (spec 002) | etalii-adp/etalii.adp: `specifications/dedl/*` |
 | [`refresh-screenshots`](refresh-screenshots.md) | Refresh the screenshots | `sources/screenshots/<host>/`: committed screenshots checked against their readme, with their expectations, rejections and gaps (spec 003) | etalii-adp/etalii.adp.ide.standalone, .intellij, .vscode, .eclipse: `docs/screenshots/*.png`, `docs/screenshots/readme.md`, `docs/diagrams.md` |
-| [`refresh-catalogue`](refresh-catalogue.md) | Refresh the designer catalogue | `sources/catalogue/<host>/`: each host's catalogue, verbatim and as designer entries with site states capped at the latest release (spec 003) | etalii-adp/etalii.adp.ide.standalone, .intellij, .vscode, .eclipse: `docs/diagrams.md` |
+| [`refresh-catalogue`](refresh-catalogue.md) | Refresh the designer catalogue | `sources/catalogue/<host>/`: each host's catalogue, verbatim and as designer entries with their mapped site states (spec 003) | etalii-adp/etalii.adp.ide.standalone, .intellij, .vscode, .eclipse: `docs/diagrams.md` |
 | [`refresh-hosts`](refresh-hosts.md) | Refresh the IDE host states | `sources/hosts/hosts.json`: each IDE host's state and the facts it was derived from (spec 001) | etalii-adp/etalii.adp.ide.standalone, .intellij, .vscode, .eclipse: `docs/diagrams.md` |
 | [`refresh-all`](refresh-all.md) | Refresh the whole site | Everything above, one pull request per procedure that found changes | The sources of each procedure above |
 

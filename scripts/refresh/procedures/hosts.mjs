@@ -7,11 +7,15 @@ import { HOSTS } from './catalogue.mjs';
 
 const ide = (host) => ({ repository: `etalii-adp/etalii.adp.ide.${host}`, ref: 'develop', paths: [CATALOGUE_PATH], host });
 
-/** The three rules of research R10: available, else in progress, else planned. */
-export function hostState(entries) {
+/**
+ * The three rules of research R10: available, else in progress, else planned. Usable designers are those at
+ * prototype, implemented or available (spec 003, owner's decision of 2026-09-27). A host is available only with a
+ * release to install (spec 003 research D3); until then usable designers count as in progress.
+ */
+export function hostState(entries, released = true) {
 	const usableDesigners = entries.filter((e) => isUsable(e.state)).length;
 	const designersInProgress = entries.filter((e) => e.developSite && isUnderway(e.developSite)).length;
-	const state = usableDesigners > 0 ? 'available' : designersInProgress > 0 ? 'in progress' : 'planned';
+	const state = usableDesigners > 0 && released ? 'available' : designersInProgress > 0 ? 'in progress' : 'planned';
 	return { state, usableDesigners, designersInProgress };
 }
 
@@ -33,7 +37,7 @@ export default {
 			if (catalogue) {
 				inputs.push(catalogue);
 				const designers = await designersFor(source.host, source.reader, { head: source.head, release: source.release, states: ctx.config.states });
-				derived = hostState(designers.entries);
+				derived = hostState(designers.entries, Boolean(source.release));
 			}
 			hosts.push({
 				host: source.host,
