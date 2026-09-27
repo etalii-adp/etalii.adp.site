@@ -7,6 +7,7 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { languages, versionsOf, type LoadedVersion } from '../../src/lib/reference/load';
+import { LATEST, languageHref, pageHref } from '../../src/lib/reference/site';
 
 export interface CheckContext {
 	/** The build output, `dist/`. */
@@ -62,6 +63,50 @@ checks.push({
 			const licence = version.record.source.licence;
 			if (!licence || licence === 'NOASSERTION') {
 				fail(`${version.language.short} ${version.record.version} has no licence the source states ("${licence}"); it cannot be published (FR-015)`, join(version.dir, 'source.json'));
+			}
+		}
+	},
+});
+
+// -- Headings (SC-001) ------------------------------------------------------------------------------
+
+checks.push({
+	name: 'headings',
+	run({ versions, html, fail }) {
+		for (const version of versions) {
+			const segments = version === versions.filter((v) => v.language.id === version.language.id).at(-1) ? [version.record.version, LATEST] : [version.record.version];
+			for (const segment of segments) {
+				for (const heading of version.split().headings) {
+					const address = pageHref(version.language.id, segment, heading.page);
+					const page = html(address);
+					if (page === undefined) fail(`the page for "${heading.text}" is missing`, address);
+					else if (!idsOf(page).has(heading.id)) fail(`heading "${heading.text}" has no element with id "${heading.id}"`, address);
+				}
+			}
+		}
+	},
+});
+
+// -- Internal links and fragments (SC-002) ------------------------------------------------------------
+
+checks.push({
+	name: 'links',
+	run({ versions, pages, html, bytes, fail }) {
+		for (const language of new Set(versions.map((v) => v.language.id))) {
+			const prefix = languageHref(language);
+			for (const address of pages(language)) {
+				for (const href of hrefsOf(html(address)!)) {
+					const target = href.startsWith('#') ? address + href : href;
+					if (!target.startsWith(prefix)) continue;
+					const [path, fragment] = target.split('#');
+					if (bytes(path) === undefined) {
+						fail(`link to ${target} leads nowhere`, address);
+						continue;
+					}
+					if (fragment && path.endsWith('/') && !idsOf(html(path)!).has(decodeURIComponent(fragment))) {
+						fail(`link to ${target} names a fragment the page does not have`, address);
+					}
+				}
 			}
 		}
 	},

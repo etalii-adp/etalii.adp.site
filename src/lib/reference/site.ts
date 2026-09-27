@@ -65,14 +65,17 @@ type SidebarItem = { label: string; link: string } | { label: string; items: Sid
 export function sidebarFor(version: LoadedVersion, segment: string): SidebarItem[] {
 	const language = version.language.id;
 	const entries = tocEntries(version, segment);
-	return [
+	// Starlight adds the base to sidebar links itself.
+	const unbased = (items: SidebarItem[]): SidebarItem[] =>
+		items.map((item) => ('link' in item ? { ...item, link: item.link.slice(SITE_BASE.length) } : { ...item, items: unbased(item.items) }));
+	return unbased([
 		{ label: `${version.language.short} ${version.record.version}`, link: pageHref(language, segment, '') },
 		{ label: 'Sections', items: entries.filter((e) => !e.appendix).map((e) => ({ label: e.label, link: e.href })) },
 		{ label: 'Appendices', items: entries.filter((e) => e.appendix).map((e) => ({ label: e.label, link: e.href })) },
 		{ label: 'Schema', link: schemaPageHref(language, segment) },
 		{ label: 'Examples', link: examplesHref(language, segment) },
 		{ label: 'Search', link: searchHref(language) },
-	];
+	]);
 }
 
 /** Short revision as shown on pages. */

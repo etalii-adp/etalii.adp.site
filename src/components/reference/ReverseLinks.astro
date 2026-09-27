@@ -1,0 +1,37 @@
+---
+// "Referenced from": the sections that link to this page, from the link graph (research D5, FR-019).
+import type { LoadedVersion } from '../../lib/reference/load';
+import { pageHref, tocEntries } from '../../lib/reference/site';
+import type { Link } from '../../lib/reference/types';
+
+interface Props {
+	version: LoadedVersion;
+	segment: string;
+	graph: Link[];
+	/** Slug of this page. */
+	slug: string;
+}
+
+const { version, segment, graph, slug } = Astro.props;
+const labels = new Map(tocEntries(version, segment).map((e) => [e.slug, e.label]));
+labels.set('', `Cover of ${version.language.short} ${version.record.version}`);
+
+const from = [...new Set(graph.filter((l) => l.to.page === slug && l.from.page !== slug && (l.kind === 'anchor' || l.kind === 'number')).map((l) => l.from.page))].sort(
+	(a, b) => [...labels.keys()].indexOf(a) - [...labels.keys()].indexOf(b)
+);
+---
+
+{
+	from.length > 0 && (
+		<section class="ref-reverse not-content" aria-labelledby="ref-referenced-from" data-pagefind-ignore>
+			<h2 id="ref-referenced-from">Referenced from</h2>
+			<ul>
+				{from.map((page) => (
+					<li>
+						<a href={pageHref(version.language.id, segment, page)}>{labels.get(page) ?? page}</a>
+					</li>
+				))}
+			</ul>
+		</section>
+	)
+}

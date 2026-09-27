@@ -52,7 +52,7 @@ describe('splitting the prose (rules S1–S4)', () => {
 		const informative = sectionOne.headings.filter((h) => /\(informative\)$/.test(h.text));
 		expect(informative.length).toBeGreaterThan(0);
 		expect(split.headingInfo.get('12-how-dedl-is-intended-to-be-used-informative')?.informative).toBe(true);
-		expect(split.headingInfo.get('11-purpose-and-scope')?.informative ?? false).toBe(false);
+		expect(split.headingInfo.get('11-what-dedl-is')?.informative).toBe(false);
 	});
 
 	it('titles pages without their number', () => {

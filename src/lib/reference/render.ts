@@ -13,8 +13,12 @@ import { createHighlighter, type Highlighter } from 'shiki';
 import { unified, type PluggableList } from 'unified';
 import { visit, SKIP } from 'unist-util-visit';
 import { headingId } from './anchors';
+import type { LoadedVersion } from './load';
+import { rehypeKeywords } from './rehype-keywords';
 import { remarkVerbatimFallback, verbatimHandlers } from './rehype-verbatim-fallback';
+import { glossaryOf, remarkLinkReferences, type Glossary, type LinkContext } from './remark-link-references';
 import { parseMarkdown } from './split';
+import type { Link } from './types';
 
 /** A heading as Starlight's "On this page" list takes it. */
 export interface RenderedHeading {
@@ -154,4 +158,76 @@ export async function renderNodes(nodes: RootContent[], options: RenderOptions):
 export async function renderMarkdown(markdown: string, options: Partial<RenderOptions> = {}): Promise<string> {
 	const tree = parseMarkdown(markdown);
 	return (await renderNodes(tree.children, { source: markdown, ...options })).html;
+}
+
+// -- T6: informative headings ------------------------------------------------------------------------
+
+/** A heading ending in `(informative)` keeps its text and gets an "Informative" label beside it. */
+function rehypeInformative() {
+	return (tree: HastRoot) => {
+		visit(tree, 'element', (node: Element) => {
+			if (!/^h[1-6]$/.test(node.tagName)) return;
+			const last = node.children.at(-1);
+			if (last?.type === 'element' && last.tagName === 'em' && hastToString(last).trim() === '(informative)') {
+				node.properties.className = [...((node.properties.className as string[] | undefined) ?? []), 'ref-informative-heading'];
+				node.children.push({
+					type: 'element',
+					tagName: 'span',
+					properties: { className: ['ref-informative'], ariaHidden: 'true' },
+					children: [{ type: 'text', value: 'Informative' }],
+				});
+			}
+		});
+	};
+}
+
+// -- A whole version ---------------------------------------------------------------------------------
+
+export interface RenderedVersion {
+	/** Page slug (empty for the cover) → its rendered body, without the page's own title heading. */
+	pages: Map<string, Rendered>;
+	/** Every link the linker made, across all pages (research D5). */
+	graph: Link[];
+	glossary: Glossary;
+}
+
+/** The remark and rehype plugins of a reference page, in the order of contracts/rendering-rules.md. */
+export function referencePlugins(context: LinkContext): Pick<RenderOptions, 'remarkPlugins' | 'rehypePlugins'> {
+	return {
+		remarkPlugins: [[remarkLinkReferences, context]],
+		rehypePlugins: [rehypeKeywords, rehypeInformative],
+	};
+}
+
+const versions = new Map<string, Promise<RenderedVersion>>();
+
+/** Renders every page of a version once, for one address segment (the version or `latest`). */
+export function renderVersion(version: LoadedVersion, segment: string): Promise<RenderedVersion> {
+	const key = `${version.dir}::${segment}`;
+	if (!versions.has(key)) versions.set(key, doRenderVersion(version, segment));
+	return versions.get(key)!;
+}
+
+async function doRenderVersion(version: LoadedVersion, segment: string): Promise<RenderedVersion> {
+	const split = version.split();
+	const glossary = glossaryOf(split);
+	const graph: Link[] = [];
+	const pages = new Map<string, Rendered>();
+	const parts = [split.cover, ...split.sections];
+	for (const part of parts) {
+		const context: LinkContext = {
+			language: version.language.id,
+			segment,
+			page: part.page.slug,
+			anchors: split.anchors,
+			numbers: split.numbers,
+			glossary,
+			defs: new Set(),
+			graph,
+		};
+		// The page's own title heading (the H1 on the cover, the H2 of a section) is the page title.
+		const body = part.nodes.filter((n, i) => !(i === 0 && n.type === 'heading') && !(n.type === 'heading' && n.depth === 1));
+		pages.set(part.page.slug, await renderNodes(body, { source: split.source, shift: part.page.kind === 'cover' ? 0 : 1, ...referencePlugins(context) }));
+	}
+	return { pages, graph, glossary };
 }

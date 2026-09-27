@@ -1,0 +1,66 @@
+---
+// One page per top-level section and appendix of a version (US1, FR-002, research D4).
+import ReferenceLayout from '../../../components/reference/ReferenceLayout.astro';
+import ReverseLinks from '../../../components/reference/ReverseLinks.astro';
+import { renderVersion } from '../../../lib/reference/render';
+import { versionRoutes, type VersionRoute } from '../../../lib/reference/routes';
+import { pageHref, tocEntries } from '../../../lib/reference/site';
+
+export function getStaticPaths() {
+	return versionRoutes().flatMap((route) =>
+		route.version.split().sections.map(({ page }) => ({
+			params: { language: route.language, version: route.segment, section: page.slug },
+			props: { route, slug: page.slug },
+		}))
+	);
+}
+
+interface Props {
+	route: VersionRoute;
+	slug: string;
+}
+
+const { route, slug } = Astro.props;
+const { version, segment, language } = route;
+const { page } = version.split().sections.find((s) => s.page.slug === slug)!;
+const rendered = await renderVersion(version, segment);
+const body = rendered.pages.get(slug)!;
+const labels = new Map(tocEntries(version, segment).map((e) => [e.slug, e.label]));
+const title = labels.get(slug)!;
+const where = /^[A-Z]$/.test(page.number ?? '') ? `Appendix ${page.number}` : `Section ${page.number}`;
+const description = `${where} of the ${version.language.name} specification, version ${version.record.version} (${version.record.status}): ${page.title}.`;
+---
+
+<ReferenceLayout
+	version={version}
+	segment={segment}
+	title={title}
+	description={description}
+	current={slug}
+	headings={body.headings}
+	anchorId={page.headings[0].id}
+	canonical={route.isLatestCopy ? pageHref(language, version.record.version, slug) : undefined}
+>
+	<Fragment set:html={body.html} />
+	<Fragment slot="after">
+		<ReverseLinks version={version} segment={segment} graph={rendered.graph} slug={slug} />
+		<nav class="ref-prev-next not-content" aria-label="Previous and next section" data-pagefind-ignore>
+			{
+				page.prev !== null && (
+					<a rel="prev" href={pageHref(language, segment, page.prev)}>
+						<span class="ref-direction">Previous</span>
+						{labels.get(page.prev)}
+					</a>
+				)
+			}
+			{
+				page.next !== null && (
+					<a rel="next" href={pageHref(language, segment, page.next)}>
+						<span class="ref-direction">Next</span>
+						{labels.get(page.next)}
+					</a>
+				)
+			}
+		</nav>
+	</Fragment>
+</ReferenceLayout>
