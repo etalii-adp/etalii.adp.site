@@ -1,0 +1,48 @@
+---
+// The examples of a version (US3 AS3): each with its name, purpose and kind.
+import ReferenceLayout from '../../../../components/reference/ReferenceLayout.astro';
+import { examplesOf } from '../../../../lib/reference/examples';
+import { versionRoutes, type VersionRoute } from '../../../../lib/reference/routes';
+import { examplesHref } from '../../../../lib/reference/site';
+
+export function getStaticPaths() {
+	return versionRoutes().map((route) => ({ params: { language: route.language, version: route.segment }, props: { route } }));
+}
+
+interface Props {
+	route: VersionRoute;
+}
+
+const { route } = Astro.props;
+const { version, segment, language } = route;
+const examples = examplesOf(version);
+---
+
+<ReferenceLayout
+	version={version}
+	segment={segment}
+	title={`${version.language.short} ${version.record.version} examples`}
+	description={`The ${examples.length} example definitions and documents shipped with the ${version.language.name} specification, version ${version.record.version}.`}
+	canonical={route.isLatestCopy ? examplesHref(language, version.record.version) : undefined}
+	latest={route.latest}
+	slug="examples"
+	searchable={!route.isLatestCopy}
+>
+	<p>
+		The example files shipped with {version.language.short} {version.record.version}, each with the section that explains it, views drawn from the file, and the file
+		itself to download.
+	</p>
+	<ul class="ref-examples">
+		{
+			examples.map((example) => (
+				<li>
+					<a href={examplesHref(language, segment, example.stem)}>{example.label.replace(/^\d+(?:\.\d+)*\s+/, '')}</a>
+					<span class="ref-example-kind">
+						{example.file.role === 'definition' ? 'definition' : 'document'}, <code>{example.file.name}</code>
+					</span>
+					{example.doc && <p>{example.doc}</p>}
+				</li>
+			))
+		}
+	</ul>
+</ReferenceLayout>

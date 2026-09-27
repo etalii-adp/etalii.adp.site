@@ -1,5 +1,6 @@
-# Checks every pull request into develop: the site builds, its internal links resolve and every page
-# passes the accessibility, phone-width, no-script and privacy checks (FR-012). It has no Pages
+# Checks every pull request into develop: the unit tests pass, the site builds, the DEDL reference passes
+# check:reference, its internal links resolve and every page passes the accessibility, phone-width,
+# no-script and privacy checks (FR-012). It has no Pages
 # permissions, so a pull request never changes the published site (FR-011).
 name: ci
 
@@ -20,6 +21,41 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      # Chromium serves the page checks and the build-time Mermaid rendering of the DEDL reference
+      # (spec 002 research D10); the browser download is cached between runs.
+      - uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test
+      - run: npm run build
+      - run: npm run check:reference
+      - run: npm run check
+
+  # The DEDL reference (spec 002) built from its pinned test fixture, so that its pages are checked before a
+  # licensed snapshot exists. This build is never published; its licence check reports a warning, not a failure.
+  reference-fixture:
+    runs-on: ubuntu-latest
+    env:
+      REFERENCE_CONTENT_DIR: tests/reference/fixtures/dedl-aaef333
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium
       - run: npm run build
+      - run: npm run check:reference
       - run: npm run check
+      # Two versions (quickstart 4): banners on the older one, latest addresses and stubs.
+      - run: npm run build:versioning-test
+      - run: npm run check:reference
+        env:
+          REFERENCE_CONTENT_DIR: tests/reference/fixtures/.generated/dedl-versioning

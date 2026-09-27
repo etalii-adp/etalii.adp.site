@@ -1,0 +1,38 @@
+---
+// IDE screenshots of an example, taken from the IDE repositories only (FR-017, research D11,
+// contracts/source-inputs.md S3). Spec 003's shared screenshot reader, which reads those rows, is not on
+// develop yet, and no IDE host can load a DEDL definition yet; so the page says what is true.
+import type { Screenshot } from '../../lib/reference/types';
+
+interface Props {
+	/** `<language>/<version>/<file>`. */
+	example: string;
+	screenshots?: Screenshot[];
+}
+
+const { screenshots = [] } = Astro.props;
+const groups = (['definition', 'diagram'] as const).map((shows) => ({ shows, items: screenshots.filter((s) => s.shows === shows) })).filter((g) => g.items.length);
+---
+
+<section class="ref-screenshots" aria-labelledby="ref-in-an-ide">
+	<h2 id="ref-in-an-ide">In an IDE</h2>
+	{
+		groups.length === 0 ? (
+			<p class="ref-no-host">No IDE host runs this example yet.</p>
+		) : (
+			groups.map((group) => (
+				<>
+					<h3>{group.shows === 'definition' ? 'The definition in use' : 'A diagram made with it'}</h3>
+					{group.items.map((shot) => (
+						<figure>
+							<img src={shot.image} alt={shot.alt} loading="lazy" />
+							<figcaption>
+								{shot.host}, from {shot.source.repository} at <code>{shot.source.revision.slice(0, 7)}</code>
+							</figcaption>
+						</figure>
+					))}
+				</>
+			))
+		)
+	}
+</section>

@@ -1,0 +1,94 @@
+---
+// Search across the reference (FR-014, FR-020, research D12): Pagefind's static index, self-hosted under
+// /adp/pagefind/, over one version at a time — the latest unless `?v=` names another — with `?q=` as the
+// query. Each result names its section and version. Without scripting the page offers the ways in that need none.
+import ReferenceLayout from '../../components/reference/ReferenceLayout.astro';
+import { glossaryOf } from '../../lib/reference/remark-link-references';
+import { languages, versionsOf } from '../../lib/reference/load';
+import { pageHref, schemaPageHref, searchHref } from '../../lib/reference/site';
+import type { Language } from '../../lib/reference/types';
+
+export function getStaticPaths() {
+	// A language gets a search page once it has a published version, and so an index.
+	return languages()
+		.filter((language) => versionsOf(language.id).length > 0)
+		.map((language) => ({ params: { language: language.id }, props: { language } }));
+}
+
+interface Props {
+	language: Language;
+}
+
+const { language } = Astro.props;
+const versions = versionsOf(language.id);
+const latest = versions.at(-1)!;
+const version = latest.record.version;
+const glossaryPage = glossaryOf(latest.split()).page;
+---
+
+<ReferenceLayout
+	version={latest}
+	latest={latest}
+	title={`Search ${language.short}`}
+	description={`Search the ${language.name} specification, one version at a time.`}
+	canonical={searchHref(language.id)}
+	searchable={false}
+	searchBox={false}
+>
+	<p>Search the text of one version of {language.short} at a time. Each result names the section it is in.</p>
+	<div class="ref-search-version" hidden>
+		<label for="ref-search-version">Version</label>
+		<select id="ref-search-version">
+			{[...versions].reverse().map((v) => <option value={v.record.version}>{`${language.short} ${v.record.version}${v === latest ? ' (latest)' : ''}`}</option>)}
+		</select>
+	</div>
+	<div id="ref-search" data-language={language.id} data-short={language.short} data-latest={version} data-versions={JSON.stringify(versions.map((v) => v.record.version))}></div>
+	<noscript>
+		<p class="ref-search-noscript">
+			Search needs scripting, which is off in this browser. Everything else here works without it: the{' '}
+			<a href={pageHref(language.id, version, '')}>table of contents</a>
+			{glossaryPage && (
+				<>
+					, the <a href={pageHref(language.id, version, glossaryPage)}>glossary</a>
+				</>
+			)}
+			{' '}and the <a href={schemaPageHref(language.id, version)}>schema browser</a> of {language.short} {version}.
+		</p>
+	</noscript>
+	<link rel="stylesheet" href="/adp/pagefind/pagefind-ui.css" />
+	<script is:inline src="/adp/pagefind/pagefind-ui.js"></script>
+	<script is:inline>
+		(() => {
+			const root = document.getElementById('ref-search');
+			const picker = document.querySelector('.ref-search-version');
+			const select = document.getElementById('ref-search-version');
+			const { language, short, latest } = root.dataset;
+			const versions = JSON.parse(root.dataset.versions);
+			const params = new URLSearchParams(location.search);
+			let version = versions.includes(params.get('v')) ? params.get('v') : latest;
+			select.value = version;
+			picker.hidden = false;
+			const ui = new PagefindUI({
+				element: '#ref-search',
+				showSubResults: true,
+				showImages: false,
+				resetStyles: false,
+				translations: { placeholder: `Search ${short}` },
+				processResult(result) {
+					result.meta.title = `${result.meta.section || result.meta.title} — ${short} ${result.meta.version}`;
+					return result;
+				},
+			});
+			const apply = () => ui.triggerFilters({ language: [language], version: [version] });
+			apply();
+			if (params.get('q')) ui.triggerSearch(params.get('q'));
+			select.addEventListener('change', () => {
+				version = select.value;
+				apply();
+				const url = new URL(location.href);
+				url.searchParams.set('v', version);
+				history.replaceState(null, '', url);
+			});
+		})();
+	</script>
+</ReferenceLayout>

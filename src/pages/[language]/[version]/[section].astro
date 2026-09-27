@@ -1,0 +1,105 @@
+---
+// One page per top-level section and appendix of a version (US1, FR-002, research D4); under `latest`,
+// also a stub for each page an older version had and the latest lacks (research D13).
+import ReferenceLayout from '../../../components/reference/ReferenceLayout.astro';
+import ReverseLinks from '../../../components/reference/ReverseLinks.astro';
+import { renderVersion } from '../../../lib/reference/render';
+import { versionRoutes, type VersionRoute } from '../../../lib/reference/routes';
+import { examplesOf } from '../../../lib/reference/examples';
+import { layerSections, pageHref, tocEntries } from '../../../lib/reference/site';
+import { stubsOf, type Stub } from '../../../lib/reference/stubs';
+
+export function getStaticPaths() {
+	return versionRoutes().flatMap((route) => [
+		...route.version.split().sections.map(({ page }) => ({
+			params: { language: route.language, version: route.segment, section: page.slug },
+			props: { route, slug: page.slug, stub: undefined },
+		})),
+		...(route.isLatestCopy
+			? stubsOf(route.all).map((stub) => ({ params: { language: route.language, version: route.segment, section: stub.slug }, props: { route, slug: stub.slug, stub } }))
+			: []),
+	]);
+}
+
+interface Props {
+	route: VersionRoute;
+	slug: string;
+	stub?: Stub;
+}
+
+const { route, slug, stub } = Astro.props;
+const { version, segment, language, latest } = route;
+const labels = new Map(tocEntries(version, segment).map((e) => [e.slug, e.label]));
+const page = stub ? undefined : version.split().sections.find((s) => s.page.slug === slug)!.page;
+const rendered = await renderVersion(version, segment);
+const body = page ? rendered.pages.get(slug)! : undefined;
+const examples = examplesOf(version);
+const layer = layerSections(version, segment).find((l) => l.slug === slug)?.layer;
+const where = page && (/^[A-Z]$/.test(page.number ?? '') ? `Appendix ${page.number}` : `Section ${page.number}`);
+---
+
+{
+	page && body ? (
+		<ReferenceLayout
+			version={version}
+			segment={segment}
+			title={labels.get(slug)!}
+			description={`${where} of the ${version.language.name} specification, version ${version.record.version} (${version.record.status}): ${page.title}.`}
+			current={slug}
+			headings={body.headings}
+			anchorId={page.headings[0].id}
+			canonical={route.isLatestCopy ? pageHref(language, version.record.version, slug) : undefined}
+			latest={latest}
+			slug={slug}
+			searchable={!route.isLatestCopy}
+		>
+			<Fragment set:html={body.html} />
+			<Fragment slot="after">
+				<ReverseLinks version={version} segment={segment} graph={rendered.graph} slug={slug} examples={examples} layer={layer} />
+				<nav class="ref-prev-next not-content" aria-label="Previous and next section" data-pagefind-ignore>
+					{page.prev !== null && (
+						<a rel="prev" href={pageHref(language, segment, page.prev)}>
+							<span class="ref-direction">Previous</span>
+							{labels.get(page.prev)}
+						</a>
+					)}
+					{page.next !== null && (
+						<a rel="next" href={pageHref(language, segment, page.next)}>
+							<span class="ref-direction">Next</span>
+							{labels.get(page.next)}
+						</a>
+					)}
+				</nav>
+			</Fragment>
+		</ReferenceLayout>
+	) : (
+		stub && (
+			<ReferenceLayout
+				version={version}
+				segment={segment}
+				title={stub.title}
+				description={`"${stub.title}" is not in ${version.language.short} ${version.record.version}; this page says where it went.`}
+				searchable={false}
+			>
+				<div class="ref-stub">
+					{stub.movedTo ? (
+						<p>
+							“{stub.title}” moved: in {version.language.short} {version.record.version} it is{' '}
+							<a href={pageHref(language, version.record.version, stub.movedTo.page, stub.movedTo.id)}>{stub.movedTo.text}</a>.
+						</p>
+					) : (
+						<p>
+							“{stub.title}” was removed in {version.language.short} {stub.removedIn}.
+						</p>
+					)}
+				</div>
+				<p>
+					The last version that had it is{' '}
+					<a href={pageHref(language, stub.lastVersion.record.version, stub.slug)}>
+						{version.language.short} {stub.lastVersion.record.version}
+					</a>.
+				</p>
+			</ReferenceLayout>
+		)
+	)
+}

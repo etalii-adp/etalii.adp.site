@@ -1,0 +1,13 @@
+[
+  {
+    "id": "dedl",
+    "name": "DEDL — Diagram Editor Definition Language",
+    "short": "DEDL",
+    "repository": "etalii-adp/etalii.adp",
+    "branch": "develop",
+    "path": "specifications/dedl",
+    "prose": "DEDL-specification.md",
+    "schema": "dedl.schema.json",
+    "schemaAddress": "/dedl/schema/{version}/{schema}"
+  }
+]
