@@ -178,11 +178,11 @@ One project, a static Astro site with its scripts beside it (plan "Project Struc
 
 ## Phase 8: Polish & Cross-Cutting Concerns
 
-- [ ] T064 [P] Add `npm run test` and, after `npm run build`, `npm run check:reference` to the CI workflow under `.github/workflows/` that spec 001 created, so a pull request fails when either fails (constitution, Development Workflow).
-- [ ] T065 [P] Extend spec 001's WCAG 2.2 AA check and phone-width check to the landing, one section page (section 6), the schema page, one example page and the search page, and fix every violation in `src/components/reference/` or `src/styles/reference.css` (quickstart 8).
-- [ ] T066 [P] Measure the built HTML of sections 6 and 17 (target about 150 KB each) and the CI build time including Mermaid (target under 3 minutes), and record both in the pull request description (plan "Performance Goals").
-- [ ] T067 Draft the five upstream requests of [contracts/source-inputs.md](contracts/source-inputs.md) ("Requests to the source repository") as issues for `etalii-adp/etalii.adp`, and open them only after the owner confirms.
-- [ ] T068 Run every scenario of [quickstart.md](quickstart.md) against a fixture build (and, once a licensed snapshot exists, against the real one) and record the results in the pull request description.
+- [x] **T064** [P] Add `npm run test` and, after `npm run build`, `npm run check:reference` to the CI workflow under `.github/workflows/` that spec 001 created, so a pull request fails when either fails (constitution, Development Workflow).
+- [x] **T065** [P] Extend spec 001's WCAG 2.2 AA check and phone-width check to the landing, one section page (section 6), the schema page, one example page and the search page, and fix every violation in `src/components/reference/` or `src/styles/reference.css` (quickstart 8).
+- [x] **T066** [P] Measure the built HTML of sections 6 and 17 (target about 150 KB each) and the CI build time including Mermaid (target under 3 minutes), and record both in the pull request description (plan "Performance Goals").
+- [x] **T067** Draft the five upstream requests of [contracts/source-inputs.md](contracts/source-inputs.md) ("Requests to the source repository") as issues for `etalii-adp/etalii.adp`, and open them only after the owner confirms.
+- [x] **T068** Run every scenario of [quickstart.md](quickstart.md) against a fixture build (and, once a licensed snapshot exists, against the real one) and record the results in the pull request description.
 
 ---
 

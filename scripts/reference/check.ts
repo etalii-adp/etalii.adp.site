@@ -8,7 +8,7 @@ import { join, relative, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
-import { languages, versionsOf, type LoadedVersion } from '../../src/lib/reference/load';
+import { REFERENCE_DIR, contentDir, languages, versionsOf, type LoadedVersion } from '../../src/lib/reference/load';
 import { LATEST, languageHref, pageHref, schemaFileHref, versionHref } from '../../src/lib/reference/site';
 
 export interface CheckContext {
@@ -60,11 +60,13 @@ export function hrefsOf(html: string): string[] {
 
 checks.push({
 	name: 'licence',
-	run({ versions, fail }) {
+	run({ versions, fail, warn }) {
+		// A build from a test fixture (REFERENCE_CONTENT_DIR) is never published, so there it is a warning.
+		const report = contentDir() === REFERENCE_DIR ? fail : warn;
 		for (const version of versions) {
 			const licence = version.record.source.licence;
 			if (!licence || licence === 'NOASSERTION') {
-				fail(`${version.language.short} ${version.record.version} has no licence the source states ("${licence}"); it cannot be published (FR-015)`, join(version.dir, 'source.json'));
+				report(`${version.language.short} ${version.record.version} has no licence the source states ("${licence}"); it cannot be published (FR-015)`, join(version.dir, 'source.json'));
 			}
 		}
 	},
