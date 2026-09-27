@@ -265,3 +265,41 @@
 .sl-markdown-content pre {
 	overflow-x: auto;
 }
+
+/* Provenance on every reference page (FR-011). */
+.ref-provenance {
+	margin-top: 3rem;
+	padding: 1rem 1.25rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 0.5rem;
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-2);
+}
+.ref-provenance h2 {
+	margin: 0 0 0.5rem;
+	font-size: var(--sl-text-base);
+	color: var(--sl-color-white);
+}
+.ref-provenance dl {
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	gap: 0.25rem 1rem;
+	margin: 0;
+}
+.ref-provenance dt {
+	font-weight: 600;
+}
+.ref-provenance dd {
+	margin: 0;
+}
+.ref-provenance p {
+	margin: 0.75rem 0 0;
+}
+@media (max-width: 30rem) {
+	.ref-provenance dl {
+		grid-template-columns: 1fr;
+	}
+	.ref-provenance dd {
+		margin-bottom: 0.5rem;
+	}
+}

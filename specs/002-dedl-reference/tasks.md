@@ -152,9 +152,9 @@ One project, a static Astro site with its scripts beside it (plan "Project Struc
 
 **Independent Test**: open any reference page, follow its source link, and find the same text at that revision in `etalii-adp/etalii.adp` (quickstart 6).
 
-- [ ] T056 [US4] Create `src/components/reference/Provenance.astro`: DEDL version, status and date; the repository `etalii-adp/etalii.adp`; the revision as 7 characters linking to the prose file at the full 40-character revision on GitHub; the generation date (build time); the licence from `source.licence` (FR-015); "Report a problem" linking to the source repository's issues (US4 AS2). Use spec 003's source-record rendering when it is on `develop`, so provenance looks the same across the site.
-- [ ] T057 [US4] Render `Provenance` in `src/components/reference/ReferenceLayout.astro` so it appears on every reference page: covers, sections, stubs, schema browser, example pages and the landing.
-- [ ] T058 [US4] Register in `scripts/reference/check.ts`: every page under `/adp/dedl/` has the provenance block with a 40-character revision and a licence (FR-011).
+- [x] **T056** [US4] Create `src/components/reference/Provenance.astro`: DEDL version, status and date; the repository `etalii-adp/etalii.adp`; the revision as 7 characters linking to the prose file at the full 40-character revision on GitHub; the generation date (build time); the licence from `source.licence` (FR-015); "Report a problem" linking to the source repository's issues (US4 AS2). Use spec 003's source-record rendering when it is on `develop`, so provenance looks the same across the site.
+- [x] **T057** [US4] Render `Provenance` in `src/components/reference/ReferenceLayout.astro` so it appears on every reference page: covers, sections, stubs, schema browser, example pages and the landing.
+- [x] **T058** [US4] Register in `scripts/reference/check.ts`: every page under `/adp/dedl/` has the provenance block with a 40-character revision and a licence (FR-011).
 
 **Checkpoint**: US4 is complete; quickstart 6 passes.
 

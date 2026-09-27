@@ -6,6 +6,7 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import type { LoadedVersion } from '../../lib/reference/load';
 import type { RenderedHeading } from '../../lib/reference/render';
 import { sidebarFor } from '../../lib/reference/site';
+import Provenance from './Provenance.astro';
 import Toc from './Toc.astro';
 import VersionBanner from './VersionBanner.astro';
 
@@ -66,6 +67,6 @@ const onThisPage = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 		}
 		<slot />
 		<slot name="after" />
-		<slot name="provenance" />
+		{version && <Provenance version={version} />}
 	</div>
 </StarlightPage>

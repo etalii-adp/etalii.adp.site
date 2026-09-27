@@ -200,6 +200,22 @@ checks.push({
 	},
 });
 
+// -- Provenance on every page (FR-011) ------------------------------------------------------------------
+
+checks.push({
+	name: 'provenance',
+	run({ versions, pages, html, fail }) {
+		for (const language of new Set(versions.map((v) => v.language.id))) {
+			for (const address of pages(language)) {
+				const block = /<aside class="ref-provenance[^"]*"[^>]*data-revision="([^"]*)"[^>]*data-licence="([^"]*)"/.exec(html(address)!);
+				if (!block) fail('the page has no provenance block', address);
+				else if (!/^[0-9a-f]{40}$/.test(block[1])) fail(`the provenance names revision "${block[1]}", not a 40-character commit`, address);
+				else if (!block[2]) fail('the provenance names no licence', address);
+			}
+		}
+	},
+});
+
 // -- Runner -----------------------------------------------------------------------------------------
 
 function htmlFiles(dir: string): string[] {
