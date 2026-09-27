@@ -3,3 +3,6 @@
 
 # Shell scripts must stay LF everywhere, or bash fails on the carriage returns.
 *.sh text eol=lf
+
+# Sourced content is kept byte for byte as its source committed it; its SHA-256 records depend on that.
+sources/** -text
