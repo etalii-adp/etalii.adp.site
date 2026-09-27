@@ -19,7 +19,7 @@ Runs one procedure end to end. `<id>` is `dedl`, `screenshots`, `catalogue`, `ho
 **Files written**:
 - `.refresh/summary.json`: the change summary ([../data-model.md](../data-model.md) § Change summary).
 - `.refresh/pr-body.md`: the rendered pull request body ([pull-request.md](pull-request.md)).
-- `.refresh/decision.json`: only for `needs-decision`: `{ "procedure", "question", "subject", "options": [..], "writeTo": "procedures/config/<file>.json", "key" }`.
+- `.refresh/decision.json`: only for `needs-decision`: `{ "procedure", "question", "subject", "options": [..], "writeTo": "procedures/config/<file>.json", "key": [..] }`. `key` is the path of property names inside `writeTo`, as an array because screenshot file names contain dots (for example `["standalone", "mindmap.png"]`). A run of `all` writes each procedure's files under `.refresh/<id>/` instead, and `refresh:decide` reads the decision from there.
 
 `.refresh/` is git-ignored.
 

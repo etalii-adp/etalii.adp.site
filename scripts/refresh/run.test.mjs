@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -55,6 +55,28 @@ describe('run.mjs', () => {
 		assert.ok(site.read('.refresh/pr-body.md').includes('## Source revisions'));
 		assert.ok(site.read('.refresh/diff.patch').includes('+alpha, changed'));
 		assert.equal(site.read('sources/stub/a.txt'), 'alpha\n', 'a dry run leaves the checkout untouched');
+	});
+
+	it('leaves out a changed mapping file that the procedure does not read', () => {
+		const states = join(site.dir, 'procedures', 'config', 'states.json');
+		const original = readFileSync(states, 'utf8');
+		writeFileSync(states, original.replace('"To-do": "specified"', '"To-do": "identified"'));
+		try {
+			const run = site.refresh(['stub', '--dry-run', '--source', arg], env);
+			assert.equal(run.code, 0, run.output);
+			assert.ok(site.json('.refresh/summary.json').files.every((f) => !f.path.startsWith('procedures/')));
+			assert.doesNotMatch(site.read('.refresh/diff.patch'), /procedures\/config/);
+		} finally {
+			writeFileSync(states, original);
+		}
+	});
+
+	it('works on a base that has no procedures/config/ yet', () => {
+		const bare = setup();
+		bare.site.commit({ 'procedures/config/states.json': null, 'procedures/config/screenshots.json': null }, 'No mappings yet');
+		const run = bare.site.refresh(['stub', '--dry-run', '--source', bare.arg], env);
+		assert.equal(run.code, 0, run.output);
+		assert.match(run.stdout, /outcome: delivered/);
 	});
 
 	it('fails (exit 2) and names the source when it cannot be reached, changing nothing', () => {

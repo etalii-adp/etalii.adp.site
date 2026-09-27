@@ -203,9 +203,11 @@ export async function runProcedure(procedure, options, { cwd = process.cwd(), ou
 		} else {
 			await git(cwd, ['switch', '--quiet', '-C', `refresh/${shortId}`, baseRef]);
 		}
+		// The mapping files this procedure reads travel with it when they differ from the base, so an answered
+		// decision is part of the same pull request (research R9); other procedures' mappings stay out of it.
 		const configCopied = [];
 		const configDir = join(cwd, 'procedures', 'config');
-		for (const name of existsSync(configDir) ? readdirSync(configDir).filter((n) => n.endsWith('.json')) : []) {
+		for (const name of (procedure.configFiles ?? []).filter((n) => existsSync(join(configDir, n)))) {
 			const path = `procedures/config/${name}`;
 			const mine = readFileSync(join(configDir, name), 'utf8').replaceAll('\r\n', '\n');
 			const base = await showAt(cwd, baseRef, path);
@@ -241,7 +243,8 @@ export async function runProcedure(procedure, options, { cwd = process.cwd(), ou
 			if (deliver) await closeStalePr(procedure, after, stage);
 			return finish(result, out, procedure, { after, before: previous?.sourceHeads ?? {} });
 		}
-		const counts = ['added', 'changed', 'removed'].map((c) => `${files.filter((f) => f.change === c).length} ${c}`).join(', ');
+		const sourced = files.filter((f) => f.path.startsWith('sources/'));
+		const counts = ['added', 'changed', 'removed'].map((c) => `${sourced.filter((f) => f.change === c).length} ${c}`).join(', ');
 		stage('apply', `${counts} in sources/${shortId}${configCopied.length ? ` and ${configCopied.length} mapping file${configCopied.length === 1 ? '' : 's'}` : ''}`);
 
 		// Verify: the site's build and checks when it defines them (R8), and always the source-record check.
@@ -265,9 +268,11 @@ export async function runProcedure(procedure, options, { cwd = process.cwd(), ou
 		result.summary = summary;
 		result.outcome = failedStep ? 'delivered-draft' : 'delivered';
 
+		// The paths a run may change; procedures/config/ only once the base or this run has it.
+		const changedPaths = [`sources/${shortId}`, ...(existsSync(join(root, 'procedures', 'config')) ? ['procedures/config'] : [])];
 		if (options.dryRun && worktree) {
-			await git(root, ['add', '--all', '--', `sources/${shortId}`, 'procedures/config']);
-			writeFileSync(join(out, 'diff.patch'), await git(root, ['diff', '--cached', '--', `sources/${shortId}`, 'procedures/config']).then((d) => `${d}\n`));
+			await git(root, ['add', '--all', '--', ...changedPaths]);
+			writeFileSync(join(out, 'diff.patch'), await git(root, ['diff', '--cached', '--', ...changedPaths]).then((d) => `${d}\n`));
 		}
 
 		// Deliver: commit, force-push refresh/<short>, and create or update its one pull request (R6).
@@ -275,7 +280,7 @@ export async function runProcedure(procedure, options, { cwd = process.cwd(), ou
 			const github = await loadGithub();
 			const branch = `refresh/${shortId}`;
 			await github.ensureLabels(['refresh', `refresh:${shortId}`]);
-			await git(root, ['add', '--all', '--', `sources/${shortId}`, 'procedures/config']);
+			await git(root, ['add', '--all', '--', ...changedPaths]);
 			await git(root, ['commit', '--quiet', '-m', `Refresh ${procedure.what}`, '-m', `Refreshed-by: ${procedure.id}`]);
 			await git(root, ['push', '--quiet', '--force', 'origin', `HEAD:refs/heads/${branch}`]);
 			const open = await github.findOpenPr(branch);
@@ -307,9 +312,14 @@ export async function runProcedure(procedure, options, { cwd = process.cwd(), ou
 		log(`failed: ${error.message}`);
 		return finish(result, out, procedure, {});
 	} finally {
+		// On Windows a file the site build still holds open can fail the first removal, so retry, then say so.
 		unlinkDir(nodeModulesLink);
 		if (worktree) await git(cwd, ['worktree', 'remove', '--force', worktree]).catch(() => {});
-		rmSync(tmp, { recursive: true, force: true });
+		try {
+			rmSync(tmp, { recursive: true, force: true, maxRetries: 10, retryDelay: 500 });
+		} catch (error) {
+			log(`cleanup: could not remove ${tmp}: ${error.message}`);
+		}
 		if (worktree) await git(cwd, ['worktree', 'prune']).catch(() => {});
 	}
 }

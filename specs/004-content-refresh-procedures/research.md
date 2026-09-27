@@ -164,7 +164,7 @@ The derived state is stored in `sources/hosts/hosts.json` with the facts it was 
 
 An image that fails any check is not brought in. The previous copy stays, and the problem is listed in the pull request (US2-2). The "what must be visible" text is copied beside each image as its description. It becomes the pull request's review note for the owner (the visual part a script cannot judge) and the default alternative text for the site (spec 003 FR-012).
 
-Which designer an image shows is stored in `procedures/config/screenshots.json` (image → origin tag). An image not in that map raises a decision (R9). A designer that is prototype or available in a host but has no image there is reported as a gap in the pull request, and no image is invented (US2-3).
+Which designer an image shows is stored in `procedures/config/screenshots.json` (image → origin tag, or `none` for an image that shows no designer, such as the standalone's Markdown text editor). An image not in that map raises a decision (R9). A designer that is prototype or available in a host but has no image there is reported as a gap in the pull request, and no image is invented (US2-3).
 
 **Rationale**: the source readme already states the expectations precisely, so the site copies them rather than inventing its own. The part that needs eyes stays with the reviewer, who sees the image and its expectation side by side in the pull request diff.
 
