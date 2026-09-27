@@ -362,11 +362,11 @@ These rules apply to every task below. They are stated once here so that they do
 
 ## Phase 9: Polish & Cross-Cutting Concerns
 
-- [ ] T056 [P] Check cross-platform behaviour. Run `npm test` on Windows (this worktree) and confirm that locks, summaries and `adp:source` values use `/` separators, that the `node_modules` link in temporary worktrees works as a junction, and that temporary worktrees are removed after both success and failure (`git worktree list` shows none left).
-- [ ] T057 Run quickstart scenarios 0, 1, 3, 5, 6, 7, 8 and 10 from [quickstart.md](quickstart.md) as dry runs against fixtures and local clones, and record each outcome in a short "Validation" section at the end of `specs/004-content-refresh-procedures/quickstart.md`, with the date and the commit.
-- [ ] T058 Run `npm run refresh -- all --dry-run` against the real sources with the developer's `gh` login. Confirm that a run with nothing changed finishes in under one minute per procedure (plan § Performance Goals), that the private sources are readable, and that the source caveat for the standalone screenshots appears. Record the timings in the same Validation section.
-- [ ] T059 [P] Review `procedures/*.md`, `procedures/README.md` and the new `CLAUDE.md` sections for constitution principle V: every step is executable without asking for steps, the only questions are the listed decisions, and no Markdown line is wrapped at a fixed width (the repository's convention).
-- [ ] T060 Run `npm test`, `npm run refresh:lint` and `npm run refresh:verify` together as the final gate, and make sure all three exit 0 before the feature's pull request is opened.
+- [X] T056 [P] Check cross-platform behaviour. Run `npm test` on Windows (this worktree) and confirm that locks, summaries and `adp:source` values use `/` separators, that the `node_modules` link in temporary worktrees works as a junction, and that temporary worktrees are removed after both success and failure (`git worktree list` shows none left).
+- [X] T057 Run quickstart scenarios 0, 1, 3, 5, 6, 7, 8 and 10 from [quickstart.md](quickstart.md) as dry runs against fixtures and local clones, and record each outcome in a short "Validation" section at the end of `specs/004-content-refresh-procedures/quickstart.md`, with the date and the commit.
+- [X] T058 Run `npm run refresh -- all --dry-run` against the real sources with the developer's `gh` login. Confirm that a run with nothing changed finishes in under one minute per procedure (plan § Performance Goals), that the private sources are readable, and that the source caveat for the standalone screenshots appears. Record the timings in the same Validation section.
+- [X] T059 [P] Review `procedures/*.md`, `procedures/README.md` and the new `CLAUDE.md` sections for constitution principle V: every step is executable without asking for steps, the only questions are the listed decisions, and no Markdown line is wrapped at a fixed width (the repository's convention).
+- [X] T060 Run `npm test`, `npm run refresh:lint` and `npm run refresh:verify` together as the final gate, and make sure all three exit 0 before the feature's pull request is opened.
 
 ---
 
