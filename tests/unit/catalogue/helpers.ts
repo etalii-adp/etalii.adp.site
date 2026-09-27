@@ -26,6 +26,12 @@ export function contentDir(overrides: Record<string, unknown> = {}): string {
 	return dir;
 }
 
+/** Options that name every input, so that ADP_* variables in the environment do not reach the tests. */
+export function fixtureOptions(overrides: Record<string, unknown> = {}, sourcesRoot = join(fixtures, 'sources')) {
+	const dir = contentDir(overrides);
+	return { sourcesRoot, configPath: join(fixtures, 'config/states.json'), contentDir: dir, notionPath: join(dir, 'notion.json') };
+}
+
 export function assembleFixtures(overrides: Record<string, unknown> = {}) {
-	return assembleCatalogue({ sourcesRoot: join(fixtures, 'sources'), configPath: join(fixtures, 'config/states.json'), contentDir: contentDir(overrides) });
+	return assembleCatalogue(fixtureOptions(overrides));
 }

@@ -20,3 +20,6 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
+
+# Reports written by the catalogue scripts for a refresh pull request (spec 003); spec 004 includes them in its body
+.refresh/

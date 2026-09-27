@@ -2,11 +2,10 @@
 // One page per designer (FR-003 to FR-009, FR-012, FR-015), in the order of contracts/site-addresses.md § A designer
 // page. Every git source is named in an adp:source meta for spec 004's source-record check.
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import AvailabilityTable from '../../../components/catalogue/AvailabilityTable.astro';
 import { bestState, catalogue, isUsable } from '../../../components/catalogue/data';
 import ScreenshotFigure from '../../../components/catalogue/ScreenshotFigure.astro';
 import SourceList from '../../../components/catalogue/SourceList.astro';
-import StateLabel from '../../../components/catalogue/StateLabel.astro';
-import { catalogueHosts } from '../../../lib/catalogue/hosts';
 import type { Designer, FocusArea } from '../../../lib/catalogue/types';
 
 export async function getStaticPaths() {
@@ -39,15 +38,7 @@ const head = [
 
 	<section id="availability" aria-labelledby="availability-heading">
 		<h2 id="availability-heading">Availability</h2>
-		<ul>
-			{
-				catalogueHosts.map((host) => (
-					<li>
-						{host.name}: <StateLabel state={designer.hosts[host.id].state} />
-					</li>
-				))
-			}
-		</ul>
+		<AvailabilityTable designer={designer} />
 	</section>
 
 	<section aria-labelledby="what-it-is-for">

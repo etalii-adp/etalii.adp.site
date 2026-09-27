@@ -144,3 +144,27 @@ test.describe('designer page', () => {
 		});
 	}
 });
+
+test.describe('availability', () => {
+	for (const designer of catalogue.designers) {
+		test(`${designer.origin} lists all four hosts with their state and how to get it (US3)`, async ({ page }) => {
+			await page.goto(`/adp/designers/${designer.origin}/`);
+			const table = page.locator('table.adp-availability');
+			await expect(table.locator('caption')).toHaveText('Availability per IDE host');
+			const rows = table.locator('tbody tr');
+			await expect(rows).toHaveCount(4);
+			for (const [index, host] of catalogueHosts.entries()) {
+				const row = rows.nth(index);
+				const availability = designer.hosts[host.id];
+				await expect(row.locator('th')).toContainText(host.name);
+				await expect(row.locator('td').nth(0)).toHaveText(states[availability.state].label);
+				const how = row.locator('td').nth(1);
+				if (availability.state === 'available') await expect(how.locator('a')).toHaveAttribute('href', availability.install!.url);
+				else if (availability.state === 'implemented' || availability.state === 'prototype') await expect(how).toContainText('Not yet released');
+				else if (availability.state === 'planned') await expect(how).toContainText('Planned');
+				else if (availability.state === 'in-progress') await expect(how).toContainText('In progress');
+				else await expect(how).toContainText('Not planned');
+			}
+		});
+	}
+});

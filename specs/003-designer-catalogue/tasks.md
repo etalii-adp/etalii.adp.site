@@ -278,13 +278,13 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ### Tests for User Story 3
 
-- [ ] T038 [P] [US3] Add a section "availability" to `tests/catalogue.spec.ts`.
+- [x] **T038** [P] [US3] Add a section "availability" to `tests/catalogue.spec.ts`.
   - Every designer page has a table with exactly four rows, Standalone, IntelliJ Platform, Visual Studio Code and Eclipse, in that order, never fewer (US3 AS2).
   - Each row has the state label as text.
   - An `available` row has an install link.
   - An `implemented` row says "Not yet released".
   - A `not-planned` or `planned` row says so.
-- [ ] T039 [P] [US3] Write `tests/unit/catalogue/sync-notion.test.ts` against the fixtures and a fake `fetch`.
+- [x] **T039** [P] [US3] Write `tests/unit/catalogue/sync-notion.test.ts` against the fixtures and a fake `fetch`.
   - For `wardley/map`, `--dry-run` reports `wardley/map · standalone · ⚗️ Prototype → ✅ Implemented` and sends no `PATCH`.
   - Without `--dry-run`, it sends one `PATCH /v1/pages/<id>` with `{ "properties": { "Standalone": { "select": { "name": "✅ Implemented" } } } }`.
   - It never writes a host that has no catalogue (`intellij` for `jgraph/drawio`).
@@ -293,13 +293,13 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ### Implementation for User Story 3
 
-- [ ] T040 [P] [US3] Write `src/components/catalogue/AvailabilityTable.astro`: a `<table>` with a `<caption>` "Availability per IDE host" and the columns Host, State and "How to get it".
+- [x] **T040** [P] [US3] Write `src/components/catalogue/AvailabilityTable.astro`: a `<table>` with a `<caption>` "Availability per IDE host" and the columns Host, State and "How to get it".
   - "How to get it" is `install` as a link (`available`); "Not yet released" (`implemented` or `prototype`); "Planned" or "In progress"; or "Not planned".
   - Add `build` when present.
   - A `localName` that differs from the designer's name is shown as "(called <localName> here)".
   - A `notionDiffers` value is never shown to visitors; it is for the report.
-- [ ] T041 [US3] In `src/pages/designers/[vendor]/[type].astro`, replace the placeholder section `availability` with `AvailabilityTable` (depends on T036 and T040).
-- [ ] T042 [US3] Write `scripts/catalogue/sync-notion.ts` (`npm run catalogue:sync-notion [--dry-run]`, S3w, research D13), which makes T039 pass.
+- [x] **T041** [US3] In `src/pages/designers/[vendor]/[type].astro`, replace the placeholder section `availability` with `AvailabilityTable` (depends on T036 and T040).
+- [x] **T042** [US3] Write `scripts/catalogue/sync-notion.ts` (`npm run catalogue:sync-notion [--dry-run]`, S3w, research D13), which makes T039 pass.
   - It runs `assembleCatalogue()` and stops if it throws.
   - For every designer and every host that has its own catalogue in `sources/catalogue/<host>/`, it compares the Notion column in `notion.json` with the host's `sourceState`.
   - It reads the select options once with `GET /v1/data_sources/3e7be2fd-05b6-8079-932d-000bfa0609af` and picks the option whose text, after stripping the emoji, equals the stripped `sourceState`.

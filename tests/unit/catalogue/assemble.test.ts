@@ -6,7 +6,7 @@ import { test } from 'node:test';
 import { assembleCatalogue } from '../../../src/lib/catalogue/assemble.ts';
 import { parseNotionPages } from '../../../src/lib/catalogue/notion-api.ts';
 import { readSources, toSourceRecord } from '../../../src/lib/catalogue/sources.ts';
-import { assembleFixtures, contentDir, fixturePages, fixtures } from './helpers.ts';
+import { assembleFixtures, fixtureOptions, fixturePages, fixtures } from './helpers.ts';
 
 const catalogue = assembleFixtures();
 const designer = (origin: string) => {
@@ -79,11 +79,7 @@ test('(g) a designer below Prototype in every host has no screenshots', () => {
 });
 
 test('(h) a relative theory link is dropped without a licence; an absolute one is kept', () => {
-	const unlicensed = assembleCatalogue({
-		sourcesRoot: licencedAs('unstated'),
-		configPath: join(fixtures, 'config/states.json'),
-		contentDir: contentDir(),
-	});
+	const unlicensed = assembleCatalogue(fixtureOptions({}, licencedAs('unstated')));
 	const theory = unlicensed.designers.find((d) => d.origin === 'wardley/map')!.theory;
 	assert.deepEqual(theory, [{ title: 'Wardley maps', url: 'https://learnwardleymapping.com/' }]);
 
@@ -124,7 +120,12 @@ test('a published origin that disappeared is a membership question', () => {
 
 test('without sources, a states configuration or a Notion snapshot, the catalogue is empty and says why', () => {
 	const empty = mkdtempSync(join(tmpdir(), 'adp-empty-'));
-	const result = assembleCatalogue({ sourcesRoot: join(empty, 'sources'), configPath: join(empty, 'states.json'), contentDir: 'src/content/catalogue' });
+	const result = assembleCatalogue({
+		sourcesRoot: join(empty, 'sources'),
+		configPath: join(empty, 'states.json'),
+		contentDir: 'src/content/catalogue',
+		notionPath: join(empty, 'notion.json'),
+	});
 	assert.deepEqual(result.designers, []);
 	assert.ok(result.report.gaps.some((item) => /no catalogue for standalone/.test(item.message)));
 });
@@ -149,7 +150,7 @@ test('implemented becomes available only with a public release and a licence', (
 	hosts[0].facts.latestRelease = { tag: 'v0.2.0', commit: 'a'.repeat(40) };
 	hosts[0].link = 'https://github.com/etalii-adp/etalii.adp.ide.standalone/releases/tag/v0.2.0';
 	writeFileSync(hostsFile, JSON.stringify(hosts, null, 2));
-	const options = { sourcesRoot: dir, configPath: join(fixtures, 'config/states.json'), contentDir: contentDir() };
+	const options = fixtureOptions({}, dir);
 
 	const standalone = assembleCatalogue(options).designers.find((d) => d.origin === 'wardley/map')!.hosts.standalone;
 	assert.equal(standalone.state, 'available');
