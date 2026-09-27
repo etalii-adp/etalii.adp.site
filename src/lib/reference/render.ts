@@ -229,7 +229,7 @@ function rehypeHeadingLinks() {
 					{
 						type: 'element',
 						tagName: 'a',
-						properties: { className: ['heading-link'], href: `#${node.properties.id}`, ariaLabel: `Link to ${label}` },
+						properties: { className: ['heading-link'], href: `#${node.properties.id}`, ariaLabel: `Link to ${label}`, dataPagefindIgnore: '' },
 						children: [{ type: 'element', tagName: 'span', properties: { ariaHidden: 'true' }, children: [{ type: 'text', value: '#' }] }],
 					},
 				],

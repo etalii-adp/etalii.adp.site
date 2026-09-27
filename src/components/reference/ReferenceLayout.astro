@@ -5,7 +5,7 @@
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import type { LoadedVersion } from '../../lib/reference/load';
 import type { RenderedHeading } from '../../lib/reference/render';
-import { sidebarFor } from '../../lib/reference/site';
+import { searchHref, sidebarFor } from '../../lib/reference/site';
 import Provenance from './Provenance.astro';
 import Toc from './Toc.astro';
 import VersionBanner from './VersionBanner.astro';
@@ -31,10 +31,15 @@ interface Props {
 	slug?: string;
 	/** False for `latest` copies and stubs, which stay out of the search index (research D12). */
 	searchable?: boolean;
+	/** False on the search page itself, which has its own. */
+	searchBox?: boolean;
 }
 
-const { version, segment = version?.record.version ?? '', title, description, current, headings = [], canonical, anchorId, latest, slug, searchable = true } = Astro.props;
+const { version, segment = version?.record.version ?? '', title, description, current, headings = [], canonical, anchorId, latest, slug, searchable = true, searchBox = true } = Astro.props;
 const superseded = version && latest && version !== latest;
+// Search (research D12): versioned pages carry their language and version as filters, and version and
+// section as the metadata each result shows (FR-020); `latest` copies and stubs are not indexed at all.
+const indexed = searchable && version && segment !== 'latest';
 
 const head = canonical ? [{ tag: 'link' as const, attrs: { rel: 'canonical', href: new URL(canonical, Astro.site).href } }] : [];
 const onThisPage = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
@@ -55,7 +60,27 @@ const onThisPage = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 >
 	<div class="ref-page">
 		{anchorId && <span id={anchorId} class="ref-anchor" />}
+		{
+			indexed && (
+				<div hidden data-pagefind-ignore>
+					<span data-pagefind-filter="language">{version.language.id}</span>
+					<span data-pagefind-filter="version">{version.record.version}</span>
+					<span data-pagefind-meta="version">{version.record.version}</span>
+					<span data-pagefind-meta="section">{title}</span>
+				</div>
+			)
+		}
 		{superseded && <VersionBanner version={version} latest={latest} slug={slug} />}
+		{
+			version && searchBox && (
+				<form class="ref-search-form not-content" action={searchHref(version.language.id)} method="get" role="search" data-pagefind-ignore>
+					<label for="ref-search-q">Search {version.language.short} {version.record.version}</label>
+					<input id="ref-search-q" name="q" type="search" autocomplete="off" />
+					<input type="hidden" name="v" value={version.record.version} />
+					<button type="submit">Search</button>
+				</form>
+			)
+		}
 		<slot name="banner" />
 		{
 			version && current !== undefined && (

@@ -166,11 +166,11 @@ One project, a static Astro site with its scripts beside it (plan "Project Struc
 
 **Independent Test**: on `/adp/dedl/search/`, `snapping` returns 0.1 hits each naming its section; with JavaScript disabled the page points to the table of contents, glossary and schema browser; the network panel shows no third-party requests (quickstart 7).
 
-- [ ] T059 [US1] Mark pages for Pagefind in `src/components/reference/ReferenceLayout.astro`: filters `language` and `version` (`data-pagefind-filter`), meta fields `section` and `version` (`data-pagefind-meta`), on versioned pages only; `latest` copies and stubs stay excluded (research D12).
-- [ ] T060 [US1] Configure the Pagefind post-build step in `package.json` so the index, script and WebAssembly are written under `/adp/pagefind/` in the build output, with no third-party requests.
-- [ ] T061 [US1] Create `src/pages/[language]/search.astro`: the Pagefind UI filtered to one version, preselecting the latest, honouring `?v=<v>` and `?q=`, showing version and section for each result (FR-020); a `<noscript>` message that search needs scripting, with links to the table of contents, the glossary (Appendix C) and the schema browser.
-- [ ] T062 [US1] Add a small search form to `src/components/reference/ReferenceLayout.astro` that submits to the search page with `q` and the current version, and that the script enhances.
-- [ ] T063 [US1] Register in `scripts/reference/check.ts`: the Pagefind index holds every section page of the latest version.
+- [x] **T059** [US1] Mark pages for Pagefind in `src/components/reference/ReferenceLayout.astro`: filters `language` and `version` (`data-pagefind-filter`), meta fields `section` and `version` (`data-pagefind-meta`), on versioned pages only; `latest` copies and stubs stay excluded (research D12).
+- [x] **T060** [US1] Configure the Pagefind post-build step in `package.json` so the index, script and WebAssembly are written under `/adp/pagefind/` in the build output, with no third-party requests.
+- [x] **T061** [US1] Create `src/pages/[language]/search.astro`: the Pagefind UI filtered to one version, preselecting the latest, honouring `?v=<v>` and `?q=`, showing version and section for each result (FR-020); a `<noscript>` message that search needs scripting, with links to the table of contents, the glossary (Appendix C) and the schema browser.
+- [x] **T062** [US1] Add a small search form to `src/components/reference/ReferenceLayout.astro` that submits to the search page with `q` and the current version, and that the script enhances.
+- [x] **T063** [US1] Register in `scripts/reference/check.ts`: the Pagefind index holds every section page of the latest version.
 
 **Checkpoint**: search works; quickstart 7 passes.
 

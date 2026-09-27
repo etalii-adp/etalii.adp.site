@@ -216,6 +216,31 @@ checks.push({
 	},
 });
 
+// -- Search index (FR-014) ------------------------------------------------------------------------------
+
+checks.push({
+	name: 'search',
+	run({ versions, bytes, fail }) {
+		if (versions.length === 0) return;
+		const listing = bytes('/adp/pagefind/indexed.json');
+		if (!listing) {
+			fail('there is no search index; run npm run build, which runs build:search', '/adp/pagefind/');
+			return;
+		}
+		const indexed = new Set(JSON.parse(listing.toString('utf8')) as string[]);
+		for (const language of new Set(versions.map((v) => v.language.id))) {
+			const latest = versions.filter((v) => v.language.id === language).at(-1)!;
+			for (const { page } of latest.split().sections) {
+				const address = pageHref(language, latest.record.version, page.slug);
+				if (!indexed.has(address)) fail(`section "${page.slug}" of the latest version is not in the search index`, address);
+			}
+			for (const address of indexed) {
+				if (address.startsWith(versionHref(language, LATEST))) fail('a latest copy is in the search index', address);
+			}
+		}
+	},
+});
+
 // -- Runner -----------------------------------------------------------------------------------------
 
 function htmlFiles(dir: string): string[] {
