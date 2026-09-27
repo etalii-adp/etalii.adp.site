@@ -17,6 +17,7 @@ description: "Task list for Designer Catalogue"
 
 1. **Build on spec 004.** The catalogue consumes what spec 004's procedures write: `sources/catalogue/<host>/`, `sources/screenshots/<host>/`, `sources/hosts/hosts.json` and `procedures/config/states.json`. It does not parse `diagrams.md` or import screenshots itself. This honours 004's site-integration contract ("The plans of specs 001, 002 and 003 MUST honour it").
 2. **One state set: 003's seven.** `procedures/config/states.json` is amended to `not-planned, idea, planned, in-progress, prototype, implemented, available` (data-model § State). 004's release cap ("usable above the latest release becomes in progress") is replaced by the rule of research D3: nothing is downgraded, and `available` needs a public install. This is a change to 004's code, made here once 004 is on `develop` (T011).
+3. **Notion is written only after merge** (owner, 2026-09-27, after T047). The catalogue refresh runs `catalogue:sync-notion -- --dry-run` for its pull request, and `.github/workflows/catalogue-sync.yml` writes Notion's host columns on the push to `develop` that merges it, so Notion is never ahead of the site.
 
 ## Deviations from plan.md that follow from these decisions
 
