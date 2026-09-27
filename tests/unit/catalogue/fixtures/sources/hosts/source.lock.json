@@ -1,0 +1,28 @@
+{
+  "procedure": "refresh-hosts",
+  "refreshedAt": "2026-09-27T00:00:00Z",
+  "sourceHeads": {
+    "etalii-adp/etalii.adp.ide.standalone": "fc065abdf60d9363e0da0f520aa77f2d13a1930e",
+    "etalii-adp/etalii.adp.ide.intellij": "f8cbd8ea876901228a27d6b5938a91c4fd0a656c",
+    "etalii-adp/etalii.adp.ide.vscode": "02f12f2b9940dad60649133ae82ab2fc563cb67d",
+    "etalii-adp/etalii.adp.ide.eclipse": "4e3d2d388545cb418418dd3d9e5056d0209c4c53"
+  },
+  "releases": {
+    "etalii-adp/etalii.adp.ide.standalone": null,
+    "etalii-adp/etalii.adp.ide.intellij": null,
+    "etalii-adp/etalii.adp.ide.vscode": null,
+    "etalii-adp/etalii.adp.ide.eclipse": null
+  },
+  "files": [
+    {
+      "path": "hosts.json",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/diagrams.md",
+      "commit": "9831d6465ed9c9a9d9bb04ae34bca95769f27c73",
+      "gitBlob": "2b8f453fe168c3b69fa2aa18a9555b2d377e9016",
+      "sha256": "0d7b023abf31539f7ed7233fdcb33ce0853e6e9030bd9078b9328fbba1792b40",
+      "licence": "unstated"
+    }
+  ],
+  "withdrawn": []
+}

@@ -1,0 +1,420 @@
+{
+  "object": "list",
+  "results": [
+    {
+      "object": "page",
+      "id": "1a2b3c4d-0000-4000-8000-000000000004",
+      "created_time": "2026-09-26T10:00:00.000Z",
+      "last_edited_time": "2026-09-26T18:04:00.000Z",
+      "archived": false,
+      "in_trash": false,
+      "parent": {
+        "type": "data_source_id",
+        "data_source_id": "3e7be2fd-05b6-8079-932d-000bfa0609af"
+      },
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "RDF Turtle",
+              "text": {
+                "content": "RDF Turtle",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Origin": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "rdf/turtle",
+              "text": {
+                "content": "rdf/turtle",
+                "link": null
+              }
+            }
+          ]
+        },
+        "One line purpose": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Edit RDF graphs in the Turtle syntax.",
+              "text": {
+                "content": "Edit RDF graphs in the Turtle syntax.",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Description": {
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Why specialized": {
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "File extension (if single file)": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": ".ttl",
+              "text": {
+                "content": ".ttl",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Theory": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "https://www.w3.org/TR/turtle/",
+              "text": {
+                "content": "https://www.w3.org/TR/turtle/",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Type": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "Diagram",
+            "color": "default"
+          }
+        },
+        "Family": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "Knowledge and semantics",
+            "color": "default"
+          }
+        },
+        "Subfamily": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "RDF",
+            "color": "default"
+          }
+        },
+        "Standalone": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "💡 Identified",
+            "color": "default"
+          }
+        },
+        "IntelliJ": {
+          "type": "select",
+          "select": null
+        },
+        "VS Code": {
+          "type": "select",
+          "select": null
+        },
+        "Eclipse": {
+          "type": "select",
+          "select": null
+        },
+        "Focus areas": {
+          "type": "multi_select",
+          "multi_select": [
+            {
+              "id": "opt",
+              "name": "Knowledge and semantics",
+              "color": "default"
+            }
+          ]
+        },
+        "State": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "Prototype",
+            "color": "default"
+          }
+        },
+        "Rarity": {
+          "type": "select",
+          "select": null
+        }
+      },
+      "url": "https://www.notion.so/1a2b3c4d000040008000000000000004"
+    },
+    {
+      "object": "page",
+      "id": "1a2b3c4d-0000-4000-8000-000000000005",
+      "created_time": "2026-09-26T10:00:00.000Z",
+      "last_edited_time": "2026-09-26T18:05:00.000Z",
+      "archived": false,
+      "in_trash": false,
+      "parent": {
+        "type": "data_source_id",
+        "data_source_id": "3e7be2fd-05b6-8079-932d-000bfa0609af"
+      },
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "draw.io diagram",
+              "text": {
+                "content": "draw.io diagram",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Origin": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "jgraph/drawio",
+              "text": {
+                "content": "jgraph/drawio",
+                "link": null
+              }
+            }
+          ]
+        },
+        "One line purpose": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "Draw free-form diagrams in the draw.io format.",
+              "text": {
+                "content": "Draw free-form diagrams in the draw.io format.",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Description": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "General diagrams that no specialized designer covers yet.",
+              "text": {
+                "content": "General diagrams that no specialized designer covers yet.",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Why specialized": {
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "File extension (if single file)": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": ".drawio",
+              "text": {
+                "content": ".drawio",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Theory": {
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Type": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "Designer",
+            "color": "default"
+          }
+        },
+        "Family": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "General diagrams",
+            "color": "default"
+          }
+        },
+        "Subfamily": {
+          "type": "select",
+          "select": null
+        },
+        "Standalone": {
+          "type": "select",
+          "select": null
+        },
+        "IntelliJ": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "✅ Implemented",
+            "color": "default"
+          }
+        },
+        "VS Code": {
+          "type": "select",
+          "select": null
+        },
+        "Eclipse": {
+          "type": "select",
+          "select": null
+        },
+        "Focus areas": {
+          "type": "multi_select",
+          "multi_select": []
+        },
+        "State": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "Prototype",
+            "color": "default"
+          }
+        },
+        "Rarity": {
+          "type": "select",
+          "select": null
+        }
+      },
+      "url": "https://www.notion.so/1a2b3c4d000040008000000000000005"
+    },
+    {
+      "object": "page",
+      "id": "1a2b3c4d-0000-4000-8000-000000000006",
+      "created_time": "2026-09-26T10:00:00.000Z",
+      "last_edited_time": "2026-09-26T18:06:00.000Z",
+      "archived": false,
+      "in_trash": false,
+      "parent": {
+        "type": "data_source_id",
+        "data_source_id": "3e7be2fd-05b6-8079-932d-000bfa0609af"
+      },
+      "properties": {
+        "Name": {
+          "type": "title",
+          "title": [
+            {
+              "type": "text",
+              "plain_text": "Untagged row",
+              "text": {
+                "content": "Untagged row",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Origin": {
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "One line purpose": {
+          "type": "rich_text",
+          "rich_text": [
+            {
+              "type": "text",
+              "plain_text": "A row that has no origin tag yet.",
+              "text": {
+                "content": "A row that has no origin tag yet.",
+                "link": null
+              }
+            }
+          ]
+        },
+        "Description": {
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Why specialized": {
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "File extension (if single file)": {
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Theory": {
+          "type": "rich_text",
+          "rich_text": []
+        },
+        "Type": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "Diagram",
+            "color": "default"
+          }
+        },
+        "Family": {
+          "type": "select",
+          "select": null
+        },
+        "Subfamily": {
+          "type": "select",
+          "select": null
+        },
+        "Standalone": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "💡 Identified",
+            "color": "default"
+          }
+        },
+        "IntelliJ": {
+          "type": "select",
+          "select": null
+        },
+        "VS Code": {
+          "type": "select",
+          "select": null
+        },
+        "Eclipse": {
+          "type": "select",
+          "select": null
+        },
+        "Focus areas": {
+          "type": "multi_select",
+          "multi_select": []
+        },
+        "State": {
+          "type": "select",
+          "select": {
+            "id": "opt",
+            "name": "Prototype",
+            "color": "default"
+          }
+        },
+        "Rarity": {
+          "type": "select",
+          "select": null
+        }
+      },
+      "url": "https://www.notion.so/1a2b3c4d000040008000000000000006"
+    }
+  ],
+  "next_cursor": null,
+  "has_more": false,
+  "type": "page_or_data_source",
+  "page_or_data_source": {}
+}

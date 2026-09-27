@@ -80,20 +80,20 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ### Fixtures and tests for the foundation
 
-- [ ] T007 [P] Create `tests/unit/catalogue/fixtures/sources/`, shaped exactly like spec 004's output (004 data-model § Designer entry, § Screenshot, § Host state; `source-lock.schema.json`).
+- [x] **T007** [P] Create `tests/unit/catalogue/fixtures/sources/`, shaped exactly like spec 004's output (004 data-model § Designer entry, § Screenshot, § Host state; `source-lock.schema.json`).
   - `catalogue/standalone/catalogue.json` with rows `{ origin, name, group, developState, releaseState, state, theory: [{label, href}], example }`. Include one row per source state: `freeplane/mindmap` Prototype, `wardley/map` Implemented, `generic/timeline` Work-in-progress, `neo4j/cypher` Specified, `ansible/playbook` To-do, `rdf/turtle` Identified. Include one relative `href` and one absolute `href` in `theory`.
   - `catalogue/standalone/source.lock.json` with `licence: "Apache-2.0"`, and 40-hex `commit` and `gitBlob` values.
   - `screenshots/standalone/screenshots.json`, with entries `{ file, origin, expectation, document, bytes, width, height, budgetBytes, status }`: `mindmap.png` accepted, `wardley-map.png` accepted, `timeline.png` rejected. Add real 32×18 PNGs for `mindmap.png` and `wardley-map.png`, generated with a few lines of Node that write a valid PNG. Add a `source.lock.json` whose `licence` is `"unstated"`.
   - `hosts/hosts.json` with the four hosts, `standalone` `in-progress` with `latestRelease: null`, and its lock.
   - `config/states.json` in the seven-state shape of T011.
-- [ ] T008 [P] Create `tests/unit/catalogue/fixtures/notion/query-page-1.json` and `query-page-2.json`: a recorded `POST /v1/data_sources/{id}/query` response, split in two with `has_more`/`next_cursor`. Include the rows `freeplane/mindmap`, `wardley/map`, `neo4j/cypher`, `rdf/turtle` and `jgraph/drawio`. `jgraph/drawio` has `IntelliJ` `✅ Implemented` and `Standalone` empty. Add one row without `Origin`. Use every S3 property with its exact name and type ([contracts/source-formats.md](contracts/source-formats.md) § S3): `Name` title, `Origin`, `One line purpose`, `Description`, `Why specialized`, `File extension (if single file)` and `Theory` rich_text, `Type`, `Family`, `Subfamily`, `Standalone`, `IntelliJ`, `VS Code` and `Eclipse` select, `Focus areas` multi_select. Include one unknown `Focus areas` option, `Diagramming practice`. Give `wardley/map` `Standalone` `⚗️ Prototype`, so that it differs from the catalogue. Leave one `One line purpose` empty.
-- [ ] T009 [P] Write `tests/unit/catalogue/states.test.ts`:
+- [x] **T008** [P] Create `tests/unit/catalogue/fixtures/notion/query-page-1.json` and `query-page-2.json`: a recorded `POST /v1/data_sources/{id}/query` response, split in two with `has_more`/`next_cursor`. Include the rows `freeplane/mindmap`, `wardley/map`, `neo4j/cypher`, `rdf/turtle` and `jgraph/drawio`. `jgraph/drawio` has `IntelliJ` `✅ Implemented` and `Standalone` empty. Add one row without `Origin`. Use every S3 property with its exact name and type ([contracts/source-formats.md](contracts/source-formats.md) § S3): `Name` title, `Origin`, `One line purpose`, `Description`, `Why specialized`, `File extension (if single file)` and `Theory` rich_text, `Type`, `Family`, `Subfamily`, `Standalone`, `IntelliJ`, `VS Code` and `Eclipse` select, `Focus areas` multi_select. Include one unknown `Focus areas` option, `Diagramming practice`. Give `wardley/map` `Standalone` `⚗️ Prototype`, so that it differs from the catalogue. Leave one `One line purpose` empty.
+- [x] **T009** [P] Write `tests/unit/catalogue/states.test.ts`:
   - every row of data-model § State maps to its site state and rank;
   - `bestState` is the highest rank over four hosts;
   - `isUsable` is true only for `prototype`, `implemented` and `available`;
   - an unmapped label throws `UnmappedStateError` naming the host and the label;
   - an emoji-prefixed label (`⚗️ Prototype`) and a bare label (`Prototype`) map alike.
-- [ ] T010 [P] Write `tests/unit/catalogue/assemble.test.ts` against the fixtures of T007 and T008. Cover each of the following:
+- [x] **T010** [P] Write `tests/unit/catalogue/assemble.test.ts` against the fixtures of T007 and T008. Cover each of the following:
   - (a) membership (data-model § Membership): `rdf/turtle` is an Idea; `neo4j/cypher`, `ansible/playbook`, `generic/timeline`, `freeplane/mindmap`, `wardley/map` and `jgraph/drawio` are Designers.
   - (b) Every designer has exactly four `hosts`. `jgraph/drawio` has `intellij` `implemented`, with a `notion` source, and `standalone` `not-planned`.
   - (c) `wardley/map` `standalone` is `implemented`, not `available`, because `hosts.json` has no public release, and its `notionDiffers` is `⚗️ Prototype`.
@@ -117,7 +117,7 @@ The plan, research, data model and quickstart are brought in line in T057.
   - In `scripts/refresh/procedures/hosts.mjs`, count `usableDesigners` as rows at `prototype`, `implemented` or `available`.
   - Update their tests (`catalogue.test.mjs` case (a), `hosts.test.mjs`) to the new rule, and run `npm test` and `npm run refresh:lint`.
   - Say in the commit message that this changes spec 004's behaviour by the owner's decision of 2026-09-27.
-- [ ] T012 [P] Write `src/lib/catalogue/types.ts` with the types of data-model.md, keeping every constraint as a doc comment.
+- [x] **T012** [P] Write `src/lib/catalogue/types.ts` with the types of data-model.md, keeping every constraint as a doc comment.
   - `SourceRecord`: `kind` `'git' | 'notion'`; git: `repository` `owner/name`, `path`, `revision` "the full 40-character commit SHA"; notion: `page` id, `revision` "the page's `last_edited_time`"; `retrievedAt`; `licence` `string | null`, where "`null` blocks publication".
   - `FocusArea`: `slug`, "kebab-case, unique"; `name`, `problem`, `order`, `source`.
   - `HostId`, `StateId`.
@@ -125,21 +125,21 @@ The plan, research, data model and quickstart are brought in line in T057.
   - `Screenshot`: `id` "`<host>--<image-basename>`"; `host`, `file`, `caption`, `alt` "non-empty"; `visible`; `whyItMatters`, "required when `publishable` is true"; `width`, `height`, `bytes`, `publishable`, `source`.
   - `Designer`: `origin` "`[a-z0-9.-]+/[a-z0-9.-]+`"; `name`, `kind` `'diagram' | 'designer' | 'editor'`; `purpose` "≤ 140 characters"; `task: string | null`, `whySpecialized: string | null`, `fileFormats`, `family`, `focusAreas`, `theory`, `definition`, `hosts` "exactly four entries", `screenshots`, `sources`.
   - `Idea`, `Redirect` (`from`, `to: string | null`, `reason`, `since`, `source`), and `CatalogueReport` (`gaps`, `disagreements`, `pending`, `membership`), each a list of `{ origin?, host?, message }`.
-- [ ] T013 [P] Write `src/lib/catalogue/hosts.ts`: the four hosts in the order of `hostIds` from `src/data/order.ts`, with `name` (Standalone, IntelliJ Platform, Visual Studio Code, Eclipse), `repository` (`etalii-adp/etalii.adp.ide.<id>`) and the Notion column name (`Standalone`, `IntelliJ`, `VS Code`, `Eclipse`).
-- [ ] T014 Write `src/lib/catalogue/states.ts`, which makes T009 pass (depends on T012).
+- [x] **T013** [P] Write `src/lib/catalogue/hosts.ts`: the four hosts in the order of `hostIds` from `src/data/order.ts`, with `name` (Standalone, IntelliJ Platform, Visual Studio Code, Eclipse), `repository` (`etalii-adp/etalii.adp.ide.<id>`) and the Notion column name (`Standalone`, `IntelliJ`, `VS Code`, `Eclipse`).
+- [x] **T014** Write `src/lib/catalogue/states.ts`, which makes T009 pass (depends on T012).
   - It defines the seven states with `label` (data-model § State: "Not planned", "Idea", "Planned", "In progress", "Prototype", "Implemented, not yet released", "Available"), `rank` 0–6 and `usable`.
   - `loadMapping(configPath = 'procedures/config/states.json')` reads the file and fails if `siteStates` is not exactly the seven ids in order.
   - `mapSourceState(mapping, host, label)` strips a leading emoji and whitespace, looks up `mappings[host]`, and throws `UnmappedStateError` otherwise.
   - It also exports `bestState(hosts)` and `isUsable(state)`.
-- [ ] T015 Write `src/lib/catalogue/sources.ts` (depends on T012). `readSources(root = process.env.ADP_SOURCES_DIR ?? 'sources')` reads, per host, `catalogue/<host>/catalogue.json`, `screenshots/<host>/screenshots.json` and their `source.lock.json`, plus `hosts/hosts.json` and its lock.
+- [x] **T015** Write `src/lib/catalogue/sources.ts` (depends on T012). `readSources(root = process.env.ADP_SOURCES_DIR ?? 'sources')` reads, per host, `catalogue/<host>/catalogue.json`, `screenshots/<host>/screenshots.json` and their `source.lock.json`, plus `hosts/hosts.json` and its lock.
   - It returns `{ catalogues: Map<HostId, {rows, lock}>, screenshots: Map<HostId, {entries, lock}>, hosts, gaps }`.
   - A missing host folder is `undefined`, with a gap "no catalogue for <host>". It is not an error.
   - `toSourceRecord(lock, sourcePath)` builds a git SourceRecord as described in T010 (d), and throws if the lock has no entry for that path.
-- [ ] T016 Write `src/lib/catalogue/notion-snapshot.ts` (depends on T012).
+- [x] **T016** Write `src/lib/catalogue/notion-snapshot.ts` (depends on T012).
   - The type `NotionRow`: `{ page, lastEditedTime, origin, name, type, purpose, description, whySpecialized, fileExtension, focusAreas: string[], family, subfamily, theory, hosts: { standalone, intellij, vscode, eclipse }, previousOrigin }`. Every text field is `string | null`.
   - `readNotionSnapshot(path = 'src/content/catalogue/notion.json')` returns `{ retrievedAt, rows }`, or an empty snapshot when the file is missing.
   - `toNotionSourceRecord(row, retrievedAt)` returns a record with `licence: "Apache-2.0"` (data-model § SourceRecord).
-- [ ] T017 [P] Create the site-owned files in `src/content/catalogue/`:
+- [x] **T017** [P] Create the site-owned files in `src/content/catalogue/`:
   - `focus-areas.json`: the eight focus areas of research D11, in order, as `{ slug, name, problem, order, source: null }`. The first three reuse spec 001's ids and texts from `src/data/focus-areas.yaml` (`technology-assessment`, `humans-and-agents`, `textual-clarity`). The other five are `systems-and-strategy`, `knowledge-and-semantics`, `software-delivery`, `planning-and-roadmapping` and `psychological-and-societal-insights`, with the names of D11 and `problem: ""`, which the report lists as a gap for the owner.
   - `screenshot-notes.json`: `{}`, keyed by screenshot id → `{ "whyItMatters": string }`.
   - `file-formats.json`: `{}`, keyed by extension → `{ "name": string }`.
@@ -147,7 +147,7 @@ The plan, research, data model and quickstart are brought in line in T057.
   - `published.json`: `[]`, the origins with a page at the last `catalogue:report`.
   - `notion.json`: `{ "retrievedAt": null, "rows": [] }`.
   - `README.md`: which files are site-owned and edited in review, which are written by `catalogue:notion` or `catalogue:report`, and that nothing here is a sourced fact.
-- [ ] T018 Write `src/lib/catalogue/assemble.ts`, which makes T010 pass (depends on T014–T017). `assembleCatalogue({ sourcesRoot, configPath, contentDir })` returns `{ designers, ideas, focusAreas, redirects, report }`. It never throws for a gap, only for an unmapped state, a live-origin redirect or a malformed file, and each error message names the file and the origin.
+- [x] **T018** Write `src/lib/catalogue/assemble.ts`, which makes T010 pass (depends on T014–T017). `assembleCatalogue({ sourcesRoot, configPath, contentDir })` returns `{ designers, ideas, focusAreas, redirects, report }`. It never throws for a gap, only for an unmapped state, a live-origin redirect or a malformed file, and each error message names the file and the origin.
   - **Join**: the origin tag across every host's `catalogue.json` rows and the Notion rows.
   - **Host state**:
     - When the host has a catalogue, `state` is `mapSourceState(developState)`, `sourceState` is the row's label and `source` is that catalogue's lock entry. A host that has a catalogue but no row for the origin is `not-planned`.
@@ -167,13 +167,13 @@ The plan, research, data model and quickstart are brought in line in T057.
   - **Screenshots** come only from `status: "accepted"` entries, grouped by `origin`, and only when the designer's best state is usable and the screenshot's host is usable. Each is `{ id: "<host>--<basename without .png>", host, file: "<sourcesRoot>/screenshots/<host>/<file>", caption: "<Host name>, at <7-char revision>", alt: expectation, visible: expectation, whyItMatters: screenshot-notes.json[id]?.whyItMatters ?? "", width, height, bytes, publishable, source }`. `publishable` is true only when the licence is not `null` and `whyItMatters` is non-empty. A usable designer without a publishable screenshot goes to `report.pending`.
   - **Membership** follows data-model § Membership: an origin that is in `published.json` and is now neither a designer nor matched by a `redirects.json` entry goes to `report.membership` as "missing, needs a redirect or withdrawal". A Notion `previousOrigin` is offered as a rename.
   - **Sources**: every SourceRecord used, de-duplicated.
-- [ ] T019 Extend `src/content.config.ts` (depends on T018).
+- [x] **T019** Extend `src/content.config.ts` (depends on T018).
   - Add a loader `catalogueLoader(part)` that calls `assembleCatalogue()` once per build (memoized in module scope) and `store.set`s the entries of `part`.
   - Add the collections `designers` (id = origin), `ideas` (id = origin), `catalogueFocusAreas` (id = slug) and `catalogueRedirects` (id = from).
   - Their zod schemas follow [contracts/catalogue-data.schema.json](contracts/catalogue-data.schema.json), with the deviations listed above: `task` and `whySpecialized` nullable, and `fileFormats` may be empty.
   - Keep the rules: `purpose` `.max(140)`; `hosts` exactly the four keys; `install` present if and only if `state === 'available'`; `whyItMatters` non-empty when `publishable`; git `revision` `/^[0-9a-f]{40}$/`.
   - Do not touch the existing `docs`, `hosts` and `focusAreas` collections of spec 001.
-- [ ] T020 Write `scripts/catalogue/notion.ts` (`npm run catalogue:notion`, S3; depends on T016, T017). Add `tests/unit/catalogue/notion.test.ts`, run with `--fixture` against T008.
+- [x] **T020** Write `scripts/catalogue/notion.ts` (`npm run catalogue:notion`, S3; depends on T016, T017). Add `tests/unit/catalogue/notion.test.ts`, run with `--fixture` against T008.
   - It sends `POST https://api.notion.com/v1/data_sources/3e7be2fd-05b6-8079-932d-000bfa0609af/query` with `Authorization: Bearer $NOTION_TOKEN`, `Notion-Version: 2025-09-03` and `page_size: 100`, following `next_cursor` until `has_more` is false. It uses Node's `fetch`, with no SDK.
   - It reads the properties of source-formats § S3 into `NotionRow`s.
   - A row without `Origin` is skipped and reported.

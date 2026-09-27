@@ -1,0 +1,37 @@
+{
+  "procedure": "refresh-screenshots",
+  "refreshedAt": "2026-09-27T00:00:00Z",
+  "sourceHeads": {
+    "etalii-adp/etalii.adp.ide.standalone": "1a954628a960aaef81d7b2d4521929579f3541e6"
+  },
+  "files": [
+    {
+      "path": "standalone/cypher.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/cypher.png",
+      "commit": "59b3897678ae3311a3cd5d04558fbc365708273a",
+      "gitBlob": "659eb9db7381a8529ecc14270ab87dd0470e3c73",
+      "sha256": "6655bfc316df5205d31c5c48d2450d9d9b178d4052b4165e49d1c34733202e90",
+      "licence": "unstated"
+    },
+    {
+      "path": "standalone/mindmap.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/mindmap.png",
+      "commit": "3bf852fed65a4431c4bed9c1e8d9a040798c0dd6",
+      "gitBlob": "c6a90086f3209dcb99be9547d5ae4fb2a00a046e",
+      "sha256": "4063efe1b082eeeb8b75848abcb62dc931a21a51b2f1ff7e04fa1284dd5b3b2e",
+      "licence": "unstated"
+    },
+    {
+      "path": "standalone/wardley-map.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/wardley-map.png",
+      "commit": "96a2886da4b9fa8360cce214b2160d8c1e5e20bf",
+      "gitBlob": "c029b6db5672b9af9384944ffb843199f1700998",
+      "sha256": "00bc038b54327641aa87d712b69b6559bbbff86fbbe07ea73aa740e33e8646b5",
+      "licence": "unstated"
+    }
+  ],
+  "withdrawn": []
+}

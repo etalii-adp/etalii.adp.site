@@ -1,0 +1,58 @@
+[
+  {
+    "slug": "technology-assessment",
+    "name": "Technology assessment",
+    "problem": "Weighing a new technology means holding options, actors and consequences side by side. A designer made for (constructive) technology assessment lays them out so trade-offs can be seen and argued over, not buried in a document.",
+    "order": 1,
+    "source": null
+  },
+  {
+    "slug": "humans-and-agents",
+    "name": "Humans and agents together",
+    "problem": "When people and software agents work on the same task, each needs to see what the other is doing and why. A shared, specialized view gives both the same picture of the work and its state.",
+    "order": 2,
+    "source": null
+  },
+  {
+    "slug": "textual-clarity",
+    "name": "Clarity in textual data",
+    "problem": "Structure hidden in logs, notes and plain-text formats is hard to see line by line. A designer tuned to one format shows that structure directly, while the text stays the source of truth.",
+    "order": 3,
+    "source": null
+  },
+  {
+    "slug": "systems-and-strategy",
+    "name": "Systems and strategy",
+    "problem": "",
+    "order": 4,
+    "source": null
+  },
+  {
+    "slug": "knowledge-and-semantics",
+    "name": "Knowledge and semantics",
+    "problem": "",
+    "order": 5,
+    "source": null
+  },
+  {
+    "slug": "software-delivery",
+    "name": "Software delivery",
+    "problem": "",
+    "order": 6,
+    "source": null
+  },
+  {
+    "slug": "planning-and-roadmapping",
+    "name": "Planning and roadmapping",
+    "problem": "",
+    "order": 7,
+    "source": null
+  },
+  {
+    "slug": "psychological-and-societal-insights",
+    "name": "Psychological and societal insights",
+    "problem": "",
+    "order": 8,
+    "source": null
+  }
+]
