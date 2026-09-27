@@ -6,3 +6,6 @@
 
 # Sourced content is kept byte for byte as its source committed it; its SHA-256 records depend on that.
 sources/** -text
+
+# Test fixtures stand in for source repositories, so they are kept byte for byte too.
+scripts/refresh/fixtures/** -text
