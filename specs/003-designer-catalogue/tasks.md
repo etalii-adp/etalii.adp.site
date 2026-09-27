@@ -237,7 +237,7 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ### Tests for User Story 2
 
-- [ ] T033 [P] [US2] Add a section "designer page" to `tests/catalogue.spec.ts`. For every designer from `assembleCatalogue()`:
+- [x] **T033** [P] [US2] Add a section "designer page" to `tests/catalogue.spec.ts`. For every designer from `assembleCatalogue()`:
   - The page has its name, origin and purpose.
   - It has a "What it is for" section with the task, why a specialized visualization helps and the file formats, or "Not described yet" where they are null or empty (FR-004).
   - Every publishable screenshot is a `<figure>` with non-empty `alt`, a caption naming the host and the short revision, "What is visible" and "Why it matters" (FR-006, FR-012, FR-015).
@@ -249,14 +249,14 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ### Implementation for User Story 2
 
-- [ ] T034 [P] [US2] Write `src/components/catalogue/ScreenshotFigure.astro`.
+- [x] **T034** [P] [US2] Write `src/components/catalogue/ScreenshotFigure.astro`.
   - A `<figure>` with `astro:assets` `<Picture>` in WebP, `widths` `[600, 1200]`, `sizes="(max-width: 1240px) 100vw, 1200px"`, `alt` and `loading="lazy"`.
   - A `<figcaption>` holding the caption, then "What is visible:" `visible` and "Why it matters:" `whyItMatters`.
   - A link "Full-size PNG" to the original. Import it with `?url` so it is not loaded with the page.
   - The source licence is stated beside the image ("Licence: <spdx>").
   - It renders only when `publishable` is true.
-- [ ] T035 [P] [US2] Write `src/components/catalogue/SourceList.astro`: a list of SourceRecords. A git record is `<a href="https://github.com/<repository>/blob/<revision>/<path>">repository@<7-char revision></a>`, then `path` and the licence, or "no licence, not published" when `null`. A Notion record is "Notion, edited <revision as a date>". A `compact` prop renders one line, for the overview footer.
-- [ ] T036 [US2] Write `src/pages/designers/[vendor]/[type].astro` (depends on T034, T035). `getStaticPaths` covers every designer (the redirect stubs are added in T046). It uses `StarlightPage` with `title: name`, `description: purpose`, `part: "documentation"` and `section: "designers"`, and adds to the `head` the `adp:source` and `adp:sourced` metas described in T033. The page holds, in the order of contracts/site-addresses.md § A designer page:
+- [x] **T035** [P] [US2] Write `src/components/catalogue/SourceList.astro`: a list of SourceRecords. A git record is `<a href="https://github.com/<repository>/blob/<revision>/<path>">repository@<7-char revision></a>`, then `path` and the licence, or "no licence, not published" when `null`. A Notion record is "Notion, edited <revision as a date>". A `compact` prop renders one line, for the overview footer.
+- [x] **T036** [US2] Write `src/pages/designers/[vendor]/[type].astro` (depends on T034, T035). `getStaticPaths` covers every designer (the redirect stubs are added in T046). It uses `StarlightPage` with `title: name`, `description: purpose`, `part: "documentation"` and `section: "designers"`, and adds to the `head` the `adp:source` and `adp:sourced` metas described in T033. The page holds, in the order of contracts/site-addresses.md § A designer page:
   - (1) the origin and the purpose;
   - (2) a placeholder `<section id="availability">` holding the host states as a list of `StateLabel`s, which T041 replaces with the table;
   - (3) "What it is for": task, why specialized, and a table of file formats (extension, name, reads, writes);
@@ -264,7 +264,7 @@ The plan, research, data model and quickstart are brought in line in T057.
   - (5) "Background": the theory links, then the DEDL definition and a link to `/adp/dedl/` when `definition` is set;
   - (6) "Focus areas", linked to their facet pages;
   - (7) "Sources": `SourceList`.
-- [ ] T037 [US2] Add an "Example files" section to `src/content/catalogue/README.md`. It explains that `screenshot-notes.json` holds the site-owned "why it matters" per screenshot id, and that `file-formats.json` names each extension. Both are written in review of a refresh pull request, never by a script.
+- [x] **T037** [US2] Add an "Example files" section to `src/content/catalogue/README.md`. It explains that `screenshot-notes.json` holds the site-owned "why it matters" per screenshot id, and that `file-formats.json` names each extension. Both are written in review of a refresh pull request, never by a script.
 
 **Checkpoint**: every designer page builds, passes `npm run check`, and shows sources and metas.
 

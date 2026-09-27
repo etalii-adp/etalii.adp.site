@@ -5,10 +5,10 @@ import { redirects } from './src/data/redirects.ts';
 import { sectionsOf } from './src/data/sections.ts';
 
 // The documentation sidebar, from the documentation-part sections; "Coming" on those not written yet (research R6).
-// Links, not slugs: the designer catalogue is made of Astro pages, not docs entries.
+// Links, not slugs: the designer catalogue is made of Astro pages, not docs entries. Starlight adds the base (/adp).
 const sidebar = sectionsOf('documentation').map((section) => ({
 	label: section.label,
-	link: section.href,
+	link: section.href.replace(/^\/adp\//, '/'),
 	...(section.status === 'coming' ? { badge: { text: 'Coming', variant: /** @type {const} */ ('caution') } } : {}),
 }));
 

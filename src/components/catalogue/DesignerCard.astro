@@ -16,7 +16,7 @@ const { designer } = Astro.props;
 const best = bestState(designer.hosts);
 const usable = isUsable(best);
 const thumbnail = usable ? designer.screenshots.find((screenshot) => screenshot.publishable) : undefined;
-const image = thumbnail ? screenshotImage(thumbnail.file) : undefined;
+const image = thumbnail ? screenshotImage(thumbnail) : undefined;
 const hostsWithState = catalogueHosts
 	.filter(({ id }) => states[designer.hosts[id].state].rank >= states.planned.rank)
 	.map(({ id }) => `${id}:${designer.hosts[id].state}`);

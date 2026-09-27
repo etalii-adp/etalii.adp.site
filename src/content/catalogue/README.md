@@ -14,3 +14,26 @@ The designer catalogue (spec 003) is assembled at build time by `src/lib/catalog
 "Site-owned" means the text belongs to this repository (spec 003 FR-010). It is written or corrected in the review of a refresh pull request, never by hand outside one, and it is never a fact about what exists.
 
 An empty `problem` in `focus-areas.json` is listed as a gap by `catalogue:report` until the owner writes it.
+
+## Example files
+
+`screenshot-notes.json` says, per screenshot id, why what the screenshot shows matters for the designer's task. A screenshot is shown on its designer page only once it has this note and its source has a licence (spec 003 FR-015); until then the page says "Screenshot pending". The id is `<host>--<image name without .png>`, as `catalogue:report` lists it under "Screenshots".
+
+```json
+{
+  "standalone--wardley-map": {
+    "whyItMatters": "The evolution axis puts each component where it is in its life cycle, which is the point of a Wardley map and what a generic diagram leaves out."
+  }
+}
+```
+
+`file-formats.json` names each file extension that Notion's `File extension (if single file)` column gives. Without an entry, the page shows the extension itself.
+
+```json
+{
+  ".mm": { "name": "FreeMind mind map" },
+  ".owm": { "name": "OnlineWardleyMaps text" }
+}
+```
+
+Both files are written in the review of a refresh pull request, never by a script.

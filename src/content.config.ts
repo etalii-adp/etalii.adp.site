@@ -1,4 +1,4 @@
-import { defineCollection } from 'astro:content';
+import { defineCollection, type ImageFunction } from 'astro:content';
 import { file } from 'astro/loaders';
 import type { Loader } from 'astro/loaders';
 import { z } from 'astro/zod';
@@ -67,7 +67,12 @@ function catalogueLoader(part: 'designers' | 'ideas' | 'focusAreas' | 'redirects
 		async load({ store, parseData, generateDigest }) {
 			assembled ??= assembleCatalogue();
 			const entries: { id: string; data: Record<string, unknown> }[] = {
-				designers: assembled.designers.map((designer) => ({ id: designer.origin, data: { ...designer } })),
+				// Only a publishable screenshot gets an image to import. Astro emits exactly the images entries import, so an
+				// unlicensed or undescribed PNG, or one of a designer that is not usable, never reaches the build (FR-007).
+				designers: assembled.designers.map((designer) => ({
+					id: designer.origin,
+					data: { ...designer, screenshots: designer.screenshots.map((shot) => ({ ...shot, image: shot.publishable ? `/${shot.file}` : null })) },
+				})),
 				ideas: assembled.ideas.map((idea) => ({ id: idea.origin, data: { ...idea } })),
 				focusAreas: assembled.focusAreas.map((area) => ({ id: area.slug, data: { ...area } })),
 				redirects: assembled.redirects.map((redirect) => ({ id: redirect.from, data: { ...redirect } })),
@@ -121,46 +126,50 @@ const hostAvailability = z
 		message: 'install is present if and only if the state is available (constitution principle III).',
 	});
 
-const screenshot = z
-	.object({
-		id: z.string().regex(/^(standalone|intellij|vscode|eclipse)--[a-z0-9-]+$/),
-		host: z.enum(hostIds),
-		file: z.string().regex(/\.png$/),
-		caption: z.string().min(1),
-		alt: z.string().trim().min(1, 'every screenshot needs alt text (FR-012)'),
-		visible: z.string().min(1),
-		whyItMatters: z.string(),
-		width: z.number().int().min(1),
-		height: z.number().int().min(1),
-		bytes: z.number().int().min(1),
-		publishable: z.boolean(),
-		source: gitSource,
-	})
-	.strict()
-	.refine((value) => !value.publishable || value.whyItMatters.trim() !== '', {
-		message: 'a publishable screenshot needs "why it matters" (FR-015).',
-	});
+const screenshot = (image: ImageFunction) =>
+	z
+		.object({
+			id: z.string().regex(/^(standalone|intellij|vscode|eclipse)--[a-z0-9-]+$/),
+			host: z.enum(hostIds),
+			file: z.string().regex(/\.png$/),
+			caption: z.string().min(1),
+			alt: z.string().trim().min(1, 'every screenshot needs alt text (FR-012)'),
+			visible: z.string().min(1),
+			whyItMatters: z.string(),
+			width: z.number().int().min(1),
+			height: z.number().int().min(1),
+			bytes: z.number().int().min(1),
+			publishable: z.boolean(),
+			source: gitSource,
+			image: image().nullable(),
+		})
+		.strict()
+		.refine((value) => !value.publishable || value.whyItMatters.trim() !== '', {
+			message: 'a publishable screenshot needs "why it matters" (FR-015).',
+		})
+		.refine((value) => value.publishable === (value.image !== null), { message: 'only a publishable screenshot has an image.' });
 
-const designer = z
-	.object({
-		origin,
-		name: z.string().min(1),
-		kind: z.enum(['diagram', 'designer', 'editor']),
-		purpose: z.string().min(1).max(140),
-		task: z.string().min(1).nullable(),
-		whySpecialized: z.string().min(1).nullable(),
-		fileFormats: z.array(
-			z.object({ extension: z.string().regex(/^\.[A-Za-z0-9.]+$/), name: z.string().min(1), reads: z.boolean(), writes: z.boolean() }).strict(),
-		),
-		family: z.string().min(1),
-		focusAreas: z.array(z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/)),
-		theory: z.array(link),
-		definition: z.object({ url: z.string().url(), dedlVersion: z.string().min(1) }).strict().nullable(),
-		hosts: z.object({ standalone: hostAvailability, intellij: hostAvailability, vscode: hostAvailability, eclipse: hostAvailability }).strict(),
-		screenshots: z.array(screenshot),
-		sources: z.array(catalogueSource).min(1),
-	})
-	.strict();
+const designer = ({ image }: { image: ImageFunction }) =>
+	z
+		.object({
+			origin,
+			name: z.string().min(1),
+			kind: z.enum(['diagram', 'designer', 'editor']),
+			purpose: z.string().min(1).max(140),
+			task: z.string().min(1).nullable(),
+			whySpecialized: z.string().min(1).nullable(),
+			fileFormats: z.array(
+				z.object({ extension: z.string().regex(/^\.[A-Za-z0-9.]+$/), name: z.string().min(1), reads: z.boolean(), writes: z.boolean() }).strict(),
+			),
+			family: z.string().min(1),
+			focusAreas: z.array(z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/)),
+			theory: z.array(link),
+			definition: z.object({ url: z.string().url(), dedlVersion: z.string().min(1) }).strict().nullable(),
+			hosts: z.object({ standalone: hostAvailability, intellij: hostAvailability, vscode: hostAvailability, eclipse: hostAvailability }).strict(),
+			screenshots: z.array(screenshot(image)),
+			sources: z.array(catalogueSource).min(1),
+		})
+		.strict();
 
 const idea = z.object({ origin, name: z.string().min(1), family: z.string().min(1), theory: z.array(link), source: catalogueSource }).strict();
 

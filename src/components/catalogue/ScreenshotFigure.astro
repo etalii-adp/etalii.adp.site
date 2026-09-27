@@ -1,0 +1,66 @@
+---
+// One screenshot on a designer page (FR-006, FR-012, FR-015): responsive WebP at most 1200 px wide, a caption
+// naming the host and revision, what is visible and why it matters, the source licence, and a link to the
+// full-size PNG, which is not loaded with the page. Renders nothing unless the screenshot is publishable.
+import { Picture } from 'astro:assets';
+import type { Screenshot } from '../../lib/catalogue/types';
+import { screenshotImage } from './data';
+
+interface Props {
+	screenshot: Screenshot;
+}
+
+const { screenshot } = Astro.props;
+const image = screenshot.publishable ? screenshotImage(screenshot) : undefined;
+const widths = image ? [600, 1200].filter((width) => width < image.width).concat(Math.min(image.width, 1200)) : [];
+---
+
+{
+	image && (
+		<figure class="adp-screenshot">
+			<Picture
+				src={image}
+				widths={[...new Set(widths)]}
+				sizes="(max-width: 1240px) 100vw, 1200px"
+				formats={['webp']}
+				fallbackFormat="webp"
+				alt={screenshot.alt}
+				loading="lazy"
+				decoding="async"
+			/>
+			<figcaption>
+				<p class="adp-caption">{screenshot.caption}</p>
+				<p>
+					<strong>What is visible:</strong> {screenshot.visible}
+				</p>
+				<p>
+					<strong>Why it matters:</strong> {screenshot.whyItMatters}
+				</p>
+				<p class="adp-source">
+					Licence: {screenshot.source.licence} · <a href={image.src}>Full-size PNG</a>
+				</p>
+			</figcaption>
+		</figure>
+	)
+}
+
+<style>
+	.adp-screenshot {
+		margin: 1.5rem 0 0;
+	}
+	.adp-screenshot :global(img) {
+		width: 100%;
+		height: auto;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.5rem;
+	}
+	figcaption {
+		margin-block-start: 0.5rem;
+	}
+	figcaption p {
+		margin: 0.25rem 0 0;
+	}
+	.adp-caption {
+		font-weight: 600;
+	}
+</style>

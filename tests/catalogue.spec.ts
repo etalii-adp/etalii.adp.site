@@ -85,3 +85,62 @@ test.describe('overview', () => {
 		expect(visible.sort()).toEqual(expected.map((designer) => designer.origin).sort());
 	});
 });
+
+test.describe('designer page', () => {
+	for (const designer of catalogue.designers) {
+		test(`${designer.origin} says what it is for, shows its screenshots and names its sources`, async ({ browser }) => {
+			const context = await browser.newContext({ javaScriptEnabled: false });
+			const page = await context.newPage();
+			await page.goto(`/adp/designers/${designer.origin}/`);
+			const content = page.locator('main .sl-markdown-content');
+			await expect(page.locator('h1')).toHaveText(designer.name);
+			await expect(content).toContainText(designer.origin);
+			await expect(content).toContainText(designer.purpose);
+
+			// FR-004: the task, why a specialized view helps, and the file formats, or "Not described yet".
+			const purpose = page.locator('section[aria-labelledby="what-it-is-for"]');
+			await expect(purpose).toContainText(designer.task ?? 'Not described yet');
+			await expect(purpose).toContainText(designer.whySpecialized ?? 'Not described yet');
+			if (designer.fileFormats.length === 0) await expect(purpose.locator('table')).toHaveCount(0);
+			for (const format of designer.fileFormats) await expect(purpose.locator('table')).toContainText(format.extension);
+
+			// FR-006, FR-007, FR-012, FR-015.
+			const shown = designer.screenshots.filter((screenshot) => screenshot.publishable);
+			if (!isUsable(bestState(designer.hosts))) {
+				await expect(content.locator('img')).toHaveCount(0);
+				await expect(content.locator('#screenshots')).toHaveCount(0);
+			} else if (shown.length === 0) {
+				await expect(content).toContainText('Screenshot pending');
+			}
+			const figures = content.locator('figure.adp-screenshot');
+			await expect(figures).toHaveCount(shown.length);
+			for (const [index, screenshot] of shown.entries()) {
+				const figure = figures.nth(index);
+				await expect(figure.locator('img')).toHaveAttribute('alt', screenshot.alt);
+				await expect(figure.locator('figcaption')).toContainText(`${screenshot.caption}`);
+				await expect(figure.locator('figcaption')).toContainText(`What is visible: ${screenshot.visible}`);
+				await expect(figure.locator('figcaption')).toContainText(`Why it matters: ${screenshot.whyItMatters}`);
+			}
+
+			// US2 AS6: each focus area links to its facet page.
+			const focus = page.locator('section[aria-labelledby="focus-areas"] a');
+			await expect(focus).toHaveCount(designer.focusAreas.length);
+			for (const slug of designer.focusAreas) await expect(page.locator(`a[href="/adp/designers/focus/${slug}/"]`).first()).toBeAttached();
+
+			// FR-009: one entry per source record, and the adp:source metas of spec 004's site-integration contract.
+			const sources = page.locator('ul.adp-sources li');
+			const git = designer.sources.filter((record) => record.kind === 'git');
+			const notion = designer.sources.filter((record) => record.kind === 'notion');
+			await expect(sources).toHaveCount(designer.sources.length);
+			for (const record of git) {
+				const link = page.locator(`ul.adp-sources a[href="https://github.com/${record.repository}/blob/${record.revision}/${record.path}"]`);
+				await expect(link.first()).toHaveText(`${record.repository}@${record.revision.slice(0, 7)}`);
+			}
+			for (const record of notion) await expect(page.locator('ul.adp-sources')).toContainText(`Notion, edited ${record.revision.slice(0, 10)}`);
+			const metas = await page.locator('meta[name="adp:source"]').evaluateAll((elements) => elements.map((meta) => meta.getAttribute('content')));
+			expect(metas.sort()).toEqual(git.map((record) => `${record.repository}@${record.revision}:${record.path}`).sort());
+			await expect(page.locator('meta[name="adp:sourced"]')).toHaveAttribute('content', 'true');
+			await context.close();
+		});
+	}
+});

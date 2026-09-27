@@ -3,7 +3,7 @@
 import type { ImageMetadata } from 'astro';
 import { getCollection } from 'astro:content';
 import { bestState, isUsable } from '../../lib/catalogue/states';
-import type { Designer, FocusArea, Idea, Redirect, SourceRecord } from '../../lib/catalogue/types';
+import type { Designer, FocusArea, Idea, Redirect, Screenshot, SourceRecord } from '../../lib/catalogue/types';
 
 const byOrigin = <T extends { origin: string }>(a: T, b: T) => (a.origin < b.origin ? -1 : a.origin > b.origin ? 1 : 0);
 
@@ -31,16 +31,10 @@ export function designerHref(origin: string): string {
 
 export { bestState, isUsable };
 
-// Screenshots are read from sources/ (spec 004's output). The fixture folder is what ADP_SOURCES_DIR points at when
-// the site is built for the catalogue's tests; its images are never publishable, so they never reach a page.
-const images = {
-	...import.meta.glob<{ default: ImageMetadata }>('/sources/screenshots/**/*.png', { eager: true }),
-	...import.meta.glob<{ default: ImageMetadata }>('/tests/unit/catalogue/fixtures/sources/screenshots/**/*.png', { eager: true }),
-};
-
-/** The image module for a screenshot's `file` (a path from the repository root). */
-export function screenshotImage(file: string): ImageMetadata {
-	const module = images[`/${file}`];
-	if (!module) throw new Error(`${file}: no such screenshot under sources/screenshots/.`);
-	return module.default;
+/**
+ * The image of a publishable screenshot, imported by the designers collection (src/content.config.ts). Only
+ * publishable screenshots have one, so no other PNG under sources/ is ever emitted into the build.
+ */
+export function screenshotImage(screenshot: Screenshot): ImageMetadata | undefined {
+	return (screenshot as Screenshot & { image?: ImageMetadata | null }).image ?? undefined;
 }
