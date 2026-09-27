@@ -5,6 +5,7 @@ The site's sourced content (the DEDL reference, the designer catalogue, the scre
 | Id | Title | Refreshes | Sources (repository: paths) |
 |---|---|---|---|
 | [`refresh-dedl`](refresh-dedl.md) | Refresh the DEDL reference | `sources/dedl/`: the DEDL specification, schema and examples, a folder per version (spec 002) | etalii-adp/etalii.adp: `specifications/dedl/*` |
+| [`refresh-screenshots`](refresh-screenshots.md) | Refresh the screenshots | `sources/screenshots/<host>/`: committed screenshots checked against their readme, with their expectations, rejections and gaps (spec 003) | etalii-adp/etalii.adp.ide.standalone, .intellij, .vscode, .eclipse: `docs/screenshots/*.png`, `docs/screenshots/readme.md`, `docs/diagrams.md` |
 
 ## Outcomes and exit codes
 

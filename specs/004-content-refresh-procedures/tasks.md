@@ -200,8 +200,8 @@ These rules apply to every task below. They are stated once here so that they do
 
 ### Tests for User Story 2
 
-- [ ] T031 [P] [US2] Extend the standalone fixture with `scripts/refresh/fixtures/standalone/docs/screenshots/`. Add a `readme.md` copying the source's format: the images table with the columns image, document opened and what must be visible; the stated 1600×900 viewport; the budgets "each image ≤ 300 KB, `workspace.png` ≤ 1 MB"; and a "Known artefact" section. Tests generate the PNG files at run time (valid 1600×900 PNGs, one over budget, one with wrong dimensions), so no binary fixtures are committed.
-- [ ] T032 [P] [US2] Write `scripts/refresh/procedures/screenshots.test.mjs`. Cover:
+- [X] T031 [P] [US2] Extend the standalone fixture with `scripts/refresh/fixtures/standalone/docs/screenshots/`. Add a `readme.md` copying the source's format: the images table with the columns image, document opened and what must be visible; the stated 1600×900 viewport; the budgets "each image ≤ 300 KB, `workspace.png` ≤ 1 MB"; and a "Known artefact" section. Tests generate the PNG files at run time (valid 1600×900 PNGs, one over budget, one with wrong dimensions), so no binary fixtures are committed.
+- [X] T032 [P] [US2] Write `scripts/refresh/procedures/screenshots.test.mjs`. Cover:
   - (a) a changed valid image is accepted with its `expectation`, `document`, `bytes`, `width` and `height` in `screenshots.json` (US2-1);
   - (b) a 400 KB image is rejected with "over 300 KB budget", and the previous copy and its lock entry are kept (US2-2);
   - (c) a wrong size or an image missing from the expectations table is rejected with the failing check named;
@@ -213,8 +213,8 @@ These rules apply to every task below. They are stated once here so that they do
 
 ### Implementation for User Story 2
 
-- [ ] T033 [P] [US2] Create `procedures/config/screenshots.json` with the shape `{ "<host>": { "<file>.png": "<vendor>/<type>" } }`. Fill in the `standalone` entries for the 7 committed PNGs: read `docs/screenshots/readme.md` and `docs/diagrams.md` of `etalii-adp/etalii.adp.ide.standalone` on `develop` with `gh api`, and link each image to the origin its "Document opened" column shows. Use empty objects for `intellij`, `vscode` and `eclipse`.
-- [ ] T034 [US2] Implement `scripts/refresh/procedures/screenshots.mjs`, which follows research R11 and data-model.md § Screenshot (depends on T019 and T022). It has `id: 'refresh-screenshots'`, `short: 'screenshots'` and `what: 'screenshots'`, with one source per IDE repository (`etalii-adp/etalii.adp.ide.standalone`, `.intellij`, `.vscode`, `.eclipse`) and `paths: ['docs/screenshots/*.png', 'docs/screenshots/readme.md', 'docs/diagrams.md']`. `usesReleases` is true, because gaps use the capped state. The procedure:
+- [X] T033 [P] [US2] Create `procedures/config/screenshots.json` with the shape `{ "<host>": { "<file>.png": "<vendor>/<type>" } }`. Fill in the `standalone` entries for the 7 committed PNGs: read `docs/screenshots/readme.md` and `docs/diagrams.md` of `etalii-adp/etalii.adp.ide.standalone` on `develop` with `gh api`, and link each image to the origin its "Document opened" column shows. Use empty objects for `intellij`, `vscode` and `eclipse`.
+- [X] T034 [US2] Implement `scripts/refresh/procedures/screenshots.mjs`, which follows research R11 and data-model.md § Screenshot (depends on T019 and T022). It has `id: 'refresh-screenshots'`, `short: 'screenshots'` and `what: 'screenshots'`, with one source per IDE repository (`etalii-adp/etalii.adp.ide.standalone`, `.intellij`, `.vscode`, `.eclipse`) and `paths: ['docs/screenshots/*.png', 'docs/screenshots/readme.md', 'docs/diagrams.md']`. `usesReleases` is true, because gaps use the capped state. The procedure:
   - parses the readme's expectations table, viewport and budgets;
   - checks each changed PNG, in this order: listed in the table, a PNG (`readPngSize`), within its budget (`budgetBytes` 300 KB, or 1 MB for `workspace.png`), and matching the viewport;
   - writes accepted images to `sources/screenshots/<host>/<file>`. A rejected image keeps its previous file and its previous lock entry, and gets `status: 'rejected'` with its reason;
@@ -224,13 +224,13 @@ These rules apply to every task below. They are stated once here so that they do
   - adds the readme's "Known artefact" section, detected by its heading, as a source caveat;
   - adds the review note "check each image shows what its expectation says", listing each accepted image with its expectation;
   - does not copy `readme.md` or `diagrams.md` into `sources/`: they are read inputs only, and their blob SHAs still take part in Resolve.
-- [ ] T035 [P] [US2] Write `procedures/refresh-screenshots.md` from the template, with the title "Refresh the screenshots":
+- [X] T035 [P] [US2] Write `procedures/refresh-screenshots.md` from the template, with the title "Refresh the screenshots":
   - **Sources**: the four IDE repositories and their paths, with standalone marked private and the others marked private (not present yet).
   - **Updates**: `sources/screenshots/<host>/`, and `procedures/config/screenshots.json` when a decision is answered.
   - **Decisions**: "Which designer does this image show?", with the host's origins as options.
   - **Verification**: the three steps of research R8, plus reading the review notes.
   - A plain statement that the procedure never retakes screenshots, and that fixes to an image belong in its source repository (FR-013).
-- [ ] T036 [US2] Add the `refresh-screenshots` row to `procedures/README.md`, and the title "Refresh the screenshots" to `CLAUDE.md`.
+- [X] T036 [US2] Add the `refresh-screenshots` row to `procedures/README.md`, and the title "Refresh the screenshots" to `CLAUDE.md`.
 
 **Checkpoint**: US1 and US2 work independently. Quickstart scenario 5 passes as a dry run.
 
