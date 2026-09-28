@@ -56,7 +56,7 @@ The site-wide state set (FR-005, research D3). Each source state is mapped to ex
 | `planned` | Planned | 2 | 📝 Specified, ⏸️ To-do | no |
 | `in-progress` | In progress | 3 | 🛠️ Work-in-progress | no |
 | `prototype` | Prototype | 4 | ⚗️ Prototype | yes |
-| `implemented` | Implemented, not yet released | 5 | ✅ Implemented, and no public install | yes |
+| `implemented` | Not yet released (until 2026-09-28: "Implemented, not yet released") | 5 | ✅ Implemented, and no public install | yes |
 | `available` | Available | 6 | ✅ Implemented, and `install.url` present | yes |
 
 A designer's **best state** is the highest rank over its four hosts. It decides membership (below) and the overview's state facet.

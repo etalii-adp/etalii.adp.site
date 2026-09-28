@@ -74,7 +74,7 @@ npm run preview                      # serves dist/ at http://localhost:4321/adp
 ```
 
 1. Open `/adp/designers/` with JavaScript disabled. Every designer and the ideas list are present; the filter is not shown (FR-002). With JavaScript on, tick one focus area: the list narrows, the introduction describes the focus area, and the breadcrumbs end in its name.
-2. Find the mind map (`/adp/designers/freeplane/mindmap/`). Its availability table shows four hosts: Standalone "Prototype", IntelliJ "Implemented, not yet released", VS Code and Eclipse "Not planned". None is marked Available, because no release is public (research D3).
+2. Find the mind map (`/adp/designers/freeplane/mindmap/`). Its availability table shows four hosts: Standalone "Prototype", IntelliJ "Not yet released", VS Code and Eclipse "Not planned". None is marked Available, because no release is public (research D3).
 3. On that page, each screenshot has a caption naming the host and the short revision, and the Sources section links `etalii.adp.ide.standalone@<sha>`. While the standalone has no licence, "Screenshot pending" is shown instead.
 4. Open a specified-only designer (either of the two `📝 Specified` entries). It has no screenshot and is labelled Planned (FR-007).
 5. Open `/adp/designers/?hosts=intellij` and see the mind map and, once it has an origin tag, draw.io. The old address `/adp/designers/hosts/intellij/` leads there too.
@@ -84,7 +84,7 @@ npm run preview                      # serves dist/ at http://localhost:4321/adp
 
 1. In a local checkout of `etalii.adp.ide.standalone`, change one designer's state in `docs/diagrams.md`, for example `wardley/map` from Prototype to Implemented, and commit it.
 2. Run `npm run refresh -- catalogue --no-deliver --source etalii-adp/etalii.adp.ide.standalone=<checkout>` (spec 004), then `npm run catalogue:report`.
-3. **Expect**: the diff touches only `sources/catalogue/`. The report lists `wardley/map · standalone · prototype → implemented`. The rebuilt overview and designer page both show "Implemented, not yet released". The recorded revision is the local commit.
+3. **Expect**: the diff touches only `sources/catalogue/`. The report lists `wardley/map · standalone · prototype → implemented`. The rebuilt overview and designer page both show "Not yet released". The recorded revision is the local commit.
 4. Rename that origin in the checkout, refresh and report again. **Expect**: `catalogue:report` exits 3 and asks whether the old origin was renamed or withdrawn. After `npm run catalogue:report -- --rename <old>=<new>`, `redirects.json` gains an entry and the old address serves the redirect stub.
 5. Discard the local changes. A lock marked `"local": true` can never be delivered (spec 004).
 

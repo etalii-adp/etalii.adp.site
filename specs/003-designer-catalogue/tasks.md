@@ -465,6 +465,16 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T085** [US2] In `src/components/catalogue/DesignerPage.astro`, give the three subheadings of "What it is for" ids and pass the page's headings to `StarlightPage`, with "Screenshots" only where the section is shown.
 - [x] **T086** In `tests/catalogue.spec.ts`, check on every designer page that "On this page" lists exactly the page's headings; run `npm run build` and `npm run check`.
 
+
+---
+
+## Phase 15: Amendment 2026-09-28 (eighth) - Compact subheading, "Not yet released"
+
+**Goal**: on designer and idea cards the origin tag is a compact subheading in the "Not yet usable" style; the implemented state is labelled "Not yet released" (contracts/site-addresses.md, data-model § State).
+
+- [x] **T087** [US1] In `DesignerCard.astro` and `IdeasList.astro`, put the name and the origin tag in an `<hgroup>` with the tag as `.adp-note` text, and tighten the heading's line height.
+- [x] **T088** Relabel `implemented` as "Not yet released" in `src/lib/catalogue/states.ts` and the documents that quote it; run `npm run build` and `npm run check`.
+
 ---
 
 ## Dependencies & Execution Order

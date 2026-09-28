@@ -19,7 +19,7 @@ test.describe('overview', () => {
 			const card = page.locator(`.adp-designer[data-origin="${designer.origin}"]`).first();
 			await expect(card, designer.origin).toContainText(designer.name);
 			await expect(card).toContainText(designer.purpose);
-			await expect(card.locator('code')).toHaveText(designer.origin);
+			await expect(card.locator('.adp-origin')).toHaveText(designer.origin);
 			const labels = card.locator('dd');
 			await expect(labels).toHaveText(catalogueHosts.map((host) => states[designer.hosts[host.id].state].label));
 			await expect(card.locator('dt')).toHaveText(catalogueHosts.map((host) => host.name));
@@ -181,7 +181,7 @@ test.describe('overview', () => {
 		for (const idea of catalogue.ideas) {
 			const card = ideas.locator(`.adp-idea[data-origin="${idea.origin}"]`);
 			await expect(card.locator('h3')).toHaveText(idea.name);
-			await expect(card.locator('code')).toHaveText(idea.origin);
+			await expect(card.locator('.adp-origin')).toHaveText(idea.origin);
 			if (idea.purpose) await expect(card).toContainText(idea.purpose);
 		}
 		const hrefs = await ideas.locator('a').evaluateAll((links) => links.map((a) => a.getAttribute('href') ?? ''));

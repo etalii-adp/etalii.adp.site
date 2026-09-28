@@ -18,10 +18,10 @@ const { ideas } = Astro.props;
 			<ul class="adp-idea-cards not-content">
 				{ideas.map((idea) => (
 					<li class="adp-idea" data-origin={idea.origin}>
-						<h3>{idea.name}</h3>
-						<p class="adp-origin">
-							<code>{idea.origin}</code>
-						</p>
+						<hgroup>
+							<h3>{idea.name}</h3>
+							<p class="adp-origin adp-note">{idea.origin}</p>
+						</hgroup>
 						{idea.purpose && <p>{idea.purpose}</p>}
 						<p class="adp-note">Family: {idea.family}</p>
 						{idea.theory.length > 0 && (
@@ -67,12 +67,18 @@ const { ideas } = Astro.props;
 	h3 {
 		margin: 0;
 		font-size: var(--sl-text-h4);
+		line-height: var(--sl-line-height-headings);
 		color: var(--sl-color-white);
 	}
 	p {
 		margin: 0;
 	}
-	.adp-origin code {
+	hgroup {
+		display: flex;
+		flex-direction: column;
+		gap: 0.125rem;
+	}
+	.adp-origin {
 		overflow-wrap: anywhere;
 	}
 	h4 {
