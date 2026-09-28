@@ -133,6 +133,8 @@ export interface Designer {
 export interface Idea {
 	origin: string;
 	name: string;
+	/** Notion's one-line purpose, at most 140 characters; null when Notion has none (an idea is not held to having one). */
+	purpose: string | null;
 	family: string;
 	theory: Link[];
 	source: SourceRecord;

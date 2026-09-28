@@ -422,6 +422,17 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T074** Write the problem statements of the five focus areas added on 2026-09-26 in `src/content/catalogue/focus-areas.json` (site-owned text), so that ticking any focus area shows a real description.
 - [x] **T075** Test the order of filter, introduction and list, the link colour of the card names, and at least three columns at 1600 px; run `npm run build` and `npm run check`.
 
+
+---
+
+## Phase 11: Amendment 2026-09-28 (fourth) - Ideas as boxes
+
+**Goal**: the ideas are shown as cards in the designers' grid, set apart by a dashed border and without states (FR-014 as amended, contracts/site-addresses.md, data-model § Idea).
+
+- [x] **T076** Add `purpose` (Notion's one-line purpose, or null) to `Idea` in `src/lib/catalogue/types.ts`, `src/lib/catalogue/assemble.ts` and the `idea` schema in `src/content.config.ts`.
+- [x] **T077** [US1] Rewrite `src/components/catalogue/IdeasList.astro` as cards: name, purpose, origin tag, family and theory links, in the grid of `DesignerList.astro`, with a dashed border.
+- [x] **T078** In `tests/catalogue.spec.ts`, check one card per idea with its name, origin tag and purpose; run `npm run build` and `npm run check`.
+
 ---
 
 ## Dependencies & Execution Order
