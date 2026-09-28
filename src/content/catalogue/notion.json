@@ -1,4 +1,2145 @@
 {
-  "retrievedAt": null,
-  "rows": []
+  "retrievedAt": "2026-09-28T12:37:30.017Z",
+  "rows": [
+    {
+      "page": "3e7be2fd-05b6-81fb-8070-e34831ad0de0",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "airflow/dag",
+      "name": "Apache Airflow DAG",
+      "type": "Diagram",
+      "purpose": "See the tasks of an Apache Airflow DAG and the dependencies that decide their order.",
+      "description": "Apache Airflow DAG (tasks and dependencies; DAG files are Python, so a read-only structural view is the realistic first step)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Data platforms & pipeline orchestration",
+      "subfamily": null,
+      "theory": "[airflow.apache.org](https://airflow.apache.org/) · [DAGs concept](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8114-a8bb-e602d0e6ed63",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "ansible/structure",
+      "name": "Ansible project structure",
+      "type": "Diagram",
+      "purpose": "See how the playbooks, roles and inventories of an Ansible project include and depend on each other.",
+      "description": "Ansible project structure (playbooks, roles, inventories and their include/import/dependency relationships; Ansible's own files are never written, and node positions a user arranges are authored into the `.adp`)",
+      "whySpecialized": "An Ansible project spreads its structure over many folders and includes; a graph shows the dependencies without touching Ansible's own files.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Software delivery"
+      ],
+      "family": "Infrastructure / network / cloud diagrams",
+      "subfamily": null,
+      "theory": "[Ansible directory layout](https://charlesreid1.com/wiki/Ansible/Directory_Layout/Details) · [Role dependencies](https://oneuptime.com/blog/post/2026-01-24-ansible-roles-dependencies/view)",
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8173-b5e8-e7b1d957c564",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "archimate/application",
+      "name": "ArchiMate — Application layer",
+      "type": "Diagram",
+      "purpose": "Model the applications, their components and the data they exchange, in ArchiMate's application layer.",
+      "description": "ArchiMate application layer (application components, services, interfaces and data objects, and how they serve the business)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Enterprise Architecture frameworks",
+      "subfamily": null,
+      "theory": "[ArchiMate spec](https://pubs.opengroup.org/architecture/archimate3-doc/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81d6-bf6f-e0d383280a1e",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "archimate/business",
+      "name": "ArchiMate — Business layer",
+      "type": "Diagram",
+      "purpose": "Model business actors, roles, processes and services in ArchiMate's business layer.",
+      "description": "ArchiMate business layer (business actors and roles, processes, functions, events, services and business objects)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Enterprise Architecture frameworks",
+      "subfamily": null,
+      "theory": "[ArchiMate spec](https://pubs.opengroup.org/architecture/archimate3-doc/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8153-b2e0-cee8c557e37f",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "archimate/implementation-migration",
+      "name": "ArchiMate — Implementation & Migration layer",
+      "type": "Diagram",
+      "purpose": "Plan the move from current to target architecture through work packages, plateaus and gaps.",
+      "description": "ArchiMate implementation and migration layer (work packages, deliverables, implementation events, plateaus and gaps between architectures)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Enterprise Architecture frameworks",
+      "subfamily": null,
+      "theory": "[ArchiMate spec](https://pubs.opengroup.org/architecture/archimate3-doc/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-810a-bf56-c76c80d51a34",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "archimate/motivation",
+      "name": "ArchiMate — Motivation layer",
+      "type": "Diagram",
+      "purpose": "Capture why an architecture exists: stakeholders, drivers, goals, principles and requirements.",
+      "description": "ArchiMate motivation elements (stakeholders, drivers, assessments, goals, outcomes, principles, requirements and constraints)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Enterprise Architecture frameworks",
+      "subfamily": null,
+      "theory": "[ArchiMate spec](https://pubs.opengroup.org/architecture/archimate3-doc/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8184-9e39-e81c596e3b14",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "archimate/strategy",
+      "name": "ArchiMate — Strategy layer",
+      "type": "Diagram",
+      "purpose": "Relate an organization's capabilities, resources and courses of action in ArchiMate's strategy layer.",
+      "description": "ArchiMate strategy layer (capabilities, resources, value streams and courses of action)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Enterprise Architecture frameworks",
+      "subfamily": null,
+      "theory": "[ArchiMate spec](https://pubs.opengroup.org/architecture/archimate3-doc/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8160-b7ff-ecf5132f6eba",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "archimate/technology",
+      "name": "ArchiMate — Technology layer",
+      "type": "Diagram",
+      "purpose": "Model the nodes, devices, networks and system software that applications run on.",
+      "description": "ArchiMate technology layer (nodes, devices, system software, networks, technology services and artifacts)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Enterprise Architecture frameworks",
+      "subfamily": null,
+      "theory": "[ArchiMate spec](https://pubs.opengroup.org/architecture/archimate3-doc/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-811c-ac12-ffa79e2f7696",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "argoproj/workflow",
+      "name": "Argo Workflows definition",
+      "type": "Diagram",
+      "purpose": "Show the steps, DAG templates and artifacts of an Argo Workflows definition.",
+      "description": "Argo Workflows definition (Kubernetes CRD YAML: steps, DAG templates, artifacts)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Data platforms & pipeline orchestration",
+      "subfamily": null,
+      "theory": "[argo-workflows docs](https://argo-workflows.readthedocs.io/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-815a-bd7d-cfc5cddfde3a",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "aws/architecture",
+      "name": "AWS architecture diagram",
+      "type": "Diagram",
+      "purpose": "Draw an AWS architecture with the services it uses and how they connect.",
+      "description": "AWS architecture diagram (AWS services, accounts, regions, VPCs and subnets, and the connections between them, in AWS's icon set)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Infrastructure / network / cloud diagrams",
+      "subfamily": null,
+      "theory": "[AWS Architecture Icons](https://aws.amazon.com/architecture/icons/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-817d-bd7d-d52bd3684e4f",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "azure-devops/pipeline",
+      "name": "Azure DevOps pipeline diagram",
+      "type": "Diagram",
+      "purpose": "Read an Azure DevOps pipeline by stage, job and step, opening one level at a time.",
+      "description": "Azure DevOps pipeline diagram, read at three levels: stages, the jobs inside an opened stage, and the steps inside an opened job (one element per step in declared order, no edges - steps are a sequence and not a graph). Opening either level is a menu entry on the element; there is no keyboard path for expansion at either level. Both levels push add and remove deltas rather than the `Group`/`Ungroup` actions the archived requirement named, deliberately and for the reasoning at `PipelineElementMapper.cs:87`; a change there would cover both levels at once",
+      "whySpecialized": "Pipeline YAML nests stages, jobs and steps inside templates; drilling down one level at a time keeps a long pipeline readable.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Software delivery"
+      ],
+      "family": "Infrastructure / network / cloud diagrams",
+      "subfamily": null,
+      "theory": "[Azure Pipelines YAML schema](https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/) · [Key pipelines concepts](https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/key-pipelines-concepts)",
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-819a-a72e-f1f2a2dc9fc2",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "azure/architecture",
+      "name": "Azure architecture diagram",
+      "type": "Diagram",
+      "purpose": "Draw an Azure architecture with the services it uses and how they connect.",
+      "description": "Azure architecture diagram (Azure services, subscriptions, resource groups and virtual networks, and the connections between them, in Azure's icon set)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Infrastructure / network / cloud diagrams",
+      "subfamily": null,
+      "theory": "[Azure Architecture Icons](https://learn.microsoft.com/en-us/azure/architecture/icons/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-818a-9f5c-c1fa3170d5df",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "bpmn/process",
+      "name": "BPMN process diagram",
+      "type": "Diagram",
+      "purpose": "Model a business process with BPMN's events, activities, gateways and pools.",
+      "description": "BPMN process diagram (events, activities, gateways, sequence and message flows, pools and lanes, per BPMN 2.0)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Business process & workflow notation",
+      "subfamily": null,
+      "theory": "[bpmn.org](https://www.bpmn.org/) · [OMG BPMN spec](https://www.omg.org/bpmn/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8103-8461-d961f59c9b8f",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "c4/code",
+      "name": "Code",
+      "type": "Diagram",
+      "purpose": "Zoom from a C4 component into the classes and code elements that implement it.",
+      "description": "Code (optional)",
+      "whySpecialized": "C4 views are zoom levels of one model; a dedicated designer keeps each level consistent with the next instead of redrawing boxes by hand.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Software delivery"
+      ],
+      "family": "The C4 Model",
+      "subfamily": null,
+      "theory": "[c4model.com](https://c4model.com/diagrams/code)",
+      "hosts": {
+        "standalone": "📝 Specified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81fe-9412-d479a24fac26",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "c4/component",
+      "name": "Component",
+      "type": "Diagram",
+      "purpose": "Show the components inside one container and how they work together.",
+      "description": "C4 component diagram (the components inside one container, their responsibilities and their interactions)",
+      "whySpecialized": "C4 views are zoom levels of one model; a dedicated designer keeps each level consistent with the next instead of redrawing boxes by hand.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Software delivery",
+        "Systems and strategy"
+      ],
+      "family": "The C4 Model",
+      "subfamily": null,
+      "theory": "[c4model.com](https://c4model.com/diagrams/component)",
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-817f-be00-f58c46ca89b4",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "c4/container",
+      "name": "Container",
+      "type": "Diagram",
+      "purpose": "Show the applications and data stores that make up a system and how they talk to each other.",
+      "description": "C4 container diagram (the applications and data stores that make up a software system, and how they communicate)",
+      "whySpecialized": "C4 views are zoom levels of one model; a dedicated designer keeps each level consistent with the next instead of redrawing boxes by hand.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Software delivery",
+        "Systems and strategy"
+      ],
+      "family": "The C4 Model",
+      "subfamily": null,
+      "theory": "[c4model.com](https://c4model.com/diagrams/container)",
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8165-a43a-c1ea2cd22394",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "c4/context",
+      "name": "System Context",
+      "type": "Diagram",
+      "purpose": "Place a software system among the people and other systems it works with.",
+      "description": "C4 system context diagram (one software system, with the people who use it and the other systems it depends on)",
+      "whySpecialized": "C4 views are zoom levels of one model; a dedicated designer keeps each level consistent with the next instead of redrawing boxes by hand.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Systems and strategy",
+        "Software delivery"
+      ],
+      "family": "The C4 Model",
+      "subfamily": null,
+      "theory": "[c4model.com](https://c4model.com/diagrams/system-context)",
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8193-b413-f5a2d65da68b",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "c4/deployment",
+      "name": "Deployment",
+      "type": "Diagram",
+      "purpose": "Map a system's containers onto the infrastructure they run on.",
+      "description": "Deployment (supplementary)",
+      "whySpecialized": "C4 views are zoom levels of one model; a dedicated designer keeps each level consistent with the next instead of redrawing boxes by hand.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Software delivery"
+      ],
+      "family": "The C4 Model",
+      "subfamily": null,
+      "theory": "[c4model.com](https://c4model.com/diagrams/deployment)",
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8145-8ccb-c06595eebadf",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "c4/dynamic",
+      "name": "Dynamic",
+      "type": "Diagram",
+      "purpose": "Show how the elements of a system collaborate, step by step, for one feature or scenario.",
+      "description": "Dynamic (supplementary)",
+      "whySpecialized": "C4 views are zoom levels of one model; a dedicated designer keeps each level consistent with the next instead of redrawing boxes by hand.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Software delivery"
+      ],
+      "family": "The C4 Model",
+      "subfamily": null,
+      "theory": "[c4model.com](https://c4model.com/diagrams/dynamic)",
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-811e-a9e5-d3bfa7a8e510",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "c4/system-landscape",
+      "name": "System Landscape",
+      "type": "Diagram",
+      "purpose": "Show all the software systems of an organization and how they relate.",
+      "description": "System Landscape (supplementary)",
+      "whySpecialized": "C4 views are zoom levels of one model; a dedicated designer keeps each level consistent with the next instead of redrawing boxes by hand.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Systems and strategy",
+        "Software delivery"
+      ],
+      "family": "The C4 Model",
+      "subfamily": null,
+      "theory": "[c4model.com](https://c4model.com/diagrams/system-landscape)",
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81b2-8bb1-fec17b01d0db",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "cmap/concept-map",
+      "name": "Concept map",
+      "type": "Diagram",
+      "purpose": "Connect concepts with labelled relationships to show how a body of knowledge fits together.",
+      "description": "Concept map (free-form network of concepts with labeled relationships)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Knowledge & informal modeling",
+      "subfamily": null,
+      "theory": "[Novak & Cañas, \"The Theory Underlying Concept Maps\"](https://cmap.ihmc.us/docs/theory-of-concept-maps)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81d7-b9b2-d4a84a238de7",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "commonwl/workflow",
+      "name": "Common Workflow Language workflow",
+      "type": "Diagram",
+      "purpose": "Show the steps of a Common Workflow Language workflow and how their inputs and outputs connect.",
+      "description": "Common Workflow Language workflow (open standard YAML: steps, inputs/outputs, scatter)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Data platforms & pipeline orchestration",
+      "subfamily": null,
+      "theory": "[commonwl.org](https://www.commonwl.org/) · [CWL user guide](https://www.commonwl.org/user_guide/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81f3-88dd-eb8ed99c9c17",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "contextmapper/context-map",
+      "name": "DDD Context Map, plus generated PlantUML/BPMN sketches",
+      "type": "Diagram",
+      "purpose": "Show the bounded contexts of a Context Mapper model and the relationships between them.",
+      "description": "Context Mapper context map (bounded contexts and their upstream/downstream relationships from a .cml model, with the PlantUML and BPMN sketches it can generate)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "\"Diagrams as code\" tooling",
+      "subfamily": "Context Mapper",
+      "theory": "[contextmapper.org](https://contextmapper.org/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8101-b5fe-d636582ae628",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "d2/diagram",
+      "name": "General-purpose declarative diagram",
+      "type": "Diagram",
+      "purpose": "Edit D2's declarative diagram text with the rendered diagram beside it.",
+      "description": "D2 diagram (shapes, containers and connections declared in D2's text language and laid out automatically)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "\"Diagrams as code\" tooling",
+      "subfamily": "D2",
+      "theory": "[d2lang.com](https://d2lang.com/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8152-b9a5-df96ea394ce3",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "dagster/assets",
+      "name": "Dagster asset graph",
+      "type": "Diagram",
+      "purpose": "See the software-defined assets of a Dagster project and what each one is built from.",
+      "description": "Dagster asset graph (software-defined assets and their dependencies)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Data platforms & pipeline orchestration",
+      "subfamily": null,
+      "theory": "[dagster.io](https://dagster.io/) · [Asset definitions](https://docs.dagster.io/guides/build/assets/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-816f-bfab-ea92152cf311",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "databricks/bundle",
+      "name": "Databricks Bundle",
+      "type": "Diagram",
+      "purpose": "See what a Databricks Asset Bundle deploys: its jobs, pipelines, targets and variables in one view.",
+      "description": "Databricks Asset Bundle (databricks.yml and the resource files it includes: jobs, pipelines, targets and variables, shown as one navigable structure)",
+      "whySpecialized": "A bundle is spread over YAML files and deployment targets; a specialized view shows what gets deployed where without reading every include.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Software delivery"
+      ],
+      "family": "Data platforms & pipeline orchestration",
+      "subfamily": null,
+      "theory": "[Bundle configuration](https://docs.databricks.com/aws/en/dev-tools/bundles/settings) · [reference](https://docs.databricks.com/aws/en/dev-tools/bundles/reference)",
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-811b-a91c-d41f999f4ff9",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "databricks/job",
+      "name": "Databricks Job",
+      "type": "Diagram",
+      "purpose": "Show the tasks of a Databricks job and the order in which they run.",
+      "description": "Databricks Job (its tasks and their depends_on relationships, with clusters and triggers, as defined in bundle YAML)",
+      "whySpecialized": "Task dependencies in YAML read as a flat list; a graph shows the actual execution order and the critical path at a glance.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Software delivery"
+      ],
+      "family": "Data platforms & pipeline orchestration",
+      "subfamily": null,
+      "theory": "[Job task types](https://docs.databricks.com/aws/en/dev-tools/bundles/job-task-types)",
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81ec-bce3-e238bf434d90",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "databricks/pipeline",
+      "name": "Databricks Pipeline",
+      "type": "Diagram",
+      "purpose": "Trace how data flows through the tables and views of a Databricks declarative pipeline.",
+      "description": "Databricks declarative pipeline (the datasets, streaming tables and materialized views it declares, and the flows between them)",
+      "whySpecialized": "Declared datasets only reveal their lineage when drawn as a graph; a specialized view follows each flow from source to materialized view.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Software delivery"
+      ],
+      "family": "Data platforms & pipeline orchestration",
+      "subfamily": null,
+      "theory": "[Pipeline properties](https://docs.databricks.com/aws/en/ldp/properties)",
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8112-b2ca-e357ed93dd78",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "dbt/lineage",
+      "name": "dbt project lineage",
+      "type": "Diagram",
+      "purpose": "Trace how the models and sources of a dbt project feed into each other.",
+      "description": "dbt project lineage (models, sources, `ref()`/`source()` edges from `dbt_project.yml` + `schema.yml` + manifest)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Data platforms & pipeline orchestration",
+      "subfamily": null,
+      "theory": "[docs.getdbt.com](https://docs.getdbt.com/) · [About dbt projects](https://docs.getdbt.com/docs/build/projects)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8102-b0bd-d7cc00c57e49",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "ddd/context-map",
+      "name": "Bounded Context / Context Map",
+      "type": "Diagram",
+      "purpose": "Map the bounded contexts of a domain and how the teams and models behind them relate.",
+      "description": "Domain-Driven Design context map (bounded contexts and their relationships, such as partnership, customer/supplier, conformist and anticorruption layer)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Domain-Driven Design collaborative modeling",
+      "subfamily": null,
+      "theory": "[Context Mapping reference](https://www.domainlanguage.com/ddd/context-mapping/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81cc-a14e-f217aac6698d",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "ddd/event-storming",
+      "name": "Event Storming",
+      "type": "Diagram",
+      "purpose": "Explore a business domain together by placing its events, commands and actors on a timeline.",
+      "description": "Event Storming board (domain events, commands, actors, policies, aggregates and hotspots placed along a timeline in a collaborative workshop)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Domain-Driven Design collaborative modeling",
+      "subfamily": null,
+      "theory": "[eventstorming.com](https://www.eventstorming.com/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8191-94f3-f0dd6bfc7523",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "dfd/data-flow",
+      "name": "Data Flow Diagram",
+      "type": "Diagram",
+      "purpose": "Show how data moves between processes, stores and external entities.",
+      "description": "Data Flow Diagram (Yourdon/DeMarco or Gane–Sarson notation)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Data-oriented diagrams",
+      "subfamily": null,
+      "theory": "[DeMarco's foundational text](https://en.wikipedia.org/wiki/Data_flow_diagram)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8167-94cd-e1733940aa1d",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "diagrams-python/cloud-infrastructure",
+      "name": "Cloud/infrastructure diagram with official-style vendor icons",
+      "type": "Diagram",
+      "purpose": "Draw cloud and infrastructure diagrams with vendor icons, written as Python code.",
+      "description": "Diagrams (Python) infrastructure diagram (nodes with official-style AWS, Azure, GCP and Kubernetes icons, clusters and edges, declared in Python)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "\"Diagrams as code\" tooling",
+      "subfamily": "Diagrams (Python)",
+      "theory": "[diagrams.mingrammer.com](https://diagrams.mingrammer.com/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8197-9916-fbf29bf49415",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "dotnet/dependency-graph",
+      "name": ".NET project and package dependency graph",
+      "type": "Diagram",
+      "purpose": "Show the projects of a .NET solution, the NuGet packages they use and every reference between them.",
+      "description": ".NET project and package dependency graph (read-only: the projects of a `.sln`/`.slnx`, the NuGet packages they consume, and every `ProjectReference` and `PackageReference` between them, computed from the project files rather than authored; the solution is never written, and node positions a user arranges are authored into the `.adp`); [dotnet-dependency-graph](https://github.com/etalii-adp/etalii.adp.ide.standalone/blob/develop/.spec-workflow/archive/specs/dotnet-dependency-graph/requirements.md)",
+      "whySpecialized": "References are spread over many project files; one graph reveals cycles, duplicate packages and unexpected couplings.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Software delivery"
+      ],
+      "family": "Infrastructure / network / cloud diagrams",
+      "subfamily": null,
+      "theory": "[PackageReference in project files](https://learn.microsoft.com/en-us/nuget/consume-packages/package-references-in-project-files) · [Central Package Management](https://learn.microsoft.com/en-us/nuget/consume-packages/central-package-management)",
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-817b-bc63-cfc9f87f745e",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "erd/entity-relationship",
+      "name": "Entity-Relationship Diagram",
+      "type": "Diagram",
+      "purpose": "Model the entities of a domain, their attributes and how they relate.",
+      "description": "Entity-Relationship Diagram (Chen or Crow's Foot notation)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Data-oriented diagrams",
+      "subfamily": null,
+      "theory": "[Chen's original paper](https://dl.acm.org/doi/10.1145/320434.320440)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-816d-870a-ca3397e351cf",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "etalii/functional-decomposition-graph",
+      "name": "Functional decomposition graph",
+      "type": "Diagram",
+      "purpose": "Aims to structure frontend application development by identifying and linking its UI elements, data elements, actions and functions.",
+      "description": "Functional decomposition graph (UI elements, data elements, actions and functions linked parent to child, drawn as a superellipse, parallelogram, trapezoid and diode with bezier arrows; `.fdg`, ADP's own line-oriented schema); `functional-decomposition-graph`",
+      "whySpecialized": "Linking UI, data, actions and functions parent to child needs distinct shapes and strict rules; a dedicated designer enforces them so the decomposition stays traceable.",
+      "fileExtension": ".fdg",
+      "focusAreas": [
+        "Software delivery",
+        "Humans and agents together"
+      ],
+      "family": "Business process & workflow notation",
+      "subfamily": null,
+      "theory": "A notation defined by the user of this repository, so ADP owns the schema and the `etalii/` origin rather than a standards body's",
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81ec-8566-d59cecae456f",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "freeplane/mindmap",
+      "name": "Mind map",
+      "type": "Diagram",
+      "purpose": "Lay out ideas as a tree of branches around one central topic, in the FreeMind/Freeplane format.",
+      "description": "Mind map (radial/hierarchical, single central topic)",
+      "whySpecialized": "A mind map's value is its radial hierarchy; a dedicated designer keeps branches ordered and foldable while the .mm file stays readable by Freeplane.",
+      "fileExtension": ".mm",
+      "focusAreas": [
+        "Clarity in textual data",
+        "Knowledge and semantics"
+      ],
+      "family": "Knowledge & informal modeling",
+      "subfamily": null,
+      "theory": "[Freeplane](https://www.freeplane.org/) · `.mm` file format ([tech.md](http://tech.md)'s diagram-type test fixture)",
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": "✅ Implemented",
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-80af-8bb1-faac5ac32654",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "gartner/hypecycle-graph",
+      "name": "Gartner HypeCycle Graph",
+      "type": "Diagram",
+      "purpose": "Aims to provide insights in how socio-technological trends relate to each other.",
+      "description": "Gartner Hype Cycle (technologies and trends placed along the curve of expectations over time, from innovation trigger to plateau of productivity, with the relations between them)",
+      "whySpecialized": "The Hype Cycle's meaning lies in the position on its curve; a dedicated designer keeps each item on the curve and relates them, which free drawing loses.",
+      "fileExtension": ".ghg",
+      "focusAreas": [
+        "Technology assessment",
+        "Psychological and societal insights",
+        "Planning and roadmapping"
+      ],
+      "family": null,
+      "subfamily": null,
+      "theory": "[https://en.wikipedia.org/wiki/Gartner_hype_cycle](https://en.wikipedia.org/wiki/Gartner_hype_cycle)",
+      "hosts": {
+        "standalone": "🛠️ Work-in-progress",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8199-abc7-c49311761f2f",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "gcp/architecture",
+      "name": "GCP architecture diagram",
+      "type": "Diagram",
+      "purpose": "Draw a Google Cloud architecture with the services it uses and how they connect.",
+      "description": "GCP architecture diagram (Google Cloud services, projects, regions and VPC networks, and the connections between them, in Google Cloud's icon set)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Infrastructure / network / cloud diagrams",
+      "subfamily": null,
+      "theory": "[Google Cloud Architecture Icons](https://cloud.google.com/icons)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e8be2fd-05b6-80e1-9cd5-c20dc7b3a759",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "generic/agent-teaming",
+      "name": "Agent Teaming Agreement",
+      "type": "Diagram",
+      "purpose": "Facilitates the design of more complex coordinator-driven multi-agent LLM setups.",
+      "description": "Agent teaming agreement (a coordinator and its agents, each with its role, responsibilities, inputs and outputs, and the hand-offs and escalation paths between them)",
+      "whySpecialized": null,
+      "fileExtension": ".ata",
+      "focusAreas": [],
+      "family": null,
+      "subfamily": null,
+      "theory": null,
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": "💡 Identified",
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e8be2fd-05b6-802e-a533-d706eecc7eed",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "generic/agentic-development",
+      "name": "Agentic Development Clarification",
+      "type": "Diagram",
+      "purpose": "Make clear what people and coding agents each do in a development task, and where they hand over.",
+      "description": "Agentic development clarification (the steps of a development task, who does each one, human or agent, and the reviews and hand-overs between them)",
+      "whySpecialized": null,
+      "fileExtension": ".adg",
+      "focusAreas": [],
+      "family": null,
+      "subfamily": null,
+      "theory": null,
+      "hosts": {
+        "standalone": null,
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81d3-9495-d56ebf7d46ab",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "generic/dependencies",
+      "name": "Dependency graph",
+      "type": "Diagram",
+      "purpose": "Draw named things and what depends on what, freely placed and connected.",
+      "description": "Dependency graph (named nodes and directed depends-on edges, freely placed and freely connected; `.dgr` — ADP's own YAML schema and extension, on the `generic/timeline` model with every time-related aspect removed: authored placement, directed depends-on edges drawn with an arrowhead, one command per edit); `dependency-graph` (specification removed from the tree; in history before `d573ad87`)",
+      "whySpecialized": "Dependencies are about direction and order; a dedicated designer keeps every edge directed and readable, in ADP's own .dgr format.",
+      "fileExtension": ".dgr",
+      "focusAreas": [
+        "Planning and roadmapping",
+        "Systems and strategy"
+      ],
+      "family": "Business process & workflow notation",
+      "subfamily": null,
+      "theory": "Follows the `generic/timeline` precedent: no standards body owns \"a box depends on a box\", so ADP defines the schema and owns the extension outright, keeping the document diffable text. Specified as a duplicate of the timeline module with every time-related aspect removed",
+      "hosts": {
+        "standalone": "✅ Implemented",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e9be2fd-05b6-808e-acfb-efa7fd38536c",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "generic/pipeline-state",
+      "name": "Pipeline State Visualization",
+      "type": "Diagram",
+      "purpose": "See at a glance which stages of a pipeline are waiting, running, done or failed.",
+      "description": "Pipeline state visualization (the stages of a build, deployment or data pipeline with their live state, duration and the dependencies between them)",
+      "whySpecialized": null,
+      "fileExtension": ".psv",
+      "focusAreas": [],
+      "family": null,
+      "subfamily": null,
+      "theory": null,
+      "hosts": {
+        "standalone": null,
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8124-b80f-cafc45312244",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "generic/swimlane",
+      "name": "Swimlane diagram",
+      "type": "Diagram",
+      "purpose": "Show who does which step of a process by placing each step in its actor's lane.",
+      "description": "Swimlane diagram (process steps and decisions arranged in lanes per actor, team or system, with the hand-offs between lanes)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Business process & workflow notation",
+      "subfamily": null,
+      "theory": "[Lucidchart guide](https://www.lucidchart.com/pages/tutorial/swim-lane-diagram)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81e2-af47-c423ad1569e6",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "generic/timeline",
+      "name": "Timeline diagram",
+      "type": "Diagram",
+      "purpose": "Lay out activities as bars along time, on rows, with the connections between them.",
+      "description": "Timeline diagram (left-to-right, elements spanning begin→end on snap-to rows, bezier connections; `.tml` — Timeline Markup Language); `timeline-diagram` (specification removed from the tree; in history before `ece03c36`)",
+      "whySpecialized": "Time is the axis that matters; a timeline designer snaps elements to rows and dates, which a generic canvas leaves to the eye.",
+      "fileExtension": ".tml",
+      "focusAreas": [
+        "Planning and roadmapping",
+        "Technology assessment"
+      ],
+      "family": "Business process & workflow notation",
+      "subfamily": null,
+      "theory": "Distinct from `mermaid/gantt`: placement is authored on both axes, not computed, and connections are arbitrary rather than scheduling dependencies",
+      "hosts": {
+        "standalone": "✅ Implemented",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8146-be64-efab8e335537",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "helm/chart",
+      "name": "Helm chart anatomy",
+      "type": "Diagram",
+      "purpose": "Understand a Helm chart: its values, its templates, the resources they render and its dependencies.",
+      "description": "Helm chart anatomy (read-only, folder-subject: Chart.yaml metadata, values layering, templates and the kinds they render, declared dependencies and their vendored resolution)",
+      "whySpecialized": "A chart's behaviour comes from values layered into templates; a dedicated view shows which values feed which resources.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Software delivery"
+      ],
+      "family": "Infrastructure / network / cloud diagrams",
+      "subfamily": null,
+      "theory": "[Helm charts guide](https://helm.sh/docs/topics/charts/) · [chart template guide](https://helm.sh/docs/chart_template_guide/) · `helm-charts` (specification removed from the tree; in history before `53f68611`)",
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8197-a610-c6f1c61ad2cb",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "iso/flowchart",
+      "name": "Flowchart",
+      "type": "Diagram",
+      "purpose": "Draw the steps and decisions of a procedure with the standard flowchart symbols.",
+      "description": "Flowchart (process steps, decisions, inputs/outputs and terminators joined by flow lines, per ISO 5807)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Business process & workflow notation",
+      "subfamily": null,
+      "theory": "[ISO 5807 overview](https://en.wikipedia.org/wiki/Flowchart)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8152-9b1c-ffd834e9f654",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "kubeflow/pipeline",
+      "name": "Kubeflow Pipelines definition",
+      "type": "Diagram",
+      "purpose": "Show the components of a Kubeflow pipeline and how their inputs and outputs connect.",
+      "description": "Kubeflow Pipelines definition (compiled pipeline IR YAML: components, inputs/outputs, DAG)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Data platforms & pipeline orchestration",
+      "subfamily": null,
+      "theory": "[kubeflow.org](https://www.kubeflow.org/docs/components/pipelines/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-819d-b2a6-e27d483275f9",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "linkml/schema",
+      "name": "LinkML schema",
+      "type": "Diagram",
+      "purpose": "Show the classes, slots and enums of a LinkML schema and how they inherit from each other.",
+      "description": "LinkML schema (open-source YAML modeling language: classes, slots, enums, inheritance)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Ontologies & semantic web",
+      "subfamily": null,
+      "theory": "[linkml.io](https://linkml.io/) · [schema guide](https://linkml.io/linkml/schemas/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81fb-806d-dc556a9609cc",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "meltano/project",
+      "name": "Meltano ELT project",
+      "type": "Diagram",
+      "purpose": "See how the extractors, loaders and transforms of a Meltano project move data from source to target.",
+      "description": "Meltano ELT project (`meltano.yml`: extractors, loaders, transforms, schedules as a source→target flow)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Data platforms & pipeline orchestration",
+      "subfamily": null,
+      "theory": "[meltano.com](https://meltano.com/) · [meltano.yml reference](https://docs.meltano.com/reference/project)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8139-bb6f-ececd89aebac",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "mermaid/architecture",
+      "name": "Architecture diagram",
+      "type": "Diagram",
+      "purpose": "Edit Mermaid architecture diagrams, of services and resources in groups, with the diagram beside the text.",
+      "description": "Mermaid architecture diagram (services, groups and the edges between them, declared in Mermaid's architecture-beta syntax)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "\"Diagrams as code\" tooling",
+      "subfamily": "Mermaid",
+      "theory": "[mermaid.js.org](https://mermaid.js.org/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8164-ad02-c1c5c66c813a",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "mermaid/c4",
+      "name": "C4 diagram",
+      "type": "Diagram",
+      "purpose": "Edit Mermaid's C4 diagrams with the diagram beside the text.",
+      "description": "C4 diagram (subset)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "\"Diagrams as code\" tooling",
+      "subfamily": "Mermaid",
+      "theory": "[mermaid.js.org](https://mermaid.js.org/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81b2-a057-d8b9d06d61cf",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "mermaid/class",
+      "name": "Class diagram",
+      "type": "Diagram",
+      "purpose": "Edit Mermaid class diagrams with the diagram beside the text.",
+      "description": "Mermaid class diagram (classes, members and relationships such as inheritance, composition and association, in Mermaid syntax)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "\"Diagrams as code\" tooling",
+      "subfamily": "Mermaid",
+      "theory": "[mermaid.js.org](https://mermaid.js.org/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81b8-9dd9-d0a17a86a46d",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "mermaid/er",
+      "name": "Entity-Relationship diagram",
+      "type": "Diagram",
+      "purpose": "Edit Mermaid entity-relationship diagrams with the diagram beside the text.",
+      "description": "Mermaid entity-relationship diagram (entities, attributes and relationships with crow's foot cardinality, in Mermaid syntax)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "\"Diagrams as code\" tooling",
+      "subfamily": "Mermaid",
+      "theory": "[mermaid.js.org](https://mermaid.js.org/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8179-8f39-d02f6cc6bc99",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "mermaid/flowchart",
+      "name": "Flowchart",
+      "type": "Diagram",
+      "purpose": "Edit Mermaid flowcharts with the diagram beside the text.",
+      "description": "Mermaid flowchart (nodes, decisions and directed links, with subgraphs, in Mermaid syntax)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "\"Diagrams as code\" tooling",
+      "subfamily": "Mermaid",
+      "theory": "[mermaid.js.org](https://mermaid.js.org/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-816c-a0f9-d746625ff823",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "mermaid/gantt",
+      "name": "Gantt chart",
+      "type": "Diagram",
+      "purpose": "Edit Mermaid Gantt charts of tasks, sections and milestones with the chart beside the text.",
+      "description": "Mermaid Gantt chart (tasks with start dates, durations and dependencies, grouped in sections, with milestones, in Mermaid syntax)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "\"Diagrams as code\" tooling",
+      "subfamily": "Mermaid",
+      "theory": "[mermaid.js.org](https://mermaid.js.org/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8181-9a3b-c547761da084",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "mermaid/sequence",
+      "name": "Sequence diagram",
+      "type": "Diagram",
+      "purpose": "Edit Mermaid sequence diagrams with the diagram beside the text.",
+      "description": "Mermaid sequence diagram (participants and the messages between them over time, with loops, alternatives and notes, in Mermaid syntax)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "\"Diagrams as code\" tooling",
+      "subfamily": "Mermaid",
+      "theory": "[mermaid.js.org](https://mermaid.js.org/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8122-81b1-dcbf7ea57b31",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "mermaid/state",
+      "name": "State diagram",
+      "type": "Diagram",
+      "purpose": "Edit Mermaid state diagrams with the diagram beside the text.",
+      "description": "Mermaid state diagram (states, transitions, composite and concurrent states, in Mermaid syntax)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "\"Diagrams as code\" tooling",
+      "subfamily": "Mermaid",
+      "theory": "[mermaid.js.org](https://mermaid.js.org/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81c6-9ca8-cc01149bda30",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "mongodb/aggregation-pipeline",
+      "name": "MongoDB aggregation pipeline",
+      "type": "Diagram",
+      "purpose": "Follow a MongoDB aggregation pipeline stage by stage, with the document shape after each stage.",
+      "description": "MongoDB aggregation pipeline (MQL stages — `$match`, `$group`, `$lookup`, … — as a left-to-right stage flow, with document shape per stage)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Database queries & results",
+      "subfamily": null,
+      "theory": "[Aggregation pipeline manual](https://www.mongodb.com/docs/manual/core/aggregation-pipeline/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8189-8490-de02dd8138f0",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "mongodb/query",
+      "name": "MongoDB find query and result documents",
+      "type": "Diagram",
+      "purpose": "Read a MongoDB find query as a tree of conditions, and its results as documents.",
+      "description": "MongoDB find query and result documents (MQL filter/projection as a predicate tree; results as a document/tree view)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Database queries & results",
+      "subfamily": null,
+      "theory": "[MongoDB CRUD queries](https://www.mongodb.com/docs/manual/tutorial/query-documents/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81ab-a342-ec180cfbdee0",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "neo4j/cypher",
+      "name": "Cypher query and result graph",
+      "type": "Diagram",
+      "purpose": "See a Cypher query's MATCH patterns as a graph, and its results as an interactive graph.",
+      "description": "Cypher query and result graph (MATCH patterns as node/edge structure; results as an interactive graph). Cypher is standardized via [openCypher](https://opencypher.org/) and the ISO [GQL](https://www.gqlstandards.org/) standard",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Database queries & results",
+      "subfamily": null,
+      "theory": "[Cypher manual](https://neo4j.com/docs/cypher-manual/current/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-818a-9464-ce0f8415df8c",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "network/topology",
+      "name": "Network topology diagram",
+      "type": "Diagram",
+      "purpose": "Show the devices, links and segments of a network and how they are connected.",
+      "description": "Network topology diagram (routers, switches, firewalls, hosts and the links, subnets and VLANs that connect them)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Infrastructure / network / cloud diagrams",
+      "subfamily": null,
+      "theory": "[Cisco iconography](https://www.cisco.com/c/en/us/products/downloads.html)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81bf-893f-c4b46bae5c17",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "nextflow/workflow",
+      "name": "Nextflow pipeline",
+      "type": "Diagram",
+      "purpose": "See the processes of a Nextflow pipeline and the channels that carry data between them.",
+      "description": "Nextflow pipeline (`.nf` DSL2 processes and channels; read-only structural view)",
+      "whySpecialized": null,
+      "fileExtension": ".nf",
+      "focusAreas": [],
+      "family": "Data platforms & pipeline orchestration",
+      "subfamily": null,
+      "theory": "[nextflow.io](https://www.nextflow.io/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81a0-8cad-c9909b1621d1",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "nifi/flow",
+      "name": "Apache NiFi flow definition",
+      "type": "Diagram",
+      "purpose": "Show the processors, connections and process groups of an Apache NiFi flow.",
+      "description": "Apache NiFi flow definition (processors, connections, process groups from an exported flow definition JSON)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Data platforms & pipeline orchestration",
+      "subfamily": null,
+      "theory": "[nifi.apache.org](https://nifi.apache.org/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81c0-9894-f4752befd048",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "openlineage/lineage",
+      "name": "OpenLineage lineage graph",
+      "type": "Diagram",
+      "purpose": "Trace which jobs read and wrote which datasets, from captured OpenLineage events.",
+      "description": "OpenLineage lineage graph (open standard run/job/dataset events, LF AI & Data; read-only graph over captured events)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Data platforms & pipeline orchestration",
+      "subfamily": null,
+      "theory": "[openlineage.io](https://openlineage.io/) · [spec on GitHub](https://github.com/OpenLineage/openlineage)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81b2-b74e-faf8d02c6d8e",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "openwdl/workflow",
+      "name": "Workflow Description Language workflow",
+      "type": "Diagram",
+      "purpose": "Show the tasks and calls of a WDL workflow and how data flows between them.",
+      "description": "Workflow Description Language workflow (open standard `.wdl`: tasks, calls, dataflow)",
+      "whySpecialized": null,
+      "fileExtension": ".wdl",
+      "focusAreas": [],
+      "family": "Data platforms & pipeline orchestration",
+      "subfamily": null,
+      "theory": "[openwdl.org](https://openwdl.org/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81e1-9da9-fc29bea548d4",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "plantuml/c4",
+      "name": "C4 diagram, via C4-PlantUML",
+      "type": "Diagram",
+      "purpose": "Edit C4 diagrams written with C4-PlantUML, with the diagram beside the text.",
+      "description": "C4-PlantUML diagram (C4 context, container, component and deployment views written with the C4-PlantUML macros)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "\"Diagrams as code\" tooling",
+      "subfamily": "PlantUML",
+      "theory": "[C4-PlantUML](https://github.com/plantuml-stdlib/C4-PlantUML)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81d2-9228-eb0b4ea925ba",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "plantuml/uml",
+      "name": "Full UML set",
+      "type": "Diagram",
+      "purpose": "Edit PlantUML's text-based UML diagrams with a live, navigable diagram beside the source.",
+      "description": "Full UML set (see section 1)",
+      "whySpecialized": "PlantUML text is precise but hard to overview; a synchronized visual view shows the structure while the text stays the source of truth.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Software delivery",
+        "Clarity in textual data"
+      ],
+      "family": "\"Diagrams as code\" tooling",
+      "subfamily": "PlantUML",
+      "theory": "[plantuml.com](https://plantuml.com/) · `plantuml-uml` (specification archived and removed from the tree; in history before `ece03c36`) specifies class and sequence first",
+      "hosts": {
+        "standalone": "📝 Specified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8114-ab8d-eba159abf2b6",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "snakemake/workflow",
+      "name": "Snakemake workflow",
+      "type": "Diagram",
+      "purpose": "See the rules of a Snakemake workflow and how their inputs and outputs chain together.",
+      "description": "Snakemake workflow (Snakefile rules and their input/output dependency DAG)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Data platforms & pipeline orchestration",
+      "subfamily": null,
+      "theory": "[snakemake.readthedocs.io](https://snakemake.readthedocs.io/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81af-be74-dda27722af89",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "spark/declarative-pipeline",
+      "name": "Spark Declarative Pipelines",
+      "type": "Diagram",
+      "purpose": "Trace the flows, streaming tables and materialized views of a Spark Declarative Pipeline.",
+      "description": "Spark Declarative Pipelines (SDP) spec (`spark-pipeline.yml`: name, libraries, storage; flows, streaming tables and materialized views declared in the SQL/Python sources it names). The open-source donation of Databricks DLT, native to Apache Spark since 4.1 — the upstream sibling of `databricks/pipeline`",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Data platforms & pipeline orchestration",
+      "subfamily": null,
+      "theory": "[SDP programming guide](https://spark.apache.org/docs/latest/declarative-pipelines-programming-guide.html)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81b4-9f78-f65a493b4bf8",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "structurizr/c4",
+      "name": "C4 model",
+      "type": "Diagram",
+      "purpose": "Edit a Structurizr C4 model once and see every view generated from it.",
+      "description": "C4 model (\"model once, view many\")",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "\"Diagrams as code\" tooling",
+      "subfamily": "Structurizr",
+      "theory": "[structurizr.com](https://structurizr.com/)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81ba-bea7-c2f98eae403e",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "systems/causal-loop-diagram",
+      "name": "Causal loop diagram",
+      "type": "Diagram",
+      "purpose": "Aims to make the feedback structure of a system explicit, with every loop's reinforcing or balancing label checked against its own arrows.",
+      "description": "Causal loop diagram (variables joined by polarised causal links, with the feedback loops they form enumerated and labelled `R` or `B` by arithmetic rather than by assertion; `.cld` — ADP’s own line-oriented text format, adopted after XMILE was rejected for carrying stocks, flows and equations this diagram states none of, and carrying one presentation word of its own, `flipped`, which bows a link’s arc to the other side of its chord where the automatic side crosses something); `causal-loop-diagram` (specification removed from the tree; in history before `53f68611`)",
+      "whySpecialized": "Whether a loop reinforces or balances follows from the signs on its links; a dedicated designer works every loop's label out instead of trusting a hand-drawn R or B.",
+      "fileExtension": ".cld",
+      "focusAreas": [
+        "Systems and strategy",
+        "Psychological and societal insights",
+        "Technology assessment"
+      ],
+      "family": "Knowledge & informal modeling",
+      "subfamily": null,
+      "theory": "The notation is the established one from system dynamics — polarity on the link, `R`/`B` on the loop, strokes across a delayed arrow. What ADP adds is the check: a loop is reinforcing on an even count of negative links and balancing on an odd one, so a stated label is verifiable, and a disagreement is reported rather than corrected. Cycles are enumerated with Johnson’s elementary cycles algorithm, bounded. The self-organizing layout adopts Meyer’s method with every source of randomness replaced by a function of the document and the iteration index",
+      "hosts": {
+        "standalone": "🛠️ Work-in-progress",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81ef-bad3-c4aa216caae1",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "togaf/adm",
+      "name": "TOGAF ADM cycle diagram",
+      "type": "Diagram",
+      "purpose": "Follow an architecture effort through the phases of the TOGAF Architecture Development Method.",
+      "description": "TOGAF ADM cycle (the preliminary phase, phases A to H and requirements management, with the work and deliverables of each)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Enterprise Architecture frameworks",
+      "subfamily": null,
+      "theory": "[TOGAF Standard](https://www.opengroup.org/togaf)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-811b-afe3-ce1f67322939",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "uml/activity",
+      "name": "Activity diagram",
+      "type": "Diagram",
+      "purpose": "Model the flow of actions and decisions in a process or algorithm.",
+      "description": "UML activity diagram (actions, decisions, forks and joins, object flows and partitions)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "UML — Unified Modeling Language",
+      "subfamily": "Behavioral diagrams",
+      "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/activity-diagrams.html)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81eb-b551-f9e6c23b2660",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "uml/class",
+      "name": "Class diagram",
+      "type": "Diagram",
+      "purpose": "Model the classes of a system, their attributes and operations, and how they relate.",
+      "description": "UML class diagram (classes, interfaces, attributes and operations, with associations, generalizations and dependencies)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "UML — Unified Modeling Language",
+      "subfamily": "Structural diagrams",
+      "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/class-diagrams-overview.html)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-817a-8112-fd0f289e73e6",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "uml/communication",
+      "name": "Communication diagram",
+      "type": "Diagram",
+      "purpose": "Show which objects exchange which numbered messages to carry out one interaction.",
+      "description": "UML communication diagram (objects and their links, with numbered messages showing the order of an interaction)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "UML — Unified Modeling Language",
+      "subfamily": "Interaction diagrams",
+      "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/communication-diagrams.html)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81ce-8996-e56613e30bdc",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "uml/component",
+      "name": "Component diagram",
+      "type": "Diagram",
+      "purpose": "Show the components of a system and the interfaces they provide and require.",
+      "description": "UML component diagram (components, provided and required interfaces, ports and the dependencies between them)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "UML — Unified Modeling Language",
+      "subfamily": "Structural diagrams",
+      "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/component-diagrams.html)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8145-8135-d88c269d0a2b",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "uml/composite-structure",
+      "name": "Composite structure diagram",
+      "type": "Diagram",
+      "purpose": "Show the internal parts of a class or component and how they are wired together.",
+      "description": "UML composite structure diagram (the parts, ports and connectors inside a classifier, and the collaborations they take part in)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "UML — Unified Modeling Language",
+      "subfamily": "Structural diagrams",
+      "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/composite-structure-diagrams.html)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-816d-8ed6-c811424099c8",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "uml/deployment",
+      "name": "Deployment diagram",
+      "type": "Diagram",
+      "purpose": "Show which artifacts are deployed on which nodes and how the nodes communicate.",
+      "description": "UML deployment diagram (nodes, execution environments, deployed artifacts and communication paths)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "UML — Unified Modeling Language",
+      "subfamily": "Structural diagrams",
+      "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/deployment-diagrams.html)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-819b-84d6-ff6b27030e30",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "uml/interaction-overview",
+      "name": "Interaction overview diagram",
+      "type": "Diagram",
+      "purpose": "Combine several interactions into one flow of control, like an activity diagram of interactions.",
+      "description": "UML interaction overview diagram (interactions and interaction uses as nodes in an activity-style flow with decisions and forks)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "UML — Unified Modeling Language",
+      "subfamily": "Interaction diagrams",
+      "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/interaction-overview-diagrams.html)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81cc-8e61-da382dbaa303",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "uml/object",
+      "name": "Object diagram",
+      "type": "Diagram",
+      "purpose": "Show a snapshot of concrete objects, their values and links at one moment.",
+      "description": "UML object diagram (instances of classes with their slot values and the links between them, at one point in time)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "UML — Unified Modeling Language",
+      "subfamily": "Structural diagrams",
+      "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/object-diagrams.html)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81e8-81d0-c18651810e1d",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "uml/package",
+      "name": "Package diagram",
+      "type": "Diagram",
+      "purpose": "Organize model elements into packages and show the dependencies between them.",
+      "description": "UML package diagram (packages, their contents, and the import, merge and dependency relationships between them)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "UML — Unified Modeling Language",
+      "subfamily": "Structural diagrams",
+      "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/package-diagrams.html)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8109-9f74-c037f50c9ff4",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "uml/profile",
+      "name": "Profile diagram",
+      "type": "Diagram",
+      "purpose": "Extend UML for a domain with stereotypes, tagged values and constraints.",
+      "description": "UML profile diagram (profiles, stereotypes, tagged values and constraints, and the metaclasses they extend)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "UML — Unified Modeling Language",
+      "subfamily": "Structural diagrams",
+      "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/profile-diagrams.html)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8142-935d-c251e948ea91",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "uml/sequence",
+      "name": "Sequence diagram",
+      "type": "Diagram",
+      "purpose": "Show the messages between participants in the order they happen.",
+      "description": "UML sequence diagram (lifelines and the messages between them over time, with combined fragments for loops, alternatives and parallel parts)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "UML — Unified Modeling Language",
+      "subfamily": "Interaction diagrams",
+      "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/sequence-diagrams.html)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-817f-a238-eccf592e1958",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "uml/state-machine",
+      "name": "State machine diagram",
+      "type": "Diagram",
+      "purpose": "Model the states something can be in and the events that move it between them.",
+      "description": "UML state machine diagram (states, composite and orthogonal regions, transitions with triggers, guards and effects, and pseudostates)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "UML — Unified Modeling Language",
+      "subfamily": "Behavioral diagrams",
+      "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/state-machine-diagrams.html)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81b0-a4d1-d0cd06fbcf3d",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "uml/timing",
+      "name": "Timing diagram",
+      "type": "Diagram",
+      "purpose": "Show how the states of participants change along a precise time axis.",
+      "description": "UML timing diagram (lifelines with their state or value over a time axis, with duration and time constraints)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "UML — Unified Modeling Language",
+      "subfamily": "Interaction diagrams",
+      "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/timing-diagrams.html)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8114-81ca-f5feeeb3b6d7",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "uml/use-case",
+      "name": "Use case diagram",
+      "type": "Diagram",
+      "purpose": "Show who uses a system and for which goals.",
+      "description": "UML use case diagram (actors, use cases, the system boundary, and include, extend and generalization relationships)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "UML — Unified Modeling Language",
+      "subfamily": "Behavioral diagrams",
+      "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/use-case-diagrams.html)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8101-80d8-c3f51ba13612",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "w3c/owl",
+      "name": "OWL 2 ontology",
+      "type": "Diagram",
+      "purpose": "Explore an OWL 2 ontology's classes, hierarchy and restrictions as a VOWL-style graph.",
+      "description": "OWL 2 ontology (classes, hierarchy, restrictions and axioms in the VOWL vocabulary, asserted-only; an RDF reading over the `w3c/rdf` engine) · `owl-diagram` (specification removed from the tree; in history before `53f68611`)",
+      "whySpecialized": "OWL axioms are dense in Turtle or RDF/XML; the VOWL notation shows classes, properties and restrictions so an ontology can be checked by eye.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Knowledge and semantics"
+      ],
+      "family": "Ontologies & semantic web",
+      "subfamily": null,
+      "theory": "[W3C OWL 2 overview](https://www.w3.org/TR/owl2-overview/)",
+      "hosts": {
+        "standalone": "✅ Implemented",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8103-8802-d78c946b5006",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "w3c/rdf",
+      "name": "RDF Graph",
+      "type": "Diagram",
+      "purpose": "Show the triples of an RDF document as a graph of resources and labelled links.",
+      "description": "RDF graph (the subjects, predicates and objects of an RDF document drawn as nodes and labelled edges, with prefixes resolved)",
+      "whySpecialized": "RDF is a graph written down as text; drawing it as one makes missing links, mistyped IRIs and unexpected shapes visible.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Knowledge and semantics",
+        "Clarity in textual data"
+      ],
+      "family": "Ontologies & semantic web",
+      "subfamily": null,
+      "theory": "[RDF 1.1 concepts](https://www.w3.org/TR/rdf11-concepts/) · [Turtle](https://www.w3.org/TR/turtle/)",
+      "hosts": {
+        "standalone": "✅ Implemented",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8171-b7d0-d8e05119b552",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "w3c/shacl",
+      "name": "SHACL Shapes",
+      "type": "Diagram",
+      "purpose": "See which constraints SHACL shapes place on which classes and properties.",
+      "description": "SHACL shapes graph (node shapes and property shapes, their constraints, and the classes and paths they target)",
+      "whySpecialized": "Constraints nested in Turtle are hard to follow; a shapes view puts each target, path and constraint side by side.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Knowledge and semantics"
+      ],
+      "family": "Ontologies & semantic web",
+      "subfamily": null,
+      "theory": "[W3C SHACL](https://www.w3.org/TR/shacl/) · `shacl-diagram` (specification removed from the tree; in history before `53f68611`)",
+      "hosts": {
+        "standalone": "✅ Implemented",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8158-b035-ccd06f93f871",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "w3c/skos",
+      "name": "SKOS Concept Scheme",
+      "type": "Diagram",
+      "purpose": "Browse and edit a SKOS vocabulary as a hierarchy of concepts with their labels and relations.",
+      "description": "SKOS concept scheme (concepts with their broader, narrower and related links, top concepts and preferred and alternative labels)",
+      "whySpecialized": "A thesaurus is a hierarchy with cross-links; a specialized view shows the broader and narrower trees and related links that a flat file hides.",
+      "fileExtension": null,
+      "focusAreas": [
+        "Knowledge and semantics",
+        "Clarity in textual data"
+      ],
+      "family": "Ontologies & semantic web",
+      "subfamily": null,
+      "theory": "[W3C SKOS reference](https://www.w3.org/TR/skos-reference/) · `skos-diagram` (specification removed from the tree; in history before `53f68611`)",
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8117-b918-e1d27aa08742",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "w3c/sparql",
+      "name": "SPARQL query",
+      "type": "Diagram",
+      "purpose": "Read a SPARQL query as the graph pattern it matches, with variables as joins.",
+      "description": "SPARQL query (`.rq`: the basic graph pattern as a node/edge structure with variables as joins, groups as regions, filters and solution modifiers as annotation and frame; read-only). Deliberately a sibling of the `rdf-diagram` family rather than part of it — a query visualizes asking, not modeling, which is this section's whole distinction · `sparql-diagram` (specification removed from the tree; in history before `53f68611`)",
+      "whySpecialized": "A basic graph pattern is a shape; drawing it shows at once how variables join and which filters narrow the result.",
+      "fileExtension": ".rq",
+      "focusAreas": [
+        "Knowledge and semantics",
+        "Clarity in textual data"
+      ],
+      "family": "Database queries & results",
+      "subfamily": null,
+      "theory": "[SPARQL 1.1](https://www.w3.org/TR/sparql11-query/)",
+      "hosts": {
+        "standalone": "✅ Implemented",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-8182-9d65-ebf185c4b251",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "wardley/map",
+      "name": "Wardley Map",
+      "type": "Diagram",
+      "purpose": "Map a value chain by how visible each component is to users and how evolved it is.",
+      "description": "Wardley map (the components of a value chain, placed by their visibility to the user and by their evolution from genesis to commodity, with their dependencies and planned movements)",
+      "whySpecialized": "The evolution axis puts each component where it is in its life cycle, which is the point of a Wardley map and what a generic diagram leaves out.",
+      "fileExtension": ".owm",
+      "focusAreas": [
+        "Systems and strategy",
+        "Technology assessment",
+        "Planning and roadmapping"
+      ],
+      "family": "Strategy & landscape mapping",
+      "subfamily": null,
+      "theory": "[learnwardleymapping.com](https://learnwardleymapping.com/) · reads and writes the [OnlineWardleyMaps .owm DSL](https://onlinewardleymaps.com/), keeping a map another tool wrote byte-for-byte · `wardley-map` (specification removed from the tree; in history before `ece03c36`)",
+      "hosts": {
+        "standalone": "⚗️ Prototype",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e7be2fd-05b6-81b1-b879-e77fc9397dbf",
+      "lastEditedTime": "2026-09-28T10:59:44.590Z",
+      "origin": "zachman/matrix",
+      "name": "Zachman Framework matrix",
+      "type": "Diagram",
+      "purpose": "Classify an enterprise's architecture descriptions by question and by perspective in the Zachman matrix.",
+      "description": "Zachman Framework matrix (the six interrogatives what, how, where, who, when and why against the stakeholder perspectives from planner to user)",
+      "whySpecialized": null,
+      "fileExtension": null,
+      "focusAreas": [],
+      "family": "Enterprise Architecture frameworks",
+      "subfamily": null,
+      "theory": "[Zachman International](https://www.zachman.com/about-the-zachman-framework)",
+      "hosts": {
+        "standalone": "💡 Identified",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    }
+  ]
 }

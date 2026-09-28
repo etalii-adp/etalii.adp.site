@@ -1,0 +1,40 @@
+{
+  "procedure": "refresh-catalogue",
+  "refreshedAt": "2026-09-28T12:37:27.515Z",
+  "sourceHeads": {
+    "etalii-adp/etalii.adp.ide.eclipse": "3c6cf515fa6e6a3cb6d3df6d707467eccba72e9b",
+    "etalii-adp/etalii.adp.ide.intellij": "613402d4eed252e354ad613edc60eca196c441bd",
+    "etalii-adp/etalii.adp.ide.standalone": "c22922b5a20c3f924ad508d75646706c617da9e8",
+    "etalii-adp/etalii.adp.ide.vscode": "c360bcc1b283a08c6c7c455eb6fd842431be4206"
+  },
+  "releases": {
+    "etalii-adp/etalii.adp.ide.eclipse": null,
+    "etalii-adp/etalii.adp.ide.intellij": null,
+    "etalii-adp/etalii.adp.ide.standalone": {
+      "tag": "v0.1.2071-alpha",
+      "commit": "c22922b5a20c3f924ad508d75646706c617da9e8"
+    },
+    "etalii-adp/etalii.adp.ide.vscode": null
+  },
+  "config": {
+    "procedures/config/states.json": "11c6e39937682dc079d4661c0f207870dedbc5253be3e3d7398602e39ecee47a"
+  },
+  "files": [
+    {
+      "path": "standalone/diagrams.md",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/diagrams.md",
+      "commit": "c5ef8d26b14f4cad6534d32b31849f20806c2201",
+      "gitBlob": "21eabb6e6884efcaacf243b89166f30046d7543e",
+      "sha256": "11d74791f7c52096cea37909a441720f0a9bc2f9e9ee2e4a04133f3cc9be8271",
+      "licence": "Apache-2.0"
+    }
+  ],
+  "derived": [
+    {
+      "path": "standalone/catalogue.json",
+      "sha256": "a60ad33958b188a9703596d455179f69ee533a63a971a409621b95ce58fd8ff0"
+    }
+  ],
+  "withdrawn": []
+}
