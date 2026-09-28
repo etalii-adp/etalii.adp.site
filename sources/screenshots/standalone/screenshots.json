@@ -1,0 +1,79 @@
+[
+  {
+    "file": "azure-pipeline.png",
+    "origin": "azure-devops/pipeline",
+    "expectation": "The stage graph left-to-right with its dependency edges. Nothing selected.",
+    "document": "`diagrams/azure-pipeline/example 1/` → `multi-stage.yml` → `multi-stage.adp`",
+    "bytes": 72133,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "dependency-graph.png",
+    "origin": "generic/dependencies",
+    "expectation": "The service graph with labelled edges. Nothing selected.",
+    "document": "`diagrams/dependency-graph/example-1/` → `services.dgr` → `services.adp`",
+    "bytes": 83371,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "markdown-editor.png",
+    "origin": null,
+    "expectation": "The three-part editor: heading outline above, CodeMirror text left, rendered preview right — and the status line reading **Saved**, since nothing was edited.",
+    "document": "`editors/markdown/` → `guide.md`",
+    "bytes": 104647,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "mindmap.png",
+    "origin": "freeplane/mindmap",
+    "expectation": "The mindmap laid out left-to-right in its tab; Toolbox showing the Node entry. Nothing selected.",
+    "document": "`diagrams/mindmap/example 1/` → `mindmap.mm` → `mindmap.adp`",
+    "bytes": 104926,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "timeline.png",
+    "origin": "generic/timeline",
+    "expectation": "Periods and moments on rows, the year ruler along the bottom, connections drawn; Toolbox showing Element and Moment. Nothing selected.",
+    "document": "`diagrams/timeline/example-2/` → `roadmap.tml` → `roadmap.adp`",
+    "bytes": 95590,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "wardley-map.png",
+    "origin": "wardley/map",
+    "expectation": "The bounded map: both axes labelled, the four evolution bands named along the bottom, components and links drawn. Nothing selected.",
+    "document": "`diagrams/wardley-map/example 1/` → `tea.owm` → `tea.adp`",
+    "bytes": 89678,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "workspace.png",
+    "origin": "c4/container",
+    "expectation": "The whole workspace in one shot: explorer expanded to the document, the container diagram rendered in its tab, the Toolbox panel with the C4 element kinds, the problems strip at the bottom. Nothing selected.",
+    "document": "`diagrams/c4/industrial-plant/architecture/` → `bottling-mes.dsl` → `bottling-mes.mes-containers.adp`",
+    "bytes": 143066,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 1048576,
+    "status": "accepted"
+  }
+]
