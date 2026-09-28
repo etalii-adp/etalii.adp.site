@@ -1,10 +1,12 @@
 ---
 // Replaces Starlight's SiteTitle: the ADP header icon, the wordmark and the catch-line name (research R8, R9).
 import icon from '../assets/brand/adp-header.png';
+import iconLight from '../assets/brand/adp-header-light.png';
 ---
 
 <a href="/adp/" class="site-logo" aria-label="ADP – A Different Perspective, home">
-	<img src={icon.src} alt="" width="32" height="32" />
+	<img class="site-logo-dark" src={icon.src} alt="" width="32" height="32" />
+	<img class="site-logo-light" src={iconLight.src} alt="" width="32" height="32" />
 	<span class="site-logo-text">
 		<span class="site-wordmark" translate="no">ADP</span>
 		<span class="site-caption">A Different Perspective</span>
@@ -24,6 +26,14 @@ import icon from '../assets/brand/adp-header.png';
 		width: 2rem;
 		height: 2rem;
 		flex-shrink: 0;
+	}
+	/* The white upper plate disappears on a light header, so the light theme shows the dark-top icon. */
+	.site-logo-light,
+	:global([data-theme='light']) .site-logo-dark {
+		display: none;
+	}
+	:global([data-theme='light']) .site-logo-light {
+		display: block;
 	}
 	.site-logo-text {
 		display: flex;
