@@ -74,6 +74,8 @@ const facets = [
 		const here = location.pathname;
 
 		const cards = [...document.querySelectorAll<HTMLElement>('.adp-designer')];
+		const ideas = document.querySelectorAll('.adp-idea').length;
+		const count = (n: number, noun: string) => `${n} ${noun}${n === 1 ? '' : 's'}`;
 		const values = (card: HTMLElement, key: Key): string[] => {
 			if (key === 'hosts') return (card.dataset.hosts ?? '').split(' ').filter(Boolean).map((pair) => pair.split(':')[0]);
 			return (key === 'focus' ? card.dataset.focus ?? '' : card.dataset.state ?? '').split(' ').filter(Boolean);
@@ -115,7 +117,8 @@ const facets = [
 			for (const group of document.querySelectorAll<HTMLElement>('.adp-catalogue-group')) {
 				group.hidden = ticked.length > 0 && group.querySelector('.adp-designer:not([hidden])') === null;
 			}
-			status.textContent = `${shown.size} ${shown.size === 1 ? 'designer' : 'designers'} shown`;
+			// "N designers and M ideas" (amended 2026-09-28): the ideas are not filtered, so M is all of them.
+			status.textContent = `${count(shown.size, 'designer')} and ${count(ideas, 'idea')}`;
 			describe(ticked.length === 1 ? ticked[0] : undefined);
 
 			const query = new URLSearchParams();

@@ -70,7 +70,7 @@ test.describe('overview', () => {
 			const checkbox = page.getByRole('group', { name: 'Focus area' }).getByRole('checkbox', { name: area.name, exact: true });
 			await checkbox.check();
 			const expected = catalogue.designers.filter((designer) => designer.focusAreas.includes(area.slug));
-			await expect(status).toHaveText(`${expected.length} ${expected.length === 1 ? 'designer' : 'designers'} shown`);
+			await expect(status).toHaveText(`${expected.length} ${expected.length === 1 ? 'designer' : 'designers'} and ${catalogue.ideas.length} ${catalogue.ideas.length === 1 ? 'idea' : 'ideas'}`);
 			const visible = await page.locator('.adp-designer:not([hidden])').evaluateAll((cards) => [...new Set(cards.map((card) => (card as HTMLElement).dataset.origin))]);
 			expect(visible.sort()).toEqual(expected.map((designer) => designer.origin).sort());
 			await checkbox.uncheck();
@@ -212,7 +212,7 @@ test.describe('overview', () => {
 	test('with scripting, one host and one state narrow the list and the count is announced', async ({ page }) => {
 		await page.goto('/adp/designers/');
 		const status = page.locator('.adp-filter [aria-live="polite"]');
-		await expect(status).toHaveText(`${catalogue.designers.length} ${catalogue.designers.length === 1 ? 'designer' : 'designers'} shown`);
+		await expect(status).toHaveText(`${catalogue.designers.length} ${catalogue.designers.length === 1 ? 'designer' : 'designers'} and ${catalogue.ideas.length} ${catalogue.ideas.length === 1 ? 'idea' : 'ideas'}`);
 
 		const host = catalogueHosts[0];
 		const state = 'planned';
@@ -221,7 +221,7 @@ test.describe('overview', () => {
 		const expected = catalogue.designers.filter(
 			(designer) => states[designer.hosts[host.id].state].rank >= states.planned.rank && bestState(designer.hosts) === state,
 		);
-		await expect(status).toHaveText(`${expected.length} ${expected.length === 1 ? 'designer' : 'designers'} shown`);
+		await expect(status).toHaveText(`${expected.length} ${expected.length === 1 ? 'designer' : 'designers'} and ${catalogue.ideas.length} ${catalogue.ideas.length === 1 ? 'idea' : 'ideas'}`);
 		const visible = await page.locator('.adp-designer:not([hidden])').evaluateAll((cards) => [...new Set(cards.map((card) => (card as HTMLElement).dataset.origin))]);
 		expect(visible.sort()).toEqual(expected.map((designer) => designer.origin).sort());
 	});

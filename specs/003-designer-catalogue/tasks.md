@@ -485,6 +485,15 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T089** [US1] In `DesignerCard.astro`, give the host list `margin-block-start: auto` in the card's flex column; the grid already gives the cards of a row one height.
 - [x] **T090** In `tests/catalogue.spec.ts`, check at 1600 px that the host lists of the cards in one row start at the same height; run `npm run build` and `npm run check`.
 
+
+---
+
+## Phase 17: Amendment 2026-09-28 (tenth) - The count
+
+**Goal**: the overview's count reads "N designers and M ideas" (contracts/site-addresses.md § The overview).
+
+- [x] **T091** [US1] In `CatalogueFilter.astro`, report "N designers and M ideas", N the designers shown and M all ideas, with singular forms for one; update `tests/catalogue.spec.ts`, and run `npm run build` and `npm run check`.
+
 ---
 
 ## Dependencies & Execution Order
