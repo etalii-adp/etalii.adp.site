@@ -15,7 +15,7 @@ There are no filter options for `idea` and `not-planned`: ideas are listed on th
 ## The overview
 
 - Its markup contains the full catalogue in reading order, with scripting disabled (FR-002).
-- Each entry shows the name, the one-line purpose, the origin tag, and the four host states as text, not colour alone (WCAG 1.4.1). On a card the origin tag sits right below the name, as its subheading in the small grey italic of "Not yet usable", with no gap above it; the purpose follows, then "Not yet usable" where it applies (amended 2026-09-28).
+- Each entry shows the name, the one-line purpose, the origin tag, and the four host states as text, not colour alone (WCAG 1.4.1). On a card the origin tag sits right below the name, as its subheading in the small grey italic of "Not yet usable", with no gap above it; the four host states sit at the bottom of the card, so they line up across the cards of a row (amended 2026-09-28); the purpose follows, then "Not yet usable" where it applies (amended 2026-09-28).
 - Designers with no focus area are listed under "Other designers" after the focus-area groups. A focus area with no designers shows "No designers yet".
 - A filter above the list has one group per facet (focus area, host, state) and one checkbox per option, with the option's name as its label and no links (FR-002, amended 2026-09-28).
 - With scripting, ticking checkboxes narrows the list in place (OR within a facet, AND across facets); groups left without a matching designer are hidden while any option is ticked, the number of results is reported in an `aria-live="polite"` region, and the ticked options are kept in the address as `?focus=…&hosts=…&state=…`. Opening such an address ticks them.

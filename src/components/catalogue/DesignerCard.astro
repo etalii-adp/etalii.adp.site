@@ -75,7 +75,9 @@ const hostsWithState = catalogueHosts
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 0.25rem;
-		margin: 0.25rem 0 0;
+		/* Pushed to the card's bottom: cards in a grid row share their height, so the host blocks line up. */
+		margin: auto 0 0;
+		padding-block-start: 0.25rem;
 		font-size: var(--sl-text-sm);
 	}
 	.adp-designer-hosts div {

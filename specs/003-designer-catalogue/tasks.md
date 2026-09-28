@@ -475,6 +475,16 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T087** [US1] In `DesignerCard.astro` and `IdeasList.astro`, put the name and the origin tag in an `<hgroup>` with the tag as `.adp-note` text, and tighten the heading's line height.
 - [x] **T088** Relabel `implemented` as "Not yet released" in `src/lib/catalogue/states.ts` and the documents that quote it; run `npm run build` and `npm run check`.
 
+
+---
+
+## Phase 16: Amendment 2026-09-28 (ninth) - Host states at the bottom of the card
+
+**Goal**: the four host states of each designer card sit at its bottom edge, so they line up across a row of cards (contracts/site-addresses.md § The overview).
+
+- [x] **T089** [US1] In `DesignerCard.astro`, give the host list `margin-block-start: auto` in the card's flex column; the grid already gives the cards of a row one height.
+- [x] **T090** In `tests/catalogue.spec.ts`, check at 1600 px that the host lists of the cards in one row start at the same height; run `npm run build` and `npm run check`.
+
 ---
 
 ## Dependencies & Execution Order
