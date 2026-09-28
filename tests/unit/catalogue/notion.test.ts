@@ -10,9 +10,11 @@ import { fixturePages, fixtures } from './helpers.ts';
 
 const notionFixtures = join(fixtures, 'notion');
 
+/** The site-owned files of src/content/catalogue with an empty Notion snapshot, whatever the committed one holds. */
 function content(): string {
 	const dir = mkdtempSync(join(tmpdir(), 'adp-notion-'));
 	cpSync('src/content/catalogue', dir, { recursive: true });
+	writeFileSync(join(dir, 'notion.json'), JSON.stringify({ retrievedAt: null, rows: [] }, null, 2));
 	return dir;
 }
 
