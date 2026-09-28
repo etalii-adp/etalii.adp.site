@@ -1,26 +1,62 @@
 {
   "procedure": "refresh-screenshots",
-  "refreshedAt": "2026-09-28T11:08:31.407Z",
+  "refreshedAt": "2026-09-28T22:44:48.867Z",
   "sourceHeads": {
     "etalii-adp/etalii.adp.ide.eclipse": "3c6cf515fa6e6a3cb6d3df6d707467eccba72e9b",
-    "etalii-adp/etalii.adp.ide.intellij": "613402d4eed252e354ad613edc60eca196c441bd",
-    "etalii-adp/etalii.adp.ide.standalone": "091d364826b850bba40f251d0c1719dc84676f76",
+    "etalii-adp/etalii.adp.ide.intellij": "644056e05c32bb2c27c56e58d511b8b63232c974",
+    "etalii-adp/etalii.adp.ide.standalone": "762cc55e9b6da99fd46634a780fb58ec3ec67a33",
     "etalii-adp/etalii.adp.ide.vscode": "c360bcc1b283a08c6c7c455eb6fd842431be4206"
   },
   "releases": {
     "etalii-adp/etalii.adp.ide.eclipse": null,
     "etalii-adp/etalii.adp.ide.intellij": null,
     "etalii-adp/etalii.adp.ide.standalone": {
-      "tag": "v0.1.2068-alpha",
-      "commit": "091d364826b850bba40f251d0c1719dc84676f76"
+      "tag": "v0.1.2071-alpha",
+      "commit": "c22922b5a20c3f924ad508d75646706c617da9e8"
     },
     "etalii-adp/etalii.adp.ide.vscode": null
   },
   "config": {
-    "procedures/config/screenshots.json": "1b6f8e599c3daeb799145ffecbfbda2a3d6f7e2c9bd4a64bb98cbf1855848b24",
+    "procedures/config/screenshots.json": "8fe37ccc1d7734a8731700ed8c9db4e1002139917a046693eb536b6944fe6d4d",
     "procedures/config/states.json": "11c6e39937682dc079d4661c0f207870dedbc5253be3e3d7398602e39ecee47a"
   },
   "files": [
+    {
+      "path": "intellij/drawio-activity.png",
+      "repository": "etalii-adp/etalii.adp.ide.intellij",
+      "sourcePath": "docs/screenshots/drawio-activity.png",
+      "commit": "b562c7f5320e1cf749f34cec2a10e2d4de6a7a17",
+      "gitBlob": "357c97763c0772b758c2f05c4587472e6e859d0c",
+      "sha256": "b0bdbad2997c9d3ef1df83e9ad28f5fc84d658013bb7580003d7216b51bb668a",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "intellij/drawio-cross-functional.png",
+      "repository": "etalii-adp/etalii.adp.ide.intellij",
+      "sourcePath": "docs/screenshots/drawio-cross-functional.png",
+      "commit": "b562c7f5320e1cf749f34cec2a10e2d4de6a7a17",
+      "gitBlob": "6a0c579d6fe0edc5e13fade19dd11a767219d76f",
+      "sha256": "000d9b3eb6e972d42413f9fb82554cbd347e32cadc867db741ec20f58c71315f",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "intellij/mindmap.png",
+      "repository": "etalii-adp/etalii.adp.ide.intellij",
+      "sourcePath": "docs/screenshots/mindmap.png",
+      "commit": "b562c7f5320e1cf749f34cec2a10e2d4de6a7a17",
+      "gitBlob": "324a3b7e4c5211c3d2c75839bbdc4c31df1bea08",
+      "sha256": "06608789a2cd473d5d891afa11c71fde0827a1d8f5fc1bee0c06ad55a427a87b",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/ansible-structure.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/ansible-structure.png",
+      "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
+      "gitBlob": "4d42991cecd7256d63507f5b777c94914bad8dcc",
+      "sha256": "3bfa63e32c845695361722d90dd3681976f6a83944f42081145ff8a7ef7687aa",
+      "licence": "Apache-2.0"
+    },
     {
       "path": "standalone/azure-pipeline.png",
       "repository": "etalii-adp/etalii.adp.ide.standalone",
@@ -31,12 +67,111 @@
       "licence": "Apache-2.0"
     },
     {
+      "path": "standalone/c4-component.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/c4-component.png",
+      "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
+      "gitBlob": "ab74b28f1372f0c3ec0f511dc018a22ba2e6a8b3",
+      "sha256": "3b99b938bb3c211170c36844c63c21dc9d46b4b8664ac1ee5ebe2145bbf53437",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/c4-context.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/c4-context.png",
+      "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
+      "gitBlob": "3d583851268f4be6cf228244c9a40f2d3d093162",
+      "sha256": "c499345ebce5a8fb6979de4b153f2804215666084014719750e88c47208088c0",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/c4-system-landscape.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/c4-system-landscape.png",
+      "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
+      "gitBlob": "a04ff6ccb65b8e88a3f2562ffc7b5b50fddec325",
+      "sha256": "9eb5629a9c9e860988f34b2255ef172aa395d814bf708e4fac05efdd1748f69b",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/causal-loop.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/causal-loop.png",
+      "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
+      "gitBlob": "1e1c1ce6b5be13b68bbd616136969c2a32542840",
+      "sha256": "bb4d02d735f10a3ee0b36d76bd9f981494d4199d16ca29691966440fd0cafb46",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/databricks-bundle.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/databricks-bundle.png",
+      "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
+      "gitBlob": "cfa5d95ff314537c40645170fa18992067e46a42",
+      "sha256": "d6615555406f122430423a6909ca3b24be699777ab1e8f075ddb832480f821df",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/databricks-job.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/databricks-job.png",
+      "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
+      "gitBlob": "45d5a875b23310736c7f59ac5ee46d1b50af6b82",
+      "sha256": "b44d64fdd7a1ec3ed1145585c3ff939fd13c5e6b6265dd6a5da765d78c966aed",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/databricks-pipeline.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/databricks-pipeline.png",
+      "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
+      "gitBlob": "16c7197b5f21ae1ca60fb9d71fec66b36b21b6f7",
+      "sha256": "705df47a294f1c941093276cf9d9e2bbefb90d4d98b4acecc80663bf5971f35f",
+      "licence": "Apache-2.0"
+    },
+    {
       "path": "standalone/dependency-graph.png",
       "repository": "etalii-adp/etalii.adp.ide.standalone",
       "sourcePath": "docs/screenshots/dependency-graph.png",
       "commit": "a8616b39e4c864093442bbd72c843d8ec522873f",
       "gitBlob": "269bb1957c1cd61babd90527f30c2dbc083d22db",
       "sha256": "9c33e31532d1a28dfa230ae14adbe7befe0f27272497028372c309b46d7a2ccc",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/dotnet-dependency-graph.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/dotnet-dependency-graph.png",
+      "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
+      "gitBlob": "77ba90a94dc4ac2b272843f9e5f71fae3c6530e3",
+      "sha256": "ccfaba408c01f065275832e2556b15df74b1b453ee111df15d43b9ae4fa771bc",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/functional-decomposition-graph.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/functional-decomposition-graph.png",
+      "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
+      "gitBlob": "32b3bb2619c49693482b9366f8d799e9133167a6",
+      "sha256": "327dfbb19d28d3bbf708675fb418caf85d6e483087f889d6f434976597ee2932",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/helm-chart.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/helm-chart.png",
+      "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
+      "gitBlob": "9aa4e778c45e86b3fecdeb0d6f33889e35f63b23",
+      "sha256": "65b7ae5602aae8e82ea64fd0619761e73768f83e296fa8e8db9b6117ca1766af",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/hype-cycle.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/hype-cycle.png",
+      "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
+      "gitBlob": "67e51223254640b9c30d4c3341411cad6ca7de5f",
+      "sha256": "d8e61cc087ba01a458d992c0a68f983a71cd7e23b4494bac3df308b8def9794c",
       "licence": "Apache-2.0"
     },
     {
@@ -55,6 +190,51 @@
       "commit": "a8616b39e4c864093442bbd72c843d8ec522873f",
       "gitBlob": "21905a672dbea8c191809f6d321d643b3d4e8991",
       "sha256": "1907d2624561523fe1aeeb5029dca9fc37f6c81dfc0c03f7c58d32e41d44f9ad",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/owl.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/owl.png",
+      "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
+      "gitBlob": "5112643830689560a45f46480dc50c9978d70bdc",
+      "sha256": "648a7e7c8933504c56090db60e4ae9dc08b70573977bef92b014fcf68fff7935",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/plain-text-editor.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/plain-text-editor.png",
+      "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
+      "gitBlob": "5db3e698324fcb9a461fba9e24716308659ad492",
+      "sha256": "ec22c17eda79b3b25b3b9f2997ffbc442073c190117927e8c5d6a56197f048eb",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/rdf.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/rdf.png",
+      "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
+      "gitBlob": "511b37d38a424ba49817cfbec2b5e67c0c363c50",
+      "sha256": "8e327bae3ac5a0c242ed84b638d8e2165a92d055bc4ae9145a5f65951b54b91f",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/shacl.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/shacl.png",
+      "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
+      "gitBlob": "cc8d4d3e6135f3b29256aa5a8fb10ae3b1d49a6a",
+      "sha256": "1f07e48d0ef43079695a33dd6ab3218c5af4ace72b57531414caceddbd3eaf75",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/sparql.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/sparql.png",
+      "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
+      "gitBlob": "b3d98f307d0bf6e39cdeaa52a34a9064b5760bbb",
+      "sha256": "86f396fd87e10b88338fc60c681a6df7ec389357cb0c72e01073fd35ecb492ef",
       "licence": "Apache-2.0"
     },
     {
@@ -87,6 +267,12 @@
   ],
   "inputs": [
     {
+      "repository": "etalii-adp/etalii.adp.ide.intellij",
+      "sourcePath": "docs/screenshots/readme.md",
+      "commit": "b562c7f5320e1cf749f34cec2a10e2d4de6a7a17",
+      "gitBlob": "a35d16599862bbf002af59bd9cb6f1a4eed731f3"
+    },
+    {
       "repository": "etalii-adp/etalii.adp.ide.standalone",
       "sourcePath": "docs/diagrams.md",
       "commit": "c5ef8d26b14f4cad6534d32b31849f20806c2201",
@@ -95,14 +281,18 @@
     {
       "repository": "etalii-adp/etalii.adp.ide.standalone",
       "sourcePath": "docs/screenshots/readme.md",
-      "commit": "bb27ab359b30791f3240161a0797b4628c47deb3",
-      "gitBlob": "08df369839ae7fe056809709735644c36e651c5b"
+      "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
+      "gitBlob": "39a7ccef80522b820f21f01f156bde16c792c50e"
     }
   ],
   "derived": [
     {
+      "path": "intellij/screenshots.json",
+      "sha256": "44d8072e3f3d1f2dbb6b79a61a276a80e206d72b2413186bfa50fe97dfa131b4"
+    },
+    {
       "path": "standalone/screenshots.json",
-      "sha256": "aa66dcbc33f08f2d659adf769bd3a997ed6dde8f73257dd2229cfb94a51e7eb3"
+      "sha256": "45c6eb149384c17b417c7fe08d0809315a04503d456eb2ccc8a7885da9ebf0f8"
     }
   ],
   "withdrawn": []
