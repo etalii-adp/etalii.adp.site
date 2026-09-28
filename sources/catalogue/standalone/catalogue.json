@@ -1,0 +1,1870 @@
+[
+  {
+    "origin": "cmap/concept-map",
+    "name": "Concept map (free-form network of concepts with labeled relationships)",
+    "group": "10. Knowledge & informal modeling",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "Novak & Cañas, \"The Theory Underlying Concept Maps\"",
+        "href": "https://cmap.ihmc.us/docs/theory-of-concept-maps"
+      }
+    ],
+    "example": [
+      {
+        "label": "CmapTools example maps",
+        "href": "https://cmap.ihmc.us/"
+      }
+    ]
+  },
+  {
+    "origin": "freeplane/mindmap",
+    "name": "Mind map (radial/hierarchical, single central topic)",
+    "group": "10. Knowledge & informal modeling",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "Freeplane",
+        "href": "https://www.freeplane.org/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Freeplane example maps",
+        "href": "https://www.freeplane.org/wiki/index.php/Gallery"
+      }
+    ]
+  },
+  {
+    "origin": "systems/causal-loop-diagram",
+    "name": "Causal loop diagram (variables joined by polarised causal links, with the feedback loops they form enumerated and labelled R or B by arithmetic rather than by assertion; .cld — ADP’s own line-oriented text format, adopted after XMILE was rejected for carrying stocks, flows and equations this diagram states none of, and carrying one presentation word of its own, flipped, which bows a link’s arc to the other side of its chord where the automatic side crosses something); causal-loop-diagram (specification removed from the tree; in history before 53f68611)",
+    "group": "10. Knowledge & informal modeling",
+    "developState": "Work-in-progress",
+    "releaseState": "Work-in-progress",
+    "state": "in-progress",
+    "theory": [
+      {
+        "label": "The notation is the established one from system dynamics — polarity on the link, R/B on the loop, strokes across a delayed arrow. What ADP adds is the check: a loop is reinforcing on an even count of negative links and balancing on an odd one, so a stated label is verifiable, and a disagreement is reported rather than corrected. Cycles are enumerated with Johnson’s elementary cycles algorithm, bounded. The self-organizing layout adopts Meyer’s method with every source of randomness replaced by a function of the document and the iteration index",
+        "href": null
+      }
+    ],
+    "example": [
+      {
+        "label": "Authored examples",
+        "href": "../src/diagrams/causal-loop/examples/"
+      }
+    ]
+  },
+  {
+    "origin": "mermaid/architecture",
+    "name": "Architecture diagram",
+    "group": "11a. Mermaid",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "mermaid.js.org",
+        "href": "https://mermaid.js.org/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Mermaid Live Editor",
+        "href": "https://mermaid.live/"
+      }
+    ]
+  },
+  {
+    "origin": "mermaid/c4",
+    "name": "C4 diagram (subset)",
+    "group": "11a. Mermaid",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "mermaid.js.org",
+        "href": "https://mermaid.js.org/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Mermaid Live Editor",
+        "href": "https://mermaid.live/"
+      }
+    ]
+  },
+  {
+    "origin": "mermaid/class",
+    "name": "Class diagram",
+    "group": "11a. Mermaid",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "mermaid.js.org",
+        "href": "https://mermaid.js.org/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Mermaid Live Editor",
+        "href": "https://mermaid.live/"
+      }
+    ]
+  },
+  {
+    "origin": "mermaid/er",
+    "name": "Entity-Relationship diagram",
+    "group": "11a. Mermaid",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "mermaid.js.org",
+        "href": "https://mermaid.js.org/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Mermaid Live Editor",
+        "href": "https://mermaid.live/"
+      }
+    ]
+  },
+  {
+    "origin": "mermaid/flowchart",
+    "name": "Flowchart",
+    "group": "11a. Mermaid",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "mermaid.js.org",
+        "href": "https://mermaid.js.org/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Mermaid Live Editor",
+        "href": "https://mermaid.live/"
+      }
+    ]
+  },
+  {
+    "origin": "mermaid/gantt",
+    "name": "Gantt chart",
+    "group": "11a. Mermaid",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "mermaid.js.org",
+        "href": "https://mermaid.js.org/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Mermaid Live Editor",
+        "href": "https://mermaid.live/"
+      }
+    ]
+  },
+  {
+    "origin": "mermaid/sequence",
+    "name": "Sequence diagram",
+    "group": "11a. Mermaid",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "mermaid.js.org",
+        "href": "https://mermaid.js.org/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Mermaid Live Editor",
+        "href": "https://mermaid.live/"
+      }
+    ]
+  },
+  {
+    "origin": "mermaid/state",
+    "name": "State diagram",
+    "group": "11a. Mermaid",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "mermaid.js.org",
+        "href": "https://mermaid.js.org/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Mermaid Live Editor",
+        "href": "https://mermaid.live/"
+      }
+    ]
+  },
+  {
+    "origin": "plantuml/c4",
+    "name": "C4 diagram, via C4-PlantUML",
+    "group": "11b. PlantUML",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "C4-PlantUML",
+        "href": "https://github.com/plantuml-stdlib/C4-PlantUML"
+      }
+    ],
+    "example": [
+      {
+        "label": "Real World PlantUML gallery",
+        "href": "https://real-world-plantuml.com/"
+      }
+    ]
+  },
+  {
+    "origin": "plantuml/uml",
+    "name": "Full UML set (see section 1)",
+    "group": "11b. PlantUML",
+    "developState": "Specified",
+    "releaseState": "Specified",
+    "state": "planned",
+    "theory": [
+      {
+        "label": "plantuml.com",
+        "href": "https://plantuml.com/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Real World PlantUML gallery",
+        "href": "https://real-world-plantuml.com/"
+      }
+    ]
+  },
+  {
+    "origin": "structurizr/c4",
+    "name": "C4 model (\"model once, view many\")",
+    "group": "11c. Structurizr",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "structurizr.com",
+        "href": "https://structurizr.com/"
+      }
+    ],
+    "example": [
+      {
+        "label": "structurizr.com/help/examples",
+        "href": "https://structurizr.com/help/examples"
+      }
+    ]
+  },
+  {
+    "origin": "d2/diagram",
+    "name": "General-purpose declarative diagram",
+    "group": "11d. D2",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "d2lang.com",
+        "href": "https://d2lang.com/"
+      }
+    ],
+    "example": [
+      {
+        "label": "D2 Playground",
+        "href": "https://play.d2lang.com/"
+      }
+    ]
+  },
+  {
+    "origin": "diagrams-python/cloud-infrastructure",
+    "name": "Cloud/infrastructure diagram with official-style vendor icons",
+    "group": "11e. Diagrams (Python)",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "diagrams.mingrammer.com",
+        "href": "https://diagrams.mingrammer.com/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Diagrams gallery",
+        "href": "https://diagrams.mingrammer.com/docs/getting-started/examples"
+      }
+    ]
+  },
+  {
+    "origin": "contextmapper/context-map",
+    "name": "DDD Context Map, plus generated PlantUML/BPMN sketches",
+    "group": "11f. Context Mapper",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "contextmapper.org",
+        "href": "https://contextmapper.org/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Context Mapper example",
+        "href": "https://contextmapper.org/docs/context-map/"
+      }
+    ]
+  },
+  {
+    "origin": "airflow/dag",
+    "name": "Apache Airflow DAG (tasks and dependencies; DAG files are Python, so a read-only structural view is the realistic first step)",
+    "group": "12. Data platforms & pipeline orchestration",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "airflow.apache.org",
+        "href": "https://airflow.apache.org/"
+      },
+      {
+        "label": "DAGs concept",
+        "href": "https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html"
+      }
+    ],
+    "example": [
+      {
+        "label": "Airflow graph view",
+        "href": "https://airflow.apache.org/docs/apache-airflow/stable/ui.html"
+      }
+    ]
+  },
+  {
+    "origin": "argoproj/workflow",
+    "name": "Argo Workflows definition (Kubernetes CRD YAML: steps, DAG templates, artifacts)",
+    "group": "12. Data platforms & pipeline orchestration",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "argo-workflows docs",
+        "href": "https://argo-workflows.readthedocs.io/"
+      }
+    ],
+    "example": [
+      {
+        "label": "DAG template examples",
+        "href": "https://argo-workflows.readthedocs.io/en/latest/walk-through/dag/"
+      }
+    ]
+  },
+  {
+    "origin": "commonwl/workflow",
+    "name": "Common Workflow Language workflow (open standard YAML: steps, inputs/outputs, scatter)",
+    "group": "12. Data platforms & pipeline orchestration",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "commonwl.org",
+        "href": "https://www.commonwl.org/"
+      },
+      {
+        "label": "CWL user guide",
+        "href": "https://www.commonwl.org/user_guide/"
+      }
+    ],
+    "example": [
+      {
+        "label": "CWL Viewer",
+        "href": "https://view.commonwl.org/"
+      }
+    ]
+  },
+  {
+    "origin": "dagster/assets",
+    "name": "Dagster asset graph (software-defined assets and their dependencies)",
+    "group": "12. Data platforms & pipeline orchestration",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "dagster.io",
+        "href": "https://dagster.io/"
+      },
+      {
+        "label": "Asset definitions",
+        "href": "https://docs.dagster.io/guides/build/assets/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Dagster asset lineage UI",
+        "href": "https://docs.dagster.io/guides/operate/webserver"
+      }
+    ]
+  },
+  {
+    "origin": "databricks/bundle",
+    "name": "Databricks Bundle",
+    "group": "12. Data platforms & pipeline orchestration",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "Bundle configuration",
+        "href": "https://docs.databricks.com/aws/en/dev-tools/bundles/settings"
+      },
+      {
+        "label": "reference",
+        "href": "https://docs.databricks.com/aws/en/dev-tools/bundles/reference"
+      }
+    ],
+    "example": [
+      {
+        "label": "Asset bundle topology (targets, resources, overrides) in the databricks.yml a repository already has · databricks-diagrams (specification removed from the tree; in history before 53f68611)",
+        "href": null
+      }
+    ]
+  },
+  {
+    "origin": "databricks/job",
+    "name": "Databricks Job",
+    "group": "12. Data platforms & pipeline orchestration",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "Job task types",
+        "href": "https://docs.databricks.com/aws/en/dev-tools/bundles/job-task-types"
+      }
+    ],
+    "example": [
+      {
+        "label": "Lakeflow Jobs task DAG (tasks, depends_on, run_if, clusters) in the job resource .yml a bundle already has · databricks-diagrams (specification removed from the tree; in history before 53f68611)",
+        "href": null
+      }
+    ]
+  },
+  {
+    "origin": "databricks/pipeline",
+    "name": "Databricks Pipeline",
+    "group": "12. Data platforms & pipeline orchestration",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "Pipeline properties",
+        "href": "https://docs.databricks.com/aws/en/ldp/properties"
+      }
+    ],
+    "example": [
+      {
+        "label": "Lakeflow Declarative Pipelines flow (sources, pipeline, target catalog) in the settings .json a workspace exports · databricks-diagrams (specification removed from the tree; in history before 53f68611)",
+        "href": null
+      }
+    ]
+  },
+  {
+    "origin": "dbt/lineage",
+    "name": "dbt project lineage (models, sources, ref()/source() edges from dbt_project.yml + schema.yml + manifest)",
+    "group": "12. Data platforms & pipeline orchestration",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "docs.getdbt.com",
+        "href": "https://docs.getdbt.com/"
+      },
+      {
+        "label": "About dbt projects",
+        "href": "https://docs.getdbt.com/docs/build/projects"
+      }
+    ],
+    "example": [
+      {
+        "label": "dbt lineage graph",
+        "href": "https://docs.getdbt.com/terms/data-lineage"
+      }
+    ]
+  },
+  {
+    "origin": "kubeflow/pipeline",
+    "name": "Kubeflow Pipelines definition (compiled pipeline IR YAML: components, inputs/outputs, DAG)",
+    "group": "12. Data platforms & pipeline orchestration",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "kubeflow.org",
+        "href": "https://www.kubeflow.org/docs/components/pipelines/"
+      }
+    ],
+    "example": [
+      {
+        "label": "KFP pipeline graph",
+        "href": "https://www.kubeflow.org/docs/components/pipelines/overview/"
+      }
+    ]
+  },
+  {
+    "origin": "meltano/project",
+    "name": "Meltano ELT project (meltano.yml: extractors, loaders, transforms, schedules as a source→target flow)",
+    "group": "12. Data platforms & pipeline orchestration",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "meltano.com",
+        "href": "https://meltano.com/"
+      },
+      {
+        "label": "meltano.yml reference",
+        "href": "https://docs.meltano.com/reference/project"
+      }
+    ],
+    "example": [
+      {
+        "label": "the meltano.yml a repository already has",
+        "href": null
+      }
+    ]
+  },
+  {
+    "origin": "nextflow/workflow",
+    "name": "Nextflow pipeline (.nf DSL2 processes and channels; read-only structural view)",
+    "group": "12. Data platforms & pipeline orchestration",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "nextflow.io",
+        "href": "https://www.nextflow.io/"
+      }
+    ],
+    "example": [
+      {
+        "label": "nf-core pipelines",
+        "href": "https://nf-co.re/pipelines"
+      }
+    ]
+  },
+  {
+    "origin": "nifi/flow",
+    "name": "Apache NiFi flow definition (processors, connections, process groups from an exported flow definition JSON)",
+    "group": "12. Data platforms & pipeline orchestration",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "nifi.apache.org",
+        "href": "https://nifi.apache.org/"
+      }
+    ],
+    "example": [
+      {
+        "label": "NiFi flow canvas",
+        "href": "https://nifi.apache.org/docs/nifi-docs/html/user-guide.html"
+      }
+    ]
+  },
+  {
+    "origin": "openlineage/lineage",
+    "name": "OpenLineage lineage graph (open standard run/job/dataset events, LF AI & Data; read-only graph over captured events)",
+    "group": "12. Data platforms & pipeline orchestration",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "openlineage.io",
+        "href": "https://openlineage.io/"
+      },
+      {
+        "label": "spec on GitHub",
+        "href": "https://github.com/OpenLineage/openlineage"
+      }
+    ],
+    "example": [
+      {
+        "label": "Marquez",
+        "href": "https://marquezproject.ai/"
+      }
+    ]
+  },
+  {
+    "origin": "openwdl/workflow",
+    "name": "Workflow Description Language workflow (open standard .wdl: tasks, calls, dataflow)",
+    "group": "12. Data platforms & pipeline orchestration",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "openwdl.org",
+        "href": "https://openwdl.org/"
+      }
+    ],
+    "example": [
+      {
+        "label": "WDL examples",
+        "href": "https://github.com/openwdl/wdl"
+      }
+    ]
+  },
+  {
+    "origin": "snakemake/workflow",
+    "name": "Snakemake workflow (Snakefile rules and their input/output dependency DAG)",
+    "group": "12. Data platforms & pipeline orchestration",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "snakemake.readthedocs.io",
+        "href": "https://snakemake.readthedocs.io/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Snakemake --dag output",
+        "href": "https://snakemake.readthedocs.io/en/stable/executing/cli.html"
+      }
+    ]
+  },
+  {
+    "origin": "spark/declarative-pipeline",
+    "name": "Spark Declarative Pipelines (SDP) spec (spark-pipeline.yml: name, libraries, storage; flows, streaming tables and materialized views declared in the SQL/Python sources it names). The open-source donation of Databricks DLT, native to Apache Spark since 4.1 — the upstream sibling of databricks/pipeline",
+    "group": "12. Data platforms & pipeline orchestration",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "SDP programming guide",
+        "href": "https://spark.apache.org/docs/latest/declarative-pipelines-programming-guide.html"
+      }
+    ],
+    "example": [
+      {
+        "label": "the spark-pipeline.yml a repository already has",
+        "href": null
+      }
+    ]
+  },
+  {
+    "origin": "linkml/schema",
+    "name": "LinkML schema (open-source YAML modeling language: classes, slots, enums, inheritance)",
+    "group": "13. Ontologies & semantic web",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "linkml.io",
+        "href": "https://linkml.io/"
+      },
+      {
+        "label": "schema guide",
+        "href": "https://linkml.io/linkml/schemas/"
+      }
+    ],
+    "example": [
+      {
+        "label": "LinkML generated ER/UML views",
+        "href": "https://linkml.io/linkml/generators/"
+      }
+    ]
+  },
+  {
+    "origin": "w3c/owl",
+    "name": "OWL 2 ontology (classes, hierarchy, restrictions and axioms in the VOWL vocabulary, asserted-only; an RDF reading over the w3c/rdf engine) · owl-diagram (specification removed from the tree; in history before 53f68611)",
+    "group": "13. Ontologies & semantic web",
+    "developState": "Implemented",
+    "releaseState": "Implemented",
+    "state": "implemented",
+    "theory": [
+      {
+        "label": "W3C OWL 2 overview",
+        "href": "https://www.w3.org/TR/owl2-overview/"
+      }
+    ],
+    "example": [
+      {
+        "label": "WebVOWL",
+        "href": "https://service.tib.eu/webvowl/"
+      },
+      {
+        "label": "VOWL notation",
+        "href": "https://www.semantic-web-journal.net/system/files/swj750.pdf"
+      }
+    ]
+  },
+  {
+    "origin": "w3c/rdf",
+    "name": "RDF Graph",
+    "group": "13. Ontologies & semantic web",
+    "developState": "Implemented",
+    "releaseState": "Implemented",
+    "state": "implemented",
+    "theory": [
+      {
+        "label": "RDF 1.1 concepts",
+        "href": "https://www.w3.org/TR/rdf11-concepts/"
+      },
+      {
+        "label": "Turtle",
+        "href": "https://www.w3.org/TR/turtle/"
+      }
+    ],
+    "example": [
+      {
+        "label": "RDF data graph (resources as cards, triples as edges, literals as property rows) over the .ttl/.nt files a triplestore imports and exports · rdf-diagram (specification removed from the tree; in history before 53f68611)",
+        "href": null
+      }
+    ]
+  },
+  {
+    "origin": "w3c/shacl",
+    "name": "SHACL Shapes",
+    "group": "13. Ontologies & semantic web",
+    "developState": "Implemented",
+    "releaseState": "Implemented",
+    "state": "implemented",
+    "theory": [
+      {
+        "label": "W3C SHACL",
+        "href": "https://www.w3.org/TR/shacl/"
+      }
+    ],
+    "example": [
+      {
+        "label": "SHACL Play",
+        "href": "https://shacl-play.sparna.fr/play/"
+      }
+    ]
+  },
+  {
+    "origin": "w3c/skos",
+    "name": "SKOS Concept Scheme",
+    "group": "13. Ontologies & semantic web",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "W3C SKOS reference",
+        "href": "https://www.w3.org/TR/skos-reference/"
+      }
+    ],
+    "example": [
+      {
+        "label": "SKOS Play",
+        "href": "https://skos-play.sparna.fr/"
+      }
+    ]
+  },
+  {
+    "origin": "mongodb/aggregation-pipeline",
+    "name": "MongoDB aggregation pipeline (MQL stages — $match, $group, $lookup, … — as a left-to-right stage flow, with document shape per stage)",
+    "group": "14. Database queries & results",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "Aggregation pipeline manual",
+        "href": "https://www.mongodb.com/docs/manual/core/aggregation-pipeline/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Compass aggregation builder",
+        "href": "https://www.mongodb.com/docs/compass/current/create-agg-pipeline/"
+      }
+    ]
+  },
+  {
+    "origin": "mongodb/query",
+    "name": "MongoDB find query and result documents (MQL filter/projection as a predicate tree; results as a document/tree view)",
+    "group": "14. Database queries & results",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "MongoDB CRUD queries",
+        "href": "https://www.mongodb.com/docs/manual/tutorial/query-documents/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Compass documents view",
+        "href": "https://www.mongodb.com/docs/compass/current/documents/"
+      }
+    ]
+  },
+  {
+    "origin": "neo4j/cypher",
+    "name": "Cypher query and result graph (MATCH patterns as node/edge structure; results as an interactive graph). Cypher is standardized via openCypher and the ISO GQL standard",
+    "group": "14. Database queries & results",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "Cypher manual",
+        "href": "https://neo4j.com/docs/cypher-manual/current/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Neo4j Browser graph view",
+        "href": "https://neo4j.com/docs/browser-manual/current/"
+      }
+    ]
+  },
+  {
+    "origin": "w3c/sparql",
+    "name": "SPARQL query (.rq: the basic graph pattern as a node/edge structure with variables as joins, groups as regions, filters and solution modifiers as annotation and frame; read-only). Deliberately a sibling of the rdf-diagram family rather than part of it — a query visualizes asking, not modeling, which is this section's whole distinction · sparql-diagram (specification removed from the tree; in history before 53f68611)",
+    "group": "14. Database queries & results",
+    "developState": "Implemented",
+    "releaseState": "Implemented",
+    "state": "implemented",
+    "theory": [
+      {
+        "label": "SPARQL 1.1",
+        "href": "https://www.w3.org/TR/sparql11-query/"
+      }
+    ],
+    "example": [
+      {
+        "label": "sparql.org",
+        "href": "https://sparql.org/"
+      }
+    ]
+  },
+  {
+    "origin": "uml/class",
+    "name": "Class diagram",
+    "group": "1a. Structural diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "uml-diagrams.org",
+        "href": "https://www.uml-diagrams.org/class-diagrams-overview.html"
+      }
+    ],
+    "example": [
+      {
+        "label": "Example",
+        "href": "https://www.uml-diagrams.org/class-reference-uml-example.png"
+      }
+    ]
+  },
+  {
+    "origin": "uml/component",
+    "name": "Component diagram",
+    "group": "1a. Structural diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "uml-diagrams.org",
+        "href": "https://www.uml-diagrams.org/component-diagrams.html"
+      }
+    ],
+    "example": [
+      {
+        "label": "Example",
+        "href": "https://www.uml-diagrams.org/examples/component-diagram-example.html"
+      }
+    ]
+  },
+  {
+    "origin": "uml/composite-structure",
+    "name": "Composite structure diagram",
+    "group": "1a. Structural diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "uml-diagrams.org",
+        "href": "https://www.uml-diagrams.org/composite-structure-diagrams.html"
+      }
+    ],
+    "example": [
+      {
+        "label": "Example",
+        "href": "https://www.uml-diagrams.org/composite-structure-diagrams.html"
+      }
+    ]
+  },
+  {
+    "origin": "uml/deployment",
+    "name": "Deployment diagram",
+    "group": "1a. Structural diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "uml-diagrams.org",
+        "href": "https://www.uml-diagrams.org/deployment-diagrams.html"
+      }
+    ],
+    "example": [
+      {
+        "label": "Example",
+        "href": "https://www.uml-diagrams.org/examples/deployment-diagram-example.html"
+      }
+    ]
+  },
+  {
+    "origin": "uml/object",
+    "name": "Object diagram",
+    "group": "1a. Structural diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "uml-diagrams.org",
+        "href": "https://www.uml-diagrams.org/object-diagrams.html"
+      }
+    ],
+    "example": [
+      {
+        "label": "Example",
+        "href": "https://www.uml-diagrams.org/examples/object-diagram-example.html"
+      }
+    ]
+  },
+  {
+    "origin": "uml/package",
+    "name": "Package diagram",
+    "group": "1a. Structural diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "uml-diagrams.org",
+        "href": "https://www.uml-diagrams.org/package-diagrams.html"
+      }
+    ],
+    "example": [
+      {
+        "label": "Example",
+        "href": "https://www.uml-diagrams.org/package-diagrams.html"
+      }
+    ]
+  },
+  {
+    "origin": "uml/profile",
+    "name": "Profile diagram",
+    "group": "1a. Structural diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "uml-diagrams.org",
+        "href": "https://www.uml-diagrams.org/profile-diagrams.html"
+      }
+    ],
+    "example": [
+      {
+        "label": "Example",
+        "href": "https://www.uml-diagrams.org/profile-diagrams.html"
+      }
+    ]
+  },
+  {
+    "origin": "uml/activity",
+    "name": "Activity diagram",
+    "group": "1b. Behavioral diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "uml-diagrams.org",
+        "href": "https://www.uml-diagrams.org/activity-diagrams.html"
+      }
+    ],
+    "example": [
+      {
+        "label": "Example",
+        "href": "https://www.uml-diagrams.org/examples/activity-diagram-example.html"
+      }
+    ]
+  },
+  {
+    "origin": "uml/state-machine",
+    "name": "State machine diagram",
+    "group": "1b. Behavioral diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "uml-diagrams.org",
+        "href": "https://www.uml-diagrams.org/state-machine-diagrams.html"
+      }
+    ],
+    "example": [
+      {
+        "label": "Example",
+        "href": "https://www.uml-diagrams.org/examples/state-machine-diagram-example.html"
+      }
+    ]
+  },
+  {
+    "origin": "uml/use-case",
+    "name": "Use case diagram",
+    "group": "1b. Behavioral diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "uml-diagrams.org",
+        "href": "https://www.uml-diagrams.org/use-case-diagrams.html"
+      }
+    ],
+    "example": [
+      {
+        "label": "Example",
+        "href": "https://www.uml-diagrams.org/examples/use-case-diagram-example.html"
+      }
+    ]
+  },
+  {
+    "origin": "uml/communication",
+    "name": "Communication diagram",
+    "group": "1c. Interaction diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "uml-diagrams.org",
+        "href": "https://www.uml-diagrams.org/communication-diagrams.html"
+      }
+    ],
+    "example": [
+      {
+        "label": "Example",
+        "href": "https://www.uml-diagrams.org/communication-diagrams.html"
+      }
+    ]
+  },
+  {
+    "origin": "uml/interaction-overview",
+    "name": "Interaction overview diagram",
+    "group": "1c. Interaction diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "uml-diagrams.org",
+        "href": "https://www.uml-diagrams.org/interaction-overview-diagrams.html"
+      }
+    ],
+    "example": [
+      {
+        "label": "Example",
+        "href": "https://www.uml-diagrams.org/interaction-overview-diagrams.html"
+      }
+    ]
+  },
+  {
+    "origin": "uml/sequence",
+    "name": "Sequence diagram",
+    "group": "1c. Interaction diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "uml-diagrams.org",
+        "href": "https://www.uml-diagrams.org/sequence-diagrams.html"
+      }
+    ],
+    "example": [
+      {
+        "label": "Example",
+        "href": "https://www.uml-diagrams.org/examples/sequence-diagram-example.html"
+      }
+    ]
+  },
+  {
+    "origin": "uml/timing",
+    "name": "Timing diagram",
+    "group": "1c. Interaction diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "uml-diagrams.org",
+        "href": "https://www.uml-diagrams.org/timing-diagrams.html"
+      }
+    ],
+    "example": [
+      {
+        "label": "Example",
+        "href": "https://www.uml-diagrams.org/timing-diagrams.html"
+      }
+    ]
+  },
+  {
+    "origin": "c4/code",
+    "name": "Code (optional)",
+    "group": "2. The C4 Model",
+    "developState": "Specified",
+    "releaseState": "Specified",
+    "state": "planned",
+    "theory": [
+      {
+        "label": "c4model.com",
+        "href": "https://c4model.com/diagrams/code"
+      }
+    ],
+    "example": [
+      {
+        "label": "Usually IDE-generated",
+        "href": null
+      }
+    ]
+  },
+  {
+    "origin": "c4/component",
+    "name": "Component",
+    "group": "2. The C4 Model",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "c4model.com",
+        "href": "https://c4model.com/diagrams/component"
+      }
+    ],
+    "example": [
+      {
+        "label": "Building blocks inside one container",
+        "href": null
+      }
+    ]
+  },
+  {
+    "origin": "c4/container",
+    "name": "Container",
+    "group": "2. The C4 Model",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "c4model.com",
+        "href": "https://c4model.com/diagrams/container"
+      }
+    ],
+    "example": [
+      {
+        "label": "Deployable/runnable units",
+        "href": null
+      }
+    ]
+  },
+  {
+    "origin": "c4/context",
+    "name": "System Context",
+    "group": "2. The C4 Model",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "c4model.com",
+        "href": "https://c4model.com/diagrams/system-context"
+      }
+    ],
+    "example": [
+      {
+        "label": "Everyone-facing overview",
+        "href": null
+      }
+    ]
+  },
+  {
+    "origin": "c4/deployment",
+    "name": "Deployment (supplementary)",
+    "group": "2. The C4 Model",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "c4model.com",
+        "href": "https://c4model.com/diagrams/deployment"
+      }
+    ],
+    "example": [
+      {
+        "label": "Containers mapped onto infrastructure",
+        "href": null
+      }
+    ]
+  },
+  {
+    "origin": "c4/dynamic",
+    "name": "Dynamic (supplementary)",
+    "group": "2. The C4 Model",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "c4model.com",
+        "href": "https://c4model.com/diagrams/dynamic"
+      }
+    ],
+    "example": [
+      {
+        "label": "One scenario across containers/components",
+        "href": null
+      }
+    ]
+  },
+  {
+    "origin": "c4/system-landscape",
+    "name": "System Landscape (supplementary)",
+    "group": "2. The C4 Model",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "c4model.com",
+        "href": "https://c4model.com/diagrams/system-landscape"
+      }
+    ],
+    "example": [
+      {
+        "label": "Multiple systems across an org",
+        "href": null
+      }
+    ]
+  },
+  {
+    "origin": "archimate/application",
+    "name": "ArchiMate — Application layer",
+    "group": "4. Enterprise Architecture frameworks",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "ArchiMate spec",
+        "href": "https://pubs.opengroup.org/architecture/archimate3-doc/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Archi example models",
+        "href": "https://www.archimatetool.com/examples/"
+      }
+    ]
+  },
+  {
+    "origin": "archimate/business",
+    "name": "ArchiMate — Business layer",
+    "group": "4. Enterprise Architecture frameworks",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "ArchiMate spec",
+        "href": "https://pubs.opengroup.org/architecture/archimate3-doc/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Archi example models",
+        "href": "https://www.archimatetool.com/examples/"
+      }
+    ]
+  },
+  {
+    "origin": "archimate/implementation-migration",
+    "name": "ArchiMate — Implementation & Migration layer",
+    "group": "4. Enterprise Architecture frameworks",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "ArchiMate spec",
+        "href": "https://pubs.opengroup.org/architecture/archimate3-doc/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Archi example models",
+        "href": "https://www.archimatetool.com/examples/"
+      }
+    ]
+  },
+  {
+    "origin": "archimate/motivation",
+    "name": "ArchiMate — Motivation layer",
+    "group": "4. Enterprise Architecture frameworks",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "ArchiMate spec",
+        "href": "https://pubs.opengroup.org/architecture/archimate3-doc/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Archi example models",
+        "href": "https://www.archimatetool.com/examples/"
+      }
+    ]
+  },
+  {
+    "origin": "archimate/strategy",
+    "name": "ArchiMate — Strategy layer",
+    "group": "4. Enterprise Architecture frameworks",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "ArchiMate spec",
+        "href": "https://pubs.opengroup.org/architecture/archimate3-doc/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Archi example models",
+        "href": "https://www.archimatetool.com/examples/"
+      }
+    ]
+  },
+  {
+    "origin": "archimate/technology",
+    "name": "ArchiMate — Technology layer",
+    "group": "4. Enterprise Architecture frameworks",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "ArchiMate spec",
+        "href": "https://pubs.opengroup.org/architecture/archimate3-doc/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Archi example models",
+        "href": "https://www.archimatetool.com/examples/"
+      }
+    ]
+  },
+  {
+    "origin": "togaf/adm",
+    "name": "TOGAF ADM cycle diagram",
+    "group": "4. Enterprise Architecture frameworks",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "TOGAF Standard",
+        "href": "https://www.opengroup.org/togaf"
+      }
+    ],
+    "example": [
+      {
+        "label": "GitHub: TOGAF 10 diagram set",
+        "href": "https://github.com/nelsambrose/togaf-diagrams"
+      }
+    ]
+  },
+  {
+    "origin": "zachman/matrix",
+    "name": "Zachman Framework matrix",
+    "group": "4. Enterprise Architecture frameworks",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "Zachman International",
+        "href": "https://www.zachman.com/about-the-zachman-framework"
+      }
+    ],
+    "example": [
+      {
+        "label": "Visual Paradigm comparison",
+        "href": "https://www.visual-paradigm.com/guide/togaf/togaf-vs-zachman-framework/"
+      }
+    ]
+  },
+  {
+    "origin": "bpmn/process",
+    "name": "BPMN process diagram",
+    "group": "5. Business process & workflow notation",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "bpmn.org",
+        "href": "https://www.bpmn.org/"
+      },
+      {
+        "label": "OMG BPMN spec",
+        "href": "https://www.omg.org/bpmn/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Camunda BPMN examples",
+        "href": "https://camunda.com/bpmn/examples/"
+      }
+    ]
+  },
+  {
+    "origin": "etalii/functional-decomposition-graph",
+    "name": "Functional decomposition graph (UI elements, data elements, actions and functions linked parent to child, drawn as a superellipse, parallelogram, trapezoid and diode with bezier arrows; .fdg, ADP's own line-oriented schema); functional-decomposition-graph",
+    "group": "5. Business process & workflow notation",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "A notation defined by the user of this repository, so ADP owns the schema and the etalii/ origin rather than a standards body's",
+        "href": null
+      }
+    ],
+    "example": []
+  },
+  {
+    "origin": "generic/dependencies",
+    "name": "Dependency graph (named nodes and directed depends-on edges, freely placed and freely connected; .dgr — ADP's own YAML schema and extension, on the generic/timeline model with every time-related aspect removed: authored placement, directed depends-on edges drawn with an arrowhead, one command per edit); dependency-graph (specification removed from the tree; in history before d573ad87)",
+    "group": "5. Business process & workflow notation",
+    "developState": "Implemented",
+    "releaseState": "Implemented",
+    "state": "implemented",
+    "theory": [
+      {
+        "label": "Follows the generic/timeline precedent: no standards body owns \"a box depends on a box\", so ADP defines the schema and owns the extension outright, keeping the document diffable text. Specified as a duplicate of the timeline module with every time-related aspect removed",
+        "href": null
+      }
+    ],
+    "example": []
+  },
+  {
+    "origin": "generic/swimlane",
+    "name": "Swimlane diagram",
+    "group": "5. Business process & workflow notation",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "Lucidchart guide",
+        "href": "https://www.lucidchart.com/pages/tutorial/swim-lane-diagram"
+      }
+    ],
+    "example": [
+      {
+        "label": "Lucidchart examples",
+        "href": "https://www.lucidchart.com/pages/examples/flowchart-symbols-and-meaning"
+      }
+    ]
+  },
+  {
+    "origin": "generic/timeline",
+    "name": "Timeline diagram (left-to-right, elements spanning begin→end on snap-to rows, bezier connections; .tml — Timeline Markup Language); timeline-diagram (specification removed from the tree; in history before ece03c36)",
+    "group": "5. Business process & workflow notation",
+    "developState": "Implemented",
+    "releaseState": "Implemented",
+    "state": "implemented",
+    "theory": [
+      {
+        "label": "Distinct from mermaid/gantt: placement is authored on both axes, not computed, and connections are arbitrary rather than scheduling dependencies",
+        "href": null
+      }
+    ],
+    "example": []
+  },
+  {
+    "origin": "iso/flowchart",
+    "name": "Flowchart",
+    "group": "5. Business process & workflow notation",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "ISO 5807 overview",
+        "href": "https://en.wikipedia.org/wiki/Flowchart"
+      }
+    ],
+    "example": [
+      {
+        "label": "Lucidchart examples",
+        "href": "https://www.lucidchart.com/pages/examples/flowchart-symbols-and-meaning"
+      }
+    ]
+  },
+  {
+    "origin": "ddd/context-map",
+    "name": "Bounded Context / Context Map",
+    "group": "6. Domain-Driven Design collaborative modeling",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "Context Mapping reference",
+        "href": "https://www.domainlanguage.com/ddd/context-mapping/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Context Mapper example",
+        "href": "https://contextmapper.org/docs/context-map/"
+      }
+    ]
+  },
+  {
+    "origin": "ddd/event-storming",
+    "name": "Event Storming",
+    "group": "6. Domain-Driven Design collaborative modeling",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "eventstorming.com",
+        "href": "https://www.eventstorming.com/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Miro template",
+        "href": "https://miro.com/templates/event-storming/"
+      }
+    ]
+  },
+  {
+    "origin": "dfd/data-flow",
+    "name": "Data Flow Diagram (Yourdon/DeMarco or Gane–Sarson notation)",
+    "group": "7. Data-oriented diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "DeMarco's foundational text",
+        "href": "https://en.wikipedia.org/wiki/Data_flow_diagram"
+      }
+    ],
+    "example": [
+      {
+        "label": "Lucidchart DFD examples",
+        "href": "https://www.lucidchart.com/pages/examples/data-flow-diagram"
+      }
+    ]
+  },
+  {
+    "origin": "erd/entity-relationship",
+    "name": "Entity-Relationship Diagram (Chen or Crow's Foot notation)",
+    "group": "7. Data-oriented diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "Chen's original paper",
+        "href": "https://dl.acm.org/doi/10.1145/320434.320440"
+      }
+    ],
+    "example": [
+      {
+        "label": "Lucidchart ERD examples",
+        "href": "https://www.lucidchart.com/pages/examples/entity-relationship-diagram-tool"
+      }
+    ]
+  },
+  {
+    "origin": "ansible/structure",
+    "name": "Ansible project structure (playbooks, roles, inventories and their include/import/dependency relationships; Ansible's own files are never written, and node positions a user arranges are authored into the .adp)",
+    "group": "8. Infrastructure, network & cloud diagrams",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "Ansible directory layout",
+        "href": "https://charlesreid1.com/wiki/Ansible/Directory_Layout/Details"
+      },
+      {
+        "label": "Role dependencies",
+        "href": "https://oneuptime.com/blog/post/2026-01-24-ansible-roles-dependencies/view"
+      }
+    ],
+    "example": [
+      {
+        "label": "ansible-playbook-grapher",
+        "href": "https://github.com/haidaraM/ansible-playbook-grapher"
+      },
+      {
+        "label": "ansible-viz",
+        "href": "https://github.com/aspiers/ansible-viz"
+      }
+    ]
+  },
+  {
+    "origin": "aws/architecture",
+    "name": "AWS architecture diagram",
+    "group": "8. Infrastructure, network & cloud diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "AWS Architecture Icons",
+        "href": "https://aws.amazon.com/architecture/icons/"
+      }
+    ],
+    "example": [
+      {
+        "label": "AWS Architecture Center",
+        "href": "https://aws.amazon.com/architecture/"
+      }
+    ]
+  },
+  {
+    "origin": "azure-devops/pipeline",
+    "name": "Azure DevOps pipeline diagram, read at three levels: stages, the jobs inside an opened stage, and the steps inside an opened job (one element per step in declared order, no edges - steps are a sequence and not a graph). Opening either level is a menu entry on the element; there is no keyboard path for expansion at either level. Both levels push add and remove deltas rather than the Group/Ungroup actions the archived requirement named, deliberately and for the reasoning at PipelineElementMapper.cs:87; a change there would cover both levels at once",
+    "group": "8. Infrastructure, network & cloud diagrams",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "Azure Pipelines YAML schema",
+        "href": "https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/"
+      },
+      {
+        "label": "Key pipelines concepts",
+        "href": "https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/key-pipelines-concepts"
+      }
+    ],
+    "example": [
+      {
+        "label": "Stages, dependsOn and conditions",
+        "href": "https://learn.microsoft.com/en-us/azure/devops/pipelines/process/stages"
+      }
+    ]
+  },
+  {
+    "origin": "azure/architecture",
+    "name": "Azure architecture diagram",
+    "group": "8. Infrastructure, network & cloud diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "Azure Architecture Icons",
+        "href": "https://learn.microsoft.com/en-us/azure/architecture/icons/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Azure Architecture Center",
+        "href": "https://learn.microsoft.com/en-us/azure/architecture/browse/"
+      }
+    ]
+  },
+  {
+    "origin": "dotnet/dependency-graph",
+    "name": ".NET project and package dependency graph (read-only: the projects of a .sln/.slnx, the NuGet packages they consume, and every ProjectReference and PackageReference between them, computed from the project files rather than authored; the solution is never written, and node positions a user arranges are authored into the .adp); dotnet-dependency-graph",
+    "group": "8. Infrastructure, network & cloud diagrams",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "PackageReference in project files",
+        "href": "https://learn.microsoft.com/en-us/nuget/consume-packages/package-references-in-project-files"
+      },
+      {
+        "label": "Central Package Management",
+        "href": "https://learn.microsoft.com/en-us/nuget/consume-packages/central-package-management"
+      }
+    ],
+    "example": [
+      {
+        "label": "dotnet-project-dependency-graph",
+        "href": "https://github.com/mmarinchenko/dotnet-project-dependency-graph"
+      }
+    ]
+  },
+  {
+    "origin": "gcp/architecture",
+    "name": "GCP architecture diagram",
+    "group": "8. Infrastructure, network & cloud diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "Google Cloud Architecture Icons",
+        "href": "https://cloud.google.com/icons"
+      }
+    ],
+    "example": [
+      {
+        "label": "Google Cloud Architecture Center",
+        "href": "https://cloud.google.com/architecture"
+      }
+    ]
+  },
+  {
+    "origin": "helm/chart",
+    "name": "Helm chart anatomy (read-only, folder-subject: Chart.yaml metadata, values layering, templates and the kinds they render, declared dependencies and their vendored resolution)",
+    "group": "8. Infrastructure, network & cloud diagrams",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "Helm charts guide",
+        "href": "https://helm.sh/docs/topics/charts/"
+      },
+      {
+        "label": "chart template guide",
+        "href": "https://helm.sh/docs/chart_template_guide/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Helm-Visualizer",
+        "href": "https://github.com/unrealandychan/Helm-Visualizer"
+      }
+    ]
+  },
+  {
+    "origin": "network/topology",
+    "name": "Network topology diagram",
+    "group": "8. Infrastructure, network & cloud diagrams",
+    "developState": "Identified",
+    "releaseState": "Identified",
+    "state": "idea",
+    "theory": [
+      {
+        "label": "Cisco iconography",
+        "href": "https://www.cisco.com/c/en/us/products/downloads.html"
+      }
+    ],
+    "example": [
+      {
+        "label": "Lucidchart examples",
+        "href": "https://www.lucidchart.com/pages/examples/network-diagram-software"
+      }
+    ]
+  },
+  {
+    "origin": "gartner/hypecycle-graph",
+    "name": "Gartner hype cycle graph (trends on a time axis, each a right-pointing arrow banner divided into the Peak, Trough, Slope and Plateau phases it has reached, joined by influences anchored to a phase of each trend; .ghg, ADP's own YAML schema; unique to ADP); gartner-hype-cycle-graph (approved; backend module, client canvas and the technology-trends, digital-trends, energy-breakthroughs, llms-and-agents, eras-of-innovation, coal-technologies, electric-vehicles, internet-evolution and warfare-in-ukraine examples in place, a per-document time unit of month, year, decade or century, browser pass recorded in tests.md; a Compact toggle drawing every trend one width in start order, specified in ghg-compact-mode; triggers - moments drawn as circles, influencing trends - and word-wrapped notes, with real triggers in every example, specified in ghg-triggers-and-notes)",
+    "group": "9. Strategy & landscape mapping",
+    "developState": "Work-in-progress",
+    "releaseState": "Work-in-progress",
+    "state": "in-progress",
+    "theory": [
+      {
+        "label": "Gartner hype cycle (Wikipedia)",
+        "href": "https://en.wikipedia.org/wiki/Gartner_hype_cycle"
+      }
+    ],
+    "example": []
+  },
+  {
+    "origin": "wardley/map",
+    "name": "Wardley Map",
+    "group": "9. Strategy & landscape mapping",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "learnwardleymapping.com",
+        "href": "https://learnwardleymapping.com/"
+      },
+      {
+        "label": "OnlineWardleyMaps .owm DSL",
+        "href": "https://onlinewardleymaps.com/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Online Wardley Maps editor",
+        "href": "https://onlinewardleymaps.com/"
+      }
+    ]
+  }
+]
