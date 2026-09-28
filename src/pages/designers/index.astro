@@ -1,11 +1,11 @@
 ---
 // The catalogue overview (FR-001, FR-002, FR-014, contracts/site-addresses.md): every designer grouped by focus
-// area, then "Other designers", then the ideas list. Complete without scripting; CatalogueFilter only adds to it.
+// area, then "Other designers", then the ideas list. Complete without scripting; CatalogueFilter holds the facet links
+// and, with scripting, filters the list in place.
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import CatalogueFilter from '../../components/catalogue/CatalogueFilter.astro';
 import { catalogue } from '../../components/catalogue/data';
 import DesignerList from '../../components/catalogue/DesignerList.astro';
-import FacetLinks from '../../components/catalogue/FacetLinks.astro';
 import IdeasList from '../../components/catalogue/IdeasList.astro';
 import SourceList from '../../components/catalogue/SourceList.astro';
 
@@ -31,7 +31,6 @@ if (others.length > 0) groups.push({ id: 'other-designers', name: 'Other designe
 		install it.
 	</p>
 
-	<FacetLinks focusAreas={focusAreas} />
 	<CatalogueFilter focusAreas={focusAreas} />
 
 	{

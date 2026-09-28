@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Input**: User description (clarified 2026-09-26: identified-only types go in a separate ideas list; amended 2026-09-26 from review: screenshot descriptions, focus areas maintained in Notion, per-host availability in the Notion table, descriptive text site-owned and refreshed from Notion, all source repositories public under Apache-2.0): "A designer catalogue, one page per designer with screenshots (2C)."
+**Input**: User description (clarified 2026-09-26: identified-only types go in a separate ideas list; amended 2026-09-26 from review: screenshot descriptions, focus areas maintained in Notion, per-host availability in the Notion table, descriptive text site-owned and refreshed from Notion, all source repositories public under Apache-2.0; amended 2026-09-28 by the owner: the overview filters in place through its checkboxes, and the separate block of facet links is replaced by links on the checkbox names): "A designer catalogue, one page per designer with screenshots (2C)."
 
 ## Context
 
@@ -31,8 +31,9 @@ A visitor opens the catalogue and finds whether ADP has a designer for the kind 
 **Acceptance Scenarios**:
 
 1. **Given** the catalogue overview, **When** a visitor opens it, **Then** they see every designer with its name, a one-line purpose, a thumbnail and its state per IDE host.
-2. **Given** the overview, **When** a visitor wants to narrow it down, **Then** they can filter or group by focus area, by IDE host and by state.
+2. **Given** the overview, **When** a visitor wants to narrow it down, **Then** they can filter it in place by ticking focus areas, IDE hosts and states, in any combination.
 3. **Given** a designer that is only identified or specified, **When** it is shown, **Then** it is visibly marked as not yet usable, and it has no screenshot presented as the product (constitution principle III).
+4. **Given** a filter option on the overview, **When** a visitor wants more than the narrowed list, **Then** the option's name leads to a page dedicated to that focus area, host or state, which describes the selection.
 
 ---
 
@@ -98,7 +99,7 @@ A maintainer changes a designer's state or retakes its screenshots in its source
 ### Functional Requirements
 
 - **FR-001**: The catalogue MUST have an overview page listing every designer with its name, one-line purpose, thumbnail (where a screenshot exists), origin tag and state per IDE host.
-- **FR-002**: The overview MUST let visitors filter or group by focus area, IDE host and state, and MUST show the full list with scripting disabled.
+- **FR-002**: The overview MUST let visitors filter it in place by focus area, IDE host and state, in any combination, through one checkbox per option, and MUST show the full list with scripting disabled. The name beside each checkbox MUST link to the page dedicated to that option, which describes the selection; the overview MUST NOT repeat those links in a separate block. Without scripting, the names remain links, so the dedicated pages still narrow the list.
 - **FR-003**: Every designer MUST have its own page with a stable address based on its origin tag.
 - **FR-004**: A designer page MUST state the task it serves, why a specialized visualization helps there, and the file formats it reads and writes.
 - **FR-005**: A designer page MUST show its state per IDE host (standalone, IntelliJ Platform, Visual Studio Code, Eclipse), using one shared set of states across the site.

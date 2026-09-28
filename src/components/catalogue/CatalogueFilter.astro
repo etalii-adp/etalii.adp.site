@@ -1,7 +1,8 @@
 ---
-// The only client script in the catalogue (research D6): combined filters over the overview's cards. Without
-// scripting this renders an empty element and the per-facet pages of FacetLinks do the filtering. OR within a
-// facet, AND across facets; nothing is remembered between page loads.
+// The overview's filter (FR-002 as amended 2026-09-28, research D6): one checkbox per focus area, host and state,
+// each followed by its name as a link to that option's facet page. The form is in the markup, so without scripting
+// the names are plain links to the facet pages; the only client script in the catalogue reveals the checkboxes and
+// filters the overview's cards. OR within a facet, AND across facets; nothing is remembered between page loads.
 import { catalogueHosts } from '../../lib/catalogue/hosts';
 import { facetStates, states } from '../../lib/catalogue/states';
 import type { FocusArea } from '../../lib/catalogue/types';
@@ -12,54 +13,49 @@ interface Props {
 
 const { focusAreas } = Astro.props;
 const facets = [
-	{ key: 'focus', legend: 'Focus area', options: focusAreas.map((area) => ({ value: area.slug, label: area.name })) },
-	{ key: 'hosts', legend: 'Host', options: catalogueHosts.map((host) => ({ value: host.id, label: host.name })) },
-	{ key: 'state', legend: 'Best state', options: facetStates.map((state) => ({ value: state, label: states[state].label })) },
+	{ key: 'focus', legend: 'Focus area', options: focusAreas.map((area) => ({ value: area.slug, label: area.name, href: `/adp/designers/focus/${area.slug}/` })) },
+	{ key: 'hosts', legend: 'Host', options: catalogueHosts.map((host) => ({ value: host.id, label: host.name, href: `/adp/designers/hosts/${host.id}/` })) },
+	{ key: 'state', legend: 'Best state', options: facetStates.map((state) => ({ value: state, label: states[state].label, href: `/adp/designers/states/${state}/` })) },
 ];
 ---
 
-<div class="adp-filter not-content" data-adp-filter={JSON.stringify(facets)}></div>
+<form class="adp-filter not-content" aria-label="Filter designers" data-adp-filter>
+	{
+		facets.map((facet) => (
+			<fieldset>
+				<legend>{facet.legend}</legend>
+				{facet.options.map((option) => (
+					<div class="adp-filter-option">
+						<input type="checkbox" id={`filter-${facet.key}-${option.value}`} name={facet.key} value={option.value} aria-labelledby={`filter-${facet.key}-${option.value}-name`} />
+						<a id={`filter-${facet.key}-${option.value}-name`} href={option.href}>
+							{option.label}
+						</a>
+					</div>
+				))}
+			</fieldset>
+		))
+	}
+	<p class="adp-filter-status" aria-live="polite"></p>
+</form>
 
 <script>
-	type Facet = { key: 'focus' | 'hosts' | 'state'; legend: string; options: { value: string; label: string }[] };
+	type Key = 'focus' | 'hosts' | 'state';
 
-	for (const root of document.querySelectorAll<HTMLElement>('[data-adp-filter]')) {
-		const facets = JSON.parse(root.dataset.adpFilter!) as Facet[];
-		const form = document.createElement('form');
-		form.setAttribute('aria-label', 'Filter designers');
+	for (const form of document.querySelectorAll<HTMLFormElement>('[data-adp-filter]')) {
 		form.addEventListener('submit', (event) => event.preventDefault());
-
-		for (const facet of facets) {
-			const fieldset = document.createElement('fieldset');
-			const legend = document.createElement('legend');
-			legend.textContent = facet.legend;
-			fieldset.append(legend);
-			for (const option of facet.options) {
-				const label = document.createElement('label');
-				const input = document.createElement('input');
-				input.type = 'checkbox';
-				input.name = facet.key;
-				input.value = option.value;
-				label.append(input, ` ${option.label}`);
-				fieldset.append(label);
-			}
-			form.append(fieldset);
-		}
-		const status = document.createElement('p');
-		status.setAttribute('aria-live', 'polite');
-		status.className = 'adp-filter-status';
-		root.append(form, status);
+		const status = form.querySelector<HTMLElement>('.adp-filter-status')!;
+		const keys = [...new Set([...form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')].map((input) => input.name as Key))];
 
 		const cards = [...document.querySelectorAll<HTMLElement>('.adp-designer')];
-		const values = (card: HTMLElement, key: Facet['key']): string[] => {
+		const values = (card: HTMLElement, key: Key): string[] => {
 			if (key === 'hosts') return (card.dataset.hosts ?? '').split(' ').filter(Boolean).map((pair) => pair.split(':')[0]);
 			return (key === 'focus' ? card.dataset.focus ?? '' : card.dataset.state ?? '').split(' ').filter(Boolean);
 		};
 
 		const update = () => {
-			const chosen = facets.map((facet) => ({
-				key: facet.key,
-				values: [...form.querySelectorAll<HTMLInputElement>(`input[name="${facet.key}"]:checked`)].map((input) => input.value),
+			const chosen = keys.map((key) => ({
+				key,
+				values: [...form.querySelectorAll<HTMLInputElement>(`input[name="${key}"]:checked`)].map((input) => input.value),
 			}));
 			const shown = new Set<string>();
 			for (const card of cards) {
@@ -67,29 +63,32 @@ const facets = [
 				card.hidden = !match;
 				if (match) shown.add(card.dataset.origin!);
 			}
+			// While any option is ticked, a group without a matching designer goes, including one with no designers yet.
+			const filtering = chosen.some(({ values: wanted }) => wanted.length > 0);
 			for (const group of document.querySelectorAll<HTMLElement>('.adp-catalogue-group')) {
-				group.hidden = group.querySelector('.adp-designer:not([hidden])') === null && group.querySelector('.adp-designer') !== null;
+				group.hidden = filtering && group.querySelector('.adp-designer:not([hidden])') === null;
 			}
 			status.textContent = `${shown.size} ${shown.size === 1 ? 'designer' : 'designers'} shown`;
 		};
 		form.addEventListener('change', update);
+		form.classList.add('adp-filter-ready');
 		update();
 	}
 </script>
 
 <style>
-	.adp-filter :global(form) {
+	.adp-filter {
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 0.75rem;
-		margin-block: 1rem 0;
+		margin-block: 1.5rem;
 	}
 	@media (min-width: 50rem) {
-		.adp-filter :global(form) {
+		.adp-filter {
 			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
 	}
-	.adp-filter :global(fieldset) {
+	fieldset {
 		display: flex;
 		flex-direction: column;
 		gap: 0.25rem;
@@ -99,12 +98,26 @@ const facets = [
 		border-radius: 0.5rem;
 		font-size: var(--sl-text-sm);
 	}
-	.adp-filter :global(legend) {
+	legend {
 		padding-inline: 0.25rem;
 		font-weight: 600;
 	}
-	.adp-filter :global(.adp-filter-status) {
-		margin-block: 0.75rem 0;
+	.adp-filter-option {
+		display: flex;
+		align-items: baseline;
+		gap: 0.5rem;
+	}
+	.adp-filter-option a {
+		color: var(--sl-color-text-accent);
+	}
+	/* Without scripting the checkboxes would do nothing, so only the links show until the script is running. */
+	.adp-filter:not(.adp-filter-ready) input,
+	.adp-filter:not(.adp-filter-ready) .adp-filter-status {
+		display: none;
+	}
+	.adp-filter-status {
+		grid-column: 1 / -1;
+		margin: 0;
 		font-weight: 600;
 	}
 </style>

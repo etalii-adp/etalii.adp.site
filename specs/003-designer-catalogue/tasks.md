@@ -385,6 +385,17 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ---
 
+## Phase 8: Amendment 2026-09-28 - Filter by checkbox, links on the option names
+
+**Goal**: the overview filters in place through its checkboxes, and each option's name links to its facet page; the overview's separate block of facet links goes (FR-002 and US1 AS2 and AS4 as amended, contracts/site-addresses.md § The overview, research D6). Built on `features/003-focus-area-filtering`.
+
+- [x] **T059** [US1] Rewrite `src/components/catalogue/CatalogueFilter.astro` to render its form in the markup: a `<fieldset>` per facet with its `<legend>`, and per option a checkbox named by the option's link (`aria-labelledby`) followed by that link to `/adp/designers/focus/<slug>/`, `/adp/designers/hosts/<id>/` or `/adp/designers/states/<id>/`, and the `aria-live="polite"` status. The checkboxes and status stay hidden until the script marks the form ready; the script keeps its filtering rules (OR within a facet, AND across facets, no state across page loads), and while any option is ticked it also hides the focus-area groups with no matching designer.
+- [x] **T060** [US1] In `src/pages/designers/index.astro`, remove `FacetLinks` and keep `CatalogueFilter` above the groups. The facet pages keep `FacetLinks`.
+- [x] **T061** [US1] In `tests/catalogue.spec.ts`, check that the overview has no `.adp-facets` block; that every option name in the filter is a link that resolves, with scripting off as well as on; that the checkboxes are hidden without scripting; and that ticking a focus area narrows the list to its designers.
+- [x] **T062** Run `npm run build` and `npm run check`, with the committed sources and with the unit fixtures (`ADP_SOURCES_DIR`, `ADP_STATES_CONFIG`, `ADP_NOTION_SNAPSHOT`), and fix every failure.
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase dependencies

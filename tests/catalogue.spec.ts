@@ -40,11 +40,42 @@ test.describe('overview', () => {
 		}
 	});
 
-	test('its facet links all resolve (FR-002)', async ({ page, request }) => {
+	test('its filter option names link to the facet pages, with no separate block of facet links (FR-002)', async ({ page, request }) => {
 		await page.goto('/adp/designers/');
-		const hrefs = await page.locator('.adp-facets a').evaluateAll((links) => links.map((a) => a.getAttribute('href')!));
+		await expect(page.locator('.adp-facets')).toHaveCount(0);
+		const hrefs = await page.locator('.adp-filter-option a').evaluateAll((links) => links.map((a) => a.getAttribute('href')!));
 		expect(hrefs.length).toBe(catalogue.focusAreas.length + 4 + 5);
 		for (const href of hrefs) expect((await request.get(href)).status(), href).toBe(200);
+		for (const area of catalogue.focusAreas) {
+			await expect(page.getByRole('group', { name: 'Focus area' }).getByRole('checkbox', { name: area.name, exact: true })).toBeVisible();
+		}
+	});
+
+	test('without scripting, the filter shows its option names as links and no checkboxes (FR-002)', async ({ browser }) => {
+		const context = await browser.newContext({ javaScriptEnabled: false });
+		const page = await context.newPage();
+		await page.goto('/adp/designers/');
+		const filter = page.locator('.adp-filter');
+		await expect(filter.locator('input[type="checkbox"]').first()).toBeHidden();
+		await expect(filter.locator('.adp-filter-option a')).toHaveCount(catalogue.focusAreas.length + 4 + 5);
+		for (const area of catalogue.focusAreas) {
+			await expect(filter.getByRole('link', { name: area.name, exact: true })).toHaveAttribute('href', `/adp/designers/focus/${area.slug}/`);
+		}
+		await context.close();
+	});
+
+	test('with scripting, ticking a focus area narrows the list to its designers (US1 AS2)', async ({ page }) => {
+		await page.goto('/adp/designers/');
+		const status = page.locator('.adp-filter [aria-live="polite"]');
+		for (const area of catalogue.focusAreas) {
+			const checkbox = page.getByRole('group', { name: 'Focus area' }).getByRole('checkbox', { name: area.name, exact: true });
+			await checkbox.check();
+			const expected = catalogue.designers.filter((designer) => designer.focusAreas.includes(area.slug));
+			await expect(status).toHaveText(`${expected.length} ${expected.length === 1 ? 'designer' : 'designers'} shown`);
+			const visible = await page.locator('.adp-designer:not([hidden])').evaluateAll((cards) => [...new Set(cards.map((card) => (card as HTMLElement).dataset.origin))]);
+			expect(visible.sort()).toEqual(expected.map((designer) => designer.origin).sort());
+			await checkbox.uncheck();
+		}
 	});
 
 	test('a designer that is not usable anywhere has no image and says so (US1 AS3)', async ({ page }) => {
