@@ -40,7 +40,7 @@ In source order, all plain HTML, all present with scripting disabled:
 
 ## What a page must not do
 
-- Load anything from another origin: scripts, styles, fonts, images, frames (FR-015). The exceptions are the home page's build status badges from `https://github.com` and the header's visitor counter from `https://hitscounter.dev`; neither may leave a cookie.
+- Load anything from another origin: scripts, styles, fonts, images, frames (FR-015). The exceptions are the home page's build status badges from `https://github.com`, its repository statistics badges from `https://img.shields.io`, and the header's visitor counter from `https://hitscounter.dev`; neither may leave a cookie.
 - Hide text or links behind scripting (FR-014).
 - Present a section with no content as complete; use `status: coming` instead (US2 AS2).
 - Use colour alone to convey a state (WCAG 1.4.1).

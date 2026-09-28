@@ -260,7 +260,8 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 
 		if (states[best].rank < states.idea.rank) continue;
 		if (best === 'idea') {
-			ideas.push({ origin, name, family, theory: theoryLinks, source: primary });
+			const ideaPurpose = notion?.purpose && notion.purpose.length <= purposeLimit ? notion.purpose : null;
+			ideas.push({ origin, name, purpose: ideaPurpose, family, theory: theoryLinks, source: primary });
 			continue;
 		}
 
