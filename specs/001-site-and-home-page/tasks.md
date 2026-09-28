@@ -133,6 +133,16 @@ description: "Task list for the site and home page"
 - [x] T046 Ask the owner of `etalii-adp/etalii.adp.ide.standalone` to confirm the ADP icon may be published under this site's Apache-2.0 licence (or to add a licence to that repository), and update `src/assets/brand/SOURCE.md` with the answer; the pull request must not be merged before this is settled (plan, Dependencies; research R9)
 - [x] T047 After the pull request is merged into `develop`, run the "After merge" checks of [quickstart.md](quickstart.md) (`curl` for HTTP→HTTPS, `www`, `/adp` without slash, the root redirect and two 404s) and report the results on the merged pull request
 
+
+---
+
+## Phase 8: Amendment 2026-09-28 - Visitor counter
+
+**Purpose**: the owner's visitor counter in the header (FR-015 as amended, contracts/site-navigation.md item 2).
+
+- [x] T048 In `src/components/Header.astro`, add the hitscounter.dev counter right of the GitHub link: a `<picture>` choosing the dark accent (`#32cd32`) or the light accent (`#16782a`) of `src/styles/theme.css` by colour scheme, `crossorigin="anonymous"` so no cookie is kept, `referrerpolicy="no-referrer"`, alt text "Visitors", hidden below 50rem.
+- [x] T049 In `tests/site.spec.ts`, allow the counter's origin on every page next to the home page's build badges, and keep the check that no cookie is set.
+
 ---
 
 ## Dependencies & Execution Order
