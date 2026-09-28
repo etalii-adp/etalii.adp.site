@@ -62,13 +62,13 @@ test('2. an image in the content needs alt text', () => {
 	assert.match(run({ '/adp/designers/': page('', '<img src="/adp/x.webp">') }), /no alt text/);
 });
 
-test('3. a designer that is not usable shows no image, on its page or its card', () => {
+test('3. a designer that is not in progress or better shows no image, on its page or its card', () => {
 	const cypher = assembleCatalogue(fixtureOptions()).designers.find((designer) => designer.origin === 'neo4j/cypher')!;
 	const metas = cypher.sources
 		.filter((record) => record.kind === 'git')
 		.map((record) => `<meta name="adp:source" content="${record.repository}@${record.revision}:${record.path}">`)
 		.join('');
-	assert.match(run({ '/adp/designers/neo4j/cypher/': page(metas, `${sources}<img src="/adp/x.webp" alt="A graph">`) }), /not usable in any host but its page shows an image/);
+	assert.match(run({ '/adp/designers/neo4j/cypher/': page(metas, `${sources}<img src="/adp/x.webp" alt="A graph">`) }), /not in progress in any host but its page shows an image/);
 	const card = '<ul><li class="adp-designer" data-origin="neo4j/cypher"><img src="/adp/x.webp" alt="A graph"></li></ul>';
 	assert.match(run({ '/adp/designers/': page('', card) }), /card of neo4j\/cypher shows an image/);
 });

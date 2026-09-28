@@ -85,8 +85,8 @@ One per origin tag that has reached Planned in at least one host.
 **Rules**
 
 - If the best state is `prototype` or higher, the designer MUST have at least one Screenshot with `publishable: true`, or show "screenshot pending" (FR-006, edge case). The refresh reports every designer in the pending case.
-- If the best state is below `prototype`, `screenshots` MUST be empty (FR-007).
-- Every Screenshot's `host` MUST have a state of `prototype` or higher. A screenshot never illustrates a host where the designer is not usable.
+- If the best state is below `in-progress`, `screenshots` MUST be empty (FR-007, amended 2026-09-29: until then, below `prototype`). A designer in progress may have screenshots; they are shown marked as in progress.
+- Every Screenshot's `host` MUST have a state of `in-progress` or higher. A screenshot never illustrates a host where the designer is only planned or an idea.
 
 ### HostAvailability
 

@@ -10,9 +10,11 @@ import { screenshotImage } from './data';
 
 interface Props {
 	screenshot: Screenshot;
+	/** The designer is in progress, not usable yet: the caption says so (FR-007, amended 2026-09-28). */
+	inProgress?: boolean;
 }
 
-const { screenshot } = Astro.props;
+const { screenshot, inProgress = false } = Astro.props;
 const image = screenshot.publishable ? screenshotImage(screenshot) : undefined;
 const widths = image ? [600, 1200].filter((width) => width < image.width).concat(Math.min(image.width, 1200)) : [];
 ---
@@ -33,6 +35,7 @@ const widths = image ? [600, 1200].filter((width) => width < image.width).concat
 				/>
 			</a>
 			<figcaption>
+				{inProgress && <p class="adp-in-progress">In progress: this shows the designer while it is being built, before it can be used.</p>}
 				<p class="adp-caption">{screenshot.caption}</p>
 				<p>
 					<strong>What is visible:</strong> {screenshot.visible}
@@ -106,6 +109,10 @@ const widths = image ? [600, 1200].filter((width) => width < image.width).concat
 	}
 	.adp-caption {
 		font-weight: 600;
+	}
+	.adp-in-progress {
+		font-style: italic;
+		color: var(--sl-color-gray-2);
 	}
 	/* The viewer: the backdrop darkens the page, and the image fills as much of the window as its proportions allow. */
 	:global(.adp-lightbox) {

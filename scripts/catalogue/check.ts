@@ -13,7 +13,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { assembleCatalogue, type AssembleOptions } from '../../src/lib/catalogue/assemble.ts';
 import { readSources } from '../../src/lib/catalogue/sources.ts';
-import { bestState, isUsable } from '../../src/lib/catalogue/states.ts';
+import { bestState, isUsable, showsScreenshots } from '../../src/lib/catalogue/states.ts';
 
 export const imageBudget = 1_048_576;
 
@@ -77,7 +77,7 @@ export function check(options: AssembleOptions & { dist?: string } = {}): CheckR
 		for (const meta of metas) if (!lockEntries.has(meta)) fail(page, `adp:source ${meta} matches no lock entry under sources/`);
 
 		// 3. Nothing below Prototype shows an image.
-		if (!isUsable(bestState(designer.hosts)) && /<img\b/.test(main_(content))) fail(page, `${designer.origin} is not usable in any host but its page shows an image`);
+		if (!showsScreenshots(bestState(designer.hosts)) && /<img\b/.test(main_(content))) fail(page, `${designer.origin} is not in progress in any host but its page shows an image`);
 
 		// 4. The image budget.
 		let bytes = 0;

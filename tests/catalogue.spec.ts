@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 import { assembleCatalogue } from '../src/lib/catalogue/assemble.ts';
 import { catalogueHosts } from '../src/lib/catalogue/hosts.ts';
-import { bestState, isUsable, states } from '../src/lib/catalogue/states.ts';
+import { bestState, isUsable, showsScreenshots, states } from '../src/lib/catalogue/states.ts';
 
 // The designer catalogue (spec 003). Every expectation is derived from assembleCatalogue() over the same inputs as
 // the build (ADP_SOURCES_DIR, ADP_STATES_CONFIG and ADP_NOTION_SNAPSHOT when set), so nothing here is a hard-coded count.
@@ -267,7 +267,7 @@ test.describe('designer page', () => {
 
 			// FR-006, FR-007, FR-012, FR-015.
 			const shown = designer.screenshots.filter((screenshot) => screenshot.publishable);
-			if (!isUsable(bestState(designer.hosts))) {
+			if (!showsScreenshots(bestState(designer.hosts))) {
 				await expect(content.locator('img')).toHaveCount(0);
 				await expect(content.locator('#screenshots')).toHaveCount(0);
 			} else if (shown.length === 0) {
@@ -275,6 +275,8 @@ test.describe('designer page', () => {
 			}
 			const figures = content.locator('figure.adp-screenshot');
 			await expect(figures).toHaveCount(shown.length);
+			// A designer in progress shows its screenshots marked as such (FR-007, amended 2026-09-28).
+			await expect(figures.locator('.adp-in-progress')).toHaveCount(isUsable(bestState(designer.hosts)) ? 0 : shown.length);
 			for (const [index, screenshot] of shown.entries()) {
 				const figure = figures.nth(index);
 				await expect(figure.locator('img')).toHaveAttribute('alt', screenshot.alt);
