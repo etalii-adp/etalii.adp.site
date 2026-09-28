@@ -26,9 +26,21 @@ const head = [
 		.map((record) => ({ tag: 'meta' as const, attrs: { name: 'adp:source', content: `${record.repository}@${record.revision}:${record.path}` } })),
 	{ tag: 'meta' as const, attrs: { name: 'adp:sourced', content: 'true' } },
 ];
+// "On this page" lists every heading the page shows (amended 2026-09-28); StarlightPage cannot see them itself.
+const headings = [
+	{ depth: 2, slug: 'availability-heading', text: 'Availability' },
+	{ depth: 2, slug: 'what-it-is-for', text: 'What it is for' },
+	{ depth: 3, slug: 'the-task', text: 'The task' },
+	{ depth: 3, slug: 'why-specialized', text: 'Why a specialized view helps' },
+	{ depth: 3, slug: 'file-formats', text: 'File formats' },
+	...(usable ? [{ depth: 2, slug: 'screenshots', text: 'Screenshots' }] : []),
+	{ depth: 2, slug: 'background', text: 'Background' },
+	{ depth: 2, slug: 'focus-areas', text: 'Focus areas' },
+	{ depth: 2, slug: 'sources', text: 'Sources' },
+];
 ---
 
-<StarlightPage frontmatter={{ title: designer.name, description: designer.purpose, part: 'documentation', section: 'designers', head }}>
+<StarlightPage frontmatter={{ title: designer.name, description: designer.purpose, part: 'documentation', section: 'designers', head }} headings={headings}>
 	<p class="adp-lede">{designer.purpose}</p>
 	<p>
 		{kinds[designer.kind]} · origin tag <code>{designer.origin}</code> · {designer.family}
@@ -41,11 +53,11 @@ const head = [
 
 	<section aria-labelledby="what-it-is-for">
 		<h2 id="what-it-is-for">What it is for</h2>
-		<h3>The task</h3>
+		<h3 id="the-task">The task</h3>
 		<p>{designer.task ?? notDescribed}</p>
-		<h3>Why a specialized view helps</h3>
+		<h3 id="why-specialized">Why a specialized view helps</h3>
 		<p>{designer.whySpecialized ?? notDescribed}</p>
-		<h3>File formats</h3>
+		<h3 id="file-formats">File formats</h3>
 		{
 			designer.fileFormats.length > 0 ? (
 				<TableScroll label="File formats">
