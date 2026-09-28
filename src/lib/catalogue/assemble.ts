@@ -261,7 +261,8 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 		if (states[best].rank < states.idea.rank) continue;
 		if (best === 'idea') {
 			const ideaPurpose = notion?.purpose && notion.purpose.length <= purposeLimit ? notion.purpose : null;
-			ideas.push({ origin, name, purpose: ideaPurpose, family, theory: theoryLinks, source: primary });
+			const ideaFocus = (notion?.focusAreas ?? []).map((option) => focusAreas.find((area) => area.name === option)?.slug).filter((slug): slug is string => slug !== undefined);
+			ideas.push({ origin, name, purpose: ideaPurpose, family, focusAreas: ideaFocus, theory: theoryLinks, source: primary });
 			continue;
 		}
 
