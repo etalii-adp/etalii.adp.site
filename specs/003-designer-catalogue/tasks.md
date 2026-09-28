@@ -455,6 +455,16 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T083** [US2] In `src/components/catalogue/ScreenshotFigure.astro`, make the image a link to the full-size PNG and, with scripting, show that PNG in a modal `<dialog>` sized to the window (Escape, a close button, or a click closes it).
 - [x] **T084** In `tests/catalogue.spec.ts`, check that no card has an image and that clicking a screenshot opens the viewer with the full-size PNG and Escape closes it; run `npm run build` and `npm run check`.
 
+
+---
+
+## Phase 14: Amendment 2026-09-28 (seventh) - "On this page" on designer pages
+
+**Goal**: the "On this page" list of a designer page names every heading the page shows (FR-003 as amended).
+
+- [x] **T085** [US2] In `src/components/catalogue/DesignerPage.astro`, give the three subheadings of "What it is for" ids and pass the page's headings to `StarlightPage`, with "Screenshots" only where the section is shown.
+- [x] **T086** In `tests/catalogue.spec.ts`, check on every designer page that "On this page" lists exactly the page's headings; run `npm run build` and `npm run check`.
+
 ---
 
 ## Dependencies & Execution Order

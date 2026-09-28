@@ -209,6 +209,15 @@ test.describe('overview', () => {
 });
 
 test.describe('designer page', () => {
+	test('"On this page" lists every heading each designer page shows', async ({ page }) => {
+		for (const designer of catalogue.designers) {
+			await page.goto(`/adp/designers/${designer.origin}/`);
+			const shown = await page.locator('main .sl-markdown-content :is(h2, h3)').evaluateAll((headings) => headings.map((heading) => `#${heading.id}`));
+			const listed = await page.locator('starlight-toc a').evaluateAll((links) => [...new Set(links.map((link) => link.getAttribute('href')!))].filter((href) => href !== '#_top'));
+			expect(listed, designer.origin).toEqual(shown);
+		}
+	});
+
 	for (const designer of catalogue.designers) {
 		test(`${designer.origin} says what it is for, shows its screenshots and names its sources`, async ({ browser }) => {
 			const context = await browser.newContext({ javaScriptEnabled: false });
