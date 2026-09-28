@@ -15,14 +15,14 @@ There are no filter options for `idea` and `not-planned`: ideas are listed on th
 ## The overview
 
 - Its markup contains the full catalogue in reading order, with scripting disabled (FR-002).
-- Each entry shows the name, the one-line purpose, a thumbnail (or none, never a placeholder that looks like the product), the origin tag, and the four host states as text, not colour alone (WCAG 1.4.1).
+- Each entry shows the name, the one-line purpose, a thumbnail (or none, never a placeholder that looks like the product), the origin tag, and the four host states as text, not colour alone (WCAG 1.4.1). On a card the origin tag sits right below the name, as its subheading; the purpose follows, then "Not yet usable" where it applies (amended 2026-09-28).
 - Designers with no focus area are listed under "Other designers" after the focus-area groups. A focus area with no designers shows "No designers yet".
 - A filter above the list has one group per facet (focus area, host, state) and one checkbox per option, with the option's name as its label and no links (FR-002, amended 2026-09-28).
 - With scripting, ticking checkboxes narrows the list in place (OR within a facet, AND across facets); groups left without a matching designer are hidden while any option is ticked, the number of results is reported in an `aria-live="polite"` region, and the ticked options are kept in the address as `?focus=…&hosts=…&state=…`. Opening such an address ticks them.
 - With exactly one option ticked, the introduction, which sits between the filter and the list, is replaced by that option's description (a focus area's problem statement, or a sentence naming the host or state), the breadcrumbs become Documentation › Designers › the option (with Designers a link to the overview), and the document title names the option. With none or several ticked, the page is as built.
 - Without scripting, the filter is not shown and the full list is; nothing is lost but narrowing it.
 - Each card's name links to the designer page.
-- The ideas follow the catalogue under their own heading, as cards in the same grid as the designers' but with a dashed border and no states (amended 2026-09-28). Each shows the idea's name, one-line purpose where Notion has one, origin tag, family and theory links, and has no thumbnail and no link to a designer page.
+- The ideas follow the catalogue under their own heading, as cards in the same grid as the designers' but with a dashed border and no states (amended 2026-09-28). Each shows the idea's name, one-line purpose where Notion has one, origin tag, family and theory links, and has no thumbnail and no link to a designer page. On an idea card the origin tag sits right below the name, the family is labelled "Family:", and the theory links follow under a "Sources" heading, one per line, without bullets (amended 2026-09-28).
 
 ## A designer page, in order
 

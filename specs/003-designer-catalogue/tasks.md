@@ -433,6 +433,17 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T077** [US1] Rewrite `src/components/catalogue/IdeasList.astro` as cards: name, purpose, origin tag, family and theory links, in the grid of `DesignerList.astro`, with a dashed border.
 - [x] **T078** In `tests/catalogue.spec.ts`, check one card per idea with its name, origin tag and purpose; run `npm run build` and `npm run check`.
 
+
+---
+
+## Phase 12: Amendment 2026-09-28 (fifth) - Card details
+
+**Goal**: on the designer cards the origin tag is the subheading under the name, with "Not yet usable" still after the purpose; on the idea cards the origin tag also follows the name, the family line is labelled, and the theory links sit under a "Sources" heading, one per line (contracts/site-addresses.md § The overview).
+
+- [x] **T079** [US1] Reorder `src/components/catalogue/DesignerCard.astro`: name, origin tag, purpose, then "Not yet usable" as its own line.
+- [x] **T080** [US1] In `src/components/catalogue/IdeasList.astro`: name, origin tag, purpose, "Family: …", then a "Sources" heading over the theory links, one per line without bullets. The owner asked for the prefix "Focus area"; the line holds the Notion family, not a focus area, so it is labelled "Family" and the owner is told.
+- [x] **T081** Run `npm run build` and `npm run check`.
+
 ---
 
 ## Dependencies & Execution Order

@@ -1,5 +1,5 @@
 ---
-// One designer on the overview and the facet pages (FR-001): name, purpose, origin tag, the four host states as
+// One designer on the overview (FR-001): name, origin tag right below it, purpose, the four host states as
 // text, and a thumbnail only when a screenshot is publishable. The data-* attributes feed CatalogueFilter.
 import { Image } from 'astro:assets';
 import { catalogueHosts } from '../../lib/catalogue/hosts';
@@ -25,8 +25,9 @@ const hostsWithState = catalogueHosts
 <li class="adp-designer" data-origin={designer.origin} data-focus={designer.focusAreas.join(' ')} data-hosts={hostsWithState.join(' ')} data-state={best}>
 	{image && thumbnail && <Image src={image} alt={thumbnail.alt} width={Math.min(480, image.width)} format="webp" loading="lazy" decoding="async" />}
 	<h3><a href={designerHref(designer.origin)}>{designer.name}</a></h3>
+	<p class="adp-origin"><code>{designer.origin}</code></p>
 	<p>{designer.purpose}</p>
-	<p class="adp-origin"><code>{designer.origin}</code>{!usable && <span class="adp-note"> · Not yet usable</span>}</p>
+	{!usable && <p class="adp-note">Not yet usable</p>}
 	<dl class="adp-designer-hosts">
 		{
 			catalogueHosts.map((host) => (

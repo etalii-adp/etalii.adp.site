@@ -19,19 +19,22 @@ const { ideas } = Astro.props;
 				{ideas.map((idea) => (
 					<li class="adp-idea" data-origin={idea.origin}>
 						<h3>{idea.name}</h3>
-						{idea.purpose && <p>{idea.purpose}</p>}
 						<p class="adp-origin">
 							<code>{idea.origin}</code>
 						</p>
-						<p class="adp-note">{idea.family}</p>
+						{idea.purpose && <p>{idea.purpose}</p>}
+						<p class="adp-note">Family: {idea.family}</p>
 						{idea.theory.length > 0 && (
-							<ul class="adp-idea-theory" aria-label={`Background for ${idea.name}`}>
-								{idea.theory.map((link) => (
-									<li>
-										<a href={link.url}>{link.title}</a>
-									</li>
-								))}
-							</ul>
+							<>
+								<h4>Sources</h4>
+								<ul class="adp-idea-theory">
+									{idea.theory.map((link) => (
+										<li>
+											<a href={link.url}>{link.title}</a>
+										</li>
+									))}
+								</ul>
+							</>
 						)}
 					</li>
 				))}
@@ -72,11 +75,17 @@ const { ideas } = Astro.props;
 	.adp-origin code {
 		overflow-wrap: anywhere;
 	}
+	h4 {
+		margin: 0.25rem 0 0;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-white);
+	}
+	/* One link per line, without bullets. */
 	.adp-idea-theory {
 		display: flex;
-		flex-wrap: wrap;
-		gap: 0.25rem 0.75rem;
-		margin: 0.25rem 0 0;
+		flex-direction: column;
+		gap: 0.25rem;
+		margin: 0;
 		padding: 0;
 		list-style: none;
 		font-size: var(--sl-text-sm);
