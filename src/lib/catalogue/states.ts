@@ -13,7 +13,7 @@ export const states: Record<StateId, { label: string; rank: number; usable: bool
 	planned: { label: 'Planned', rank: 2, usable: false },
 	'in-progress': { label: 'In progress', rank: 3, usable: false },
 	prototype: { label: 'Prototype', rank: 4, usable: true },
-	implemented: { label: 'Implemented, not yet released', rank: 5, usable: true },
+	implemented: { label: 'Not yet released', rank: 5, usable: true },
 	available: { label: 'Available', rank: 6, usable: true },
 };
 

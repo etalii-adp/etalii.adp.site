@@ -20,8 +20,10 @@ const hostsWithState = catalogueHosts
 ---
 
 <li class="adp-designer" data-origin={designer.origin} data-focus={designer.focusAreas.join(' ')} data-hosts={hostsWithState.join(' ')} data-state={best}>
-	<h3><a href={designerHref(designer.origin)}>{designer.name}</a></h3>
-	<p class="adp-origin"><code>{designer.origin}</code></p>
+	<hgroup>
+		<h3><a href={designerHref(designer.origin)}>{designer.name}</a></h3>
+		<p class="adp-origin adp-note">{designer.origin}</p>
+	</hgroup>
 	<p>{designer.purpose}</p>
 	{!usable && <p class="adp-note">Not yet usable</p>}
 	<dl class="adp-designer-hosts">
@@ -55,11 +57,18 @@ const hostsWithState = catalogueHosts
 	h3 {
 		margin: 0;
 		font-size: var(--sl-text-h4);
+		line-height: var(--sl-line-height-headings);
 	}
 	p {
 		margin: 0;
 	}
-	.adp-origin code {
+	/* The origin tag is the name's subheading, in the style of "Not yet usable", right under it. */
+	hgroup {
+		display: flex;
+		flex-direction: column;
+		gap: 0.125rem;
+	}
+	.adp-origin {
 		overflow-wrap: anywhere;
 	}
 	.adp-designer-hosts {
