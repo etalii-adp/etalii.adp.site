@@ -1,9 +1,9 @@
 {
-  "retrievedAt": "2026-09-28T18:34:12.057Z",
+  "retrievedAt": "2026-09-28T23:31:30.606Z",
   "rows": [
     {
       "page": "3e7be2fd-05b6-81fb-8070-e34831ad0de0",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "airflow/dag",
       "name": "Apache Airflow DAG",
       "type": "Diagram",
@@ -27,7 +27,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8114-a8bb-e602d0e6ed63",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "ansible/structure",
       "name": "Ansible project structure",
       "type": "Diagram",
@@ -51,7 +51,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8173-b5e8-e7b1d957c564",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "archimate/application",
       "name": "ArchiMate — Application layer",
       "type": "Diagram",
@@ -75,7 +75,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81d6-bf6f-e0d383280a1e",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "archimate/business",
       "name": "ArchiMate — Business layer",
       "type": "Diagram",
@@ -99,7 +99,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8153-b2e0-cee8c557e37f",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "archimate/implementation-migration",
       "name": "ArchiMate — Implementation & Migration layer",
       "type": "Diagram",
@@ -124,7 +124,7 @@
     },
     {
       "page": "3e7be2fd-05b6-810a-bf56-c76c80d51a34",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "archimate/motivation",
       "name": "ArchiMate — Motivation layer",
       "type": "Diagram",
@@ -149,7 +149,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8184-9e39-e81c596e3b14",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "archimate/strategy",
       "name": "ArchiMate — Strategy layer",
       "type": "Diagram",
@@ -174,7 +174,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8160-b7ff-ecf5132f6eba",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "archimate/technology",
       "name": "ArchiMate — Technology layer",
       "type": "Diagram",
@@ -199,7 +199,7 @@
     },
     {
       "page": "3e7be2fd-05b6-811c-ac12-ffa79e2f7696",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "argoproj/workflow",
       "name": "Argo Workflows definition",
       "type": "Diagram",
@@ -223,7 +223,7 @@
     },
     {
       "page": "3e7be2fd-05b6-815a-bd7d-cfc5cddfde3a",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "aws/architecture",
       "name": "AWS architecture diagram",
       "type": "Diagram",
@@ -247,7 +247,7 @@
     },
     {
       "page": "3e7be2fd-05b6-817d-bd7d-d52bd3684e4f",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "azure-devops/pipeline",
       "name": "Azure DevOps pipeline diagram",
       "type": "Diagram",
@@ -271,7 +271,7 @@
     },
     {
       "page": "3e7be2fd-05b6-819a-a72e-f1f2a2dc9fc2",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "azure/architecture",
       "name": "Azure architecture diagram",
       "type": "Diagram",
@@ -295,7 +295,7 @@
     },
     {
       "page": "3e7be2fd-05b6-818a-9f5c-c1fa3170d5df",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "bpmn/process",
       "name": "BPMN process diagram",
       "type": "Diagram",
@@ -319,7 +319,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8103-8461-d961f59c9b8f",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "c4/code",
       "name": "Code",
       "type": "Diagram",
@@ -343,7 +343,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81fe-9412-d479a24fac26",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "c4/component",
       "name": "Component",
       "type": "Diagram",
@@ -368,7 +368,7 @@
     },
     {
       "page": "3e7be2fd-05b6-817f-be00-f58c46ca89b4",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "c4/container",
       "name": "Container",
       "type": "Diagram",
@@ -393,7 +393,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8165-a43a-c1ea2cd22394",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "c4/context",
       "name": "System Context",
       "type": "Diagram",
@@ -418,7 +418,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8193-b413-f5a2d65da68b",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "c4/deployment",
       "name": "Deployment",
       "type": "Diagram",
@@ -442,7 +442,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8145-8ccb-c06595eebadf",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "c4/dynamic",
       "name": "Dynamic",
       "type": "Diagram",
@@ -466,7 +466,7 @@
     },
     {
       "page": "3e7be2fd-05b6-811e-a9e5-d3bfa7a8e510",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "c4/system-landscape",
       "name": "System Landscape",
       "type": "Diagram",
@@ -491,7 +491,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81b2-8bb1-fec17b01d0db",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "cmap/concept-map",
       "name": "Concept map",
       "type": "Diagram",
@@ -516,7 +516,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81d7-b9b2-d4a84a238de7",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "commonwl/workflow",
       "name": "Common Workflow Language workflow",
       "type": "Diagram",
@@ -540,7 +540,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81f3-88dd-eb8ed99c9c17",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "contextmapper/context-map",
       "name": "DDD Context Map, plus generated PlantUML/BPMN sketches",
       "type": "Diagram",
@@ -565,7 +565,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8101-b5fe-d636582ae628",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "d2/diagram",
       "name": "General-purpose declarative diagram",
       "type": "Diagram",
@@ -590,7 +590,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8152-b9a5-df96ea394ce3",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "dagster/assets",
       "name": "Dagster asset graph",
       "type": "Diagram",
@@ -614,7 +614,7 @@
     },
     {
       "page": "3e7be2fd-05b6-816f-bfab-ea92152cf311",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "databricks/bundle",
       "name": "Databricks Bundle",
       "type": "Diagram",
@@ -638,7 +638,7 @@
     },
     {
       "page": "3e7be2fd-05b6-811b-a91c-d41f999f4ff9",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "databricks/job",
       "name": "Databricks Job",
       "type": "Diagram",
@@ -662,7 +662,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81ec-bce3-e238bf434d90",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "databricks/pipeline",
       "name": "Databricks Pipeline",
       "type": "Diagram",
@@ -686,7 +686,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8112-b2ca-e357ed93dd78",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "dbt/lineage",
       "name": "dbt project lineage",
       "type": "Diagram",
@@ -710,7 +710,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8102-b0bd-d7cc00c57e49",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "ddd/context-map",
       "name": "Bounded Context / Context Map",
       "type": "Diagram",
@@ -735,7 +735,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81cc-a14e-f217aac6698d",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "ddd/event-storming",
       "name": "Event Storming",
       "type": "Diagram",
@@ -760,7 +760,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8191-94f3-f0dd6bfc7523",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "dfd/data-flow",
       "name": "Data Flow Diagram",
       "type": "Diagram",
@@ -784,7 +784,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8167-94cd-e1733940aa1d",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "diagrams-python/cloud-infrastructure",
       "name": "Cloud/infrastructure diagram with official-style vendor icons",
       "type": "Diagram",
@@ -809,12 +809,12 @@
     },
     {
       "page": "3e7be2fd-05b6-8197-9916-fbf29bf49415",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "dotnet/dependency-graph",
       "name": ".NET project and package dependency graph",
       "type": "Diagram",
       "purpose": "Show the projects of a .NET solution, the NuGet packages they use and every reference between them.",
-      "description": ".NET project and package dependency graph (read-only: the projects of a `.sln`/`.slnx`, the NuGet packages they consume, and every `ProjectReference` and `PackageReference` between them, computed from the project files rather than authored; the solution is never written, and node positions a user arranges are authored into the `.adp`); [dotnet-dependency-graph](https://github.com/etalii-adp/etalii.adp.ide.standalone/blob/develop/.spec-workflow/archive/specs/dotnet-dependency-graph/requirements.md)",
+      "description": ".NET project and package dependency graph (read-only: the projects of a `.sln`/`.slnx`, the NuGet packages they consume, and every `ProjectReference` and `PackageReference` between them, computed from the project files rather than authored; the solution is never written, and node positions a user arranges are authored into the `.adp`); dotnet-dependency-graph",
       "whySpecialized": "References are spread over many project files; one graph reveals cycles, duplicate packages and unexpected couplings.",
       "fileExtension": null,
       "focusAreas": [
@@ -832,8 +832,56 @@
       "previousOrigin": null
     },
     {
+      "page": "3e9be2fd-05b6-81cb-8588-dc23273ac107",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
+      "origin": "editor/markdown",
+      "name": "Markdown editor",
+      "type": "Editor",
+      "purpose": "Aims to make markdown quick to write and easy to read, by editing the text with a live preview beside it.",
+      "description": "Markdown editor (`.md` and `.markdown` files; the text itself is the document, edited in place with a rendered preview beside it, and written back with its encoding, line endings and final newline unchanged)",
+      "whySpecialized": "Markdown is read rendered but written as text; an editor that keeps both in view avoids switching between a text tab and a preview.",
+      "fileExtension": ".md",
+      "focusAreas": [
+        "Clarity in textual data"
+      ],
+      "family": null,
+      "subfamily": null,
+      "theory": null,
+      "hosts": {
+        "standalone": "✅ Implemented",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
+      "page": "3e9be2fd-05b6-8175-8064-d773f4713d9c",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
+      "origin": "editor/plain",
+      "name": "Plain text editor",
+      "type": "Editor",
+      "purpose": "Aims to open every text file somewhere, as plain text, when no other tool claims it.",
+      "description": "Plain text editor (any text file that no other tool claims; the fallback, written back with its encoding, line endings and final newline unchanged)",
+      "whySpecialized": "It is the fallback that makes every text file in a project open in ADP, without changing the file's shape when it is saved.",
+      "fileExtension": ".txt",
+      "focusAreas": [
+        "Clarity in textual data"
+      ],
+      "family": null,
+      "subfamily": null,
+      "theory": null,
+      "hosts": {
+        "standalone": "✅ Implemented",
+        "intellij": null,
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
       "page": "3e7be2fd-05b6-817b-bc63-cfc9f87f745e",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "erd/entity-relationship",
       "name": "Entity-Relationship Diagram",
       "type": "Diagram",
@@ -858,7 +906,7 @@
     },
     {
       "page": "3e7be2fd-05b6-816d-870a-ca3397e351cf",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "etalii/functional-decomposition-graph",
       "name": "Functional decomposition graph",
       "type": "Diagram",
@@ -883,7 +931,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81ec-8566-d59cecae456f",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "freeplane/mindmap",
       "name": "Mind map",
       "type": "Diagram",
@@ -908,7 +956,7 @@
     },
     {
       "page": "3e7be2fd-05b6-80af-8bb1-faac5ac32654",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "gartner/hypecycle-graph",
       "name": "Gartner HypeCycle Graph",
       "type": "Diagram",
@@ -934,7 +982,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8199-abc7-c49311761f2f",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "gcp/architecture",
       "name": "GCP architecture diagram",
       "type": "Diagram",
@@ -958,7 +1006,7 @@
     },
     {
       "page": "3e8be2fd-05b6-80e1-9cd5-c20dc7b3a759",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "generic/agent-teaming",
       "name": "Agent Teaming Agreement",
       "type": "Diagram",
@@ -982,7 +1030,7 @@
     },
     {
       "page": "3e8be2fd-05b6-802e-a533-d706eecc7eed",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "generic/agentic-development",
       "name": "Agentic Development Clarification",
       "type": "Diagram",
@@ -1007,7 +1055,7 @@
     },
     {
       "page": "3e7be2fd-05b6-806e-ad2f-e9769a31050f",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "generic/commit-heatmap",
       "name": "Commit file and folder heatmap",
       "type": "Diagram",
@@ -1032,7 +1080,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81d3-9495-d56ebf7d46ab",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "generic/dependencies",
       "name": "Dependency graph",
       "type": "Diagram",
@@ -1057,7 +1105,7 @@
     },
     {
       "page": "3e9be2fd-05b6-808e-acfb-efa7fd38536c",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "generic/pipeline-state",
       "name": "Pipeline State Visualization",
       "type": "Diagram",
@@ -1073,7 +1121,7 @@
       "subfamily": null,
       "theory": null,
       "hosts": {
-        "standalone": null,
+        "standalone": "💡 Identified",
         "intellij": null,
         "vscode": null,
         "eclipse": null
@@ -1082,7 +1130,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8124-b80f-cafc45312244",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "generic/swimlane",
       "name": "Swimlane diagram",
       "type": "Diagram",
@@ -1107,7 +1155,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81e2-af47-c423ad1569e6",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "generic/timeline",
       "name": "Timeline diagram",
       "type": "Diagram",
@@ -1132,7 +1180,7 @@
     },
     {
       "page": "3e7be2fd-05b6-807c-8ca7-d5ffc5fb6f42",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "generic/wysiwyg-visualization",
       "name": "WYSIWYG execution visualization",
       "type": "Diagram",
@@ -1156,7 +1204,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8146-be64-efab8e335537",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "helm/chart",
       "name": "Helm chart anatomy",
       "type": "Diagram",
@@ -1180,7 +1228,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8197-a610-c6f1c61ad2cb",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "iso/flowchart",
       "name": "Flowchart",
       "type": "Diagram",
@@ -1203,8 +1251,32 @@
       "previousOrigin": null
     },
     {
+      "page": "3e9be2fd-05b6-81f5-a32a-e22dad703385",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
+      "origin": "jgraph/drawio",
+      "name": "draw.io diagram",
+      "type": "Diagram",
+      "purpose": "Edit draw.io diagrams (shapes, edges, labels and swimlanes) inside the IDE, in draw.io's own uncompressed .drawio format.",
+      "description": "Free-form diagrams in draw.io's file format: flowcharts, activity diagrams, swimlanes and UML sketches. Implemented in the IntelliJ plug-in (etalii.adp.ide.intellij docs/diagrams.md).",
+      "whySpecialized": "A .drawio file is unreadable XML as text; a designer in the IDE lets it be edited next to the code it describes while everything it does not show is kept, so the file still opens in draw.io.",
+      "fileExtension": ".drawio",
+      "focusAreas": [
+        "Software delivery"
+      ],
+      "family": null,
+      "subfamily": null,
+      "theory": "[https://www.drawio.com/](https://www.drawio.com/) · [https://www.drawio.com/doc/faq/diagram-source-edit](https://www.drawio.com/doc/faq/diagram-source-edit)",
+      "hosts": {
+        "standalone": null,
+        "intellij": "✅ Implemented",
+        "vscode": null,
+        "eclipse": null
+      },
+      "previousOrigin": null
+    },
+    {
       "page": "3e7be2fd-05b6-8152-9b1c-ffd834e9f654",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "kubeflow/pipeline",
       "name": "Kubeflow Pipelines definition",
       "type": "Diagram",
@@ -1228,7 +1300,7 @@
     },
     {
       "page": "3e7be2fd-05b6-819d-b2a6-e27d483275f9",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "linkml/schema",
       "name": "LinkML schema",
       "type": "Diagram",
@@ -1252,7 +1324,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81fb-806d-dc556a9609cc",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "meltano/project",
       "name": "Meltano ELT project",
       "type": "Diagram",
@@ -1276,7 +1348,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8139-bb6f-ececd89aebac",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "mermaid/architecture",
       "name": "Architecture diagram",
       "type": "Diagram",
@@ -1301,7 +1373,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8164-ad02-c1c5c66c813a",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "mermaid/c4",
       "name": "C4 diagram",
       "type": "Diagram",
@@ -1326,7 +1398,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81b2-a057-d8b9d06d61cf",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "mermaid/class",
       "name": "Class diagram",
       "type": "Diagram",
@@ -1351,7 +1423,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81b8-9dd9-d0a17a86a46d",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "mermaid/er",
       "name": "Entity-Relationship diagram",
       "type": "Diagram",
@@ -1376,7 +1448,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8179-8f39-d02f6cc6bc99",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "mermaid/flowchart",
       "name": "Flowchart",
       "type": "Diagram",
@@ -1401,7 +1473,7 @@
     },
     {
       "page": "3e7be2fd-05b6-816c-a0f9-d746625ff823",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "mermaid/gantt",
       "name": "Gantt chart",
       "type": "Diagram",
@@ -1426,7 +1498,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8181-9a3b-c547761da084",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "mermaid/sequence",
       "name": "Sequence diagram",
       "type": "Diagram",
@@ -1451,7 +1523,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8122-81b1-dcbf7ea57b31",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "mermaid/state",
       "name": "State diagram",
       "type": "Diagram",
@@ -1476,7 +1548,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81c6-9ca8-cc01149bda30",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "mongodb/aggregation-pipeline",
       "name": "MongoDB aggregation pipeline",
       "type": "Diagram",
@@ -1501,7 +1573,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8189-8490-de02dd8138f0",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "mongodb/query",
       "name": "MongoDB find query and result documents",
       "type": "Diagram",
@@ -1526,12 +1598,12 @@
     },
     {
       "page": "3e7be2fd-05b6-81ab-a342-ec180cfbdee0",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "neo4j/cypher",
       "name": "Cypher query and result graph",
       "type": "Diagram",
       "purpose": "See a Cypher query's MATCH patterns as a graph, and its results as an interactive graph.",
-      "description": "Cypher query and result graph (MATCH patterns as node/edge structure; results as an interactive graph). Cypher is standardized via [openCypher](https://opencypher.org/) and the ISO [GQL](https://www.gqlstandards.org/) standard",
+      "description": "Cypher query and result graph (MATCH patterns as node/edge structure; results as an interactive graph). Cypher is standardized via openCypher and the ISO GQL standard",
       "whySpecialized": null,
       "fileExtension": null,
       "focusAreas": [
@@ -1551,7 +1623,7 @@
     },
     {
       "page": "3e7be2fd-05b6-818a-9464-ce0f8415df8c",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "network/topology",
       "name": "Network topology diagram",
       "type": "Diagram",
@@ -1575,7 +1647,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81bf-893f-c4b46bae5c17",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "nextflow/workflow",
       "name": "Nextflow pipeline",
       "type": "Diagram",
@@ -1599,7 +1671,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81a0-8cad-c9909b1621d1",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "nifi/flow",
       "name": "Apache NiFi flow definition",
       "type": "Diagram",
@@ -1623,7 +1695,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81c0-9894-f4752befd048",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "openlineage/lineage",
       "name": "OpenLineage lineage graph",
       "type": "Diagram",
@@ -1648,7 +1720,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81b2-b74e-faf8d02c6d8e",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "openwdl/workflow",
       "name": "Workflow Description Language workflow",
       "type": "Diagram",
@@ -1672,7 +1744,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81e1-9da9-fc29bea548d4",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "plantuml/c4",
       "name": "C4 diagram, via C4-PlantUML",
       "type": "Diagram",
@@ -1697,7 +1769,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81d2-9228-eb0b4ea925ba",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "plantuml/uml",
       "name": "Full UML set",
       "type": "Diagram",
@@ -1722,7 +1794,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8114-ab8d-eba159abf2b6",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "snakemake/workflow",
       "name": "Snakemake workflow",
       "type": "Diagram",
@@ -1746,7 +1818,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81af-be74-dda27722af89",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "spark/declarative-pipeline",
       "name": "Spark Declarative Pipelines",
       "type": "Diagram",
@@ -1770,7 +1842,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81b4-9f78-f65a493b4bf8",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "structurizr/c4",
       "name": "C4 model",
       "type": "Diagram",
@@ -1795,7 +1867,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81ba-bea7-c2f98eae403e",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "systems/causal-loop-diagram",
       "name": "Causal loop diagram",
       "type": "Diagram",
@@ -1821,7 +1893,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81ef-bad3-c4aa216caae1",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "togaf/adm",
       "name": "TOGAF ADM cycle diagram",
       "type": "Diagram",
@@ -1846,7 +1918,7 @@
     },
     {
       "page": "3e7be2fd-05b6-811b-afe3-ce1f67322939",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "uml/activity",
       "name": "Activity diagram",
       "type": "Diagram",
@@ -1870,7 +1942,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81eb-b551-f9e6c23b2660",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "uml/class",
       "name": "Class diagram",
       "type": "Diagram",
@@ -1894,7 +1966,7 @@
     },
     {
       "page": "3e7be2fd-05b6-817a-8112-fd0f289e73e6",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "uml/communication",
       "name": "Communication diagram",
       "type": "Diagram",
@@ -1918,7 +1990,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81ce-8996-e56613e30bdc",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "uml/component",
       "name": "Component diagram",
       "type": "Diagram",
@@ -1942,7 +2014,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8145-8135-d88c269d0a2b",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "uml/composite-structure",
       "name": "Composite structure diagram",
       "type": "Diagram",
@@ -1966,7 +2038,7 @@
     },
     {
       "page": "3e7be2fd-05b6-816d-8ed6-c811424099c8",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "uml/deployment",
       "name": "Deployment diagram",
       "type": "Diagram",
@@ -1990,7 +2062,7 @@
     },
     {
       "page": "3e7be2fd-05b6-819b-84d6-ff6b27030e30",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "uml/interaction-overview",
       "name": "Interaction overview diagram",
       "type": "Diagram",
@@ -2014,7 +2086,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81cc-8e61-da382dbaa303",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "uml/object",
       "name": "Object diagram",
       "type": "Diagram",
@@ -2038,7 +2110,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81e8-81d0-c18651810e1d",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "uml/package",
       "name": "Package diagram",
       "type": "Diagram",
@@ -2062,7 +2134,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8109-9f74-c037f50c9ff4",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "uml/profile",
       "name": "Profile diagram",
       "type": "Diagram",
@@ -2087,7 +2159,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8142-935d-c251e948ea91",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "uml/sequence",
       "name": "Sequence diagram",
       "type": "Diagram",
@@ -2111,7 +2183,7 @@
     },
     {
       "page": "3e7be2fd-05b6-817f-a238-eccf592e1958",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "uml/state-machine",
       "name": "State machine diagram",
       "type": "Diagram",
@@ -2135,7 +2207,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81b0-a4d1-d0cd06fbcf3d",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "uml/timing",
       "name": "Timing diagram",
       "type": "Diagram",
@@ -2159,7 +2231,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8114-81ca-f5feeeb3b6d7",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "uml/use-case",
       "name": "Use case diagram",
       "type": "Diagram",
@@ -2184,7 +2256,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8101-80d8-c3f51ba13612",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "w3c/owl",
       "name": "OWL 2 ontology",
       "type": "Diagram",
@@ -2208,7 +2280,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8103-8802-d78c946b5006",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "w3c/rdf",
       "name": "RDF Graph",
       "type": "Diagram",
@@ -2234,7 +2306,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8171-b7d0-d8e05119b552",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "w3c/shacl",
       "name": "SHACL Shapes",
       "type": "Diagram",
@@ -2258,7 +2330,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8158-b035-ccd06f93f871",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "w3c/skos",
       "name": "SKOS Concept Scheme",
       "type": "Diagram",
@@ -2283,7 +2355,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8117-b918-e1d27aa08742",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "w3c/sparql",
       "name": "SPARQL query",
       "type": "Diagram",
@@ -2309,7 +2381,7 @@
     },
     {
       "page": "3e7be2fd-05b6-8182-9d65-ebf185c4b251",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "wardley/map",
       "name": "Wardley Map",
       "type": "Diagram",
@@ -2335,7 +2407,7 @@
     },
     {
       "page": "3e7be2fd-05b6-81b1-b879-e77fc9397dbf",
-      "lastEditedTime": "2026-09-28T18:33:44.883Z",
+      "lastEditedTime": "2026-09-28T23:31:06.835Z",
       "origin": "zachman/matrix",
       "name": "Zachman Framework matrix",
       "type": "Diagram",

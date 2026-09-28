@@ -1,0 +1,50 @@
+[
+  {
+    "origin": "jgraph/drawio",
+    "name": "draw.io diagram (shapes, edges, labels and swimlanes; uncompressed .drawio files)",
+    "group": "General-purpose diagramming",
+    "developState": "Implemented",
+    "releaseState": null,
+    "state": "implemented",
+    "theory": [
+      {
+        "label": "draw.io",
+        "href": "https://www.drawio.com/"
+      },
+      {
+        "label": "Diagram source format",
+        "href": "https://www.drawio.com/doc/faq/diagram-source-edit"
+      }
+    ],
+    "example": [
+      {
+        "label": "Example diagrams",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.intellij/tree/develop/drawio/testdata/examples"
+      }
+    ]
+  },
+  {
+    "origin": "freeplane/mindmap",
+    "name": "FreeMind mind map (radial/hierarchical, single central topic; FreeMind and Freeplane .mm files)",
+    "group": "Knowledge & informal modeling",
+    "developState": "Implemented",
+    "releaseState": null,
+    "state": "implemented",
+    "theory": [
+      {
+        "label": "FreeMind",
+        "href": "https://freemind.sourceforge.io/"
+      },
+      {
+        "label": "Freeplane",
+        "href": "https://www.freeplane.org/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Example maps",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.intellij/tree/develop/freemind/testdata/examples"
+      }
+    ]
+  }
+]
