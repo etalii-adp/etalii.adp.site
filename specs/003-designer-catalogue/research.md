@@ -101,7 +101,7 @@ The Notion database "Diagrams" (`collection://3e7be2fd-05b6-8079-932d-000bfa0609
 
 ### D6. Filtering without scripting
 
-- **Decision**: Every facet has its own statically generated page: the overview grouped by focus area, `designers/hosts/<host>/`, `designers/states/<state>/` and `designers/focus/<area>/`. These are reached by plain links, and the overview shows the full list. A small script, loaded only on the overview, adds combined filter controls on top. Its results are announced through an `aria-live` region.
+- **Decision**: Every facet has its own statically generated page: the overview grouped by focus area, `designers/hosts/<host>/`, `designers/states/<state>/` and `designers/focus/<area>/`. These are reached by plain links, and the overview shows the full list. A small script, loaded only on the overview, adds combined filter controls on top. Its results are announced through an `aria-live` region. Amended 2026-09-28 (owner): the overview's filter is rendered in the markup, one checkbox per option with the option's name as the link to its facet page, and it replaces the overview's separate block of facet links. The script only reveals the checkboxes and filters; without it the names are the plain links.
 - **Rationale**: FR-002 requires the full list and a way to narrow it with scripting disabled. Per-facet pages give both, can be bookmarked, and are checked by the same link and accessibility tooling as every other page.
 - **Alternatives considered**: CSS-only filtering with `:has()` and checkboxes (works without script, but a screen-reader user gets no announcement that the list changed). Script-only filtering (breaks FR-002).
 

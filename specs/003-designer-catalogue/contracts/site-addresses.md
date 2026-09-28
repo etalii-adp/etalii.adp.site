@@ -18,8 +18,9 @@ The facet pages for `idea` and `not-planned` are not generated: ideas are listed
 - Its markup contains the full catalogue in reading order, with scripting disabled (FR-002).
 - Each entry shows the name, the one-line purpose, a thumbnail (or none, never a placeholder that looks like the product), the origin tag, and the four host states as text, not colour alone (WCAG 1.4.1).
 - Designers with no focus area are listed under "Other designers" after the focus-area groups. A focus area with no designers shows "No designers yet".
-- The facet links (focus areas, hosts, states) appear above the list as ordinary links.
-- Enhancement: when scripting is available, one script adds combined filter checkboxes for focus area, host and state, and reports the number of results in an `aria-live="polite"` region. Without the script, nothing is lost but the combination of filters.
+- A filter above the list has one group per facet (focus area, host, state), in the markup, not added by script. Each option is a checkbox followed by the option's name, and the name is an ordinary link to that option's facet page. There is no separate block of facet links on the overview (FR-002, amended 2026-09-28).
+- With scripting, ticking checkboxes narrows the list in place (OR within a facet, AND across facets); groups left without a matching designer are hidden while any option is ticked, and the number of results is reported in an `aria-live="polite"` region. Without scripting, the checkboxes are not shown, the names stay links to the facet pages, and nothing is lost but the combination of filters.
+- The facet pages keep their own block of facet links, so a visitor can move from one facet page to another.
 - The ideas list follows the catalogue under its own heading. It shows each idea's name, origin tag and theory links, and has no thumbnails and no links to designer pages.
 
 ## A designer page, in order
