@@ -143,6 +143,15 @@ description: "Task list for the site and home page"
 - [x] T048 In `src/components/Header.astro`, add the hitscounter.dev counter right of the GitHub link: a `<picture>` choosing the dark accent (`#32cd32`) or the light accent (`#16782a`) of `src/styles/theme.css` by colour scheme, `crossorigin="anonymous"` so no cookie is kept, `referrerpolicy="no-referrer"`, alt text "Visitors", hidden below 50rem.
 - [x] T049 In `tests/site.spec.ts`, allow the counter's origin on every page next to the home page's build badges, and keep the check that no cookie is set.
 
+
+---
+
+## Phase 9: Fix 2026-09-29 - "On this page" width
+
+**Purpose**: on a wide screen the "On this page" list uses the width of its column, so entries only wrap when they must (owner's request of 2026-09-29).
+
+- [x] T050 In `src/styles/theme.css`, from 72rem up, size `.right-sidebar-panel .sl-container` to the right-hand column (Starlight's own column formula, less padding and a scrollbar margin) instead of Starlight's fixed sidebar width; run `npm run build` and `npm run check`.
+
 ---
 
 ## Dependencies & Execution Order

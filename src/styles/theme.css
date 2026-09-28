@@ -174,3 +174,17 @@ h4,
 .sl-markdown-content .not-content a {
 	color: var(--sl-color-text-accent);
 }
+
+/* "On this page" uses the full width of the right-hand column on a wide screen, instead of Starlight's fixed column
+   width, so its entries only wrap when they must (spec 001, amended 2026-09-29). */
+@media (min-width: 72rem) {
+	/* The right-hand column is fixed-positioned, so its width is worked out as Starlight does for the column itself:
+	   the sidebar width plus half of what the content leaves over, less padding and a margin for the scrollbar. */
+	.right-sidebar-panel .sl-container {
+		width: calc(
+			max(var(--sl-sidebar-width), var(--sl-sidebar-width) + (100vw - 2 * var(--sl-sidebar-width) - var(--sl-content-width)) / 2) - 2 *
+				var(--sl-sidebar-pad-x) - 1rem
+		);
+		max-width: none;
+	}
+}
