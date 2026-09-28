@@ -3,7 +3,7 @@
 // page. Every git source is named in an adp:source meta for spec 004's source-record check.
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import AvailabilityTable from './AvailabilityTable.astro';
-import { bestState, filterHref, isUsable } from './data';
+import { bestState, filterHref, isUsable, showsScreenshots } from './data';
 import ScreenshotFigure from './ScreenshotFigure.astro';
 import SourceList from './SourceList.astro';
 import TableScroll from './TableScroll.astro';
@@ -16,6 +16,7 @@ interface Props {
 
 const { designer, focusAreas } = Astro.props;
 const usable = isUsable(bestState(designer.hosts));
+const withScreenshots = showsScreenshots(bestState(designer.hosts));
 const screenshots = designer.screenshots.filter((screenshot) => screenshot.publishable);
 const areas = designer.focusAreas.map((slug) => focusAreas.find((area) => area.slug === slug)).filter((area) => area !== undefined);
 const kinds = { diagram: 'Diagram', designer: 'Designer', editor: 'Editor' } as const;
@@ -33,7 +34,7 @@ const headings = [
 	{ depth: 3, slug: 'the-task', text: 'The task' },
 	{ depth: 3, slug: 'why-specialized', text: 'Why a specialized view helps' },
 	{ depth: 3, slug: 'file-formats', text: 'File formats' },
-	...(usable ? [{ depth: 2, slug: 'screenshots', text: 'Screenshots' }] : []),
+	...(withScreenshots ? [{ depth: 2, slug: 'screenshots', text: 'Screenshots' }] : []),
 	{ depth: 2, slug: 'background', text: 'Background' },
 	{ depth: 2, slug: 'focus-areas', text: 'Focus areas' },
 	{ depth: 2, slug: 'sources', text: 'Sources' },
@@ -91,11 +92,11 @@ const headings = [
 	</section>
 
 	{
-		usable && (
+		withScreenshots && (
 			<section aria-labelledby="screenshots">
 				<h2 id="screenshots">Screenshots</h2>
 				{screenshots.length > 0 ? (
-					screenshots.map((screenshot) => <ScreenshotFigure screenshot={screenshot} />)
+					screenshots.map((screenshot) => <ScreenshotFigure screenshot={screenshot} inProgress={!usable} />)
 				) : (
 					<p class="adp-pending">Screenshot pending. A screenshot is shown once its source is licensed and described.</p>
 				)}

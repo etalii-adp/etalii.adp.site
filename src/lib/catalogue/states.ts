@@ -76,3 +76,11 @@ export function bestState(hosts: Record<HostId, Pick<HostAvailability, 'state'>>
 export function isUsable(state: StateId): boolean {
 	return states[state].usable;
 }
+
+/**
+ * Whether a designer in this state shows its screenshots (FR-007, amended 2026-09-28): from "In progress" up. A
+ * designer in progress is not usable yet, so its screenshots are marked as work in progress.
+ */
+export function showsScreenshots(state: StateId): boolean {
+	return states[state].rank >= states['in-progress'].rank;
+}

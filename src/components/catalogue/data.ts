@@ -2,7 +2,7 @@
 // screenshots as image modules. Astro-only (it imports astro:content); plain logic lives in src/lib/catalogue/.
 import type { ImageMetadata } from 'astro';
 import { getCollection } from 'astro:content';
-import { bestState, isUsable } from '../../lib/catalogue/states';
+import { bestState, isUsable, showsScreenshots } from '../../lib/catalogue/states';
 import type { Designer, FocusArea, Idea, Redirect, Screenshot, SourceRecord } from '../../lib/catalogue/types';
 
 const byOrigin = <T extends { origin: string }>(a: T, b: T) => (a.origin < b.origin ? -1 : a.origin > b.origin ? 1 : 0);
@@ -38,7 +38,7 @@ export function designerHref(origin: string): string {
 	return `/adp/designers/${origin}/`;
 }
 
-export { bestState, isUsable };
+export { bestState, isUsable, showsScreenshots };
 
 /**
  * The image of a publishable screenshot, imported by the designers collection (src/content.config.ts). Only

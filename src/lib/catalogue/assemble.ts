@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { catalogueHosts, hostById } from './hosts.ts';
 import { readNotionSnapshot, toNotionSourceRecord, type NotionRow } from './notion-snapshot.ts';
 import { licenceOf, posix, readSources, toSourceRecord, type CatalogueRow, type Sources } from './sources.ts';
-import { UnmappedStateError, bestState, defaultStatesConfig, isUsable, loadMapping, mapSourceState, states, type StateMapping } from './states.ts';
+import { UnmappedStateError, bestState, defaultStatesConfig, isUsable, loadMapping, showsScreenshots, mapSourceState, states, type StateMapping } from './states.ts';
 import type {
 	CatalogueReport,
 	Designer,
@@ -296,7 +296,7 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 			else report.gaps.push({ origin, message: `${origin}: the focus area "${option}" is not in focus-areas.json; run npm run catalogue:notion` });
 		}
 
-		// Screenshots: accepted images only, for a usable designer, from a host where it is usable (FR-007).
+		// Screenshots: accepted images only, for a designer in progress or better, from a host where it is (FR-007).
 		const screenshots: Screenshot[] = [];
 		for (const [host, { entries, lock }] of sources.screenshots) {
 			for (const entry of entries.filter((candidate) => candidate.origin === origin)) {
@@ -304,7 +304,7 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 					report.pending.push({ origin, host, message: `${origin}: ${host} screenshot ${entry.file} was rejected by the screenshot refresh and is not shown` });
 					continue;
 				}
-				if (!isUsable(best) || !isUsable(hosts[host].state)) {
+				if (!showsScreenshots(best) || !showsScreenshots(hosts[host].state)) {
 					report.disagreements.push({ origin, host, message: `${origin}: ${host} has a screenshot ${entry.file}, but the designer is ${states[hosts[host].state].label.toLowerCase()} there, so it is not shown` });
 					continue;
 				}
@@ -331,7 +331,7 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 				used.push(record);
 			}
 		}
-		if (isUsable(best) && !screenshots.some((shot) => shot.publishable)) {
+		if (showsScreenshots(best) && !screenshots.some((shot) => shot.publishable)) {
 			report.pending.push({ origin, message: `${origin}: screenshot pending (usable, but no publishable screenshot)` });
 		}
 

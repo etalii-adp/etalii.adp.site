@@ -505,6 +505,17 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T095** Assign a focus area to every idea in Notion (owner's request of 2026-09-28; Claude's draft, for the owner to correct there), take the snapshot with `npm run catalogue:notion -- --export` (the catalogue refresh reports "current" when only Notion changed), and run `npm run catalogue:report`.
 - [x] **T096** Test the focus-area, host and Idea filters on the idea cards and the count; run `npm run build` and `npm run check`.
 
+
+---
+
+## Phase 20: Amendment 2026-09-29 - Screenshots of designers in progress
+
+**Goal**: a designer in progress shows its screenshots, captioned as in progress (FR-007 as amended, contracts/site-addresses.md, data-model § Designer).
+
+- [x] **T097** Add `showsScreenshots` (in progress or better) to `src/lib/catalogue/states.ts` and use it in `assemble.ts`, `DesignerPage.astro` and `scripts/catalogue/check.ts` where screenshots were limited to usable designers.
+- [x] **T098** [US2] In `ScreenshotFigure.astro`, caption a screenshot of a designer that is not usable yet with "In progress: this shows the designer while it is being built, before it can be used."
+- [x] **T099** Update the page and unit tests; run `npm run test:catalogue`, `npm run build` and `npm run check`.
+
 ---
 
 ## Dependencies & Execution Order
