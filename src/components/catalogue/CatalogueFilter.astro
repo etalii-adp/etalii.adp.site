@@ -29,10 +29,13 @@ const facets = [
 	{
 		key: 'state',
 		legend: 'Best state',
-		options: facetStates.map((state) => ({
+		options: (['idea', ...facetStates] as const).map((state) => ({
 			value: state,
 			label: states[state].label,
-			description: `The designers whose most advanced state, over the four IDE hosts, is “${states[state].label}”. ${eachCard}`,
+			description:
+				state === 'idea'
+					? 'The ideas: candidates for a designer that no host is building yet. Each may or may not become one.'
+					: `The designers whose most advanced state, over the four IDE hosts, is “${states[state].label}”. ${eachCard}`,
 		})),
 	},
 ];
@@ -73,8 +76,10 @@ const facets = [
 		const title = document.title;
 		const here = location.pathname;
 
+		// Designers and ideas are filtered alike (amended 2026-09-28); an idea has no host, and its state is "idea".
 		const cards = [...document.querySelectorAll<HTMLElement>('.adp-designer')];
-		const ideas = document.querySelectorAll('.adp-idea').length;
+		const ideaCards = [...document.querySelectorAll<HTMLElement>('.adp-idea')];
+		const ideasSection = document.querySelector<HTMLElement>('.adp-ideas');
 		const count = (n: number, noun: string) => `${n} ${noun}${n === 1 ? '' : 's'}`;
 		const values = (card: HTMLElement, key: Key): string[] => {
 			if (key === 'hosts') return (card.dataset.hosts ?? '').split(' ').filter(Boolean).map((pair) => pair.split(':')[0]);
@@ -106,19 +111,27 @@ const facets = [
 
 		const update = () => {
 			const chosen = keys.map((key) => ({ key, values: inputs.filter((input) => input.name === key && input.checked).map((input) => input.value) }));
+			const matches = (card: HTMLElement) => chosen.every(({ key, values: wanted }) => wanted.length === 0 || values(card, key).some((value) => wanted.includes(value)));
 			const shown = new Set<string>();
 			for (const card of cards) {
-				const match = chosen.every(({ key, values: wanted }) => wanted.length === 0 || values(card, key).some((value) => wanted.includes(value)));
+				const match = matches(card);
 				card.hidden = !match;
 				if (match) shown.add(card.dataset.origin!);
+			}
+			let ideasShown = 0;
+			for (const card of ideaCards) {
+				const match = matches(card);
+				card.hidden = !match;
+				if (match) ideasShown++;
 			}
 			// While any option is ticked, a group without a matching designer goes, including one with no designers yet.
 			const ticked = inputs.filter((input) => input.checked);
 			for (const group of document.querySelectorAll<HTMLElement>('.adp-catalogue-group')) {
 				group.hidden = ticked.length > 0 && group.querySelector('.adp-designer:not([hidden])') === null;
 			}
-			// "N designers and M ideas" (amended 2026-09-28): the ideas are not filtered, so M is all of them.
-			status.textContent = `${count(shown.size, 'designer')} and ${count(ideas, 'idea')}`;
+			if (ideasSection) ideasSection.hidden = ticked.length > 0 && ideasShown === 0;
+			// "N designers and M ideas" (amended 2026-09-28), both as filtered.
+			status.textContent = `${count(shown.size, 'designer')} and ${count(ideasShown, 'idea')}`;
 			describe(ticked.length === 1 ? ticked[0] : undefined);
 
 			const query = new URLSearchParams();

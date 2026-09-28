@@ -126,6 +126,7 @@ One per origin tag that is at Idea in at least one host and below Planned in all
 | `name` | string | required |
 | `purpose` | string or null | Notion's one-line purpose, at most 140 characters; null when Notion has none or a longer one |
 | `family` | string | as Designer |
+| `focusAreas` | list of focus-area slugs | from Notion's `Focus areas`; may be empty |
 | `theory` | list of `{ title, url }` | may be empty |
 | `source` | SourceRecord | required |
 

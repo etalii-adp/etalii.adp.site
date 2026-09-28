@@ -494,6 +494,18 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 - [x] **T091** [US1] In `CatalogueFilter.astro`, report "N designers and M ideas", N the designers shown and M all ideas, with singular forms for one; update `tests/catalogue.spec.ts`, and run `npm run build` and `npm run check`.
 
+
+---
+
+## Phase 19: Amendment 2026-09-28 (eleventh) - The filter applies to the ideas
+
+**Goal**: the overview's filter narrows the ideas as well as the designers (FR-014 as amended, contracts/site-addresses.md, data-model § Idea).
+
+- [x] **T093** Add `focusAreas` to `Idea` (types, assembly, content schema), from Notion's `Focus areas`.
+- [x] **T094** [US1] In `CatalogueFilter.astro`, filter the idea cards alike, add the state option "Idea", count the ideas shown and hide the ideas section when none is; in `IdeasList.astro`, give each card `data-focus` and `data-state="idea"` and show its focus areas.
+- [x] **T095** Assign a focus area to every idea in Notion (owner's request of 2026-09-28; Claude's draft, for the owner to correct there), take the snapshot with `npm run catalogue:notion -- --export` (the catalogue refresh reports "current" when only Notion changed), and run `npm run catalogue:report`.
+- [x] **T096** Test the focus-area, host and Idea filters on the idea cards and the count; run `npm run build` and `npm run check`.
+
 ---
 
 ## Dependencies & Execution Order

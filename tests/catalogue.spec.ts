@@ -45,7 +45,7 @@ test.describe('overview', () => {
 		await expect(page.locator('.adp-facets')).toHaveCount(0);
 		const filter = page.locator('.adp-filter');
 		await expect(filter.locator('a')).toHaveCount(0);
-		await expect(filter.getByRole('checkbox')).toHaveCount(catalogue.focusAreas.length + 4 + 5);
+		await expect(filter.getByRole('checkbox')).toHaveCount(catalogue.focusAreas.length + 4 + 6);
 		for (const area of catalogue.focusAreas) {
 			await expect(filter.getByRole('group', { name: 'Focus area' }).getByRole('checkbox', { name: area.name, exact: true })).toBeVisible();
 			// A retired facet address opens the overview with that option ticked.
@@ -70,7 +70,9 @@ test.describe('overview', () => {
 			const checkbox = page.getByRole('group', { name: 'Focus area' }).getByRole('checkbox', { name: area.name, exact: true });
 			await checkbox.check();
 			const expected = catalogue.designers.filter((designer) => designer.focusAreas.includes(area.slug));
-			await expect(status).toHaveText(`${expected.length} ${expected.length === 1 ? 'designer' : 'designers'} and ${catalogue.ideas.length} ${catalogue.ideas.length === 1 ? 'idea' : 'ideas'}`);
+			const ideas = catalogue.ideas.filter((idea) => idea.focusAreas.includes(area.slug)).length;
+			await expect(status).toHaveText(`${expected.length} ${expected.length === 1 ? 'designer' : 'designers'} and ${ideas} ${ideas === 1 ? 'idea' : 'ideas'}`);
+			await expect(page.locator('.adp-idea:not([hidden])')).toHaveCount(ideas);
 			const visible = await page.locator('.adp-designer:not([hidden])').evaluateAll((cards) => [...new Set(cards.map((card) => (card as HTMLElement).dataset.origin))]);
 			expect(visible.sort()).toEqual(expected.map((designer) => designer.origin).sort());
 			await checkbox.uncheck();
@@ -162,6 +164,15 @@ test.describe('overview', () => {
 		await context.close();
 	});
 
+	test('the Idea state shows only the ideas, and hides the designer groups', async ({ page }) => {
+		await page.goto('/adp/designers/?state=idea');
+		const status = page.locator('.adp-filter [aria-live="polite"]');
+		const n = catalogue.ideas.length;
+		await expect(status).toHaveText(`0 designers and ${n} ${n === 1 ? 'idea' : 'ideas'}`);
+		await expect(page.locator('.adp-idea:not([hidden])')).toHaveCount(n);
+		await expect(page.locator('.adp-catalogue-group:not([hidden])')).toHaveCount(0);
+	});
+
 	test('no card shows a screenshot; they are on the designer pages (US1 AS1)', async ({ page }) => {
 		await page.goto('/adp/designers/');
 		await expect(page.locator('.adp-designer img')).toHaveCount(0);
@@ -221,7 +232,7 @@ test.describe('overview', () => {
 		const expected = catalogue.designers.filter(
 			(designer) => states[designer.hosts[host.id].state].rank >= states.planned.rank && bestState(designer.hosts) === state,
 		);
-		await expect(status).toHaveText(`${expected.length} ${expected.length === 1 ? 'designer' : 'designers'} and ${catalogue.ideas.length} ${catalogue.ideas.length === 1 ? 'idea' : 'ideas'}`);
+		await expect(status).toHaveText(`${expected.length} ${expected.length === 1 ? 'designer' : 'designers'} and 0 ideas`);
 		const visible = await page.locator('.adp-designer:not([hidden])').evaluateAll((cards) => [...new Set(cards.map((card) => (card as HTMLElement).dataset.origin))]);
 		expect(visible.sort()).toEqual(expected.map((designer) => designer.origin).sort());
 	});
