@@ -17,7 +17,7 @@ function fakeNotion(options: string[] = hostOptions) {
 		calls.push({ method, url, body: init.body ? JSON.parse(init.body as string) : undefined });
 		if (method === 'GET') {
 			const select = { type: 'select', select: { options: options.map((name) => ({ name })) } };
-			return Response.json({ object: 'data_source', properties: { Standalone: select, IntelliJ: select, 'VS Code': select, Eclipse: select } });
+			return Response.json({ object: 'data_source', properties: { 'Standalone Plugin Implementation': select, 'IntelliJ Plugin Implementation': select, 'VS Code Plugin Implementation': select, Eclipse: select } });
 		}
 		return Response.json({ object: 'page' });
 	}) as typeof fetch;
@@ -58,7 +58,7 @@ test('without --dry-run it sets only that select, then the snapshot agrees', asy
 	const patches = calls.filter((call) => call.method === 'PATCH');
 	assert.equal(patches.length, 1);
 	assert.equal(patches[0].url, 'https://api.notion.com/v1/pages/1a2b3c4d-0000-4000-8000-000000000002');
-	assert.deepEqual(patches[0].body, { properties: { Standalone: { select: { name: '✅ Implemented' } } } });
+	assert.deepEqual(patches[0].body, { properties: { 'Standalone Plugin Implementation': { select: { name: '✅ Implemented' } } } });
 
 	const after = assembleCatalogue(inputs).designers.find((designer) => designer.origin === 'wardley/map')!;
 	assert.equal(after.hosts.standalone.notionDiffers, null);
@@ -67,14 +67,14 @@ test('without --dry-run it sets only that select, then the snapshot agrees', asy
 test('it never writes a host that has no catalogue', async () => {
 	const { calls } = await sync([]);
 	for (const call of calls.filter((c) => c.method === 'PATCH')) {
-		assert.deepEqual(Object.keys((call.body as { properties: object }).properties), ['Standalone']);
+		assert.deepEqual(Object.keys((call.body as { properties: object }).properties), ['Standalone Plugin Implementation']);
 	}
 });
 
 test('an option missing from the Notion select is reported and skipped', async () => {
 	const { code, out, calls } = await sync([], {}, hostOptions.filter((name) => name !== '✅ Implemented'));
 	assert.equal(code, 0);
-	assert.match(out, /wardley\/map · standalone: the Notion column "Standalone" has no option for "Implemented"; skipped/);
+	assert.match(out, /wardley\/map · standalone: the Notion column "Standalone Plugin Implementation" has no option for "Implemented"; skipped/);
 	assert.deepEqual(calls.filter((call) => call.method === 'PATCH'), []);
 });
 

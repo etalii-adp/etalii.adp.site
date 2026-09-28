@@ -11,9 +11,9 @@ export interface CatalogueHost {
 }
 
 const details: Record<HostId, Omit<CatalogueHost, 'id'>> = {
-	standalone: { name: 'Standalone', repository: 'etalii-adp/etalii.adp.ide.standalone', notionColumn: 'Standalone' },
-	intellij: { name: 'IntelliJ Platform', repository: 'etalii-adp/etalii.adp.ide.intellij', notionColumn: 'IntelliJ' },
-	vscode: { name: 'Visual Studio Code', repository: 'etalii-adp/etalii.adp.ide.vscode', notionColumn: 'VS Code' },
+	standalone: { name: 'Standalone', repository: 'etalii-adp/etalii.adp.ide.standalone', notionColumn: 'Standalone Plugin Implementation' },
+	intellij: { name: 'IntelliJ Platform', repository: 'etalii-adp/etalii.adp.ide.intellij', notionColumn: 'IntelliJ Plugin Implementation' },
+	vscode: { name: 'Visual Studio Code', repository: 'etalii-adp/etalii.adp.ide.vscode', notionColumn: 'VS Code Plugin Implementation' },
 	eclipse: { name: 'Eclipse', repository: 'etalii-adp/etalii.adp.ide.eclipse', notionColumn: 'Eclipse' },
 };
 

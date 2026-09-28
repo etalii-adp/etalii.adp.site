@@ -110,7 +110,7 @@
             "color": "default"
           }
         },
-        "Standalone": {
+        "Standalone Plugin Implementation": {
           "type": "select",
           "select": {
             "id": "opt",
@@ -118,11 +118,11 @@
             "color": "default"
           }
         },
-        "IntelliJ": {
+        "IntelliJ Plugin Implementation": {
           "type": "select",
           "select": null
         },
-        "VS Code": {
+        "VS Code Plugin Implementation": {
           "type": "select",
           "select": null
         },
@@ -260,11 +260,11 @@
           "type": "select",
           "select": null
         },
-        "Standalone": {
+        "Standalone Plugin Implementation": {
           "type": "select",
           "select": null
         },
-        "IntelliJ": {
+        "IntelliJ Plugin Implementation": {
           "type": "select",
           "select": {
             "id": "opt",
@@ -272,7 +272,7 @@
             "color": "default"
           }
         },
-        "VS Code": {
+        "VS Code Plugin Implementation": {
           "type": "select",
           "select": null
         },
@@ -373,7 +373,7 @@
           "type": "select",
           "select": null
         },
-        "Standalone": {
+        "Standalone Plugin Implementation": {
           "type": "select",
           "select": {
             "id": "opt",
@@ -381,11 +381,11 @@
             "color": "default"
           }
         },
-        "IntelliJ": {
+        "IntelliJ Plugin Implementation": {
           "type": "select",
           "select": null
         },
-        "VS Code": {
+        "VS Code Plugin Implementation": {
           "type": "select",
           "select": null
         },

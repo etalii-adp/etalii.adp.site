@@ -2,7 +2,7 @@
 // (`catalogue:notion`), the catalogue report (`catalogue:report`) and the Notion host columns (`catalogue:sync-notion`).
 // Each runs in the run's worktree as `npm run <script>`, and only when that worktree's package.json defines it.
 import { existsSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 import { NeedsDecision } from './decision.mjs';
 import { runCaptured } from './util.mjs';
 
@@ -36,11 +36,20 @@ async function npmRun(root, script, args = []) {
 }
 
 /**
- * Takes a new Notion snapshot when NOTION_TOKEN is set. Returns a note for the pull request when it was skipped,
- * which is not a failure, and null otherwise. Throws when Notion cannot be read.
+ * Takes a new Notion snapshot when NOTION_TOKEN is set, or, without it, from NOTION_EXPORT: the file an agent
+ * exported through a Notion connector (procedures/refresh-catalogue.md § Without a Notion token). Returns a note for
+ * the pull request when it was skipped or came from an export, which is not a failure, and null otherwise. Throws
+ * when Notion or the export cannot be read.
  */
 export async function takeNotionSnapshot(root, { log = () => {} } = {}) {
 	if (!hasScript(root, 'catalogue:notion')) return null;
+	const exportFile = process.env.NOTION_EXPORT;
+	if (!process.env.NOTION_TOKEN && exportFile) {
+		const run = await npmRun(root, 'catalogue:notion', ['--export', `"${resolve(exportFile).replaceAll('\\', '/')}"`]);
+		if (!run.ok) throw new Error(`npm run catalogue:notion -- --export failed (exit ${run.code}): ${tail(run.output)}`);
+		log(run.output.trim().split('\n')[0]);
+		return "## Notion\n\nTaken from an export made through a Notion connector (`NOTION_EXPORT`), since `NOTION_TOKEN` is not set. Notion's host columns were not updated.";
+	}
 	if (!process.env.NOTION_TOKEN) {
 		log('NOTION_TOKEN is not set: Notion snapshot skipped');
 		return "## Notion\n\nSkipped: `NOTION_TOKEN` is not set, so `src/content/catalogue/notion.json` is as on the base branch and Notion's host columns were not updated.";

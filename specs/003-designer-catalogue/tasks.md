@@ -407,6 +407,7 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T067** Write "Adding or refining a designer" in `src/content/catalogue/README.md`, for people and agents: where each fact and text comes from, which procedure brings it in, and what may be edited in this repository; point to it from `CLAUDE.md`.
 - [ ] T068 Run "Refresh the designer catalogue", "Refresh the screenshots" and "Refresh the IDE host states" (procedures/) so the current designers reach `develop` through their own pull requests.
 - [x] **T069** Run `npm run build` and `npm run check`, with the committed sources and with the unit fixtures, and fix every failure.
+- [x] **T070** Let the catalogue refresh take its Notion snapshot from an export an agent makes through its Notion connector (`NOTION_EXPORT`, `catalogue:notion -- --export`), for owners who do not hand the run a token; read Notion's host columns by their current names (`Standalone Plugin Implementation`, `IntelliJ Plugin Implementation`, `VS Code Plugin Implementation`, `Eclipse`). Owner decision of 2026-09-28: no `NOTION_TOKEN` locally; Claude drafted the missing purposes, descriptions, focus areas and "Why specialized" texts in Notion, for the owner to correct there.
 
 ---
 
