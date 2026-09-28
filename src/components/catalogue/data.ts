@@ -47,3 +47,8 @@ export { bestState, isUsable };
 export function screenshotImage(screenshot: Screenshot): ImageMetadata | undefined {
 	return (screenshot as Screenshot & { image?: ImageMetadata | null }).image ?? undefined;
 }
+
+/** The designers overview with one filter option ticked: `focus` (a focus-area slug), `hosts` (a host id) or `state`. */
+export function filterHref(key: 'focus' | 'hosts' | 'state', value: string): string {
+	return `/adp/designers/?${key}=${encodeURIComponent(value)}`;
+}

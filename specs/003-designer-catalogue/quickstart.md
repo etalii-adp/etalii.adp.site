@@ -73,11 +73,11 @@ npm run check        # links, check:catalogue (source records, alt text, FR-007,
 npm run preview                      # serves dist/ at http://localhost:4321/adp/
 ```
 
-1. Open `/adp/designers/` with JavaScript disabled. Every designer and the ideas list are present. The facet links for focus areas, hosts and states work (FR-002).
+1. Open `/adp/designers/` with JavaScript disabled. Every designer and the ideas list are present; the filter is not shown (FR-002). With JavaScript on, tick one focus area: the list narrows, the introduction describes the focus area, and the breadcrumbs end in its name.
 2. Find the mind map (`/adp/designers/freeplane/mindmap/`). Its availability table shows four hosts: Standalone "Prototype", IntelliJ "Implemented, not yet released", VS Code and Eclipse "Not planned". None is marked Available, because no release is public (research D3).
 3. On that page, each screenshot has a caption naming the host and the short revision, and the Sources section links `etalii.adp.ide.standalone@<sha>`. While the standalone has no licence, "Screenshot pending" is shown instead.
 4. Open a specified-only designer (either of the two `📝 Specified` entries). It has no screenshot and is labelled Planned (FR-007).
-5. Open `/adp/designers/hosts/intellij/` and see the mind map and, once it has an origin tag, draw.io.
+5. Open `/adp/designers/?hosts=intellij` and see the mind map and, once it has an origin tag, draw.io. The old address `/adp/designers/hosts/intellij/` leads there too.
 6. Switch the system to dark mode and narrow the window to 360 px. There is no horizontal scroll, and state labels stay readable as text.
 
 ## 5. Stay-current scenario (spec US4)

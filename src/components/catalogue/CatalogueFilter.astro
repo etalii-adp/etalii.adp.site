@@ -1,8 +1,10 @@
 ---
-// The overview's filter (FR-002 as amended 2026-09-28, research D6): one checkbox per focus area, host and state,
-// each followed by its name as a link to that option's facet page. The form is in the markup, so without scripting
-// the names are plain links to the facet pages; the only client script in the catalogue reveals the checkboxes and
-// filters the overview's cards. OR within a facet, AND across facets; nothing is remembered between page loads.
+// The overview's filter (FR-002 as amended 2026-09-28, research D6): one checkbox per focus area, host and state.
+// This is the only client script in the catalogue. It hides the cards that do not match (OR within a facet, AND across
+// facets) and keeps the ticked options in the address (?focus=…&hosts=…&state=…), so a filtered view can be linked.
+// When exactly one option is ticked, the overview's introduction ([data-adp-filter-intro]) shows that option's
+// description, and the breadcrumbs and document title gain the option's name; otherwise both are as built.
+// Without scripting the form stays hidden and the full list shows.
 import { catalogueHosts } from '../../lib/catalogue/hosts';
 import { facetStates, states } from '../../lib/catalogue/states';
 import type { FocusArea } from '../../lib/catalogue/types';
@@ -12,25 +14,40 @@ interface Props {
 }
 
 const { focusAreas } = Astro.props;
+const eachCard = 'Each card shows the designer’s state in every IDE host.';
 const facets = [
-	{ key: 'focus', legend: 'Focus area', options: focusAreas.map((area) => ({ value: area.slug, label: area.name, href: `/adp/designers/focus/${area.slug}/` })) },
-	{ key: 'hosts', legend: 'Host', options: catalogueHosts.map((host) => ({ value: host.id, label: host.name, href: `/adp/designers/hosts/${host.id}/` })) },
-	{ key: 'state', legend: 'Best state', options: facetStates.map((state) => ({ value: state, label: states[state].label, href: `/adp/designers/states/${state}/` })) },
+	{
+		key: 'focus',
+		legend: 'Focus area',
+		options: focusAreas.map((area) => ({ value: area.slug, label: area.name, description: area.problem || `The designers for ${area.name.toLowerCase()}.` })),
+	},
+	{
+		key: 'hosts',
+		legend: 'Host',
+		options: catalogueHosts.map((host) => ({ value: host.id, label: host.name, description: `The designers that ${host.name} has, or plans to have. ${eachCard}` })),
+	},
+	{
+		key: 'state',
+		legend: 'Best state',
+		options: facetStates.map((state) => ({
+			value: state,
+			label: states[state].label,
+			description: `The designers whose most advanced state, over the four IDE hosts, is “${states[state].label}”. ${eachCard}`,
+		})),
+	},
 ];
 ---
 
-<form class="adp-filter not-content" aria-label="Filter designers" data-adp-filter>
+<form class="adp-filter not-content" aria-label="Filter designers" data-adp-filter hidden>
 	{
 		facets.map((facet) => (
 			<fieldset>
 				<legend>{facet.legend}</legend>
 				{facet.options.map((option) => (
-					<div class="adp-filter-option">
-						<input type="checkbox" id={`filter-${facet.key}-${option.value}`} name={facet.key} value={option.value} aria-labelledby={`filter-${facet.key}-${option.value}-name`} />
-						<a id={`filter-${facet.key}-${option.value}-name`} href={option.href}>
-							{option.label}
-						</a>
-					</div>
+					<label class="adp-filter-option">
+						<input type="checkbox" name={facet.key} value={option.value} data-label={option.label} data-description={option.description} />
+						<span>{option.label}</span>
+					</label>
 				))}
 			</fieldset>
 		))
@@ -42,9 +59,19 @@ const facets = [
 	type Key = 'focus' | 'hosts' | 'state';
 
 	for (const form of document.querySelectorAll<HTMLFormElement>('[data-adp-filter]')) {
+		form.hidden = false;
 		form.addEventListener('submit', (event) => event.preventDefault());
 		const status = form.querySelector<HTMLElement>('.adp-filter-status')!;
-		const keys = [...new Set([...form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')].map((input) => input.name as Key))];
+		const inputs = [...form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')];
+		const keys = [...new Set(inputs.map((input) => input.name as Key))];
+
+		// What the page was built with, restored whenever not exactly one option is ticked.
+		const intro = document.querySelector<HTMLElement>('[data-adp-filter-intro]');
+		const introText = intro?.textContent ?? '';
+		const crumbs = document.querySelector<HTMLOListElement>('nav.adp-breadcrumbs ol');
+		const crumbsHtml = crumbs?.innerHTML ?? '';
+		const title = document.title;
+		const here = location.pathname;
 
 		const cards = [...document.querySelectorAll<HTMLElement>('.adp-designer')];
 		const values = (card: HTMLElement, key: Key): string[] => {
@@ -52,11 +79,31 @@ const facets = [
 			return (key === 'focus' ? card.dataset.focus ?? '' : card.dataset.state ?? '').split(' ').filter(Boolean);
 		};
 
+		const describe = (single: HTMLInputElement | undefined) => {
+			if (intro) intro.textContent = single ? single.dataset.description! : introText;
+			document.title = single ? title.replace(/^Designers/, `Designers: ${single.dataset.label}`) : title;
+			if (!crumbs) return;
+			crumbs.innerHTML = crumbsHtml;
+			if (!single) return;
+			// Documentation › Designers › <option>: the current page becomes a link, the option the current crumb.
+			// New elements are shallow clones of the built ones, so they keep the breadcrumbs' scoped styles.
+			const last = crumbs.querySelector<HTMLElement>('[aria-current="page"]');
+			const sample = crumbs.querySelector('a');
+			if (last && sample) {
+				const link = sample.cloneNode(false) as HTMLAnchorElement;
+				link.href = here;
+				link.textContent = last.textContent;
+				const current = last.cloneNode(false) as HTMLElement;
+				current.textContent = single.dataset.label!;
+				const item = last.parentElement!.cloneNode(false) as HTMLElement;
+				item.append(current);
+				last.replaceWith(link);
+				crumbs.append(item);
+			}
+		};
+
 		const update = () => {
-			const chosen = keys.map((key) => ({
-				key,
-				values: [...form.querySelectorAll<HTMLInputElement>(`input[name="${key}"]:checked`)].map((input) => input.value),
-			}));
+			const chosen = keys.map((key) => ({ key, values: inputs.filter((input) => input.name === key && input.checked).map((input) => input.value) }));
 			const shown = new Set<string>();
 			for (const card of cards) {
 				const match = chosen.every(({ key, values: wanted }) => wanted.length === 0 || values(card, key).some((value) => wanted.includes(value)));
@@ -64,14 +111,23 @@ const facets = [
 				if (match) shown.add(card.dataset.origin!);
 			}
 			// While any option is ticked, a group without a matching designer goes, including one with no designers yet.
-			const filtering = chosen.some(({ values: wanted }) => wanted.length > 0);
+			const ticked = inputs.filter((input) => input.checked);
 			for (const group of document.querySelectorAll<HTMLElement>('.adp-catalogue-group')) {
-				group.hidden = filtering && group.querySelector('.adp-designer:not([hidden])') === null;
+				group.hidden = ticked.length > 0 && group.querySelector('.adp-designer:not([hidden])') === null;
 			}
 			status.textContent = `${shown.size} ${shown.size === 1 ? 'designer' : 'designers'} shown`;
+			describe(ticked.length === 1 ? ticked[0] : undefined);
+
+			const query = new URLSearchParams();
+			for (const input of ticked) query.append(input.name, input.value);
+			const search = query.toString() ? `?${query}` : '';
+			if (search !== location.search) history.replaceState(null, '', `${here}${search}${location.hash}`);
 		};
+
+		// A linked filter: /adp/designers/?focus=technology-assessment ticks that option.
+		const requested = new URLSearchParams(location.search);
+		for (const input of inputs) input.checked = requested.getAll(input.name).includes(input.value);
 		form.addEventListener('change', update);
-		form.classList.add('adp-filter-ready');
 		update();
 	}
 </script>
@@ -82,6 +138,9 @@ const facets = [
 		grid-template-columns: 1fr;
 		gap: 0.75rem;
 		margin-block: 1.5rem;
+	}
+	.adp-filter[hidden] {
+		display: none;
 	}
 	@media (min-width: 50rem) {
 		.adp-filter {
@@ -106,14 +165,7 @@ const facets = [
 		display: flex;
 		align-items: baseline;
 		gap: 0.5rem;
-	}
-	.adp-filter-option a {
-		color: var(--sl-color-text-accent);
-	}
-	/* Without scripting the checkboxes would do nothing, so only the links show until the script is running. */
-	.adp-filter:not(.adp-filter-ready) input,
-	.adp-filter:not(.adp-filter-ready) .adp-filter-status {
-		display: none;
+		cursor: pointer;
 	}
 	.adp-filter-status {
 		grid-column: 1 / -1;

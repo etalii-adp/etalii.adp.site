@@ -29,7 +29,7 @@ test.describe('overview', () => {
 
 	test('groups designers by focus area, then "Other designers", then the ideas', async ({ page }) => {
 		await page.goto('/adp/designers/');
-		const headings = await page.locator('main .sl-markdown-content h2:not(.adp-facet-title)').allTextContents();
+		const headings = await page.locator('main .sl-markdown-content h2').allTextContents();
 		const expected = [...catalogue.focusAreas.map((area) => area.name), ...(others.length > 0 ? ['Other designers'] : []), 'Ideas'];
 		expect(headings.map((text) => text.trim())).toEqual(expected);
 		for (const area of catalogue.focusAreas) {
@@ -40,27 +40,26 @@ test.describe('overview', () => {
 		}
 	});
 
-	test('its filter option names link to the facet pages, with no separate block of facet links (FR-002)', async ({ page, request }) => {
+	test('its filter has one checkbox per option and no links; the facet pages are gone (FR-002)', async ({ page, request }) => {
 		await page.goto('/adp/designers/');
 		await expect(page.locator('.adp-facets')).toHaveCount(0);
-		const hrefs = await page.locator('.adp-filter-option a').evaluateAll((links) => links.map((a) => a.getAttribute('href')!));
-		expect(hrefs.length).toBe(catalogue.focusAreas.length + 4 + 5);
-		for (const href of hrefs) expect((await request.get(href)).status(), href).toBe(200);
+		const filter = page.locator('.adp-filter');
+		await expect(filter.locator('a')).toHaveCount(0);
+		await expect(filter.getByRole('checkbox')).toHaveCount(catalogue.focusAreas.length + 4 + 5);
 		for (const area of catalogue.focusAreas) {
-			await expect(page.getByRole('group', { name: 'Focus area' }).getByRole('checkbox', { name: area.name, exact: true })).toBeVisible();
+			await expect(filter.getByRole('group', { name: 'Focus area' }).getByRole('checkbox', { name: area.name, exact: true })).toBeVisible();
+			// A retired facet address opens the overview with that option ticked.
+			const old = await request.get(`/adp/designers/focus/${area.slug}/`);
+			expect(await old.text()).toContain(`/adp/designers/?focus=${area.slug}`);
 		}
 	});
 
-	test('without scripting, the filter shows its option names as links and no checkboxes (FR-002)', async ({ browser }) => {
+	test('without scripting, the filter is hidden and the full list shows (FR-002)', async ({ browser }) => {
 		const context = await browser.newContext({ javaScriptEnabled: false });
 		const page = await context.newPage();
 		await page.goto('/adp/designers/');
-		const filter = page.locator('.adp-filter');
-		await expect(filter.locator('input[type="checkbox"]').first()).toBeHidden();
-		await expect(filter.locator('.adp-filter-option a')).toHaveCount(catalogue.focusAreas.length + 4 + 5);
-		for (const area of catalogue.focusAreas) {
-			await expect(filter.getByRole('link', { name: area.name, exact: true })).toHaveAttribute('href', `/adp/designers/focus/${area.slug}/`);
-		}
+		await expect(page.locator('.adp-filter')).toBeHidden();
+		await expect(page.locator('.adp-designer:visible')).toHaveCount(await page.locator('.adp-designer').count());
 		await context.close();
 	});
 
@@ -75,6 +74,39 @@ test.describe('overview', () => {
 			const visible = await page.locator('.adp-designer:not([hidden])').evaluateAll((cards) => [...new Set(cards.map((card) => (card as HTMLElement).dataset.origin))]);
 			expect(visible.sort()).toEqual(expected.map((designer) => designer.origin).sort());
 			await checkbox.uncheck();
+		}
+	});
+
+	test('one ticked option describes the selection and extends the breadcrumbs; none or several restore them (US1 AS4)', async ({ page }) => {
+		const area = catalogue.focusAreas[0];
+		await page.goto(`/adp/designers/?focus=${area.slug}`);
+		const focus = page.getByRole('group', { name: 'Focus area' });
+		await expect(focus.getByRole('checkbox', { name: area.name, exact: true })).toBeChecked();
+		const intro = page.locator('[data-adp-filter-intro]');
+		const crumbs = page.getByRole('navigation', { name: 'Breadcrumb' });
+		await expect(intro).toHaveText(area.problem);
+		await expect(crumbs.locator('li')).toHaveText(['Documentation', 'Designers', area.name]);
+		await expect(crumbs.getByRole('link', { name: 'Designers' })).toHaveAttribute('href', '/adp/designers/');
+		await expect(crumbs.locator('[aria-current="page"]')).toHaveText(area.name);
+
+		const host = catalogueHosts[0];
+		await page.getByRole('group', { name: 'Host' }).getByRole('checkbox', { name: host.name }).check();
+		await expect(intro).toContainText('Each ADP designer is made for one task');
+		await expect(crumbs.locator('li')).toHaveText(['Documentation', 'Designers']);
+		expect(new URL(page.url()).search).toBe(`?focus=${area.slug}&hosts=${host.id}`);
+
+		await focus.getByRole('checkbox', { name: area.name, exact: true }).uncheck();
+		await expect(intro).toContainText(`${host.name} has, or plans to have`);
+		await expect(crumbs.locator('li')).toHaveText(['Documentation', 'Designers', host.name]);
+		await page.getByRole('group', { name: 'Host' }).getByRole('checkbox', { name: host.name }).uncheck();
+		await expect(crumbs.locator('li')).toHaveText(['Documentation', 'Designers']);
+		expect(new URL(page.url()).search).toBe('');
+	});
+
+	test('every card links its name to the designer page (FR-003)', async ({ page }) => {
+		await page.goto('/adp/designers/');
+		for (const designer of catalogue.designers) {
+			await expect(page.locator(`.adp-designer[data-origin="${designer.origin}"] h3 a`).first()).toHaveAttribute('href', `/adp/designers/${designer.origin}/`);
 		}
 	});
 
@@ -157,7 +189,7 @@ test.describe('designer page', () => {
 			// US2 AS6: each focus area links to its facet page.
 			const focus = page.locator('section[aria-labelledby="focus-areas"] a');
 			await expect(focus).toHaveCount(designer.focusAreas.length);
-			for (const slug of designer.focusAreas) await expect(page.locator(`a[href="/adp/designers/focus/${slug}/"]`).first()).toBeAttached();
+			for (const slug of designer.focusAreas) await expect(page.locator(`a[href="/adp/designers/?focus=${slug}"]`).first()).toBeAttached();
 
 			// FR-009: one entry per source record, and the adp:source metas of spec 004's site-integration contract.
 			const sources = page.locator('ul.adp-sources li');
