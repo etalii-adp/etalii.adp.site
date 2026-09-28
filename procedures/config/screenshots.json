@@ -6,9 +6,30 @@
     "mindmap.png": "freeplane/mindmap",
     "timeline.png": "generic/timeline",
     "wardley-map.png": "wardley/map",
-    "workspace.png": "c4/container"
+    "workspace.png": "c4/container",
+    "ansible-structure.png": "ansible/structure",
+    "c4-component.png": "c4/component",
+    "c4-context.png": "c4/context",
+    "c4-system-landscape.png": "c4/system-landscape",
+    "causal-loop.png": "systems/causal-loop-diagram",
+    "databricks-bundle.png": "databricks/bundle",
+    "databricks-job.png": "databricks/job",
+    "databricks-pipeline.png": "databricks/pipeline",
+    "dotnet-dependency-graph.png": "dotnet/dependency-graph",
+    "functional-decomposition-graph.png": "etalii/functional-decomposition-graph",
+    "helm-chart.png": "helm/chart",
+    "hype-cycle.png": "gartner/hypecycle-graph",
+    "owl.png": "w3c/owl",
+    "plain-text-editor.png": "none",
+    "rdf.png": "w3c/rdf",
+    "shacl.png": "w3c/shacl",
+    "sparql.png": "w3c/sparql"
   },
-  "intellij": {},
+  "intellij": {
+    "drawio-activity.png": "none",
+    "drawio-cross-functional.png": "none",
+    "mindmap.png": "none"
+  },
   "vscode": {},
   "eclipse": {}
 }
