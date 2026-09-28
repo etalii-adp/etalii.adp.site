@@ -23,35 +23,35 @@
   {
     "slug": "systems-and-strategy",
     "name": "Systems and strategy",
-    "problem": "",
+    "problem": "Systems and strategies are shaped by feedback, dependencies and position, which a list of boxes hides. A designer made for them shows loops, value chains and landscapes as they are, so a decision can be traced to the structure behind it.",
     "order": 4,
     "source": null
   },
   {
     "slug": "knowledge-and-semantics",
     "name": "Knowledge and semantics",
-    "problem": "",
+    "problem": "Ontologies, vocabularies and linked data are graphs written down as text, and their meaning lives in the links. A designer made for them draws the classes, concepts and relations, so a model can be checked by eye while the file stays the standard.",
     "order": 5,
     "source": null
   },
   {
     "slug": "software-delivery",
     "name": "Software delivery",
-    "problem": "",
+    "problem": "Pipelines, deployments and dependencies are spread over many configuration files, and their order and coupling only show when something breaks. A designer made for software delivery draws them as they run, so a change can be understood before it ships.",
     "order": 6,
     "source": null
   },
   {
     "slug": "planning-and-roadmapping",
     "name": "Planning and roadmapping",
-    "problem": "",
+    "problem": "Plans are about time, order and what waits on what, and a flat list of items loses all three. A designer made for planning places work on a timeline and draws its dependencies, so overlaps and critical paths show at a glance.",
     "order": 7,
     "source": null
   },
   {
     "slug": "psychological-and-societal-insights",
     "name": "Psychological and societal insights",
-    "problem": "",
+    "problem": "How people and societies respond to change, from hype to adoption to feedback in behaviour, is easy to state and hard to see. A designer made for these insights lays trends and influences out, so patterns can be discussed rather than assumed.",
     "order": 8,
     "source": null
   }

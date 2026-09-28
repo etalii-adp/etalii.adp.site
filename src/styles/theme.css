@@ -168,3 +168,9 @@ h4,
 	font-size: var(--sl-text-sm);
 	color: var(--sl-color-gray-3);
 }
+
+/* Links inside components that opt out of Starlight's content styles (.not-content), such as the designer cards and
+   the home page cards, keep the site's link colour. */
+.sl-markdown-content .not-content a {
+	color: var(--sl-color-text-accent);
+}

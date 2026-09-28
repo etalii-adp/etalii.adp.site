@@ -103,6 +103,39 @@ test.describe('overview', () => {
 		expect(new URL(page.url()).search).toBe('');
 	});
 
+	test('the introduction sits between the filter and the list, and card names are link-coloured (FR-002)', async ({ page }) => {
+		await page.goto('/adp/designers/');
+		const order = await page.evaluate(() => {
+			const filter = document.querySelector('.adp-filter')!;
+			const intro = document.querySelector('[data-adp-filter-intro]')!;
+			const list = document.querySelector('.adp-catalogue-group')!;
+			return [filter.compareDocumentPosition(intro), intro.compareDocumentPosition(list)].every((position) => position & Node.DOCUMENT_POSITION_FOLLOWING);
+		});
+		expect(order).toBe(true);
+		const name = page.locator('.adp-designer h3 a').first();
+		if ((await name.count()) > 0) {
+			const colours = await name.evaluate((link) => {
+				const probe = document.createElement('span');
+				probe.style.color = 'var(--sl-color-text-accent)';
+				link.after(probe);
+				const want = getComputedStyle(probe).color;
+				probe.remove();
+				return [getComputedStyle(link).color, want];
+			});
+			expect(colours[0]).toBe(colours[1]);
+		}
+	});
+
+	test('a wide screen shows at least three designers side by side (FR-001)', async ({ browser }) => {
+		test.skip(catalogue.designers.length < 3, 'needs three designers');
+		const context = await browser.newContext({ viewport: { width: 1600, height: 1000 } });
+		const page = await context.newPage();
+		await page.goto('/adp/designers/');
+		const columns = await page.locator('.adp-designers').first().evaluate((list) => getComputedStyle(list).gridTemplateColumns.split(' ').length);
+		expect(columns).toBeGreaterThanOrEqual(3);
+		await context.close();
+	});
+
 	test('every card links its name to the designer page (FR-003)', async ({ page }) => {
 		await page.goto('/adp/designers/');
 		for (const designer of catalogue.designers) {
