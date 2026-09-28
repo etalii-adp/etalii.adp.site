@@ -143,6 +143,25 @@ test.describe('overview', () => {
 		}
 	});
 
+	test('the host states line up at the bottom of the cards in a row', async ({ browser }) => {
+		const context = await browser.newContext({ viewport: { width: 1600, height: 1000 } });
+		const page = await context.newPage();
+		await page.goto('/adp/designers/');
+		const rows = await page.locator('.adp-designers').evaluateAll((lists) =>
+			lists.map((list) => {
+				const byRow = new Map<number, number[]>();
+				for (const card of list.querySelectorAll<HTMLElement>('.adp-designer')) {
+					const top = Math.round(card.getBoundingClientRect().top);
+					const hosts = card.querySelector('.adp-designer-hosts')!.getBoundingClientRect();
+					byRow.set(top, [...(byRow.get(top) ?? []), Math.round(card.getBoundingClientRect().bottom - hosts.bottom)]);
+				}
+				return [...byRow.values()];
+			}),
+		);
+		for (const row of rows.flat()) expect(new Set(row).size, `gaps under the host lists: ${row}`).toBe(1);
+		await context.close();
+	});
+
 	test('no card shows a screenshot; they are on the designer pages (US1 AS1)', async ({ page }) => {
 		await page.goto('/adp/designers/');
 		await expect(page.locator('.adp-designer img')).toHaveCount(0);
