@@ -1,11 +1,11 @@
-// npm run catalogue:notion [--dry-run] [--fixture <dir>] [--content-dir <dir>]
+// npm run catalogue:notion [--dry-run] [--fixture <dir> | --export <file>] [--content-dir <dir>]
 //
 // Fetches the Notion "Diagrams" data source (specs/003-designer-catalogue/contracts/source-formats.md § S3) into
 // src/content/catalogue/notion.json, and appends Notion focus-area options that focus-areas.json does not know.
 // The build never calls Notion; this script is the only reader. Exit codes: 0 done, 1 Notion failed, 2 usage.
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { addUnknownFocusAreas, parseNotionPages, type NotionPage, type NotionQueryResponse } from '../../src/lib/catalogue/notion-api.ts';
+import { addUnknownFocusAreas, pagesFromExport, parseNotionPages, type NotionExport, type NotionPage, type NotionQueryResponse } from '../../src/lib/catalogue/notion-api.ts';
 import { notionDataSource, readNotionSnapshot, type NotionSnapshot } from '../../src/lib/catalogue/notion-snapshot.ts';
 import type { FocusArea } from '../../src/lib/catalogue/types.ts';
 
@@ -58,10 +58,12 @@ function option(args: string[], name: string): string | undefined {
 export async function main(args: string[], fetchImpl: typeof fetch = fetch): Promise<number> {
 	const dryRun = args.includes('--dry-run');
 	const fixture = option(args, '--fixture');
+	// An agent's export through a Notion connector, for runs without a token (procedures/refresh-catalogue.md).
+	const exportFile = option(args, '--export');
 	const contentDir = option(args, '--content-dir') ?? 'src/content/catalogue';
 	const token = process.env.NOTION_TOKEN;
-	if (!fixture && !token) {
-		console.error('NOTION_TOKEN is not set. Set it to the token of the Notion integration shared with the "Diagrams" database, or pass --fixture <dir>.');
+	if (!fixture && !exportFile && !token) {
+		console.error('NOTION_TOKEN is not set. Set it to the token of the Notion integration shared with the "Diagrams" database, or pass --fixture <dir> or --export <file>.');
 		return 2;
 	}
 
@@ -70,7 +72,11 @@ export async function main(args: string[], fetchImpl: typeof fetch = fetch): Pro
 	const previous = readNotionSnapshot(snapshotFile);
 	let pages: NotionPage[];
 	try {
-		pages = fixture ? fixturePagesFrom(fixture) : await queryAll(token!, fetchImpl);
+		pages = fixture
+			? fixturePagesFrom(fixture)
+			: exportFile
+				? pagesFromExport(JSON.parse(readFileSync(exportFile, 'utf8')) as NotionExport)
+				: await queryAll(token!, fetchImpl);
 	} catch (error) {
 		console.error((error as Error).message);
 		return 1;

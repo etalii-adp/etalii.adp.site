@@ -123,3 +123,41 @@ test('the committed fixture snapshot matches the recorded responses', () => {
 	const committed = read(notionFixtures, 'notion.json');
 	assert.deepEqual(committed.rows, parseNotionPages(fixturePages()).rows);
 });
+
+test('--export reads a connector export like an API response, with focus areas and the export time', () => {
+	const dir = content();
+	const file = join(dir, 'export.json');
+	writeFileSync(
+		file,
+		JSON.stringify({
+			exportedAt: '2026-09-28T11:00:00.000Z',
+			dataSource: '3e7be2fd-05b6-8079-932d-000bfa0609af',
+			rows: [
+				{
+					url: 'https://app.notion.com/p/3e7be2fd05b68114a8bbe602d0e6ed63',
+					Name: 'Ansible project structure',
+					Origin: 'ansible/structure',
+					'One line purpose': 'See how playbooks, roles and inventories depend on each other.',
+					Type: 'Diagram',
+					Family: 'Infrastructure / network / cloud diagrams',
+					'Focus areas': ['Software delivery', 'Systems and strategy'],
+					Theory: '[Ansible directory layout](https://example.org/layout)',
+				},
+				{ url: 'https://app.notion.com/p/3e7be2fd05b68114a8bbe602d0e6ed64', Name: 'No origin', Origin: '' },
+			],
+		}),
+	);
+	const { code, out } = run(['--export', file, '--content-dir', dir]);
+	assert.equal(code, 0, out);
+	const snapshot = read(dir, 'notion.json');
+	assert.equal(snapshot.rows.length, 1);
+	const [row] = snapshot.rows;
+	assert.equal(row.page, '3e7be2fd-05b6-8114-a8bb-e602d0e6ed63');
+	assert.equal(row.lastEditedTime, '2026-09-28T11:00:00.000Z');
+	assert.equal(row.name, 'Ansible project structure');
+	assert.equal(row.type, 'Diagram');
+	assert.deepEqual(row.focusAreas, ['Software delivery', 'Systems and strategy']);
+	assert.equal(row.description, null);
+	assert.match(out, /has no Origin/);
+	rmSync(dir, { recursive: true, force: true });
+});

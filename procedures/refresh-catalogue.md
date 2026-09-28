@@ -37,6 +37,15 @@ IntelliJ has no `docs/diagrams.md` yet, so its FreeMind and draw.io designers ar
 - `gh auth status` shows a login with read access to the four IDE repositories and write access to this repository.
 - A clean checkout of this repository, with Node.js 24 and `npm ci` done.
 - `NOTION_TOKEN` set to the token of the Notion integration shared with the "Diagrams" database. Without it the run still delivers, skips both Notion steps, and says so in the pull request.
+- Or, without a token, an agent with a Notion connector (for example Claude with the Notion connection) exports the "Diagrams" data source (`collection://3e7be2fd-05b6-8079-932d-000bfa0609af`) to a file and the run reads it: see "Without a Notion token" below.
+
+### Without a Notion token
+
+The owner may prefer not to hand the run a token. Then the agent running the procedure reads Notion through its own Notion connector:
+
+1. Query every row of the data source in the connector's rows mode (all pages, 100 rows at a time), keeping each row's `url` and the columns named in `notionColumns` in `src/lib/catalogue/notion-api.ts`.
+2. Write them, unchanged, to a file outside the repository: `{ "exportedAt": "<now, ISO 8601>", "dataSource": "3e7be2fd-05b6-8079-932d-000bfa0609af", "rows": [ … ] }`. A multi-select such as `Focus areas` may be an array of option names.
+3. Run the procedure with `NOTION_EXPORT=<file>` set. The run takes the snapshot with `npm run catalogue:notion -- --export <file>` instead of calling Notion, records the export time as each row's revision, and says in the pull request that the snapshot came from an export. Notion's host columns are not written back.
 
 ## Steps
 

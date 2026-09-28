@@ -167,3 +167,47 @@ export function addUnknownFocusAreas(focusAreas: FocusArea[], rows: NotionRow[],
 	}
 	return { focusAreas: result, report };
 }
+
+/**
+ * An export of the "Diagrams" data source made by an agent through a Notion connector, for runs without
+ * NOTION_TOKEN (procedures/refresh-catalogue.md § Without a Notion token). `rows` are the connector's rows as it
+ * returns them: property name → value (a string; for a multi-select, an array of option names or a comma-separated
+ * string), and the page's `url`. The connector does not give a page's last edit, so `exportedAt` stands in for it.
+ */
+export interface NotionExport {
+	exportedAt: string;
+	dataSource: string;
+	rows: Record<string, unknown>[];
+}
+
+const selectColumns = new Set<string>([notionColumns.type, notionColumns.family, notionColumns.subfamily, notionColumns.standalone, notionColumns.intellij, notionColumns.vscode, notionColumns.eclipse]);
+
+/** The page id in a Notion page URL (its last 32 hex digits), as a dashed UUID. */
+export function pageIdFromUrl(url: string): string | null {
+	const hex = url.replace(/[?#].*$/, '').match(/([0-9a-f]{32})$/i)?.[1];
+	return hex ? `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`.toLowerCase() : null;
+}
+
+/** Reads a connector export as query result pages, so it goes through parseNotionPages like an API response. */
+export function pagesFromExport(exported: NotionExport): NotionPage[] {
+	if (exported.dataSource !== notionDataSource) throw new Error(`The export is of data source ${exported.dataSource}, not ${notionDataSource}.`);
+	const rich = (value: string): RichText => (value === '' ? [] : [{ plain_text: value }]);
+	return exported.rows.map((row, index) => {
+		const id = pageIdFromUrl(String(row.url ?? ''));
+		if (!id) throw new Error(`Export row ${index + 1} has no Notion page url.`);
+		const properties: Record<string, NotionProperty> = {};
+		for (const [column, raw] of Object.entries(row)) {
+			if (column === 'url') continue;
+			if (column === notionColumns.focusAreas) {
+				const names = Array.isArray(raw) ? raw.map(String) : String(raw ?? '').split(',');
+				properties[column] = { type: 'multi_select', multi_select: names.map((name) => name.trim()).filter(Boolean).map((name) => ({ name })) };
+				continue;
+			}
+			const value = raw === null || raw === undefined ? '' : String(raw).trim();
+			if (column === notionColumns.name) properties[column] = { type: 'title', title: rich(value) };
+			else if (selectColumns.has(column)) properties[column] = { type: 'select', select: value ? { name: value } : null };
+			else properties[column] = { type: 'rich_text', rich_text: rich(value) };
+		}
+		return { object: 'page', id, last_edited_time: exported.exportedAt, properties };
+	});
+}
