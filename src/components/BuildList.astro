@@ -1,16 +1,25 @@
 ---
-// The build of each repository, as in the organisation profile's badge table. The status badges are the one
-// resource this site loads from another origin (spec 001 FR-015). A private repository is named but not linked,
-// and shows no badge, because GitHub serves neither to visitors (constitution principle III).
-import { badgeOrigin, builds, organisation } from '../data/builds';
+// The build and statistics of each repository, as in the organisation profile's badge table. The status badges
+// (github.com) and the statistics badges (img.shields.io) are the only resources this site loads from another
+// origin (spec 001 FR-015). A private repository is named but not linked, and shows no badge, because GitHub
+// serves neither to visitors (constitution principle III).
+import { badgeOrigin, builds, followersBadge, organisation, repositoryStats, statsOrigin } from '../data/builds';
 ---
 
-<table class="adp-builds not-content">
-	<caption>Build status of each repository</caption>
+<p class="adp-followers">
+	<a href={`${organisation}`}>
+		<img src={`${statsOrigin}${followersBadge}`} alt="Followers of the etalii-adp organisation" height="20" referrerpolicy="no-referrer" />
+	</a>
+</p>
+
+<div class="adp-builds-scroll not-content" role="region" aria-label="Build status and statistics of each repository" tabindex="0">
+<table class="adp-builds">
+	<caption>Build status and statistics of each repository</caption>
 	<thead>
 		<tr>
 			<th scope="col">Repository</th>
 			<th scope="col">Build</th>
+			{repositoryStats.map((stat) => <th scope="col">{stat.label}</th>)}
 		</tr>
 	</thead>
 	<tbody>
@@ -36,15 +45,39 @@ import { badgeOrigin, builds, organisation } from '../data/builds';
 									)
 								: `${build.workflow} (not public yet)`}
 					</td>
+					{repositoryStats.map((stat) => (
+						<td>
+							{build.public ? (
+								<a href={stat.link(build.repository)}>
+									<img
+										src={`${statsOrigin}${stat.path(build.repository)}`}
+										alt={`${stat.label} of ${build.repository}`}
+										height="20"
+										referrerpolicy="no-referrer"
+									/>
+								</a>
+							) : (
+								'N/A'
+							)}
+						</td>
+					))}
 				</tr>
 			))
 		}
 	</tbody>
 </table>
+</div>
 
 <style>
-	.adp-builds {
+	.adp-followers {
 		margin-block-start: 1.5rem;
+	}
+	/* Five columns of badges are wider than a phone: the table scrolls on its own rather than the page. */
+	.adp-builds-scroll {
+		margin-block-start: 1rem;
+		overflow-x: auto;
+	}
+	.adp-builds {
 		border-collapse: collapse;
 		width: 100%;
 	}
