@@ -266,12 +266,14 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 
 		// Text, from Notion; a gap is reported, never filled in by the site.
 		let purpose = notion?.purpose ?? null;
-		if (!purpose) {
-			purpose = name;
-			report.gaps.push({ origin, message: `${origin}: no one-line purpose in Notion; the name is shown instead` });
-		}
-		if (purpose.length > purposeLimit) {
+		if (purpose && purpose.length > purposeLimit) {
 			throw new Error(`${posix(notionPath)}: ${origin}: the one-line purpose is ${purpose.length} characters, more than ${purposeLimit}.`);
+		}
+		// The name stands in until Notion has a purpose. It is the source's text, not written to fit a line, so a long one
+		// is cut at a word and marked with an ellipsis rather than failing the build.
+		if (!purpose) {
+			purpose = name.length <= purposeLimit ? name : `${name.slice(0, purposeLimit - 1).replace(/\s+\S*$/, '')}…`;
+			report.gaps.push({ origin, message: `${origin}: no one-line purpose in Notion; the name is shown instead` });
 		}
 		const task = notion?.description ?? null;
 		if (!task) report.gaps.push({ origin, message: `${origin}: no Description (the task it serves) in Notion` });

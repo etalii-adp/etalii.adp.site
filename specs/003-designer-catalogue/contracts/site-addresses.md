@@ -4,23 +4,24 @@ Every page the catalogue publishes, with its address under `https://etalii.net/a
 
 | Address | Page | Part | Requirement |
 |---|---|---|---|
-| `/adp/designers/` | Overview: every designer grouped by focus area, then the ideas list | documentation | FR-001, FR-002, FR-014 |
-| `/adp/designers/focus/<focus-slug>/` | Designers in one focus area | documentation | FR-002 |
-| `/adp/designers/hosts/<host-id>/` | Designers per state in one host (`standalone`, `intellij`, `vscode`, `eclipse`) | documentation | FR-002, US3 |
-| `/adp/designers/states/<state-id>/` | Designers whose best state is this state (`planned`, `in-progress`, `prototype`, `implemented`, `available`) | documentation | FR-002 |
+| `/adp/designers/` | Overview: every designer grouped by focus area, then the ideas list; the only place designers are filtered | documentation | FR-001, FR-002, FR-014 |
+| `/adp/designers/?focus=<focus-slug>&hosts=<host-id>&state=<state-id>` | The overview with those options ticked; each parameter may repeat or be left out | documentation | FR-002 |
+| `/adp/designers/focus/<focus-slug>/`, `/adp/designers/hosts/<host-id>/`, `/adp/designers/states/<state-id>/` | Retired 2026-09-28: a redirect to the overview with that one option ticked | documentation | FR-002 |
 | `/adp/designers/<vendor>/<diagram-type>/` | Designer page | documentation | FR-003 to FR-009, FR-012 |
 | `/adp/designers/<old-vendor>/<old-type>/` | Redirect stub or withdrawal notice | documentation | FR-011 |
 
-The facet pages for `idea` and `not-planned` are not generated: ideas are listed on the overview only, and "not planned" is never a catalogue membership.
+There are no filter options for `idea` and `not-planned`: ideas are listed on the overview only, and "not planned" is never a catalogue membership.
 
 ## The overview
 
 - Its markup contains the full catalogue in reading order, with scripting disabled (FR-002).
 - Each entry shows the name, the one-line purpose, a thumbnail (or none, never a placeholder that looks like the product), the origin tag, and the four host states as text, not colour alone (WCAG 1.4.1).
 - Designers with no focus area are listed under "Other designers" after the focus-area groups. A focus area with no designers shows "No designers yet".
-- A filter above the list has one group per facet (focus area, host, state), in the markup, not added by script. Each option is a checkbox followed by the option's name, and the name is an ordinary link to that option's facet page. There is no separate block of facet links on the overview (FR-002, amended 2026-09-28).
-- With scripting, ticking checkboxes narrows the list in place (OR within a facet, AND across facets); groups left without a matching designer are hidden while any option is ticked, and the number of results is reported in an `aria-live="polite"` region. Without scripting, the checkboxes are not shown, the names stay links to the facet pages, and nothing is lost but the combination of filters.
-- The facet pages keep their own block of facet links, so a visitor can move from one facet page to another.
+- A filter above the list has one group per facet (focus area, host, state) and one checkbox per option, with the option's name as its label and no links (FR-002, amended 2026-09-28).
+- With scripting, ticking checkboxes narrows the list in place (OR within a facet, AND across facets); groups left without a matching designer are hidden while any option is ticked, the number of results is reported in an `aria-live="polite"` region, and the ticked options are kept in the address as `?focus=…&hosts=…&state=…`. Opening such an address ticks them.
+- With exactly one option ticked, the introduction above the filter is replaced by that option's description (a focus area's problem statement, or a sentence naming the host or state), the breadcrumbs become Documentation › Designers › the option (with Designers a link to the overview), and the document title names the option. With none or several ticked, the page is as built.
+- Without scripting, the filter is not shown and the full list is; nothing is lost but narrowing it.
+- Each card's name links to the designer page.
 - The ideas list follows the catalogue under its own heading. It shows each idea's name, origin tag and theory links, and has no thumbnails and no links to designer pages.
 
 ## A designer page, in order

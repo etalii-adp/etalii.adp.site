@@ -396,6 +396,20 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ---
 
+## Phase 9: Amendment 2026-09-28 (second) - One designers page, checkboxes only
+
+**Goal**: the overview is the only place designers are filtered, by checkbox only; one ticked option describes the selection and extends the breadcrumbs; the per-option pages are dropped and their addresses redirect; every designer keeps its own linked page; the current designers are brought in; agents have written instructions for adding and refining designers (FR-002, FR-003 and US1 AS2, AS4, AS5 as amended, contracts/site-addresses.md, research D6). Built on `features/003-single-page-catalogue`.
+
+- [x] **T063** [US1] Rewrite `src/components/catalogue/CatalogueFilter.astro`: one labelled checkbox per option, no links; hidden without scripting. The script filters as before, keeps the ticked options in the address (`?focus=…&hosts=…&state=…`) and reads them on load, and with exactly one option ticked replaces the introduction (`[data-adp-filter-intro]` on the overview) with the option's description, appends the option to the breadcrumbs (Designers becomes a link) and names it in the document title; otherwise it restores all three.
+- [x] **T064** [US1] Delete `src/pages/designers/focus/`, `hosts/`, `states/` and `FacetLinks.astro`. Add each retired address to `src/data/redirects.ts`, pointing at the overview with that option ticked. Point the designer page's focus-area links and the home page's focus-area headings at `/adp/designers/?focus=<slug>` (`filterHref` in `src/components/catalogue/data.ts`).
+- [x] **T065** In `src/lib/catalogue/assemble.ts`, apply the 140-character limit to a Notion purpose only; when the designer's name stands in for a missing purpose, cut a long name at a word with an ellipsis. The standalone's `ansible/structure` name is 209 characters and failed the catalogue refresh.
+- [x] **T066** [US1] In `tests/catalogue.spec.ts` and `tests/site.spec.ts`: the filter has checkboxes and no links; the retired addresses redirect; without scripting the filter is hidden and every card shows; one ticked option (also from the address) sets the introduction and breadcrumbs, several or none restore them, and the address follows; every card's name links to its designer page; internal links may carry a query after the slash.
+- [x] **T067** Write "Adding or refining a designer" in `src/content/catalogue/README.md`, for people and agents: where each fact and text comes from, which procedure brings it in, and what may be edited in this repository; point to it from `CLAUDE.md`.
+- [ ] T068 Run "Refresh the designer catalogue", "Refresh the screenshots" and "Refresh the IDE host states" (procedures/) so the current designers reach `develop` through their own pull requests.
+- [x] **T069** Run `npm run build` and `npm run check`, with the committed sources and with the unit fixtures, and fix every failure.
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase dependencies

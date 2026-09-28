@@ -45,3 +45,7 @@ The DEDL reference, the designer catalogue, the screenshots and the IDE host sta
 - "Refresh the whole site": [procedures/refresh-all.md](procedures/refresh-all.md)
 
 When asked to run one of them, open its document in `procedures/` and follow it step by step. Never edit a file under `sources/` by hand; every change there comes from `npm run refresh`. When a run ends with `needs-decision`, read `.refresh/decision.json` and ask the person its `question` as a selection whose options are exactly its `options`; then run `npm run refresh:decide -- <id> <answer>` and run the procedure again.
+
+## Adding or refining a designer
+
+The designer catalogue (spec 003) has no hand-written page per designer: everything shown about a designer comes from the IDE hosts' `docs/diagrams.md` and screenshots, and from the Notion "Diagrams" database, through the refresh procedures above. Before adding a designer, changing its text or state, or changing the designers pages, read "Adding or refining a designer" in [src/content/catalogue/README.md](src/content/catalogue/README.md).

@@ -3,7 +3,7 @@
 // page. Every git source is named in an adp:source meta for spec 004's source-record check.
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import AvailabilityTable from './AvailabilityTable.astro';
-import { bestState, isUsable } from './data';
+import { bestState, filterHref, isUsable } from './data';
 import ScreenshotFigure from './ScreenshotFigure.astro';
 import SourceList from './SourceList.astro';
 import TableScroll from './TableScroll.astro';
@@ -123,7 +123,7 @@ const head = [
 				<ul>
 					{areas.map((area) => (
 						<li>
-							<a href={`/adp/designers/focus/${area.slug}/`}>{area.name}</a>
+							<a href={filterHref('focus', area.slug)}>{area.name}</a>
 						</li>
 					))}
 				</ul>

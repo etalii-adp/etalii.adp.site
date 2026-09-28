@@ -43,7 +43,7 @@ async function expectNoViolations(page: Page) {
 }
 
 test('the build contains the pages of this feature', () => {
-	expect(pages).toEqual(expect.arrayContaining(['/404.html', '/adp/', '/adp/docs/', '/adp/dedl/', '/adp/designers/', '/adp/designers/focus/technology-assessment/']));
+	expect(pages).toEqual(expect.arrayContaining(['/404.html', '/adp/', '/adp/docs/', '/adp/dedl/', '/adp/designers/']));
 });
 
 for (const address of pages) {
@@ -125,7 +125,7 @@ for (const address of pages) {
 		test('links internally only to addresses that end in a slash', async ({ page }) => {
 			await page.goto(address);
 			const hrefs = await page.locator('a[href^="/"]').evaluateAll((links) => links.map((a) => a.getAttribute('href')!));
-			const withoutSlash = hrefs.filter((href) => !/\/(#.*)?$/.test(href) && !/\.[a-z0-9]+(#.*)?$/i.test(href));
+			const withoutSlash = hrefs.filter((href) => !/\/(\?[^#]*)?(#.*)?$/.test(href) && !/\.[a-z0-9]+(#.*)?$/i.test(href));
 			expect(withoutSlash).toEqual([]);
 		});
 	});
