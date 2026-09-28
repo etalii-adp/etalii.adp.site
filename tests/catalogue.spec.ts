@@ -155,9 +155,12 @@ test.describe('overview', () => {
 	test('lists the ideas after the catalogue, without designer pages (FR-014)', async ({ page }) => {
 		await page.goto('/adp/designers/');
 		const ideas = page.locator('section.adp-ideas');
+		await expect(ideas.locator('.adp-idea')).toHaveCount(catalogue.ideas.length);
 		for (const idea of catalogue.ideas) {
-			await expect(ideas).toContainText(idea.name);
-			await expect(ideas).toContainText(idea.origin);
+			const card = ideas.locator(`.adp-idea[data-origin="${idea.origin}"]`);
+			await expect(card.locator('h3')).toHaveText(idea.name);
+			await expect(card.locator('code')).toHaveText(idea.origin);
+			if (idea.purpose) await expect(card).toContainText(idea.purpose);
 		}
 		const hrefs = await ideas.locator('a').evaluateAll((links) => links.map((a) => a.getAttribute('href') ?? ''));
 		expect(hrefs.filter((href) => href.startsWith('/adp/designers/'))).toEqual([]);

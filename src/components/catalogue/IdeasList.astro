@@ -1,6 +1,6 @@
 ---
-// The ideas list (FR-014): candidates that no host has planned yet. Apart from the catalogue, with no thumbnails
-// and no designer pages.
+// The ideas (FR-014, amended 2026-09-28): candidates that no host has planned yet, as cards like the designers', but
+// apart from the catalogue, with no thumbnails, no states and no designer pages. A dashed border sets them apart.
 import type { Idea } from '../../lib/catalogue/types';
 
 interface Props {
@@ -15,20 +15,23 @@ const { ideas } = Astro.props;
 	<p>These are candidates for a designer. No host is building them yet, and each may or may not become one.</p>
 	{
 		ideas.length > 0 ? (
-			<ul>
+			<ul class="adp-idea-cards not-content">
 				{ideas.map((idea) => (
-					<li>
-						{idea.name} <code>{idea.origin}</code>
+					<li class="adp-idea" data-origin={idea.origin}>
+						<h3>{idea.name}</h3>
+						{idea.purpose && <p>{idea.purpose}</p>}
+						<p class="adp-origin">
+							<code>{idea.origin}</code>
+						</p>
+						<p class="adp-note">{idea.family}</p>
 						{idea.theory.length > 0 && (
-							<>
-								{' · '}
-								{idea.theory.map((link, index) => (
-									<>
-										{index > 0 && ', '}
+							<ul class="adp-idea-theory" aria-label={`Background for ${idea.name}`}>
+								{idea.theory.map((link) => (
+									<li>
 										<a href={link.url}>{link.title}</a>
-									</>
+									</li>
 								))}
-							</>
+							</ul>
 						)}
 					</li>
 				))}
@@ -40,7 +43,46 @@ const { ideas } = Astro.props;
 </section>
 
 <style>
-	.adp-ideas code {
+	.adp-idea-cards {
+		display: grid;
+		/* The designer cards' grid (DesignerList.astro): as many columns of at least 17rem as the width allows. */
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+		gap: 1rem;
+		margin: 1rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+	.adp-idea {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		min-width: 0;
+		padding: 1.25rem;
+		border: 1px dashed var(--sl-color-gray-4);
+		border-radius: 0.75rem;
+	}
+	h3 {
+		margin: 0;
+		font-size: var(--sl-text-h4);
+		color: var(--sl-color-white);
+	}
+	p {
+		margin: 0;
+	}
+	.adp-origin code {
+		overflow-wrap: anywhere;
+	}
+	.adp-idea-theory {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem 0.75rem;
+		margin: 0.25rem 0 0;
+		padding: 0;
+		list-style: none;
+		font-size: var(--sl-text-sm);
+	}
+	.adp-idea-theory li {
+		margin: 0;
 		overflow-wrap: anywhere;
 	}
 </style>

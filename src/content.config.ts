@@ -171,7 +171,7 @@ const designer = ({ image }: { image: ImageFunction }) =>
 		})
 		.strict();
 
-const idea = z.object({ origin, name: z.string().min(1), family: z.string().min(1), theory: z.array(link), source: catalogueSource }).strict();
+const idea = z.object({ origin, name: z.string().min(1), purpose: z.string().min(1).max(140).nullable(), family: z.string().min(1), theory: z.array(link), source: catalogueSource }).strict();
 
 const catalogueFocusArea = z
 	.object({

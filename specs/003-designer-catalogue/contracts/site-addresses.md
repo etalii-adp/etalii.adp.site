@@ -22,7 +22,7 @@ There are no filter options for `idea` and `not-planned`: ideas are listed on th
 - With exactly one option ticked, the introduction, which sits between the filter and the list, is replaced by that option's description (a focus area's problem statement, or a sentence naming the host or state), the breadcrumbs become Documentation › Designers › the option (with Designers a link to the overview), and the document title names the option. With none or several ticked, the page is as built.
 - Without scripting, the filter is not shown and the full list is; nothing is lost but narrowing it.
 - Each card's name links to the designer page.
-- The ideas list follows the catalogue under its own heading. It shows each idea's name, origin tag and theory links, and has no thumbnails and no links to designer pages.
+- The ideas follow the catalogue under their own heading, as cards in the same grid as the designers' but with a dashed border and no states (amended 2026-09-28). Each shows the idea's name, one-line purpose where Notion has one, origin tag, family and theory links, and has no thumbnail and no link to a designer page.
 
 ## A designer page, in order
 
