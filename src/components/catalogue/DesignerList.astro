@@ -26,15 +26,11 @@ const { designers, empty = 'No designers yet.' } = Astro.props;
 <style>
 	.adp-designers {
 		display: grid;
-		grid-template-columns: 1fr;
+		/* As many columns of at least 17rem as the width allows: one on a phone, more on a wide screen. */
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
 		gap: 1rem;
 		margin: 1rem 0 0;
 		padding: 0;
 		list-style: none;
-	}
-	@media (min-width: 50rem) {
-		.adp-designers {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
 	}
 </style>

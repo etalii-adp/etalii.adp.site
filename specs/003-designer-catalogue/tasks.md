@@ -409,6 +409,19 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T069** Run `npm run build` and `npm run check`, with the committed sources and with the unit fixtures, and fix every failure.
 - [x] **T070** Let the catalogue refresh take its Notion snapshot from an export an agent makes through its Notion connector (`NOTION_EXPORT`, `catalogue:notion -- --export`), for owners who do not hand the run a token; read Notion's host columns by their current names (`Standalone Plugin Implementation`, `IntelliJ Plugin Implementation`, `VS Code Plugin Implementation`, `Eclipse`). Owner decision of 2026-09-28: no `NOTION_TOKEN` locally; Claude drafted the missing purposes, descriptions, focus areas and "Why specialized" texts in Notion, for the owner to correct there.
 
+
+---
+
+## Phase 10: Amendment 2026-09-28 (third) - Description below the filter, link colour, wide screens
+
+**Goal**: the description of a single ticked option (and the overview's own introduction) sits between the filter and the list; links in the cards look like links elsewhere on the site; a wide screen shows more columns of designers (FR-001, FR-002 and US1 AS4 as amended, contracts/site-addresses.md).
+
+- [x] **T071** [US1] In `src/pages/designers/index.astro`, place `[data-adp-filter-intro]` after `CatalogueFilter` and say "in the filter above" in its text. Widen the overview's content (`--sl-content-width`) while keeping running text to a readable width.
+- [x] **T072** [US1] In `src/components/catalogue/DesignerList.astro`, lay the cards out in as many columns of at least 17rem as fit.
+- [x] **T073** In `src/styles/theme.css`, give links inside `.not-content` components in the content area the site's link colour (the designer cards and the home page cards had the browser's default blue); check every page in both schemes for other content links off that colour.
+- [x] **T074** Write the problem statements of the five focus areas added on 2026-09-26 in `src/content/catalogue/focus-areas.json` (site-owned text), so that ticking any focus area shows a real description.
+- [x] **T075** Test the order of filter, introduction and list, the link colour of the card names, and at least three columns at 1600 px; run `npm run build` and `npm run check`.
+
 ---
 
 ## Dependencies & Execution Order
