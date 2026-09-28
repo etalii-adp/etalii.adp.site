@@ -516,6 +516,17 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T098** [US2] In `ScreenshotFigure.astro`, caption a screenshot of a designer that is not usable yet with "In progress: this shows the designer while it is being built, before it can be used."
 - [x] **T099** Update the page and unit tests; run `npm run test:catalogue`, `npm run build` and `npm run check`.
 
+
+---
+
+## Phase 21: 2026-09-29 - IntelliJ screenshots linked
+
+**Goal**: the IntelliJ screenshots show on their designer pages, now that IntelliJ has a catalogue (owner's request of 2026-09-29).
+
+- [x] **T100** Read links inside Notion text as plain text in a connector export, except in Theory (Notion links "draw.io" by itself).
+- [x] **T101** Remove the three IntelliJ images' `none` answers from `procedures/config/screenshots.json` and document how to change an earlier answer in `procedures/refresh-screenshots.md`; run the catalogue and screenshots refreshes and answer mindmap.png → freeplane/mindmap, both draw.io images → jgraph/drawio.
+- [x] **T102** Write the three IntelliJ notes in `screenshot-notes.json`; run `npm run build` and `npm run check` with the refreshed sources.
+
 ---
 
 ## Dependencies & Execution Order
