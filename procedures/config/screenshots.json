@@ -26,9 +26,9 @@
     "sparql.png": "w3c/sparql"
   },
   "intellij": {
-    "drawio-activity.png": "none",
-    "drawio-cross-functional.png": "none",
-    "mindmap.png": "none"
+    "drawio-activity.png": "jgraph/drawio",
+    "drawio-cross-functional.png": "jgraph/drawio",
+    "mindmap.png": "freeplane/mindmap"
   },
   "vscode": {},
   "eclipse": {}

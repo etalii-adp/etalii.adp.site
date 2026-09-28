@@ -138,6 +138,7 @@ test('--export reads a connector export like an API response, with focus areas a
 				{
 					url: 'https://app.notion.com/p/3e7be2fd05b68114a8bbe602d0e6ed63',
 					Name: 'Ansible project structure',
+					Description: 'Opens in [draw.io](http://draw.io) too.',
 					Origin: 'ansible/structure',
 					'One line purpose': 'See how playbooks, roles and inventories depend on each other.',
 					Type: 'Diagram',
@@ -159,7 +160,8 @@ test('--export reads a connector export like an API response, with focus areas a
 	assert.equal(row.name, 'Ansible project structure');
 	assert.equal(row.type, 'Diagram');
 	assert.deepEqual(row.focusAreas, ['Software delivery', 'Systems and strategy']);
-	assert.equal(row.description, null);
+	assert.equal(row.description, 'Opens in draw.io too.');
+assert.equal(row.theory, '[Ansible directory layout](https://example.org/layout)');
 	assert.match(out, /has no Origin/);
 	rmSync(dir, { recursive: true, force: true });
 });

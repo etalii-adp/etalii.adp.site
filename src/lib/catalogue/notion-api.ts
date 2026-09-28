@@ -209,7 +209,11 @@ export function pagesFromExport(exported: NotionExport): NotionPage[] {
 				properties[column] = { type: 'multi_select', multi_select: names.map((name) => name.trim()).filter(Boolean).map((name) => ({ name })) };
 				continue;
 			}
-			const value = raw === null || raw === undefined ? '' : String(raw).trim();
+			const text = raw === null || raw === undefined ? '' : String(raw).trim();
+			// The connector writes a link inside text as Markdown, [text](url), where the API's plain_text has the text
+			// alone. Notion links words such as "draw.io" by itself, so every column but Theory, whose URLs the catalogue
+			// reads, keeps the text alone, as the API would give it.
+			const value = column === notionColumns.theory ? text : text.replace(/\[([^\]]*)\]\([^)\s]*\)/g, '$1');
 			if (column === notionColumns.name) properties[column] = { type: 'title', title: rich(value) };
 			else if (selectColumns.has(column)) properties[column] = { type: 'select', select: value ? { name: value } : null };
 			else properties[column] = { type: 'rich_text', rich_text: rich(value) };
