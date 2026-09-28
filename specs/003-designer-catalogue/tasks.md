@@ -485,6 +485,15 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T089** [US1] In `DesignerCard.astro`, give the host list `margin-block-start: auto` in the card's flex column; the grid already gives the cards of a row one height.
 - [x] **T090** In `tests/catalogue.spec.ts`, check at 1600 px that the host lists of the cards in one row start at the same height; run `npm run build` and `npm run check`.
 
+
+---
+
+## Phase 18: Fix 2026-09-28 - State labels on one line in tables
+
+**Goal**: a state label in a designer page's availability table never breaks over two lines (owner's report of 2026-09-28).
+
+- [x] **T092** Remove the rule in `src/components/catalogue/TableScroll.astro` that let state labels wrap; the table scrolls sideways on a narrow screen instead. Run `npm run build` and `npm run check`.
+
 ---
 
 ## Dependencies & Execution Order
