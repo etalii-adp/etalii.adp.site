@@ -1,0 +1,110 @@
+/*
+ * The house style for article pages (analyses and other long reads in the documentation), first used by
+ * docs/research/structuring-insight.mdx. Every article page uses these classes rather than its own:
+ * - article-eyebrow: a small label above a heading ("Pattern 1"); headings themselves are not numbered.
+ * - article-summary with article-summary-label: the boxed, numbered list of sections at the top.
+ * - article-cases of article-case items: two columns, an article-domain label beside its text, so the text
+ *   never wraps back under the label; article-sources on its own smaller line below, without a "Sources" prefix.
+ * - article-adp with article-adp-label: the dark green "ADP angle" breakout box.
+ * - article-method: the smaller note on method at the end.
+ */
+.sl-markdown-content .article-eyebrow {
+	margin-top: 3rem;
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--sl-color-gray-3);
+}
+
+/* The heading under a label sits right below it. */
+.sl-markdown-content .article-eyebrow + :is(h2, .sl-heading-wrapper) {
+	margin-top: 0.25rem;
+}
+
+.sl-markdown-content .article-summary {
+	padding: 1rem 1.25rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 0.5rem;
+	background: var(--sl-color-gray-6);
+}
+
+.sl-markdown-content .article-summary-label {
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--sl-color-gray-3);
+}
+
+.sl-markdown-content .article-summary ol {
+	margin-top: 0.5rem;
+}
+
+.sl-markdown-content ul.article-cases {
+	list-style: none;
+	padding-inline-start: 0;
+}
+
+.sl-markdown-content .article-case {
+	display: grid;
+	grid-template-columns: 9.5rem minmax(0, 1fr);
+	gap: 0.25rem 1rem;
+}
+
+.sl-markdown-content .article-cases > .article-case {
+	margin-top: 1.25rem;
+}
+
+.sl-markdown-content .article-case p {
+	margin: 0;
+}
+
+.sl-markdown-content .article-case p + p {
+	margin-top: 0.25rem;
+}
+
+.sl-markdown-content .article-domain {
+	padding-top: 0.2rem;
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--sl-color-gray-3);
+}
+
+.sl-markdown-content .article-sources,
+.sl-markdown-content .article-method {
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-3);
+}
+
+/* Dark green in both schemes, so its colours do not follow the scheme. */
+.sl-markdown-content .article-adp {
+	padding: 0.875rem 1.125rem;
+	border-radius: 0.5rem;
+	background: #123a1b;
+	color: #e6e9ec;
+}
+
+.sl-markdown-content .article-adp-label {
+	font-size: var(--sl-text-xs);
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: #6ee76e;
+}
+
+.sl-markdown-content .article-adp-label + p {
+	margin-top: 0.25rem;
+}
+
+.sl-markdown-content .article-method {
+	margin-top: 3rem;
+}
+
+@media (max-width: 40rem) {
+	.sl-markdown-content .article-case {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
