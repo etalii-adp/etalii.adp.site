@@ -143,6 +143,28 @@ test.describe('overview', () => {
 		}
 	});
 
+	test('no card shows a screenshot; they are on the designer pages (US1 AS1)', async ({ page }) => {
+		await page.goto('/adp/designers/');
+		await expect(page.locator('.adp-designer img')).toHaveCount(0);
+	});
+
+	test('a screenshot on a designer page opens large when clicked, and Escape closes it (FR-006)', async ({ page }) => {
+		const designer = catalogue.designers.find((d) => d.screenshots.some((screenshot) => screenshot.publishable));
+		test.skip(!designer, 'no designer has a publishable screenshot');
+		await page.goto(`/adp/designers/${designer!.origin}/`);
+		const link = page.locator('figure.adp-screenshot a[data-adp-enlarge]').first();
+		const href = await link.getAttribute('href');
+		await link.click();
+		const viewer = page.locator('dialog.adp-lightbox');
+		await expect(viewer).toBeVisible();
+		await expect(viewer.locator('img')).toHaveAttribute('src', new RegExp(href!.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '$'));
+		const size = await viewer.locator('img').boundingBox();
+		expect(size!.width).toBeGreaterThan(page.viewportSize()!.width * 0.9);
+		await page.keyboard.press('Escape');
+		await expect(viewer).toBeHidden();
+		expect(new URL(page.url()).pathname).toBe(`/adp/designers/${designer!.origin}/`);
+	});
+
 	test('a designer that is not usable anywhere has no image and says so (US1 AS3)', async ({ page }) => {
 		await page.goto('/adp/designers/');
 		for (const designer of catalogue.designers.filter((d) => !isUsable(bestState(d.hosts)))) {

@@ -444,6 +444,17 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T080** [US1] In `src/components/catalogue/IdeasList.astro`: name, origin tag, purpose, "Family: …", then a "Sources" heading over the theory links, one per line without bullets. The owner asked for the prefix "Focus area"; the line holds the Notion family, not a focus area, so it is labelled "Family" and the owner is told.
 - [x] **T081** Run `npm run build` and `npm run check`.
 
+
+---
+
+## Phase 13: Amendment 2026-09-28 (sixth) - Screenshots on designer pages only, enlarged on click
+
+**Goal**: the overview's cards have no screenshot; on a designer page a screenshot opens over the page, as large as the window allows (FR-001, FR-006 and US1 AS1 as amended, contracts/site-addresses.md).
+
+- [x] **T082** [US1] Remove the thumbnail from `src/components/catalogue/DesignerCard.astro`.
+- [x] **T083** [US2] In `src/components/catalogue/ScreenshotFigure.astro`, make the image a link to the full-size PNG and, with scripting, show that PNG in a modal `<dialog>` sized to the window (Escape, a close button, or a click closes it).
+- [x] **T084** In `tests/catalogue.spec.ts`, check that no card has an image and that clicking a screenshot opens the viewer with the full-size PNG and Escape closes it; run `npm run build` and `npm run check`.
+
 ---
 
 ## Dependencies & Execution Order

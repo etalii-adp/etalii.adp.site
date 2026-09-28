@@ -36,7 +36,7 @@ Nothing per designer is generated into the repository, so each fact has one copy
 **Constraints**:
 
 - It works under the `/adp` base path.
-- There is no client script on any page except the optional filter on the overview.
+- There is no client script on any page except the optional filter on the overview and the screenshot viewer on the designer pages (amended 2026-09-28); both only enhance.
 - There are no third-party requests and no cookies.
 - It meets WCAG 2.2 AA, works at phone width, and supports light and dark schemes.
 - The IDE sources are private repositories until the owner's decision to make them public is carried out (research D9, D10.1).
@@ -107,7 +107,7 @@ src/
 │   ├── notion-api.ts                # Notion query results → rows
 │   └── assemble.ts                  # join, mapping, membership, screenshots, report
 ├── components/catalogue/
-│   ├── DesignerCard.astro           # overview entry: name, purpose, thumbnail, host states
+│   ├── DesignerCard.astro           # overview entry: name, origin tag, purpose, host states
 │   ├── DesignerList.astro
 │   ├── DesignerPage.astro
 │   ├── RetiredDesigner.astro        # redirect stub or withdrawal notice
