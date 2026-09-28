@@ -13,6 +13,9 @@ const notionFixtures = join(fixtures, 'notion');
 function content(): string {
 	const dir = mkdtempSync(join(tmpdir(), 'adp-notion-'));
 	cpSync('src/content/catalogue', dir, { recursive: true });
+	// Start from an empty snapshot: the committed notion.json fills up with every catalogue refresh, and the tests
+	// must not depend on what the last refresh brought in.
+	writeFileSync(join(dir, 'notion.json'), JSON.stringify({ retrievedAt: null, rows: [] }, null, 2) + '\n');
 	return dir;
 }
 
