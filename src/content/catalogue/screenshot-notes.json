@@ -1,12 +1,60 @@
 {
+  "standalone--ansible-structure": {
+    "whyItMatters": "The folder's playbooks, roles and inventories appear as one graph with every import and dependency labelled, so how the project hangs together is visible without opening its YAML files, and Ansible's own files are left untouched."
+  },
   "standalone--azure-pipeline": {
     "whyItMatters": "The whole pipeline reads left to right as stages and the dependencies between them, so the order of a run and where it fans out, here to staging and production, is clear without reading the YAML."
+  },
+  "standalone--c4-component": {
+    "whyItMatters": "The components inside one container are drawn from the same C4 model as the other views, so zooming in from the container diagram shows responsibilities and interactions that stay consistent with it."
+  },
+  "standalone--c4-context": {
+    "whyItMatters": "The system sits among the people and systems it works with, drawn from the model rather than by hand, so the widest C4 view agrees with every more detailed one."
+  },
+  "standalone--c4-system-landscape": {
+    "whyItMatters": "All systems of the organization appear in one view from the shared model, which shows where each system fits before zooming into any of them."
+  },
+  "standalone--causal-loop": {
+    "whyItMatters": "Every loop is named and labelled reinforcing or balancing from the signs on its own links, and slow links carry their delay marks, so the feedback structure can be read and trusted rather than inferred."
+  },
+  "standalone--databricks-bundle": {
+    "whyItMatters": "The bundle's resources and its dev and prod targets sit in one picture, with prod naming its overrides, so what gets deployed where is clear without reading every included YAML file."
+  },
+  "standalone--databricks-job": {
+    "whyItMatters": "The job's tasks form a graph with the condition task's true and false branches labelled, so the order a run takes, and where it branches, can be followed at a glance."
+  },
+  "standalone--databricks-pipeline": {
+    "whyItMatters": "Source libraries flow into the pipeline and on to its target catalog, with compute and notifications alongside, so the data's path through the declarative pipeline is traceable from start to end."
   },
   "standalone--dependency-graph": {
     "whyItMatters": "Each service and store is one node and each edge carries its own label, so what depends on what, and why, can be read from the picture rather than pieced together from configuration."
   },
+  "standalone--dotnet-dependency-graph": {
+    "whyItMatters": "Projects, packages and every reference between them appear together, and a package referenced in two versions is outlined, which is exactly the kind of problem a list of project files hides."
+  },
+  "standalone--functional-decomposition-graph": {
+    "whyItMatters": "UI elements, actions, data elements and functions each keep their own shape and are linked parent to child, so a frontend's structure can be traced from what a user sees down to the functions behind it."
+  },
+  "standalone--helm-chart": {
+    "whyItMatters": "The chart, its values, its templates and the helpers they include are drawn with the include edges labelled, so it is clear which values and helpers shape which rendered resources."
+  },
+  "standalone--hype-cycle": {
+    "whyItMatters": "Trends sit as banners along the years, coloured by their phase on the curve, with a filter by tag, so how technologies rise, fall and mature relative to each other can be compared over a long span."
+  },
   "standalone--mindmap": {
     "whyItMatters": "A large Freeplane map stays readable because the designer lays the branches out as a tree around the central topic, while the .mm file keeps working in Freeplane."
+  },
+  "standalone--owl": {
+    "whyItMatters": "The ontology's classes and properties appear in the VOWL notation, which makes the structure of an OWL ontology readable by eye, where its Turtle or RDF/XML source is not."
+  },
+  "standalone--rdf": {
+    "whyItMatters": "The Turtle document's resources become cards with their types and literals, language tags included, and their relations become edges, so the graph the text describes is visible as a graph."
+  },
+  "standalone--shacl": {
+    "whyItMatters": "Each node shape is a card with its target and property rows, path and cardinality, with edges between shapes, so what the constraints demand can be checked side by side instead of in nested Turtle."
+  },
+  "standalone--sparql": {
+    "whyItMatters": "The query's pattern is drawn as the graph it matches, with the OPTIONAL group as a region, so which variables join and which parts are optional is visible before the query runs."
   },
   "standalone--timeline": {
     "whyItMatters": "Periods and moments sit on rows against a year ruler, with connections between them, so a multi-year roadmap shows what overlaps and what waits on what."
