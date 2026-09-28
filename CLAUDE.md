@@ -49,3 +49,7 @@ When asked to run one of them, open its document in `procedures/` and follow it 
 ## Adding or refining a designer
 
 The designer catalogue (spec 003) has no hand-written page per designer: everything shown about a designer comes from the IDE hosts' `docs/diagrams.md` and screenshots, and from the Notion "Diagrams" database, through the refresh procedures above. Before adding a designer, changing its text or state, or changing the designers pages, read "Adding or refining a designer" in [src/content/catalogue/README.md](src/content/catalogue/README.md).
+
+## Article pages
+
+An article is a long read in the documentation, such as the analysis in `src/content/docs/docs/research/structuring-insight.mdx`. Every article keeps that page's style (Peter, 2026-09-28): write it as `.mdx` and use the `article-*` classes from `src/styles/article.css`, whose header comment lists them. Headings are not numbered; a small `article-eyebrow` label ("Pattern 1") goes above a heading where it helps. A boxed, numbered `article-summary` lists the sections at the top. Cases are two columns, the domain label beside its text, with the sources on their own smaller line and no "Sources" prefix. "ADP angle" breakout boxes are dark green with a green label. A smaller `article-method` note ends the page.
