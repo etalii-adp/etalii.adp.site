@@ -40,7 +40,7 @@ What the catalogue refresh expects from each source. When a source does not matc
 | `Focus areas` | multi-select (to be added, D10.4) | `focusAreas`, by option name → `focus-areas.json` slug; an unknown option is added with an empty `problem` and reported |
 | `Family`, `Subfamily` | select | cross-checked against S1's section; S1 wins |
 | `Theory` | text | merged with S1's theory links |
-| `Standalone`, `IntelliJ`, `VS Code`, `Eclipse` | select: the six source states and `⛔ Not planned` | host state for hosts without their own catalogue; cross-checked, and written back, for hosts with one (below) |
+| `Standalone Plugin Implementation`, `IntelliJ Plugin Implementation`, `VS Code Plugin Implementation`, `Eclipse` (renamed in Notion; read by these names since 2026-09-28) | select: the six source states and `⛔ Not planned` | host state for hosts without their own catalogue; cross-checked, and written back, for hosts with one (below) |
 | `State`, `Rarity`, `Abbreviation`, `Example` | | not used |
 
 - **Revision**: per row, the page id and its `last_edited_time`, recorded as a `notion` SourceRecord.
@@ -61,8 +61,8 @@ What the catalogue refresh expects from each source. When a source does not matc
 
 | Check | Result on failure |
 |---|---|
-| S1 state ≠ S3 `Standalone` for the same origin | reported in the pull request; S1 wins, and S3w writes it to Notion (research D2, D13) |
-| An origin in S3 with no match in S1, and `Standalone` set | reported |
+| S1 state ≠ S3 `Standalone Plugin Implementation` for the same origin | reported in the pull request; S1 wins, and S3w writes it to Notion (research D2, D13) |
+| An origin in S3 with no match in S1, and `Standalone Plugin Implementation` set | reported |
 | A host README describes a designer whose S3 state is empty or ⛔ | reported |
 | A source state not in the mapping | stop and ask (spec 004 FR-002) |
 | An image over budget, missing or unreadable | keep the previous image, report |
