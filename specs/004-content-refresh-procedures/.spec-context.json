@@ -3,7 +3,7 @@
   "specName": "Content Refresh Procedures",
   "branch": "claude/project-thread-yu2w2z",
   "currentStep": "implement",
-  "status": "implemented",
+  "status": "completed",
   "history": [
     {
       "step": "specify",
@@ -526,6 +526,13 @@
       "kind": "complete",
       "by": "extension",
       "at": "2026-09-27T08:30:36.864Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "complete",
+      "by": "extension",
+      "at": "2026-09-27T17:54:08.792Z"
     }
   ],
   "telemetryInstanceId": "f576f38d-c716-491b-ab0f-c304240c8619",
