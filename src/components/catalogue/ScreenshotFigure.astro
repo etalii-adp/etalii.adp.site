@@ -2,6 +2,8 @@
 // One screenshot on a designer page (FR-006, FR-012, FR-015): responsive WebP at most 1200 px wide, a caption
 // naming the host and revision, what is visible and why it matters, the source licence, and a link to the
 // full-size PNG, which is not loaded with the page. Renders nothing unless the screenshot is publishable.
+// The image itself links to the full-size PNG; with scripting, clicking it shows that PNG over the page, as large as
+// the window allows, until Escape, the close button or a click outside it (amended 2026-09-28).
 import { Picture } from 'astro:assets';
 import type { Screenshot } from '../../lib/catalogue/types';
 import { screenshotImage } from './data';
@@ -18,16 +20,18 @@ const widths = image ? [600, 1200].filter((width) => width < image.width).concat
 {
 	image && (
 		<figure class="adp-screenshot">
-			<Picture
-				src={image}
-				widths={[...new Set(widths)]}
-				sizes="(max-width: 1240px) 100vw, 1200px"
-				formats={['webp']}
-				fallbackFormat="webp"
-				alt={screenshot.alt}
-				loading="lazy"
-				decoding="async"
-			/>
+			<a class="adp-screenshot-open" href={image.src} data-adp-enlarge data-alt={screenshot.alt} title="Show the screenshot larger">
+				<Picture
+					src={image}
+					widths={[...new Set(widths)]}
+					sizes="(max-width: 1240px) 100vw, 1200px"
+					formats={['webp']}
+					fallbackFormat="webp"
+					alt={screenshot.alt}
+					loading="lazy"
+					decoding="async"
+				/>
+			</a>
 			<figcaption>
 				<p class="adp-caption">{screenshot.caption}</p>
 				<p>
@@ -44,9 +48,49 @@ const widths = image ? [600, 1200].filter((width) => width < image.width).concat
 	)
 }
 
+<script>
+	// One viewer per page, made on first use: a modal <dialog> holding the full-size PNG.
+	let viewer: HTMLDialogElement | undefined;
+	const open = (href: string, alt: string) => {
+		if (!viewer) {
+			viewer = document.createElement('dialog');
+			viewer.className = 'adp-lightbox';
+			viewer.setAttribute('aria-label', 'Screenshot');
+			const close = document.createElement('button');
+			close.type = 'button';
+			close.className = 'adp-lightbox-close';
+			close.textContent = 'Close';
+			close.addEventListener('click', () => viewer!.close());
+			const img = document.createElement('img');
+			img.addEventListener('click', () => viewer!.close());
+			viewer.append(close, img);
+			// A click on the backdrop (the dialog itself, outside the image and the button) closes it.
+			viewer.addEventListener('click', (event) => {
+				if (event.target === viewer) viewer!.close();
+			});
+			document.body.append(viewer);
+		}
+		const img = viewer.querySelector('img')!;
+		img.src = href;
+		img.alt = alt;
+		viewer.showModal();
+	};
+	for (const link of document.querySelectorAll<HTMLAnchorElement>('[data-adp-enlarge]')) {
+		link.addEventListener('click', (event) => {
+			if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+			event.preventDefault();
+			open(link.href, link.dataset.alt ?? '');
+		});
+	}
+</script>
+
 <style>
 	.adp-screenshot {
 		margin: 1.5rem 0 0;
+	}
+	.adp-screenshot-open {
+		display: block;
+		cursor: zoom-in;
 	}
 	.adp-screenshot :global(img) {
 		width: 100%;
@@ -62,5 +106,39 @@ const widths = image ? [600, 1200].filter((width) => width < image.width).concat
 	}
 	.adp-caption {
 		font-weight: 600;
+	}
+	/* The viewer: the backdrop darkens the page, and the image fills as much of the window as its proportions allow. */
+	:global(.adp-lightbox) {
+		inset: 0;
+		margin: auto;
+		max-width: none;
+		max-height: none;
+		padding: 0;
+		border: 0;
+		background: transparent;
+		overflow: visible;
+	}
+	:global(.adp-lightbox::backdrop) {
+		background: rgb(0 0 0 / 0.88);
+	}
+	:global(.adp-lightbox img) {
+		display: block;
+		width: 96vw;
+		height: 94vh;
+		object-fit: contain;
+		cursor: zoom-out;
+	}
+	:global(.adp-lightbox-close) {
+		position: fixed;
+		inset-block-start: 0.75rem;
+		inset-inline-end: 0.75rem;
+		padding: 0.25rem 0.875rem;
+		border: 1px solid rgb(255 255 255 / 0.6);
+		border-radius: 999rem;
+		background: rgb(0 0 0 / 0.7);
+		color: #fff;
+		font: inherit;
+		font-size: var(--sl-text-sm);
+		cursor: pointer;
 	}
 </style>
