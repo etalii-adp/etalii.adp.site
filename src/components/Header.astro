@@ -1,9 +1,12 @@
 ---
 // Replaces Starlight's Header: logo, the two site parts with the current one marked, and the source link
-// (contracts/site-navigation.md item 2, FR-003, FR-008). No search and no theme selector (research R10).
+// (contracts/site-navigation.md item 2, FR-003, FR-008), then the visitor counter (FR-015, amended 2026-09-28). No
+// search and no theme selector (research R10). The counter is fetched without credentials, so hitscounter.dev's
+// cookie is never kept, and without a referrer.
 import { Icon } from '@astrojs/starlight/components';
 import Logo from './Logo.astro';
 import { parts } from '../data/sections';
+import { visitorCounterColors, visitorCounterUrl } from '../data/visitors';
 
 const currentPart = Astro.locals.starlightRoute.entry.data.part;
 ---
@@ -27,6 +30,10 @@ const currentPart = Astro.locals.starlightRoute.entry.data.part;
 		<Icon name="github" size="1.25rem" />
 		<span class="adp-source-text">Source on GitHub</span>
 	</a>
+	<picture class="adp-visitors">
+		<source media="(prefers-color-scheme: dark)" srcset={visitorCounterUrl(visitorCounterColors.dark)} />
+		<img src={visitorCounterUrl(visitorCounterColors.light)} alt="Visitors" height="20" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	</picture>
 </div>
 
 <style>
@@ -70,7 +77,19 @@ const currentPart = Astro.locals.starlightRoute.entry.data.part;
 		text-decoration-thickness: 2px;
 		text-underline-offset: 0.35em;
 	}
+	.adp-visitors {
+		display: flex;
+		flex-shrink: 0;
+	}
+	.adp-visitors img {
+		display: block;
+		height: 20px;
+		width: auto;
+	}
 	@media (max-width: 49.99rem) {
+		.adp-visitors {
+			display: none;
+		}
 		.adp-header :global(.site-caption) {
 			display: none;
 		}
