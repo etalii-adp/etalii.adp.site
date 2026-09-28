@@ -140,7 +140,7 @@ test('--export reads a connector export like an API response, with focus areas a
 					'One line purpose': 'See how playbooks, roles and inventories depend on each other.',
 					Type: 'Diagram',
 					Family: 'Infrastructure / network / cloud diagrams',
-					'Focus areas': ['Software delivery', 'Systems and strategy'],
+					'Focus areas': '["Software delivery","Systems and strategy"]',
 					Theory: '[Ansible directory layout](https://example.org/layout)',
 				},
 				{ url: 'https://app.notion.com/p/3e7be2fd05b68114a8bbe602d0e6ed64', Name: 'No origin', Origin: '' },

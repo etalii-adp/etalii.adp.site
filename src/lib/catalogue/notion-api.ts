@@ -43,9 +43,9 @@ export const notionColumns = {
 	subfamily: 'Subfamily',
 	focusAreas: 'Focus areas',
 	previousOrigin: 'Previous origin',
-	standalone: 'Standalone',
-	intellij: 'IntelliJ',
-	vscode: 'VS Code',
+	standalone: 'Standalone Plugin Implementation',
+	intellij: 'IntelliJ Plugin Implementation',
+	vscode: 'VS Code Plugin Implementation',
 	eclipse: 'Eclipse',
 } as const;
 
@@ -171,7 +171,8 @@ export function addUnknownFocusAreas(focusAreas: FocusArea[], rows: NotionRow[],
 /**
  * An export of the "Diagrams" data source made by an agent through a Notion connector, for runs without
  * NOTION_TOKEN (procedures/refresh-catalogue.md § Without a Notion token). `rows` are the connector's rows as it
- * returns them: property name → value (a string; for a multi-select, an array of option names or a comma-separated
+ * returns them: property name → value (a string; for a multi-select, an array of option names, a JSON array in a
+ * string, or a comma-separated
  * string), and the page's `url`. The connector does not give a page's last edit, so `exportedAt` stands in for it.
  */
 export interface NotionExport {
@@ -192,14 +193,19 @@ export function pageIdFromUrl(url: string): string | null {
 export function pagesFromExport(exported: NotionExport): NotionPage[] {
 	if (exported.dataSource !== notionDataSource) throw new Error(`The export is of data source ${exported.dataSource}, not ${notionDataSource}.`);
 	const rich = (value: string): RichText => (value === '' ? [] : [{ plain_text: value }]);
+	// The connector leaves a row's empty properties out; a column any row has is a column of the data source.
+	const columns = [...new Set(exported.rows.flatMap((row) => Object.keys(row)))];
 	return exported.rows.map((row, index) => {
 		const id = pageIdFromUrl(String(row.url ?? ''));
 		if (!id) throw new Error(`Export row ${index + 1} has no Notion page url.`);
 		const properties: Record<string, NotionProperty> = {};
-		for (const [column, raw] of Object.entries(row)) {
+		for (const column of columns) {
+			const raw = row[column];
 			if (column === 'url') continue;
 			if (column === notionColumns.focusAreas) {
-				const names = Array.isArray(raw) ? raw.map(String) : String(raw ?? '').split(',');
+				// An array, a JSON array in a string (as the connector returns it), or a comma-separated string.
+				const listed = typeof raw === 'string' && raw.trim().startsWith('[') ? (JSON.parse(raw) as unknown[]) : raw;
+				const names = Array.isArray(listed) ? listed.map(String) : String(listed ?? '').split(',');
 				properties[column] = { type: 'multi_select', multi_select: names.map((name) => name.trim()).filter(Boolean).map((name) => ({ name })) };
 				continue;
 			}
