@@ -136,6 +136,8 @@ export interface Idea {
 	/** Notion's one-line purpose, at most 140 characters; null when Notion has none (an idea is not held to having one). */
 	purpose: string | null;
 	family: string;
+	/** Slugs of focus-areas.json, from Notion's `Focus areas`; may be empty. */
+	focusAreas: string[];
 	theory: Link[];
 	source: SourceRecord;
 }

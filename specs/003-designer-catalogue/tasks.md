@@ -409,7 +409,6 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T069** Run `npm run build` and `npm run check`, with the committed sources and with the unit fixtures, and fix every failure.
 - [x] **T070** Let the catalogue refresh take its Notion snapshot from an export an agent makes through its Notion connector (`NOTION_EXPORT`, `catalogue:notion -- --export`), for owners who do not hand the run a token; read Notion's host columns by their current names (`Standalone Plugin Implementation`, `IntelliJ Plugin Implementation`, `VS Code Plugin Implementation`, `Eclipse`). Owner decision of 2026-09-28: no `NOTION_TOKEN` locally; Claude drafted the missing purposes, descriptions, focus areas and "Why specialized" texts in Notion, for the owner to correct there.
 
-
 ---
 
 ## Phase 10: Amendment 2026-09-28 (third) - Description below the filter, link colour, wide screens
@@ -422,7 +421,6 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T074** Write the problem statements of the five focus areas added on 2026-09-26 in `src/content/catalogue/focus-areas.json` (site-owned text), so that ticking any focus area shows a real description.
 - [x] **T075** Test the order of filter, introduction and list, the link colour of the card names, and at least three columns at 1600 px; run `npm run build` and `npm run check`.
 
-
 ---
 
 ## Phase 11: Amendment 2026-09-28 (fourth) - Ideas as boxes
@@ -432,7 +430,6 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T076** Add `purpose` (Notion's one-line purpose, or null) to `Idea` in `src/lib/catalogue/types.ts`, `src/lib/catalogue/assemble.ts` and the `idea` schema in `src/content.config.ts`.
 - [x] **T077** [US1] Rewrite `src/components/catalogue/IdeasList.astro` as cards: name, purpose, origin tag, family and theory links, in the grid of `DesignerList.astro`, with a dashed border.
 - [x] **T078** In `tests/catalogue.spec.ts`, check one card per idea with its name, origin tag and purpose; run `npm run build` and `npm run check`.
-
 
 ---
 
@@ -444,7 +441,6 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T080** [US1] In `src/components/catalogue/IdeasList.astro`: name, origin tag, purpose, "Family: …", then a "Sources" heading over the theory links, one per line without bullets. The owner asked for the prefix "Focus area"; the line holds the Notion family, not a focus area, so it is labelled "Family" and the owner is told.
 - [x] **T081** Run `npm run build` and `npm run check`.
 
-
 ---
 
 ## Phase 13: Amendment 2026-09-28 (sixth) - Screenshots on designer pages only, enlarged on click
@@ -455,7 +451,6 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T083** [US2] In `src/components/catalogue/ScreenshotFigure.astro`, make the image a link to the full-size PNG and, with scripting, show that PNG in a modal `<dialog>` sized to the window (Escape, a close button, or a click closes it).
 - [x] **T084** In `tests/catalogue.spec.ts`, check that no card has an image and that clicking a screenshot opens the viewer with the full-size PNG and Escape closes it; run `npm run build` and `npm run check`.
 
-
 ---
 
 ## Phase 14: Amendment 2026-09-28 (seventh) - "On this page" on designer pages
@@ -464,7 +459,6 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 - [x] **T085** [US2] In `src/components/catalogue/DesignerPage.astro`, give the three subheadings of "What it is for" ids and pass the page's headings to `StarlightPage`, with "Screenshots" only where the section is shown.
 - [x] **T086** In `tests/catalogue.spec.ts`, check on every designer page that "On this page" lists exactly the page's headings; run `npm run build` and `npm run check`.
-
 
 ---
 
@@ -475,7 +469,6 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T087** [US1] In `DesignerCard.astro` and `IdeasList.astro`, put the name and the origin tag in an `<hgroup>` with the tag as `.adp-note` text, and tighten the heading's line height.
 - [x] **T088** Relabel `implemented` as "Not yet released" in `src/lib/catalogue/states.ts` and the documents that quote it; run `npm run build` and `npm run check`.
 
-
 ---
 
 ## Phase 16: Amendment 2026-09-28 (ninth) - Host states at the bottom of the card
@@ -485,6 +478,13 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T089** [US1] In `DesignerCard.astro`, give the host list `margin-block-start: auto` in the card's flex column; the grid already gives the cards of a row one height.
 - [x] **T090** In `tests/catalogue.spec.ts`, check at 1600 px that the host lists of the cards in one row start at the same height; run `npm run build` and `npm run check`.
 
+---
+
+## Phase 17: Amendment 2026-09-28 (tenth) - The count
+
+**Goal**: the overview's count reads "N designers and M ideas" (contracts/site-addresses.md § The overview).
+
+- [x] **T091** [US1] In `CatalogueFilter.astro`, report "N designers and M ideas", N the designers shown and M all ideas, with singular forms for one; update `tests/catalogue.spec.ts`, and run `npm run build` and `npm run check`.
 
 ---
 
@@ -493,6 +493,17 @@ The plan, research, data model and quickstart are brought in line in T057.
 **Goal**: a state label in a designer page's availability table never breaks over two lines (owner's report of 2026-09-28).
 
 - [x] **T092** Remove the rule in `src/components/catalogue/TableScroll.astro` that let state labels wrap; the table scrolls sideways on a narrow screen instead. Run `npm run build` and `npm run check`.
+
+---
+
+## Phase 19: Amendment 2026-09-28 (eleventh) - The filter applies to the ideas
+
+**Goal**: the overview's filter narrows the ideas as well as the designers (FR-014 as amended, contracts/site-addresses.md, data-model § Idea).
+
+- [x] **T093** Add `focusAreas` to `Idea` (types, assembly, content schema), from Notion's `Focus areas`.
+- [x] **T094** [US1] In `CatalogueFilter.astro`, filter the idea cards alike, add the state option "Idea", count the ideas shown and hide the ideas section when none is; in `IdeasList.astro`, give each card `data-focus` and `data-state="idea"` and show its focus areas.
+- [x] **T095** Assign a focus area to every idea in Notion (owner's request of 2026-09-28; Claude's draft, for the owner to correct there), take the snapshot with `npm run catalogue:notion -- --export` (the catalogue refresh reports "current" when only Notion changed), and run `npm run catalogue:report`.
+- [x] **T096** Test the focus-area, host and Idea filters on the idea cards and the count; run `npm run build` and `npm run check`.
 
 ---
 

@@ -1,13 +1,15 @@
 ---
 // The ideas (FR-014, amended 2026-09-28): candidates that no host has planned yet, as cards like the designers', but
 // apart from the catalogue, with no thumbnails, no states and no designer pages. A dashed border sets them apart.
-import type { Idea } from '../../lib/catalogue/types';
+import type { FocusArea, Idea } from '../../lib/catalogue/types';
 
 interface Props {
 	ideas: Idea[];
+	focusAreas: FocusArea[];
 }
 
-const { ideas } = Astro.props;
+const { ideas, focusAreas } = Astro.props;
+const areaName = (slug: string) => focusAreas.find((area) => area.slug === slug)?.name ?? slug;
 ---
 
 <section class="adp-ideas" aria-labelledby="ideas">
@@ -17,12 +19,13 @@ const { ideas } = Astro.props;
 		ideas.length > 0 ? (
 			<ul class="adp-idea-cards not-content">
 				{ideas.map((idea) => (
-					<li class="adp-idea" data-origin={idea.origin}>
+					<li class="adp-idea" data-origin={idea.origin} data-focus={idea.focusAreas.join(' ')} data-state="idea">
 						<hgroup>
 							<h3>{idea.name}</h3>
 							<p class="adp-origin adp-note">{idea.origin}</p>
 						</hgroup>
 						{idea.purpose && <p>{idea.purpose}</p>}
+						{idea.focusAreas.length > 0 && <p class="adp-note">Focus area: {idea.focusAreas.map(areaName).join(', ')}</p>}
 						<p class="adp-note">Family: {idea.family}</p>
 						{idea.theory.length > 0 && (
 							<>
@@ -54,6 +57,9 @@ const { ideas } = Astro.props;
 		margin: 1rem 0 0;
 		padding: 0;
 		list-style: none;
+	}
+	.adp-idea[hidden] {
+		display: none;
 	}
 	.adp-idea {
 		display: flex;
