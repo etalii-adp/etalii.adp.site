@@ -23,5 +23,25 @@ export const builds: readonly Build[] = [
 
 export const organisation = 'https://github.com/etalii-adp';
 
-/** Where the status badges come from: the one other origin a page may load from (spec 001 FR-015). */
+/** Where the status badges come from: one of the two other origins a page may load from (spec 001 FR-015). */
 export const badgeOrigin = 'https://github.com';
+
+/**
+ * Where the repository statistics badges come from (stars, commits, forks, and the organisation's followers):
+ * the other origin a page may load from, and only for paths under /github/ (spec 001 FR-015). Shields.io reads
+ * the numbers from GitHub's API when the badge is requested, so they are live without a site rebuild.
+ */
+export const statsOrigin = 'https://img.shields.io';
+
+/** The organisation's login on GitHub, for the statistics badges. */
+export const organisationLogin = 'etalii-adp';
+
+/** The statistics shown per repository, in column order, with the Shields.io badge path of each. */
+export const repositoryStats: readonly { label: string; path: (repository: string) => string; link: (repository: string) => string }[] = [
+	{ label: 'Stars', path: (r) => `/github/stars/${organisationLogin}/${r}`, link: (r) => `${organisation}/${r}/stargazers` },
+	{ label: 'Commits', path: (r) => `/github/commit-activity/t/${organisationLogin}/${r}`, link: (r) => `${organisation}/${r}/commits/develop` },
+	{ label: 'Forks', path: (r) => `/github/forks/${organisationLogin}/${r}`, link: (r) => `${organisation}/${r}/forks` },
+];
+
+/** The organisation's followers: an organisation-level number, so it is shown once above the table. */
+export const followersBadge = `/github/followers/${organisationLogin}`;
