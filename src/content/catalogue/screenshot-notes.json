@@ -1,1 +1,20 @@
-{}
+{
+  "standalone--azure-pipeline": {
+    "whyItMatters": "The whole pipeline reads left to right as stages and the dependencies between them, so the order of a run and where it fans out, here to staging and production, is clear without reading the YAML."
+  },
+  "standalone--dependency-graph": {
+    "whyItMatters": "Each service and store is one node and each edge carries its own label, so what depends on what, and why, can be read from the picture rather than pieced together from configuration."
+  },
+  "standalone--mindmap": {
+    "whyItMatters": "A large Freeplane map stays readable because the designer lays the branches out as a tree around the central topic, while the .mm file keeps working in Freeplane."
+  },
+  "standalone--timeline": {
+    "whyItMatters": "Periods and moments sit on rows against a year ruler, with connections between them, so a multi-year roadmap shows what overlaps and what waits on what."
+  },
+  "standalone--wardley-map": {
+    "whyItMatters": "Every component sits on the two axes that give a Wardley map its meaning, visibility in the value chain and evolution from genesis to commodity, which a generic canvas cannot enforce."
+  },
+  "standalone--workspace": {
+    "whyItMatters": "The C4 container diagram opens from its Structurizr model in the explorer, with a Toolbox limited to C4's own element kinds and a problems strip for validation, so the diagram and its model stay one."
+  }
+}
