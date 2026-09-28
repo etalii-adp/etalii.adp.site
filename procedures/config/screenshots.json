@@ -25,11 +25,7 @@
     "shacl.png": "w3c/shacl",
     "sparql.png": "w3c/sparql"
   },
-  "intellij": {
-    "drawio-activity.png": "none",
-    "drawio-cross-functional.png": "none",
-    "mindmap.png": "none"
-  },
+  "intellij": {},
   "vscode": {},
   "eclipse": {}
 }

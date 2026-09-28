@@ -42,7 +42,7 @@ A rejected image is not a failure: the previous copy stays published, and the pu
 
 ## Decisions
 
-**Which designer does this image show?** Raised when a host has a screenshot that `procedures/config/screenshots.json` does not link to a designer yet. The options are the designer origins in that host's catalogue, plus `none` for an image that shows no designer (such as the text editor). The answer is written to `procedures/config/screenshots.json` under the host and the file name. Ask it as a selection with exactly those options, then run `npm run refresh:decide -- screenshots <answer>` and run the procedure again.
+**Which designer does this image show?** Raised when a host has a screenshot that `procedures/config/screenshots.json` does not link to a designer yet. The options are the designer origins in that host's catalogue, plus `none` for an image that shows no designer (such as the text editor). The answer is written to `procedures/config/screenshots.json` under the host and the file name. Ask it as a selection with exactly those options, then run `npm run refresh:decide -- screenshots <answer>` and run the procedure again. To change an answer given earlier (for example `none` for an image whose designer the host has since added to its catalogue), remove the image's entry from `procedures/config/screenshots.json` on a `features/` branch; the next run asks again.
 
 ## Verification
 
