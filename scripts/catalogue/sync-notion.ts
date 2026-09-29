@@ -64,7 +64,7 @@ export async function main(args: string[], options: SyncOptions = {}): Promise<n
 	}
 	const dataSource = (await response.json()) as { properties: Record<string, { type: string; select?: { options: { name: string }[] } }> };
 	const optionsOf = (column: string) => dataSource.properties[column]?.select?.options.map((option) => option.name) ?? [];
-	// Each host's column under the name the data source has now: the new name or the old one (etalii.adp spec 002).
+	// Each host's column under the name the data source has.
 	const columnOf = (host: (typeof hosts)[number]) => host.notionColumns.find((name) => name in dataSource.properties) ?? host.notionColumns[0];
 
 	const changes: Change[] = [];

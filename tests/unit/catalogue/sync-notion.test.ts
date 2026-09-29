@@ -10,10 +10,9 @@ import { fixtureOptions } from './helpers.ts';
 const hostOptions = ['⛔ Not planned', '💡 Identified', '📝 Specified', '⏸️ To-do', '🛠️ Work-in-progress', '⚗️ Prototype', '✅ Implemented'];
 
 /** A fetch that answers the data source read and records every call. */
-const oldColumns = ['Standalone Plugin Implementation', 'IntelliJ Plugin Implementation', 'VS Code Plugin Implementation', 'Eclipse'];
-const newColumns = ['Standalone', 'IntelliJ', 'VS Code', 'Eclipse'];
+const hostColumns = ['Standalone', 'IntelliJ', 'VS Code', 'Eclipse'];
 
-function fakeNotion(options: string[] = hostOptions, columns: string[] = oldColumns) {
+function fakeNotion(options: string[] = hostOptions, columns: string[] = hostColumns) {
 	const calls: { method: string; url: string; body?: unknown }[] = [];
 	const fetchImpl = (async (url: string, init: RequestInit = {}) => {
 		const method = init.method ?? 'GET';
@@ -27,7 +26,7 @@ function fakeNotion(options: string[] = hostOptions, columns: string[] = oldColu
 	return { calls, fetchImpl };
 }
 
-async function sync(args: string[], overrides: Record<string, unknown> = {}, options = hostOptions, columns = oldColumns) {
+async function sync(args: string[], overrides: Record<string, unknown> = {}, options = hostOptions, columns = hostColumns) {
 	const inputs = fixtureOptions(overrides);
 	const notion = fakeNotion(options, columns);
 	const reportDir = mkdtempSync(join(tmpdir(), 'adp-refresh-'));
@@ -61,7 +60,7 @@ test('without --dry-run it sets only that select, then the snapshot agrees', asy
 	const patches = calls.filter((call) => call.method === 'PATCH');
 	assert.equal(patches.length, 1);
 	assert.equal(patches[0].url, 'https://api.notion.com/v1/pages/1a2b3c4d-0000-4000-8000-000000000002');
-	assert.deepEqual(patches[0].body, { properties: { 'Standalone Plugin Implementation': { select: { name: '✅ Implemented' } } } });
+	assert.deepEqual(patches[0].body, { properties: { Standalone: { select: { name: '✅ Implemented' } } } });
 
 	const after = assembleCatalogue(inputs).tools.find((tool) => tool.origin === 'wardley/map')!;
 	assert.equal(after.hosts.standalone.notionDiffers, null);
@@ -70,14 +69,14 @@ test('without --dry-run it sets only that select, then the snapshot agrees', asy
 test('it never writes a host that has no catalogue', async () => {
 	const { calls } = await sync([]);
 	for (const call of calls.filter((c) => c.method === 'PATCH')) {
-		assert.deepEqual(Object.keys((call.body as { properties: object }).properties), ['Standalone Plugin Implementation']);
+		assert.deepEqual(Object.keys((call.body as { properties: object }).properties), ['Standalone']);
 	}
 });
 
 test('an option missing from the Notion select is reported and skipped', async () => {
 	const { code, out, calls } = await sync([], {}, hostOptions.filter((name) => name !== '✅ Implemented'));
 	assert.equal(code, 0);
-	assert.match(out, /wardley\/map · standalone: the Notion column "Standalone Plugin Implementation" has no option for "Implemented"; skipped/);
+	assert.match(out, /wardley\/map · standalone: the Notion column "Standalone" has no option for "Implemented"; skipped/);
 	assert.deepEqual(calls.filter((call) => call.method === 'PATCH'), []);
 });
 
@@ -89,17 +88,3 @@ test('it refuses to run when the catalogue does not assemble', async () => {
 	assert.deepEqual(calls, []);
 });
 
-// etalii.adp spec 002 renames the host columns to the hosts' names; the write-back uses whichever name exists.
-test('it writes to the new host column name once Notion has it', async () => {
-	const { code, out, calls } = await sync([], {}, hostOptions, newColumns);
-	assert.equal(code, 0, out);
-	const patches = calls.filter((call) => call.method === 'PATCH');
-	assert.equal(patches.length, 1);
-	assert.deepEqual(patches[0].body, { properties: { Standalone: { select: { name: '✅ Implemented' } } } });
-});
-
-test('it names the new host column when an option is missing there', async () => {
-	const { out, calls } = await sync([], {}, hostOptions.filter((name) => name !== '✅ Implemented'), newColumns);
-	assert.match(out, /wardley\/map · standalone: the Notion column "Standalone" has no option for "Implemented"; skipped/);
-	assert.deepEqual(calls.filter((call) => call.method === 'PATCH'), []);
-});

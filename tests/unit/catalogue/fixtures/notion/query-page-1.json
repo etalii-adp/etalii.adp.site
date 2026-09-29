@@ -104,7 +104,7 @@
             }
           ]
         },
-        "Type": {
+        "Kind": {
           "type": "select",
           "select": {
             "id": "opt",
@@ -128,7 +128,7 @@
             "color": "default"
           }
         },
-        "Standalone Plugin Implementation": {
+        "Standalone": {
           "type": "select",
           "select": {
             "id": "opt",
@@ -136,7 +136,7 @@
             "color": "default"
           }
         },
-        "IntelliJ Plugin Implementation": {
+        "IntelliJ": {
           "type": "select",
           "select": {
             "id": "opt",
@@ -144,7 +144,7 @@
             "color": "default"
           }
         },
-        "VS Code Plugin Implementation": {
+        "VS Code": {
           "type": "select",
           "select": null
         },
@@ -267,7 +267,7 @@
           "type": "rich_text",
           "rich_text": []
         },
-        "Type": {
+        "Kind": {
           "type": "select",
           "select": {
             "id": "opt",
@@ -287,7 +287,7 @@
           "type": "select",
           "select": null
         },
-        "Standalone Plugin Implementation": {
+        "Standalone": {
           "type": "select",
           "select": {
             "id": "opt",
@@ -295,11 +295,11 @@
             "color": "default"
           }
         },
-        "IntelliJ Plugin Implementation": {
+        "IntelliJ": {
           "type": "select",
           "select": null
         },
-        "VS Code Plugin Implementation": {
+        "VS Code": {
           "type": "select",
           "select": null
         },
@@ -408,7 +408,7 @@
           "type": "rich_text",
           "rich_text": []
         },
-        "Type": {
+        "Kind": {
           "type": "select",
           "select": {
             "id": "opt",
@@ -428,7 +428,7 @@
           "type": "select",
           "select": null
         },
-        "Standalone Plugin Implementation": {
+        "Standalone": {
           "type": "select",
           "select": {
             "id": "opt",
@@ -436,11 +436,11 @@
             "color": "default"
           }
         },
-        "IntelliJ Plugin Implementation": {
+        "IntelliJ": {
           "type": "select",
           "select": null
         },
-        "VS Code Plugin Implementation": {
+        "VS Code": {
           "type": "select",
           "select": null
         },

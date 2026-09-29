@@ -142,7 +142,7 @@ test('--export reads a connector export like an API response, with focus areas a
 					Description: 'Opens in [draw.io](http://draw.io) too.',
 					Origin: 'ansible/structure',
 					'One line purpose': 'See how playbooks, roles and inventories depend on each other.',
-					Type: 'Diagram',
+					Kind: 'Diagram',
 					Family: 'Infrastructure / network / cloud diagrams',
 					'Focus areas': '["Software delivery","Systems and strategy"]',
 					Theory: '[Ansible directory layout](https://example.org/layout)',
@@ -167,58 +167,32 @@ assert.equal(row.theory, '[Ansible directory layout](https://example.org/layout)
 	rmSync(dir, { recursive: true, force: true });
 });
 
-// etalii.adp spec 002 renames Type to Kind and the host columns to the hosts' names; until its Part 7 both are read.
-const renames: Record<string, string> = {
-	Type: 'Kind',
-	'Standalone Plugin Implementation': 'Standalone',
-	'IntelliJ Plugin Implementation': 'IntelliJ',
-	'VS Code Plugin Implementation': 'VS Code',
-};
-
-function renamed(pages: NotionPage[]): NotionPage[] {
-	return pages.map((page) => ({ ...page, properties: Object.fromEntries(Object.entries(page.properties).map(([name, value]) => [renames[name] ?? name, value])) }));
-}
-
-test('the new Notion column names read exactly as the old ones', () => {
-	const old = parseNotionPages(fixturePages());
-	const pages = renamed(fixturePages());
-	assert.ok(pages.every((page) => 'Kind' in page.properties && 'Standalone' in page.properties && !('Type' in page.properties)));
-	const now = parseNotionPages(pages);
-	assert.deepEqual(now.rows, old.rows);
-	assert.deepEqual(now.report, old.report);
-	assert.ok(now.rows.some((row) => row.type !== null && row.hosts.standalone !== null));
-});
-
-test('the old Notion column names still read, and a column missing under both names is one gap', () => {
+test('a column missing from Notion is one gap', () => {
 	const pages = fixturePages().map((page) => {
 		const properties = { ...page.properties };
-		delete properties.Type;
+		delete properties.Kind;
 		return { ...page, properties };
 	});
 	const { rows, report } = parseNotionPages(pages);
 	assert.ok(rows.every((row) => row.type === null));
-	assert.ok(rows.some((row) => row.hosts.standalone !== null), 'Standalone Plugin Implementation is read');
-	assert.deepEqual(report.filter((item) => /column/.test(item.message)).map((item) => item.message), ['Notion has no "Kind" or "Type" column']);
+	assert.ok(rows.some((row) => row.hosts.standalone !== null), 'Standalone is read');
+	assert.deepEqual(report.filter((item) => /column/.test(item.message)).map((item) => item.message), ['Notion has no "Kind" column']);
 });
 
-test('the newest names are what the refresh reports and an export uses', () => {
+test('the column names are what the refresh reports and an export uses', () => {
 	assert.equal(notionColumns.type, 'Kind');
 	assert.equal(notionColumns.standalone, 'Standalone');
 	assert.equal(notionColumns.intellij, 'IntelliJ');
 	assert.equal(notionColumns.vscode, 'VS Code');
 	assert.equal(notionColumns.eclipse, 'Eclipse');
-	assert.deepEqual(notionColumnNames.type, ['Kind', 'Type']);
+	assert.deepEqual(notionColumnNames.type, ['Kind']);
 	assert.equal(columnIn({ Kind: {} }, 'type'), 'Kind');
-	assert.equal(columnIn({ Type: {} }, 'type'), 'Type');
 	assert.equal(columnIn({}, 'type'), undefined);
 });
 
-const exportColumns = {
-	old: { kind: 'Type', standalone: 'Standalone Plugin Implementation', vscode: 'VS Code Plugin Implementation' },
-	new: { kind: 'Kind', standalone: 'Standalone', vscode: 'VS Code' },
-};
-for (const [label, columns] of Object.entries(exportColumns)) {
-	test(`a connector export with the ${label} column names reads its selects as selects`, () => {
+{
+	const columns = { kind: 'Kind', standalone: 'Standalone', vscode: 'VS Code' };
+	test('a connector export reads its selects as selects', () => {
 		const exported = {
 			exportedAt: '2026-09-29T00:00:00.000Z',
 			dataSource: notionDataSource,
