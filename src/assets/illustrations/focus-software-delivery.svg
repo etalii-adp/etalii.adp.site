@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Original artwork for etalii.net/adp, Apache-2.0: a pipeline of stages running to a deployment. -->
+  <style>
+    .a { stroke: #32cd32; }
+    .af { fill: #32cd32; }
+    .g { stroke: #aeb6be; }
+    .gf { fill: #aeb6be; }
+    .t { fill: #32cd32; fill-opacity: 0.15; }
+    @media (prefers-color-scheme: light) {
+      .a { stroke: #16782a; } .af { fill: #16782a; } .g { stroke: #49525b; } .gf { fill: #49525b; } .t { fill: #16782a; fill-opacity: 0.12; }
+    }
+  </style>
+  <path class="g" d="M34 60 H48 M72 60 H86 M110 40 H118 V32 M110 80 H118 V88 M98 48 L110 40 M98 72 L110 80" stroke-width="1.5"/>
+  <rect class="a t" x="14" y="50" width="20" height="20" rx="4"/>
+  <rect class="a t" x="48" y="50" width="24" height="20" rx="4"/>
+  <rect class="a" x="86" y="48" width="12" height="24" rx="3" stroke-width="2"/>
+  <path class="a" d="M20 60 L23 63 L28 57 M56 60 L59 63 L64 57" stroke-width="2"/>
+  <rect class="g" x="118" y="20" width="28" height="18" rx="3" stroke-width="2"/>
+  <rect class="g" x="118" y="82" width="28" height="18" rx="3" stroke-width="2"/>
+  <circle class="af" cx="132" cy="29" r="3"/>
+  <circle class="gf" cx="132" cy="91" r="3"/>
+</svg>

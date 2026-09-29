@@ -215,8 +215,6 @@ export const collections = {
 			z
 				.object({
 					id: z.enum(focusAreaIds),
-					name: z.string().min(1),
-					problem: z.string().min(1),
 					illustration: image(),
 				})
 				.strict(),

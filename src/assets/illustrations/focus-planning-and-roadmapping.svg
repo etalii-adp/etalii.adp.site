@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Original artwork for etalii.net/adp, Apache-2.0: work items on a timeline with a dependency between them. -->
+  <style>
+    .a { stroke: #32cd32; }
+    .af { fill: #32cd32; }
+    .g { stroke: #aeb6be; }
+    .gf { fill: #aeb6be; }
+    .t { fill: #32cd32; fill-opacity: 0.15; }
+    @media (prefers-color-scheme: light) {
+      .a { stroke: #16782a; } .af { fill: #16782a; } .g { stroke: #49525b; } .gf { fill: #49525b; } .t { fill: #16782a; fill-opacity: 0.12; }
+    }
+  </style>
+  <path class="g" d="M16 104 H148 M40 100 V108 M80 100 V108 M120 100 V108" stroke-width="1.5"/>
+  <path class="g" d="M16 20 V104" stroke-width="1.5"/>
+  <rect class="a t" x="24" y="26" width="44" height="12" rx="3"/>
+  <rect class="a t" x="56" y="48" width="52" height="12" rx="3"/>
+  <rect class="g" x="40" y="70" width="36" height="12" rx="3" stroke-width="2"/>
+  <rect class="a" x="100" y="70" width="40" height="12" rx="3" stroke-width="2"/>
+  <path class="a" d="M68 32 H78 V44 M74 40 L78 46 L82 40 M108 54 H116 V66 M112 62 L116 68 L120 62" stroke-width="1.5"/>
+  <path class="af" d="M140 20 L146 26 L140 32 L134 26 Z"/>
+</svg>
