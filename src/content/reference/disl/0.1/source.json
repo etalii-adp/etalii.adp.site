@@ -7,7 +7,7 @@
     "kind": "git",
     "repository": "etalii-adp/etalii.adp",
     "path": "specifications/disl",
-    "revision": "9f13b8b698328dcb0c974e5a28ef5071ed56ae54",
+    "revision": "f65972449e3ac07abfb03ba7a21f7d91a037a875",
     "licence": "Apache-2.0",
     "copyright": "Copyright [yyyy] [name of copyright owner]"
   },
@@ -15,14 +15,14 @@
     {
       "name": "DISL-specification.md",
       "role": "prose",
-      "sha256": "229d6bc6d9aa29b4c3eb1c427b5e1a1605367af976928d68891a9da95521d254",
-      "size": 442024
+      "sha256": "9c7ce0b8314cf38dc74974e9b9e3f09de0c60d70c08e00d8f01ed91e54bacc78",
+      "size": 443336
     },
     {
       "name": "disl.schema.json",
       "role": "schema",
-      "sha256": "5cff76cc93e37ebcf919b93ff652307e6b855f207093b82aa99ffc45177483bc",
-      "size": 201059
+      "sha256": "eda82d66b21f6398c33a7d30f2303960dfa439c6098c4722cfa75ebfc73a7e25",
+      "size": 257888
     },
     {
       "name": "erd.disl",
@@ -43,5 +43,5 @@
       "size": 15376
     }
   ],
-  "retrieved": "2026-09-29T16:47:32Z"
+  "retrieved": "2026-09-29T21:34:36Z"
 }
