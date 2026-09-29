@@ -77,14 +77,19 @@ const currentPart = Astro.locals.starlightRoute.entry.data.part;
 		text-decoration-thickness: 2px;
 		text-underline-offset: 0.35em;
 	}
+	/* A fixed slot for the counter, which loads from another site: the header keeps its layout while it arrives, so
+	   moving between pages does not make the header jump (Peter, 2026-09-29). A wider badge overflows to the right. */
 	.adp-visitors {
 		display: flex;
 		flex-shrink: 0;
+		width: 7.5rem;
+		height: 20px;
 	}
 	.adp-visitors img {
 		display: block;
 		height: 20px;
 		width: auto;
+		max-width: none;
 	}
 	@media (max-width: 49.99rem) {
 		.adp-visitors {
