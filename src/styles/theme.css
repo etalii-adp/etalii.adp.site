@@ -188,9 +188,3 @@ h4,
 		max-width: none;
 	}
 }
-
-/* A sidebar section shown under another one (sections.ts `parent`), such as the DISL and DID reference under
-   Specification & Definition: indented by a small step (Peter, 2026-09-29). */
-.sidebar-content a.adp-sidebar-child {
-	padding-inline-start: calc(var(--sl-sidebar-item-padding-inline) + 1rem);
-}

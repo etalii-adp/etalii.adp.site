@@ -29,7 +29,7 @@ In source order, all plain HTML, all present with scripting disabled:
    - the part links "About" (`/adp/`) and "Documentation" (`/adp/docs/`), in a `<nav aria-label="Site parts">`, the current part marked with `aria-current="true"` and visibly (underline and weight, not colour alone);
    - a link to the `etalii-adp` organisation on GitHub (FR-008), with a visible or accessible name "Source on GitHub";
    - right of it, the visitor counter image from `https://hitscounter.dev`, in the site's accent green, loaded without credentials and without a referrer, with the alternative text "Visitors" (FR-015, amended 2026-09-28). It is hidden at phone width, where the header has no room for it.
-3. **Sidebar** (documentation part only): the documentation sections and their pages, current page marked. At narrow widths it is behind Starlight's menu button, which needs scripting; the header, breadcrumbs and footer keep every page reachable without it.
+3. **Sidebar** (documentation part only): the documentation sections and their pages, current page marked. It is the same on docs and reference pages: Specification & Definition is a group holding its overview and each language's whole reference as a collapsible group, opened where it holds the current page (amended 2026-09-29). At narrow widths it is behind Starlight's menu button, which needs scripting; the header, breadcrumbs and footer keep every page reachable without it.
 4. **Breadcrumbs** above the title on every page except the home page, in a `<nav aria-label="Breadcrumb">`: part › section › page, each level above the current one a link (US2 AS3).
 5. **Main content**, with a single `<h1>`.
 6. **Footer**:

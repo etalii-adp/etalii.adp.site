@@ -25,7 +25,7 @@ export interface Section {
 	status: 'available' | 'coming';
 	/** The specification that delivers the section; required when `status` is `coming`. */
 	deliveredBy: string;
-	/** A section shown under another one in the sidebar, indented beneath it (Peter, 2026-09-29). */
+	/** A section listed under another one in the sidebar, in that section's group (Peter, 2026-09-29). */
 	parent?: string;
 }
 
