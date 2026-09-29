@@ -7,16 +7,19 @@ import { createHash } from 'node:crypto';
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-export const VERSIONING_FIXTURE = join('tests', 'reference', 'fixtures', '.generated', 'dedl-versioning');
-const PINNED = join('tests', 'reference', 'fixtures', 'dedl-aaef333', 'dedl', '0.1');
+export const VERSIONING_FIXTURE = join('tests', 'reference', 'fixtures', '.generated', 'disl-versioning');
+// DISL, since DEDL became DISL and DID (etalii.adp spec 002); DID 0.1 is copied as it is, beside both versions.
+const PINNED = join('tests', 'reference', 'fixtures', 'disl-c2623d4', 'disl', '0.1');
+const DID = join('tests', 'reference', 'fixtures', 'disl-c2623d4', 'did', '0.1');
 /** The section the test version drops. */
 export const DELETED_SECTION = '## 16. Security, privacy and robustness';
 
 export function makeVersioningFixture(): string {
 	rmSync(VERSIONING_FIXTURE, { recursive: true, force: true });
-	const old = join(VERSIONING_FIXTURE, 'dedl', '0.1');
-	const next = join(VERSIONING_FIXTURE, 'dedl', '0.2');
+	const old = join(VERSIONING_FIXTURE, 'disl', '0.1');
+	const next = join(VERSIONING_FIXTURE, 'disl', '0.2');
 	cpSync(PINNED, old, { recursive: true });
+	cpSync(DID, join(VERSIONING_FIXTURE, 'did', '0.1'), { recursive: true });
 	mkdirSync(join(next, 'source'), { recursive: true });
 
 	const record = JSON.parse(readFileSync(join(PINNED, 'source.json'), 'utf8'));

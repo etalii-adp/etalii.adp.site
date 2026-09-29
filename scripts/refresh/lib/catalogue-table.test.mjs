@@ -98,10 +98,10 @@ describe('the catalogue as docs/tools.md or docs/diagrams.md', () => {
 		assert.ok(parseCatalogue(markdown).every((row) => !('kind' in row)), 'docs/diagrams.md has no Kind column, so no kind');
 	});
 
-	it('reads Diagram, Designer and Editor in the Kind column, and an empty one as none', () => {
+	it('reads each kind (Diagram, Designer, Editor) in the Kind column, and an empty one as none', () => {
 		const table = (kind) => `<table><tr><th>State</th><th>Origin</th><th>Kind</th><th>Tool</th></tr><tr><td>Idea</td><td><code>a/b</code></td><td>${kind}</td><td>A tool</td></tr></table>`;
 		assert.equal(parseCatalogue(table('Editor'))[0].kind, 'editor');
-		assert.equal(parseCatalogue(table('Designer'))[0].kind, 'tool');
+		assert.equal(parseCatalogue(table('Designer'))[0].kind, 'designer');
 		assert.equal(parseCatalogue(table('Diagram'))[0].kind, 'diagram');
 		assert.equal(parseCatalogue(table('—'))[0].kind, null);
 		assert.equal(parseCatalogue(table('Editor'))[0].name, 'A tool');

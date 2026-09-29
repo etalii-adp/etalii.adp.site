@@ -17,9 +17,9 @@ interface Props {
 const { focusAreas } = Astro.props;
 const eachCard = 'Each card shows the tool’s state in every IDE host.';
 const kinds = [
-	{ value: 'diagram', label: 'Diagram', description: 'The diagrams: tools that arrange elements and the relations between them.' },
-	{ value: 'designer', label: 'Designer', description: 'The designers: tools with a form-based visual layout in which nothing is connected.' },
-	{ value: 'editor', label: 'Editor', description: 'The editors: tools in which typing text is the core interaction.' },
+	{ value: 'diagram', label: 'Diagram', description: 'Tools of the diagram kind: a visual arrangement of elements and the relations between them.' },
+	{ value: 'designer', label: 'Designer', description: 'Tools of the designer kind: a form-based visual layout in which nothing is connected.' },
+	{ value: 'editor', label: 'Editor', description: 'Tools of the editor kind: a way of working in which typing text is the core interaction.' },
 ];
 const facets = [
 	{ key: 'kind', legend: 'Kind', options: kinds },

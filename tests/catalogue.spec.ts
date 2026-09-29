@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 import { assembleCatalogue } from '../src/lib/catalogue/assemble.ts';
@@ -45,11 +46,14 @@ test.describe('overview', () => {
 		await expect(page.locator('.adp-facets')).toHaveCount(0);
 		const filter = page.locator('.adp-filter');
 		await expect(filter.locator('a')).toHaveCount(0);
-		await expect(filter.getByRole('checkbox')).toHaveCount(catalogue.focusAreas.length + 4 + 6);
+		await expect(filter.getByRole('checkbox')).toHaveCount(3 + catalogue.focusAreas.length + 4 + 6);
+		for (const kind of ['Diagram', 'Designer', 'Editor']) {
+			await expect(filter.getByRole('group', { name: 'Kind' }).getByRole('checkbox', { name: kind, exact: true })).toBeVisible();
+		}
 		for (const area of catalogue.focusAreas) {
 			await expect(filter.getByRole('group', { name: 'Focus area' }).getByRole('checkbox', { name: area.name, exact: true })).toBeVisible();
 			// A retired facet address opens the overview with that option ticked.
-			const old = await request.get(`/adp/tools/focus/${area.slug}/`);
+			const old = await request.get(`/adp/designers/focus/${area.slug}/`);
 			expect(await old.text()).toContain(`/adp/tools/?focus=${area.slug}`);
 		}
 	});
@@ -61,6 +65,22 @@ test.describe('overview', () => {
 		await expect(page.locator('.adp-filter')).toBeHidden();
 		await expect(page.locator('.adp-tool:visible')).toHaveCount(await page.locator('.adp-tool').count());
 		await context.close();
+	});
+
+	// etalii.adp spec 002: the kind filter (Diagram, Designer, Editor) applies to tools and ideas alike.
+	test('with scripting, ticking a kind narrows the list to the tools and ideas of that kind', async ({ page }) => {
+		await page.goto('/adp/tools/');
+		const status = page.locator('.adp-filter [aria-live="polite"]');
+		for (const [kind, label] of [['diagram', 'Diagram'], ['designer', 'Designer'], ['editor', 'Editor']] as const) {
+			const checkbox = page.getByRole('group', { name: 'Kind' }).getByRole('checkbox', { name: label, exact: true });
+			await checkbox.check();
+			const expected = catalogue.tools.filter((tool) => tool.kind === kind);
+			const ideas = catalogue.ideas.filter((idea) => idea.kind === kind).length;
+			await expect(status).toHaveText(`${expected.length} ${expected.length === 1 ? 'tool' : 'tools'} and ${ideas} ${ideas === 1 ? 'idea' : 'ideas'}`);
+			const visible = await page.locator('.adp-tool:not([hidden])').evaluateAll((cards) => [...new Set(cards.map((card) => (card as HTMLElement).dataset.origin))]);
+			expect(visible.sort()).toEqual(expected.map((tool) => tool.origin).sort());
+			await checkbox.uncheck();
+		}
 	});
 
 	test('with scripting, ticking a focus area narrows the list to its tools (US1 AS2)', async ({ page }) => {
@@ -333,6 +353,17 @@ test.describe('availability', () => {
 });
 
 test.describe('redirects', () => {
+	// etalii.adp spec 002: the designer catalogue moved to /adp/tools/; each old page redirects there in one hop.
+	test('/adp/designers/ and every published tool page there redirect to /adp/tools/', async ({ request }) => {
+		const published = JSON.parse(readFileSync('src/content/catalogue/published.json', 'utf8')) as string[];
+		for (const origin of [...published, '']) {
+			const from = origin ? `/adp/designers/${origin}/` : '/adp/designers/';
+			const target = catalogue.redirects.find((redirect) => redirect.from === origin)?.to ?? origin;
+			const to = target ? `/adp/tools/${target}/` : '/adp/tools/';
+			const html = await (await request.get(from)).text();
+			expect(html, from).toMatch(new RegExp(`http-equiv="refresh" content="0; ?url=${to}"`));
+		}
+	});
 	for (const redirect of catalogue.redirects) {
 		test(`${redirect.from} keeps resolving (FR-011)`, async ({ request }) => {
 			const response = await request.get(`/adp/tools/${redirect.from}/`);

@@ -1,0 +1,47 @@
+{
+  "language": "disl",
+  "version": "0.1",
+  "status": "Working Draft",
+  "date": "2026-09-29",
+  "source": {
+    "kind": "git",
+    "repository": "etalii-adp/etalii.adp",
+    "path": "specifications/disl",
+    "revision": "c2623d4e3835a995520febd95ea39b545aa0a42d",
+    "licence": "NOASSERTION",
+    "copyright": null
+  },
+  "files": [
+    {
+      "name": "DISL-specification.md",
+      "role": "prose",
+      "sha256": "229d6bc6d9aa29b4c3eb1c427b5e1a1605367af976928d68891a9da95521d254",
+      "size": 442024
+    },
+    {
+      "name": "disl.schema.json",
+      "role": "schema",
+      "sha256": "5cff76cc93e37ebcf919b93ff652307e6b855f207093b82aa99ffc45177483bc",
+      "size": 201059
+    },
+    {
+      "name": "erd.disl",
+      "role": "definition",
+      "sha256": "7cda227c7f8df6f6da8054b7d8c89b7e306c83df58f0816ddea78ee751b97cc6",
+      "size": 9674
+    },
+    {
+      "name": "statemachine.disl",
+      "role": "definition",
+      "sha256": "737cbfa601dcfdc0a262eeb376eef89d732efd06e8cd740bd762439aac3202b1",
+      "size": 22809
+    },
+    {
+      "name": "timeline.disl",
+      "role": "definition",
+      "sha256": "b3c3f123d69a0259b9b4e5e23ac9ff7f3376a28f9afc1f8755f37a8ea986d37b",
+      "size": 15376
+    }
+  ],
+  "retrieved": "2026-09-29T06:26:33Z"
+}

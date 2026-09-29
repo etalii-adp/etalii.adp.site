@@ -1,6 +1,6 @@
 # The site's Build workflow (etalii.adp spec 001-ci-and-badges). It runs on every pull request into develop and
 # on every change to develop, and its badge stands for this repository. It checks that the unit tests pass, the
-# site builds, the DEDL reference passes check:reference, its internal links resolve and every page passes the
+# site builds, the DISL and DID references pass check:reference, its internal links resolve and every page passes the
 # accessibility, phone-width, no-script and privacy checks (FR-012). It has no Pages permissions, so it never
 # changes the published site (FR-011); deploy.yml publishes.
 name: Build
@@ -25,7 +25,7 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      # Chromium serves the page checks and the build-time Mermaid rendering of the DEDL reference
+      # Chromium serves the page checks and the build-time Mermaid rendering of the DISL and DID references
       # (spec 002 research D10); the browser download is cached between runs.
       - uses: actions/cache@v6
         with:
@@ -38,12 +38,12 @@ jobs:
       - run: npm run check:reference
       - run: npm run check
 
-  # The DEDL reference (spec 002) built from its pinned test fixture, so that its pages are checked before a
-  # licensed snapshot exists. This build is never published; its licence check reports a warning, not a failure.
+  # The DISL and DID references (spec 002) built from their pinned test fixture, so that their pages are checked
+  # before a licensed snapshot exists. This build is never published; its licence check reports a warning, not a failure.
   reference-fixture:
     runs-on: ubuntu-latest
     env:
-      REFERENCE_CONTENT_DIR: tests/reference/fixtures/dedl-aaef333
+      REFERENCE_CONTENT_DIR: tests/reference/fixtures/disl-c2623d4
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -63,4 +63,12 @@ jobs:
       - run: npm run build:versioning-test
       - run: npm run check:reference
         env:
-          REFERENCE_CONTENT_DIR: tests/reference/fixtures/.generated/dedl-versioning
+          REFERENCE_CONTENT_DIR: tests/reference/fixtures/.generated/disl-versioning
+      # DEDL moved to DISL and DID (etalii.adp spec 002): built from the DEDL 0.1 fixture, every former DEDL page
+      # redirects to /adp/disl/ in one hop, and DEDL 0.1's schema is still served at its own address.
+      - run: npm run build
+        env:
+          REFERENCE_CONTENT_DIR: tests/reference/fixtures/dedl-aaef333
+      - run: npm run check:moved
+        env:
+          REFERENCE_CONTENT_DIR: tests/reference/fixtures/dedl-aaef333

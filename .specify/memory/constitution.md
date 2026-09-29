@@ -25,7 +25,7 @@ Earlier:
 
 # etalii.adp.site Constitution
 
-The words for what ADP offers (tool; its kinds diagram, designer and editor; tool engineer; specification and definition languages) are defined in [`docs/terminology.md` in etalii-adp/etalii.adp](https://github.com/etalii-adp/etalii.adp/blob/develop/docs/terminology.md); this constitution uses them as defined there.
+The words for what ADP offers (tool; its three kinds, diagram, designer, editor; tool engineer; specification and definition languages) are defined in [`docs/terminology.md` in etalii-adp/etalii.adp](https://github.com/etalii-adp/etalii.adp/blob/develop/docs/terminology.md); this constitution uses them as defined there.
 
 ## Core Principles
 
