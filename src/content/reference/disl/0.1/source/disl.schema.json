@@ -6,17 +6,21 @@
   "$ref": "#/$defs/Specification",
   "$defs": {
     "SimpleId": {
+      "description": "A simple identifier: a letter or underscore followed by letters, digits or underscores. A specification uses it for type, attribute, parameter, port and function names, and for alias and map keys, so that every such name is also a valid CEL identifier. Identifiers are case-sensitive, and two in the same namespace may not differ only in case. See section 2.2.",
       "type": "string",
       "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
     },
     "QualifiedId": {
+      "description": "A qualified identifier: one or more dot-separated segments, each a letter or underscore followed by letters, digits, underscores or hyphens. A specification uses it for language ids, theme tokens such as color.surface, names brought in through an import alias such as std.cylinder, and plugin names. Like every identifier it is case-sensitive. See section 2.2.",
       "type": "string",
       "pattern": "^[A-Za-z_][A-Za-z0-9_-]*(\\.[A-Za-z_][A-Za-z0-9_-]*)*$"
     },
     "TypeRef": {
+      "description": "A reference to a node type or relation type by its identifier, optionally prefixed with an import alias as in bpmn.Task. A specification uses it wherever a type is named, for example in inheritance, viewpoints, forms, constraints and hooks. A type reference always includes all subtypes of the named type, and a reference to an undefined name is a specification error. See section 2.7.",
       "$ref": "#/$defs/QualifiedId"
     },
     "TypeRefs": {
+      "description": "One type reference or a non-empty list of them, accepted where the schema allows several types in place of one. A specification uses it for a node or relation type's extends property and for the types a form, constraint, hook or operation applies to. As with a single reference, each named type includes all its subtypes. See section 2.7.",
       "anyOf": [
         {
           "$ref": "#/$defs/TypeRef"
@@ -31,10 +35,12 @@
       ]
     },
     "SemVer": {
+      "description": "A semantic version string following SemVer 2.0.0: major, minor and patch numbers, optionally followed by a pre-release and a build part. A specification uses it for its language version, which DID definitions record and which drives migrations. A change that can invalidate or change the meaning of existing definitions is a major change; optional additions are minor; documentation, visual and toolbox-only changes are patch changes. See section 2.9.",
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+(-[0-9A-Za-z.-]+)?(\\+[0-9A-Za-z.-]+)?$"
     },
     "LocalizedText": {
+      "description": "Any human-facing string in a specification, such as a label, message, description or placeholder. It is either a plain string or an object mapping BCP 47 language tags to strings, which should include the language's default locale. Runtimes pick the best match for the user's locale and fall back to the default locale, then to the first entry. See section 2.3.",
       "anyOf": [
         {
           "type": "string"
@@ -52,6 +58,7 @@
       ]
     },
     "Doc": {
+      "description": "The documentation that almost any object in a specification can carry in its doc property, so that a runtime can explain elements, fields, tools and rules to users. It is either a LocalizedText, which is shorthand for a summary, or an object with a one-sentence summary, a longer CommonMark description, a rationale, examples, seeAlso links, tags, an audience, since, deprecated, image and helpUrl. See section 2.4.",
       "anyOf": [
         {
           "$ref": "#/$defs/LocalizedText"
@@ -167,10 +174,12 @@
       ]
     },
     "CelSource": {
+      "description": "The source text of a CEL expression, as a non-empty string. It is the building block of every dynamic value in a specification: the cel property of expressions, computed values and functions. The expression is type-checked in the context where it appears and evaluated under a cost limit. See section 2.5.",
       "type": "string",
       "minLength": 1
     },
     "Expression": {
+      "description": "A property that always contains CEL, used for rules, conditions and other positions where a literal would make no sense. It is written either as a bare string of CEL or as an object with a cel property plus an optional resultType and doc. When resultType is present, validators check that the expression's static type is assignable to it. See section 2.5.",
       "anyOf": [
         {
           "$ref": "#/$defs/CelSource"
@@ -199,6 +208,7 @@
       ]
     },
     "CelValue": {
+      "description": "The object form of a computed value: an object with a cel property holding the CEL source, plus an optional resultType and doc. A specification uses it in bindable positions, where a bare string would be a literal, and wherever human-facing text must contain computed values, such as constraint messages and tooltips. See section 2.5.",
       "type": "object",
       "properties": {
         "cel": {
@@ -220,6 +230,7 @@
       }
     },
     "AttrBinding": {
+      "description": "A binding of a value to an attribute of the current element, written as an object with an attribute property holding a dotted path into structs such as address.city. Where the property is user-editable, such as a label or a placement coordinate, the binding is two-way and edits write back to the attribute. An optional offset, such as P1D, adds a constant in domain units in placement. See section 2.5.",
       "type": "object",
       "properties": {
         "attribute": {
@@ -248,6 +259,7 @@
       }
     },
     "TokenRef": {
+      "description": "A reference to a theme token, written as an object whose token property holds the token's qualified name, for example color.surface. It is one of the dynamic forms a bindable value accepts, and it is resolved for the current theme mode, so colors and other visual values can follow light and dark themes. See section 2.5.",
       "type": "object",
       "properties": {
         "token": {
@@ -263,6 +275,7 @@
       }
     },
     "ParamRef": {
+      "description": "A reference to a parameter of the enclosing shape, marker or template, written as an object whose param property holds the parameter's simple name. It is one of the dynamic forms a bindable value accepts, letting a reusable definition take values supplied where it is used. See section 2.5.",
       "type": "object",
       "properties": {
         "param": {
@@ -278,6 +291,7 @@
       }
     },
     "Dynamic": {
+      "description": "The four non-literal forms a bindable value accepts: a CEL computation, an attribute binding, a theme token reference or a shape, marker or template parameter reference. It is combined with a literal type to make the bindable string, number and boolean definitions. Because literals may be strings, CEL in a bindable position must always use the object form with a cel property. See section 2.5.",
       "anyOf": [
         {
           "$ref": "#/$defs/CelValue"
@@ -294,6 +308,7 @@
       ]
     },
     "BString": {
+      "description": "A bindable string: a literal string or one of the dynamic forms, namely a CEL computation, an attribute binding, a theme token or a parameter reference. A bare string here is always a literal, never CEL, so a computed string must be written in the object form with a cel property. See section 2.5.",
       "anyOf": [
         {
           "type": "string"
@@ -304,6 +319,7 @@
       ]
     },
     "BNumber": {
+      "description": "A bindable number: a literal number or one of the dynamic forms, namely a CEL computation, an attribute binding, a theme token or a parameter reference. It lets numeric visual and layout properties follow the model, the theme or the parameters of the enclosing shape, marker or template. See section 2.5.",
       "anyOf": [
         {
           "type": "number"
@@ -314,6 +330,7 @@
       ]
     },
     "BBool": {
+      "description": "A bindable boolean: a literal true or false, or one of the dynamic forms, namely a CEL computation, an attribute binding, a theme token or a parameter reference. A specification uses it for switches such as visible, collapsed, readOnly, selectable, deletable and connectable, so they can depend on the element's state. See section 2.5.",
       "anyOf": [
         {
           "type": "boolean"
@@ -324,6 +341,7 @@
       ]
     },
     "GeomExpr": {
+      "description": "A geometry expression: a single coordinate or dimension in shape paths, handle positions and part bounds. It is a number in canvas units, a percentage string such as 50% of the relevant dimension, or any other string, which is CEL returning a double or an int. The short string form is used because geometry is so dense with expressions. See section 2.5.",
       "anyOf": [
         {
           "type": "number"
@@ -334,6 +352,7 @@
       ]
     },
     "Length": {
+      "description": "A canvas length, used for sizes such as the width of a form item. It is either a number in canvas units, the unit of the coordinate system's numeric axis and px by default, or a string with an explicit unit: px, pt, mm, cm, in, em or %. Percentages refer to the containing box's corresponding dimension, and em to the current font size. See section 2.6.",
       "anyOf": [
         {
           "type": "number"
@@ -345,9 +364,11 @@
       ]
     },
     "Color": {
+      "description": "A color, written as a CSS Color Level 4 string. Accepted forms include hex such as #1D9E75 or #1D9E75CC, rgb, hsl and oklch functions, named colors, transparent, and currentColor, which is the resolved text color of the element. See section 2.6.",
       "type": "string"
     },
     "Size": {
+      "description": "A width and height pair, written as a two-item array of numbers. A specification uses it for default, minimum, maximum and fixed node sizes, shape and icon sizes, port sizes and page sizes. Either item may be null where a dimension is left open, for example unbounded in one dimension when used as a size limit. See section 2.6.",
       "type": "array",
       "items": {
         "anyOf": [
@@ -363,6 +384,7 @@
       "maxItems": 2
     },
     "Insets": {
+      "description": "Spacing on the four sides of a box, used for padding and page margins. It is a single number for all sides, a two-item array of vertical and horizontal, or a four-item array of top, right, bottom and left. See section 2.6.",
       "anyOf": [
         {
           "type": "number"
@@ -386,6 +408,7 @@
       ]
     },
     "Point": {
+      "description": "A position given by an x and a y value. It is written as a two-item array for numeric axes, or as an object with x and y properties when axis values are timestamps or categories. DID's schema reuses this definition for positions in stored diagrams. See section 2.6.",
       "anyOf": [
         {
           "type": "array",
@@ -411,6 +434,7 @@
       ]
     },
     "Box": {
+      "description": "A rectangular area given by x, y, w and h, each a geometry expression: a number, a percentage of the relevant dimension or a CEL string. A specification uses it for a custom shape's text area, the bounds of shape parts, a container's content area and drop zones, an embedded form's region and the canvas bounds. See section 6.8.",
       "type": "object",
       "properties": {
         "x": {
@@ -438,6 +462,7 @@
       }
     },
     "MinMax": {
+      "description": "A pair of integer bounds, min and max, either of which may be null for unbounded, with an optional doc. A specification uses it for counts: the number of instances of a node type allowed per diagram, per-type child counts in containment, and the number of connections a port accepts. A node type's multiplicity is enforced as a built-in constraint. See section 4.6.",
       "type": "object",
       "properties": {
         "min": {
@@ -470,6 +495,7 @@
       }
     },
     "PluginUse": {
+      "description": "A use of a declared plugin, written as an object whose plugin property names the plugin and whose optional args carry its arguments. A specification uses it where a built-in choice can be replaced by a plugin, for example an edge's routing. The named plugin must be declared in the specification's plugins, and the arguments are validated against that declaration. See section 13.1.",
       "type": "object",
       "properties": {
         "plugin": {
@@ -491,6 +517,7 @@
       }
     },
     "PluginCall": {
+      "description": "A delegation to a declared plugin, written as an object whose name property names the plugin and whose optional args carry its arguments. A specification uses it in the plugin property of custom shapes, tools, context tools, form items, operations and migration steps. As with every plugin use, the plugin must be declared and the arguments are validated against its declaration. See section 13.1.",
       "type": "object",
       "properties": {
         "name": {
@@ -512,6 +539,7 @@
       }
     },
     "Modifier": {
+      "description": "A modifier key: Alt, Shift, Ctrl, Meta, or none for no key. A specification uses it for snapping's bypassModifier, the key that temporarily disables snapping while held, which defaults to Alt. See section 5.9.",
       "enum": [
         "Alt",
         "Shift",
@@ -521,6 +549,7 @@
       ]
     },
     "Language": {
+      "description": "The identity of the diagram type a specification defines, in its language property. Its required id is a globally unique qualified identifier, reverse-DNS style recommended, recorded in every DID definition, and its required version is a SemVer that drives migrations. It also holds the label, default locale (en by default) and locales, authors, license, homepage, icon, file extension, limits such as the CEL cost limit, required conformance and features, and profiles. See section 3.2.",
       "type": "object",
       "properties": {
         "id": {
@@ -634,6 +663,7 @@
       }
     },
     "Import": {
+      "description": "A reuse of another specification or library in a specification's imports list. Its from property locates the imported specification and its as property gives the alias under which imported names are referenced, as alias.Name. Optional properties set an acceptable version range, an integrity hash that runtimes verify when present, and which layers to include, all of them by default. Import cycles are a specification error. See section 3.3.",
       "type": "object",
       "properties": {
         "from": {
@@ -675,6 +705,7 @@
       }
     },
     "Function": {
+      "description": "A reusable, documented CEL function declared in a specification's functions map and called by its name, for example displayName(self). It has positional params, each with a name and a CEL or metamodel type, a returns type, and a cel body. The body sees only its parameters, plus diagram and env when listed in uses. A function may call functions declared before it, but recursion is a specification error. See section 3.4.",
       "type": "object",
       "properties": {
         "params": {
@@ -732,6 +763,7 @@
       }
     },
     "Viewpoint": {
+      "description": "One diagram kind over a language's model, declared in a specification's viewpoints map, for example a structure diagram and a timeline of the same project. It selects which types appear through include and exclude, the coordinate system, layout, toolbox groups and canvas, and can override notation for nodes, edges and styles. One viewpoint should be marked default for new diagrams; without any, a single implicit viewpoint named main shows everything. See section 3.5.",
       "type": "object",
       "properties": {
         "label": {
@@ -823,6 +855,7 @@
       }
     },
     "Plugin": {
+      "description": "The declaration of an extension a specification relies on, in its plugins map, for what the declarative core cannot express. It states the accepted versions, the extension points it provides, whether it is required, fallbacks for when it is absent, typed arguments that every use is validated against, where to obtain it, and any CEL functions it adds. A runtime without a required plugin refuses to open such diagrams for editing. See section 13.1.",
       "type": "object",
       "properties": {
         "version": {
@@ -913,6 +946,7 @@
       }
     },
     "Specification": {
+      "description": "The root of a DISL document: one specification of a diagram type, written by a tool engineer. It carries the targeted DISL version and the language's identity, the eight layers from metamodel to persistence, and imports, functions, viewpoints, plugins and doc. Only the version key, language and metamodel are required; every other layer has a documented default. The deprecated dedl key is read in place of disl but never written. See section 3.1.",
       "type": "object",
       "properties": {
         "$schema": {
@@ -1023,6 +1057,7 @@
       }
     },
     "Attribute": {
+      "description": "An attribute describes one named value on a node, relation, port, struct field or the diagram itself. Its required type names a primitive, enumeration, data type, or node or relation type, which makes it a reference. Other properties give a default and make it required, a list (many), read-only, derived, transient, unique within a scope, part of the natural key or secret, and add primitive facets such as min or pattern. See section 4.3.",
       "type": "object",
       "properties": {
         "type": {
@@ -1163,6 +1198,7 @@
       }
     },
     "DataType": {
+      "description": "A data type is a named value type declared in the metamodel, either a constrained primitive or a struct. A constrained primitive names its base primitive and adds that primitive's facets, such as a range, pattern or unit; a struct lists its fields as attributes, which may themselves be structs, lists or references. Its display property says how a value is summarised in labels and list cells. See section 4.4.",
       "type": "object",
       "properties": {
         "base": {
@@ -1280,6 +1316,7 @@
       }
     },
     "EnumValue": {
+      "description": "An enum value is one entry of an enumeration, keyed by the simple identifier that is stored. It may carry a display label, documentation, a color and an icon, which are hints a notation may use, and a deprecated flag or object. See section 4.5.",
       "type": "object",
       "properties": {
         "label": {
@@ -1311,6 +1348,7 @@
       }
     },
     "Enum": {
+      "description": "An enumeration is a named, closed set of values declared in the metamodel and usable as an attribute type. Its values map is required; the value ids are simple identifiers, they are what is stored, and the map order is the display order. Setting ordered makes the values comparable, and extensible lets users enter values that are not listed. See section 4.5.",
       "type": "object",
       "properties": {
         "values": {
@@ -1344,6 +1382,7 @@
       }
     },
     "Containment": {
+      "description": "Containment is the children property of a node type and says which nodes may be nested inside it; a contained node has exactly one parent and is deleted with it unless behavior says otherwise. It lists the allowed child types, count bounds overall and per type (null meaning unbounded), whether child order is meaningful, and named slots for nodes with several distinct regions. A node type without children cannot contain other nodes. See section 4.8.",
       "type": "object",
       "properties": {
         "allowed": {
@@ -1438,6 +1477,7 @@
       }
     },
     "PortType": {
+      "description": "A port type declares a named connection point on a node type, such as a pin or an input or output handle. Direction restricts edge direction (in, out or inout, the default), multiplicity sets how many instances each node has (one fixed port by default), dynamic lets users add and remove instances, and accepts lists the relation types that may attach. Each port instance can carry its own attributes and is persisted with its owner. See section 4.10.",
       "type": "object",
       "properties": {
         "label": {
@@ -1491,6 +1531,7 @@
       }
     },
     "NodeType": {
+      "description": "A node type describes a kind of element drawn as a node, including containers, lanes and annotations; the metamodel's types map declares them. It carries its own attributes, ports and containment rules (children), may be abstract and may extend other node types, inheriting their attributes, ports, containment and tags. Multiplicity limits the instances per diagram, viewOnly marks elements with no model meaning, and labelAttribute names the attribute used as the element's name. See section 4.6.",
       "type": "object",
       "properties": {
         "label": {
@@ -1551,6 +1592,7 @@
       }
     },
     "RelationEnd": {
+      "description": "A relation end states what may sit at the source or target of a relation type. It is a single type reference, a non-empty list of them, or an object adding excluded subtypes, the port types the end must attach to, bounds on how many relations of this type an element may have at this end, and a role name for CEL and labels. Attribute-dependent connectivity is written as a connect constraint instead. See section 4.9.",
       "anyOf": [
         {
           "$ref": "#/$defs/TypeRef"
@@ -1618,6 +1660,7 @@
       ]
     },
     "RelationType": {
+      "description": "A relation type describes a kind of connection drawn as an edge, declared in the metamodel's relations map. Its source and target say which elements may be connected; directed defaults to true, self-loops are disallowed and parallel relations allowed by default, and acyclic forbids cycles. Like node types it may be abstract, extend other relation types and carry attributes; it may also connect relations, be derived by an expression or be view-only. See section 4.9.",
       "type": "object",
       "properties": {
         "label": {
@@ -1684,6 +1727,7 @@
       }
     },
     "Metamodel": {
+      "description": "The metamodel is Layer 1 of a specification: the abstract syntax of a diagram type, saying which kinds of elements exist, their attributes, how they nest, connect and which ports they expose, and nothing about appearance. It holds the attributes of the diagram root, named data types, enumerations, node types (everything drawn as a node) and relation types (everything drawn as an edge), each keyed by a simple identifier. See section 4.1.",
       "type": "object",
       "properties": {
         "diagram": {
@@ -1753,6 +1797,7 @@
       }
     },
     "Calendar": {
+      "description": "A calendar defines working time for a time axis, used for shading non-working time, collapsing it, and working-time snapping. Working days are ISO weekday numbers (Monday to Friday by default), working hours are start and end pairs per day (the whole day by default), and holidays are listed dates or bound to a diagram attribute; exceptions describe special days. Its id is the name CEL time functions use to refer to it. See section 5.5.",
       "type": "object",
       "properties": {
         "id": {
@@ -1837,6 +1882,7 @@
       }
     },
     "Category": {
+      "description": "A category is one band of an ordinal axis, such as a lane, a row or a Kanban column, when the bands are given as a static list. Its id is required and is what positions on the axis refer to; it may also carry a label, documentation, a color and a size. See section 5.6.",
       "type": "object",
       "properties": {
         "id": {
@@ -1864,6 +1910,7 @@
       }
     },
     "Ruler": {
+      "description": "A ruler configures the ruler or header shown for an axis, set on the axis or on one of its zoom levels. It sets visibility, position (top, bottom, left or right) and size, and levels, a list of header rows for multi-level time scales, each with its unit, format and zoom range. Formats are Unicode LDML date or number patterns, and nonWorkingStyle styles the shading of non-working time. See section 5.13.",
       "type": "object",
       "properties": {
         "visible": {
@@ -1930,6 +1977,7 @@
       }
     },
     "ZoomLevel": {
+      "description": "A zoom level is a preset on a time axis, such as days, weeks or months, that changes the axis scale and its header together. It carries a label, a scale giving a time unit and the canvas distance one unit occupies at zoom 1, and the ruler to show at that level. See section 5.5.",
       "type": "object",
       "properties": {
         "label": {
@@ -1977,6 +2025,7 @@
       }
     },
     "Axis": {
+      "description": "An axis maps domain values such as numbers, timestamps or categories to canvas distance along one direction. Its required kind is linear or log for numbers, time for dates and timestamps, ordinal for discrete bands such as lanes, or angular for polar systems. Common properties set a label, domain bounds, origin, reversal, automatic expansion and a ruler; each kind adds its own, such as unit and scale, time zone and calendar, or the band categories. See section 5.3.",
       "type": "object",
       "properties": {
         "kind": {
@@ -2227,6 +2276,7 @@
       }
     },
     "AxisRef": {
+      "description": "An axis reference is how a coordinate system names one of its axes, in its x, y, angle and radius properties. It is either the name of an axis declared in the coordinates object's axes map, or an axis written inline. See section 5.7.",
       "anyOf": [
         {
           "$ref": "#/$defs/SimpleId"
@@ -2237,6 +2287,7 @@
       ]
     },
     "GridDisplay": {
+      "description": "Grid display configures the visible grid of a coordinate system, which is separate from snapping but defaults to mirroring it. It sets visibility (hidden by default), style (lines by default, or dots, crosses or none), spacing, which on time axes may be a calendar unit, how often a line is major, minor and major colors, and the zoom below which minor lines hide. Ordinal bands can be striped and non-working time filled. See section 5.13.",
       "type": "object",
       "properties": {
         "visible": {
@@ -2361,6 +2412,7 @@
       }
     },
     "Guides": {
+      "description": "Guides configure the alignment aids of a coordinate system while dragging. Smart guides to the edges and centers of nearby elements and equal-spacing distribution guides are on by default; user guides, dragged out of rulers and stored in view data, are off by default. A style may be given for the guide lines. See section 5.12.",
       "type": "object",
       "properties": {
         "smart": {
@@ -2385,6 +2437,7 @@
       }
     },
     "CoordinateSystem": {
+      "description": "A coordinate system combines two axes into a placement frame: x and y for a cartesian system, angle and radius for a polar one, with kind required. It sets orientation (y-down by default), a polar center, bounds, and whether the canvas is infinite, which it is unless bounds are set. It also carries the grid display, default snapping and guides, and nested maps container node types to systems local to those containers, whose children are positioned relative to them. See section 5.7.",
       "type": "object",
       "properties": {
         "kind": {
@@ -2469,6 +2522,7 @@
       }
     },
     "SnapRuleObject": {
+      "description": "A snap rule object is the object form of a snap rule and holds exactly one rule key: grid, values, calendar (time units), ticks (visible axis ticks), bands (ordinal bands), divisions (equal parts), ratio (aspect ratios), cel (a custom function), byZoom (zoom-dependent rules) or plugin. Common properties beside the key clamp the result with min and max, set the rounding direction (nearest by default) and override the mode. See section 5.10.",
       "type": "object",
       "properties": {
         "grid": {
@@ -2759,6 +2813,7 @@
       ]
     },
     "SnapRule": {
+      "description": "A snap rule states how values along one axis, or one extent, are snapped. It is a string, either none for continuous values or the name of a profile, or a rule object with exactly one rule key. In the examples, inherit-x and inherit-y copy the other axis's rule. See section 5.10.",
       "anyOf": [
         {
           "type": "string"
@@ -2769,6 +2824,7 @@
       ]
     },
     "AxisRules": {
+      "description": "Axis rules group snap rules by axis, with x, y and both, where both applies one rule to x and y. A snapping object uses them for sizes, the rules for extents such as width and height, and for edge bendpoints when these are not simply inherited or switched off. See section 5.9.",
       "type": "object",
       "properties": {
         "x": {
@@ -2787,6 +2843,7 @@
       }
     },
     "Snapping": {
+      "description": "Snapping restricts positions and sizes to discrete values, defined per axis in the axis's own units; it is declared in a snap profile, on a coordinate system, a viewpoint canvas, a node or edge notation, or a placement, and the most specific declaration wins per property and per axis. It holds a snap rule per axis (or both), rules for sizes, rotation, bendpoints and labels, the mode (always or magnetic), which targets participate, the tolerance, and the bypass key. See section 5.9.",
       "type": "object",
       "properties": {
         "enabled": {
@@ -2930,6 +2987,7 @@
       }
     },
     "SnappingRef": {
+      "description": "A snapping reference is how a coordinate system, a viewpoint canvas or a node or edge notation states its snapping. It is either a string naming a snap profile declared in the coordinates object, or a snapping object written inline. See section 5.9.",
       "anyOf": [
         {
           "type": "string"
@@ -2940,6 +2998,7 @@
       ]
     },
     "Coordinates": {
+      "description": "The coordinates object is Layer 2 of a specification: it declares named axes, named coordinate systems and reusable snap profiles, and names the default system used by viewpoints that do not name one. Axes may also be written inline inside systems. When it is absent, the diagram type gets a single cartesian system named canvas with two linear pixel axes, y pointing down, unbounded, grid hidden and snapping off. See section 5.2.",
       "type": "object",
       "properties": {
         "axes": {
@@ -2982,6 +3041,7 @@
       }
     },
     "PlacementSource": {
+      "description": "A placement source says where one coordinate of a placement comes from. The string free, or omitting it, stores the value in view data; an attribute binding reads and writes a model attribute, optionally with a constant offset; a CEL expression computes a read-only value, and write actions let a move update the model from it; layout true leaves it to the layout algorithm. A bound attribute's type must suit the axis. See section 5.8.",
       "anyOf": [
         {
           "const": "free"
@@ -3034,6 +3094,7 @@
       ]
     },
     "Anchor": {
+      "description": "An anchor says which point of a node a placement position refers to. It is one of the named points top-left (the default), top, top-right, left, center, right, bottom-left, bottom or bottom-right, or a pair of fractions of the node's width and height. Point-like elements on time axes, such as milestones, typically use center. See section 5.8.",
       "anyOf": [
         {
           "enum": [
@@ -3059,6 +3120,7 @@
       ]
     },
     "Placement": {
+      "description": "Placement tells the runtime where each coordinate of a node comes from; it is declared in the node notation, so one model type can be placed differently per viewpoint. It names the coordinate system and gives a placement source for each axis's position and for its opposite edge or extent (x2 excludes width, y2 excludes height), plus the anchor. It also controls moving and resizing per axis, stacking within a band, and clamping to the parent. See section 5.8.",
       "type": "object",
       "properties": {
         "system": {
@@ -3192,6 +3254,7 @@
       }
     },
     "Gradient": {
+      "description": "A paint that blends colors, either linear along an angle or radial from a center with a radius. Its type property chooses linear or radial, and its stops list at least two colors, each at an offset given as a fraction from 0 to 1. Stop colors are bindable, so a gradient can follow theme tokens. See section 6.3.",
       "type": "object",
       "properties": {
         "type": {
@@ -3250,6 +3313,7 @@
       }
     },
     "Pattern": {
+      "description": "A paint that fills an area with a repeating built-in pattern: hatch, cross-hatch, dots, grid, vertical, horizontal, zigzag, checker or bricks. Its color, background, spacing, angle and line width can be set. Patterns are recommended as a secondary visual cue wherever color alone distinguishes categories, for accessibility. See section 6.3.",
       "type": "object",
       "properties": {
         "type": {
@@ -3294,6 +3358,7 @@
       }
     },
     "ImagePaint": {
+      "description": "A paint that fills an area with an image, named by its src property, which is bindable. Its fit property says how the image covers the area (tile, cover, contain or stretch), and its opacity property makes it translucent. See section 6.3.",
       "type": "object",
       "properties": {
         "type": {
@@ -3326,6 +3391,7 @@
       }
     },
     "Paint": {
+      "description": "What fills an area or colors a stroke, used by fills, stroke colors, font colors, halos and shadows. It is a color string such as a hex value, transparent or currentColor; the string none for no paint, which unlike transparent is not hit-testable; a token, CEL or attribute reference; or an object for a linear or radial gradient, a pattern or an image. See section 6.3.",
       "anyOf": [
         {
           "type": "string"
@@ -3345,6 +3411,7 @@
       ]
     },
     "DashStyle": {
+      "description": "The dash pattern of a stroke: one of the named presets solid, dashed, long-dash, short-dash, dotted, dash-dot and dash-dot-dot, or an explicit array of alternating dash and gap lengths. By default, dash lengths are multiples of the stroke width rather than canvas units, as set by the stroke's dashScale property. The default is solid. See section 6.4.",
       "anyOf": [
         {
           "enum": [
@@ -3370,6 +3437,7 @@
       ]
     },
     "LineEffect": {
+      "description": "A geometric effect that modifies the shape of a line or outline, set on a stroke. Its type property picks a wave, zigzag, loops (a coil), ticks along one or both sides, repeated small arrowheads, a parallel offset, or a plugin effect, each with its own parameters such as amplitude and wavelength. Effects apply before dashes, so a dashed wave is possible, and never change the hit-test geometry. See section 6.4.",
       "type": "object",
       "properties": {
         "type": {
@@ -3430,6 +3498,7 @@
       }
     },
     "Stroke": {
+      "description": "How an outline or line is drawn, used alike for node outlines, edge lines, separators, grid lines and marker outlines. It sets color, width (default 1), opacity, dash style (default solid), caps, joins and alignment on closed outlines. Beyond that it can draw a double line, a wider casing underneath, a geometric line effect, animated flow along the path that respects reduced-motion preferences, or a hand-drawn sketch. See section 6.4.",
       "type": "object",
       "properties": {
         "color": {
@@ -3559,6 +3628,7 @@
       }
     },
     "Font": {
+      "description": "How text is set, used as a style's default font for an element's labels. It covers family (a font stack, default the body font token), size in canvas units (default 14), weight (default 400), style, color, line height (default 1.3 times the size), letter spacing, decoration, case transform and variant. A minimum on-screen size hides small text when zoomed out, and a halo outlines glyphs for legibility over lines and fills. See section 6.5.",
       "type": "object",
       "properties": {
         "family": {
@@ -3643,6 +3713,7 @@
       }
     },
     "Style": {
+      "description": "A bundle of visual properties, declared by name in the notation's styles or written inline wherever a style is accepted. It sets fill, stroke, opacity, corner radius, shadow, font, text alignment, padding, cursor, filter, blend mode and visibility. Its extends property inherits from one or more other styles, merged left to right before the style's own properties, and properties merge per key when styles combine. See section 6.6.",
       "type": "object",
       "properties": {
         "extends": {
@@ -3771,6 +3842,7 @@
       }
     },
     "StyleRef": {
+      "description": "A reference to a style wherever a specification applies one: either a string naming a style declared in the notation's styles, or a style object written inline. It is used by interaction states, conditional styles, parts of composite shapes, handles and many other visual properties. See section 6.6.",
       "anyOf": [
         {
           "type": "string"
@@ -3781,6 +3853,7 @@
       ]
     },
     "StyleRefs": {
+      "description": "One style reference or a list of them, used for the base style of node and edge notations and their variants. Each entry is either the name of a style declared in the notation's styles or an inline style object. See section 6.9.",
       "anyOf": [
         {
           "$ref": "#/$defs/StyleRef"
@@ -3794,6 +3867,7 @@
       ]
     },
     "States": {
+      "description": "The styles a node, edge or port notation applies while an interaction state is active, as a map from state to style reference. The states are hover, selected, focused, dragging, highlighted, dropTarget, dropReject, invalid, warning, disabled and editing. A state style merges per key over the resolved style and outranks conditions and variants; runtimes supply sensible defaults for hover, selection, drop feedback and problems when the specification declares none. See section 6.6.",
       "type": "object",
       "properties": {
         "hover": {
@@ -3836,6 +3910,7 @@
       }
     },
     "Conditions": {
+      "description": "A list of conditional styles on a notation, each applied while its when expression holds. Each entry pairs a CEL expression with a style reference, a named style or an inline one, and may carry documentation. When several are true they apply in declaration order, later ones winning, and they rank below interaction states and above variants when a visual property is resolved. See section 6.6.",
       "type": "array",
       "items": {
         "type": "object",
@@ -3861,6 +3936,7 @@
       }
     },
     "Theme": {
+      "description": "The theme of a specification's notation: semantic tokens that give colors, fonts and sizes names, so one specification renders well in any mode or brand palette. Its tokens property holds the base values and its modes property overrides them per mode; light, dark and high-contrast are recognised by runtimes. It can also set the initial mode, follow the system preference and extend an imported theme. Tokens are referenced from any bindable position. See section 6.2.",
       "type": "object",
       "properties": {
         "tokens": {
@@ -3897,6 +3973,7 @@
       }
     },
     "IconDef": {
+      "description": "An icon declared in the notation's icons for use by tools, nodes, badges and labels. It is given as inline SVG, which is sanitised, as a path (optionally drawn as a stroke), as an image source with a size, or as a glyph from an icon font. Icons are monochrome by default and take the current color so they follow the theme; its colored property keeps their own colors. See section 6.14.",
       "type": "object",
       "properties": {
         "svg": {
@@ -3936,6 +4013,7 @@
       }
     },
     "IconRef": {
+      "description": "A reference to an icon: either a string naming one, such as an icon declared in the notation's icons or a library icon like std.database or tabler:database, or an icon definition written inline. See section 6.14.",
       "anyOf": [
         {
           "type": "string"
@@ -3946,6 +4024,7 @@
       ]
     },
     "ShapeParam": {
+      "description": "A parameter of a custom shape, such as the fold of a note, which its geometry expressions read as p followed by the parameter name. Its type property is required, and it can have a default, which may be a CEL expression depending on width and height, bounds, enum values and a unit that guides forms and handles. Its persist property says whether user-adjusted values are stored per element in view data, which is the default. See section 6.8.",
       "type": "object",
       "properties": {
         "type": {
@@ -4001,6 +4080,7 @@
       }
     },
     "PathSegment": {
+      "description": "One step of a segment-based path. Its op property picks move, line, horizontal or vertical line, quadratic or cubic Bezier, elliptical arc with SVG semantics, a rounded rectangle or ellipse sub-path, or close, and the coordinate fields each op needs are geometry expressions. A segment can carry a when expression to include it only conditionally, so a shape's topology can depend on its parameters. See section 6.8.",
       "type": "object",
       "properties": {
         "op": {
@@ -4078,6 +4158,7 @@
       }
     },
     "PathDef": {
+      "description": "The geometry of a custom shape, an icon or a shape outline, given as a path. It is either an SVG path string in a declared viewBox, scaled into the bounds, or a list of segments whose coordinates are geometry expressions evaluated against the node's width, height and parameters. A path can hold several sub-paths and a fill rule, nonzero by default or evenodd. See section 6.8.",
       "type": "object",
       "properties": {
         "viewBox": {
@@ -4123,6 +4204,7 @@
       ]
     },
     "ShapePart": {
+      "description": "One part of a composite custom shape, itself a built-in or custom shape with its own box and style. Its box gives its bounds in shape coordinates, its style merges over the node style, and its id lets styles and states address the part. A part can be rotated, included only when an expression holds, contribute to the connection outline, or be excluded from hit testing. See section 6.8.",
       "type": "object",
       "properties": {
         "id": {
@@ -4162,6 +4244,7 @@
       }
     },
     "Handle": {
+      "description": "An interactive handle on a custom shape that lets a user fine-tune one of its parameters by dragging on the canvas. It names the parameter it edits, gives its position as geometry expressions, the axis it moves along, and an inverse expression that computes the new value from the pointer position. A two-parameter handle also edits a second parameter, and snapping, appearance and a tooltip can be set. See section 6.8.",
       "type": "object",
       "properties": {
         "param": {
@@ -4217,6 +4300,7 @@
       }
     },
     "ScaleMode": {
+      "description": "How the static geometry of a custom shape, its viewBox paths or inline SVG, is fitted into the node's bounds; a custom shape sets it through its scaling property. It is one of stretch (the default), uniform (keep the aspect ratio, centered) or none (one to one at the top-left), or an object whose nineSlice lists top, right, bottom and left insets so the corners keep their size and only the middle stretches. See section 6.8.",
       "anyOf": [
         {
           "enum": [
@@ -4248,6 +4332,7 @@
       ]
     },
     "ShapeDef": {
+      "description": "A custom shape a specification declares in the notation's shapes when no built-in primitive fits, from a static SVG path to a fully parameterised shape whose geometry is computed with CEL. Exactly one of path, parts, svg or plugin gives its geometry. It can also declare parameters, handles that edit them, the outline used for anchoring and hit testing, the label's text area, a default size, an aspect ratio and a scaling mode. See section 6.8.",
       "type": "object",
       "properties": {
         "label": {
@@ -4342,6 +4427,7 @@
       ]
     },
     "ShapeInstance": {
+      "description": "A use of a named shape with its parameters, one of the forms of a shape reference. Its type property names the shape, for example roundedRect or polygon, and its params property supplies parameter values, each of which is bindable, so a parameter can follow a token, attribute or CEL expression. Parameters left out take the shape's defaults. See section 6.7.",
       "type": "object",
       "properties": {
         "type": {
@@ -4364,6 +4450,7 @@
       }
     },
     "ShapeRef": {
+      "description": "A reference to the shape of a node body or of a part: either a string naming a built-in primitive such as ellipse, or an object. The object is either a shape instance, which names a shape and gives its parameters, or a custom shape definition written inline. When a node notation gives none, the body shape is rect. See section 6.7.",
       "anyOf": [
         {
           "type": "string"
@@ -4377,6 +4464,7 @@
       ]
     },
     "Position": {
+      "description": "Where a label, icon, badge or legend sits relative to a node, port or the canvas. It is either a named slot (center, top, bottom, left, right or a corner such as top-left), the same slots prefixed with outside- to place the item beyond the outline, or plain outside; or an object giving an anchor as fractions of the bounds, an optional offset in canvas units and an align of start, center or end. See section 6.9.",
       "anyOf": [
         {
           "enum": [
@@ -4438,6 +4526,7 @@
       ]
     },
     "Label": {
+      "description": "A piece of text drawn on a node, edge, port, compartment header or the canvas; the same object is used everywhere. Its text is a bindable string, and binding it to an attribute makes it editable inline by default; format, wrap, maxWidth, overflow and background control rendering, and parse can split edited text into several attributes. Node labels use position, while edge labels add at, side, offset, distance and orientation to place themselves along the path. See section 6.12.",
       "type": "object",
       "properties": {
         "id": {
@@ -4641,6 +4730,7 @@
       }
     },
     "Compartment": {
+      "description": "A stacked region inside a node that lists items, such as the attributes and operations of a class or the columns of a table; a node notation holds them in its compartments list. Its required id names it and its required items gives the source: a many-valued attribute, the node's children of given types in a slot, or a CEL list. Per-item text, icon and style render each item, and layout, overflow, collapsing and editable options control arrangement and in-place editing. See section 6.9.",
       "type": "object",
       "properties": {
         "id": {
@@ -4806,6 +4896,7 @@
       }
     },
     "NodeIcon": {
+      "description": "The icon a node notation draws inside or beside the node, set through its icon property. The icon itself is required and may be a fixed icon reference or bound to model data; position places it, size gives its size, color tints it and visible can hide it conditionally. Variants commonly swap it, for example to show a different symbol on a gateway depending on its kind. See section 6.9.",
       "type": "object",
       "properties": {
         "icon": {
@@ -4843,6 +4934,7 @@
       }
     },
     "Badge": {
+      "description": "A small indicator drawn at a corner or edge of a node, such as a problem counter, a lock, a stereotype glyph or a progress ring; a node notation lists them in badges. Only its id is required; position and offset place it, shape, text, icon, style and size draw it, visible can hide it conditionally, and tooltip and onClick, which names an operation, make it informative and interactive. See section 6.9.",
       "type": "object",
       "properties": {
         "id": {
@@ -4903,6 +4995,7 @@
       }
     },
     "PortNotation": {
+      "description": "How the ports of a node type are drawn and placed, keyed by port name in a node notation's ports map. shape defaults to an 8 by 8 rectangle; side picks the side of the node (auto chooses by direction, in on the left and out on the right), position is a fraction along it or distribute (the default) to space all instances evenly, and inset moves the port inside or outside the outline. movable, label and order add dragging, a label and a sort key. See section 6.9.",
       "type": "object",
       "properties": {
         "shape": {
@@ -4970,6 +5063,7 @@
       }
     },
     "AnchorSpec": {
+      "description": "Where edges attach to a node when they do not use a port, set through a node notation's anchors property. Its mode is outline (the default, where the line towards the center crosses the outline), center, fixed (only at the listed points, given as fractions of the bounds), sides (the midpoint of the nearest side, for orthogonal diagrams) or port. gap leaves space between outline and edge end, and spread distributes several edges arriving on one side. See section 6.9.",
       "type": "object",
       "properties": {
         "mode": {
@@ -5026,6 +5120,7 @@
       }
     },
     "ContainerSpec": {
+      "description": "How a node whose type has children lays out, frames and clips them, set through a node notation's container property. layout is free, stack, grid, flow, lanes (bands, as for pools with lanes) or layout: followed by the name of a layout algorithm, with direction, gap, padding and columns refining it. header adds a title band, contentArea and clip bound the children, and autoGrow, collapsible, dropZones and highlightOnDrop govern editing. See section 6.9.",
       "type": "object",
       "properties": {
         "layout": {
@@ -5132,6 +5227,7 @@
       }
     },
     "SizeSpec": {
+      "description": "The size and resize behaviour of a node type, set through a node notation's size property. default is the size on creation, min and max are limits, and fixed is shorthand for all three equal and not resizable. resizable (default true, or only horizontal or vertical), aspectRatio (a number or keep) and autoSize (fitting content, or grow, which never shrinks below the user's size) shape resizing, while width and height can bind the size to data. See section 6.9.",
       "type": "object",
       "properties": {
         "default": {
@@ -5194,6 +5290,7 @@
       }
     },
     "EmbeddedForm": {
+      "description": "Live form widgets drawn inside a node set through a node notation's form property. form, which is required, names a form or gives one inline, and region is the area inside the node, by default the shape's text area. interaction says when widgets accept input (default onSelect), minZoom and fallback decide what shows when zoomed out, and autoSize lets the node grow to fit. See section 7.6.",
       "type": "object",
       "properties": {
         "form": {
@@ -5246,6 +5343,7 @@
       }
     },
     "LodRule": {
+      "description": "One level-of-detail rule for semantic zoom, listed in a node notation's lod property. Its required maxZoom is the zoom level at or below which the rule applies; hide lists notation properties or label ids to leave out, labels reduces labels to primary or none, shape substitutes a simpler shape, and render set to box draws a plain filled rectangle for performance. See section 6.9.",
       "type": "object",
       "properties": {
         "maxZoom": {
@@ -5286,6 +5384,7 @@
       }
     },
     "NodeNotation": {
+      "description": "How one node type is drawn and behaves on the canvas, keyed by type name in the notation layer's nodes map. It combines the body shape (default rect) and styles, size and placement, labels (by default one centered label bound to the type's label attribute), compartments, an embedded form, icon, badges, ports, anchors and container layout. variants and lod switch parts of it by model state or zoom, and further properties set states, conditions, layer, tooltip, interaction permissions and double-click behaviour. See section 6.9.",
       "type": "object",
       "properties": {
         "shape": {
@@ -5466,6 +5565,7 @@
       }
     },
     "NodeVariant": {
+      "description": "A conditional alternative to parts of a node notation, such as a collapsed sub-process or a gateway symbol that depends on its kind, listed in the notation's variants property. Its when expression decides whether it applies, and it may carry any node notation property except placement. Every matching variant is applied in order over the base notation. See section 6.9.",
       "type": "object",
       "properties": {
         "when": {
@@ -5643,6 +5743,7 @@
       }
     },
     "MarkerDef": {
+      "description": "A custom marker a specification declares in the notation layer's markers map, or inline where a marker is referenced. Its geometry is a path or a set of composite parts in marker coordinates, with x pointing along the path towards the end and the tip at the reference point ref, which defaults to 0,0. size gives the nominal size, orient defaults to auto with source markers reversed automatically, and fill, stroke and shorten control drawing. See section 6.11.",
       "type": "object",
       "properties": {
         "label": {
@@ -5726,6 +5827,7 @@
       ]
     },
     "MarkerInstance": {
+      "description": "A marker reference that names a marker and adjusts it, used wherever a marker is expected. type is required and names a built-in or custom marker, and params sets marker parameters such as length, width, angle, fill or inset. With type stack it composes several markers, listed in markers, from the edge end inward with the given spacing, for example a bar followed by a crow's foot. See section 6.11.",
       "type": "object",
       "properties": {
         "type": {
@@ -5753,6 +5855,7 @@
       }
     },
     "MarkerRef": {
+      "description": "A reference to the decoration drawn at an edge end or along an edge, used by an edge notation's source and target markers and by mid markers. It is a string naming a built-in or custom marker (none draws nothing), a marker instance with type and parameters or a stack, an inline marker declaration, or a CEL expression that returns a marker name from model data. See section 6.11.",
       "anyOf": [
         {
           "type": "string"
@@ -5769,6 +5872,7 @@
       ]
     },
     "MidMarker": {
+      "description": "A decoration drawn along an edge's path rather than at its ends, listed in an edge notation's midMarkers. marker, which is required, is the decoration; at places it at start, middle (the default), end or a fraction of the path length, and repeat instead repeats it every spacing canvas units within an optional from and to range. orient sets its rotation relative to the path tangent and visible can hide it conditionally. See section 6.10.",
       "type": "object",
       "properties": {
         "marker": {
@@ -5844,6 +5948,7 @@
       }
     },
     "Routing": {
+      "description": "How an edge's line is routed between its ends, set by a line spec's routing property. It is one of straight (the default), polyline, orthogonal, rounded, curved, bezier, spline, arc, tree, metro (octilinear) or layout (taken from the layout algorithm), or an object that hands routing to a plugin. See section 6.10.",
       "anyOf": [
         {
           "enum": [
@@ -5866,6 +5971,7 @@
       ]
     },
     "LineSpec": {
+      "description": "The stroke, routing and geometry of an edge's line, set by an edge notation's line property. stroke takes everything a stroke can express, routing picks the routing algorithm, and cornerRadius and curvature shape corners and curves. avoidNodes and avoidPadding route around other nodes, bendpoints and segments govern user editing, minSegmentLength keeps markers off corners, and startDirection and endDirection set how the line leaves and enters its nodes. See section 6.10.",
       "type": "object",
       "properties": {
         "stroke": {
@@ -5955,6 +6061,7 @@
       }
     },
     "EndAnchor": {
+      "description": "How one end of an edge attaches to its node, set for the source or target in an edge notation's anchoring property; it overrides the node's anchor spec for this edge type. mode is outline, center, port, fixed or sides as for anchors, points lists fixed anchor points as fractions of the bounds, and gap leaves space between the node outline and the marker. See section 6.10.",
       "type": "object",
       "properties": {
         "mode": {
@@ -6005,6 +6112,7 @@
       }
     },
     "EdgeNotation": {
+      "description": "How one relation type, or a reference attribute drawn as an edge, is rendered; the notation layer's edges map holds one per name. line sets stroke and routing, source and target markers decorate the ends (by default none at the source and a filled arrow at the target for directed relations), and midMarkers and labels decorate the path. Further properties control anchoring, self loops, parallel edges, jumps at crossings, layer, states, conditions, variants and reconnecting. See section 6.10.",
       "type": "object",
       "properties": {
         "line": {
@@ -6202,6 +6310,7 @@
       }
     },
     "EdgeVariant": {
+      "description": "A conditional alternative to parts of an edge notation, listed in its variants property. Its when expression decides whether it applies, and it may carry the edge notation's properties, such as a different line, markers or labels. Variants work as they do for nodes, applied over the base notation when they match. See section 6.10.",
       "type": "object",
       "properties": {
         "when": {
@@ -6399,6 +6508,7 @@
       }
     },
     "Canvas": {
+      "description": "The drawing surface's configuration, set by the notation layer's canvas property or by a viewpoint's own canvas. It gives the background paint (by default the canvas colour token), an optional paged layout for printing, fixed bounds, zoom limits and presets, a watermark label drawn under everything, an auto-generated legend, a minimap and the look of the selection outline and resize handles. See section 6.13.",
       "type": "object",
       "properties": {
         "background": {
@@ -6514,6 +6624,7 @@
       }
     },
     "Notation": {
+      "description": "The notation layer of a specification: the concrete syntax that says how every node, edge, port and label of the diagram type looks. It holds the theme and fonts, named styles, custom shapes, markers and icons, the notations per node type, edge type and port, the canvas, and defaults for nodes and edges. A visual property resolves from per-element overrides, states, conditions and variants down through styles, supertypes and these defaults to the built-in default. See section 6.1.",
       "type": "object",
       "properties": {
         "theme": {
@@ -6631,6 +6742,7 @@
       }
     },
     "Tool": {
+      "description": "One entry in the toolbox, used in tool groups and the toolbox library. Its kind says what it does: create a node or edge (the default, inferred from the type it creates), insert a template, run an operation, a generic tool such as select or pan, or a plugin. Further properties set initial attribute values and size, the interaction mode, a shortcut, whether it stays active, and what happens after creation (by default label editing). See section 7.2.",
       "type": "object",
       "properties": {
         "id": {
@@ -6750,6 +6862,7 @@
       }
     },
     "ToolGroup": {
+      "description": "A named group of tools in the toolbox palette, used in the toolbox groups list. It has a required id, a label and icon, and lists its tools either inline or by the id of a tool in the toolbox library; nested groups give sub-groups. It can start collapsed, be limited to certain viewpoints, and be shown or hidden by a visible expression evaluated in the diagram context. See section 7.1.",
       "type": "object",
       "properties": {
         "id": {
@@ -6805,6 +6918,7 @@
       }
     },
     "ContextTool": {
+      "description": "One item of a context tool set, shown beside the selected element as the fastest way to grow a diagram. Its required kind is one of create-connected (a new node linked through the relation type in via, outgoing or incoming), connect, create-child (in a slot), operation, delete, duplicate, editLabel, openForm or plugin. Every kind accepts a label, icon, shortcut, enabled condition and position relative to the element. See section 7.3.",
       "type": "object",
       "properties": {
         "kind": {
@@ -6869,6 +6983,7 @@
       }
     },
     "ContextToolSet": {
+      "description": "A set of context tools shown next to a selected element, declared in the toolbox under contextTools, or under contextMenus for right-click menus. Its for property names the element types it applies to and when adds a condition in the element context; placement chooses around, toolbar, menu or radial presentation. For context menus the runtime adds standard entries such as cut, copy and paste unless standardEntries is false. See section 7.3.",
       "type": "object",
       "properties": {
         "for": {
@@ -6910,6 +7025,7 @@
       }
     },
     "FragmentNode": {
+      "description": "A node to be created when a template is inserted, listed in the template fragment nodes. It needs a local ref name, used by other fragment entries in place of an id, and a type; attribute values are expressions evaluated with the template parameters as p. Its at position is relative to the insertion point, in the coordinate system of the target container, with durations relative to the drop time on time axes. See section 7.4.",
       "type": "object",
       "properties": {
         "ref": {
@@ -6943,6 +7059,7 @@
       }
     },
     "FragmentRelation": {
+      "description": "A relation to be created when a template is inserted, listed in the template fragment relations. It has a required type and a source and target that name nodes of the same fragment by their local ref names. Its attribute values are expressions, evaluated with the template parameters available as p. See section 7.4.",
       "type": "object",
       "properties": {
         "ref": {
@@ -6975,6 +7092,7 @@
       }
     },
     "Template": {
+      "description": "A reusable pre-built fragment, such as a pattern or starter structure, declared by name in the toolbox templates map. Its required fragment lists nodes and relations that refer to each other by local ref names rather than ids; attribute values are expressions evaluated with the template parameters, declared in params, available as p. Templates are placed with a template tool, dragged from a gallery, or offered as starters for a new diagram. See section 7.4.",
       "type": "object",
       "properties": {
         "label": {
@@ -7029,6 +7147,7 @@
       }
     },
     "Toolbox": {
+      "description": "The palette from which users create elements, declared in a specification's toolbox property. It holds ordered tool groups, a library of tools that groups may reference by id, context tools and context menus, templates and starter templates, plus presentation settings such as layout (default list), searchable (default true) and which generic tools are offered (select and pan by default). If the toolbox is absent, the runtime generates one creation tool per concrete node and relation type. See section 7.1.",
       "type": "object",
       "properties": {
         "groups": {
@@ -7135,6 +7254,7 @@
       }
     },
     "FieldValidation": {
+      "description": "A field-local validation rule attached to a form field in its validate list. Its rule is an expression over the entered value, and its message is shown immediately when the rule fails, with a severity of error, warning or info. It gives quick feedback in the form but does not replace the specification's constraints. See section 7.5.",
       "type": "object",
       "properties": {
         "rule": {
@@ -7168,6 +7288,7 @@
       }
     },
     "FormItem": {
+      "description": "One item in a form: either a field that edits an attribute, or a container or other item chosen by its kind. A field names its attribute path and optionally a widget (defaulting by attribute type), label, placeholder, options, field-local validation and actions run on change. Other kinds are section, row, tabs, group, static text, divider, a computed read-only value, a button running an operation or actions, a problems list and plugin. See section 7.5.",
       "type": "object",
       "properties": {
         "kind": {
@@ -7397,6 +7518,7 @@
       ]
     },
     "Form": {
+      "description": "A declarative description of editable fields for one or more element types, or for the diagram root, declared by id in the specification's forms. Its usage says where it appears: property inspector (the default), creation dialog, embedded in nodes, popover or bulk editing. It lays out an ordered list of form items and says when edits commit, by default immediately for inspectors and explicitly for create dialogs. Types without a form get a generated one. See section 7.5.",
       "type": "object",
       "properties": {
         "for": {
@@ -7489,6 +7611,7 @@
       }
     },
     "QuickFix": {
+      "description": "A suggested correction offered with a problem reported by a constraint, listed in its fixes. It has a label and either actions, executed as one transaction with self bound to the problem's element, or the id of a declared operation to run. A when condition decides whether it is offered; preferred marks the fix used by fix all and the keyboard shortcut, and applyToAll lets it fix every problem of that constraint at once. See section 8.5.",
       "type": "object",
       "properties": {
         "label": {
@@ -7532,6 +7655,7 @@
       }
     },
     "Constraint": {
+      "description": "A single validity rule, written in CEL and listed in the constraints rules. Its required id and rule give the condition that has to hold; kind is invariant by default or a gesture kind (connect, containment, create, delete, placement, change) checked before a user action. Scope says which elements it is evaluated for (default the diagram), severity defaults to error, and enforcement either reports problems or prevents the change. It can offer quick fixes. See section 8.2.",
       "type": "object",
       "properties": {
         "id": {
@@ -7663,6 +7787,7 @@
       }
     },
     "Constraints": {
+      "description": "The container for a specification's validity rules, declared in its constraints property. It holds the ordered list of constraint rules, named groups that users can enable, disable or re-rate as a unit, default severity and timing for rules, and settings that tune the built-in constraints. Its blockSaveOn setting defaults to never, so diagrams with problems are still saved and remain loadable. See section 8.1.",
       "type": "object",
       "properties": {
         "rules": {
@@ -7770,6 +7895,7 @@
       }
     },
     "Action": {
+      "description": "One declarative step from a small, closed set, used in hooks, operations, quick fixes, form buttons and field change handlers. Each action is an object with one leading key such as set, unset, create, connect, delete, move, resize, retype, reparent, let, if, forEach, select, reveal, highlight, editLabel, openForm, notify, layout, abort, call or plugin. All values are expressions, and every action may carry a when condition that skips it unless true. See section 9.4.",
       "type": "object",
       "properties": {
         "set": {
@@ -8081,6 +8207,7 @@
       "minProperties": 1
     },
     "Hook": {
+      "description": "A reaction to an editing event, listed in the behavior hooks. Its required id, on and actions say which events it responds to (such as create, change, connect, move, load or save) and the actions to run in order, optionally limited to element types, changed attributes and a when condition. After hooks, the default, run after the change in the same undoable transaction; before hooks run before constraints and may abort. Hooks do not run for remote changes. See section 9.2.",
       "type": "object",
       "properties": {
         "id": {
@@ -8181,6 +8308,7 @@
       }
     },
     "Operation": {
+      "description": "A named, documented command, declared by id in the behavior operations and invoked from tools, context tools, form buttons, quick fixes, shortcuts or menus. Its for property says what it applies to: element types (bound as self), the selection or the diagram. Parameters produce a generated dialog, or a custom form, and are available as p. Its actions run as one transaction, or a plugin implements it; an enabled expression and a confirmation question are optional. See section 9.3.",
       "type": "object",
       "properties": {
         "label": {
@@ -8242,6 +8370,7 @@
       }
     },
     "DeletionPolicy": {
+      "description": "The rules for deleting an element of one type, declared per type in the behavior deletion map. Children says what happens to contained elements (delete by default, reparent to the deleted node's parent, or forbid); relations covers attached edges (delete by default, forbid, or reconnect incoming to outgoing edges of the same type); references covers reference attributes pointing at it (unset by default, delete the referencing elements, or forbid). A confirm text asks before deleting. See section 9.5.",
       "type": "object",
       "properties": {
         "children": {
@@ -8278,6 +8407,7 @@
       }
     },
     "Behavior": {
+      "description": "What happens in response to user actions beyond direct manipulation, declared in a specification's behavior property. It holds hooks that react to events, named operations, per-type deletion policies, and clipboard, retyping and undo settings. Its maxHookDepth bounds the number of hook executions in one transaction (default 100), so hooks that trigger further hooks cannot run away. See section 9.1.",
       "type": "object",
       "properties": {
         "hooks": {
@@ -8394,6 +8524,7 @@
       }
     },
     "LayoutConfig": {
+      "description": "One named layout configuration, used in the layout algorithms map and for containers. Its required algorithm names the layout, such as layered, tree, force, lanes, an ELK algorithm or a plugin; DISL names algorithms but does not define them. Further settings give the main flow direction, spacing in canvas units, edge routing, whether user bendpoints are replaced, pass-through algorithm options, the default scope and whether notes take part. See section 10.",
       "type": "object",
       "properties": {
         "algorithm": {
@@ -8463,6 +8594,7 @@
       }
     },
     "Layout": {
+      "description": "The automatic layout settings of a specification, declared in its layout property. It names layout configurations under algorithms, chooses the default one used by the Arrange command, sets layouts inside containers of a type, and says when layout runs automatically (manual by default) and which user positions survive it (pinned elements by default). Layout never changes coordinates bound to attributes, such as a task's start date. See section 10.",
       "type": "object",
       "properties": {
         "algorithms": {
@@ -8541,6 +8673,7 @@
       }
     },
     "MigrationStep": {
+      "description": "One step of a migration, written as an object with a single step key and an optional doc. Steps rename, delete or retype types, rename, delete, set or convert attributes, transform a whole attributes map, convert stored view coordinates, rename ports and slots, or call a plugin. Expressions run in the migration context, which sees raw records as maps rather than typed elements, because the old definition does not conform to the new metamodel. See section 11.9.",
       "type": "object",
       "properties": {
         "renameType": {
@@ -8800,6 +8933,7 @@
       "maxProperties": 2
     },
     "Migration": {
+      "description": "An upgrade from older language versions, listed in the persistence migrations. Its from property is a version range, to is the version it produces, and steps is a non-empty ordered list of migration steps. Migrations run on load, before validation, in version order; a failing migration aborts loading, and the original file is not modified until the user saves. See section 11.9.",
       "type": "object",
       "properties": {
         "from": {
@@ -8830,6 +8964,7 @@
       }
     },
     "Persistence": {
+      "description": "How the diagrams users draw are stored as DID definitions, declared in a specification's persistence property. It chooses the serialization format (json by default), encoding and file split, how ids are generated, how records and keys are ordered, number precision and timestamps, which view data and style overrides are kept, metadata, how the specification is referenced, migrations, collaboration, and import and export conversions. The aim is byte-identical output from any two conforming runtimes. See section 11.1.",
       "type": "object",
       "properties": {
         "format": {
