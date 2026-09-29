@@ -7,7 +7,7 @@
     "kind": "git",
     "repository": "etalii-adp/etalii.adp",
     "path": "specifications/did",
-    "revision": "9f13b8b698328dcb0c974e5a28ef5071ed56ae54",
+    "revision": "363f96949ee52f77174c8db1105b10fefde05876",
     "licence": "Apache-2.0",
     "copyright": "Copyright [yyyy] [name of copyright owner]"
   },
@@ -31,5 +31,5 @@
       "size": 2172
     }
   ],
-  "retrieved": "2026-09-29T16:47:36Z"
+  "retrieved": "2026-09-29T21:22:01Z"
 }

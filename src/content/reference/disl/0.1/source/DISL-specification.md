@@ -69,21 +69,19 @@ A single DISL file — a **specification** — is a complete, portable, machine-
 
 DISL sits between the tool engineers who specify a diagram type and the software that lets others use it.
 
-```
- ┌────────────────────────┐        ┌─────────────────────────┐        ┌────────────────────────┐
- │ Tool engineer          │ writes │ DISL specification      │ loads  │ Runtime                │
- │ (domain expert, tool   │───────▶│ my-lang.disl            │───────▶│ (web, desktop, IDE,    │
- │  builder, standards    │        │ checked by JSON Schema  │        │  headless)             │
- │  body, AI assistant)   │        │ + CEL type checker      │        │ toolbox, canvas, forms │
- └────────────────────────┘        └────────────┬────────────┘        │ snapping, rules, save  │
-                                                │                     └───────────┬────────────┘
-                                                │ feeds                           │ reads / writes
-                                   ┌────────────▼────────────┐        ┌───────────▼────────────┐
-                                   │ Docs & code generators, │        │ DID definitions        │
-                                   │ CI validators, format   │        │ (the diagrams users    │
-                                   │ converters, AI context  │        │  draw), deterministic, │
-                                   └─────────────────────────┘        │  versioned, migrated   │
-                                                                      └────────────────────────┘
+```mermaid
+flowchart TB
+  accTitle: How DISL is intended to be used
+  accDescr: A tool engineer writes a DISL specification. A runtime loads the specification, and the specification also feeds docs and code generators, CI validators, format converters and AI context. The runtime reads and writes DID definitions, the diagrams users draw.
+  engineer["<b>Tool engineer</b><br/>domain expert, tool builder,<br/>standards body, AI assistant"]
+  specification["<b>DISL specification</b><br/>my-lang.disl<br/>checked by JSON Schema<br/>+ CEL type checker"]
+  runtime["<b>Runtime</b><br/>web, desktop, IDE, headless<br/>toolbox, canvas, forms,<br/>snapping, rules, save"]
+  consumers["Docs & code generators,<br/>CI validators, format<br/>converters, AI context"]
+  definitions["<b>DID definitions</b><br/>the diagrams users draw,<br/>deterministic, versioned, migrated"]
+  engineer -- writes --> specification
+  specification -- loads --> runtime
+  specification -- feeds --> consumers
+  runtime -- reads / writes --> definitions
 ```
 
 A typical workflow:
@@ -447,26 +445,28 @@ Elements appear in a view only if their type is included; model elements not sho
 
 ### 3.6 Layer overview *(informative)*
 
-```
-                     ┌──────────────────────────────────────────────┐
-  Layer 1            │ metamodel   types · relations · attributes   │   what exists
-                     ├──────────────────────────────────────────────┤
-  Layer 2            │ coordinates axes · systems · placement · snap│   where it can be
-                     ├──────────────────────────────────────────────┤
-  Layer 3            │ notation    theme · styles · shapes · markers│   how it looks
-                     │             nodes · edges · labels · ports   │
-                     ├──────────────────────────────────────────────┤
-  Layer 4            │ toolbox · forms                              │   how it is created/edited
-                     ├──────────────────────────────────────────────┤
-  Layer 5            │ constraints                                  │   what is allowed
-                     ├──────────────────────────────────────────────┤
-  Layer 6            │ behavior    hooks · operations · policies    │   what happens
-                     ├──────────────────────────────────────────────┤
-  Layer 7            │ layout                                       │   how it is arranged
-                     ├──────────────────────────────────────────────┤
-  Layer 8            │ persistence                                  │   how it is stored
-                     └──────────────────────────────────────────────┘
-      cross-cutting:  doc on everything · CEL everywhere · functions · plugins · viewpoints
+```mermaid
+---
+config:
+  flowchart:
+    wrappingWidth: 400
+    rankSpacing: 12
+---
+flowchart TB
+  accTitle: Layer overview
+  accDescr: The eight DISL layers from top to bottom. Layer 1, metamodel, says what exists. Layer 2, coordinates, where it can be. Layer 3, notation, how it looks. Layer 4, toolbox and forms, how it is created and edited. Layer 5, constraints, what is allowed. Layer 6, behavior, what happens. Layer 7, layout, how it is arranged. Layer 8, persistence, how it is stored. Cutting across all layers are doc on everything, CEL everywhere, functions, plugins and viewpoints.
+  L1["<b>Layer 1 · metamodel</b><br/>types · relations · attributes<br/><i>what exists</i>"]
+  L2["<b>Layer 2 · coordinates</b><br/>axes · systems · placement · snap<br/><i>where it can be</i>"]
+  L3["<b>Layer 3 · notation</b><br/>theme · styles · shapes · markers<br/>nodes · edges · labels · ports<br/><i>how it looks</i>"]
+  L4["<b>Layer 4 · toolbox · forms</b><br/><i>how it is created/edited</i>"]
+  L5["<b>Layer 5 · constraints</b><br/><i>what is allowed</i>"]
+  L6["<b>Layer 6 · behavior</b><br/>hooks · operations · policies<br/><i>what happens</i>"]
+  L7["<b>Layer 7 · layout</b><br/><i>how it is arranged</i>"]
+  L8["<b>Layer 8 · persistence</b><br/><i>how it is stored</i>"]
+  X["<b>cross-cutting</b><br/>doc on everything · CEL everywhere<br/>functions · plugins · viewpoints"]
+  L1 ~~~ L2 ~~~ L3 ~~~ L4 ~~~ L5 ~~~ L6 ~~~ L7 ~~~ L8 ~~~ X
+  classDef crossCutting stroke-dasharray:4 4
+  class X crossCutting
 ```
 
 Dependencies only point upward: notation refers to metamodel types, constraints to metamodel and coordinates, persistence to metamodel and coordinates — never the reverse. A headless validator therefore only needs layers 1, 2, 5 and 8.
@@ -775,11 +775,16 @@ Most diagram tools assume a single, infinite pixel plane. Many real diagrams do 
 - **Snapping** (5.9–5.11) restricts positions and sizes to discrete values, independently per axis, in the axis's own units.
 - **Canvas units** are the internal unit of rendering at zoom 1. The screen maps canvas units to device pixels via the zoom factor.
 
-```
-  domain value ──axis.scale──▶ canvas units ──zoom──▶ screen pixels
-  "2026-10-05"                 x = 480                 x = 720 at zoom 1.5
-       ▲                            │
-       └── snapping works here ◀────┘ (in domain units, then mapped back)
+```mermaid
+flowchart LR
+  accTitle: From domain value to screen pixels
+  accDescr: An axis scale maps a domain value, such as the date 2026-10-05, to canvas units, such as x = 480. The zoom maps canvas units to screen pixels, such as x = 720 at zoom 1.5. Snapping works on the domain value, in domain units, and the result is then mapped back to canvas units.
+  domain["<b>domain value</b><br/>#quot;2026-10-05#quot;"]
+  canvas["<b>canvas units</b><br/>x = 480"]
+  screen["<b>screen pixels</b><br/>x = 720 at zoom 1.5"]
+  domain -- axis.scale --> canvas
+  canvas -- zoom --> screen
+  canvas -. "snapping works here<br/>(in domain units, then mapped back)" .-> domain
 ```
 
 ### 5.2 The coordinates object
@@ -1981,10 +1986,16 @@ Labels display text on nodes, edges, ports and compartments. The same **Label** 
 
 Together, `at` and `side` place labels in any of the conventional slots:
 
-```
-   start-above            middle-above              end-above
- ●──────────────────────────────┬─────────────────────────────▶
-   start-below            middle-below              end-below
+```mermaid
+block-beta
+  columns 5
+  startAbove["start-above"] space middleAbove["middle-above"] space endAbove["end-above"]
+  start(("start")) space middle["middle"] space finish(("end"))
+  startBelow["start-below"] space middleBelow["middle-below"] space endBelow["end-below"]
+  start --- middle
+  middle --> finish
+  classDef slot fill:none,stroke:none
+  class startAbove,middleAbove,endAbove,startBelow,middleBelow,endBelow slot
 ```
 
 ### 6.13 Canvas
@@ -2902,11 +2913,23 @@ Unknown types, attributes and view properties in a stored diagram are preserved 
 
 Every user gesture, form commit, operation or quick fix is one **transaction**:
 
-```
- gesture ─▶ gesture constraints (prevent?) ─▶ snapping ─▶ apply change
-        ─▶ "before" hooks (may abort) ─▶ "after" hooks ─▶ recompute derived values & bindings
-        ─▶ invariants with enforcement "prevent" (reject → roll back)
-        ─▶ commit (one undo step) ─▶ live constraints (debounced) ─▶ render
+```mermaid
+---
+config:
+  flowchart:
+    rankSpacing: 20
+---
+flowchart TB
+  accTitle: The editing transaction
+  accDescr: A gesture passes through gesture constraints, which may prevent it, then snapping, then the change is applied. Then run the before hooks, which may abort, the after hooks, and the recomputation of derived values and bindings. Invariants with enforcement prevent then either reject the transaction, which rolls it back, or let it commit as one undo step. After the commit, live constraints are evaluated, debounced, and the diagram is rendered.
+  gesture([gesture]) --> gestureConstraints["gesture constraints<br/>prevent?"]
+  gestureConstraints --> snapping[snapping] --> apply[apply change]
+  apply --> before["#quot;before#quot; hooks<br/>may abort"]
+  before --> after["#quot;after#quot; hooks"] --> recompute["recompute derived<br/>values & bindings"]
+  recompute --> invariants["invariants with<br/>enforcement #quot;prevent#quot;"]
+  invariants -- reject --> rollback([roll back])
+  invariants --> commit["commit<br/>(one undo step)"]
+  commit --> live["live constraints<br/>(debounced)"] --> render([render])
 ```
 
 Transactions are atomic: either all effects apply or none. Remote changes from collaborators apply as transactions without hooks but with constraint evaluation.
