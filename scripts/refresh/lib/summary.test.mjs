@@ -11,14 +11,14 @@ function sample(overrides = {}) {
 	return buildSummary({
 		before: { [REPO]: BEFORE },
 		after: { [REPO]: AFTER },
-		files: [{ path: 'sources/disl/0.1/DEDL-specification.md', change: 'changed' }],
-		details: { version: '0.1', previousVersion: '0.1', newVersion: false, sections: [{ heading: '2. Foundations', change: 'changed', lines: 2 }], files: [{ file: 'dedl.schema.json', change: 'unchanged' }] },
+		files: [{ path: 'sources/disl/0.1/DISL-specification.md', change: 'changed' }],
+		details: { version: '0.1', previousVersion: '0.1', newVersion: false, sections: [{ heading: '2. Foundations', change: 'changed', lines: 2 }], files: [{ file: 'disl.schema.json', change: 'unchanged' }] },
 		withdrawals: [],
 		caveats: [],
 		reviewNotes: [],
 		verification: [
 			{ step: 'build', status: 'passed', output: '' },
-			{ step: 'check', status: 'failed', output: 'broken link: /adp/dedl/missing/' },
+			{ step: 'check', status: 'failed', output: 'broken link: /adp/disl/missing/' },
 			{ step: 'sources', status: 'not available', output: '' },
 		],
 		...overrides,
@@ -39,14 +39,14 @@ describe('renderPrBody', () => {
 			sample({
 				caveats: [{ title: 'Known artefact', repository: 'etalii-adp/etalii.adp.ide.standalone', sourcePath: 'docs/screenshots/readme.md', commit: AFTER, text: 'The committed set shows a developer session marker.' }],
 				reviewNotes: ['Check each image shows what its expectation says.'],
-				withdrawals: [{ path: '0.1/erd.dedl', sourcePath: 'specifications/dedl/erd.dedl', withdrawnAt: '2026-09-27T00:00:00.000Z', lastCommit: BEFORE, replacedBy: null }],
+				withdrawals: [{ path: '0.1/erd.disl', sourcePath: 'specifications/disl/erd.disl', withdrawnAt: '2026-09-27T00:00:00.000Z', lastCommit: BEFORE, replacedBy: null }],
 			}),
 			{ procedure: disl },
 		);
 		assert.deepEqual(headings(body), ['Source revisions', 'What changed', 'Source caveats', 'Withdrawn', 'Verification', 'Review notes']);
 		assert.ok(body.includes('> The committed set shows a developer session marker.'));
 		assert.ok(body.includes(`https://github.com/etalii-adp/etalii.adp.ide.standalone/blob/${AFTER}/docs/screenshots/readme.md`));
-		assert.ok(body.includes('- `0.1/erd.dedl` (from `specifications/dedl/erd.dedl`, last present at `1a2b3c4`)'));
+		assert.ok(body.includes('- `0.1/erd.disl` (from `specifications/disl/erd.disl`, last present at `1a2b3c4`)'));
 	});
 
 	it('shows short SHAs with commit and compare links', () => {
@@ -59,7 +59,7 @@ describe('renderPrBody', () => {
 		assert.ok(body.includes('| Site builds (`npm run build`) | ✅ passed |'));
 		assert.ok(body.includes('| Links and accessibility (`npm run check`) | ❌ failed |'));
 		assert.ok(body.includes('| Source records (`npm run refresh:verify`) | ⚪ not available |'));
-		assert.match(body, /<details><summary><code>npm run check<\/code> output<\/summary>\n\n```text\nbroken link: \/adp\/dedl\/missing\/\n```\n\n<\/details>/);
+		assert.match(body, /<details><summary><code>npm run check<\/code> output<\/summary>\n\n```text\nbroken link: \/adp\/disl\/missing\/\n```\n\n<\/details>/);
 	});
 
 	it('ends with the footer line naming the procedure, the run and the previous scheduled run', () => {

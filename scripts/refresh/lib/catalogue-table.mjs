@@ -7,7 +7,8 @@ import { parse } from 'parse5';
 
 /**
  * Where a host keeps its catalogue, in the order they are tried: `docs/tools.md` (the "Tool types" of etalii.adp
- * spec 002, naming convention alignment), then `docs/diagrams.md`, its name before, until that spec's Part 7.
+ * spec 002, naming convention alignment), then `docs/diagrams.md`, its name before, which a host's latest release
+ * can still carry.
  */
 export const CATALOGUE_PATHS = ['docs/tools.md', 'docs/diagrams.md'];
 /** The catalogue's name before etalii.adp spec 002, which the refresh still reads when a host has no `docs/tools.md`. */

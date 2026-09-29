@@ -30,9 +30,8 @@ export interface NotionQueryResponse {
 }
 
 /**
- * The S3 properties, by the name of the NotionRow field they become: each column's name, or its names, newest first.
- * etalii.adp spec 002 (naming convention alignment) renames `Type` to `Kind` and the host columns to the hosts' own
- * names; until its Part 7 the old names are read as well, so the refresh keeps working on either side of the rename.
+ * The S3 properties, by the name of the NotionRow field they become: each column's name, as etalii.adp spec 002
+ * (naming convention alignment) names it. A list, so that a column can be read under more than one name.
  */
 export const notionColumnNames = {
 	name: ['Name'],
@@ -42,14 +41,14 @@ export const notionColumnNames = {
 	whySpecialized: ['Why specialized'],
 	fileExtension: ['File extension (if single file)'],
 	theory: ['Theory'],
-	type: ['Kind', 'Type'],
+	type: ['Kind'],
 	family: ['Family'],
 	subfamily: ['Subfamily'],
 	focusAreas: ['Focus areas'],
 	previousOrigin: ['Previous origin'],
-	standalone: ['Standalone', 'Standalone Plugin Implementation'],
-	intellij: ['IntelliJ', 'IntelliJ Plugin Implementation'],
-	vscode: ['VS Code', 'VS Code Plugin Implementation'],
+	standalone: ['Standalone'],
+	intellij: ['IntelliJ'],
+	vscode: ['VS Code'],
 	eclipse: ['Eclipse'],
 } as const satisfies Record<string, readonly string[]>;
 

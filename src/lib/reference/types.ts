@@ -1,5 +1,5 @@
 /**
- * Types of the DEDL reference: the stored snapshot (contracts/reference-data.schema.json) and the model
+ * Types of the DISL and DID reference: the stored snapshot (contracts/reference-data.schema.json) and the model
  * the build derives from it (data-model.md "Derived entities").
  */
 
@@ -10,7 +10,7 @@
 /** One registered definition language (`$defs/Language`). */
 export interface Language {
 	/** `^[a-z]+/**
- * Types of the DEDL reference: the stored snapshot (contracts/reference-data.schema.json) and the model
+ * Types of the DISL and DID reference: the stored snapshot (contracts/reference-data.schema.json) and the model
  * the build derives from it (data-model.md "Derived entities").
  */
 
@@ -40,13 +40,13 @@ export interface Language {
 	schemaAddress: string;
 	/**
 	 * Optional, default true. `false` registers a language for `npm run reference:refresh` without publishing pages
-	 * for it, as DEDL is once it moved to DISL and DID (etalii.adp spec 002).
+	 * for it, as for a language that moved (`movedTo`, etalii.adp spec 002).
 	 */
 	publish?: boolean;
 	/**
 	 * Optional: the id of the language that replaces this one. With `publish` false, every page address of this language
 	 * redirects to that language's landing (src/data/redirects.ts), and its schema files are still served at their own
-	 * addresses: DEDL moved to DISL (etalii.adp spec 002, research R4 and R6).
+	 * addresses (etalii.adp spec 002, research R4 and R6).
 	 */
 	movedTo?: string;
 }

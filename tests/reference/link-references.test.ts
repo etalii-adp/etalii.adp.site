@@ -8,13 +8,13 @@ import { fixtureProse } from './fixture';
 const split = splitProse(fixtureProse());
 const glossary = glossaryOf(split);
 
-const base = '/adp/dedl/0.1/';
+const base = '/adp/disl/0.1/';
 const layer2 = `${base}layer-2-coordinate-systems-placement-and-snapping/`;
 const cel = `${base}the-cel-environment/`;
 
 function context(page = 'foundations', extra: Partial<LinkContext> = {}): LinkContext {
 	return {
-		language: 'dedl',
+		language: 'disl',
 		segment: '0.1',
 		page,
 		anchors: split.anchors,

@@ -47,7 +47,7 @@ describe('refresh-hosts', () => {
 		const result = run();
 		assert.equal(result.code, 0, result.output);
 		assert.equal(host('vscode').state, 'in progress');
-		assert.deepEqual(host('vscode').facts, { catalogueCommit: repos.vscode.head, usableDesigners: 1, designersInProgress: 1, latestRelease: null, developHead: repos.vscode.head });
+		assert.deepEqual(host('vscode').facts, { catalogueCommit: repos.vscode.head, usableTools: 1, toolsInProgress: 1, latestRelease: null, developHead: repos.vscode.head });
 		assert.match(site.read('.refresh/pr-body.md'), /\| vscode \| planned → in progress \| 1 \| 1 \| none \| `[0-9a-f]{7}` \|/);
 		site.accept('hosts');
 	});

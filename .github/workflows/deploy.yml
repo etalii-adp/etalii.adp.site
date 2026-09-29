@@ -24,7 +24,7 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      # Chromium serves the page checks and the build-time Mermaid rendering of the DEDL reference
+      # Chromium serves the page checks and the build-time Mermaid rendering of the DISL and DID reference
       # (spec 002 research D10); the browser download is cached between runs.
       - uses: actions/cache@v6
         with:

@@ -2,17 +2,17 @@
 
 Brings the site's DISL and DID reference (spec 002) up to the specifications, schemas and examples of DISL, the Diagram Specification Language (`specifications/disl/`), and DID, the Diagram Definition Language (`specifications/did/`), on `develop` in `etalii-adp/etalii.adp`. Both are working drafts, so their text changes often; each new version is published beside the old ones, which stay frozen.
 
-DISL and DID were one language, DEDL, until etalii.adp spec 002 (naming convention alignment) split it. Until that spec's Part 7 this procedure reads either layout: when `specifications/disl/` exists on `develop` it reads the files in `specifications/disl/` and `specifications/did/` (both must name the same version) and leaves any `specifications/dedl/` beside them out; while it is absent it reads `specifications/dedl/`. The procedure was called `refresh-dedl` before; `dedl` is still accepted as its name (`npm run refresh -- dedl`) until that Part 7.
+DISL and DID share a version: the procedure reads the files in `specifications/disl/` and `specifications/did/` and fails when the two name different versions.
 
 ## Sources
 
 | Repository | Ref | Paths | Visibility |
 |---|---|---|---|
-| etalii-adp/etalii.adp | develop | `specifications/dedl/*`, `specifications/disl/*`, `specifications/did/*` | public |
+| etalii-adp/etalii.adp | develop | `specifications/disl/*`, `specifications/did/*` | public |
 
 ## Updates
 
-- `sources/disl/<version>/`: `DISL-specification.md`, `disl.schema.json`, `DID-specification.md`, `did.schema.json` and every example of both, verbatim; or, from the old layout, `DEDL-specification.md`, `dedl.schema.json` and every example. Only the newest version's folder is ever replaced; a new version gets a folder of its own beside the old ones.
+- `sources/disl/<version>/`: `DISL-specification.md`, `disl.schema.json`, `DID-specification.md`, `did.schema.json` and every example of both, verbatim. Only the newest version's folder is ever replaced; a new version gets a folder of its own beside the old ones.
 - `sources/disl/source.lock.json`: the source record of every file of every version, and the withdrawn files.
 - The spec 002 reference pages, at `/adp/disl/` and `/adp/did/`, are built from these files. This procedure changes no mapping in `procedures/config/`.
 

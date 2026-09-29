@@ -13,10 +13,10 @@ const ide = (host) => ({ repository: `etalii-adp/etalii.adp.ide.${host}`, ref: '
  * release to install (spec 003 research D3); until then usable tools count as in progress.
  */
 export function hostState(entries, released = true) {
-	const usableDesigners = entries.filter((e) => isUsable(e.state)).length;
-	const designersInProgress = entries.filter((e) => e.developSite && isUnderway(e.developSite)).length;
-	const state = usableDesigners > 0 && released ? 'available' : designersInProgress > 0 ? 'in progress' : 'planned';
-	return { state, usableDesigners, designersInProgress };
+	const usableTools = entries.filter((e) => isUsable(e.state)).length;
+	const toolsInProgress = entries.filter((e) => e.developSite && isUnderway(e.developSite)).length;
+	const state = usableTools > 0 && released ? 'available' : toolsInProgress > 0 ? 'in progress' : 'planned';
+	return { state, usableTools, toolsInProgress };
 }
 
 export default {
@@ -33,7 +33,7 @@ export default {
 		const hosts = [];
 		for (const source of ctx.sources) {
 			const catalogue = catalogueFileOf(source.files);
-			let derived = { state: 'planned', usableDesigners: 0, designersInProgress: 0 };
+			let derived = { state: 'planned', usableTools: 0, toolsInProgress: 0 };
 			if (catalogue) {
 				inputs.push(catalogue);
 				const tools = await toolsFor(source.host, source.reader, { head: source.head, release: source.release, states: ctx.config.states });
@@ -45,8 +45,8 @@ export default {
 				state: derived.state,
 				facts: {
 					catalogueCommit: catalogue?.commit ?? null,
-					usableDesigners: derived.usableDesigners,
-					designersInProgress: derived.designersInProgress,
+					usableTools: derived.usableTools,
+					toolsInProgress: derived.toolsInProgress,
 					latestRelease: source.release ?? null,
 					developHead: source.head,
 				},
@@ -66,7 +66,7 @@ export default {
 		for (const h of d.hosts) {
 			const state = h.from === null ? `${h.to} (new)` : h.from === h.to ? `${h.to} (unchanged)` : `${h.from} → ${h.to}`;
 			const release = h.facts.latestRelease ? `${h.facts.latestRelease.tag} (\`${h.facts.latestRelease.commit.slice(0, 7)}\`)` : 'none';
-			lines.push(`| ${h.host} | ${state} | ${h.facts.usableDesigners} | ${h.facts.designersInProgress} | ${release} | ${h.facts.catalogueCommit ? `\`${h.facts.catalogueCommit.slice(0, 7)}\`` : 'none'} |`);
+			lines.push(`| ${h.host} | ${state} | ${h.facts.usableTools} | ${h.facts.toolsInProgress} | ${release} | ${h.facts.catalogueCommit ? `\`${h.facts.catalogueCommit.slice(0, 7)}\`` : 'none'} |`);
 		}
 		return lines.join('\n');
 	},

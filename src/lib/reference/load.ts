@@ -84,7 +84,7 @@ export function languages(): Language[] {
 }
 
 /** The languages whose schema files the site serves: the published ones and those that moved (`movedTo`), so a moved
- * language's schema keeps its address (etalii.adp spec 002: `/dedl/schema/0.1/dedl.schema.json`). */
+ * language's schema keeps its address (etalii.adp spec 002). */
 export function schemaLanguages(): Language[] {
 	return registeredLanguages().filter((language) => language.publish !== false || language.movedTo);
 }

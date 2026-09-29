@@ -70,8 +70,8 @@ export interface HostEntry {
 	state: 'planned' | 'in progress' | 'available';
 	facts: {
 		catalogueCommit: string | null;
-		usableDesigners: number;
-		designersInProgress: number;
+		usableTools: number;
+		toolsInProgress: number;
 		latestRelease: { tag: string; commit: string } | null;
 		developHead: string;
 	};

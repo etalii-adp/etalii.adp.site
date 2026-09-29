@@ -4,21 +4,28 @@ import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { languagesToRefresh, refresh, type GitHub } from '../../scripts/reference/refresh';
 import type { Language } from '../../src/lib/reference/types';
-import { fixtureFile, fixtureRevision, fixtureVersionDir } from './fixture';
 
-const dedl: Language = {
-	id: 'dedl',
-	name: 'DEDL — Diagram Editor Definition Language',
-	short: 'DEDL',
+// The DISL and DID sources pinned in tests/reference/fixtures/disl-c2623d4/ (see its README).
+const pinned = join('tests', 'reference', 'fixtures', 'disl-c2623d4');
+const fixtureRevision = 'c2623d4e3835a995520febd95ea39b545aa0a42d';
+const fixtureVersionDir = join(pinned, 'disl', '0.1');
+const fixtureFile = (name: string): Buffer => readFileSync(join(fixtureVersionDir, 'source', name));
+const didFile = (name: string): Buffer => readFileSync(join(pinned, 'did', '0.1', 'source', name));
+
+const disl: Language = {
+	id: 'disl',
+	name: 'DISL — Diagram Specification Language',
+	short: 'DISL',
 	repository: 'etalii-adp/etalii.adp',
 	branch: 'develop',
-	path: 'specifications/dedl',
-	prose: 'DEDL-specification.md',
-	schema: 'dedl.schema.json',
-	schemaAddress: '/dedl/schema/{version}/{schema}',
+	path: 'specifications/disl',
+	prose: 'DISL-specification.md',
+	schema: 'disl.schema.json',
+	schemaAddress: '/disl/schema/{version}/{schema}',
 };
+const did: Language = { ...disl, id: 'did', name: 'DID — Diagram Definition Language', short: 'DID', path: 'specifications/did', prose: 'DID-specification.md', schema: 'did.schema.json', schemaAddress: '/did/schema/{version}/{schema}' };
 
-const names = ['DEDL-specification.md', 'dedl.schema.json', 'erd.dedl', 'statemachine.dedl', 'timeline.dedl', 'timeline.document.json'];
+const names = ['DISL-specification.md', 'disl.schema.json', 'erd.disl', 'statemachine.disl', 'timeline.disl'];
 
 /** A GitHub stand-in serving the fixture, with the given changes. */
 function fakeGitHub(changes: { files?: Record<string, Buffer | null>; licence?: string | null; revision?: string; unreachable?: boolean } = {}): GitHub {
@@ -68,20 +75,20 @@ afterEach(() => {
 	rmSync(root, { recursive: true, force: true });
 });
 
-const run = (github: GitHub, extra: { dryRun?: boolean } = {}) => refresh({ language: dedl, contentRoot: root, github, ...extra });
+const run = (github: GitHub, extra: { dryRun?: boolean } = {}) => refresh({ language: disl, contentRoot: root, github, ...extra });
 
 describe('reference:refresh (contracts/refresh-cli.md)', () => {
 	it('writes a new snapshot and exits 0', async () => {
 		const { code, report } = await run(fakeGitHub());
 		expect(code).toBe(0);
-		const dir = join(root, 'dedl', '0.1');
+		const dir = join(root, 'disl', '0.1');
 		expect(readdirSync(join(dir, 'source')).sort()).toEqual([...names].sort());
 		const record = JSON.parse(readFileSync(join(dir, 'source.json'), 'utf8'));
 		expect(record.source).toMatchObject({ kind: 'git', repository: 'etalii-adp/etalii.adp', revision: fixtureRevision, licence: 'Apache-2.0' });
 		expect(record.version).toBe('0.1');
-		expect(record.files.find((f: { name: string }) => f.name === 'timeline.document.json').role).toBe('document');
-		expect(record.files.find((f: { name: string }) => f.name === 'erd.dedl').role).toBe('definition');
-		expect(readFileSync(join(dir, 'source', 'dedl.schema.json'))).toEqual(fixtureFile('dedl.schema.json'));
+		expect(record.files.find((f: { name: string }) => f.name === 'erd.disl').role).toBe('definition');
+		expect(record.files.find((f: { name: string }) => f.name === 'disl.schema.json').role).toBe('schema');
+		expect(readFileSync(join(dir, 'source', 'disl.schema.json'))).toEqual(fixtureFile('disl.schema.json'));
 		expect(report).toContain('new version');
 	});
 
@@ -99,16 +106,16 @@ describe('reference:refresh (contracts/refresh-cli.md)', () => {
 	});
 
 	it('refuses a schema $id whose version differs from the prose', async () => {
-		const schema = edit('dedl.schema.json', 'schema/0.1/dedl.schema.json', 'schema/0.2/dedl.schema.json');
-		const { code, report } = await run(fakeGitHub({ files: { 'dedl.schema.json': schema } }));
+		const schema = edit('disl.schema.json', 'schema/0.1/disl.schema.json', 'schema/0.2/disl.schema.json');
+		const { code, report } = await run(fakeGitHub({ files: { 'disl.schema.json': schema } }));
 		expect(code).toBe(1);
 		expect(report).toContain('schema version or address mismatch');
 		expect(readdirSync(root)).toEqual([]);
 	});
 
 	it("refuses an example whose $schema names another version", async () => {
-		const example = edit('erd.dedl', 'schema/0.1/dedl.schema.json', 'schema/0.2/dedl.schema.json');
-		const { code, report } = await run(fakeGitHub({ files: { 'erd.dedl': example } }));
+		const example = edit('erd.disl', 'schema/0.1/disl.schema.json', 'schema/0.2/disl.schema.json');
+		const { code, report } = await run(fakeGitHub({ files: { 'erd.disl': example } }));
 		expect(code).toBe(1);
 		expect(report).toContain('schema version or address mismatch');
 		expect(readdirSync(root)).toEqual([]);
@@ -123,32 +130,32 @@ describe('reference:refresh (contracts/refresh-cli.md)', () => {
 
 	it('exits 3 when the snapshot is current', async () => {
 		expect((await run(fakeGitHub())).code).toBe(0);
-		const before = readFileSync(join(root, 'dedl', '0.1', 'source.json'), 'utf8');
+		const before = readFileSync(join(root, 'disl', '0.1', 'source.json'), 'utf8');
 		const { code, report } = await run(fakeGitHub());
 		expect(code).toBe(3);
 		expect(report).toContain('current');
-		expect(readFileSync(join(root, 'dedl', '0.1', 'source.json'), 'utf8')).toBe(before);
+		expect(readFileSync(join(root, 'disl', '0.1', 'source.json'), 'utf8')).toBe(before);
 	});
 
 	it('adds a new version beside the older one and leaves it untouched', async () => {
-		cpSync(fixtureVersionDir, join(root, 'dedl', '0.1'), { recursive: true });
-		const before = readFileSync(join(root, 'dedl', '0.1', 'source.json'));
-		const prose = edit('DEDL-specification.md', '**Specification, version 0.1 (Working Draft)**', '**Specification, version 0.2 (Working Draft)**');
-		const files: Record<string, Buffer> = { 'DEDL-specification.md': prose };
-		for (const name of names.filter((n) => n !== 'DEDL-specification.md')) {
-			files[name] = Buffer.from(fixtureFile(name).toString('utf8').replaceAll('schema/0.1/dedl.schema.json', 'schema/0.2/dedl.schema.json'), 'utf8');
+		cpSync(fixtureVersionDir, join(root, 'disl', '0.1'), { recursive: true });
+		const before = readFileSync(join(root, 'disl', '0.1', 'source.json'));
+		const prose = edit('DISL-specification.md', '**Specification, version 0.1 (Working Draft)**', '**Specification, version 0.2 (Working Draft)**');
+		const files: Record<string, Buffer> = { 'DISL-specification.md': prose };
+		for (const name of names.filter((n) => n !== 'DISL-specification.md')) {
+			files[name] = Buffer.from(fixtureFile(name).toString('utf8').replaceAll('schema/0.1/disl.schema.json', 'schema/0.2/disl.schema.json'), 'utf8');
 		}
 		const { code, report } = await run(fakeGitHub({ files, revision: 'b'.repeat(40) }));
 		expect(code).toBe(0);
 		expect(report).toContain('new version');
-		expect(existsSync(join(root, 'dedl', '0.2', 'source.json'))).toBe(true);
-		expect(readFileSync(join(root, 'dedl', '0.1', 'source.json'))).toEqual(before);
+		expect(existsSync(join(root, 'disl', '0.2', 'source.json'))).toBe(true);
+		expect(readFileSync(join(root, 'disl', '0.1', 'source.json'))).toEqual(before);
 	});
 
 	it('stores an unclassifiable file as other and reports it', async () => {
 		const { code, report } = await run(fakeGitHub({ files: { 'notes.txt': Buffer.from('notes\n') } }));
 		expect(code).toBe(0);
-		const record = JSON.parse(readFileSync(join(root, 'dedl', '0.1', 'source.json'), 'utf8'));
+		const record = JSON.parse(readFileSync(join(root, 'disl', '0.1', 'source.json'), 'utf8'));
 		expect(record.files.find((f: { name: string }) => f.name === 'notes.txt').role).toBe('other');
 		expect(report).toMatch(/notes\.txt.*other/);
 	});
@@ -161,28 +168,17 @@ describe('reference:refresh (contracts/refresh-cli.md)', () => {
 	});
 
 	it('reports sections added and removed', async () => {
-		cpSync(fixtureVersionDir, join(root, 'dedl', '0.1'), { recursive: true });
-		const prose = edit('DEDL-specification.md', '## Appendix D — Design rationale and open questions', '## Appendix D — Design notes');
-		const { code, report } = await run(fakeGitHub({ files: { 'DEDL-specification.md': prose }, revision: 'c'.repeat(40) }));
+		cpSync(fixtureVersionDir, join(root, 'disl', '0.1'), { recursive: true });
+		const prose = edit('DISL-specification.md', '## Appendix D — Design rationale and open questions', '## Appendix D — Design notes');
+		const { code, report } = await run(fakeGitHub({ files: { 'DISL-specification.md': prose }, revision: 'c'.repeat(40) }));
 		expect(code).toBe(0);
 		expect(report).toMatch(/Added.*Appendix D — Design notes/s);
 		expect(report).toMatch(/Removed.*Appendix D — Design rationale and open questions/s);
 	});
 });
 
-// etalii.adp spec 002 splits DEDL into DISL (what a tool engineer writes) and DID (a stored diagram). Their files are
-// derived here from the pinned DEDL fixture, renamed as that spec's rename map says.
-const disl: Language = { ...dedl, id: 'disl', name: 'DISL — Diagram Specification Language', short: 'DISL', path: 'specifications/disl', prose: 'DISL-specification.md', schema: 'disl.schema.json', schemaAddress: '/disl/schema/{version}/{schema}', publish: false };
-const did: Language = { ...dedl, id: 'did', name: 'DID — Diagram Definition Language', short: 'DID', path: 'specifications/did', prose: 'DID-specification.md', schema: 'did.schema.json', schemaAddress: '/did/schema/{version}/{schema}', publish: false };
-
-function renamed(name: string, to: 'disl' | 'did', root: string): Buffer {
-	const text = fixtureFile(name)
-		.toString('utf8')
-		.replaceAll('/dedl/schema/0.1/dedl.schema.json#/$defs/Definition', `/${to}/schema/0.1/${to}.schema.json#/$defs/${root}`)
-		.replaceAll('/dedl/schema/0.1/dedl.schema.json#/$defs/Document', `/${to}/schema/0.1/${to}.schema.json#/$defs/${root}`)
-		.replaceAll('/dedl/schema/0.1/dedl.schema.json', `/${to}/schema/0.1/${to}.schema.json`);
-	return Buffer.from(text, 'utf8');
-}
+const dislFolder = Object.fromEntries(names.map((n) => [n, fixtureFile(n)]));
+const didFolder = Object.fromEntries(['DID-specification.md', 'did.schema.json', 'timeline.did'].map((n) => [n, didFile(n)]));
 
 /** A GitHub stand-in with a folder per path: `{ 'specifications/disl': { name: bytes } }`. */
 function layoutGitHub(folders: Record<string, Record<string, Buffer>>): GitHub {
@@ -206,51 +202,19 @@ function layoutGitHub(folders: Record<string, Record<string, Buffer>>): GitHub {
 	};
 }
 
-const dedlFolder = Object.fromEntries(names.map((n) => [n, fixtureFile(n)]));
-const dislFolder = {
-	'DISL-specification.md': fixtureFile('DEDL-specification.md'),
-	'disl.schema.json': renamed('dedl.schema.json', 'disl', 'Specification'),
-	'erd.disl': renamed('erd.dedl', 'disl', 'Specification'),
-	'statemachine.disl': renamed('statemachine.dedl', 'disl', 'Specification'),
-};
-const didFolder = {
-	'DID-specification.md': fixtureFile('DEDL-specification.md'),
-	'did.schema.json': renamed('dedl.schema.json', 'did', 'Definition'),
-	'timeline.did': renamed('timeline.document.json', 'did', 'Definition'),
-};
+describe('reference:refresh of DISL and DID (etalii.adp spec 002)', () => {
+	const moved: Language = { ...disl, id: 'old', path: 'specifications/old', publish: false, movedTo: 'disl' };
+	const registered = [disl, did, moved];
 
-describe('reference:refresh while DEDL becomes DISL and DID (etalii.adp spec 002)', () => {
-	const registered = [dedl, disl, did];
-
-	it('refreshes DEDL while specifications/disl/ is absent upstream, whichever of the three is named', async () => {
-		const github = layoutGitHub({ 'specifications/dedl': dedlFolder });
-		for (const id of ['dedl', 'disl', 'did']) {
-			expect((await languagesToRefresh(id, github, undefined, registered)).map((l) => l.id)).toEqual(['dedl']);
-		}
+	it('refreshes DISL and DID together, whichever of the two is named', () => {
+		for (const id of ['disl', 'did']) expect(languagesToRefresh(id, registered).map((l) => l.id)).toEqual(['disl', 'did']);
 	});
 
-	it('refreshes DISL and DID once specifications/disl/ exists upstream, whichever of the three is named', async () => {
-		const github = layoutGitHub({ 'specifications/dedl': dedlFolder, 'specifications/disl': dislFolder, 'specifications/did': didFolder });
-		for (const id of ['dedl', 'disl', 'did']) {
-			expect((await languagesToRefresh(id, github, undefined, registered)).map((l) => l.id)).toEqual(['disl', 'did']);
-		}
-	});
-
-	it('refreshes any other language as itself', async () => {
-		const other: Language = { ...dedl, id: 'edsl', path: 'specifications/edsl' };
-		expect((await languagesToRefresh('edsl', layoutGitHub({}), undefined, [...registered, other])).map((l) => l.id)).toEqual(['edsl']);
-		await expect(languagesToRefresh('nope', layoutGitHub({}), undefined, registered)).rejects.toThrow(/No language "nope"/);
-	});
-
-	it('writes a DISL snapshot, with its specifications as definitions', async () => {
-		const github = layoutGitHub({ 'specifications/disl': dislFolder, 'specifications/did': didFolder });
-		const { code, report } = await refresh({ language: disl, contentRoot: root, github });
-		expect(code, report).toBe(0);
-		const record = JSON.parse(readFileSync(join(root, 'disl', '0.1', 'source.json'), 'utf8'));
-		expect(record.language).toBe('disl');
-		expect(record.source.path).toBe('specifications/disl');
-		expect(record.files.find((f: { name: string }) => f.name === 'erd.disl').role).toBe('definition');
-		expect(record.files.find((f: { name: string }) => f.name === 'disl.schema.json').role).toBe('schema');
+	it('refuses a language that moved, and refreshes any other language as itself', () => {
+		expect(() => languagesToRefresh('old', registered)).toThrow(/"old" moved to "disl"; refresh disl instead/);
+		const other: Language = { ...disl, id: 'edsl', path: 'specifications/edsl' };
+		expect(languagesToRefresh('edsl', [...registered, other]).map((l) => l.id)).toEqual(['edsl']);
+		expect(() => languagesToRefresh('nope', registered)).toThrow(/No language "nope"/);
 	});
 
 	it('writes a DID snapshot, with its definitions as stored documents', async () => {
@@ -262,8 +226,8 @@ describe('reference:refresh while DEDL becomes DISL and DID (etalii.adp spec 002
 		expect(record.files.find((f: { name: string }) => f.name === 'DID-specification.md').role).toBe('prose');
 	});
 
-	it('refuses a DISL schema that still carries the DEDL $id', async () => {
-		const github = layoutGitHub({ 'specifications/disl': { ...dislFolder, 'disl.schema.json': fixtureFile('dedl.schema.json') } });
+	it('refuses a DISL schema that carries the DID $id', async () => {
+		const github = layoutGitHub({ 'specifications/disl': { ...dislFolder, 'disl.schema.json': didFile('did.schema.json') } });
 		const { code, report } = await refresh({ language: disl, contentRoot: root, github });
 		expect(code).toBe(1);
 		expect(report).toContain('schema version or address mismatch');

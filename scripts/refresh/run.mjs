@@ -20,15 +20,15 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { NeedsDecision } from './lib/decision.mjs';
 import { LOCK_FILE, applyWithdrawals, compareResolved, parseLock, readLock, sameRecord, sha256, textHash, writeLock } from './lib/lock.mjs';
 import { loadGithub, sourceReader } from './lib/local.mjs';
-import { ALIASES, canonicalId } from './lib/names.mjs';
+import { canonicalId } from './lib/names.mjs';
 import { buildSummary, renderDecisionIssue, renderPrBody, renderPreviousRun, renderTitle, VERIFY_STEPS } from './lib/summary.mjs';
 import { git, posix, run, runCaptured, short, writeJson } from './lib/util.mjs';
 import { verify } from './verify.mjs';
 
 const here = fileURLToPath(new URL('.', import.meta.url));
 export const PROCEDURES = ['disl', 'screenshots', 'catalogue', 'hosts'];
-/** Every name `npm run refresh` accepts: the procedures, their aliases (lib/names.mjs) and `all`. */
-export const NAMES = [...PROCEDURES, ...Object.keys(ALIASES), 'all'];
+/** Every name `npm run refresh` accepts: the procedures and `all`. */
+export const NAMES = [...PROCEDURES, 'all'];
 export const EXIT = { current: 0, delivered: 0, 'delivered-draft': 1, failed: 2, 'needs-decision': 3 };
 const CI = process.env.GITHUB_ACTIONS === 'true';
 

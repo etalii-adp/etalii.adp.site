@@ -15,7 +15,7 @@ const sections: LayerSection[] = [
 	'Behavior',
 	'Layout',
 	'Persistence',
-].map((title, i) => ({ layer: i + 1, title, href: `/adp/dedl/0.1/layer-${i + 1}/` }));
+].map((title, i) => ({ layer: i + 1, title, href: `/adp/disl/0.1/layer-${i + 1}/` }));
 
 function expectAccessible(mermaid: string) {
 	expect(mermaid).toMatch(/^\s*accTitle: \S.+$/m);

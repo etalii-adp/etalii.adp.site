@@ -12,8 +12,8 @@ const A = 'a'.repeat(40);
 const B = 'b'.repeat(40);
 const C = 'c'.repeat(40);
 const REPO = 'etalii-adp/etalii.adp';
-const entry = (path, gitBlob, extra = {}) => ({ path, repository: REPO, sourcePath: `specifications/dedl/${path.split('/').pop()}`, commit: A, gitBlob, sha256: '0'.repeat(64), licence: 'unstated', ...extra });
-const lock = (files, extra = {}) => ({ procedure: 'refresh-dedl', refreshedAt: '2026-09-26T10:00:00.000Z', sourceHeads: { [REPO]: A }, files, withdrawn: [], ...extra });
+const entry = (path, gitBlob, extra = {}) => ({ path, repository: REPO, sourcePath: `specifications/disl/${path.split('/').pop()}`, commit: A, gitBlob, sha256: '0'.repeat(64), licence: 'unstated', ...extra });
+const lock = (files, extra = {}) => ({ procedure: 'refresh-disl', refreshedAt: '2026-09-26T10:00:00.000Z', sourceHeads: { [REPO]: A }, files, withdrawn: [], ...extra });
 
 describe('sha256', () => {
 	it('hashes a file’s bytes', () => {
@@ -29,7 +29,7 @@ describe('readLock and writeLock', () => {
 		writeLock(target, lock([entry('0.1/z.json', B), entry('0.1/a.md', A)]));
 		const text = readFileSync(join(target, 'source.lock.json'), 'utf8');
 		assert.ok(text.endsWith('}\n'));
-		assert.ok(text.includes('\n  "procedure": "refresh-dedl"'));
+		assert.ok(text.includes('\n  "procedure": "refresh-disl"'));
 		const read = readLock(target);
 		assert.deepEqual(read.files.map((f) => f.path), ['0.1/a.md', '0.1/z.json']);
 		assert.deepEqual(validateLock(read), []);
@@ -72,8 +72,8 @@ describe('readLock and writeLock', () => {
 describe('compareResolved', () => {
 	const recorded = lock([entry('0.1/spec.md', A), entry('0.1/schema.json', B)]);
 	const resolved = (spec = A, schema = B) => [
-		{ repository: REPO, sourcePath: 'specifications/dedl/spec.md', gitBlob: spec },
-		{ repository: REPO, sourcePath: 'specifications/dedl/schema.json', gitBlob: schema },
+		{ repository: REPO, sourcePath: 'specifications/disl/spec.md', gitBlob: spec },
+		{ repository: REPO, sourcePath: 'specifications/disl/schema.json', gitBlob: schema },
 	];
 
 	it('is current when every blob is equal', () => {
@@ -83,12 +83,12 @@ describe('compareResolved', () => {
 	it('reports a changed blob', () => {
 		const result = compareResolved(recorded, resolved(C));
 		assert.equal(result.current, false);
-		assert.deepEqual(result.changed.map((f) => f.sourcePath), ['specifications/dedl/spec.md']);
+		assert.deepEqual(result.changed.map((f) => f.sourcePath), ['specifications/disl/spec.md']);
 	});
 
 	it('reports an added and a removed file', () => {
-		const result = compareResolved(recorded, [resolved()[0], { repository: REPO, sourcePath: 'specifications/dedl/new.dedl', gitBlob: C }]);
-		assert.deepEqual(result.added.map((f) => f.sourcePath), ['specifications/dedl/new.dedl']);
+		const result = compareResolved(recorded, [resolved()[0], { repository: REPO, sourcePath: 'specifications/disl/new.disl', gitBlob: C }]);
+		assert.deepEqual(result.added.map((f) => f.sourcePath), ['specifications/disl/new.disl']);
 		assert.deepEqual(result.removed.map((f) => f.path), ['0.1/schema.json']);
 	});
 
@@ -109,22 +109,22 @@ describe('compareResolved', () => {
 describe('applyWithdrawals', () => {
 	it('records a removed file with its source path, time and last commit', () => {
 		const next = lock([entry('0.1/spec.md', A)]);
-		const removed = entry('0.1/erd.dedl', B, { commit: C });
+		const removed = entry('0.1/erd.disl', B, { commit: C });
 		const now = new Date('2026-09-27T12:00:00Z');
 		const [withdrawal] = applyWithdrawals(next, [removed], now);
-		assert.deepEqual(withdrawal, { path: '0.1/erd.dedl', sourcePath: 'specifications/dedl/erd.dedl', withdrawnAt: '2026-09-27T12:00:00.000Z', lastCommit: C, replacedBy: null });
+		assert.deepEqual(withdrawal, { path: '0.1/erd.disl', sourcePath: 'specifications/disl/erd.disl', withdrawnAt: '2026-09-27T12:00:00.000Z', lastCommit: C, replacedBy: null });
 		assert.deepEqual(next.withdrawn, [withdrawal]);
 		assert.deepEqual(validateLock(next), []);
 	});
 
 	it('sets replacedBy when an added file has the same blob (a rename)', () => {
-		const next = lock([entry('0.1/entities.dedl', B)]);
-		const [withdrawal] = applyWithdrawals(next, [entry('0.1/erd.dedl', B)]);
-		assert.equal(withdrawal.replacedBy, '0.1/entities.dedl');
+		const next = lock([entry('0.1/entities.disl', B)]);
+		const [withdrawal] = applyWithdrawals(next, [entry('0.1/erd.disl', B)]);
+		assert.equal(withdrawal.replacedBy, '0.1/entities.disl');
 	});
 
 	it('drops an earlier withdrawal of a path that is present again', () => {
-		const next = lock([entry('0.1/erd.dedl', B)], { withdrawn: [{ path: '0.1/erd.dedl', sourcePath: 'x', withdrawnAt: '2026-01-01T00:00:00.000Z', lastCommit: A }] });
+		const next = lock([entry('0.1/erd.disl', B)], { withdrawn: [{ path: '0.1/erd.disl', sourcePath: 'x', withdrawnAt: '2026-01-01T00:00:00.000Z', lastCommit: A }] });
 		applyWithdrawals(next, []);
 		assert.deepEqual(next.withdrawn, []);
 	});

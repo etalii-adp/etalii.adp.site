@@ -75,21 +75,19 @@ function snapshotsOf(contentRoot: string, language: string): Snapshot[] {
 /** The `$schema` address of an example of this language, for any version, with the `$defs` root it names. */
 function exampleSchemaPattern(language: Language): RegExp {
 	const path = language.schemaAddress.replace('{schema}', language.schema).replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace('\\{version\\}', '([^/]+)');
-	return new RegExp(`^${SITE.replace(/[.]/g, '\\.')}${path}#/\\$defs/(Specification|Definition|Document)$`);
+	return new RegExp(`^${SITE.replace(/[.]/g, '\\.')}${path}#/\\$defs/(Specification|Definition)$`);
 }
 
 /**
- * The role of an example by the `$defs` root its `$schema` names. DEDL's `Definition` is what a tool engineer writes
- * and its `Document` a stored diagram; etalii.adp spec 002 renames them to DISL's `Specification` and DID's
- * `Definition`, so a DID `Definition` is a stored diagram, which the snapshot records as `document`.
+ * The role of an example by the `$defs` root its `$schema` names: a DISL `Specification` is what a tool engineer
+ * writes, recorded as `definition`, and a DID `Definition` is a stored diagram, recorded as `document`.
  */
 function exampleRole(language: Language, root: string): FileRole {
-	if (root === 'Document' || (root === 'Definition' && language.id === 'did')) return 'document';
-	return 'definition';
+	return root === 'Definition' && language.id === 'did' ? 'document' : 'definition';
 }
 
-/** The file extensions of examples: DEDL's, and DISL's and DID's (etalii.adp spec 002). */
-const EXAMPLE = /\.(dedl|disl|did|json)$/;
+/** The file extensions of examples: DISL's and DID's, or JSON. */
+const EXAMPLE = /\.(disl|did|json)$/;
 
 function classify(name: string, bytes: Buffer, language: Language, version: string): { role: FileRole; warning?: string } {
 	if (name === language.prose) return { role: 'prose' };
@@ -302,35 +300,24 @@ export async function refresh(options: RefreshOptions): Promise<RefreshResult> {
 	return { code: 0, report: report({ language, before, olderVersion, after: record, files: record.files, diff, warnings, outcome: before ? 'Snapshot updated.' : 'New version added.' }) };
 }
 
-// -- Which languages to refresh while etalii.adp moves from DEDL to DISL and DID --------------------------
+// -- Which languages a refresh reads ------------------------------------------------------------
 
-/** The languages that replace DEDL, and the one they replace (etalii.adp spec 002). */
-const SUCCESSORS: Record<string, string[]> = { dedl: ['disl', 'did'] };
+/** Languages published together: DISL and DID share a version, so a refresh of either reads both (etalii.adp spec 002). */
+const TOGETHER: string[][] = [['disl', 'did']];
 
 /**
- * The languages a refresh of `id` reads (etalii.adp spec 002, Part 1). DEDL, DISL and DID are one family: while
- * `specifications/disl/` exists upstream at the revision, the family is refreshed as DISL and DID; while it is
- * absent, as DEDL. Any other language is refreshed as itself.
+ * The languages a refresh of `id` reads: DISL and DID together, whichever of the two is named, and any other language
+ * as itself. A language that moved (`movedTo` in languages.json) is not refreshed: its source is gone upstream.
  */
-export async function languagesToRefresh(id: string, github: GitHub, revision?: string, registered: Language[] = registeredLanguages()): Promise<Language[]> {
+export function languagesToRefresh(id: string, registered: Language[] = registeredLanguages()): Language[] {
 	const byId = (wanted: string): Language => {
 		const language = registered.find((l) => l.id === wanted);
 		if (!language) throw new Error(`No language "${wanted}" in ${join(REFERENCE_DIR, 'languages.json')}.`);
 		return language;
 	};
-	const family = Object.entries(SUCCESSORS).find(([old, next]) => id === old || next.includes(id));
-	if (!family) return [byId(id)];
-	const [old, next] = family;
-	const successors = next.map(byId);
-	const first = successors[0];
-	const at = await github.resolve(first.repository, revision ?? first.branch);
-	let present: boolean;
-	try {
-		present = (await github.list(first.repository, first.path, at)).length > 0;
-	} catch {
-		present = false;
-	}
-	return present ? successors : [byId(old)];
+	const language = byId(id);
+	if (language.movedTo) throw new Error(`"${id}" moved to "${language.movedTo}"; refresh ${language.movedTo} instead.`);
+	return (TOGETHER.find((group) => group.includes(id)) ?? [id]).map(byId);
 }
 
 // -- The GitHub REST API, read without a token when none is available (the source is public) -------
@@ -396,7 +383,7 @@ async function main(argv: string[]): Promise<number> {
 	let chosen: Language[];
 	const github = httpGitHub();
 	try {
-		chosen = await languagesToRefresh(positional[0], github, revision);
+		chosen = languagesToRefresh(positional[0]);
 	} catch (error) {
 		console.error((error as Error).message);
 		return 1;

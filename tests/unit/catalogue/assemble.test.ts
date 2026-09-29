@@ -164,7 +164,7 @@ test('implemented becomes available only with a public release and a licence', (
 });
 
 // etalii.adp spec 002: a host's docs/tools.md says each tool's kind in a Kind column, which the refresh copies into
-// catalogue.json; the site reads it first and falls back to Notion's Kind (or Type).
+// catalogue.json; the site reads it first and falls back to Notion's Kind.
 test('a kind from the host catalogue wins over Notion, which stays the fallback', () => {
 	const sourcesRoot = mkdtempSync(join(tmpdir(), 'adp-sources-'));
 	cpSync(join(fixtures, 'sources'), sourcesRoot, { recursive: true });

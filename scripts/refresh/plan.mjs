@@ -8,11 +8,10 @@ import { fileURLToPath } from 'node:url';
 import { canonicalId } from './lib/names.mjs';
 
 /**
- * The paths of etalii-adp/etalii.adp that the reference procedure reads: the DEDL layout, and the DISL and DID
- * layout that replaces it (etalii.adp spec 002). A source-changed event that lists its paths starts the procedure
- * only when one of them is under these folders.
+ * The paths of etalii-adp/etalii.adp that the reference procedure reads: DISL and DID. A source-changed event that
+ * lists its paths starts the procedure only when one of them is under these folders.
  */
-export const REFERENCE_PATHS = ['specifications/dedl/', 'specifications/disl/', 'specifications/did/'];
+export const REFERENCE_PATHS = ['specifications/disl/', 'specifications/did/'];
 
 /** The procedures to run: `{ procedures: [...] }`, or `{ error }` for a source-changed event from an unknown source. */
 export function plan({ event, chosen, source, paths }) {
