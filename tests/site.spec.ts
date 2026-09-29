@@ -194,6 +194,18 @@ test.describe('addresses (contracts/site-addresses.md)', () => {
 		await expect(sidebar.locator('[aria-current="page"]')).toHaveText('Schema');
 	});
 
+	test('the visitor counter holds a fixed slot while it loads, so the header does not shift (Peter, 2026-09-29)', async ({ browser }) => {
+		const context = await browser.newContext({ viewport: { width: 1400, height: 900 } });
+		const page = await context.newPage();
+		// The counter never arrives: its slot must already have its final size.
+		await page.route(`${visitorCounterOrigin}/**`, () => {});
+		await page.goto('/adp/', { waitUntil: 'domcontentloaded' });
+		const slot = await page.locator('.adp-visitors').boundingBox();
+		expect(slot?.width).toBe(120);
+		expect(slot?.height).toBe(20);
+		await context.close();
+	});
+
 	test('the part marker follows the page', async ({ page }) => {
 		const current = page.getByRole('navigation', { name: 'Site parts' }).locator('[aria-current="true"]');
 		await page.goto('/adp/');
