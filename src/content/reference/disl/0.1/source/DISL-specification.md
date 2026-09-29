@@ -4155,6 +4155,7 @@ The following excerpt shows how per-axis snapping is encoded. A snap rule is eit
 ```json
 {
   "Snapping": {
+    "description": "Snapping restricts positions and sizes to discrete values, defined per axis in the axis's own units; it is declared in a snap profile, on a coordinate system, a viewpoint canvas, a node or edge notation, or a placement, and the most specific declaration wins per property and per axis. It holds a snap rule per axis (or both), rules for sizes, rotation, bendpoints and labels, the mode (always or magnetic), which targets participate, the tolerance, and the bypass key. See section 5.9.",
     "type": "object",
     "properties": {
       "enabled": {
@@ -4298,6 +4299,7 @@ The following excerpt shows how per-axis snapping is encoded. A snap rule is eit
     }
   },
   "SnapRuleObject": {
+    "description": "A snap rule object is the object form of a snap rule and holds exactly one rule key: grid, values, calendar (time units), ticks (visible axis ticks), bands (ordinal bands), divisions (equal parts), ratio (aspect ratios), cel (a custom function), byZoom (zoom-dependent rules) or plugin. Common properties beside the key clamp the result with min and max, set the rounding direction (nearest by default) and override the mode. See section 5.10.",
     "type": "object",
     "properties": {
       "grid": {
@@ -4595,6 +4597,7 @@ The following excerpt shows how per-axis snapping is encoded. A snap rule is eit
 ```json
 {
   "Placement": {
+    "description": "Placement tells the runtime where each coordinate of a node comes from; it is declared in the node notation, so one model type can be placed differently per viewpoint. It names the coordinate system and gives a placement source for each axis's position and for its opposite edge or extent (x2 excludes width, y2 excludes height), plus the anchor. It also controls moving and resizing per axis, stacking within a band, and clamping to the parent. See section 5.8.",
     "type": "object",
     "properties": {
       "system": {
@@ -4728,6 +4731,7 @@ The following excerpt shows how per-axis snapping is encoded. A snap rule is eit
     }
   },
   "PlacementSource": {
+    "description": "A placement source says where one coordinate of a placement comes from. The string free, or omitting it, stores the value in view data; an attribute binding reads and writes a model attribute, optionally with a constant offset; a CEL expression computes a read-only value, and write actions let a move update the model from it; layout true leaves it to the layout algorithm. A bound attribute's type must suit the axis. See section 5.8.",
     "anyOf": [
       {
         "const": "free"

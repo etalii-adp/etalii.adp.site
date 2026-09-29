@@ -7,7 +7,7 @@
     "kind": "git",
     "repository": "etalii-adp/etalii.adp",
     "path": "specifications/did",
-    "revision": "363f96949ee52f77174c8db1105b10fefde05876",
+    "revision": "e12951d3e497b6173d0c8f7860b8f8dc53e5d33a",
     "licence": "Apache-2.0",
     "copyright": "Copyright [yyyy] [name of copyright owner]"
   },
@@ -21,8 +21,8 @@
     {
       "name": "did.schema.json",
       "role": "schema",
-      "sha256": "d41dd3f94c74623c4c3353f9f605bff4b333b07f601561f9c34ed530f923145b",
-      "size": 10811
+      "sha256": "40db27c7908f9a62b5436b5351dcc0af059b2bf45fdf8aff91a5aa23e6b200c8",
+      "size": 13497
     },
     {
       "name": "timeline.did",
@@ -31,5 +31,5 @@
       "size": 2172
     }
   ],
-  "retrieved": "2026-09-29T21:22:01Z"
+  "retrieved": "2026-09-29T21:58:23Z"
 }

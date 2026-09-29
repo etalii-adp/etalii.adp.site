@@ -6,6 +6,7 @@
   "$ref": "#/$defs/Definition",
   "$defs": {
     "Definition": {
+      "description": "A complete DID definition: one diagram model as a user created it, stored with the DISL specification it was made with. It carries the DID version, the required language object naming the specification by id and version (plus its URI and hash when referenced), metadata, the diagram root's attributes, flat lists of element and relation records, view records, constraint suppressions and extensions. Its structure is the same whatever the format and file split. See section 3.",
       "type": "object",
       "properties": {
         "$schema": {
@@ -136,6 +137,7 @@
       }
     },
     "ElementRecord": {
+      "description": "One stored element of a DID definition, listed in its elements, and also used for view-only elements of a view. It has a required id, unique within the definition, and a concrete node type, plus stored attribute values in which references are ids. Nesting is expressed by the parent id and slot rather than by physical nesting, so moving an element changes one line; order positions it among ordered siblings, and ports lists its port instances. See section 3.",
       "type": "object",
       "properties": {
         "id": {
@@ -199,6 +201,7 @@
       }
     },
     "RelationRecord": {
+      "description": "One stored relation of a DID definition, listed in its relations. It has a required id, a relation type, and a source and target given as element or port ids; a port id is written as the element id and port id joined by a hash sign when port ids are only unique per element. Its attributes hold the relation's stored attribute values. See section 3.",
       "type": "object",
       "properties": {
         "id": {
@@ -229,6 +232,7 @@
       }
     },
     "ViewRecord": {
+      "description": "One diagram over the model, listed in a definition's views; a definition can hold several diagrams of the same model, one per viewpoint or several of one viewpoint. It has a required id, a viewpoint, a name shown in tabs and the last viewport. Its nodes and edges maps hold placement and routing keyed by element id, and elements not listed are hidden in that view. It can also carry view-only elements, user guides and per-view settings. See section 3.",
       "type": "object",
       "properties": {
         "id": {
@@ -308,6 +312,7 @@
       }
     },
     "NodeView": {
+      "description": "The stored placement of one node in a view, the value in a view record's nodes map keyed by element id. It holds position and size in domain values of the placement's coordinate system, polar values, rotation, z-order, collapsed and pinned flags, shape parameters, label offsets, port and compartment state, style overrides and a hidden flag. Coordinates bound to model attributes are omitted, because bound values live only in the model. See section 3.",
       "type": "object",
       "properties": {
         "x": true,
@@ -397,6 +402,7 @@
       }
     },
     "EdgeView": {
+      "description": "The stored routing and label data of one relation in a view, the value in a view record's edges map keyed by relation id. It holds waypoints in domain values, fixed source and target anchors, bezier control points, label positions and offsets, a per-edge routing override where allowed, style overrides, z-order and a hidden flag. See section 3.",
       "type": "object",
       "properties": {
         "waypoints": {

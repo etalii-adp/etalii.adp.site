@@ -2,6 +2,7 @@
  * Addresses and navigation of the reference (contracts/site-addresses.md). Every address sits under the
  * site base /adp and ends in a slash, as the rest of the site does.
  */
+import { examplesOf } from './examples';
 import type { LoadedVersion } from './load';
 
 export const SITE_BASE = '/adp';
@@ -59,9 +60,12 @@ export function tocEntries(version: LoadedVersion, segment: string): TocEntry[] 
 	}));
 }
 
-type SidebarItem = { label: string; link: string } | { label: string; items: SidebarItem[] };
+/** A Starlight sidebar entry, with links under the site base until `sidebarFor` or docsSidebar strips it. */
+export type SidebarItem =
+	| { label: string; link: string; badge?: { text: string; variant: 'caution' } }
+	| { label: string; items: SidebarItem[]; collapsed?: boolean };
 
-/** Starlight's sidebar for a version: cover, sections, appendices, schema, examples and search. */
+/** Starlight's sidebar for a version: cover, sections, appendices, schema, examples (each a page) and search. */
 export function sidebarFor(version: LoadedVersion, segment: string): SidebarItem[] {
 	const language = version.language.id;
 	const entries = tocEntries(version, segment);
@@ -71,9 +75,17 @@ export function sidebarFor(version: LoadedVersion, segment: string): SidebarItem
 	return unbased([
 		{ label: `${version.language.short} ${version.record.version}`, link: pageHref(language, segment, '') },
 		{ label: 'Sections', items: entries.filter((e) => !e.appendix).map((e) => ({ label: e.label, link: e.href })) },
-		{ label: 'Appendices', items: entries.filter((e) => e.appendix).map((e) => ({ label: e.label, link: e.href })) },
+		{ label: 'Appendices', collapsed: true, items: entries.filter((e) => e.appendix).map((e) => ({ label: e.label, link: e.href })) },
 		{ label: 'Schema', link: schemaPageHref(language, segment) },
-		{ label: 'Examples', link: examplesHref(language, segment) },
+		// Each example is a page of its own under Examples (Peter, 2026-09-29).
+		{
+			label: 'Examples',
+			collapsed: true,
+			items: [
+				{ label: 'Overview', link: examplesHref(language, segment) },
+				...examplesOf(version).map((example) => ({ label: example.label.replace(/^\d+(?:\.\d+)*\s+/, ''), link: examplesHref(language, segment, example.stem) })),
+			],
+		},
 		{ label: 'Search', link: searchHref(language) },
 	]);
 }
