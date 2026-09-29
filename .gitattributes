@@ -12,3 +12,6 @@ scripts/refresh/fixtures/** -text
 
 # The pinned source fixture is compared byte for byte; never convert its line endings.
 tests/reference/fixtures/** -text
+
+# Published reference snapshots are compared byte for byte against the SHA-256 in their source.json.
+src/content/reference/*/*/source/** -text

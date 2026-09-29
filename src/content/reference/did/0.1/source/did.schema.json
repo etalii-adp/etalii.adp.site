@@ -1,0 +1,468 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://etalii.net/adp/did/schema/0.1/did.schema.json",
+  "title": "DID 0.1 — Diagram Definition Language",
+  "description": "Definitions ($defs/Definition): the diagrams users create of a diagram type specified in DISL. The root validates definitions. Shared primitives are referenced from disl.schema.json by absolute $id.",
+  "$ref": "#/$defs/Definition",
+  "$defs": {
+    "Definition": {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "did": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+$"
+        },
+        "dedlDocument": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+$",
+          "deprecated": true,
+          "description": "Deprecated alias of \"did\": read, never written (DID specification, deprecated aliases)."
+        },
+        "language": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "$ref": "https://etalii.net/adp/disl/schema/0.1/disl.schema.json#/$defs/QualifiedId"
+            },
+            "version": {
+              "$ref": "https://etalii.net/adp/disl/schema/0.1/disl.schema.json#/$defs/SemVer"
+            },
+            "definition": {
+              "type": "string",
+              "description": "URI of the DISL specification (.disl) the diagram was made with."
+            },
+            "integrity": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "version"
+          ],
+          "patternProperties": {
+            "^x-": true
+          }
+        },
+        "meta": {
+          "type": "object"
+        },
+        "diagram": {
+          "type": "object",
+          "properties": {
+            "attributes": {
+              "type": "object"
+            }
+          },
+          "additionalProperties": false,
+          "patternProperties": {
+            "^x-": true
+          }
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ElementRecord"
+          }
+        },
+        "relations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RelationRecord"
+          }
+        },
+        "views": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ViewRecord"
+          }
+        },
+        "suppressions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "constraint": {
+                "type": "string"
+              },
+              "element": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              },
+              "by": {
+                "type": "string"
+              },
+              "at": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "constraint",
+              "element"
+            ],
+            "patternProperties": {
+              "^x-": true
+            }
+          }
+        },
+        "extensions": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "language"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "did"
+          ]
+        },
+        {
+          "required": [
+            "dedlDocument"
+          ]
+        }
+      ],
+      "patternProperties": {
+        "^x-": true
+      }
+    },
+    "ElementRecord": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "attributes": {
+          "type": "object"
+        },
+        "parent": {
+          "type": "string"
+        },
+        "slot": {
+          "type": "string"
+        },
+        "order": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "ports": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "attributes": {
+                "type": "object"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "type"
+            ],
+            "patternProperties": {
+              "^x-": true
+            }
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type"
+      ],
+      "patternProperties": {
+        "^x-": true
+      }
+    },
+    "RelationRecord": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        },
+        "attributes": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "source",
+        "target"
+      ],
+      "patternProperties": {
+        "^x-": true
+      }
+    },
+    "ViewRecord": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "viewpoint": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "viewport": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "zoom": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false,
+          "patternProperties": {
+            "^x-": true
+          }
+        },
+        "nodes": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/NodeView"
+          }
+        },
+        "edges": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/EdgeView"
+          }
+        },
+        "viewOnly": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ElementRecord"
+          }
+        },
+        "guides": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "axis": {
+                "enum": [
+                  "x",
+                  "y"
+                ]
+              },
+              "value": true
+            },
+            "additionalProperties": false,
+            "patternProperties": {
+              "^x-": true
+            }
+          }
+        },
+        "settings": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ],
+      "patternProperties": {
+        "^x-": true
+      }
+    },
+    "NodeView": {
+      "type": "object",
+      "properties": {
+        "x": true,
+        "y": true,
+        "w": true,
+        "h": true,
+        "x2": true,
+        "y2": true,
+        "angle": true,
+        "radius": true,
+        "rotation": {
+          "type": "number"
+        },
+        "z": {
+          "type": "integer"
+        },
+        "collapsed": {
+          "type": "boolean"
+        },
+        "pinned": {
+          "type": "boolean"
+        },
+        "params": {
+          "type": "object"
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "dx": {
+                "type": "number"
+              },
+              "dy": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false,
+            "patternProperties": {
+              "^x-": true
+            }
+          }
+        },
+        "ports": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "side": {
+                "type": "string"
+              },
+              "position": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false,
+            "patternProperties": {
+              "^x-": true
+            }
+          }
+        },
+        "compartments": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "collapsed": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false,
+            "patternProperties": {
+              "^x-": true
+            }
+          }
+        },
+        "style": {
+          "type": "object"
+        },
+        "hidden": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      }
+    },
+    "EdgeView": {
+      "type": "object",
+      "properties": {
+        "waypoints": {
+          "type": "array",
+          "items": {
+            "$ref": "https://etalii.net/adp/disl/schema/0.1/disl.schema.json#/$defs/Point"
+          }
+        },
+        "sourceAnchor": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "targetAnchor": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "controlPoints": {
+          "type": "array",
+          "items": {
+            "$ref": "https://etalii.net/adp/disl/schema/0.1/disl.schema.json#/$defs/Point"
+          }
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "at": true,
+              "dx": {
+                "type": "number"
+              },
+              "dy": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false,
+            "patternProperties": {
+              "^x-": true
+            }
+          }
+        },
+        "routing": {
+          "type": "string"
+        },
+        "style": {
+          "type": "object"
+        },
+        "z": {
+          "type": "integer"
+        },
+        "hidden": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "patternProperties": {
+        "^x-": true
+      }
+    }
+  }
+}
