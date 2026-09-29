@@ -9,7 +9,7 @@ Rules every procedure follows:
 - The procedure has one row in procedures/README.md, and its title is named in the "Refreshing sourced content" section of CLAUDE.md.
 -->
 
-# <Title: the phrase an agent is given, for example "Refresh the DEDL reference">
+# <Title: the phrase an agent is given, for example "Refresh the DISL and DID reference">
 
 <One paragraph: what this refreshes on the site, and why it goes stale.>
 

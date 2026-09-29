@@ -9,7 +9,7 @@ import { fixtureOptions } from './helpers.ts';
 
 type Pages = Record<string, string>;
 
-/** A hand-made dist/ with one correct page per fixture designer, changed by `pages` and `files`. */
+/** A hand-made dist/ with one correct page per fixture tool, changed by `pages` and `files`. */
 function run(pages: Pages = {}, files: Record<string, Buffer> = {}, overrides: Record<string, unknown> = {}) {
 	const options = fixtureOptions(overrides);
 	const dist = mkdtempSync(join(tmpdir(), 'adp-dist-'));
@@ -19,14 +19,14 @@ function run(pages: Pages = {}, files: Record<string, Buffer> = {}, overrides: R
 		writeFileSync(join(dir, 'index.html'), html);
 	};
 	const catalogue = assembleCatalogue(options);
-	for (const designer of catalogue.designers) {
-		const metas = designer.sources
+	for (const tool of catalogue.tools) {
+		const metas = tool.sources
 			.filter((record) => record.kind === 'git')
 			.map((record) => `<meta name="adp:source" content="${record.repository}@${record.revision}:${record.path}">`)
 			.join('');
-		write(`/adp/designers/${designer.origin}/`, page(metas, '<ul class="adp-sources"><li>source</li></ul>'));
+		write(`/adp/tools/${tool.origin}/`, page(metas, '<ul class="adp-sources"><li>source</li></ul>'));
 	}
-	write('/adp/designers/', page('', '<a href="/adp/designers/wardley/map/">Wardley map</a>'));
+	write('/adp/tools/', page('', '<a href="/adp/tools/wardley/map/">Wardley map</a>'));
 	for (const [address, html] of Object.entries(pages)) write(address, html);
 	for (const [path, bytes] of Object.entries(files)) {
 		mkdirSync(join(dist, ...path.split('/').slice(0, -1).filter(Boolean)), { recursive: true });
@@ -42,7 +42,7 @@ function page(head: string, main: string): string {
 const sources = '<ul class="adp-sources"><li>source</li></ul>';
 const wardleyMetas = () =>
 	assembleCatalogue(fixtureOptions())
-		.designers.find((designer) => designer.origin === 'wardley/map')!
+		.tools.find((tool) => tool.origin === 'wardley/map')!
 		.sources.filter((record) => record.kind === 'git')
 		.map((record) => `<meta name="adp:source" content="${record.repository}@${record.revision}:${record.path}">`)
 		.join('');
@@ -51,32 +51,32 @@ test('a correct build passes', () => {
 	assert.equal(run(), '');
 });
 
-test('1. a designer page needs its sources and adp:source metas that match a lock', () => {
-	assert.match(run({ '/adp/designers/wardley/map/': page('', sources) }), /wardley.*adp:source metas/);
-	assert.match(run({ '/adp/designers/wardley/map/': page(wardleyMetas(), '<p>no list</p>') }), /no Sources list/);
+test('1. a tool page needs its sources and adp:source metas that match a lock', () => {
+	assert.match(run({ '/adp/tools/wardley/map/': page('', sources) }), /wardley.*adp:source metas/);
+	assert.match(run({ '/adp/tools/wardley/map/': page(wardleyMetas(), '<p>no list</p>') }), /no Sources list/);
 	const stale = `<meta name="adp:source" content="etalii-adp/etalii.adp.ide.standalone@${'0'.repeat(40)}:docs/diagrams.md">`;
-	assert.match(run({ '/adp/designers/wardley/map/': page(wardleyMetas() + stale, sources) }), /matches no lock entry/);
+	assert.match(run({ '/adp/tools/wardley/map/': page(wardleyMetas() + stale, sources) }), /matches no lock entry/);
 });
 
 test('2. an image in the content needs alt text', () => {
-	assert.match(run({ '/adp/designers/': page('', '<img src="/adp/x.webp">') }), /no alt text/);
+	assert.match(run({ '/adp/tools/': page('', '<img src="/adp/x.webp">') }), /no alt text/);
 });
 
-test('3. a designer that is not in progress or better shows no image, on its page or its card', () => {
-	const cypher = assembleCatalogue(fixtureOptions()).designers.find((designer) => designer.origin === 'neo4j/cypher')!;
+test('3. a tool that is not in progress or better shows no image, on its page or its card', () => {
+	const cypher = assembleCatalogue(fixtureOptions()).tools.find((tool) => tool.origin === 'neo4j/cypher')!;
 	const metas = cypher.sources
 		.filter((record) => record.kind === 'git')
 		.map((record) => `<meta name="adp:source" content="${record.repository}@${record.revision}:${record.path}">`)
 		.join('');
-	assert.match(run({ '/adp/designers/neo4j/cypher/': page(metas, `${sources}<img src="/adp/x.webp" alt="A graph">`) }), /not in progress in any host but its page shows an image/);
-	const card = '<ul><li class="adp-designer" data-origin="neo4j/cypher"><img src="/adp/x.webp" alt="A graph"></li></ul>';
-	assert.match(run({ '/adp/designers/': page('', card) }), /card of neo4j\/cypher shows an image/);
+	assert.match(run({ '/adp/tools/neo4j/cypher/': page(metas, `${sources}<img src="/adp/x.webp" alt="A graph">`) }), /not in progress in any host but its page shows an image/);
+	const card = '<ul><li class="adp-tool" data-origin="neo4j/cypher"><img src="/adp/x.webp" alt="A graph"></li></ul>';
+	assert.match(run({ '/adp/tools/': page('', card) }), /card of neo4j\/cypher shows an image/);
 });
 
-test('4. a designer page loads at most 1 MiB of images', () => {
+test('4. a tool page loads at most 1 MiB of images', () => {
 	const big = Buffer.alloc(1_100_000);
 	const picture = '<picture><source srcset="/adp/_astro/small.webp 600w, /adp/_astro/big.webp 1200w"><img src="/adp/_astro/small.webp" alt="A map"></picture>';
-	const failures = run({ '/adp/designers/wardley/map/': page(wardleyMetas(), sources + picture) }, { '/adp/_astro/big.webp': big, '/adp/_astro/small.webp': Buffer.alloc(10) });
+	const failures = run({ '/adp/tools/wardley/map/': page(wardleyMetas(), sources + picture) }, { '/adp/_astro/big.webp': big, '/adp/_astro/small.webp': Buffer.alloc(10) });
 	assert.match(failures, /wardley.*loads 1100010 bytes of images, more than 1048576/);
 });
 
@@ -87,9 +87,9 @@ test('5. every redirect has a page at its old address', () => {
 
 test('6. a screenshot says why it matters', () => {
 	const figure = '<figure class="adp-screenshot"><img src="/adp/x.webp" alt="A map"><figcaption><p><strong>Why it matters:</strong> </p></figcaption></figure>';
-	assert.match(run({ '/adp/designers/wardley/map/': page(wardleyMetas(), sources + figure) }), /does not say why it matters/);
+	assert.match(run({ '/adp/tools/wardley/map/': page(wardleyMetas(), sources + figure) }), /does not say why it matters/);
 });
 
 test('7. internal links resolve', () => {
-	assert.match(run({ '/adp/designers/': page('', '<a href="/adp/designers/nowhere/">?</a>') }), /links to \/adp\/designers\/nowhere\/, which was not built/);
+	assert.match(run({ '/adp/tools/': page('', '<a href="/adp/tools/nowhere/">?</a>') }), /links to \/adp\/tools\/nowhere\/, which was not built/);
 });

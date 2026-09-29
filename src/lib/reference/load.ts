@@ -83,6 +83,12 @@ export function languages(): Language[] {
 	return registeredLanguages().filter((language) => language.publish !== false);
 }
 
+/** The languages whose schema files the site serves: the published ones and those that moved (`movedTo`), so a moved
+ * language's schema keeps its address (etalii.adp spec 002: `/dedl/schema/0.1/dedl.schema.json`). */
+export function schemaLanguages(): Language[] {
+	return registeredLanguages().filter((language) => language.publish !== false || language.movedTo);
+}
+
 export function languageById(id: string): Language {
 	const language = registeredLanguages().find((l) => l.id === id);
 	if (!language) throw new Error(`No language "${id}" in ${join(REFERENCE_DIR, 'languages.json')}.`);

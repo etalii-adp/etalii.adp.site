@@ -1,4 +1,4 @@
-# Writes the IDE hosts' designer states back to Notion's "Diagrams" host columns (spec 003 FR-017, research D13)
+# Writes the IDE hosts' tool states back to Notion's "Tools" host columns (spec 003 FR-017, research D13)
 # once a catalogue refresh is merged into develop. By the owner's decision of 2026-09-27 this happens only after
 # merge, so Notion is never ahead of the site; the refresh pull request itself only lists what will change.
 name: catalogue-sync

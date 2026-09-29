@@ -1,10 +1,9 @@
-// Procedure names that are accepted beside the canonical ones while etalii.adp spec 002 (naming convention
-// alignment) renames DEDL to DISL and DID: `disl` runs the `dedl` procedure, which reads either layout. The alias
-// becomes the canonical name, and `dedl` the alias, when etalii.adp spec 002 Part 5 renames the procedure; the old
-// name is dropped in its Part 7.
-export const ALIASES = { disl: 'dedl' };
+// Procedure names that are accepted beside the canonical ones: `dedl` runs the `disl` procedure, as it was named
+// before etalii.adp spec 002 (naming convention alignment) renamed DEDL to DISL and DID. The old name is dropped in
+// that spec's Part 7.
+export const ALIASES = { dedl: 'disl' };
 
-/** The canonical short id of a procedure name, with or without the `refresh-` prefix: `refresh-disl` → `dedl`. */
+/** The canonical short id of a procedure name, with or without the `refresh-` prefix: `refresh-dedl` → `disl`. */
 export function canonicalId(id) {
 	const shortId = String(id).replace(/^refresh-/, '');
 	return ALIASES[shortId] ?? shortId;

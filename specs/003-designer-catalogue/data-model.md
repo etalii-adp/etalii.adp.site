@@ -1,4 +1,4 @@
-# Data Model: Designer Catalogue
+# Data Model: Tool Catalogue
 
 **Feature**: [spec.md](spec.md) | **Plan**: [plan.md](plan.md) | **Research**: [research.md](research.md)
 
@@ -20,15 +20,15 @@ Where a fact or image came from. It is embedded in every entity below that carri
 | `retrievedAt` | date-time | when the refresh read it; required |
 | `licence` | string \| null | the SPDX id of the source's licence; `null` blocks publication (research D10). Notion text is site-owned and carries the site's `Apache-2.0` |
 
-A reader sees `repository@revision` (short SHA, linked to the file at that revision), or "Notion, edited <date>" for Notion records, on every designer page and in the overview's footer (FR-009).
+A reader sees `repository@revision` (short SHA, linked to the file at that revision), or "Notion, edited <date>" for Notion records, on every tool page and in the overview's footer (FR-009).
 
 ### FocusArea
 
 | Field | Type | Rule |
 |---|---|---|
-| `slug` | string | kebab-case, unique; forms `designers/focus/<slug>/` |
+| `slug` | string | kebab-case, unique; forms `tools/focus/<slug>/` |
 | `name` | string | required |
-| `problem` | string | one or two sentences: the problem a specialized designer solves there |
+| `problem` | string | one or two sentences: the problem a specialized tool solves there |
 | `order` | integer | display order |
 | `source` | SourceRecord \| null | the Notion data source whose `Focus areas` option introduced it; the `problem` text is site-owned |
 
@@ -59,9 +59,9 @@ The site-wide state set (FR-005, research D3). Each source state is mapped to ex
 | `implemented` | Not yet released (until 2026-09-28: "Implemented, not yet released") | 5 | ✅ Implemented, and no public install | yes |
 | `available` | Available | 6 | ✅ Implemented, and `install.url` present | yes |
 
-A designer's **best state** is the highest rank over its four hosts. It decides membership (below) and the overview's state facet.
+A tool's **best state** is the highest rank over its four hosts. It decides membership (below) and the overview's state facet.
 
-### Designer
+### Tool
 
 One per origin tag that has reached Planned in at least one host.
 
@@ -77,16 +77,16 @@ One per origin tag that has reached Planned in at least one host.
 | `family` | string | the section heading from `diagrams.md`, e.g. "Ontologies & semantic web" |
 | `focusAreas` | list of FocusArea slugs | may be empty (spec assumption) |
 | `theory` | list of `{ title, url }` | may be empty only if the notation has no theory or standard (FR-008) |
-| `definition` | `{ url, dedlVersion }` \| null | the DEDL definition, when the designer has one (FR-008); the page then also links the DEDL reference of spec 002 |
+| `definition` | `{ url, dislVersion }` \| null | the DISL specification, when the tool has one (FR-008); the page then also links the DISL reference |
 | `hosts` | map of Host id → HostAvailability | exactly four entries, none omitted (US3 AS2) |
 | `screenshots` | list of Screenshot | may be empty (see rules) |
 | `sources` | list of SourceRecord | every file this record was assembled from |
 
 **Rules**
 
-- If the best state is `prototype` or higher, the designer MUST have at least one Screenshot with `publishable: true`, or show "screenshot pending" (FR-006, edge case). The refresh reports every designer in the pending case.
-- If the best state is below `in-progress`, `screenshots` MUST be empty (FR-007, amended 2026-09-29: until then, below `prototype`). A designer in progress may have screenshots; they are shown marked as in progress.
-- Every Screenshot's `host` MUST have a state of `in-progress` or higher. A screenshot never illustrates a host where the designer is only planned or an idea.
+- If the best state is `prototype` or higher, the tool MUST have at least one Screenshot with `publishable: true`, or show "screenshot pending" (FR-006, edge case). The refresh reports every tool in the pending case.
+- If the best state is below `in-progress`, `screenshots` MUST be empty (FR-007, amended 2026-09-29: until then, below `prototype`). A tool in progress may have screenshots; they are shown marked as in progress.
+- Every Screenshot's `host` MUST have a state of `in-progress` or higher. A screenshot never illustrates a host where the tool is only planned or an idea.
 
 ### HostAvailability
 
@@ -94,7 +94,7 @@ One per origin tag that has reached Planned in at least one host.
 |---|---|---|
 | `state` | State id | required |
 | `sourceState` | string \| null | the source's own wording, kept for the cross-check, e.g. `⚗️ Prototype` |
-| `localName` | string \| null | the host's own name for the designer when it differs (edge case: same designer, different names) |
+| `localName` | string \| null | the host's own name for the tool when it differs (edge case: same tool, different names) |
 | `install` | `{ url, label }` \| null | present only for `available` |
 | `build` | `{ url, label }` \| null | how to build it from source, when the repository is public |
 | `source` | SourceRecord | where this host's state was read: the host's catalogue at a commit, or the Notion row when the host has none (research D2) |
@@ -104,13 +104,13 @@ One per origin tag that has reached Planned in at least one host.
 
 | Field | Type | Rule |
 |---|---|---|
-| `id` | string | `<host>--<image-basename>`, unique within the designer |
+| `id` | string | `<host>--<image-basename>`, unique within the tool |
 | `host` | Host id | required |
 | `file` | string | the path under `src/assets/catalogue/<vendor>/<diagram-type>/` |
 | `caption` | string | names the host and the short revision, e.g. "Standalone, at a1b2c3d" (US2 AS2) |
 | `alt` | string | non-empty, describes what is shown (FR-012); from the source's "What must be visible" |
 | `visible` | string | the longer description of what is on screen |
-| `whyItMatters` | string | why that is important for the designer's task; site-owned (research D8); required when `publishable` is true (FR-015) |
+| `whyItMatters` | string | why that is important for the tool's task; site-owned (research D8); required when `publishable` is true (FR-015) |
 | `width`, `height` | integer | of the source PNG |
 | `bytes` | integer | of the source PNG; must be within the source's own budget |
 | `publishable` | boolean | false when the source has no licence or the image failed validation; the previous image is kept if there was one |
@@ -122,10 +122,10 @@ One per origin tag that is at Idea in at least one host and below Planned in all
 
 | Field | Type | Rule |
 |---|---|---|
-| `origin` | string | as Designer |
+| `origin` | string | as Tool |
 | `name` | string | required |
 | `purpose` | string or null | Notion's one-line purpose, at most 140 characters; null when Notion has none or a longer one |
-| `family` | string | as Designer |
+| `family` | string | as Tool |
 | `focusAreas` | list of focus-area slugs | from Notion's `Focus areas`; may be empty |
 | `theory` | list of `{ title, url }` | may be empty |
 | `source` | SourceRecord | required |
@@ -147,10 +147,10 @@ A rename is only recognized when a source says so, for example a note in `diagra
 ## Relationships
 
 ```text
-FocusArea 1..* ◄──── 0..* Designer ────► 4 HostAvailability ────► 1 State
+FocusArea 1..* ◄──── 0..* Tool ────► 4 HostAvailability ────► 1 State
                           │  └──► 0..* Screenshot ──► 1 Host
                           └──► 1..* SourceRecord
-Idea (no page)   Redirect ──► 0..1 Designer
+Idea (no page)   Redirect ──► 0..1 Tool
 ```
 
 ## Membership and lifecycle
@@ -158,17 +158,17 @@ Idea (no page)   Redirect ──► 0..1 Designer
 Membership is recomputed on every refresh from the best state:
 
 ```text
-best state ≥ planned                    → Designer (page + overview)
+best state ≥ planned                    → Tool (page + overview)
 best state = idea                       → Idea (ideas list)
 best state = not-planned (all hosts)    → neither
 origin present before, absent now       → Redirect (to: new origin | null)
 ```
 
-A designer moves between these sets only through a refresh pull request. The pull request lists every membership change, so a reviewer sees, for example, "`neo4j/cypher` moved from ideas to catalogue (standalone: Identified → Specified)".
+A tool moves between these sets only through a refresh pull request. The pull request lists every membership change, so a reviewer sees, for example, "`neo4j/cypher` moved from ideas to catalogue (standalone: Identified → Specified)".
 
 ## Files
 
-Designers and Ideas are not stored: they are assembled at build time from these files, so each fact has one copy.
+Tools and Ideas are not stored: they are assembled at build time from these files, so each fact has one copy.
 
 | Path (in this repository) | Content | Written by |
 |---|---|---|

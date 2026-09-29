@@ -13,6 +13,8 @@ import VersionBanner from './VersionBanner.astro';
 interface Props {
 	/** The version shown; undefined on the landing while no version is published. */
 	version?: LoadedVersion;
+	/** The language's id, for the navigation section when no version is shown (the landing of an unpublished language). */
+	language?: string;
 	/** The version or `latest`. */
 	segment?: string;
 	title: string;
@@ -35,7 +37,7 @@ interface Props {
 	searchBox?: boolean;
 }
 
-const { version, segment = version?.record.version ?? '', title, description, current, headings = [], canonical, anchorId, latest, slug, searchable = true, searchBox = true } = Astro.props;
+const { version, language, segment = version?.record.version ?? '', title, description, current, headings = [], canonical, anchorId, latest, slug, searchable = true, searchBox = true } = Astro.props;
 const superseded = version && latest && version !== latest;
 // Search (research D12): versioned pages carry their language and version as filters, and version and
 // section as the metadata each result shows (FR-020); `latest` copies and stubs are not indexed at all.
@@ -50,7 +52,8 @@ const onThisPage = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 		title,
 		description,
 		part: 'documentation',
-		section: 'dedl',
+		// Each language is its own section of the documentation: `disl`, `did` (src/data/sections.ts).
+		section: version?.language.id ?? language,
 		head,
 		tableOfContents: onThisPage.length > 1 ? { minHeadingLevel: 2, maxHeadingLevel: 3 } : false,
 		pagefind: searchable,

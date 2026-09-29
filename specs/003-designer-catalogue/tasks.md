@@ -1,9 +1,9 @@
 ---
 
-description: "Task list for Designer Catalogue"
+description: "Task list for Tool Catalogue"
 ---
 
-# Tasks: Designer Catalogue
+# Tasks: Tool Catalogue
 
 **Input**: Design documents from `specs/003-designer-catalogue/`
 
@@ -26,14 +26,14 @@ The plan, research, data model and quickstart are brought in line in T057.
 | Plan says | Tasks do | Why |
 |---|---|---|
 | `scripts/catalogue/sources/standalone-diagrams.ts`, `screenshots.ts`, `releases.ts` (S1, S2, S4) | Dropped. S1, S2 and S4 are read from 004's `sources/` output | Decision 1 |
-| `screenshot-designers.yaml` join key (complexity tracking) | Dropped. 004's `procedures/config/screenshots.json` is the join key | Decision 1; the tracked deviation moves to 004 |
+| `screenshot-tools.yaml` join key (complexity tracking) | Dropped. 004's `procedures/config/screenshots.json` is the join key | Decision 1; the tracked deviation moves to 004 |
 | `src/lib/catalogue/states.ts` holds the mapping | `states.ts` holds labels, ranks and "usable"; the mapping is read from `procedures/config/states.json` | Decision 2, and 004's contract |
-| Refresh writes `src/content/catalogue/designers/<vendor>/<type>.json` | Designers are assembled at build time from committed files (`sources/` plus the Notion snapshot and site-owned files) by a content loader; nothing per designer is generated | Keeps one copy of each fact; the build still never reaches the network |
+| Refresh writes `src/content/catalogue/tools/<vendor>/<type>.json` | Tools are assembled at build time from committed files (`sources/` plus the Notion snapshot and site-owned files) by a content loader; nothing per tool is generated | Keeps one copy of each fact; the build still never reaches the network |
 | `catalogue:refresh` | `catalogue:notion` (fetch Notion into `src/content/catalogue/notion.json`) and `catalogue:report` (assemble, report, record the published set) | Only Notion still needs fetching |
 | Vitest | `node --test` with Node 24's TypeScript type stripping | No new dependency (principle VI); spec 004 uses `node:test` too |
 | `yaml`, `parse5` dependencies | None added; site-owned files are JSON | Principle VI |
 | `redirects.yaml` | `src/content/catalogue/redirects.json` | No YAML parser in Node scripts |
-| Contract: `whySpecialized`, `task` and `fileFormats` required, non-empty | These may be `null` or empty. The page shows "Not described yet" and the report lists the gap | Notion has no `Why specialized` column yet (D10.4); without this, no designer page could be built |
+| Contract: `whySpecialized`, `task` and `fileFormats` required, non-empty | These may be `null` or empty. The page shows "Not described yet" and the report lists the gap | Notion has no `Why specialized` column yet (D10.4); without this, no tool page could be built |
 | The spec 001 skeleton is "not planned yet" | It exists: Astro 7 with Starlight, Playwright with axe (`tests/site.spec.ts`), `src/data/`. Pages use `StarlightPage` | Current `develop` |
 
 ## Format: `[ID] [P?] [Story] Description`
@@ -45,7 +45,7 @@ The plan, research, data model and quickstart are brought in line in T057.
 ## Path conventions
 
 - Build-side catalogue logic (plain, erasable TypeScript, importable by Astro and by Node scripts): `src/lib/catalogue/`
-- Components: `src/components/catalogue/`. Pages: `src/pages/designers/`
+- Components: `src/components/catalogue/`. Pages: `src/pages/tools/`
 - Site-owned and Notion-fetched catalogue data (JSON): `src/content/catalogue/`
 - Node scripts: `scripts/catalogue/*.ts`, run with `node` (type stripping, no build step)
 - Unit tests: `tests/unit/catalogue/*.test.ts` (`node --test`). Fixtures: `tests/unit/catalogue/fixtures/`. Page tests: `tests/catalogue.spec.ts` (Playwright, which already serves `dist/`)
@@ -68,7 +68,7 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T002** Update `package.json` `scripts`. Add `"catalogue:notion": "node scripts/catalogue/notion.ts"`, `"catalogue:report": "node scripts/catalogue/report.ts"`, `"catalogue:sync-notion": "node scripts/catalogue/sync-notion.ts"`, `"check:catalogue": "node scripts/catalogue/check.ts"` and `"test:catalogue": "node --test \"tests/unit/catalogue/**/*.test.ts\""`. Change `"check"` to `"npm run check:links && npm run check:catalogue && npm run check:pages"`. If spec 004's `"test"` script exists, leave it and add nothing to it.
 - [x] **T003** [P] In `tsconfig.json`, add `"compilerOptions": { "allowImportingTsExtensions": true, "erasableSyntaxOnly": true }` beside the existing `extends`.
 - [x] **T004** [P] In `playwright.config.ts`, add `testIgnore: 'unit/**'` so Playwright does not pick up the `node --test` files under `tests/unit/`.
-- [x] **T005** [P] Create the folders `src/lib/catalogue/`, `src/components/catalogue/`, `src/pages/designers/`, `src/content/catalogue/`, `scripts/catalogue/` and `tests/unit/catalogue/fixtures/`.
+- [x] **T005** [P] Create the folders `src/lib/catalogue/`, `src/components/catalogue/`, `src/pages/tools/`, `src/content/catalogue/`, `scripts/catalogue/` and `tests/unit/catalogue/fixtures/`.
 - [x] **T006** [P] In `.github/workflows/ci.yml`, add a step `- run: npm run test:catalogue` after `npm ci`, before `npm run build`.
 
 ---
@@ -81,7 +81,7 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ### Fixtures and tests for the foundation
 
-- [x] **T007** [P] Create `tests/unit/catalogue/fixtures/sources/`, shaped exactly like spec 004's output (004 data-model § Designer entry, § Screenshot, § Host state; `source-lock.schema.json`).
+- [x] **T007** [P] Create `tests/unit/catalogue/fixtures/sources/`, shaped exactly like spec 004's output (004 data-model § Tool entry, § Screenshot, § Host state; `source-lock.schema.json`).
   - `catalogue/standalone/catalogue.json` with rows `{ origin, name, group, developState, releaseState, state, theory: [{label, href}], example }`. Include one row per source state: `freeplane/mindmap` Prototype, `wardley/map` Implemented, `generic/timeline` Work-in-progress, `neo4j/cypher` Specified, `ansible/playbook` To-do, `rdf/turtle` Identified. Include one relative `href` and one absolute `href` in `theory`.
   - `catalogue/standalone/source.lock.json` with `licence: "Apache-2.0"`, and 40-hex `commit` and `gitBlob` values.
   - `screenshots/standalone/screenshots.json`, with entries `{ file, origin, expectation, document, bytes, width, height, budgetBytes, status }`: `mindmap.png` accepted, `wardley-map.png` accepted, `timeline.png` rejected. Add real 32×18 PNGs for `mindmap.png` and `wardley-map.png`, generated with a few lines of Node that write a valid PNG. Add a `source.lock.json` whose `licence` is `"unstated"`.
@@ -95,18 +95,18 @@ The plan, research, data model and quickstart are brought in line in T057.
   - an unmapped label throws `UnmappedStateError` naming the host and the label;
   - an emoji-prefixed label (`⚗️ Prototype`) and a bare label (`Prototype`) map alike.
 - [x] **T010** [P] Write `tests/unit/catalogue/assemble.test.ts` against the fixtures of T007 and T008. Cover each of the following:
-  - (a) membership (data-model § Membership): `rdf/turtle` is an Idea; `neo4j/cypher`, `ansible/playbook`, `generic/timeline`, `freeplane/mindmap`, `wardley/map` and `jgraph/drawio` are Designers.
-  - (b) Every designer has exactly four `hosts`. `jgraph/drawio` has `intellij` `implemented`, with a `notion` source, and `standalone` `not-planned`.
+  - (a) membership (data-model § Membership): `rdf/turtle` is an Idea; `neo4j/cypher`, `ansible/playbook`, `generic/timeline`, `freeplane/mindmap`, `wardley/map` and `jgraph/drawio` are Tools.
+  - (b) Every tool has exactly four `hosts`. `jgraph/drawio` has `intellij` `implemented`, with a `notion` source, and `standalone` `not-planned`.
   - (c) `wardley/map` `standalone` is `implemented`, not `available`, because `hosts.json` has no public release, and its `notionDiffers` is `⚗️ Prototype`.
   - (d) A git SourceRecord is built from a lock entry: `path` = `sourcePath`, `revision` = `commit`, `retrievedAt` = `refreshedAt`, and `licence` `"unstated"` becomes `null`.
   - (e) The screenshots of `freeplane/mindmap` have `publishable: false` because the screenshot lock's licence is `null`. The report lists "screenshot pending" for it.
   - (f) A rejected screenshot (`timeline.png`) is not attached, and it is reported.
-  - (g) A designer below Prototype in every host has no screenshots, even if `screenshots.json` names it (FR-007).
+  - (g) A tool below Prototype in every host has no screenshots, even if `screenshots.json` names it (FR-007).
   - (h) A relative theory `href` is dropped when the source licence is `null`, and an absolute one is kept, as `{ title, url }`.
   - (i) An empty Notion `One line purpose` falls back to the catalogue `name` and is reported as a gap.
   - (j) An unknown focus-area option is reported, not dropped.
   - (k) A row without `Origin` is reported.
-  - (l) A redirect whose `from` is still a live designer is an error.
+  - (l) A redirect whose `from` is still a live tool is an error.
 
 ### Implementation for the foundation
 
@@ -124,7 +124,7 @@ The plan, research, data model and quickstart are brought in line in T057.
   - `HostId`, `StateId`.
   - `HostAvailability`: `state`, `sourceState`, `localName`; `install`, "present only for `available`"; `build`, `source`, `notionDiffers`.
   - `Screenshot`: `id` "`<host>--<image-basename>`"; `host`, `file`, `caption`, `alt` "non-empty"; `visible`; `whyItMatters`, "required when `publishable` is true"; `width`, `height`, `bytes`, `publishable`, `source`.
-  - `Designer`: `origin` "`[a-z0-9.-]+/[a-z0-9.-]+`"; `name`, `kind` `'diagram' | 'designer' | 'editor'`; `purpose` "≤ 140 characters"; `task: string | null`, `whySpecialized: string | null`, `fileFormats`, `family`, `focusAreas`, `theory`, `definition`, `hosts` "exactly four entries", `screenshots`, `sources`.
+  - `Tool`: `origin` "`[a-z0-9.-]+/[a-z0-9.-]+`"; `name`, `kind` `'diagram' | 'designer' | 'editor'`; `purpose` "≤ 140 characters"; `task: string | null`, `whySpecialized: string | null`, `fileFormats`, `family`, `focusAreas`, `theory`, `definition`, `hosts` "exactly four entries", `screenshots`, `sources`.
   - `Idea`, `Redirect` (`from`, `to: string | null`, `reason`, `since`, `source`), and `CatalogueReport` (`gaps`, `disagreements`, `pending`, `membership`), each a list of `{ origin?, host?, message }`.
 - [x] **T013** [P] Write `src/lib/catalogue/hosts.ts`: the four hosts in the order of `hostIds` from `src/data/order.ts`, with `name` (Standalone, IntelliJ Platform, Visual Studio Code, Eclipse), `repository` (`etalii-adp/etalii.adp.ide.<id>`) and the Notion column name (`Standalone`, `IntelliJ`, `VS Code`, `Eclipse`).
 - [x] **T014** Write `src/lib/catalogue/states.ts`, which makes T009 pass (depends on T012).
@@ -148,7 +148,7 @@ The plan, research, data model and quickstart are brought in line in T057.
   - `published.json`: `[]`, the origins with a page at the last `catalogue:report`.
   - `notion.json`: `{ "retrievedAt": null, "rows": [] }`.
   - `README.md`: which files are site-owned and edited in review, which are written by `catalogue:notion` or `catalogue:report`, and that nothing here is a sourced fact.
-- [x] **T018** Write `src/lib/catalogue/assemble.ts`, which makes T010 pass (depends on T014–T017). `assembleCatalogue({ sourcesRoot, configPath, contentDir })` returns `{ designers, ideas, focusAreas, redirects, report }`. It never throws for a gap, only for an unmapped state, a live-origin redirect or a malformed file, and each error message names the file and the origin.
+- [x] **T018** Write `src/lib/catalogue/assemble.ts`, which makes T010 pass (depends on T014–T017). `assembleCatalogue({ sourcesRoot, configPath, contentDir })` returns `{ tools, ideas, focusAreas, redirects, report }`. It never throws for a gap, only for an unmapped state, a live-origin redirect or a malformed file, and each error message names the file and the origin.
   - **Join**: the origin tag across every host's `catalogue.json` rows and the Notion rows.
   - **Host state**:
     - When the host has a catalogue, `state` is `mapSourceState(developState)`, `sourceState` is the row's label and `source` is that catalogue's lock entry. A host that has a catalogue but no row for the origin is `not-planned`.
@@ -165,12 +165,12 @@ The plan, research, data model and quickstart are brought in line in T057.
     - `focusAreas` maps Notion option names to slugs through `focus-areas.json` `name`. An unknown option is reported.
     - `theory` is the catalogue's `{label, href}` as `{ title, url }`, with a relative `href` resolved to `https://github.com/<repo>/blob/<commit>/docs/<href>`, or dropped when the lock licence is `null`. URLs found in the Notion `Theory` text are added, de-duplicated by URL.
     - `definition` is `null`.
-  - **Screenshots** come only from `status: "accepted"` entries, grouped by `origin`, and only when the designer's best state is usable and the screenshot's host is usable. Each is `{ id: "<host>--<basename without .png>", host, file: "<sourcesRoot>/screenshots/<host>/<file>", caption: "<Host name>, at <7-char revision>", alt: expectation, visible: expectation, whyItMatters: screenshot-notes.json[id]?.whyItMatters ?? "", width, height, bytes, publishable, source }`. `publishable` is true only when the licence is not `null` and `whyItMatters` is non-empty. A usable designer without a publishable screenshot goes to `report.pending`.
-  - **Membership** follows data-model § Membership: an origin that is in `published.json` and is now neither a designer nor matched by a `redirects.json` entry goes to `report.membership` as "missing, needs a redirect or withdrawal". A Notion `previousOrigin` is offered as a rename.
+  - **Screenshots** come only from `status: "accepted"` entries, grouped by `origin`, and only when the tool's best state is usable and the screenshot's host is usable. Each is `{ id: "<host>--<basename without .png>", host, file: "<sourcesRoot>/screenshots/<host>/<file>", caption: "<Host name>, at <7-char revision>", alt: expectation, visible: expectation, whyItMatters: screenshot-notes.json[id]?.whyItMatters ?? "", width, height, bytes, publishable, source }`. `publishable` is true only when the licence is not `null` and `whyItMatters` is non-empty. A usable tool without a publishable screenshot goes to `report.pending`.
+  - **Membership** follows data-model § Membership: an origin that is in `published.json` and is now neither a tool nor matched by a `redirects.json` entry goes to `report.membership` as "missing, needs a redirect or withdrawal". A Notion `previousOrigin` is offered as a rename.
   - **Sources**: every SourceRecord used, de-duplicated.
 - [x] **T019** Extend `src/content.config.ts` (depends on T018).
   - Add a loader `catalogueLoader(part)` that calls `assembleCatalogue()` once per build (memoized in module scope) and `store.set`s the entries of `part`.
-  - Add the collections `designers` (id = origin), `ideas` (id = origin), `catalogueFocusAreas` (id = slug) and `catalogueRedirects` (id = from).
+  - Add the collections `tools` (id = origin), `ideas` (id = origin), `catalogueFocusAreas` (id = slug) and `catalogueRedirects` (id = from).
   - Their zod schemas follow [contracts/catalogue-data.schema.json](contracts/catalogue-data.schema.json), with the deviations listed above: `task` and `whySpecialized` nullable, and `fileFormats` may be empty.
   - Keep the rules: `purpose` `.max(140)`; `hosts` exactly the four keys; `install` present if and only if `state === 'available'`; `whyItMatters` non-empty when `publishable`; git `revision` `/^[0-9a-f]{40}$/`.
   - Do not touch the existing `docs`, `hosts` and `focusAreas` collections of spec 001.
@@ -189,62 +189,62 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ---
 
-## Phase 3: User Story 1 - Find a designer for my task (Priority: P1) 🎯 MVP
+## Phase 3: User Story 1 - Find a tool for my task (Priority: P1) 🎯 MVP
 
-**Goal**: `/adp/designers/` lists every designer, grouped by focus area, with name, purpose, thumbnail, origin tag and four host states as text, then the ideas list. Per-facet pages give filtering without scripting, and one optional script combines the filters.
+**Goal**: `/adp/tools/` lists every tool, grouped by focus area, with name, purpose, thumbnail, origin tag and four host states as text, then the ideas list. Per-facet pages give filtering without scripting, and one optional script combines the filters.
 
-**Independent Test**: build, open `/adp/designers/` with JavaScript disabled, find `freeplane/mindmap` and read its host states. Follow `/adp/designers/hosts/intellij/` (quickstart § 4, steps 1 and 5).
+**Independent Test**: build, open `/adp/tools/` with JavaScript disabled, find `freeplane/mindmap` and read its host states. Follow `/adp/tools/hosts/intellij/` (quickstart § 4, steps 1 and 5).
 
 ### Tests for User Story 1
 
 - [x] **T021** [P] [US1] Write `tests/catalogue.spec.ts`, section "overview". Derive every expectation from `assembleCatalogue()` over the same inputs as the build, with no hard-coded counts.
-  - With `javaScriptEnabled: false`, `/adp/designers/` contains every designer's name, purpose, origin tag and the four host state labels as text (FR-001).
-  - Designers are grouped under their focus areas, with "Other designers" last. A focus area with no designers shows "No designers yet".
+  - With `javaScriptEnabled: false`, `/adp/tools/` contains every tool's name, purpose, origin tag and the four host state labels as text (FR-001).
+  - Tools are grouped under their focus areas, with "Other tools" last. A focus area with no tools shows "No tools yet".
   - The facet links to every `focus/`, `hosts/` and `states/` page resolve (FR-002).
-  - A designer whose best state is not usable has no `<img>` and carries the text "Not yet usable" (US1 AS3).
-  - The ideas list comes after the catalogue, holds every idea's name and origin, and has no links to `/adp/designers/<vendor>/<type>/` (FR-014).
+  - A tool whose best state is not usable has no `<img>` and carries the text "Not yet usable" (US1 AS3).
+  - The ideas list comes after the catalogue, holds every idea's name and origin, and has no links to `/adp/tools/<vendor>/<type>/` (FR-014).
   - With JavaScript enabled, checking one host and one state narrows the list and updates the `aria-live="polite"` count.
 
 ### Implementation for User Story 1
 
 - [x] **T022** [P] [US1] Write `src/components/catalogue/StateLabel.astro`: the state label as text inside `<span class="adp-state adp-state--<id>">`. Colour is only an addition (WCAG 1.4.1), and the contrast holds in both colour schemes (tokens in `src/styles/theme.css`).
-- [x] **T023** [P] [US1] Write `src/components/catalogue/DesignerCard.astro`.
-  - It shows the name linked to the designer page, the purpose, the origin in `<code>`, and a `<dl>` of the four hosts with `StateLabel`.
+- [x] **T023** [P] [US1] Write `src/components/catalogue/ToolCard.astro`.
+  - It shows the name linked to the tool page, the purpose, the origin in `<code>`, and a `<dl>` of the four hosts with `StateLabel`.
   - The thumbnail is the first publishable screenshot, through `astro:assets` `<Image>` in WebP at no more than 480 px wide, with `loading="lazy"`. The image comes from `import.meta.glob('/sources/screenshots/**/*.png', { eager: true })`, keyed by `file`. There is no image at all when none is publishable.
-  - A designer whose best state is not usable adds "Not yet usable".
+  - A tool whose best state is not usable adds "Not yet usable".
   - It carries `data-focus`, `data-hosts` (`host:state` pairs) and `data-state` (best state) for the filter.
 - [x] **T024** [P] [US1] Write `src/components/catalogue/IdeasList.astro`: a heading "Ideas", one short sentence saying these are candidates not being built, and a list of name, origin and theory links. There are no thumbnails and no page links.
-- [x] **T025** [P] [US1] Write `src/components/catalogue/FacetLinks.astro`: three `<nav>` link lists (focus areas in `order`; the four hosts; the states `planned` to `available`) to `/adp/designers/focus/<slug>/`, `/adp/designers/hosts/<id>/` and `/adp/designers/states/<id>/`. It marks the current facet with `aria-current="page"`.
-- [x] **T026** [US1] Write `src/components/catalogue/CatalogueFilter.astro`, the only client script (depends on T023). It renders nothing without scripting. With scripting, it inserts a `<fieldset>` of checkboxes per facet and a `<p aria-live="polite">` "N designers shown". It hides non-matching cards with the `hidden` attribute: OR within a facet, AND across facets. It keeps no state across page loads.
-- [x] **T027** [US1] Write `src/pages/designers/index.astro` with `StarlightPage` (frontmatter `title: "Designers"`, `description`, `part: "documentation"`, `section: "designers"`) (depends on T022–T026).
-  - An intro paragraph; `FacetLinks`; the cards grouped by focus area in `order` (a designer appears under each of its areas), then "Other designers"; `CatalogueFilter`; `IdeasList`.
+- [x] **T025** [P] [US1] Write `src/components/catalogue/FacetLinks.astro`: three `<nav>` link lists (focus areas in `order`; the four hosts; the states `planned` to `available`) to `/adp/tools/focus/<slug>/`, `/adp/tools/hosts/<id>/` and `/adp/tools/states/<id>/`. It marks the current facet with `aria-current="page"`.
+- [x] **T026** [US1] Write `src/components/catalogue/CatalogueFilter.astro`, the only client script (depends on T023). It renders nothing without scripting. With scripting, it inserts a `<fieldset>` of checkboxes per facet and a `<p aria-live="polite">` "N tools shown". It hides non-matching cards with the `hidden` attribute: OR within a facet, AND across facets. It keeps no state across page loads.
+- [x] **T027** [US1] Write `src/pages/tools/index.astro` with `StarlightPage` (frontmatter `title: "Tools"`, `description`, `part: "documentation"`, `section: "tools"`) (depends on T022–T026).
+  - An intro paragraph; `FacetLinks`; the cards grouped by focus area in `order` (a tool appears under each of its areas), then "Other tools"; `CatalogueFilter`; `IdeasList`.
   - A footer line "Catalogue assembled from" listing each source as `repository@short-revision` (FR-009).
-  - Delete `src/content/docs/designers/index.mdx`, which it replaces.
-- [x] **T028** [P] [US1] Write `src/pages/designers/focus/[area].astro`: `getStaticPaths` over `catalogueFocusAreas`. It shows the name, the problem statement (when non-empty), `FacetLinks` and the cards of that area, or "No designers yet".
-- [x] **T029** [P] [US1] Write `src/pages/designers/hosts/[host].astro`: `getStaticPaths` over the four hosts. It shows the cards grouped by that host's state, from `available` down to `planned`. Designers `not-planned` there are left out, and one line says how many were left out.
-- [x] **T030** [P] [US1] Write `src/pages/designers/states/[state].astro`: `getStaticPaths` over `planned`, `in-progress`, `prototype`, `implemented` and `available` only (contracts/site-addresses.md: no `idea` or `not-planned` pages). It shows the cards whose best state is that state.
-- [x] **T031** [US1] In `src/data/sections.ts`, set the `designers` section's `status` to `'available'`. In `tests/site.spec.ts`, add `/adp/designers/focus/technology-assessment/` to the pages the build must contain.
-- [x] **T032** [P] [US1] In `src/components/FocusAreas.astro`, link each home-page focus-area card's heading to `/adp/designers/focus/<id>/` (the ids are shared with `focus-areas.json`, T017).
+  - Delete `src/content/docs/tools/index.mdx`, which it replaces.
+- [x] **T028** [P] [US1] Write `src/pages/tools/focus/[area].astro`: `getStaticPaths` over `catalogueFocusAreas`. It shows the name, the problem statement (when non-empty), `FacetLinks` and the cards of that area, or "No tools yet".
+- [x] **T029** [P] [US1] Write `src/pages/tools/hosts/[host].astro`: `getStaticPaths` over the four hosts. It shows the cards grouped by that host's state, from `available` down to `planned`. Tools `not-planned` there are left out, and one line says how many were left out.
+- [x] **T030** [P] [US1] Write `src/pages/tools/states/[state].astro`: `getStaticPaths` over `planned`, `in-progress`, `prototype`, `implemented` and `available` only (contracts/site-addresses.md: no `idea` or `not-planned` pages). It shows the cards whose best state is that state.
+- [x] **T031** [US1] In `src/data/sections.ts`, set the `tools` section's `status` to `'available'`. In `tests/site.spec.ts`, add `/adp/tools/focus/technology-assessment/` to the pages the build must contain.
+- [x] **T032** [P] [US1] In `src/components/FocusAreas.astro`, link each home-page focus-area card's heading to `/adp/tools/focus/<id>/` (the ids are shared with `focus-areas.json`, T017).
 
 **Checkpoint**: `npm run build && npm run check` passes. The overview and facet pages work with scripting off, and axe finds no violations.
 
 ---
 
-## Phase 4: User Story 2 - See what a designer does (Priority: P1)
+## Phase 4: User Story 2 - See what a tool does (Priority: P1)
 
-**Goal**: `/adp/designers/<vendor>/<type>/` states the task, why a specialized visualization helps, the file formats, the screenshots with their descriptions, background links, focus areas and sources.
+**Goal**: `/adp/tools/<vendor>/<type>/` states the task, why a specialized visualization helps, the file formats, the screenshots with their descriptions, background links, focus areas and sources.
 
-**Independent Test**: open `/adp/designers/freeplane/mindmap/` and say what it does and what file it edits (quickstart § 4, steps 3 and 4).
+**Independent Test**: open `/adp/tools/freeplane/mindmap/` and say what it does and what file it edits (quickstart § 4, steps 3 and 4).
 
 ### Tests for User Story 2
 
-- [x] **T033** [P] [US2] Add a section "designer page" to `tests/catalogue.spec.ts`. For every designer from `assembleCatalogue()`:
+- [x] **T033** [P] [US2] Add a section "tool page" to `tests/catalogue.spec.ts`. For every tool from `assembleCatalogue()`:
   - The page has its name, origin and purpose.
   - It has a "What it is for" section with the task, why a specialized visualization helps and the file formats, or "Not described yet" where they are null or empty (FR-004).
   - Every publishable screenshot is a `<figure>` with non-empty `alt`, a caption naming the host and the short revision, "What is visible" and "Why it matters" (FR-006, FR-012, FR-015).
-  - A usable designer without one shows "Screenshot pending".
-  - A designer that is not usable has no `<img>` (FR-007).
-  - Each focus area links to `/adp/designers/focus/<slug>/` (US2 AS6).
+  - A usable tool without one shows "Screenshot pending".
+  - A tool that is not usable has no `<img>` (FR-007).
+  - Each focus area links to `/adp/tools/focus/<slug>/` (US2 AS6).
   - The Sources list has one `repository@short-revision` per git SourceRecord, linked to `https://github.com/<repo>/blob/<revision>/<path>`, and "Notion, edited <date>" per Notion record (FR-009).
   - The page carries one `<meta name="adp:source" content="<repo>@<sha>:<path>">` per git source and `<meta name="adp:sourced" content="true">` (spec 004 site-integration § 3).
 
@@ -257,17 +257,17 @@ The plan, research, data model and quickstart are brought in line in T057.
   - The source licence is stated beside the image ("Licence: <spdx>").
   - It renders only when `publishable` is true.
 - [x] **T035** [P] [US2] Write `src/components/catalogue/SourceList.astro`: a list of SourceRecords. A git record is `<a href="https://github.com/<repository>/blob/<revision>/<path>">repository@<7-char revision></a>`, then `path` and the licence, or "no licence, not published" when `null`. A Notion record is "Notion, edited <revision as a date>". A `compact` prop renders one line, for the overview footer.
-- [x] **T036** [US2] Write `src/pages/designers/[vendor]/[type].astro` (depends on T034, T035). `getStaticPaths` covers every designer (the redirect stubs are added in T046). It uses `StarlightPage` with `title: name`, `description: purpose`, `part: "documentation"` and `section: "designers"`, and adds to the `head` the `adp:source` and `adp:sourced` metas described in T033. The page holds, in the order of contracts/site-addresses.md § A designer page:
+- [x] **T036** [US2] Write `src/pages/tools/[vendor]/[type].astro` (depends on T034, T035). `getStaticPaths` covers every tool (the redirect stubs are added in T046). It uses `StarlightPage` with `title: name`, `description: purpose`, `part: "documentation"` and `section: "tools"`, and adds to the `head` the `adp:source` and `adp:sourced` metas described in T033. The page holds, in the order of contracts/site-addresses.md § A tool page:
   - (1) the origin and the purpose;
   - (2) a placeholder `<section id="availability">` holding the host states as a list of `StateLabel`s, which T041 replaces with the table;
   - (3) "What it is for": task, why specialized, and a table of file formats (extension, name, reads, writes);
-  - (4) "Screenshots": `ScreenshotFigure` for each publishable screenshot, or "Screenshot pending" when the designer is usable and has none, or nothing when it is not usable;
+  - (4) "Screenshots": `ScreenshotFigure` for each publishable screenshot, or "Screenshot pending" when the tool is usable and has none, or nothing when it is not usable;
   - (5) "Background": the theory links, then the DEDL definition and a link to `/adp/dedl/` when `definition` is set;
   - (6) "Focus areas", linked to their facet pages;
   - (7) "Sources": `SourceList`.
 - [x] **T037** [US2] Add an "Example files" section to `src/content/catalogue/README.md`. It explains that `screenshot-notes.json` holds the site-owned "why it matters" per screenshot id, and that `file-formats.json` names each extension. Both are written in review of a refresh pull request, never by a script.
 
-**Checkpoint**: every designer page builds, passes `npm run check`, and shows sources and metas.
+**Checkpoint**: every tool page builds, passes `npm run check`, and shows sources and metas.
 
 ---
 
@@ -275,12 +275,12 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 **Goal**: an availability table with one row per host, each with its state, local name and an install or build link. Notion's host columns are kept in step with the repositories (FR-017).
 
-**Independent Test**: compare `/adp/designers/freeplane/mindmap/`'s table with `sources/catalogue/*/catalogue.json` and the Notion row. Run `npm run catalogue:sync-notion -- --dry-run` (quickstart § 1, § 4 step 2).
+**Independent Test**: compare `/adp/tools/freeplane/mindmap/`'s table with `sources/catalogue/*/catalogue.json` and the Notion row. Run `npm run catalogue:sync-notion -- --dry-run` (quickstart § 1, § 4 step 2).
 
 ### Tests for User Story 3
 
 - [x] **T038** [P] [US3] Add a section "availability" to `tests/catalogue.spec.ts`.
-  - Every designer page has a table with exactly four rows, Standalone, IntelliJ Platform, Visual Studio Code and Eclipse, in that order, never fewer (US3 AS2).
+  - Every tool page has a table with exactly four rows, Standalone, IntelliJ Platform, Visual Studio Code and Eclipse, in that order, never fewer (US3 AS2).
   - Each row has the state label as text.
   - An `available` row has an install link.
   - An `implemented` row says "Not yet released".
@@ -297,12 +297,12 @@ The plan, research, data model and quickstart are brought in line in T057.
 - [x] **T040** [P] [US3] Write `src/components/catalogue/AvailabilityTable.astro`: a `<table>` with a `<caption>` "Availability per IDE host" and the columns Host, State and "How to get it".
   - "How to get it" is `install` as a link (`available`); "Not yet released" (`implemented` or `prototype`); "Planned" or "In progress"; or "Not planned".
   - Add `build` when present.
-  - A `localName` that differs from the designer's name is shown as "(called <localName> here)".
+  - A `localName` that differs from the tool's name is shown as "(called <localName> here)".
   - A `notionDiffers` value is never shown to visitors; it is for the report.
-- [x] **T041** [US3] In `src/pages/designers/[vendor]/[type].astro`, replace the placeholder section `availability` with `AvailabilityTable` (depends on T036 and T040).
+- [x] **T041** [US3] In `src/pages/tools/[vendor]/[type].astro`, replace the placeholder section `availability` with `AvailabilityTable` (depends on T036 and T040).
 - [x] **T042** [US3] Write `scripts/catalogue/sync-notion.ts` (`npm run catalogue:sync-notion [--dry-run]`, S3w, research D13), which makes T039 pass.
   - It runs `assembleCatalogue()` and stops if it throws.
-  - For every designer and every host that has its own catalogue in `sources/catalogue/<host>/`, it compares the Notion column in `notion.json` with the host's `sourceState`.
+  - For every tool and every host that has its own catalogue in `sources/catalogue/<host>/`, it compares the Notion column in `notion.json` with the host's `sourceState`.
   - It reads the select options once with `GET /v1/data_sources/3e7be2fd-05b6-8079-932d-000bfa0609af` and picks the option whose text, after stripping the emoji, equals the stripped `sourceState`.
   - It sends `PATCH /v1/pages/<page>` setting only that select. It writes nothing else in Notion.
   - It prints every change as `origin · host · before → after` and writes them to `.refresh/catalogue-notion-sync.md`, which spec 004's pull request body includes.
@@ -326,7 +326,7 @@ The plan, research, data model and quickstart are brought in line in T057.
   - (b) changing `rdf/turtle` from Identified to Specified reports "moved from ideas to catalogue (standalone: Identified → Specified)";
   - (c) removing `neo4j/cypher`, with it in `published.json`, exits 3 and prints the question "`neo4j/cypher` is no longer in any source. Renamed to (origin) or withdrawn (reason)?" without writing;
   - (d) running with `--withdraw neo4j/cypher --reason "…"` appends `{ from, to: null, reason, since, source }` to `redirects.json` and removes `neo4j/cypher` from `published.json`;
-  - (e) `--rename neo4j/cypher=neo4j/graph` appends `{ from, to }`, but only when `neo4j/graph` is a designer;
+  - (e) `--rename neo4j/cypher=neo4j/graph` appends `{ from, to }`, but only when `neo4j/graph` is a tool;
   - (f) a second run makes no change.
 - [x] **T044** [P] [US4] Add a section "redirects" to `tests/catalogue.spec.ts`. For every `catalogueRedirects` entry, the old address returns a page. A rename has `<meta http-equiv="refresh">` to the new address, `rel=canonical` and a visible link. A withdrawal has no refresh, and shows the reason and the date (FR-011).
 
@@ -336,15 +336,15 @@ The plan, research, data model and quickstart are brought in line in T057.
   - It runs `assembleCatalogue()` over the working tree and over `git show HEAD:` copies of `sources/` and `src/content/catalogue/`, in a temporary folder.
   - It writes `.refresh/catalogue-report.md` with these sections:
     - "State changes": `origin · host · old → new`;
-    - "Membership": designers added or removed, ideas ⇄ catalogue moves with the source states;
+    - "Membership": tools added or removed, ideas ⇄ catalogue moves with the source states;
     - "Screenshots": pending, and not publishable with the reason;
     - "Notion differences": `notionDiffers`;
     - "Gaps": missing texts, empty focus-area problems, hosts without catalogues, missing prerequisites of plan § Dependencies.
   - An origin that disappeared without a redirect exits 3 with the question of T043 (c), offering Notion's `previousOrigin` as the likely rename. It never guesses a rename from similar names (data-model § Redirect).
-  - Otherwise it rewrites `published.json` to the current designer origins and exits 0.
-- [x] **T046** [US4] Extend `src/pages/designers/[vendor]/[type].astro` so `getStaticPaths` also covers every `catalogueRedirects` entry (depends on T036).
-  - A rename renders the stub of contracts/site-addresses.md § Redirect stub inside `StarlightPage`, with `head` metas `refresh`, `canonical` and `robots noindex`, and the text "This designer is now at <link>".
-  - A withdrawal renders a normal page with "This designer was withdrawn on <since>: <reason>".
+  - Otherwise it rewrites `published.json` to the current tool origins and exits 0.
+- [x] **T046** [US4] Extend `src/pages/tools/[vendor]/[type].astro` so `getStaticPaths` also covers every `catalogueRedirects` entry (depends on T036).
+  - A rename renders the stub of contracts/site-addresses.md § Redirect stub inside `StarlightPage`, with `head` metas `refresh`, `canonical` and `robots noindex`, and the text "This tool is now at <link>".
+  - A withdrawal renders a normal page with "This tool was withdrawn on <since>: <reason>".
   - Neither page carries `adp:sourced`.
 - [x] **T047** [US4] In `procedures/refresh-catalogue.md` and `procedures/refresh-screenshots.md` (spec 004's, template sections kept), add to **Steps**, after Apply and before Verify:
   - `npm run catalogue:notion` (needs `NOTION_TOKEN`; skip with a note in the pull request when it is absent);
@@ -361,26 +361,26 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 **Purpose**: the post-build catalogue checks, secrets, documentation and validation against the real sources.
 
-- [x] **T049** Write `scripts/catalogue/check.ts` (`npm run check:catalogue`, research D12). It runs over `dist/adp/designers/**/index.html` and uses `assembleCatalogue()` for the expectations. It prints each failure with its page and exits 1 on any.
-  - Every designer page has a Sources list and at least one `adp:source` meta, each matching a lock entry (FR-009).
+- [x] **T049** Write `scripts/catalogue/check.ts` (`npm run check:catalogue`, research D12). It runs over `dist/adp/tools/**/index.html` and uses `assembleCatalogue()` for the expectations. It prints each failure with its page and exits 1 on any.
+  - Every tool page has a Sources list and at least one `adp:source` meta, each matching a lock entry (FR-009).
   - Every `<img>` has non-empty `alt` (FR-012).
-  - No page of a designer below Prototype in every host has an `<img>` inside `<main>` (FR-007).
-  - For each designer page, the bytes of every `<img src>` plus the largest `srcset` candidate of each `<picture><source>`, resolved under `dist/`, total at most 1 048 576. It prints the heaviest page and its total (FR-013).
+  - No page of a tool below Prototype in every host has an `<img>` inside `<main>` (FR-007).
+  - For each tool page, the bytes of every `<img src>` plus the largest `srcset` candidate of each `<picture><source>`, resolved under `dist/`, total at most 1 048 576. It prints the heaviest page and its total (FR-013).
   - Every `redirects.json` entry has a page at its old address.
   - Every publishable screenshot shown has a non-empty "Why it matters" (FR-015).
 - [x] **T050** [P] Write `tests/unit/catalogue/check.test.ts`, which runs `check.ts` over a tiny hand-made `dist/` in a temporary folder with one failing case per rule of T049.
 - [x] T051 [P] Store `NOTION_TOKEN` as a repository secret for spec 004's refresh workflow only (research D9). In `.github/workflows/` (spec 004's refresh workflow), pass it to the catalogue and screenshots jobs as `env: NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}`. Never pass it to `ci.yml` or `deploy.yml`. Tell the owner that the Notion integration must be shared with the "Diagrams" database (plan § Dependencies).
-- [x] **T052** [P] Add a "Designers" row to the documentation index `src/content/docs/docs/index.mdx` if it lists sections by hand, linking `/adp/designers/`.
-- [x] **T053** [P] Check phone width and dark mode (quickstart § 4 step 6). In `tests/catalogue.spec.ts`, at a 360 px viewport under `colorScheme: 'dark'`, `/adp/designers/` and `/adp/designers/freeplane/mindmap/` have `document.documentElement.scrollWidth <= 360` and no axe violations.
+- [x] **T052** [P] Add a "Tools" row to the documentation index `src/content/docs/docs/index.mdx` if it lists sections by hand, linking `/adp/tools/`.
+- [x] **T053** [P] Check phone width and dark mode (quickstart § 4 step 6). In `tests/catalogue.spec.ts`, at a 360 px viewport under `colorScheme: 'dark'`, `/adp/tools/` and `/adp/tools/freeplane/mindmap/` have `document.documentElement.scrollWidth <= 360` and no axe violations.
 - [x] **T054** Run `npm run test:catalogue`, `npm run build` and `npm run check` in the worktree, and fix every failure.
 - [ ] T055 With spec 004 on `develop`: run `npm run refresh -- catalogue`, `npm run refresh -- screenshots` and `npm run refresh -- hosts` (each `--dry-run` first), then `npm run catalogue:notion` and `npm run catalogue:report`. Check the expectations of quickstart § 1, adjusted for Decision 1:
-  - 26 or more designers and 64 or fewer ideas;
+  - 26 or more tools and 64 or fewer ideas;
   - the listed gaps: no licence for the standalone repository, no draw.io origin tag, no `Why specialized` or `Focus areas` column;
   - Notion and the catalogue disagree;
   - a second run leaves an empty diff.
   Do not commit anything under `sources/` by hand; those files arrive through 004's pull requests.
 - [x] **T056** Run quickstart § 4 (visitor scenarios) and § 6 (failure scenarios) against `npm run preview`, and note each result in the pull request description.
-- [x] **T057** Amend `specs/003-designer-catalogue/plan.md` (Summary, Technical Context, Project Structure, Complexity Tracking: remove the `screenshot-designers.yaml` row), `research.md` (D3: state the release rule and that the set lives in `procedures/config/states.json`; D12: `node --test`), `data-model.md` (§ Files: the files of T017; the nullable `task` and `whySpecialized`) and `quickstart.md` (commands: `catalogue:notion`, `catalogue:report`, `test:catalogue`; spec 004's `refresh` commands) to match the deviations table at the top of this file. Update `contracts/catalogue-data.schema.json` for the nullable fields.
+- [x] **T057** Amend `specs/003-designer-catalogue/plan.md` (Summary, Technical Context, Project Structure, Complexity Tracking: remove the `screenshot-tools.yaml` row), `research.md` (D3: state the release rule and that the set lives in `procedures/config/states.json`; D12: `node --test`), `data-model.md` (§ Files: the files of T017; the nullable `task` and `whySpecialized`) and `quickstart.md` (commands: `catalogue:notion`, `catalogue:report`, `test:catalogue`; spec 004's `refresh` commands) to match the deviations table at the top of this file. Update `contracts/catalogue-data.schema.json` for the nullable fields.
 - [x] T058 Push `features/003-designer-catalogue` to `origin` and open a pull request into `develop`, to be merged with a merge commit. The body lists the owner decisions of 2026-09-27, the cross-feature changes to spec 004 (T011, T047, T048), and the gaps from `.refresh/catalogue-report.md`, and ends with the Claude Code attribution line.
 
 ---
@@ -389,23 +389,23 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 **Goal**: the overview filters in place through its checkboxes, and each option's name links to its facet page; the overview's separate block of facet links goes (FR-002 and US1 AS2 and AS4 as amended, contracts/site-addresses.md § The overview, research D6). Built on `features/003-focus-area-filtering`.
 
-- [x] **T059** [US1] Rewrite `src/components/catalogue/CatalogueFilter.astro` to render its form in the markup: a `<fieldset>` per facet with its `<legend>`, and per option a checkbox named by the option's link (`aria-labelledby`) followed by that link to `/adp/designers/focus/<slug>/`, `/adp/designers/hosts/<id>/` or `/adp/designers/states/<id>/`, and the `aria-live="polite"` status. The checkboxes and status stay hidden until the script marks the form ready; the script keeps its filtering rules (OR within a facet, AND across facets, no state across page loads), and while any option is ticked it also hides the focus-area groups with no matching designer.
-- [x] **T060** [US1] In `src/pages/designers/index.astro`, remove `FacetLinks` and keep `CatalogueFilter` above the groups. The facet pages keep `FacetLinks`.
-- [x] **T061** [US1] In `tests/catalogue.spec.ts`, check that the overview has no `.adp-facets` block; that every option name in the filter is a link that resolves, with scripting off as well as on; that the checkboxes are hidden without scripting; and that ticking a focus area narrows the list to its designers.
+- [x] **T059** [US1] Rewrite `src/components/catalogue/CatalogueFilter.astro` to render its form in the markup: a `<fieldset>` per facet with its `<legend>`, and per option a checkbox named by the option's link (`aria-labelledby`) followed by that link to `/adp/tools/focus/<slug>/`, `/adp/tools/hosts/<id>/` or `/adp/tools/states/<id>/`, and the `aria-live="polite"` status. The checkboxes and status stay hidden until the script marks the form ready; the script keeps its filtering rules (OR within a facet, AND across facets, no state across page loads), and while any option is ticked it also hides the focus-area groups with no matching tool.
+- [x] **T060** [US1] In `src/pages/tools/index.astro`, remove `FacetLinks` and keep `CatalogueFilter` above the groups. The facet pages keep `FacetLinks`.
+- [x] **T061** [US1] In `tests/catalogue.spec.ts`, check that the overview has no `.adp-facets` block; that every option name in the filter is a link that resolves, with scripting off as well as on; that the checkboxes are hidden without scripting; and that ticking a focus area narrows the list to its tools.
 - [x] **T062** Run `npm run build` and `npm run check`, with the committed sources and with the unit fixtures (`ADP_SOURCES_DIR`, `ADP_STATES_CONFIG`, `ADP_NOTION_SNAPSHOT`), and fix every failure.
 
 ---
 
-## Phase 9: Amendment 2026-09-28 (second) - One designers page, checkboxes only
+## Phase 9: Amendment 2026-09-28 (second) - One tools page, checkboxes only
 
-**Goal**: the overview is the only place designers are filtered, by checkbox only; one ticked option describes the selection and extends the breadcrumbs; the per-option pages are dropped and their addresses redirect; every designer keeps its own linked page; the current designers are brought in; agents have written instructions for adding and refining designers (FR-002, FR-003 and US1 AS2, AS4, AS5 as amended, contracts/site-addresses.md, research D6). Built on `features/003-single-page-catalogue`.
+**Goal**: the overview is the only place tools are filtered, by checkbox only; one ticked option describes the selection and extends the breadcrumbs; the per-option pages are dropped and their addresses redirect; every tool keeps its own linked page; the current tools are brought in; agents have written instructions for adding and refining tools (FR-002, FR-003 and US1 AS2, AS4, AS5 as amended, contracts/site-addresses.md, research D6). Built on `features/003-single-page-catalogue`.
 
-- [x] **T063** [US1] Rewrite `src/components/catalogue/CatalogueFilter.astro`: one labelled checkbox per option, no links; hidden without scripting. The script filters as before, keeps the ticked options in the address (`?focus=…&hosts=…&state=…`) and reads them on load, and with exactly one option ticked replaces the introduction (`[data-adp-filter-intro]` on the overview) with the option's description, appends the option to the breadcrumbs (Designers becomes a link) and names it in the document title; otherwise it restores all three.
-- [x] **T064** [US1] Delete `src/pages/designers/focus/`, `hosts/`, `states/` and `FacetLinks.astro`. Add each retired address to `src/data/redirects.ts`, pointing at the overview with that option ticked. Point the designer page's focus-area links and the home page's focus-area headings at `/adp/designers/?focus=<slug>` (`filterHref` in `src/components/catalogue/data.ts`).
-- [x] **T065** In `src/lib/catalogue/assemble.ts`, apply the 140-character limit to a Notion purpose only; when the designer's name stands in for a missing purpose, cut a long name at a word with an ellipsis. The standalone's `ansible/structure` name is 209 characters and failed the catalogue refresh.
-- [x] **T066** [US1] In `tests/catalogue.spec.ts` and `tests/site.spec.ts`: the filter has checkboxes and no links; the retired addresses redirect; without scripting the filter is hidden and every card shows; one ticked option (also from the address) sets the introduction and breadcrumbs, several or none restore them, and the address follows; every card's name links to its designer page; internal links may carry a query after the slash.
-- [x] **T067** Write "Adding or refining a designer" in `src/content/catalogue/README.md`, for people and agents: where each fact and text comes from, which procedure brings it in, and what may be edited in this repository; point to it from `CLAUDE.md`.
-- [ ] T068 Run "Refresh the designer catalogue", "Refresh the screenshots" and "Refresh the IDE host states" (procedures/) so the current designers reach `develop` through their own pull requests.
+- [x] **T063** [US1] Rewrite `src/components/catalogue/CatalogueFilter.astro`: one labelled checkbox per option, no links; hidden without scripting. The script filters as before, keeps the ticked options in the address (`?focus=…&hosts=…&state=…`) and reads them on load, and with exactly one option ticked replaces the introduction (`[data-adp-filter-intro]` on the overview) with the option's description, appends the option to the breadcrumbs (Tools becomes a link) and names it in the document title; otherwise it restores all three.
+- [x] **T064** [US1] Delete `src/pages/tools/focus/`, `hosts/`, `states/` and `FacetLinks.astro`. Add each retired address to `src/data/redirects.ts`, pointing at the overview with that option ticked. Point the tool page's focus-area links and the home page's focus-area headings at `/adp/tools/?focus=<slug>` (`filterHref` in `src/components/catalogue/data.ts`).
+- [x] **T065** In `src/lib/catalogue/assemble.ts`, apply the 140-character limit to a Notion purpose only; when the tool's name stands in for a missing purpose, cut a long name at a word with an ellipsis. The standalone's `ansible/structure` name is 209 characters and failed the catalogue refresh.
+- [x] **T066** [US1] In `tests/catalogue.spec.ts` and `tests/site.spec.ts`: the filter has checkboxes and no links; the retired addresses redirect; without scripting the filter is hidden and every card shows; one ticked option (also from the address) sets the introduction and breadcrumbs, several or none restore them, and the address follows; every card's name links to its tool page; internal links may carry a query after the slash.
+- [x] **T067** Write "Adding or refining a tool" in `src/content/catalogue/README.md`, for people and agents: where each fact and text comes from, which procedure brings it in, and what may be edited in this repository; point to it from `CLAUDE.md`.
+- [ ] T068 Run "Refresh the tool catalogue", "Refresh the screenshots" and "Refresh the IDE host states" (procedures/) so the current tools reach `develop` through their own pull requests.
 - [x] **T069** Run `npm run build` and `npm run check`, with the committed sources and with the unit fixtures, and fix every failure.
 - [x] **T070** Let the catalogue refresh take its Notion snapshot from an export an agent makes through its Notion connector (`NOTION_EXPORT`, `catalogue:notion -- --export`), for owners who do not hand the run a token; read Notion's host columns by their current names (`Standalone Plugin Implementation`, `IntelliJ Plugin Implementation`, `VS Code Plugin Implementation`, `Eclipse`). Owner decision of 2026-09-28: no `NOTION_TOKEN` locally; Claude drafted the missing purposes, descriptions, focus areas and "Why specialized" texts in Notion, for the owner to correct there.
 
@@ -413,11 +413,11 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ## Phase 10: Amendment 2026-09-28 (third) - Description below the filter, link colour, wide screens
 
-**Goal**: the description of a single ticked option (and the overview's own introduction) sits between the filter and the list; links in the cards look like links elsewhere on the site; a wide screen shows more columns of designers (FR-001, FR-002 and US1 AS4 as amended, contracts/site-addresses.md).
+**Goal**: the description of a single ticked option (and the overview's own introduction) sits between the filter and the list; links in the cards look like links elsewhere on the site; a wide screen shows more columns of tools (FR-001, FR-002 and US1 AS4 as amended, contracts/site-addresses.md).
 
-- [x] **T071** [US1] In `src/pages/designers/index.astro`, place `[data-adp-filter-intro]` after `CatalogueFilter` and say "in the filter above" in its text. Widen the overview's content (`--sl-content-width`) while keeping running text to a readable width.
-- [x] **T072** [US1] In `src/components/catalogue/DesignerList.astro`, lay the cards out in as many columns of at least 17rem as fit.
-- [x] **T073** In `src/styles/theme.css`, give links inside `.not-content` components in the content area the site's link colour (the designer cards and the home page cards had the browser's default blue); check every page in both schemes for other content links off that colour.
+- [x] **T071** [US1] In `src/pages/tools/index.astro`, place `[data-adp-filter-intro]` after `CatalogueFilter` and say "in the filter above" in its text. Widen the overview's content (`--sl-content-width`) while keeping running text to a readable width.
+- [x] **T072** [US1] In `src/components/catalogue/ToolList.astro`, lay the cards out in as many columns of at least 17rem as fit.
+- [x] **T073** In `src/styles/theme.css`, give links inside `.not-content` components in the content area the site's link colour (the tool cards and the home page cards had the browser's default blue); check every page in both schemes for other content links off that colour.
 - [x] **T074** Write the problem statements of the five focus areas added on 2026-09-26 in `src/content/catalogue/focus-areas.json` (site-owned text), so that ticking any focus area shows a real description.
 - [x] **T075** Test the order of filter, introduction and list, the link colour of the card names, and at least three columns at 1600 px; run `npm run build` and `npm run check`.
 
@@ -425,72 +425,72 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ## Phase 11: Amendment 2026-09-28 (fourth) - Ideas as boxes
 
-**Goal**: the ideas are shown as cards in the designers' grid, set apart by a dashed border and without states (FR-014 as amended, contracts/site-addresses.md, data-model § Idea).
+**Goal**: the ideas are shown as cards in the tools' grid, set apart by a dashed border and without states (FR-014 as amended, contracts/site-addresses.md, data-model § Idea).
 
 - [x] **T076** Add `purpose` (Notion's one-line purpose, or null) to `Idea` in `src/lib/catalogue/types.ts`, `src/lib/catalogue/assemble.ts` and the `idea` schema in `src/content.config.ts`.
-- [x] **T077** [US1] Rewrite `src/components/catalogue/IdeasList.astro` as cards: name, purpose, origin tag, family and theory links, in the grid of `DesignerList.astro`, with a dashed border.
+- [x] **T077** [US1] Rewrite `src/components/catalogue/IdeasList.astro` as cards: name, purpose, origin tag, family and theory links, in the grid of `ToolList.astro`, with a dashed border.
 - [x] **T078** In `tests/catalogue.spec.ts`, check one card per idea with its name, origin tag and purpose; run `npm run build` and `npm run check`.
 
 ---
 
 ## Phase 12: Amendment 2026-09-28 (fifth) - Card details
 
-**Goal**: on the designer cards the origin tag is the subheading under the name, with "Not yet usable" still after the purpose; on the idea cards the origin tag also follows the name, the family line is labelled, and the theory links sit under a "Sources" heading, one per line (contracts/site-addresses.md § The overview).
+**Goal**: on the tool cards the origin tag is the subheading under the name, with "Not yet usable" still after the purpose; on the idea cards the origin tag also follows the name, the family line is labelled, and the theory links sit under a "Sources" heading, one per line (contracts/site-addresses.md § The overview).
 
-- [x] **T079** [US1] Reorder `src/components/catalogue/DesignerCard.astro`: name, origin tag, purpose, then "Not yet usable" as its own line.
+- [x] **T079** [US1] Reorder `src/components/catalogue/ToolCard.astro`: name, origin tag, purpose, then "Not yet usable" as its own line.
 - [x] **T080** [US1] In `src/components/catalogue/IdeasList.astro`: name, origin tag, purpose, "Family: …", then a "Sources" heading over the theory links, one per line without bullets. The owner asked for the prefix "Focus area"; the line holds the Notion family, not a focus area, so it is labelled "Family" and the owner is told.
 - [x] **T081** Run `npm run build` and `npm run check`.
 
 ---
 
-## Phase 13: Amendment 2026-09-28 (sixth) - Screenshots on designer pages only, enlarged on click
+## Phase 13: Amendment 2026-09-28 (sixth) - Screenshots on tool pages only, enlarged on click
 
-**Goal**: the overview's cards have no screenshot; on a designer page a screenshot opens over the page, as large as the window allows (FR-001, FR-006 and US1 AS1 as amended, contracts/site-addresses.md).
+**Goal**: the overview's cards have no screenshot; on a tool page a screenshot opens over the page, as large as the window allows (FR-001, FR-006 and US1 AS1 as amended, contracts/site-addresses.md).
 
-- [x] **T082** [US1] Remove the thumbnail from `src/components/catalogue/DesignerCard.astro`.
+- [x] **T082** [US1] Remove the thumbnail from `src/components/catalogue/ToolCard.astro`.
 - [x] **T083** [US2] In `src/components/catalogue/ScreenshotFigure.astro`, make the image a link to the full-size PNG and, with scripting, show that PNG in a modal `<dialog>` sized to the window (Escape, a close button, or a click closes it).
 - [x] **T084** In `tests/catalogue.spec.ts`, check that no card has an image and that clicking a screenshot opens the viewer with the full-size PNG and Escape closes it; run `npm run build` and `npm run check`.
 
 ---
 
-## Phase 14: Amendment 2026-09-28 (seventh) - "On this page" on designer pages
+## Phase 14: Amendment 2026-09-28 (seventh) - "On this page" on tool pages
 
-**Goal**: the "On this page" list of a designer page names every heading the page shows (FR-003 as amended).
+**Goal**: the "On this page" list of a tool page names every heading the page shows (FR-003 as amended).
 
-- [x] **T085** [US2] In `src/components/catalogue/DesignerPage.astro`, give the three subheadings of "What it is for" ids and pass the page's headings to `StarlightPage`, with "Screenshots" only where the section is shown.
-- [x] **T086** In `tests/catalogue.spec.ts`, check on every designer page that "On this page" lists exactly the page's headings; run `npm run build` and `npm run check`.
+- [x] **T085** [US2] In `src/components/catalogue/ToolPage.astro`, give the three subheadings of "What it is for" ids and pass the page's headings to `StarlightPage`, with "Screenshots" only where the section is shown.
+- [x] **T086** In `tests/catalogue.spec.ts`, check on every tool page that "On this page" lists exactly the page's headings; run `npm run build` and `npm run check`.
 
 ---
 
 ## Phase 15: Amendment 2026-09-28 (eighth) - Compact subheading, "Not yet released"
 
-**Goal**: on designer and idea cards the origin tag is a compact subheading in the "Not yet usable" style; the implemented state is labelled "Not yet released" (contracts/site-addresses.md, data-model § State).
+**Goal**: on tool and idea cards the origin tag is a compact subheading in the "Not yet usable" style; the implemented state is labelled "Not yet released" (contracts/site-addresses.md, data-model § State).
 
-- [x] **T087** [US1] In `DesignerCard.astro` and `IdeasList.astro`, put the name and the origin tag in an `<hgroup>` with the tag as `.adp-note` text, and tighten the heading's line height.
+- [x] **T087** [US1] In `ToolCard.astro` and `IdeasList.astro`, put the name and the origin tag in an `<hgroup>` with the tag as `.adp-note` text, and tighten the heading's line height.
 - [x] **T088** Relabel `implemented` as "Not yet released" in `src/lib/catalogue/states.ts` and the documents that quote it; run `npm run build` and `npm run check`.
 
 ---
 
 ## Phase 16: Amendment 2026-09-28 (ninth) - Host states at the bottom of the card
 
-**Goal**: the four host states of each designer card sit at its bottom edge, so they line up across a row of cards (contracts/site-addresses.md § The overview).
+**Goal**: the four host states of each tool card sit at its bottom edge, so they line up across a row of cards (contracts/site-addresses.md § The overview).
 
-- [x] **T089** [US1] In `DesignerCard.astro`, give the host list `margin-block-start: auto` in the card's flex column; the grid already gives the cards of a row one height.
+- [x] **T089** [US1] In `ToolCard.astro`, give the host list `margin-block-start: auto` in the card's flex column; the grid already gives the cards of a row one height.
 - [x] **T090** In `tests/catalogue.spec.ts`, check at 1600 px that the host lists of the cards in one row start at the same height; run `npm run build` and `npm run check`.
 
 ---
 
 ## Phase 17: Amendment 2026-09-28 (tenth) - The count
 
-**Goal**: the overview's count reads "N designers and M ideas" (contracts/site-addresses.md § The overview).
+**Goal**: the overview's count reads "N tools and M ideas" (contracts/site-addresses.md § The overview).
 
-- [x] **T091** [US1] In `CatalogueFilter.astro`, report "N designers and M ideas", N the designers shown and M all ideas, with singular forms for one; update `tests/catalogue.spec.ts`, and run `npm run build` and `npm run check`.
+- [x] **T091** [US1] In `CatalogueFilter.astro`, report "N tools and M ideas", N the tools shown and M all ideas, with singular forms for one; update `tests/catalogue.spec.ts`, and run `npm run build` and `npm run check`.
 
 ---
 
 ## Phase 18: Fix 2026-09-28 - State labels on one line in tables
 
-**Goal**: a state label in a designer page's availability table never breaks over two lines (owner's report of 2026-09-28).
+**Goal**: a state label in a tool page's availability table never breaks over two lines (owner's report of 2026-09-28).
 
 - [x] **T092** Remove the rule in `src/components/catalogue/TableScroll.astro` that let state labels wrap; the table scrolls sideways on a narrow screen instead. Run `npm run build` and `npm run check`.
 
@@ -498,7 +498,7 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ## Phase 19: Amendment 2026-09-28 (eleventh) - The filter applies to the ideas
 
-**Goal**: the overview's filter narrows the ideas as well as the designers (FR-014 as amended, contracts/site-addresses.md, data-model § Idea).
+**Goal**: the overview's filter narrows the ideas as well as the tools (FR-014 as amended, contracts/site-addresses.md, data-model § Idea).
 
 - [x] **T093** Add `focusAreas` to `Idea` (types, assembly, content schema), from Notion's `Focus areas`.
 - [x] **T094** [US1] In `CatalogueFilter.astro`, filter the idea cards alike, add the state option "Idea", count the ideas shown and hide the ideas section when none is; in `IdeasList.astro`, give each card `data-focus` and `data-state="idea"` and show its focus areas.
@@ -508,12 +508,12 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ---
 
-## Phase 20: Amendment 2026-09-29 - Screenshots of designers in progress
+## Phase 20: Amendment 2026-09-29 - Screenshots of tools in progress
 
-**Goal**: a designer in progress shows its screenshots, captioned as in progress (FR-007 as amended, contracts/site-addresses.md, data-model § Designer).
+**Goal**: a tool in progress shows its screenshots, captioned as in progress (FR-007 as amended, contracts/site-addresses.md, data-model § Tool).
 
-- [x] **T097** Add `showsScreenshots` (in progress or better) to `src/lib/catalogue/states.ts` and use it in `assemble.ts`, `DesignerPage.astro` and `scripts/catalogue/check.ts` where screenshots were limited to usable designers.
-- [x] **T098** [US2] In `ScreenshotFigure.astro`, caption a screenshot of a designer that is not usable yet with "In progress: this shows the designer while it is being built, before it can be used."
+- [x] **T097** Add `showsScreenshots` (in progress or better) to `src/lib/catalogue/states.ts` and use it in `assemble.ts`, `ToolPage.astro` and `scripts/catalogue/check.ts` where screenshots were limited to usable tools.
+- [x] **T098** [US2] In `ScreenshotFigure.astro`, caption a screenshot of a tool that is not usable yet with "In progress: this shows the tool while it is being built, before it can be used."
 - [x] **T099** Update the page and unit tests; run `npm run test:catalogue`, `npm run build` and `npm run check`.
 
 
@@ -521,7 +521,7 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ## Phase 21: 2026-09-29 - IntelliJ screenshots linked
 
-**Goal**: the IntelliJ screenshots show on their designer pages, now that IntelliJ has a catalogue (owner's request of 2026-09-29).
+**Goal**: the IntelliJ screenshots show on their tool pages, now that IntelliJ has a catalogue (owner's request of 2026-09-29).
 
 - [x] **T100** Read links inside Notion text as plain text in a connector export, except in Theory (Notion links "draw.io" by itself).
 - [x] **T101** Remove the three IntelliJ images' `none` answers from `procedures/config/screenshots.json` and document how to change an earlier answer in `procedures/refresh-screenshots.md`; run the catalogue and screenshots refreshes and answer mindmap.png → freeplane/mindmap, both draw.io images → jgraph/drawio.
@@ -544,7 +544,7 @@ The plan, research, data model and quickstart are brought in line in T057.
 
 ```text
 Setup ─▶ Foundational ─┬─▶ US1 (overview, MVP) ──────────────┐
-                       ├─▶ US2 (designer page) ─┬─▶ US3 ──────┤
+                       ├─▶ US2 (tool page) ─┬─▶ US3 ──────┤
                        │                        └─▶ US4 ──────┼─▶ Polish
                        └─ (spec 004 on develop) ─▶ T011, T047, T048, T055
 ```
@@ -567,7 +567,7 @@ Then:     T014 states.ts, T015 sources.ts, T016 notion-snapshot.ts  →  T018 as
 ### User Story 1
 
 ```text
-Together: T021 overview tests, T022 StateLabel, T023 DesignerCard, T024 IdeasList, T025 FacetLinks, T032 home links
+Together: T021 overview tests, T022 StateLabel, T023 ToolCard, T024 IdeasList, T025 FacetLinks, T032 home links
 Then:     T026 CatalogueFilter → T027 overview page; T028, T029, T030 facet pages together; T031 sections
 ```
 
@@ -575,7 +575,7 @@ Then:     T026 CatalogueFilter → T027 overview page; T028, T029, T030 facet pa
 
 ```text
 Together: T033 page tests, T034 ScreenshotFigure, T035 SourceList
-Then:     T036 designer page → T037 README
+Then:     T036 tool page → T037 README
 ```
 
 ### User Story 3
@@ -605,7 +605,7 @@ Then:     T045 report.ts, T046 stubs → T047 procedure docs → T048 004 target
 ### Incremental delivery
 
 1. Foundation, then US1: visitors can see what exists.
-2. Add US2: every designer has its own page (with US1, both P1 stories are done).
+2. Add US2: every tool has its own page (with US1, both P1 stories are done).
 3. Add US3: the availability table, and Notion kept in step.
 4. Add US4: reports and stable addresses, and the catalogue wired into spec 004's procedures.
 5. Polish, with real sources once spec 004 is on `develop`, then one pull request into `develop`.

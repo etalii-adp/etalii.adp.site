@@ -1,4 +1,4 @@
-// Reads a host's designer catalogue (`docs/tools.md`, or `docs/diagrams.md` before etalii.adp spec 002 renames it:
+// Reads a host's tool catalogue (`docs/tools.md`, or `docs/diagrams.md` before etalii.adp spec 002 renames it:
 // an HTML table inside Markdown) and applies the site's
 // state mapping. By the owner's decision of 2026-09-27 (spec 003) the `develop` state is shown as mapped, never
 // capped at the release; the release state is only recorded. Shared by the screenshot, catalogue and hosts procedures, so
@@ -31,7 +31,7 @@ async function readCatalogueAt(reader, ref) {
 	return null;
 }
 
-/** The site states in rising order (spec 003 data-model § State), and those that claim a user can use a designer. */
+/** The site states in rising order (spec 003 data-model § State), and those that claim a user can use a tool. */
 const ORDER = ['not-planned', 'idea', 'planned', 'in-progress', 'prototype', 'implemented', 'available'];
 const USABLE = ['prototype', 'implemented', 'available'];
 
@@ -171,7 +171,7 @@ export function isUnderway(state) {
  * `{ missingCatalogue: true }` when the file does not exist. An entry whose label the mapping lacks gets
  * `unmapped: <label>` and `state: null`.
  */
-export async function designersFor(host, reader, { head, release, states }) {
+export async function toolsFor(host, reader, { head, release, states }) {
 	const develop = await readCatalogueAt(reader, head);
 	if (develop === null) return { missingCatalogue: true };
 	const developText = develop.text;

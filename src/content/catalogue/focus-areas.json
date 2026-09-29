@@ -2,7 +2,7 @@
   {
     "slug": "technology-assessment",
     "name": "Technology assessment",
-    "problem": "Weighing a new technology means holding options, actors and consequences side by side. A designer made for (constructive) technology assessment lays them out so trade-offs can be seen and argued over, not buried in a document.",
+    "problem": "Weighing a new technology means holding options, actors and consequences side by side. A tool made for (constructive) technology assessment lays them out so trade-offs can be seen and argued over, not buried in a document.",
     "order": 1,
     "source": null
   },
@@ -16,42 +16,42 @@
   {
     "slug": "textual-clarity",
     "name": "Clarity in textual data",
-    "problem": "Structure hidden in logs, notes and plain-text formats is hard to see line by line. A designer tuned to one format shows that structure directly, while the text stays the source of truth.",
+    "problem": "Structure hidden in logs, notes and plain-text formats is hard to see line by line. A tool tuned to one format shows that structure directly, while the text stays the source of truth.",
     "order": 3,
     "source": null
   },
   {
     "slug": "systems-and-strategy",
     "name": "Systems and strategy",
-    "problem": "Systems and strategies are shaped by feedback, dependencies and position, which a list of boxes hides. A designer made for them shows loops, value chains and landscapes as they are, so a decision can be traced to the structure behind it.",
+    "problem": "Systems and strategies are shaped by feedback, dependencies and position, which a list of boxes hides. A tool made for them shows loops, value chains and landscapes as they are, so a decision can be traced to the structure behind it.",
     "order": 4,
     "source": null
   },
   {
     "slug": "knowledge-and-semantics",
     "name": "Knowledge and semantics",
-    "problem": "Ontologies, vocabularies and linked data are graphs written down as text, and their meaning lives in the links. A designer made for them draws the classes, concepts and relations, so a model can be checked by eye while the file stays the standard.",
+    "problem": "Ontologies, vocabularies and linked data are graphs written down as text, and their meaning lives in the links. A tool made for them draws the classes, concepts and relations, so a model can be checked by eye while the file stays the standard.",
     "order": 5,
     "source": null
   },
   {
     "slug": "software-delivery",
     "name": "Software delivery",
-    "problem": "Pipelines, deployments and dependencies are spread over many configuration files, and their order and coupling only show when something breaks. A designer made for software delivery draws them as they run, so a change can be understood before it ships.",
+    "problem": "Pipelines, deployments and dependencies are spread over many configuration files, and their order and coupling only show when something breaks. A tool made for software delivery draws them as they run, so a change can be understood before it ships.",
     "order": 6,
     "source": null
   },
   {
     "slug": "planning-and-roadmapping",
     "name": "Planning and roadmapping",
-    "problem": "Plans are about time, order and what waits on what, and a flat list of items loses all three. A designer made for planning places work on a timeline and draws its dependencies, so overlaps and critical paths show at a glance.",
+    "problem": "Plans are about time, order and what waits on what, and a flat list of items loses all three. A tool made for planning places work on a timeline and draws its dependencies, so overlaps and critical paths show at a glance.",
     "order": 7,
     "source": null
   },
   {
     "slug": "psychological-and-societal-insights",
     "name": "Psychological and societal insights",
-    "problem": "How people and societies respond to change, from hype to adoption to feedback in behaviour, is easy to state and hard to see. A designer made for these insights lays trends and influences out, so patterns can be discussed rather than assumed.",
+    "problem": "How people and societies respond to change, from hype to adoption to feedback in behaviour, is easy to state and hard to see. A tool made for these insights lays trends and influences out, so patterns can be discussed rather than assumed.",
     "order": 8,
     "source": null
   }

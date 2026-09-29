@@ -9,9 +9,9 @@ import { readSources, toSourceRecord } from '../../../src/lib/catalogue/sources.
 import { assembleFixtures, fixtureOptions, fixturePages, fixtures } from './helpers.ts';
 
 const catalogue = assembleFixtures();
-const designer = (origin: string) => {
-	const found = catalogue.designers.find((d) => d.origin === origin);
-	assert.ok(found, `${origin} is a designer`);
+const tool = (origin: string) => {
+	const found = catalogue.tools.find((d) => d.origin === origin);
+	assert.ok(found, `${origin} is a tool`);
 	return found;
 };
 const reported = (items: { origin?: string; message: string }[], origin: string, pattern: RegExp) =>
@@ -23,21 +23,21 @@ test('(a) membership follows the best state', () => {
 		['rdf/turtle'],
 	);
 	assert.deepEqual(
-		catalogue.designers.map((d) => d.origin),
+		catalogue.tools.map((d) => d.origin),
 		['ansible/playbook', 'freeplane/mindmap', 'generic/timeline', 'jgraph/drawio', 'neo4j/cypher', 'wardley/map'],
 	);
 });
 
-test('(b) every designer has exactly four hosts; draw.io is implemented in IntelliJ from Notion', () => {
-	for (const d of catalogue.designers) assert.deepEqual(Object.keys(d.hosts), ['standalone', 'intellij', 'vscode', 'eclipse'], d.origin);
-	const drawio = designer('jgraph/drawio');
+test('(b) every tool has exactly four hosts; draw.io is implemented in IntelliJ from Notion', () => {
+	for (const d of catalogue.tools) assert.deepEqual(Object.keys(d.hosts), ['standalone', 'intellij', 'vscode', 'eclipse'], d.origin);
+	const drawio = tool('jgraph/drawio');
 	assert.equal(drawio.hosts.intellij.state, 'implemented');
 	assert.equal(drawio.hosts.intellij.source.kind, 'notion');
 	assert.equal(drawio.hosts.standalone.state, 'not-planned');
 });
 
 test('(c) implemented without a public release is not available, and a differing Notion value is kept', () => {
-	const wardley = designer('wardley/map');
+	const wardley = tool('wardley/map');
 	assert.equal(wardley.hosts.standalone.state, 'implemented');
 	assert.equal(wardley.hosts.standalone.install, null);
 	assert.equal(wardley.hosts.standalone.notionDiffers, '⚗️ Prototype');
@@ -59,8 +59,8 @@ test('(d) a git SourceRecord is built from a lock entry', () => {
 	assert.throws(() => toSourceRecord(lock, 'standalone/absent.png'), /absent\.png/);
 });
 
-test('(e) screenshots of an unlicensed source are not publishable, and the designer is pending', () => {
-	const mindmap = designer('freeplane/mindmap');
+test('(e) screenshots of an unlicensed source are not publishable, and the tool is pending', () => {
+	const mindmap = tool('freeplane/mindmap');
 	assert.equal(mindmap.screenshots.length, 1);
 	assert.equal(mindmap.screenshots[0].id, 'standalone--mindmap');
 	assert.equal(mindmap.screenshots[0].publishable, false);
@@ -69,36 +69,36 @@ test('(e) screenshots of an unlicensed source are not publishable, and the desig
 });
 
 test('(f) a rejected screenshot is not attached, and it is reported', () => {
-	assert.equal(designer('generic/timeline').screenshots.length, 0);
+	assert.equal(tool('generic/timeline').screenshots.length, 0);
 	assert.ok(reported(catalogue.report.pending, 'generic/timeline', /timeline\.png.*rejected/));
 });
 
-test('(g) a designer below Prototype in every host has no screenshots', () => {
-	assert.equal(designer('neo4j/cypher').screenshots.length, 0);
+test('(g) a tool below Prototype in every host has no screenshots', () => {
+	assert.equal(tool('neo4j/cypher').screenshots.length, 0);
 	assert.ok(reported(catalogue.report.disagreements, 'neo4j/cypher', /cypher\.png/));
 });
 
 test('(h) a relative theory link is dropped without a licence; an absolute one is kept', () => {
 	const unlicensed = assembleCatalogue(fixtureOptions({}, licencedAs('unstated')));
-	const theory = unlicensed.designers.find((d) => d.origin === 'wardley/map')!.theory;
+	const theory = unlicensed.tools.find((d) => d.origin === 'wardley/map')!.theory;
 	assert.deepEqual(theory, [{ title: 'Wardley maps', url: 'https://learnwardleymapping.com/' }]);
 
-	const licensed = designer('wardley/map').theory;
+	const licensed = tool('wardley/map').theory;
 	assert.equal(licensed.length, 2);
 	assert.match(licensed[0].url, /^https:\/\/github\.com\/etalii-adp\/etalii\.adp\.ide\.standalone\/blob\/[0-9a-f]{40}\/docs\/theory\/wardley\.md$/);
-	assert.deepEqual(designer('freeplane/mindmap').theory, [
+	assert.deepEqual(tool('freeplane/mindmap').theory, [
 		{ title: 'Mind map', url: 'https://en.wikipedia.org/wiki/Mind_map' },
 		{ title: 'docs.freeplane.org', url: 'https://docs.freeplane.org/' },
 	]);
 });
 
 test('(i) an empty Notion purpose falls back to the catalogue name and is reported', () => {
-	assert.equal(designer('neo4j/cypher').purpose, 'Cypher graph');
+	assert.equal(tool('neo4j/cypher').purpose, 'Cypher graph');
 	assert.ok(reported(catalogue.report.gaps, 'neo4j/cypher', /purpose/));
 });
 
 test('(j) an unknown focus area is reported, not dropped silently', () => {
-	assert.deepEqual(designer('wardley/map').focusAreas, ['systems-and-strategy']);
+	assert.deepEqual(tool('wardley/map').focusAreas, ['systems-and-strategy']);
 	assert.ok(reported(catalogue.report.gaps, 'wardley/map', /Diagramming practice/));
 });
 
@@ -107,8 +107,8 @@ test('(k) a Notion row without an origin is reported', () => {
 	assert.ok(report.some((item) => /Untagged row/.test(item.message) && /no Origin/.test(item.message)));
 });
 
-test('(l) a redirect from a live designer is an error', () => {
-	const redirect = { from: 'wardley/map', to: null, reason: 'Test', since: '2026-09-27', source: designer('wardley/map').sources[0] };
+test('(l) a redirect from a live tool is an error', () => {
+	const redirect = { from: 'wardley/map', to: null, reason: 'Test', since: '2026-09-27', source: tool('wardley/map').sources[0] };
 	assert.throws(() => assembleFixtures({ 'redirects.json': [redirect] }), /redirects\.json.*wardley\/map/);
 });
 
@@ -126,7 +126,7 @@ test('without sources, a states configuration or a Notion snapshot, the catalogu
 		contentDir: 'src/content/catalogue',
 		notionPath: join(empty, 'notion.json'),
 	});
-	assert.deepEqual(result.designers, []);
+	assert.deepEqual(result.tools, []);
 	assert.ok(result.report.gaps.some((item) => /no catalogue for standalone/.test(item.message)));
 });
 
@@ -152,7 +152,7 @@ test('implemented becomes available only with a public release and a licence', (
 	writeFileSync(hostsFile, JSON.stringify(hosts, null, 2));
 	const options = fixtureOptions({}, dir);
 
-	const standalone = assembleCatalogue(options).designers.find((d) => d.origin === 'wardley/map')!.hosts.standalone;
+	const standalone = assembleCatalogue(options).tools.find((d) => d.origin === 'wardley/map')!.hosts.standalone;
 	assert.equal(standalone.state, 'available');
 	assert.deepEqual(standalone.install, { url: hosts[0].link, label: 'Install from v0.2.0' });
 
@@ -160,7 +160,7 @@ test('implemented becomes available only with a public release and a licence', (
 	const lock = JSON.parse(readFileSync(lockFile, 'utf8'));
 	lock.files[0].licence = 'unstated';
 	writeFileSync(lockFile, JSON.stringify(lock, null, 2));
-	assert.equal(assembleCatalogue(options).designers.find((d) => d.origin === 'wardley/map')!.hosts.standalone.state, 'implemented');
+	assert.equal(assembleCatalogue(options).tools.find((d) => d.origin === 'wardley/map')!.hosts.standalone.state, 'implemented');
 });
 
 // etalii.adp spec 002: a host's docs/tools.md says each tool's kind in a Kind column, which the refresh copies into
@@ -175,9 +175,16 @@ test('a kind from the host catalogue wins over Notion, which stays the fallback'
 		if (row.origin === 'generic/timeline') row.kind = 'designer';
 	}
 	writeFileSync(file, JSON.stringify(rows, null, 2));
-	const kinds = Object.fromEntries(assembleCatalogue(fixtureOptions({}, sourcesRoot)).designers.map((d) => [d.origin, d.kind]));
-	assert.equal(kinds['freeplane/mindmap'], 'editor', 'the Kind column over Notion\'s Designer');
+	const kinds = Object.fromEntries(assembleCatalogue(fixtureOptions({}, sourcesRoot)).tools.map((d) => [d.origin, d.kind]));
+	assert.equal(kinds['freeplane/mindmap'], 'editor', 'the Kind column over Notion\'s Diagram');
 	assert.equal(kinds['generic/timeline'], 'designer', 'the Kind column where Notion says nothing');
 	assert.equal(kinds['jgraph/drawio'], 'designer', 'Notion, for a row without a Kind');
 	assert.equal(kinds['wardley/map'], 'diagram');
+});
+
+// etalii.adp spec 002: ideas carry a kind too, so the overview's kind filter applies to them as to the tools.
+test('an idea has the kind its Notion row gives, diagram by default', () => {
+	const { ideas } = assembleCatalogue(fixtureOptions({}));
+	assert.ok(ideas.length > 0, 'the fixture has ideas');
+	for (const idea of ideas) assert.ok(['diagram', 'designer', 'editor'].includes(idea.kind), `${idea.origin} has kind ${idea.kind}`);
 });

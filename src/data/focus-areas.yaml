@@ -2,7 +2,7 @@
 
 - id: technology-assessment
   name: Technology assessment
-  problem: Weighing a new technology means holding options, actors and consequences side by side. A designer made for (constructive) technology assessment lays them out so trade-offs can be seen and argued over, not buried in a document.
+  problem: Weighing a new technology means holding options, actors and consequences side by side. A tool made for (constructive) technology assessment lays them out so trade-offs can be seen and argued over, not buried in a document.
   illustration: ../assets/illustrations/focus-technology-assessment.svg
 
 - id: humans-and-agents
@@ -12,5 +12,5 @@
 
 - id: textual-clarity
   name: Clarity in textual data
-  problem: Structure hidden in logs, notes and plain-text formats is hard to see line by line. A designer tuned to one format shows that structure directly, while the text stays the source of truth.
+  problem: Structure hidden in logs, notes and plain-text formats is hard to see line by line. A tool tuned to one format shows that structure directly, while the text stays the source of truth.
   illustration: ../assets/illustrations/focus-textual-clarity.svg

@@ -163,8 +163,20 @@ checks.push({
 			const ajv = new Ajv2020({ allErrors: true, strict: false });
 			addFormats(ajv);
 			ajv.addSchema(schema);
+			// A schema may reference another language's by absolute $id (DID's references DISL's primitives, etalii.adp
+			// spec 002), so the schemas of the other published versions are known too.
+			const added = new Set([schema.$id]);
+			for (const other of versions) {
+				const id = other.schema().$id;
+				if (!added.has(id)) {
+					ajv.addSchema(other.schema());
+					added.add(id);
+				}
+			}
 			for (const file of version.record.files.filter((f) => f.role === 'definition' || f.role === 'document')) {
-				const validate = ajv.getSchema(file.role === 'definition' ? schema.$id : `${schema.$id}#/$defs/Document`);
+				// A document is validated against $defs/Document where the schema has one (DEDL), else against the root (DID).
+				const documentRef = schema.$defs && 'Document' in schema.$defs ? `${schema.$id}#/$defs/Document` : schema.$id;
+				const validate = ajv.getSchema(file.role === 'definition' ? schema.$id : documentRef);
 				if (!validate) {
 					fail(`the schema has no ${file.role === 'definition' ? 'root' : '$defs/Document'} to validate ${file.name} against`, version.dir);
 					continue;

@@ -9,11 +9,22 @@
 
 /** One registered definition language (`$defs/Language`). */
 export interface Language {
-	/** `^[a-z]+$`, not one of `designers`, `search`, `pagefind`; used in addresses: `dedl`. */
+	/** `^[a-z]+/**
+ * Types of the DEDL reference: the stored snapshot (contracts/reference-data.schema.json) and the model
+ * the build derives from it (data-model.md "Derived entities").
+ */
+
+// ---------------------------------------------------------------------------------------------------
+// Stored: src/content/reference/languages.json and <language>/<version>/source.json
+// ---------------------------------------------------------------------------------------------------
+
+/** One registered definition language (`$defs/Language`). */
+export interface Language {
+	, not one of `designers`, `tools`, `docs`, `search`, `pagefind`; used in addresses: `disl`. */
 	id: string;
-	/** `minLength` 1: "DEDL — Diagram Editor Definition Language". */
+	/** `minLength` 1: "DISL — Diagram Specification Language". */
 	name: string;
-	/** `minLength` 1: "DEDL". */
+	/** `minLength` 1: "DISL". */
 	short: string;
 	/** `^[A-Za-z0-9-]+/[A-Za-z0-9._-]+$`: `etalii-adp/etalii.adp`. */
 	repository: string;
@@ -29,9 +40,15 @@ export interface Language {
 	schemaAddress: string;
 	/**
 	 * Optional, default true. `false` registers a language for `npm run reference:refresh` without publishing pages
-	 * for it: DISL and DID while etalii.adp spec 002 renames DEDL, until their pages come (its Part 5).
+	 * for it, as DEDL is once it moved to DISL and DID (etalii.adp spec 002).
 	 */
 	publish?: boolean;
+	/**
+	 * Optional: the id of the language that replaces this one. With `publish` false, every page address of this language
+	 * redirects to that language's landing (src/data/redirects.ts), and its schema files are still served at their own
+	 * addresses: DEDL moved to DISL (etalii.adp spec 002, research R4 and R6).
+	 */
+	movedTo?: string;
 }
 
 /** What a file of a snapshot is (`$defs/FileRecord/role`): one of `prose`, `schema`, `definition`, `document`, `other`. */

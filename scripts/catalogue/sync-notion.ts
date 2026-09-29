@@ -1,6 +1,6 @@
 // npm run catalogue:sync-notion [--dry-run]
 //
-// Keeps the Notion "Diagrams" host columns in step with the IDE repositories (spec 003 FR-017, research D13,
+// Keeps the Notion "Tools" host columns in step with the IDE repositories (spec 003 FR-017, research D13,
 // contracts/source-formats.md § S3w). For every Notion row and every host that has its own catalogue under
 // sources/catalogue/<host>/, it sets the host's select to the catalogue's state. It writes nothing else in Notion,
 // and nothing for a host without a catalogue, where Notion is the source. Every change is printed and written to
@@ -40,7 +40,7 @@ export async function main(args: string[], options: SyncOptions = {}): Promise<n
 	const reportDir = options.reportDir ?? '.refresh';
 	const token = process.env.NOTION_TOKEN;
 	if (!token) {
-		console.error('NOTION_TOKEN is not set. Set it to the token of the Notion integration shared with the "Diagrams" database.');
+		console.error('NOTION_TOKEN is not set. Set it to the token of the Notion integration shared with the "Tools" database.');
 		return 2;
 	}
 

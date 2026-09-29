@@ -1,0 +1,36 @@
+---
+// A grid of tool cards, or "No tools yet" when there are none.
+import type { Tool } from '../../lib/catalogue/types';
+import ToolCard from './ToolCard.astro';
+
+interface Props {
+	tools: Tool[];
+	empty?: string;
+}
+
+const { tools, empty = 'No tools yet.' } = Astro.props;
+---
+
+{
+	tools.length > 0 ? (
+		<ul class="adp-tools not-content">
+			{tools.map((tool) => (
+				<ToolCard tool={tool} />
+			))}
+		</ul>
+	) : (
+		<p class="adp-note adp-empty">{empty}</p>
+	)
+}
+
+<style>
+	.adp-tools {
+		display: grid;
+		/* As many columns of at least 17rem as the width allows: one on a phone, more on a wide screen. */
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+		gap: 1rem;
+		margin: 1rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+</style>

@@ -3,11 +3,11 @@
 import type { ImageMetadata } from 'astro';
 import { getCollection } from 'astro:content';
 import { bestState, isUsable, showsScreenshots } from '../../lib/catalogue/states';
-import type { Designer, FocusArea, Idea, Redirect, Screenshot, SourceRecord } from '../../lib/catalogue/types';
+import type { Tool, FocusArea, Idea, Redirect, Screenshot, SourceRecord } from '../../lib/catalogue/types';
 
 const byOrigin = <T extends { origin: string }>(a: T, b: T) => (a.origin < b.origin ? -1 : a.origin > b.origin ? 1 : 0);
 
-type SiteCatalogue = { designers: Designer[]; ideas: Idea[]; focusAreas: FocusArea[]; sources: SourceRecord[] };
+type SiteCatalogue = { tools: Tool[]; ideas: Idea[]; focusAreas: FocusArea[]; sources: SourceRecord[] };
 let loaded: Promise<SiteCatalogue> | undefined;
 
 /** The catalogue, read once per build; Astro warns on every read of an empty collection. */
@@ -17,14 +17,14 @@ export function catalogue(): Promise<SiteCatalogue> {
 }
 
 async function load(): Promise<SiteCatalogue> {
-	const designers = (await getCollection('designers')).map((entry) => entry.data as Designer).sort(byOrigin);
+	const tools = (await getCollection('tools')).map((entry) => entry.data as Tool).sort(byOrigin);
 	const ideas = (await getCollection('ideas')).map((entry) => entry.data as Idea).sort(byOrigin);
 	const focusAreas = (await getCollection('catalogueFocusAreas')).map((entry) => entry.data as FocusArea).sort((a, b) => a.order - b.order);
-	const sources = uniqueSources([...designers.flatMap((designer) => designer.sources), ...ideas.map((idea) => idea.source)]);
-	return { designers, ideas, focusAreas, sources };
+	const sources = uniqueSources([...tools.flatMap((tool) => tool.sources), ...ideas.map((idea) => idea.source)]);
+	return { tools, ideas, focusAreas, sources };
 }
 
-/** Retired designer addresses; read only by the designer page, since Astro warns on every read of an empty collection. */
+/** Retired tool addresses; read only by the tool page, since Astro warns on every read of an empty collection. */
 export async function redirects(): Promise<Redirect[]> {
 	return (await getCollection('catalogueRedirects')).map((entry) => entry.data as Redirect);
 }
@@ -34,21 +34,21 @@ export function uniqueSources(records: SourceRecord[]): SourceRecord[] {
 	return records.filter((record, index) => records.findIndex((other) => key(other) === key(record)) === index);
 }
 
-export function designerHref(origin: string): string {
-	return `/adp/designers/${origin}/`;
+export function toolHref(origin: string): string {
+	return `/adp/tools/${origin}/`;
 }
 
 export { bestState, isUsable, showsScreenshots };
 
 /**
- * The image of a publishable screenshot, imported by the designers collection (src/content.config.ts). Only
+ * The image of a publishable screenshot, imported by the tools collection (src/content.config.ts). Only
  * publishable screenshots have one, so no other PNG under sources/ is ever emitted into the build.
  */
 export function screenshotImage(screenshot: Screenshot): ImageMetadata | undefined {
 	return (screenshot as Screenshot & { image?: ImageMetadata | null }).image ?? undefined;
 }
 
-/** The designers overview with one filter option ticked: `focus` (a focus-area slug), `hosts` (a host id) or `state`. */
-export function filterHref(key: 'focus' | 'hosts' | 'state', value: string): string {
-	return `/adp/designers/?${key}=${encodeURIComponent(value)}`;
+/** The tools overview with one filter option ticked: `focus` (a focus-area slug), `hosts` (a host id) or `state`. */
+export function filterHref(key: 'kind' | 'focus' | 'hosts' | 'state', value: string): string {
+	return `/adp/tools/?${key}=${encodeURIComponent(value)}`;
 }

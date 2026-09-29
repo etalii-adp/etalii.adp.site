@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://etalii.net/adp/schemas/catalogue/designer.schema.json",
-  "title": "Designer catalogue record",
-  "description": "One designer, as assembled at build time by src/lib/catalogue/assemble.ts and validated by the designers content collection (src/content.config.ts). See data-model.md for the rules this schema cannot express (membership, screenshot/state consistency).",
+  "$id": "https://etalii.net/adp/schemas/catalogue/tool.schema.json",
+  "title": "Tool catalogue record",
+  "description": "One tool, as assembled at build time by src/lib/catalogue/assemble.ts and validated by the tools content collection (src/content.config.ts). See data-model.md for the rules this schema cannot express (membership, screenshot/state consistency).",
   "type": "object",
   "additionalProperties": false,
   "required": ["origin", "name", "kind", "purpose", "task", "whySpecialized", "fileFormats", "family", "focusAreas", "theory", "definition", "hosts", "screenshots", "sources"],
@@ -37,10 +37,10 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": ["url", "dedlVersion"],
+          "required": ["url", "dislVersion"],
           "properties": {
             "url": { "type": "string", "format": "uri" },
-            "dedlVersion": { "type": "string", "minLength": 1 }
+            "dislVersion": { "type": "string", "minLength": 1 }
           }
         }
       ]

@@ -15,6 +15,7 @@
     "test": "vitest run",
     "reference:refresh": "tsx scripts/reference/refresh.ts",
     "check:reference": "tsx scripts/reference/check.ts",
+    "check:moved": "tsx scripts/reference/check-moved.ts",
     "check:links": "linkinator index.html 404.html --config linkinator.config.json",
     "check:catalogue": "node scripts/catalogue/check.ts",
     "check:pages": "playwright test",

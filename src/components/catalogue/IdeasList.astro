@@ -1,6 +1,6 @@
 ---
-// The ideas (FR-014, amended 2026-09-28): candidates that no host has planned yet, as cards like the designers', but
-// apart from the catalogue, with no thumbnails, no states and no designer pages. A dashed border sets them apart.
+// The ideas (FR-014, amended 2026-09-28): candidates that no host has planned yet, as cards like the tools', but
+// apart from the catalogue, with no thumbnails, no states and no tool pages. A dashed border sets them apart.
 import type { FocusArea, Idea } from '../../lib/catalogue/types';
 
 interface Props {
@@ -14,12 +14,12 @@ const areaName = (slug: string) => focusAreas.find((area) => area.slug === slug)
 
 <section class="adp-ideas" aria-labelledby="ideas">
 	<h2 id="ideas">Ideas</h2>
-	<p>These are candidates for a designer. No host is building them yet, and each may or may not become one.</p>
+	<p>These are candidates for a tool. No host is building them yet, and each may or may not become one.</p>
 	{
 		ideas.length > 0 ? (
 			<ul class="adp-idea-cards not-content">
 				{ideas.map((idea) => (
-					<li class="adp-idea" data-origin={idea.origin} data-focus={idea.focusAreas.join(' ')} data-state="idea">
+					<li class="adp-idea" data-origin={idea.origin} data-kind={idea.kind} data-focus={idea.focusAreas.join(' ')} data-state="idea">
 						<hgroup>
 							<h3>{idea.name}</h3>
 							<p class="adp-origin adp-note">{idea.origin}</p>
@@ -51,7 +51,7 @@ const areaName = (slug: string) => focusAreas.find((area) => area.slug === slug)
 <style>
 	.adp-idea-cards {
 		display: grid;
-		/* The designer cards' grid (DesignerList.astro): as many columns of at least 17rem as the width allows. */
+		/* The tool cards' grid (ToolList.astro): as many columns of at least 17rem as the width allows. */
 		grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
 		gap: 1rem;
 		margin: 1rem 0 0;

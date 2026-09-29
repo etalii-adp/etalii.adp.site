@@ -2,7 +2,7 @@
 
 [![Build](https://github.com/etalii-adp/etalii.adp.site/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/etalii-adp/etalii.adp.site/actions/workflows/build.yml?query=branch%3Adevelop)
 
-The website for ADP, A Different Perspective: a range of specialized diagram and text designers, highly tuned for specific tasks, including (constructive technology) assessment, collaboration between humans and agents, and bringing clarity to textual data.
+The website for ADP, A Different Perspective: a range of specialized tools: diagrams, designers and editors, highly tuned for specific tasks, including (constructive technology) assessment, collaboration between humans and agents, and bringing clarity to textual data.
 
 The site is published at <https://etalii.net/adp/>. It is a static site built with [Astro](https://astro.build) and its documentation theme [Starlight](https://starlight.astro.build).
 

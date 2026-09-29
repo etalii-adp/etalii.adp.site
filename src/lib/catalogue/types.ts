@@ -38,10 +38,10 @@ export interface NotionSourceRecord {
 }
 
 export interface FocusArea {
-	/** Kebab-case, unique; forms `designers/focus/<slug>/`. */
+	/** Kebab-case, unique; forms `tools/focus/<slug>/`. */
 	slug: string;
 	name: string;
-	/** One or two sentences: the problem a specialized designer solves there. Empty until the owner writes it. */
+	/** One or two sentences: the problem a specialized tool solves there. Empty until the owner writes it. */
 	problem: string;
 	/** Display order. */
 	order: number;
@@ -63,7 +63,7 @@ export interface HostAvailability {
 	state: StateId;
 	/** The source's own wording, e.g. `⚗️ Prototype`; `null` when the host has no entry. */
 	sourceState: string | null;
-	/** The host's own name for the designer when it differs from the designer's name. */
+	/** The host's own name for the tool when it differs from the tool's name. */
 	localName: string | null;
 	/** Present only for `available`. */
 	install: ActionLink | null;
@@ -76,7 +76,7 @@ export interface HostAvailability {
 }
 
 export interface Screenshot {
-	/** `<host>--<image-basename>`, unique within the designer. */
+	/** `<host>--<image-basename>`, unique within the tool. */
 	id: string;
 	host: HostId;
 	/** Path from the repository root, e.g. `sources/screenshots/standalone/mindmap.png`. */
@@ -87,7 +87,7 @@ export interface Screenshot {
 	alt: string;
 	/** The longer description of what is on screen. */
 	visible: string;
-	/** Why that matters for the designer's task; site-owned. Required when `publishable` is true (FR-015). */
+	/** Why that matters for the tool's task; site-owned. Required when `publishable` is true (FR-015). */
 	whyItMatters: string;
 	width: number;
 	height: number;
@@ -104,7 +104,7 @@ export interface FileFormat {
 	writes: boolean;
 }
 
-export interface Designer {
+export interface Tool {
 	/** `<vendor>/<diagram-type>`, matching `[a-z0-9.-]+/[a-z0-9.-]+`; the identity (FR-003). */
 	origin: string;
 	name: string;
@@ -121,18 +121,20 @@ export interface Designer {
 	/** FocusArea slugs. */
 	focusAreas: string[];
 	theory: Link[];
-	/** The DEDL definition, when the designer has one (FR-008). */
-	definition: { url: string; dedlVersion: string } | null;
+	/** The DISL specification, when the tool has one (FR-008). */
+	definition: { url: string; dislVersion: string } | null;
 	/** Exactly four entries, none omitted (US3 AS2). */
 	hosts: Record<HostId, HostAvailability>;
 	screenshots: Screenshot[];
-	/** Every record this designer was assembled from. */
+	/** Every record this tool was assembled from. */
 	sources: SourceRecord[];
 }
 
 export interface Idea {
 	origin: string;
 	name: string;
+	/** The kind it would be: diagram, designer or editor (etalii.adp spec 002). */
+	kind: 'diagram' | 'designer' | 'editor';
 	/** Notion's one-line purpose, at most 140 characters; null when Notion has none (an idea is not held to having one). */
 	purpose: string | null;
 	family: string;

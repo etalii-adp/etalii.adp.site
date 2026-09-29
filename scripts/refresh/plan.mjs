@@ -21,7 +21,7 @@ export function plan({ event, chosen, source, paths }) {
 	const listed = Array.isArray(paths) ? paths : null;
 	if (source === 'etalii-adp/etalii.adp') {
 		const relevant = !listed || listed.some((path) => REFERENCE_PATHS.some((folder) => String(path).startsWith(folder)));
-		return { procedures: relevant ? ['dedl'] : [] };
+		return { procedures: relevant ? ['disl'] : [] };
 	}
 	if (/^etalii-adp\/etalii\.adp\.ide\.[^/]+$/.test(source ?? '')) return { procedures: ['screenshots', 'catalogue', 'hosts'] };
 	return { error: `source-changed names no source of a refresh procedure: '${source ?? ''}'` };

@@ -29,7 +29,7 @@ describe('refresh-hosts', () => {
 		site.accept('hosts');
 	});
 
-	it('(a) derives planned for a host without docs/diagrams.md, and available for a released usable designer', () => {
+	it('(a) derives planned for a host without docs/diagrams.md, and available for a released usable tool', () => {
 		assert.equal(host('vscode').state, 'planned');
 		assert.equal(host('vscode').facts.catalogueCommit, null);
 		assert.equal(host('vscode').link, 'https://github.com/etalii-adp/etalii.adp.ide.vscode');
@@ -42,7 +42,7 @@ describe('refresh-hosts', () => {
 		assert.match(run('--dry-run').stdout, /outcome: current/);
 	});
 
-	it('(b, d) derives in progress for a first Prototype designer without a release, with its facts, old → new in the body', () => {
+	it('(b, d) derives in progress for a first Prototype tool without a release, with its facts, old → new in the body', () => {
 		repos.vscode.commit({ [CATALOGUE]: table('⚗️&nbsp;Prototype') });
 		const result = run();
 		assert.equal(result.code, 0, result.output);
@@ -52,7 +52,7 @@ describe('refresh-hosts', () => {
 		site.accept('hosts');
 	});
 
-	it('(c) derives available once a release has the designer as Prototype, linking the release', () => {
+	it('(c) derives available once a release has the tool as Prototype, linking the release', () => {
 		repos.vscode.tag('v0.1.0');
 		const result = run();
 		assert.equal(result.code, 0, result.output);

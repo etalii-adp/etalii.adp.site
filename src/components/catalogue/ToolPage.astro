@@ -1,5 +1,5 @@
 ---
-// One page per designer (FR-003 to FR-009, FR-012, FR-015), in the order of contracts/site-addresses.md § A designer
+// One page per tool (FR-003 to FR-009, FR-012, FR-015), in the order of contracts/site-addresses.md § A tool
 // page. Every git source is named in an adp:source meta for spec 004's source-record check.
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import AvailabilityTable from './AvailabilityTable.astro';
@@ -7,22 +7,22 @@ import { bestState, filterHref, isUsable, showsScreenshots } from './data';
 import ScreenshotFigure from './ScreenshotFigure.astro';
 import SourceList from './SourceList.astro';
 import TableScroll from './TableScroll.astro';
-import type { Designer, FocusArea } from '../../lib/catalogue/types';
+import type { Tool, FocusArea } from '../../lib/catalogue/types';
 
 interface Props {
-	designer: Designer;
+	tool: Tool;
 	focusAreas: FocusArea[];
 }
 
-const { designer, focusAreas } = Astro.props;
-const usable = isUsable(bestState(designer.hosts));
-const withScreenshots = showsScreenshots(bestState(designer.hosts));
-const screenshots = designer.screenshots.filter((screenshot) => screenshot.publishable);
-const areas = designer.focusAreas.map((slug) => focusAreas.find((area) => area.slug === slug)).filter((area) => area !== undefined);
+const { tool, focusAreas } = Astro.props;
+const usable = isUsable(bestState(tool.hosts));
+const withScreenshots = showsScreenshots(bestState(tool.hosts));
+const screenshots = tool.screenshots.filter((screenshot) => screenshot.publishable);
+const areas = tool.focusAreas.map((slug) => focusAreas.find((area) => area.slug === slug)).filter((area) => area !== undefined);
 const kinds = { diagram: 'Diagram', designer: 'Designer', editor: 'Editor' } as const;
 const notDescribed = 'Not described yet.';
 const head = [
-	...designer.sources
+	...tool.sources
 		.filter((record) => record.kind === 'git')
 		.map((record) => ({ tag: 'meta' as const, attrs: { name: 'adp:source', content: `${record.repository}@${record.revision}:${record.path}` } })),
 	{ tag: 'meta' as const, attrs: { name: 'adp:sourced', content: 'true' } },
@@ -41,26 +41,26 @@ const headings = [
 ];
 ---
 
-<StarlightPage frontmatter={{ title: designer.name, description: designer.purpose, part: 'documentation', section: 'designers', head }} headings={headings}>
-	<p class="adp-lede">{designer.purpose}</p>
+<StarlightPage frontmatter={{ title: tool.name, description: tool.purpose, part: 'documentation', section: 'tools', head }} headings={headings}>
+	<p class="adp-lede">{tool.purpose}</p>
 	<p>
-		{kinds[designer.kind]} · origin tag <code>{designer.origin}</code> · {designer.family}
+		{kinds[tool.kind]} · origin tag <code>{tool.origin}</code> · {tool.family}
 	</p>
 
 	<section id="availability" aria-labelledby="availability-heading">
 		<h2 id="availability-heading">Availability</h2>
-		<AvailabilityTable designer={designer} />
+		<AvailabilityTable tool={tool} />
 	</section>
 
 	<section aria-labelledby="what-it-is-for">
 		<h2 id="what-it-is-for">What it is for</h2>
 		<h3 id="the-task">The task</h3>
-		<p>{designer.task ?? notDescribed}</p>
+		<p>{tool.task ?? notDescribed}</p>
 		<h3 id="why-specialized">Why a specialized view helps</h3>
-		<p>{designer.whySpecialized ?? notDescribed}</p>
+		<p>{tool.whySpecialized ?? notDescribed}</p>
 		<h3 id="file-formats">File formats</h3>
 		{
-			designer.fileFormats.length > 0 ? (
+			tool.fileFormats.length > 0 ? (
 				<TableScroll label="File formats">
 					<table>
 						<thead>
@@ -72,7 +72,7 @@ const headings = [
 							</tr>
 						</thead>
 						<tbody>
-							{designer.fileFormats.map((format) => (
+							{tool.fileFormats.map((format) => (
 								<tr>
 									<td>
 										<code>{format.extension}</code>
@@ -107,9 +107,9 @@ const headings = [
 	<section aria-labelledby="background">
 		<h2 id="background">Background</h2>
 		{
-			designer.theory.length > 0 ? (
+			tool.theory.length > 0 ? (
 				<ul>
-					{designer.theory.map((link) => (
+					{tool.theory.map((link) => (
 						<li>
 							<a href={link.url}>{link.title}</a>
 						</li>
@@ -120,10 +120,10 @@ const headings = [
 			)
 		}
 		{
-			designer.definition && (
+			tool.definition && (
 				<p>
-					Defined in DEDL {designer.definition.dedlVersion}: <a href={designer.definition.url}>the designer's definition</a>. See the{' '}
-					<a href="/adp/dedl/">DEDL reference</a>.
+					Specified in DISL {tool.definition.dislVersion}: <a href={tool.definition.url}>the tool's specification</a>. See the{' '}
+					<a href="/adp/disl/">DISL reference</a>.
 				</p>
 			)
 		}
@@ -148,7 +148,7 @@ const headings = [
 
 	<section aria-labelledby="sources">
 		<h2 id="sources">Sources</h2>
-		<SourceList sources={designer.sources} />
+		<SourceList sources={tool.sources} />
 	</section>
 </StarlightPage>
 

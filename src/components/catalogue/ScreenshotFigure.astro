@@ -1,5 +1,5 @@
 ---
-// One screenshot on a designer page (FR-006, FR-012, FR-015): responsive WebP at most 1200 px wide, a caption
+// One screenshot on a tool page (FR-006, FR-012, FR-015): responsive WebP at most 1200 px wide, a caption
 // naming the host and revision, what is visible and why it matters, the source licence, and a link to the
 // full-size PNG, which is not loaded with the page. Renders nothing unless the screenshot is publishable.
 // The image itself links to the full-size PNG; with scripting, clicking it shows that PNG over the page, as large as
@@ -10,7 +10,7 @@ import { screenshotImage } from './data';
 
 interface Props {
 	screenshot: Screenshot;
-	/** The designer is in progress, not usable yet: the caption says so (FR-007, amended 2026-09-28). */
+	/** The tool is in progress, not usable yet: the caption says so (FR-007, amended 2026-09-28). */
 	inProgress?: boolean;
 }
 
@@ -35,7 +35,7 @@ const widths = image ? [600, 1200].filter((width) => width < image.width).concat
 				/>
 			</a>
 			<figcaption>
-				{inProgress && <p class="adp-in-progress">In progress: this shows the designer while it is being built, before it can be used.</p>}
+				{inProgress && <p class="adp-in-progress">In progress: this shows the tool while it is being built, before it can be used.</p>}
 				<p class="adp-caption">{screenshot.caption}</p>
 				<p>
 					<strong>What is visible:</strong> {screenshot.visible}

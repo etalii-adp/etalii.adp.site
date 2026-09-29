@@ -18,7 +18,7 @@ const setState = (md, origin, from, to) => md.replace(`${from}</td><td style="wh
 function setup() {
 	const standalone = makeRepo({ [CATALOGUE]: markdown }, { tags: ['v1.0.0'] });
 	const vscode = makeRepo({ [CATALOGUE]: `<table><tr><th>State</th><th>Origin</th><th>Diagram</th><th>Theory</th><th>Example</th></tr>\n${row('✅&nbsp;Implemented', 'generic/timeline', 'Timeline')}</table>\n` });
-	const intellij = makeRepo({ 'README.md': 'FreeMind and draw.io designers, described in prose only.\n' });
+	const intellij = makeRepo({ 'README.md': 'FreeMind and draw.io tools, described in prose only.\n' });
 	const eclipse = makeRepo({ 'README.md': 'eclipse\n' });
 	const site = makeSite();
 	cleanups.push(standalone.cleanup, vscode.cleanup, intellij.cleanup, eclipse.cleanup, site.cleanup);
@@ -53,7 +53,7 @@ describe('refresh-catalogue', () => {
 		assert.equal(entry('standalone', 'c4/code').state, 'planned');
 	});
 
-	it('(d) shows a designer of a host without a release at its mapped state, never lowered', () => {
+	it('(d) shows a tool of a host without a release at its mapped state, never lowered', () => {
 		assert.equal(entry('vscode', 'generic/timeline').state, 'implemented');
 		assert.equal(entry('vscode', 'generic/timeline').releaseState, null);
 	});
@@ -63,7 +63,7 @@ describe('refresh-catalogue', () => {
 		assert.match(env.site.read('.refresh/pr-body.md'), /- intellij: no catalogue at `docs\/tools\.md` or `docs\/diagrams\.md` in etalii-adp\/etalii\.adp\.ide\.intellij/);
 	});
 
-	it('(a) shows a designer implemented on develop as implemented, recording the release state', () => {
+	it('(a) shows a tool implemented on develop as implemented, recording the release state', () => {
 		env.standalone.commit({ [CATALOGUE]: setState(markdown, 'freeplane/mindmap', '⚗️&nbsp;Prototype', '✅&nbsp;Implemented') });
 		const result = env.run('--no-deliver');
 		assert.equal(result.code, 0, result.output);
@@ -74,7 +74,7 @@ describe('refresh-catalogue', () => {
 		env.site.accept('catalogue');
 	});
 
-	it('(b) records the new release state once a release has it, listing only that designer', () => {
+	it('(b) records the new release state once a release has it, listing only that tool', () => {
 		env.standalone.tag('v9.9.9');
 		const result = env.run('--no-deliver');
 		assert.equal(result.code, 0, result.output);
@@ -85,7 +85,7 @@ describe('refresh-catalogue', () => {
 		env.site.accept('catalogue');
 	});
 
-	it('(c, f) shows a row absent from the release at its mapped state, and lists added and withdrawn designers', () => {
+	it('(c, f) shows a row absent from the release at its mapped state, and lists added and withdrawn tools', () => {
 		const next = withRow(env.standalone.git(['show', 'HEAD:docs/diagrams.md']), row('✅&nbsp;Implemented', 'w3c/sparql', 'SPARQL query')).replace(/<tr>.*<code>uml\/class<\/code>.*<\/tr>\n/, '');
 		env.standalone.commit({ [CATALOGUE]: next });
 		const result = env.run();

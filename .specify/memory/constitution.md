@@ -1,5 +1,17 @@
 <!--
 Sync Impact Report
+- Version: 1.0.0 → 1.1.0 (amended 2026-09-29, etalii.adp spec 002, naming convention alignment)
+- Modified principles (titles unchanged): I. One Site for Product and Documentation (ADP described as
+  "specialized tools: diagrams, designers and editors"; the reference serves tool engineers, with the
+  specification and definition languages, DISL and DID first, and the tools); III. Truthful About What
+  Exists ("tool" for "designer"); V. Maintainable by Agents (the DISL and DID reference for DEDL).
+- Added: a pointer to etalii.adp's glossary, docs/terminology.md, as the source of these terms.
+- Removed sections: none.
+- Templates: plan-template.md, spec-template.md and tasks-template.md read the principles and name no
+  retired term; none needs a change.
+- Deferred: none.
+
+Earlier:
 - Version: template → 1.0.0 (initial ratification, 2026-09-26)
 - Principles added: I. One Site for Product and Documentation; II. Sourced, Never Retyped;
   III. Truthful About What Exists; IV. Readable by Everyone, Anywhere; V. Maintainable by Agents;
@@ -13,14 +25,16 @@ Sync Impact Report
 
 # etalii.adp.site Constitution
 
+The words for what ADP offers (tool; its three kinds, diagram, designer, editor; tool engineer; specification and definition languages) are defined in [`docs/terminology.md` in etalii-adp/etalii.adp](https://github.com/etalii-adp/etalii.adp/blob/develop/docs/terminology.md); this constitution uses them as defined there.
+
 ## Core Principles
 
 ### I. One Site for Product and Documentation
 
 The site is ADP's front door and its reference, in one place.
 
-- It MUST explain what ADP is to someone who has never heard of it: specialized diagram, designer and text editors for any task where a specialized visualization beats a generic diagram or plain text. It MUST NOT present ADP as an architecture-diagram tool only.
-- It MUST carry the reference material a designer author or user needs: the definition languages specified in `etalii-adp/etalii.adp` (DEDL first), the designers, and the IDE hosts (standalone, IntelliJ, VS Code, Eclipse).
+- It MUST explain what ADP is to someone who has never heard of it: specialized tools: diagrams, designers and editors, for any task where a specialized visualization beats a generic diagram or plain text. It MUST NOT present ADP as an architecture-diagram tool only.
+- It MUST carry the reference material a tool engineer or user needs: the specification and definition languages specified in `etalii-adp/etalii.adp` (DISL and DID first), the tools, and the IDE hosts (standalone, IntelliJ, VS Code, Eclipse).
 - The product part and the documentation part MUST be distinguishable at a glance, and every page MUST be reachable from both the home page and the site's navigation.
 
 Rationale: a visitor who is convinced should find the reference one click away, and an author reading the reference should never have to search a second site.
@@ -37,8 +51,8 @@ Rationale: hand-copied documentation drifts from the thing it describes within w
 
 ### III. Truthful About What Exists (NON-NEGOTIABLE)
 
-- The site MUST NOT claim a designer, format or IDE capability that does not exist in a released or published form. Planned and in-progress work MAY be shown only when labelled as such.
-- Each designer's availability MUST be stated per IDE host, because the hosts do not move in step.
+- The site MUST NOT claim a tool, format or IDE capability that does not exist in a released or published form. Planned and in-progress work MAY be shown only when labelled as such.
+- Each tool's availability MUST be stated per IDE host, because the hosts do not move in step.
 - Screenshots MUST show the real product, captured from it, not mock-ups presented as the product.
 
 Rationale: a reader who installs ADP on the strength of a claim that turns out false does not come back.
@@ -54,7 +68,7 @@ Rationale: a documentation site that some readers cannot use, or that follows th
 
 ### V. Maintainable by Agents
 
-- Every recurring content task (refreshing screenshots, DEDL and other sourced material, publishing a release of the site) MUST have a written procedure in this repository that an agent can follow from start to finish without asking a person for steps.
+- Every recurring content task (refreshing screenshots, the DISL and DID reference and other sourced material, publishing a release of the site) MUST have a written procedure in this repository that an agent can follow from start to finish without asking a person for steps.
 - A procedure MUST end in a pull request into `develop`, never in a direct change to the published site.
 - A procedure MUST verify its own result (links resolve, sourced items carry their source and revision, pages build) before it opens the pull request.
 
@@ -85,4 +99,4 @@ Start with the smallest site that does the job and grow it by specification. Too
 
 This constitution supersedes other practices in this repository. Amendments are made through `/speckit-constitution`, recorded in version control, and versioned semantically: MAJOR for removing or redefining a principle, MINOR for adding a principle or materially expanding guidance, PATCH for clarifications. Reviews of plans and changes MUST verify compliance with the principles above; runtime guidance for agents lives in `CLAUDE.md`.
 
-**Version**: 1.0.0 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-09-26
+**Version**: 1.1.0 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-09-29

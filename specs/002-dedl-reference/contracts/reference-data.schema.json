@@ -14,7 +14,7 @@
       "additionalProperties": false,
       "required": ["id", "name", "short", "repository", "branch", "path", "prose", "schema", "schemaAddress"],
       "properties": {
-        "id": { "type": "string", "pattern": "^[a-z]+$", "not": { "enum": ["designers", "search", "pagefind"] } },
+        "id": { "type": "string", "pattern": "^[a-z]+$", "not": { "enum": ["designers", "tools", "docs", "search", "pagefind"] } },
         "name": { "type": "string", "minLength": 1 },
         "short": { "type": "string", "minLength": 1 },
         "repository": { "type": "string", "pattern": "^[A-Za-z0-9-]+/[A-Za-z0-9._-]+$" },
@@ -23,7 +23,8 @@
         "prose": { "type": "string", "pattern": "\\.md$" },
         "schema": { "type": "string", "pattern": "\\.json$" },
         "schemaAddress": { "type": "string", "pattern": "^/[a-z]+/schema/\\{version\\}/\\{schema\\}$" },
-        "publish": { "type": "boolean", "description": "false while the language is registered for npm run reference:refresh only and has no pages; absent means true (etalii.adp spec 002, naming convention alignment)." }
+        "publish": { "type": "boolean", "description": "false while the language is registered for npm run reference:refresh only and has no pages; absent means true (etalii.adp spec 002, naming convention alignment)." },
+        "movedTo": { "type": "string", "pattern": "^[a-z]+$", "description": "The id of the language that replaces this one; with publish false, every page address of this language redirects to that language's landing, and its schema files are still served at their own addresses (etalii.adp spec 002: DEDL moved to DISL)." }
       }
     },
     "Version": {

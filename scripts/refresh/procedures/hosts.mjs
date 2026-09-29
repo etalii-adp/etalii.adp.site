@@ -2,15 +2,15 @@
 // latest release (research R10) into sources/hosts/hosts.json.
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { CATALOGUE_PATHS, catalogueFileOf, designersFor, isUnderway, isUsable } from '../lib/catalogue-table.mjs';
+import { CATALOGUE_PATHS, catalogueFileOf, toolsFor, isUnderway, isUsable } from '../lib/catalogue-table.mjs';
 import { HOSTS } from './catalogue.mjs';
 
 const ide = (host) => ({ repository: `etalii-adp/etalii.adp.ide.${host}`, ref: 'develop', paths: [...CATALOGUE_PATHS], host });
 
 /**
- * The three rules of research R10: available, else in progress, else planned. Usable designers are those at
+ * The three rules of research R10: available, else in progress, else planned. Usable tools are those at
  * prototype, implemented or available (spec 003, owner's decision of 2026-09-27). A host is available only with a
- * release to install (spec 003 research D3); until then usable designers count as in progress.
+ * release to install (spec 003 research D3); until then usable tools count as in progress.
  */
 export function hostState(entries, released = true) {
 	const usableDesigners = entries.filter((e) => isUsable(e.state)).length;
@@ -36,8 +36,8 @@ export default {
 			let derived = { state: 'planned', usableDesigners: 0, designersInProgress: 0 };
 			if (catalogue) {
 				inputs.push(catalogue);
-				const designers = await designersFor(source.host, source.reader, { head: source.head, release: source.release, states: ctx.config.states });
-				derived = hostState(designers.entries, Boolean(source.release));
+				const tools = await toolsFor(source.host, source.reader, { head: source.head, release: source.release, states: ctx.config.states });
+				derived = hostState(tools.entries, Boolean(source.release));
 			}
 			hosts.push({
 				host: source.host,
@@ -62,7 +62,7 @@ export default {
 
 	renderDetails(d) {
 		if (!d) return '';
-		const lines = ['| Host | State | Usable designers | Designers in progress | Latest release | Catalogue |', '|---|---|---|---|---|---|'];
+		const lines = ['| Host | State | Usable tools | Tools in progress | Latest release | Catalogue |', '|---|---|---|---|---|---|'];
 		for (const h of d.hosts) {
 			const state = h.from === null ? `${h.to} (new)` : h.from === h.to ? `${h.to} (unchanged)` : `${h.from} → ${h.to}`;
 			const release = h.facts.latestRelease ? `${h.facts.latestRelease.tag} (\`${h.facts.latestRelease.commit.slice(0, 7)}\`)` : 'none';

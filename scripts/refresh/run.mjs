@@ -26,7 +26,7 @@ import { git, posix, run, runCaptured, short, writeJson } from './lib/util.mjs';
 import { verify } from './verify.mjs';
 
 const here = fileURLToPath(new URL('.', import.meta.url));
-export const PROCEDURES = ['dedl', 'screenshots', 'catalogue', 'hosts'];
+export const PROCEDURES = ['disl', 'screenshots', 'catalogue', 'hosts'];
 /** Every name `npm run refresh` accepts: the procedures, their aliases (lib/names.mjs) and `all`. */
 export const NAMES = [...PROCEDURES, ...Object.keys(ALIASES), 'all'];
 export const EXIT = { current: 0, delivered: 0, 'delivered-draft': 1, failed: 2, 'needs-decision': 3 };

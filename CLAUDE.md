@@ -1,6 +1,6 @@
 # etalii.adp.site
 
-The website for ADP ("A Different Perspective"): specialized diagram, designer and text editors for any task where a specialized visualization beats a generic diagram or plain text. The formats the designers implement are specified in [etalii-adp/etalii.adp](https://github.com/etalii-adp/etalii.adp); the designers themselves live in the `etalii.adp.ide.*` repositories (standalone, IntelliJ, VS Code, Eclipse).
+The website for ADP ("A Different Perspective"): specialized tools (diagrams, designers and editors) for any task where a specialized visualization beats a generic diagram or plain text. The formats the tools implement are specified in [etalii-adp/etalii.adp](https://github.com/etalii-adp/etalii.adp); the tools themselves live in the `etalii.adp.ide.*` repositories (standalone, IntelliJ, VS Code, Eclipse). The words tool, diagram, designer, editor, tool engineer, specification and definition are used as defined in the glossary, [`docs/terminology.md` in etalii.adp](https://github.com/etalii-adp/etalii.adp/blob/develop/docs/terminology.md).
 
 ## How work is done here: spec-driven development (GitHub Spec Kit)
 
@@ -22,7 +22,7 @@ Specs say *what* and *why*; plans say *how*. Do not put implementation choices i
 
 - `develop` is the integration branch.
 - One feature per branch, named `features/<number>-<name>` (Spec Kit's `branch_prefix` is set to `features`). The one exception is `claude/<name>`, which Claude's cloud sessions are handed by their harness.
-- A third category, `refresh/<procedure>` (for example `refresh/dedl`), is written only by a refresh procedure (see "Refreshing sourced content"). It is recreated from `develop` and force-pushed on every run, so never commit to it by hand; the owner merges its pull request like any other.
+- A third category, `refresh/<procedure>` (for example `refresh/disl`), is written only by a refresh procedure (see "Refreshing sourced content"). It is recreated from `develop` and force-pushed on every run, so never commit to it by hand; the owner merges its pull request like any other.
 - A feature branch is built in its own git worktree at `.claude/worktrees/<number>-<name>/` inside this repository (git-ignored), not in a sibling folder. Bring the branch up to date with `origin/develop` (fast-forward) before starting work in it.
 - A feature branch is never merged locally into `develop`. When its work is done, push the branch from the worktree it was built in to `origin` and open a pull request into `develop`; nothing reaches `develop` except through a pull request. There is no branch protection, so this holds by convention alone: never push to `develop` directly.
 - Pull requests are merged with a merge commit, never a squash or a rebase.
@@ -36,19 +36,19 @@ Specs say *what* and *why*; plans say *how*. Do not put implementation choices i
 
 ## Refreshing sourced content
 
-The DEDL reference, the designer catalogue, the screenshots and the IDE host states are copied from their source repositories into `sources/` by written procedures, indexed in [procedures/README.md](procedures/README.md). Naming a procedure is enough to run it:
+The DISL and DID reference, the tool catalogue, the screenshots and the IDE host states are copied from their source repositories into `sources/` by written procedures, indexed in [procedures/README.md](procedures/README.md). Naming a procedure is enough to run it:
 
-- "Refresh the DEDL reference": [procedures/refresh-dedl.md](procedures/refresh-dedl.md)
+- "Refresh the DISL and DID reference": [procedures/refresh-disl.md](procedures/refresh-disl.md)
 - "Refresh the screenshots": [procedures/refresh-screenshots.md](procedures/refresh-screenshots.md)
-- "Refresh the designer catalogue": [procedures/refresh-catalogue.md](procedures/refresh-catalogue.md)
+- "Refresh the tool catalogue": [procedures/refresh-catalogue.md](procedures/refresh-catalogue.md)
 - "Refresh the IDE host states": [procedures/refresh-hosts.md](procedures/refresh-hosts.md)
 - "Refresh the whole site": [procedures/refresh-all.md](procedures/refresh-all.md)
 
 When asked to run one of them, open its document in `procedures/` and follow it step by step. Never edit a file under `sources/` by hand; every change there comes from `npm run refresh`. When a run ends with `needs-decision`, read `.refresh/decision.json` and ask the person its `question` as a selection whose options are exactly its `options`; then run `npm run refresh:decide -- <id> <answer>` and run the procedure again.
 
-## Adding or refining a designer
+## Adding or refining a tool
 
-The designer catalogue (spec 003) has no hand-written page per designer: everything shown about a designer comes from the IDE hosts' `docs/diagrams.md` and screenshots, and from the Notion "Diagrams" database, through the refresh procedures above. Before adding a designer, changing its text or state, or changing the designers pages, read "Adding or refining a designer" in [src/content/catalogue/README.md](src/content/catalogue/README.md).
+The tool catalogue (spec 003) has no hand-written page per tool: everything shown about a tool comes from the IDE hosts' `docs/tools.md` and screenshots, and from the Notion "Tools" database, through the refresh procedures above. Before adding a tool, changing its text or state, or changing the tools pages, read "Adding or refining a tool" in [src/content/catalogue/README.md](src/content/catalogue/README.md).
 
 ## Article pages
 

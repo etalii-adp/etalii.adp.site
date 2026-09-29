@@ -7,7 +7,7 @@ import { visitorCounterOrigin } from '../src/data/visitors';
 
 // Every built page is checked (FR-012, FR-014, FR-015, FR-017, SC-003): the pages under dist/adp/ and the
 // root 404 page. The root index.html is the redirect of FR-018 and is checked on its own below. Other pages that
-// only redirect (a renamed designer's stub, spec 003 FR-011) navigate away as they load; tests/catalogue.spec.ts
+// only redirect (a renamed tool's stub, spec 003 FR-011) navigate away as they load; tests/catalogue.spec.ts
 // checks them, and their target is checked here.
 const dist = 'dist';
 
@@ -24,11 +24,11 @@ function addressOf(file: string): string {
 	return path.endsWith('/index.html') ? path.slice(0, -'index.html'.length) : path;
 }
 
-// The DEDL reference (spec 002) builds some sixty pages per version from one template each; its checks here
+// The DISL and DID references (spec 002) build some sixty pages per version from one template each; its checks here
 // cover one page of each kind (spec 002 quickstart 8): the landing, a cover, section 6, the schema browser,
 // one example, the examples index, a latest copy and search. check:reference covers every page.
-const referencePage = /^\/adp\/dedl\/(?!$|search\/$)/;
-const referenceSample = /^\/adp\/dedl\/(?:[0-9.]+\/(?:layer-3-notation-visual-definition\/|schema\/|examples\/(?:statemachine\/)?)?|latest\/foundations\/)$/;
+const referencePage = /^\/adp\/(?:disl|did)\/(?!$|search\/$)/;
+const referenceSample = /^\/adp\/(?:disl|did)\/(?:[0-9.]+\/(?:layer-3-notation-visual-definition\/|schema\/|examples\/(?:statemachine\/)?)?|latest\/foundations\/)$/;
 const redirectsAway = (file: string) => /<meta http-equiv="refresh"/.test(readFileSync(file, 'utf8'));
 const pages = [...htmlFiles(join(dist, 'adp')), join(dist, '404.html')]
 	.filter((file) => !redirectsAway(file))
@@ -44,7 +44,7 @@ async function expectNoViolations(page: Page) {
 }
 
 test('the build contains the pages of this feature', () => {
-	expect(pages).toEqual(expect.arrayContaining(['/404.html', '/adp/', '/adp/docs/', '/adp/dedl/', '/adp/designers/']));
+	expect(pages).toEqual(expect.arrayContaining(['/404.html', '/adp/', '/adp/docs/', '/adp/docs/specification-and-definition/', '/adp/disl/', '/adp/did/', '/adp/tools/']));
 });
 
 for (const address of pages) {
@@ -52,8 +52,8 @@ for (const address of pages) {
 	const isNotFound = address.endsWith('404.html');
 
 	test.describe(address, () => {
-		// The schema browser holds every highlighted definition of the DEDL schema; axe needs longer there.
-		if (/^\/adp\/dedl\/[^/]+\/schema\/$/.test(address)) test.slow();
+		// The schema browser holds every highlighted definition of a schema; axe needs longer there.
+		if (/^\/adp\/(?:disl|did)\/[^/]+\/schema\/$/.test(address)) test.slow();
 		for (const colorScheme of ['light', 'dark'] as const) {
 			test(`passes WCAG 2.2 AA in the ${colorScheme} scheme`, async ({ browser }) => {
 				const context = await browser.newContext({ colorScheme });
@@ -93,7 +93,7 @@ for (const address of pages) {
 			}
 			const siteMap = page.getByRole('navigation', { name: 'Site map' });
 			await siteMap.scrollIntoViewIfNeeded();
-			for (const name of ['Home', 'Documentation', 'DEDL reference', 'Designers']) {
+			for (const name of ['Home', 'Documentation', 'Specification & Definition', 'DISL reference', 'DID reference', 'Tools']) {
 				await expect(siteMap.getByRole('link', { name, exact: true })).toBeVisible();
 			}
 			await context.close();
@@ -162,16 +162,16 @@ test.describe('addresses (contracts/site-addresses.md)', () => {
 		const current = page.getByRole('navigation', { name: 'Site parts' }).locator('[aria-current="true"]');
 		await page.goto('/adp/');
 		await expect(current).toHaveText('Product');
-		for (const address of ['/adp/docs/', '/adp/dedl/', '/adp/designers/']) {
+		for (const address of ['/adp/docs/', '/adp/docs/specification-and-definition/', '/adp/disl/', '/adp/did/', '/adp/tools/']) {
 			await page.goto(address);
 			await expect(current).toHaveText('Documentation');
 		}
 	});
 
 	test('a coming section shows its breadcrumbs', async ({ page }) => {
-		await page.goto('/adp/dedl/');
+		await page.goto('/adp/disl/');
 		const crumbs = page.getByRole('navigation', { name: 'Breadcrumb' });
 		await expect(crumbs.getByRole('link', { name: 'Documentation' })).toHaveAttribute('href', '/adp/docs/');
-		await expect(crumbs.locator('[aria-current="page"]')).toHaveText('DEDL reference');
+		await expect(crumbs.locator('[aria-current="page"]')).toHaveText('DISL reference');
 	});
 });

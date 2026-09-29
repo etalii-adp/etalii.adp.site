@@ -1,18 +1,27 @@
 import { describe, expect, it } from 'vitest';
 import { languageById, languages, registeredLanguages } from '../../src/lib/reference/load';
+import { movedReferenceRedirects } from '../../src/lib/reference/moved';
 
-// etalii.adp spec 002, Part 1: DISL and DID are registered for the refresh, but get no pages until its Part 5.
+// etalii.adp spec 002: DEDL became DISL and DID. DISL and DID have pages; DEDL is registered only so that its old
+// addresses redirect to DISL and its schema keeps being served (research R4, R6).
 describe('languages.json', () => {
-	it('registers DEDL, DISL and DID with the layout of etalii.adp spec 002', () => {
+	it('registers DISL, DID and DEDL with the layout of etalii.adp spec 002', () => {
 		const byId = Object.fromEntries(registeredLanguages().map((l) => [l.id, l]));
 		expect(Object.keys(byId).sort()).toEqual(['dedl', 'did', 'disl']);
-		expect(byId.disl).toMatchObject({ path: 'specifications/disl', prose: 'DISL-specification.md', schema: 'disl.schema.json', schemaAddress: '/disl/schema/{version}/{schema}', publish: false });
-		expect(byId.did).toMatchObject({ path: 'specifications/did', prose: 'DID-specification.md', schema: 'did.schema.json', schemaAddress: '/did/schema/{version}/{schema}', publish: false });
+		expect(byId.disl).toMatchObject({ path: 'specifications/disl', prose: 'DISL-specification.md', schema: 'disl.schema.json', schemaAddress: '/disl/schema/{version}/{schema}' });
+		expect(byId.did).toMatchObject({ path: 'specifications/did', prose: 'DID-specification.md', schema: 'did.schema.json', schemaAddress: '/did/schema/{version}/{schema}' });
+		expect(byId.dedl).toMatchObject({ schemaAddress: '/dedl/schema/{version}/{schema}', publish: false, movedTo: 'disl' });
 	});
 
-	it('publishes pages for DEDL only, while the refresh can still name DISL and DID', () => {
-		expect(languages().map((l) => l.id)).toEqual(['dedl']);
-		expect(languageById('disl').short).toBe('DISL');
-		expect(languageById('did').short).toBe('DID');
+	it('publishes pages for DISL and DID, not for DEDL', () => {
+		expect(languages().map((l) => l.id)).toEqual(['disl', 'did']);
+		expect(languageById('dedl').short).toBe('DEDL');
+	});
+
+	it('redirects every DEDL page address to the DISL landing', () => {
+		const redirects = movedReferenceRedirects();
+		expect(redirects['/dedl/']).toBe('/adp/disl/');
+		expect(redirects['/dedl/search/']).toBe('/adp/disl/');
+		expect(Object.values(redirects).every((to) => to === '/adp/disl/')).toBe(true);
 	});
 });
