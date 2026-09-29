@@ -1,10 +1,11 @@
 ---
 // The frame of every reference page: spec 001's site layout (StarlightPage, with the site header,
-// breadcrumbs and footer) with the version's table of contents as its sidebar, plus the reference's own
+// breadcrumbs and footer) with the documentation sidebar, the version's table of contents open inside it, plus the reference's own
 // parts around the source text (contracts/rendering-rules.md "Added around the source text").
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import type { LoadedVersion } from '../../lib/reference/load';
 import type { RenderedHeading } from '../../lib/reference/render';
+import { docsSidebar } from '../../data/sidebar';
 import { searchHref, sidebarFor } from '../../lib/reference/site';
 import Provenance from './Provenance.astro';
 import Toc from './Toc.astro';
@@ -58,7 +59,7 @@ const onThisPage = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 		tableOfContents: onThisPage.length > 1 ? { minHeadingLevel: 2, maxHeadingLevel: 3 } : false,
 		pagefind: searchable,
 	}}
-	sidebar={version ? sidebarFor(version, segment) : undefined}
+	sidebar={docsSidebar(version && { language: version.language.id, items: sidebarFor(version, segment) })}
 	headings={onThisPage}
 >
 	<div class="ref-page">
