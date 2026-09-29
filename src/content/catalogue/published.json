@@ -18,6 +18,7 @@
   "generic/dependencies",
   "generic/timeline",
   "helm/chart",
+  "jgraph/drawio",
   "plantuml/uml",
   "systems/causal-loop-diagram",
   "w3c/owl",
