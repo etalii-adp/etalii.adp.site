@@ -93,7 +93,7 @@ for (const address of pages) {
 			}
 			const siteMap = page.getByRole('navigation', { name: 'Site map' });
 			await siteMap.scrollIntoViewIfNeeded();
-			for (const name of ['Home', 'Documentation', 'Specification & Definition', 'DISL reference', 'DID reference', 'Tools']) {
+			for (const name of ['Home', 'Documentation', 'Specification & Definition', 'DISL reference', 'DID reference', 'Tools', 'Research']) {
 				await expect(siteMap.getByRole('link', { name, exact: true })).toBeVisible();
 			}
 			await context.close();
