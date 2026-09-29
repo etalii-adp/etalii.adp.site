@@ -7,6 +7,7 @@ import { headingId } from '../../../lib/reference/anchors';
 import { renderVersion } from '../../../lib/reference/render';
 import { versionRoutes, type VersionRoute } from '../../../lib/reference/routes';
 import { schemaModel } from '../../../lib/reference/schema';
+import { descriptionHtml, descriptionOf } from '../../../lib/reference/schema-html';
 import { layerSections, pageHref, schemaFileHref, schemaPageHref, tocEntries } from '../../../lib/reference/site';
 
 export function getStaticPaths() {
@@ -37,6 +38,11 @@ const groups = [
 	...(model.definitions.some((d) => !d.layer) ? [{ label: 'Not listed in Appendix A.2', id: 'layer-unlisted', definitions: model.definitions.filter((d) => !d.layer) }] : []),
 ];
 const file = schemaFileHref(version);
+const descriptions = new Map<string, string>();
+for (const definition of model.definitions) {
+	const text = descriptionOf(definition.json);
+	if (text) descriptions.set(definition.name, await descriptionHtml(version, segment, text));
+}
 ---
 
 <ReferenceLayout
@@ -52,7 +58,7 @@ const file = schemaFileHref(version);
 >
 	<p>
 		The JSON Schema of {version.language.short} {version.record.version} (<code>{version.language.schema}</code>) has {model.definitions.length} definitions. They are
-		grouped here by the layers of Appendix A.2. The file itself is published unchanged at <a href={file} download={version.language.schema}><code>{file}</code></a>, the
+		grouped here by the layers of Appendix A.2, each with its own description above its JSON. The file itself is published unchanged at <a href={file} download={version.language.schema}><code>{file}</code></a>, the
 		address of its <code>$id</code>, for validators and editors.
 	</p>
 	{
@@ -60,7 +66,7 @@ const file = schemaFileHref(version);
 			<section aria-labelledby={group.id}>
 				<h2 id={group.id}>{group.label}</h2>
 				{group.definitions.map((definition) => (
-					<SchemaDefinition definition={definition} names={names} describedIn={describedIn(definition.name)} layerSections={layers} />
+					<SchemaDefinition definition={definition} names={names} describedIn={describedIn(definition.name)} layerSections={layers} description={descriptions.get(definition.name) ?? null} />
 				))}
 			</section>
 		))

@@ -204,6 +204,9 @@
 	font-size: var(--sl-text-sm);
 	color: var(--sl-color-gray-3);
 }
+.sl-markdown-content .ref-def-description p {
+	margin-block: 0.5rem 0;
+}
 .sl-markdown-content .ref-def .shiki a {
 	color: inherit;
 	text-decoration: underline;

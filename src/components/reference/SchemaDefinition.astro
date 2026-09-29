@@ -1,6 +1,7 @@
 ---
 // One `$defs` entry on the schema page: its name (anchor `def-<Name>`), its layer, its JSON with `$ref`s
-// linked, and "Described in" — the sections that link to it, and its layer's section (FR-019).
+// linked, its description as prose, and "Described in" — the sections that link to it, and its layer's
+// section (FR-019).
 import { definitionHtml } from '../../lib/reference/schema-html';
 import type { LayerSection } from '../../lib/reference/site';
 import { sectionOfLayerLabel } from '../../lib/reference/site';
@@ -12,9 +13,11 @@ interface Props {
 	/** Sections that link to this definition, in document order: label and address. */
 	describedIn: { label: string; href: string }[];
 	layerSections: LayerSection[];
+	/** The definition's `description`, rendered; null when it has none. */
+	description: string | null;
 }
 
-const { definition, names, describedIn, layerSections } = Astro.props;
+const { definition, names, describedIn, layerSections, description } = Astro.props;
 const layerSection = sectionOfLayerLabel(definition.layer, layerSections);
 const described = [...describedIn];
 if (layerSection && !described.some((d) => d.href === layerSection.href)) {
@@ -44,5 +47,6 @@ const html = await definitionHtml(definition.json, names);
 			)
 		}
 	</p>
+	{description && <div class="ref-def-description" set:html={description} />}
 	<Fragment set:html={html} />
 </section>
