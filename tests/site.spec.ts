@@ -6,6 +6,7 @@ import { badgeOrigin, statsOrigin } from '../src/data/builds';
 import { visitorCounterOrigin } from '../src/data/visitors';
 import { examplesOf } from '../src/lib/reference/examples';
 import { latestOf } from '../src/lib/reference/load';
+import { researchArticles } from '../src/data/research';
 
 // Every built page is checked (FR-012, FR-014, FR-015, FR-017, SC-003): the pages under dist/adp/ and the
 // root 404 page. The root index.html is the redirect of FR-018 and is checked on its own below. Other pages that
@@ -204,6 +205,21 @@ test.describe('addresses (contracts/site-addresses.md)', () => {
 		expect(slot?.width).toBe(120);
 		expect(slot?.height).toBe(20);
 		await context.close();
+	});
+
+	test('each research article is its own item in a collapsible Research group (Peter, 2026-09-29)', async ({ page }) => {
+		const articles = researchArticles();
+		expect(articles.length).toBeGreaterThan(0);
+		const research = page.locator('.sidebar-content details').filter({ has: page.locator(':scope > summary', { hasText: 'Research' }) });
+		await page.goto('/adp/docs/');
+		const first = research.locator(`a[href="${articles[0].href}"]`);
+		await expect(first).toBeHidden();
+		await research.locator(':scope > summary').click();
+		await expect(research.getByRole('link', { name: 'Overview' })).toHaveAttribute('href', '/adp/docs/research/');
+		for (const article of articles) await expect(research.getByRole('link', { name: article.title, exact: true })).toHaveAttribute('href', article.href);
+		// An article's own page opens the group at that article.
+		await page.goto(articles[0].href);
+		await expect(research.locator('[aria-current="page"]')).toHaveText(articles[0].title);
 	});
 
 	test('the part marker follows the page', async ({ page }) => {
