@@ -71,7 +71,7 @@ for (const address of pages) {
 			await page.goto(address);
 			const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
 			expect(overflow, 'horizontal overflow in px').toBeLessThanOrEqual(0);
-			await expect(page.getByRole('navigation', { name: 'Site parts' }).getByRole('link', { name: 'Product' })).toBeVisible();
+			await expect(page.getByRole('navigation', { name: 'Site parts' }).getByRole('link', { name: 'About' })).toBeVisible();
 			await expect(page.getByRole('navigation', { name: 'Site parts' }).getByRole('link', { name: 'Documentation' })).toBeVisible();
 			await page.getByRole('navigation', { name: 'Site map' }).scrollIntoViewIfNeeded();
 			await expect(page.getByRole('navigation', { name: 'Site map' })).toBeVisible();
@@ -86,7 +86,7 @@ for (const address of pages) {
 			await expect(page.locator('h1')).toBeVisible();
 			await expect(page.locator('main')).toContainText(/\w{3,}/);
 			const parts = page.getByRole('navigation', { name: 'Site parts' });
-			await expect(parts.getByRole('link', { name: 'Product' })).toBeVisible();
+			await expect(parts.getByRole('link', { name: 'About' })).toBeVisible();
 			await expect(parts.getByRole('link', { name: 'Documentation' })).toBeVisible();
 			if (!isHome && !isNotFound) {
 				await expect(page.getByRole('navigation', { name: 'Breadcrumb' })).toBeVisible();
@@ -158,10 +158,20 @@ test.describe('addresses (contracts/site-addresses.md)', () => {
 		await expect(page.getByRole('main').getByRole('link', { name: 'Go to the home page' })).toHaveAttribute('href', '/adp/');
 	});
 
+	test('the DISL and DID reference sit indented under Specification & Definition in the sidebar (Peter, 2026-09-29)', async ({ page }) => {
+		await page.goto('/adp/docs/');
+		const sidebar = page.locator('.sidebar-content');
+		const indent = async (label: string) =>
+			sidebar.getByRole('link', { name: label, exact: false }).first().evaluate((link) => parseFloat(getComputedStyle(link).paddingInlineStart));
+		const parent = await indent('Specification & Definition');
+		for (const child of ['DISL reference', 'DID reference']) expect(await indent(child), child).toBeGreaterThan(parent);
+		expect(await indent('Tools')).toBe(parent);
+	});
+
 	test('the part marker follows the page', async ({ page }) => {
 		const current = page.getByRole('navigation', { name: 'Site parts' }).locator('[aria-current="true"]');
 		await page.goto('/adp/');
-		await expect(current).toHaveText('Product');
+		await expect(current).toHaveText('About');
 		for (const address of ['/adp/docs/', '/adp/docs/specification-and-definition/', '/adp/disl/', '/adp/did/', '/adp/tools/']) {
 			await page.goto(address);
 			await expect(current).toHaveText('Documentation');

@@ -6,7 +6,7 @@
 
 import { hasPublishedVersion } from '../lib/reference/published';
 
-export type PartId = 'product' | 'documentation';
+export type PartId = 'about' | 'documentation';
 
 export interface Part {
 	id: PartId;
@@ -25,22 +25,24 @@ export interface Section {
 	status: 'available' | 'coming';
 	/** The specification that delivers the section; required when `status` is `coming`. */
 	deliveredBy: string;
+	/** A section shown under another one in the sidebar, indented beneath it (Peter, 2026-09-29). */
+	parent?: string;
 }
 
 export const parts: readonly Part[] = [
-	{ id: 'product', label: 'Product', href: '/adp/' },
+	{ id: 'about', label: 'About', href: '/adp/' },
 	{ id: 'documentation', label: 'Documentation', href: '/adp/docs/' },
 ];
 
 export const sections: readonly Section[] = [
-	{ id: 'home', label: 'Home', part: 'product', href: '/adp/', status: 'available', deliveredBy: '001' },
+	{ id: 'home', label: 'Home', part: 'about', href: '/adp/', status: 'available', deliveredBy: '001' },
 	{ id: 'docs', label: 'Documentation', part: 'documentation', href: '/adp/docs/', status: 'available', deliveredBy: '001' },
 	// The six languages in which tools are specified and stored (etalii.adp spec 002, research R7).
 	{ id: 'specification', label: 'Specification & Definition', part: 'documentation', href: '/adp/docs/specification-and-definition/', status: 'available', deliveredBy: 'etalii.adp 002' },
 	// Coming until a version is published (spec 002; its source needs a licence first). DEDL became DISL and DID
 	// (etalii.adp spec 002), and its old addresses redirect to /adp/disl/.
-	{ id: 'disl', label: 'DISL reference', part: 'documentation', href: '/adp/disl/', status: hasPublishedVersion('disl') ? 'available' : 'coming', deliveredBy: '002' },
-	{ id: 'did', label: 'DID reference', part: 'documentation', href: '/adp/did/', status: hasPublishedVersion('did') ? 'available' : 'coming', deliveredBy: '002' },
+	{ id: 'disl', label: 'DISL reference', part: 'documentation', href: '/adp/disl/', status: hasPublishedVersion('disl') ? 'available' : 'coming', deliveredBy: '002', parent: 'specification' },
+	{ id: 'did', label: 'DID reference', part: 'documentation', href: '/adp/did/', status: hasPublishedVersion('did') ? 'available' : 'coming', deliveredBy: '002', parent: 'specification' },
 	{ id: 'tools', label: 'Tools', part: 'documentation', href: '/adp/tools/', status: 'available', deliveredBy: '003' },
 ];
 

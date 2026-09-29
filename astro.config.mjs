@@ -8,10 +8,12 @@ import { sectionsOf } from './src/data/sections.ts';
 
 // The documentation sidebar, from the documentation-part sections; "Coming" on those not written yet (research R6).
 // Links rather than docs slugs, because some sections (the DISL and DID reference, the tool catalogue) are pages
-// outside the docs collection; Starlight adds the base (/adp) to a sidebar link itself.
+// outside the docs collection; Starlight adds the base (/adp) to a sidebar link itself. A section with a parent is
+// indented under it by the adp-sidebar-child class (theme.css).
 const sidebar = sectionsOf('documentation').map((section) => ({
 	label: section.label,
 	link: section.href.replace(/^\/adp\//, '/'),
+	...(section.parent ? { attrs: { class: 'adp-sidebar-child' } } : {}),
 	...(section.status === 'coming' ? { badge: { text: 'Coming', variant: /** @type {const} */ ('caution') } } : {}),
 }));
 

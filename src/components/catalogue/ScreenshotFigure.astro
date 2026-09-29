@@ -1,9 +1,9 @@
 ---
 // One screenshot on a tool page (FR-006, FR-012, FR-015): responsive WebP at most 1200 px wide, a caption
-// naming the host and revision, what is visible and why it matters, the source licence, and a link to the
-// full-size PNG, which is not loaded with the page. Renders nothing unless the screenshot is publishable.
-// The image itself links to the full-size PNG; with scripting, clicking it shows that PNG over the page, as large as
-// the window allows, until Escape, the close button or a click outside it (amended 2026-09-28).
+// naming the host and revision, what is visible and why it matters, and the source licence. Renders nothing unless
+// the screenshot is publishable. The image itself links to the full-size PNG, which is not loaded with the page; with
+// scripting, clicking it shows that PNG over the page, as large as the window allows, until Escape, the close button
+// or a click outside it (amended 2026-09-28). No separate "Full-size PNG" link: the image is enough (amended 2026-09-29).
 import { Picture } from 'astro:assets';
 import type { Screenshot } from '../../lib/catalogue/types';
 import { screenshotImage } from './data';
@@ -44,7 +44,7 @@ const widths = image ? [600, 1200].filter((width) => width < image.width).concat
 					<strong>Why it matters:</strong> {screenshot.whyItMatters}
 				</p>
 				<p class="adp-source">
-					Licence: {screenshot.source.licence} · <a href={image.src}>Full-size PNG</a>
+					Licence: {screenshot.source.licence}
 				</p>
 			</figcaption>
 		</figure>

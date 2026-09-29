@@ -200,7 +200,7 @@ export const collections = {
 			extend: z.object({
 				// Required on every page, for <meta name="description"> (data-model "Page").
 				description: z.string().trim().min(1, 'Every page needs a non-empty description.'),
-				part: z.enum(['product', 'documentation']),
+				part: z.enum(['about', 'documentation']),
 				section: z.enum(sectionIds).optional(),
 			}),
 		}),
