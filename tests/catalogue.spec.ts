@@ -184,6 +184,15 @@ test.describe('overview', () => {
 		await context.close();
 	});
 
+	test('every state label in a card has the same width (Peter, 2026-09-29)', async ({ page }) => {
+		await page.goto('/adp/tools/');
+		const widths = await page.locator('.adp-tool').evaluateAll((cards) =>
+			cards.map((card) => [...card.querySelectorAll('.adp-tool-hosts .adp-state')].map((label) => Math.round(label.getBoundingClientRect().width))),
+		);
+		expect(widths.length).toBeGreaterThan(0);
+		for (const card of widths) expect(new Set(card).size, `state label widths in one card: ${card}`).toBe(1);
+	});
+
 	test('the Idea state shows only the ideas, and hides the tool groups', async ({ page }) => {
 		await page.goto('/adp/tools/?state=idea');
 		const status = page.locator('.adp-filter [aria-live="polite"]');
@@ -303,6 +312,8 @@ test.describe('tool page', () => {
 				await expect(figure.locator('figcaption')).toContainText(`${screenshot.caption}`);
 				await expect(figure.locator('figcaption')).toContainText(`What is visible: ${screenshot.visible}`);
 				await expect(figure.locator('figcaption')).toContainText(`Why it matters: ${screenshot.whyItMatters}`);
+				// The image is the link to the full-size PNG; no separate link (amended 2026-09-29).
+				await expect(figure.locator('figcaption a')).toHaveCount(0);
 			}
 
 			// US2 AS6: each focus area links to its facet page.

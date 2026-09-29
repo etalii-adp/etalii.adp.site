@@ -4,6 +4,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 import { badgeOrigin, statsOrigin } from '../src/data/builds';
 import { visitorCounterOrigin } from '../src/data/visitors';
+import { latestOf } from '../src/lib/reference/load';
 
 // Every built page is checked (FR-012, FR-014, FR-015, FR-017, SC-003): the pages under dist/adp/ and the
 // root 404 page. The root index.html is the redirect of FR-018 and is checked on its own below. Other pages that
@@ -71,7 +72,7 @@ for (const address of pages) {
 			await page.goto(address);
 			const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
 			expect(overflow, 'horizontal overflow in px').toBeLessThanOrEqual(0);
-			await expect(page.getByRole('navigation', { name: 'Site parts' }).getByRole('link', { name: 'Product' })).toBeVisible();
+			await expect(page.getByRole('navigation', { name: 'Site parts' }).getByRole('link', { name: 'About' })).toBeVisible();
 			await expect(page.getByRole('navigation', { name: 'Site parts' }).getByRole('link', { name: 'Documentation' })).toBeVisible();
 			await page.getByRole('navigation', { name: 'Site map' }).scrollIntoViewIfNeeded();
 			await expect(page.getByRole('navigation', { name: 'Site map' })).toBeVisible();
@@ -86,14 +87,14 @@ for (const address of pages) {
 			await expect(page.locator('h1')).toBeVisible();
 			await expect(page.locator('main')).toContainText(/\w{3,}/);
 			const parts = page.getByRole('navigation', { name: 'Site parts' });
-			await expect(parts.getByRole('link', { name: 'Product' })).toBeVisible();
+			await expect(parts.getByRole('link', { name: 'About' })).toBeVisible();
 			await expect(parts.getByRole('link', { name: 'Documentation' })).toBeVisible();
 			if (!isHome && !isNotFound) {
 				await expect(page.getByRole('navigation', { name: 'Breadcrumb' })).toBeVisible();
 			}
 			const siteMap = page.getByRole('navigation', { name: 'Site map' });
 			await siteMap.scrollIntoViewIfNeeded();
-			for (const name of ['Home', 'Documentation', 'Specification & Definition', 'DISL reference', 'DID reference', 'Tools']) {
+			for (const name of ['Home', 'Introduction', 'Specification & Definition', 'DISL reference', 'DID reference', 'Tools']) {
 				await expect(siteMap.getByRole('link', { name, exact: true })).toBeVisible();
 			}
 			await context.close();
@@ -158,10 +159,37 @@ test.describe('addresses (contracts/site-addresses.md)', () => {
 		await expect(page.getByRole('main').getByRole('link', { name: 'Go to the home page' })).toHaveAttribute('href', '/adp/');
 	});
 
+	test('one sidebar: the reference of each language is a collapsible group under Specification & Definition (Peter, 2026-09-29)', async ({ page }) => {
+		const references = ['disl', 'did'].map((id) => latestOf(id)).filter((version) => version !== undefined);
+		expect(references.length).toBeGreaterThan(0);
+		const sidebar = page.locator('.sidebar-content');
+		const group = (label: string) => sidebar.locator('details').filter({ has: page.locator(':scope > summary', { hasText: label }) });
+		await page.goto('/adp/docs/');
+		// The documentation start page is the Introduction; the header keeps its Documentation part link.
+		await expect(page.locator('h1')).toHaveText('Introduction');
+		await expect(sidebar.getByRole('link').first()).toHaveText('Introduction');
+		await expect(page.getByRole('navigation', { name: 'Site parts' }).getByRole('link', { name: 'Documentation' })).toHaveAttribute('href', '/adp/docs/');
+		await expect(group('Specification & Definition').getByRole('link', { name: 'Overview' })).toHaveAttribute('href', '/adp/docs/specification-and-definition/');
+		for (const version of references) {
+			const label = `${version.language.short} ${version.record.version}`;
+			const reference = group('Specification & Definition').locator('details').filter({ has: page.locator(':scope > summary', { hasText: label }) });
+			const schema = reference.getByRole('link', { name: 'Schema', exact: true });
+			await expect(schema).toBeHidden();
+			await reference.locator(':scope > summary').click();
+			await expect(schema).toBeVisible();
+			await expect(schema).toHaveAttribute('href', `/adp/${version.language.id}/${version.record.version}/schema/`);
+		}
+		// A reference page shows the same sidebar, its own language opened at the current page.
+		const [first] = references;
+		await page.goto(`/adp/${first.language.id}/${first.record.version}/schema/`);
+		await expect(sidebar.getByRole('link', { name: 'Tools', exact: true })).toBeVisible();
+		await expect(sidebar.locator('[aria-current="page"]')).toHaveText('Schema');
+	});
+
 	test('the part marker follows the page', async ({ page }) => {
 		const current = page.getByRole('navigation', { name: 'Site parts' }).locator('[aria-current="true"]');
 		await page.goto('/adp/');
-		await expect(current).toHaveText('Product');
+		await expect(current).toHaveText('About');
 		for (const address of ['/adp/docs/', '/adp/docs/specification-and-definition/', '/adp/disl/', '/adp/did/', '/adp/tools/']) {
 			await page.goto(address);
 			await expect(current).toHaveText('Documentation');

@@ -59,7 +59,10 @@ export function tocEntries(version: LoadedVersion, segment: string): TocEntry[] 
 	}));
 }
 
-type SidebarItem = { label: string; link: string } | { label: string; items: SidebarItem[] };
+/** A Starlight sidebar entry, with links under the site base until `sidebarFor` or docsSidebar strips it. */
+export type SidebarItem =
+	| { label: string; link: string; badge?: { text: string; variant: 'caution' } }
+	| { label: string; items: SidebarItem[]; collapsed?: boolean };
 
 /** Starlight's sidebar for a version: cover, sections, appendices, schema, examples and search. */
 export function sidebarFor(version: LoadedVersion, segment: string): SidebarItem[] {
@@ -71,7 +74,7 @@ export function sidebarFor(version: LoadedVersion, segment: string): SidebarItem
 	return unbased([
 		{ label: `${version.language.short} ${version.record.version}`, link: pageHref(language, segment, '') },
 		{ label: 'Sections', items: entries.filter((e) => !e.appendix).map((e) => ({ label: e.label, link: e.href })) },
-		{ label: 'Appendices', items: entries.filter((e) => e.appendix).map((e) => ({ label: e.label, link: e.href })) },
+		{ label: 'Appendices', collapsed: true, items: entries.filter((e) => e.appendix).map((e) => ({ label: e.label, link: e.href })) },
 		{ label: 'Schema', link: schemaPageHref(language, segment) },
 		{ label: 'Examples', link: examplesHref(language, segment) },
 		{ label: 'Search', link: searchHref(language) },
