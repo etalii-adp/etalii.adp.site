@@ -60,7 +60,7 @@ describe('refresh-catalogue', () => {
 
 	it('(g) reports a host without docs/diagrams.md without failing', () => {
 		assert.ok(!env.site.exists('sources/catalogue/intellij'));
-		assert.match(env.site.read('.refresh/pr-body.md'), /- intellij: no catalogue at `docs\/diagrams\.md` in etalii-adp\/etalii\.adp\.ide\.intellij/);
+		assert.match(env.site.read('.refresh/pr-body.md'), /- intellij: no catalogue at `docs\/tools\.md` or `docs\/diagrams\.md` in etalii-adp\/etalii\.adp\.ide\.intellij/);
 	});
 
 	it('(a) shows a designer implemented on develop as implemented, recording the release state', () => {
@@ -123,5 +123,25 @@ describe('refresh-catalogue decisions', () => {
 		assert.match(again.stdout, /outcome: delivered/);
 		assert.ok(env.site.json('.refresh/summary.json').files.some((f) => f.path === 'procedures/config/states.json'));
 		assert.match(env.site.read('.refresh/diff.patch'), /^\+\s+"Experimental": "prototype"$/m);
+	});
+});
+
+describe('refresh-catalogue on docs/tools.md (etalii.adp spec 002)', () => {
+	it('reads docs/tools.md in place of docs/diagrams.md, keeping the release state from the release docs/diagrams.md', () => {
+		const env = setup();
+		const tools = markdown.replace('<th>Diagram</th>', '<th>Tool</th>');
+		env.standalone.commit({ [CATALOGUE]: null, 'docs/tools.md': tools });
+		const result = env.run('--no-deliver');
+		assert.equal(result.code, 0, result.output);
+		assert.equal(env.site.read('sources/catalogue/standalone/tools.md'), tools);
+		assert.ok(!env.site.exists('sources/catalogue/standalone/diagrams.md'));
+		const lock = env.site.json('sources/catalogue/source.lock.json');
+		assert.equal(lock.files.find((f) => f.path === 'standalone/tools.md').sourcePath, 'docs/tools.md');
+		const mindmap = env.site.json('sources/catalogue/standalone/catalogue.json').find((e) => e.origin === 'freeplane/mindmap');
+		assert.equal(mindmap.name, 'Mind map (radial/hierarchical, single central topic)');
+		assert.equal(mindmap.releaseState, 'Prototype');
+		// The VS Code host still has docs/diagrams.md, which is read as before.
+		assert.equal(env.site.read('sources/catalogue/vscode/catalogue.json').includes('generic/timeline'), true);
+		assert.ok(lock.files.some((f) => f.path === 'vscode/diagrams.md' && f.sourcePath === 'docs/diagrams.md'));
 	});
 });

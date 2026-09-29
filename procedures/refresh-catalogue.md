@@ -1,25 +1,27 @@
 # Refresh the designer catalogue
 
-Brings the site's designer catalogue (spec 003) up to each IDE host's own catalogue, `docs/diagrams.md`, and maps each designer's state there to the site's shared states. States change less often than text, but mislead most when stale (constitution principle III).
+Brings the site's designer catalogue (spec 003) up to each IDE host's own catalogue, `docs/tools.md` (or `docs/diagrams.md`, its name before etalii.adp spec 002), and maps each designer's state there to the site's shared states. States change less often than text, but mislead most when stale (constitution principle III).
 
 ## Sources
 
 | Repository | Ref | Paths | Visibility |
 |---|---|---|---|
-| etalii-adp/etalii.adp.ide.standalone | develop | `docs/diagrams.md` | private |
-| etalii-adp/etalii.adp.ide.intellij | develop | `docs/diagrams.md` | private (not present yet) |
-| etalii-adp/etalii.adp.ide.vscode | develop | `docs/diagrams.md` | private (not present yet) |
-| etalii-adp/etalii.adp.ide.eclipse | develop | `docs/diagrams.md` | private (not present yet) |
+| etalii-adp/etalii.adp.ide.standalone | develop | `docs/tools.md`, `docs/diagrams.md` | private |
+| etalii-adp/etalii.adp.ide.intellij | develop | `docs/tools.md`, `docs/diagrams.md` | private (not present yet) |
+| etalii-adp/etalii.adp.ide.vscode | develop | `docs/tools.md`, `docs/diagrams.md` | private (not present yet) |
+| etalii-adp/etalii.adp.ide.eclipse | develop | `docs/tools.md`, `docs/diagrams.md` | private (not present yet) |
 
-The run also reads `docs/diagrams.md` at each host's latest published release, to record each designer's release state.
+A host's catalogue is read from `docs/tools.md` when it has one, else from `docs/diagrams.md`: etalii.adp spec 002 (naming convention alignment) renames the file to `docs/tools.md` ("Tool types", with a Kind column), and the old name is read until that spec's Part 7. The name column may be headed Diagram, Tool, Name or Tool type; a Kind column is not read, since a tool's kind comes from Notion.
+
+The run also reads the catalogue at each host's latest published release, `docs/tools.md` or else `docs/diagrams.md` there, to record each designer's release state.
 
 ## Updates
 
-- `sources/catalogue/<host>/diagrams.md`: the host's catalogue, verbatim.
+- `sources/catalogue/<host>/tools.md` (or `diagrams.md`, after the file it was read from): the host's catalogue, verbatim.
 - `sources/catalogue/<host>/catalogue.json`: one entry per designer with its origin, name, group, theory, example, its state as written on `develop` (`developState`) and at the latest release (`releaseState`), and its site `state`.
 - `sources/catalogue/source.lock.json`: the source record of each catalogue, and each host's latest release.
 - `procedures/config/states.json`, only when a decision is answered.
-- `src/content/catalogue/notion.json`: the Notion "Diagrams" snapshot (`npm run catalogue:notion`).
+- `src/content/catalogue/notion.json`: the Notion "Diagrams" snapshot (`npm run catalogue:notion`). The columns are read under their new names (`Kind`; `Standalone`, `IntelliJ`, `VS Code`, `Eclipse`) or their old ones (`Type`; `Standalone Plugin Implementation`, `IntelliJ Plugin Implementation`, `VS Code Plugin Implementation`), whichever the data source has, until etalii.adp spec 002 Part 7; the write-back writes to whichever host column exists.
 - Notion's host columns, only after the pull request is merged: `.github/workflows/catalogue-sync.yml` runs `npm run catalogue:sync-notion` on every push to `develop` that changes `sources/catalogue/`, so Notion is never ahead of the site.
 - `src/content/catalogue/focus-areas.json`: a focus area Notion uses that the file does not have yet, added by `npm run catalogue:notion`.
 - `src/content/catalogue/published.json`: the designers that have a page (`npm run catalogue:report`).

@@ -27,6 +27,11 @@ export interface Language {
 	schema: string;
 	/** `^/[a-z]+/schema/\{version\}/\{schema\}$`: must equal the path of the schema's `$id` under the site base. */
 	schemaAddress: string;
+	/**
+	 * Optional, default true. `false` registers a language for `npm run reference:refresh` without publishing pages
+	 * for it: DISL and DID while etalii.adp spec 002 renames DEDL, until their pages come (its Part 5).
+	 */
+	publish?: boolean;
 }
 
 /** What a file of a snapshot is (`$defs/FileRecord/role`): one of `prose`, `schema`, `definition`, `document`, `other`. */

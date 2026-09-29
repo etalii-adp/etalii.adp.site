@@ -9,5 +9,29 @@
     "prose": "DEDL-specification.md",
     "schema": "dedl.schema.json",
     "schemaAddress": "/dedl/schema/{version}/{schema}"
+  },
+  {
+    "id": "disl",
+    "name": "DISL — Diagram Specification Language",
+    "short": "DISL",
+    "repository": "etalii-adp/etalii.adp",
+    "branch": "develop",
+    "path": "specifications/disl",
+    "prose": "DISL-specification.md",
+    "schema": "disl.schema.json",
+    "schemaAddress": "/disl/schema/{version}/{schema}",
+    "publish": false
+  },
+  {
+    "id": "did",
+    "name": "DID — Diagram Definition Language",
+    "short": "DID",
+    "repository": "etalii-adp/etalii.adp",
+    "branch": "develop",
+    "path": "specifications/did",
+    "prose": "DID-specification.md",
+    "schema": "did.schema.json",
+    "schemaAddress": "/did/schema/{version}/{schema}",
+    "publish": false
   }
 ]

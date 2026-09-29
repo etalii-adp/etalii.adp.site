@@ -4,10 +4,10 @@ The site's sourced content (the DEDL reference, the designer catalogue, the scre
 
 | Id | Title | Refreshes | Sources (repository: paths) |
 |---|---|---|---|
-| [`refresh-dedl`](refresh-dedl.md) | Refresh the DEDL reference | `sources/dedl/`: the DEDL specification, schema and examples, a folder per version (spec 002) | etalii-adp/etalii.adp: `specifications/dedl/*` |
-| [`refresh-screenshots`](refresh-screenshots.md) | Refresh the screenshots | `sources/screenshots/<host>/`: committed screenshots checked against their readme, with their expectations, rejections and gaps (spec 003) | etalii-adp/etalii.adp.ide.standalone, .intellij, .vscode, .eclipse: `docs/screenshots/*.png`, `docs/screenshots/readme.md`, `docs/diagrams.md` |
-| [`refresh-catalogue`](refresh-catalogue.md) | Refresh the designer catalogue | `sources/catalogue/<host>/`: each host's catalogue, verbatim and as designer entries with their mapped site states (spec 003) | etalii-adp/etalii.adp.ide.standalone, .intellij, .vscode, .eclipse: `docs/diagrams.md` |
-| [`refresh-hosts`](refresh-hosts.md) | Refresh the IDE host states | `sources/hosts/hosts.json`: each IDE host's state and the facts it was derived from (spec 001) | etalii-adp/etalii.adp.ide.standalone, .intellij, .vscode, .eclipse: `docs/diagrams.md` |
+| [`refresh-dedl`](refresh-dedl.md) | Refresh the DEDL reference | `sources/dedl/`: the DEDL specification, schema and examples, a folder per version (spec 002) | etalii-adp/etalii.adp: `specifications/dedl/*`, or `specifications/disl/*` and `specifications/did/*` once they exist |
+| [`refresh-screenshots`](refresh-screenshots.md) | Refresh the screenshots | `sources/screenshots/<host>/`: committed screenshots checked against their readme, with their expectations, rejections and gaps (spec 003) | etalii-adp/etalii.adp.ide.standalone, .intellij, .vscode, .eclipse: `docs/screenshots/*.png`, `docs/screenshots/readme.md`, `docs/tools.md` (or `docs/diagrams.md`) |
+| [`refresh-catalogue`](refresh-catalogue.md) | Refresh the designer catalogue | `sources/catalogue/<host>/`: each host's catalogue, verbatim and as designer entries with their mapped site states (spec 003) | etalii-adp/etalii.adp.ide.standalone, .intellij, .vscode, .eclipse: `docs/tools.md` (or `docs/diagrams.md`) |
+| [`refresh-hosts`](refresh-hosts.md) | Refresh the IDE host states | `sources/hosts/hosts.json`: each IDE host's state and the facts it was derived from (spec 001) | etalii-adp/etalii.adp.ide.standalone, .intellij, .vscode, .eclipse: `docs/tools.md` (or `docs/diagrams.md`) |
 | [`refresh-all`](refresh-all.md) | Refresh the whole site | Everything above, one pull request per procedure that found changes | The sources of each procedure above |
 
 ## Outcomes and exit codes
@@ -29,8 +29,8 @@ Options for every procedure: `--dry-run` does everything in a temporary worktree
 The Refresh workflow (`.github/workflows/refresh.yml`) runs the same command by itself, so a change on a source's `develop` branch reaches a pull request without anyone asking (FR-012):
 
 - **Every hour** (`schedule`, at 17 minutes past), it runs `refresh -- all`. A run whose sources have not changed ends at the Resolve stage after a few API calls, with `current`.
-- **On request**, from the Actions tab: run the Refresh workflow and choose a procedure, or `all`.
-- **When a source says so**: a source repository may send a `repository_dispatch` event of type `source-changed`, with the payload `{"repository": "<owner/name>"}`, to skip the wait. `etalii-adp/etalii.adp` starts `dedl`; any `etalii-adp/etalii.adp.ide.*` repository starts `screenshots`, `catalogue` and `hosts`. For example: `gh api repos/etalii-adp/etalii.adp.site/dispatches -f event_type=source-changed -F 'client_payload[repository]=etalii-adp/etalii.adp'`, with a token allowed to write to this repository's contents.
+- **On request**, from the Actions tab: run the Refresh workflow and choose a procedure, or `all`. `disl` runs the `dedl` procedure (etalii.adp spec 002), and `npm run refresh` and `npm run refresh:decide` accept it too.
+- **When a source says so**: a source repository may send a `repository_dispatch` event of type `source-changed`, with the payload `{"repository": "<owner/name>"}`, to skip the wait. `etalii-adp/etalii.adp` starts `dedl`; when the payload also lists the changed paths (`"paths": [...]`), only for a change under `specifications/dedl/`, `specifications/disl/` or `specifications/did/` (the mapping is `scripts/refresh/plan.mjs`); any `etalii-adp/etalii.adp.ide.*` repository starts `screenshots`, `catalogue` and `hosts`. For example: `gh api repos/etalii-adp/etalii.adp.site/dispatches -f event_type=source-changed -F 'client_payload[repository]=etalii-adp/etalii.adp'`, with a token allowed to write to this repository's contents.
 
 The job summary and every refresh pull request name the date of the previous scheduled run. A job fails only when a procedure `failed`; a draft pull request or a "Refresh blocked" issue is its own signal.
 
@@ -51,7 +51,7 @@ When the site takes a new kind of content from a source repository:
 1. Copy [`_template.md`](_template.md) to `refresh-<id>.md` and fill in every section.
 2. Add `scripts/refresh/procedures/<id>.mjs`, a module implementing the interface described at the top of `scripts/refresh/run.mjs` (its `sources`, and an `apply` that returns the files to copy and derive), with a `<id>.test.mjs` beside it that runs it against a fixture source through `--source`. The procedure owns `sources/<id>/`, and no other procedure writes there. A procedure that also updates site files outside `sources/` (only `refresh-catalogue`, for spec 003's catalogue files) lists them as its `siteFiles`, which no other procedure lists, and produces them in `afterApply` or `afterVerify`.
 3. Add its row to the table at the top of this file.
-4. Add its title to the "Refreshing sourced content" section of `CLAUDE.md`; add its id to the `procedure` choices of `workflow_dispatch` in `.github/workflows/refresh.yml`, to the `repository_dispatch` mapping there when it reads a new repository, and to `PROCEDURES` in `scripts/refresh/run.mjs` so that `all` runs it.
+4. Add its title to the "Refreshing sourced content" section of `CLAUDE.md`; add its id to the `procedure` choices of `workflow_dispatch` in `.github/workflows/refresh.yml`, to the `repository_dispatch` mapping in `scripts/refresh/plan.mjs` when it reads a new repository, and to `PROCEDURES` in `scripts/refresh/run.mjs` so that `all` runs it.
 5. Run `npm run test:refresh` and `npm run refresh:lint`; both exit 0 when the procedure is complete and indexed.
 
 ## Answering a decision

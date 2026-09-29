@@ -13,7 +13,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { assembleCatalogue, defaultContentDir, type AssembleOptions, type Catalogue } from '../../src/lib/catalogue/assemble.ts';
 import { catalogueHosts } from '../../src/lib/catalogue/hosts.ts';
-import { readSources, toSourceRecord } from '../../src/lib/catalogue/sources.ts';
+import { catalogueSourceRecord, readSources } from '../../src/lib/catalogue/sources.ts';
 import { defaultStatesConfig, states } from '../../src/lib/catalogue/states.ts';
 import type { Redirect, SourceRecord } from '../../src/lib/catalogue/types.ts';
 import { json } from './notion.ts';
@@ -137,7 +137,7 @@ export function main(args: string[], options: ReportOptions = {}): number {
 		const hadIt = previous ? catalogueHosts.filter(({ id }) => states[previous.hostStates[answer.from]?.[id]?.state ?? 'not-planned'].rank > 0) : [];
 		const host = hadIt.find(({ id }) => sources.catalogues.has(id));
 		const former = previous?.designers.find((designer) => designer.origin === answer.from);
-		const source: SourceRecord | undefined = host ? toSourceRecord(sources.catalogues.get(host.id)!.lock, `${host.id}/diagrams.md`) : former?.sources[0];
+		const source: SourceRecord | undefined = host ? catalogueSourceRecord(sources.catalogues.get(host.id)!.lock, host.id) : former?.sources[0];
 		if (!source) {
 			console.error(`${answer.from} was not a designer at HEAD, so there is nothing to redirect.`);
 			return 2;

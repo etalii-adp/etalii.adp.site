@@ -13,7 +13,9 @@ on:
       procedure:
         description: The refresh procedure to run
         type: choice
-        options: [all, dedl, screenshots, catalogue, hosts]
+        # disl runs the dedl procedure, which reads specifications/disl/ and specifications/did/ once etalii.adp has
+        # them, else specifications/dedl/ (etalii.adp spec 002); both names are accepted until its Part 7.
+        options: [all, dedl, disl, screenshots, catalogue, hosts]
         default: all
   repository_dispatch:
     types: [source-changed]
@@ -27,26 +29,22 @@ jobs:
     outputs:
       procedures: ${{ steps.plan.outputs.procedures }}
     steps:
+      # The mapping lives in scripts/refresh/plan.mjs, where it is tested: etalii-adp/etalii.adp starts dedl (when the
+      # payload lists paths, only for a change under specifications/dedl/, disl/ or did/); an IDE host starts the rest.
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: scripts/refresh
       - id: plan
         env:
           EVENT: ${{ github.event_name }}
           CHOSEN: ${{ inputs.procedure }}
           SOURCE: ${{ github.event.client_payload.repository }}
-        run: |
-          case "$EVENT" in
-            workflow_dispatch) list="[\"${CHOSEN:-all}\"]" ;;
-            repository_dispatch)
-              case "$SOURCE" in
-                etalii-adp/etalii.adp) list='["dedl"]' ;;
-                etalii-adp/etalii.adp.ide.*) list='["screenshots", "catalogue", "hosts"]' ;;
-                *) echo "::error::source-changed names no source of a refresh procedure: '$SOURCE'"; exit 1 ;;
-              esac ;;
-            *) list='["all"]' ;;
-          esac
-          echo "procedures=$list" >> "$GITHUB_OUTPUT"
+          PATHS: ${{ toJSON(github.event.client_payload.paths) }}
+        run: node scripts/refresh/plan.mjs
 
   refresh:
     needs: plan
+    if: needs.plan.outputs.procedures != '[]'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false

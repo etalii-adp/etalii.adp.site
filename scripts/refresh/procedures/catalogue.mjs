@@ -1,15 +1,15 @@
-// refresh-catalogue: each IDE host's designer catalogue (docs/diagrams.md), copied verbatim and turned into
+// refresh-catalogue: each IDE host's designer catalogue (docs/tools.md, else docs/diagrams.md), copied verbatim and turned into
 // sources/catalogue/<host>/catalogue.json with site states: the mapped `develop` state, with the release state recorded.
 // Then spec 003's catalogue steps: the Notion snapshot and the catalogue report before Verify, and the Notion host
 // columns after it. Only this procedure changes the catalogue files under src/content/catalogue/.
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { NeedsDecision } from '../lib/decision.mjs';
-import { CATALOGUE_PATH, designersFor } from '../lib/catalogue-table.mjs';
+import { CATALOGUE_PATHS, catalogueFileOf, designersFor } from '../lib/catalogue-table.mjs';
 import { CATALOGUE_SITE_FILES, REDIRECTS_FILE, catalogueReport, syncNotion, takeNotionSnapshot } from '../lib/catalogue-site.mjs';
 
 export const HOSTS = ['standalone', 'intellij', 'vscode', 'eclipse'];
-const ide = (host) => ({ repository: `etalii-adp/etalii.adp.ide.${host}`, ref: 'develop', paths: [CATALOGUE_PATH], host });
+const ide = (host) => ({ repository: `etalii-adp/etalii.adp.ide.${host}`, ref: 'develop', paths: [...CATALOGUE_PATHS], host });
 
 /** Raises the decision for the first designer whose source state has no site state in the mapping. */
 export function askForMapping(source, entries, states) {
@@ -17,7 +17,7 @@ export function askForMapping(source, entries, states) {
 	if (!entry) return;
 	throw new NeedsDecision({
 		question: `How should the source state "${entry.unmapped}" in ${source.host} map to a site state?`,
-		subject: `${source.repository} ${CATALOGUE_PATH}: ${entry.origin} (${entry.name})`,
+		subject: `${source.repository} ${catalogueFileOf(source.files)?.sourcePath ?? CATALOGUE_PATHS.join(' or ')}: ${entry.origin} (${entry.name})`,
 		options: states.siteStates,
 		writeTo: 'procedures/config/states.json',
 		key: ['mappings', source.host, entry.unmapped],
@@ -56,7 +56,7 @@ export default {
 		const details = { changes: [], added: [], withdrawn: [], missing: [] };
 		for (const source of ctx.sources) {
 			const { host } = source;
-			const catalogue = source.files.find((f) => f.sourcePath === CATALOGUE_PATH);
+			const catalogue = catalogueFileOf(source.files);
 			if (!catalogue) {
 				details.missing.push({ host, repository: source.repository });
 				continue;
@@ -67,7 +67,7 @@ export default {
 			const entries = designers.entries
 				.map(({ origin, name, group, developState, releaseState, state, theory, example }) => ({ origin, name, group, developState, releaseState, state, theory, example }))
 				.sort(byGroupThenOrigin);
-			files.push({ path: `${host}/${CATALOGUE_PATH.split('/').pop()}`, from: catalogue });
+			files.push({ path: `${host}/${catalogue.sourcePath.split('/').pop()}`, from: catalogue });
 			derived.push({ path: `${host}/catalogue.json`, content: `${JSON.stringify(entries, null, 2)}\n` });
 
 			const previousFile = join(ctx.target, host, 'catalogue.json');
@@ -97,7 +97,7 @@ export default {
 		}
 		lines.push('', '**Designers added**:', '', ...(d.added.length ? d.added.map((a) => `- ${a.host}: \`${a.origin}\` (${a.name}, ${a.state})`) : ['None']));
 		lines.push('', '**Designers withdrawn**:', '', ...(d.withdrawn.length ? d.withdrawn.map((w) => `- ${w.host}: \`${w.origin}\` (${w.name})`) : ['None']));
-		if (d.missing.length) lines.push('', ...d.missing.map((m) => `- ${m.host}: no catalogue at \`${CATALOGUE_PATH}\` in ${m.repository}, so its designers are not listed.`));
+		if (d.missing.length) lines.push('', ...d.missing.map((m) => `- ${m.host}: no catalogue at ${CATALOGUE_PATHS.map((p) => `\`${p}\``).join(' or ')} in ${m.repository}, so its designers are not listed.`));
 		return lines.join('\n');
 	},
 };

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://etalii.net/adp/did/schema/0.1/did.schema.json",
+  "title": "DID 0.1 (test fixture)",
+  "$ref": "#/$defs/Definition",
+  "$defs": {
+    "Definition": { "type": "object" }
+  }
+}

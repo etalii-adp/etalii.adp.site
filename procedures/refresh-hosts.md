@@ -6,10 +6,10 @@ Brings the state of each IDE host on the home page (spec 001) up to date: standa
 
 | Repository | Ref | Paths | Visibility |
 |---|---|---|---|
-| etalii-adp/etalii.adp.ide.standalone | develop | `docs/diagrams.md` | private |
-| etalii-adp/etalii.adp.ide.intellij | develop | `docs/diagrams.md` | private (not present yet) |
-| etalii-adp/etalii.adp.ide.vscode | develop | `docs/diagrams.md` | private (not present yet) |
-| etalii-adp/etalii.adp.ide.eclipse | develop | `docs/diagrams.md` | private (not present yet) |
+| etalii-adp/etalii.adp.ide.standalone | develop | `docs/tools.md`, `docs/diagrams.md` | private |
+| etalii-adp/etalii.adp.ide.intellij | develop | `docs/tools.md`, `docs/diagrams.md` | private (not present yet) |
+| etalii-adp/etalii.adp.ide.vscode | develop | `docs/tools.md`, `docs/diagrams.md` | private (not present yet) |
+| etalii-adp/etalii.adp.ide.eclipse | develop | `docs/tools.md`, `docs/diagrams.md` | private (not present yet) |
 
 ## Updates
 

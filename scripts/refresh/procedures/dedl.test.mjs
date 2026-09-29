@@ -3,17 +3,22 @@ import { fileURLToPath } from 'node:url';
 import { after, before, describe, it } from 'node:test';
 import { makeRepo, readFixture } from '../fixtures/repo.mjs';
 import { makeSite } from '../fixtures/site.mjs';
-import { compareSections, headerVersion, schemaVersion } from './dedl.mjs';
+import { compareSections, headerVersion, layoutOf, schemaVersion } from './dedl.mjs';
 
-const fixture = readFixture(fileURLToPath(new URL('../fixtures/etalii.adp', import.meta.url)));
+// The fixture holds both layouts of etalii.adp spec 002: specifications/dedl/, and specifications/disl/ with
+// specifications/did/. Each test repository gets the files of the layout it tests.
+const all = readFixture(fileURLToPath(new URL('../fixtures/etalii.adp', import.meta.url)));
+const pick = (...folders) => Object.fromEntries(Object.entries(all).filter(([path]) => folders.some((folder) => path.startsWith(folder))));
+const fixture = pick('specifications/dedl/');
+const newLayout = pick('specifications/disl/', 'specifications/did/');
 const SPEC = 'specifications/dedl/DEDL-specification.md';
 const SCHEMA = 'specifications/dedl/dedl.schema.json';
 const text = (path) => fixture[path].toString('utf8');
 const cleanups = [];
 after(() => cleanups.forEach((fn) => fn()));
 
-function setup() {
-	const source = makeRepo(fixture);
+function setup(files = fixture) {
+	const source = makeRepo(files);
 	const site = makeSite();
 	cleanups.push(source.cleanup, site.cleanup);
 	const arg = `etalii-adp/etalii.adp=${source.dir}`;
@@ -121,7 +126,79 @@ describe('refresh-dedl versions', () => {
 	});
 });
 
+describe('refresh-dedl on the DISL and DID layout (etalii.adp spec 002)', () => {
+	const NEW_FILES = ['0.1/DID-specification.md', '0.1/DISL-specification.md', '0.1/did.schema.json', '0.1/disl.schema.json', '0.1/erd.disl', '0.1/timeline.did'];
+
+	it('(h) reads specifications/disl/ and specifications/did/ into the version folder, verbatim', () => {
+		const { source, site, run } = setup(newLayout);
+		const result = run('--no-deliver');
+		assert.equal(result.code, 0, result.output);
+		const lock = site.json('sources/dedl/source.lock.json');
+		assert.deepEqual(lock.files.map((f) => f.path).sort(), NEW_FILES);
+		for (const file of lock.files) {
+			assert.equal(file.commit, source.head);
+			assert.ok(site.bytes(`sources/dedl/${file.path}`).equals(all[file.sourcePath]), `${file.path} is verbatim`);
+		}
+		const summary = site.json('.refresh/summary.json');
+		assert.equal(summary.details.layout, 'disl');
+		assert.equal(summary.details.spec, 'DISL-specification.md');
+		assert.match(site.read('.refresh/pr-body.md'), /Read from `specifications\/disl\/` and `specifications\/did\/`/);
+		assert.match(site.read('.refresh/pr-body.md'), /\*\*Specification\*\* \(`0\.1\/DISL-specification\.md`\)/);
+	});
+
+	it('(i) moves from DEDL to DISL and DID when etalii.adp does, withdrawing the DEDL files', () => {
+		const { source, site, run } = setup();
+		assert.equal(run('--no-deliver').code, 0);
+		site.accept('dedl');
+		source.commit({ ...newLayout, ...Object.fromEntries(Object.keys(fixture).map((path) => [path, null])) });
+		const result = run('--no-deliver');
+		assert.equal(result.code, 0, result.output);
+		const summary = site.json('.refresh/summary.json');
+		assert.deepEqual(summary.withdrawals.map((w) => w.path).sort(), ['0.1/DEDL-specification.md', '0.1/dedl.schema.json', '0.1/erd.dedl', '0.1/timeline.document.json']);
+		assert.deepEqual(site.json('sources/dedl/source.lock.json').files.map((f) => f.path).sort(), NEW_FILES);
+		assert.ok(summary.details.sections.some((s) => s.heading === '1. Introduction' && s.change === 'changed'), 'DISL is compared with DEDL the first time');
+		site.accept('dedl');
+		assert.match(run().stdout, /outcome: current/);
+	});
+
+	it('(j) leaves out a specifications/dedl/ still present beside the new folders', () => {
+		const { site, run } = setup({ ...fixture, ...newLayout });
+		const result = run('--no-deliver');
+		assert.equal(result.code, 0, result.output);
+		assert.deepEqual(site.json('sources/dedl/source.lock.json').files.map((f) => f.path).sort(), NEW_FILES);
+	});
+
+	it('(k) fails when DISL and DID name different versions', () => {
+		const did = 'specifications/did/did.schema.json';
+		const spec = 'specifications/did/DID-specification.md';
+		const { run } = setup({ ...newLayout, [did]: all[did].toString('utf8').replace('/schema/0.1/', '/schema/0.2/'), [spec]: all[spec].toString('utf8').replace('version 0.1', 'version 0.2') });
+		const result = run();
+		assert.equal(result.code, 2, result.output);
+		assert.match(result.stdout, /DISL is version 0\.1 and DID is version 0\.2/);
+	});
+
+	it('(l) fails, naming the file, when specifications/did/ has no schema', () => {
+		const files = { ...newLayout };
+		delete files['specifications/did/did.schema.json'];
+		const result = setup(files).run();
+		assert.equal(result.code, 2, result.output);
+		assert.match(result.stdout, /specifications\/did\/\* has no did\.schema\.json/);
+	});
+});
+
 describe('dedl helpers', () => {
+	it('tells the layouts apart', () => {
+		assert.equal(layoutOf([{ sourcePath: 'specifications/dedl/erd.dedl' }]), 'dedl');
+		assert.equal(layoutOf([{ sourcePath: 'specifications/dedl/erd.dedl' }, { sourcePath: 'specifications/disl/erd.disl' }]), 'disl');
+		assert.equal(layoutOf([]), 'dedl');
+	});
+
+	it('reads the version from the DISL and DID schema $id', () => {
+		assert.equal(schemaVersion(all['specifications/disl/disl.schema.json'].toString('utf8'), 'disl'), '0.1');
+		assert.equal(schemaVersion(all['specifications/did/did.schema.json'].toString('utf8'), 'did'), '0.1');
+		assert.equal(schemaVersion(all['specifications/did/did.schema.json'].toString('utf8')), null, 'a DID schema is not a DEDL schema');
+	});
+
 	it('reads the version from the header and from the schema $id', () => {
 		assert.equal(headerVersion(text(SPEC)), '0.1');
 		assert.equal(headerVersion('# DEDL\n\n| Version | 1.2 |\n\n## 1. Intro\n\nversion 9.9'), '1.2');

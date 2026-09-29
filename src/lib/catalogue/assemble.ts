@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { catalogueHosts, hostById } from './hosts.ts';
 import { readNotionSnapshot, toNotionSourceRecord, type NotionRow } from './notion-snapshot.ts';
-import { licenceOf, posix, readSources, toSourceRecord, type CatalogueRow, type Sources } from './sources.ts';
+import { catalogueSourceRecord, licenceOf, posix, readSources, toSourceRecord, type CatalogueRow, type Sources } from './sources.ts';
 import { UnmappedStateError, bestState, defaultStatesConfig, isUsable, loadMapping, showsScreenshots, mapSourceState, states, type StateMapping } from './states.ts';
 import type {
 	CatalogueReport,
@@ -155,7 +155,7 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 	}
 	const catalogueRecord = (host: HostId): GitSourceRecord => {
 		const { lock } = sources.catalogues.get(host)!;
-		return toSourceRecord(lock, `${host}/diagrams.md`);
+		return catalogueSourceRecord(lock, host);
 	};
 
 	const releaseFor = (host: HostId) => {

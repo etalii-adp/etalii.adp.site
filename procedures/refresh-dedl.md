@@ -2,15 +2,17 @@
 
 Brings the site's DEDL reference (spec 002) up to the DEDL specification, schema and examples on `develop` in `etalii-adp/etalii.adp`. DEDL is a working draft, so its text changes often; each new version is published beside the old ones, which stay frozen.
 
+etalii.adp spec 002 (naming convention alignment) splits DEDL into DISL, the Diagram Specification Language (`specifications/disl/`), and DID, the Diagram Definition Language (`specifications/did/`). Until that spec's Part 7 this procedure reads either layout: once `specifications/disl/` exists on `develop` it reads `specifications/disl/*` and `specifications/did/*` (both must name the same version) and leaves any `specifications/dedl/` beside them out; while it is absent it reads `specifications/dedl/*` as before. It may be run as `disl` as well as `dedl` (`npm run refresh -- disl`). The DISL and DID pages are not published yet; they come with that spec's Part 5, which also renames this procedure to `refresh-disl`.
+
 ## Sources
 
 | Repository | Ref | Paths | Visibility |
 |---|---|---|---|
-| etalii-adp/etalii.adp | develop | `specifications/dedl/*` | public |
+| etalii-adp/etalii.adp | develop | `specifications/dedl/*`, `specifications/disl/*`, `specifications/did/*` | public |
 
 ## Updates
 
-- `sources/dedl/<version>/`: `DEDL-specification.md`, `dedl.schema.json` and every example, verbatim. Only the newest version's folder is ever replaced; a new version gets a folder of its own beside the old ones.
+- `sources/dedl/<version>/`: `DEDL-specification.md`, `dedl.schema.json` and every example, verbatim; or, from the new layout, `DISL-specification.md`, `disl.schema.json`, `DID-specification.md`, `did.schema.json` and every example of both. Only the newest version's folder is ever replaced; a new version gets a folder of its own beside the old ones.
 - `sources/dedl/source.lock.json`: the source record of every file of every version, and the withdrawn files.
 - The spec 002 reference pages are built from these files. This procedure changes no mapping in `procedures/config/`.
 

@@ -3,6 +3,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { canonicalId } from './lib/names.mjs';
 import { writeJson } from './lib/util.mjs';
 
 /** Finds the pending decision of procedure `shortId`: `.refresh/<short>/decision.json` (from `all`) or `.refresh/decision.json`. */
@@ -18,7 +19,7 @@ function findDecision(cwd, shortId) {
 /** Writes `answer` at the decision's key and returns the changed line; throws with a clear message otherwise. */
 export function decide(id, answer, { cwd = process.cwd() } = {}) {
 	if (!id || answer === undefined) throw new Error('usage: npm run refresh:decide -- <id> <answer>');
-	const shortId = id.replace(/^refresh-/, '');
+	const shortId = canonicalId(id);
 	const decision = findDecision(cwd, shortId);
 	if (!decision) {
 		const any = existsSync(join(cwd, '.refresh', 'decision.json'));

@@ -42,6 +42,14 @@ describe('refresh:decide', () => {
 		assert.equal(JSON.parse(readFileSync(join(cwd, 'procedures', 'config', 'screenshots.json'), 'utf8')).standalone['mindmap.png'], 'freeplane/mindmap');
 	});
 
+	it('finds a decision of the dedl procedure when it is named disl', () => {
+		const cwd = checkout();
+		writeFileSync(join(cwd, '.refresh', 'decision.json'), JSON.stringify({ procedure: 'refresh-dedl', question: 'q', subject: 's', options: ['prototype'], writeTo: 'procedures/config/states.json', key: ['mappings', 'standalone', 'Draft'] }));
+		assert.equal(decide('disl', 'prototype', { cwd }), 'procedures/config/states.json: "Draft": "prototype"');
+		assert.equal(JSON.parse(readFileSync(join(cwd, 'procedures', 'config', 'states.json'), 'utf8')).mappings.standalone.Draft, 'prototype');
+		assert.throws(() => decide('refresh-disl', 'prototype', { cwd: checkout() }), /not a decision of refresh-dedl/);
+	});
+
 	it('fails without writing when the answer is not an option', () => {
 		const cwd = checkout();
 		const before = readFileSync(join(cwd, 'procedures', 'config', 'states.json'), 'utf8');
