@@ -94,7 +94,7 @@ for (const address of pages) {
 			}
 			const siteMap = page.getByRole('navigation', { name: 'Site map' });
 			await siteMap.scrollIntoViewIfNeeded();
-			for (const name of ['Home', 'Documentation', 'Specification & Definition', 'DISL reference', 'DID reference', 'Tools']) {
+			for (const name of ['Home', 'Introduction', 'Specification & Definition', 'DISL reference', 'DID reference', 'Tools']) {
 				await expect(siteMap.getByRole('link', { name, exact: true })).toBeVisible();
 			}
 			await context.close();
@@ -165,6 +165,10 @@ test.describe('addresses (contracts/site-addresses.md)', () => {
 		const sidebar = page.locator('.sidebar-content');
 		const group = (label: string) => sidebar.locator('details').filter({ has: page.locator(':scope > summary', { hasText: label }) });
 		await page.goto('/adp/docs/');
+		// The documentation start page is the Introduction; the header keeps its Documentation part link.
+		await expect(page.locator('h1')).toHaveText('Introduction');
+		await expect(sidebar.getByRole('link').first()).toHaveText('Introduction');
+		await expect(page.getByRole('navigation', { name: 'Site parts' }).getByRole('link', { name: 'Documentation' })).toHaveAttribute('href', '/adp/docs/');
 		await expect(group('Specification & Definition').getByRole('link', { name: 'Overview' })).toHaveAttribute('href', '/adp/docs/specification-and-definition/');
 		for (const version of references) {
 			const label = `${version.language.short} ${version.record.version}`;

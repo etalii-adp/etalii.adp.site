@@ -36,7 +36,7 @@ export const parts: readonly Part[] = [
 
 export const sections: readonly Section[] = [
 	{ id: 'home', label: 'Home', part: 'about', href: '/adp/', status: 'available', deliveredBy: '001' },
-	{ id: 'docs', label: 'Documentation', part: 'documentation', href: '/adp/docs/', status: 'available', deliveredBy: '001' },
+	{ id: 'docs', label: 'Introduction', part: 'documentation', href: '/adp/docs/', status: 'available', deliveredBy: '001' },
 	// The six languages in which tools are specified and stored (etalii.adp spec 002, research R7).
 	{ id: 'specification', label: 'Specification & Definition', part: 'documentation', href: '/adp/docs/specification-and-definition/', status: 'available', deliveredBy: 'etalii.adp 002' },
 	// Coming until a version is published (spec 002; its source needs a licence first). DEDL became DISL and DID
