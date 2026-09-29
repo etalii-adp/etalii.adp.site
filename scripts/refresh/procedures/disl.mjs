@@ -1,29 +1,16 @@
-// refresh-disl: the DISL and DID specifications, schemas and examples from etalii-adp/etalii.adp into
-// sources/disl/<version>/, a frozen folder per version (research R12). Named refresh-dedl until etalii.adp spec 002
-// renamed DEDL; `dedl` is still accepted as its name (lib/names.mjs).
-//
-// etalii.adp spec 002 splits DEDL into DISL (specifications/disl/) and DID (specifications/did/). Until its Part 7
-// this procedure reads either layout: DISL and DID once specifications/disl/ exists, DEDL while it is absent. Both
-// are stored in the same version folder (their file names differ); the site publishes their pages at /adp/disl/ and /adp/did/.
+// refresh-disl: the DISL and DID specifications, schemas and examples from etalii-adp/etalii.adp
+// (specifications/disl/ and specifications/did/) into sources/disl/<version>/, a frozen folder per version
+// (research R12). Both languages are stored in the same version folder (their file names differ); the site publishes
+// their pages at /adp/disl/ and /adp/did/.
 import { existsSync, readFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import { compareSemver } from '../lib/util.mjs';
 
-/** The two layouts, each a list of languages with their folder, specification and schema (etalii.adp spec 002). */
-export const LAYOUTS = {
-	dedl: [{ short: 'DEDL', folder: 'specifications/dedl/', spec: 'DEDL-specification.md', schema: 'dedl.schema.json' }],
-	disl: [
-		{ short: 'DISL', folder: 'specifications/disl/', spec: 'DISL-specification.md', schema: 'disl.schema.json' },
-		{ short: 'DID', folder: 'specifications/did/', spec: 'DID-specification.md', schema: 'did.schema.json' },
-	],
-};
-
-/** The layout of the watched files: `disl` when any is under specifications/disl/, else `dedl`. */
-export function layoutOf(files) {
-	return files.some((f) => f.sourcePath.startsWith(LAYOUTS.disl[0].folder)) ? 'disl' : 'dedl';
-}
-
-const SPEC = LAYOUTS.dedl[0].spec;
+/** The languages read, each with its folder, specification and schema; DISL's specification is the one compared. */
+export const LANGUAGES = [
+	{ short: 'DISL', folder: 'specifications/disl/', spec: 'DISL-specification.md', schema: 'disl.schema.json' },
+	{ short: 'DID', folder: 'specifications/did/', spec: 'DID-specification.md', schema: 'did.schema.json' },
+];
 
 /** The version in the specification's header (the text before its first `##` heading). */
 export function headerVersion(markdown) {
@@ -31,8 +18,8 @@ export function headerVersion(markdown) {
 	return header.match(/\bversion\b[\s|:*]*v?(\d+(?:\.\d+)+)/i)?.[1] ?? null;
 }
 
-/** The version segment of the schema's `$id`: `…/<name>/schema/<version>/<name>.schema.json`, `name` `dedl` by default. */
-export function schemaVersion(json, name = 'dedl') {
+/** The version segment of the schema's `$id`: `…/<name>/schema/<version>/<name>.schema.json`. */
+export function schemaVersion(json, name) {
 	const id = JSON.parse(json).$id ?? '';
 	const address = new RegExp(String.raw`/${name}/schema/([^/]+)/${name}\.schema\.json$`);
 	return id.match(address)?.[1] ?? null;
@@ -93,7 +80,7 @@ export default {
 	id: 'refresh-disl',
 	short: 'disl',
 	what: 'DISL and DID reference',
-	sources: [{ repository: 'etalii-adp/etalii.adp', ref: 'develop', paths: ['specifications/dedl/*', 'specifications/disl/*', 'specifications/did/*'], host: null }],
+	sources: [{ repository: 'etalii-adp/etalii.adp', ref: 'develop', paths: ['specifications/disl/*', 'specifications/did/*'], host: null }],
 	usesReleases: false,
 
 	/** Only the newest version's files are compared with the source; older versions are frozen. */
@@ -104,10 +91,7 @@ export default {
 
 	async apply(ctx) {
 		const [source] = ctx.sources;
-		const layout = layoutOf(source.files);
-		const languages = LAYOUTS[layout];
-		// Only the files of the layout in use: while etalii.adp moves, a stale specifications/dedl/ beside the new
-		// folders is not published a second time.
+		const languages = LANGUAGES;
 		const used = source.files.filter((f) => languages.some((l) => f.sourcePath.startsWith(l.folder)));
 		const byName = new Map(used.map((f) => [basename(f.sourcePath), f]));
 		const found = languages.map((language) => {
@@ -139,10 +123,8 @@ export default {
 		const files = used.map((from) => ({ path: `${version}/${basename(from.sourcePath)}`, from }));
 		const keep = (ctx.previous?.files ?? []).map((f) => f.path).filter((path) => !path.startsWith(`${version}/`));
 
-		// The sections are compared with the previous specification of the same name, or DISL's with DEDL's the first
-		// time the new layout is read.
-		const oldSpecName = latest && existsSync(join(ctx.target, latest, specName)) ? specName : SPEC;
-		const oldSpec = latest && existsSync(join(ctx.target, latest, oldSpecName)) ? readFileSync(join(ctx.target, latest, oldSpecName), 'utf8') : null;
+		// The sections are compared with the previous specification of the same name.
+		const oldSpec = latest && existsSync(join(ctx.target, latest, specName)) ? readFileSync(join(ctx.target, latest, specName), 'utf8') : null;
 		const previousEntries = new Map((ctx.previous?.files ?? []).filter((f) => f.path.startsWith(`${latest}/`)).map((f) => [basename(f.path), f]));
 		const others = used
 			.filter((f) => basename(f.sourcePath) !== specName)
@@ -151,14 +133,13 @@ export default {
 				return { file: basename(f.sourcePath), change: !was ? 'added' : was.gitBlob === f.gitBlob ? 'unchanged' : 'changed' };
 			});
 		for (const name of previousEntries.keys()) {
-			if (name !== specName && name !== oldSpecName && !byName.has(name)) others.push({ file: name, change: 'removed' });
+			if (name !== specName && !byName.has(name)) others.push({ file: name, change: 'removed' });
 		}
 
 		return {
 			files,
 			keep,
 			details: {
-				layout,
 				spec: specName,
 				version,
 				previousVersion: latest,
@@ -179,8 +160,8 @@ export default {
 		const lines = [];
 		if (d.newVersion) lines.push(`New version ${d.version} published beside ${d.previousVersion}; \`sources/disl/${d.previousVersion}/\` is unchanged.`, '');
 		else if (!d.previousVersion) lines.push(`Version ${d.version} imported for the first time.`, '');
-		if (d.layout === 'disl') lines.push('Read from `specifications/disl/` and `specifications/did/` (DISL and DID, etalii.adp spec 002); the DISL specification is compared below.', '');
-		lines.push(`**Specification** (\`${d.version}/${d.spec ?? SPEC}\`):`, '');
+		lines.push('Read from `specifications/disl/` and `specifications/did/`; the DISL specification is compared below.', '');
+		lines.push(`**Specification** (\`${d.version}/${d.spec}\`):`, '');
 		if (!d.sections.length) lines.push('No section changed.');
 		else {
 			lines.push('| Section | Change | Lines changed |', '|---|---|---|');

@@ -8,8 +8,8 @@ describe('plan.mjs (the procedures a refresh.yml run starts)', () => {
 		assert.deepEqual(plan({ event: 'schedule' }), { procedures: ['all'] });
 	});
 
-	it('runs the chosen procedure on workflow_dispatch, with dedl as the disl procedure', () => {
-		assert.deepEqual(plan({ event: 'workflow_dispatch', chosen: 'dedl' }), { procedures: ['disl'] });
+	it('runs the chosen procedure on workflow_dispatch, with or without the refresh- prefix', () => {
+		assert.deepEqual(plan({ event: 'workflow_dispatch', chosen: 'refresh-disl' }), { procedures: ['disl'] });
 		assert.deepEqual(plan({ event: 'workflow_dispatch', chosen: 'disl' }), { procedures: ['disl'] });
 		assert.deepEqual(plan({ event: 'workflow_dispatch', chosen: 'catalogue' }), { procedures: ['catalogue'] });
 		assert.deepEqual(plan({ event: 'workflow_dispatch', chosen: '' }), { procedures: ['all'] });
@@ -19,14 +19,14 @@ describe('plan.mjs (the procedures a refresh.yml run starts)', () => {
 		assert.deepEqual(plan({ event: 'repository_dispatch', source: 'etalii-adp/etalii.adp', paths: null }), { procedures: ['disl'] });
 	});
 
-	for (const path of ['specifications/dedl/DEDL-specification.md', 'specifications/disl/erd.disl', 'specifications/did/timeline.did']) {
+	for (const path of ['specifications/disl/erd.disl', 'specifications/did/timeline.did']) {
 		it(`runs the reference procedure for a change to ${path}`, () => {
 			assert.deepEqual(plan({ event: 'repository_dispatch', source: 'etalii-adp/etalii.adp', paths: ['README.md', path] }), { procedures: ['disl'] });
 		});
 	}
 
 	it('runs nothing for an etalii.adp change outside the specification folders', () => {
-		assert.deepEqual(plan({ event: 'repository_dispatch', source: 'etalii-adp/etalii.adp', paths: ['docs/terminology.md', 'specifications/desl/DESL-specification.md'] }), { procedures: [] });
+		assert.deepEqual(plan({ event: 'repository_dispatch', source: 'etalii-adp/etalii.adp', paths: ['docs/terminology.md', 'specifications/desl/DESL-specification.md', 'specifications/ded/DED-specification.md'] }), { procedures: [] });
 	});
 
 	it('runs the host procedures on source-changed from an IDE host', () => {
@@ -45,7 +45,7 @@ describe('plan.mjs (the procedures a refresh.yml run starts)', () => {
 
 	it('is what refresh.yml offers and calls', () => {
 		const workflow = readFileSync(new URL('../../.github/workflows/refresh.yml', import.meta.url), 'utf8');
-		assert.match(workflow, /options: \[all, disl, screenshots, catalogue, hosts, dedl\]/);
+		assert.match(workflow, /options: \[all, disl, screenshots, catalogue, hosts\]/);
 		assert.match(workflow, /run: node scripts\/refresh\/plan\.mjs/);
 	});
 });

@@ -13,8 +13,7 @@ on:
       procedure:
         description: The refresh procedure to run
         type: choice
-        # dedl, the name of disl before etalii.adp spec 002 renamed DEDL to DISL and DID, is accepted until its Part 7.
-        options: [all, disl, screenshots, catalogue, hosts, dedl]
+        options: [all, disl, screenshots, catalogue, hosts]
         default: all
   repository_dispatch:
     types: [source-changed]
@@ -29,7 +28,7 @@ jobs:
       procedures: ${{ steps.plan.outputs.procedures }}
     steps:
       # The mapping lives in scripts/refresh/plan.mjs, where it is tested: etalii-adp/etalii.adp starts disl (when the
-      # payload lists paths, only for a change under specifications/dedl/, disl/ or did/); an IDE host starts the rest.
+      # payload lists paths, only for a change under specifications/disl/ or did/); an IDE host starts the rest.
       - uses: actions/checkout@v7
         with:
           sparse-checkout: scripts/refresh
