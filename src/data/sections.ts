@@ -44,7 +44,7 @@ export const sections: readonly Section[] = [
 	{ id: 'disl', label: 'DISL reference', part: 'documentation', href: '/adp/disl/', status: hasPublishedVersion('disl') ? 'available' : 'coming', deliveredBy: '002', parent: 'specification' },
 	{ id: 'did', label: 'DID reference', part: 'documentation', href: '/adp/did/', status: hasPublishedVersion('did') ? 'available' : 'coming', deliveredBy: '002', parent: 'specification' },
 	{ id: 'tools', label: 'Tools', part: 'documentation', href: '/adp/tools/', status: 'available', deliveredBy: '003' },
-	// Long-read analyses behind ADP, written in etalii.adp's docs/research/ and copied here word for word.
+	// Analyses behind ADP, each written in etalii.adp under docs/research/ and shown here as an article page.
 	{ id: 'research', label: 'Research', part: 'documentation', href: '/adp/docs/research/', status: 'available', deliveredBy: 'research' },
 ];
 
