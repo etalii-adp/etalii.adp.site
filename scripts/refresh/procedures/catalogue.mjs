@@ -65,7 +65,7 @@ export default {
 			askForMapping(source, designers.entries, ctx.config.states);
 
 			const entries = designers.entries
-				.map(({ origin, name, group, developState, releaseState, state, theory, example }) => ({ origin, name, group, developState, releaseState, state, theory, example }))
+				.map(({ origin, name, kind, group, developState, releaseState, state, theory, example }) => ({ origin, name, ...(kind ? { kind } : {}), group, developState, releaseState, state, theory, example }))
 				.sort(byGroupThenOrigin);
 			files.push({ path: `${host}/${catalogue.sourcePath.split('/').pop()}`, from: catalogue });
 			derived.push({ path: `${host}/catalogue.json`, content: `${JSON.stringify(entries, null, 2)}\n` });

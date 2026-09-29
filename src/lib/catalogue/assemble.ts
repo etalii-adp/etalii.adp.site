@@ -335,7 +335,9 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 			report.pending.push({ origin, message: `${origin}: screenshot pending (usable, but no publishable screenshot)` });
 		}
 
-		const kind = (notion?.type ?? 'diagram').toLowerCase();
+		// A host catalogue's Kind column (docs/tools.md, etalii.adp spec 002) first, in the fixed host order; else Notion's.
+		const catalogueKind = catalogueHosts.map((host) => rows.get(host.id)?.kind).find(Boolean);
+		const kind = (catalogueKind ?? notion?.type ?? 'diagram').toLowerCase();
 		designers.push({
 			origin,
 			name,

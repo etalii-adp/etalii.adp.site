@@ -13,7 +13,7 @@ This feature has no specification of its own: it is Part 1 of [etalii.adp spec 0
 
 Before the other parts of spec 002 rename what the site reads, the site's refresh procedures **MUST** accept both the old and the new upstream names, so the hourly refresh never breaks:
 
-- **FR-001**: the catalogue is read from each host's `docs/tools.md`, falling back to `docs/diagrams.md` (T012).
+- **FR-001**: the catalogue is read from each host's `docs/tools.md`, falling back to `docs/diagrams.md`; its name column may be headed Tool as well as Diagram, and its Kind column (Diagram, Designer or Editor), when present, gives each tool's kind, falling back to Notion's Kind or Type (T012).
 - **FR-002**: the reference is read from `specifications/disl/` and `specifications/did/` once `specifications/disl/` exists in etalii.adp, falling back to `specifications/dedl/` while it is absent; DISL and DID are registered in `languages.json` but get no pages yet (T013, T014).
 - **FR-003**: `disl` is accepted as a procedure name beside `dedl` by `npm run refresh`, `npm run refresh:decide` and `refresh.yml` (T015).
 - **FR-004**: the Notion columns are read under their new names (`Kind`; `Standalone`, `IntelliJ`, `VS Code`, `Eclipse`) and their old ones, and the write-back writes to whichever host column exists (T016).

@@ -90,9 +90,22 @@ describe('the catalogue as docs/tools.md or docs/diagrams.md', () => {
 		assert.equal(catalogueFileOf([{ sourcePath: 'README.md' }]), undefined);
 	});
 
-	it('reads a "Tool" name column beside a "Kind" column as it reads "Diagram"', () => {
+	it('reads a "Tool" name column as it reads "Diagram", and a "Kind" column as the kind of each row', () => {
 		assert.notEqual(tools, markdown);
-		assert.deepEqual(parseCatalogue(tools), parseCatalogue(markdown));
+		const rows = parseCatalogue(tools);
+		assert.ok(rows.every((row) => row.kind === 'diagram'));
+		assert.deepEqual(rows.map(({ kind, ...row }) => row), parseCatalogue(markdown));
+		assert.ok(parseCatalogue(markdown).every((row) => !('kind' in row)), 'docs/diagrams.md has no Kind column, so no kind');
+	});
+
+	it('reads Diagram, Designer and Editor in the Kind column, and an empty one as none', () => {
+		const table = (kind) => `<table><tr><th>State</th><th>Origin</th><th>Kind</th><th>Tool</th></tr><tr><td>Idea</td><td><code>a/b</code></td><td>${kind}</td><td>A tool</td></tr></table>`;
+		assert.equal(parseCatalogue(table('Editor'))[0].kind, 'editor');
+		assert.equal(parseCatalogue(table('Designer'))[0].kind, 'designer');
+		assert.equal(parseCatalogue(table('Diagram'))[0].kind, 'diagram');
+		assert.equal(parseCatalogue(table('—'))[0].kind, null);
+		assert.equal(parseCatalogue(table('Editor'))[0].name, 'A tool');
+		assert.throws(() => parseCatalogue(table('Widget')), /unknown kind "Widget" at line \d+ \(A tool\): one of Diagram, Designer, Editor/);
 	});
 
 	it('refuses a table without a name column, naming the columns it found', () => {

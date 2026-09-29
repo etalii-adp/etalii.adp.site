@@ -69,7 +69,7 @@ export function stripStateEmoji(label) {
 
 /**
  * The column that names a row: "Diagram" in `docs/diagrams.md`; "Tool", "Name" or "Tool type" in `docs/tools.md`
- * (etalii.adp spec 002). A "Kind" column, if any, is not read: a tool's kind comes from Notion.
+ * (etalii.adp spec 002).
  */
 const NAME_COLUMNS = ['diagram', 'tool', 'name', 'tool type'];
 
@@ -127,11 +127,25 @@ export function parseCatalogue(markdown) {
 			developState: stripStateEmoji(text(cell('state'))),
 			theory: columns.theory === undefined ? [] : references(cell('theory')),
 			example: columns.example === undefined ? [] : references(cell('example')),
+			// docs/tools.md lists diagrams, designers and editors and says which in a Kind column (etalii.adp spec
+			// 002); the site falls back to Notion's Kind (or Type) for a catalogue without one.
+			...(columns.kind === undefined ? {} : { kind: kindOf(text(cell('kind')), where) }),
 		});
 	};
 
 	visit(document);
 	return rows;
+}
+
+/** The kinds of tool (etalii.adp docs/terminology.md): the Kind column's values, lowercased. */
+export const KINDS = ['diagram', 'designer', 'editor'];
+
+/** A Kind cell as `diagram`, `designer` or `editor`, or null when it is empty or "—"; any other value fails, naming the row. */
+function kindOf(value, where) {
+	const kind = stripStateEmoji(value).toLowerCase();
+	if (!kind || kind === '—' || kind === '-') return null;
+	if (!KINDS.includes(kind)) throw new Error(`unknown kind "${clean(value)}" at ${where}: one of Diagram, Designer, Editor`);
+	return kind;
 }
 
 /** The site state for a source label in `host`, or `{ unmapped: label }` when the mapping has none. */

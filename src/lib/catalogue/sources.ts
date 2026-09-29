@@ -40,6 +40,8 @@ export interface SourceLock {
 export interface CatalogueRow {
 	origin: string;
 	name: string;
+	/** From the Kind column of `docs/tools.md` (etalii.adp spec 002); absent in a `docs/diagrams.md` catalogue. */
+	kind?: 'diagram' | 'designer' | 'editor';
 	group: string;
 	developState: string;
 	releaseState: string | null;

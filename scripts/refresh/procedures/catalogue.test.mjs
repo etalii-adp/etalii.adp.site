@@ -129,7 +129,7 @@ describe('refresh-catalogue decisions', () => {
 describe('refresh-catalogue on docs/tools.md (etalii.adp spec 002)', () => {
 	it('reads docs/tools.md in place of docs/diagrams.md, keeping the release state from the release docs/diagrams.md', () => {
 		const env = setup();
-		const tools = markdown.replace('<th>Diagram</th>', '<th>Tool</th>');
+		const tools = markdown.replace('<th>Diagram</th>', '<th>Kind</th><th>Tool</th>').replace('<code>freeplane/mindmap</code></td>', '<code>freeplane/mindmap</code></td><td>Editor</td>').replace(/(<code>(?!freeplane\/mindmap)[^<]+<\/code><\/td>)/g, '$1<td>Diagram</td>');
 		env.standalone.commit({ [CATALOGUE]: null, 'docs/tools.md': tools });
 		const result = env.run('--no-deliver');
 		assert.equal(result.code, 0, result.output);
@@ -140,6 +140,9 @@ describe('refresh-catalogue on docs/tools.md (etalii.adp spec 002)', () => {
 		const mindmap = env.site.json('sources/catalogue/standalone/catalogue.json').find((e) => e.origin === 'freeplane/mindmap');
 		assert.equal(mindmap.name, 'Mind map (radial/hierarchical, single central topic)');
 		assert.equal(mindmap.releaseState, 'Prototype');
+		assert.equal(mindmap.kind, 'editor', 'the Kind column is copied');
+		assert.equal(env.site.json('sources/catalogue/standalone/catalogue.json').find((e) => e.origin === 'c4/context').kind, 'diagram');
+		assert.ok(!('kind' in env.site.json('sources/catalogue/vscode/catalogue.json')[0]), 'no Kind column, no kind');
 		// The VS Code host still has docs/diagrams.md, which is read as before.
 		assert.equal(env.site.read('sources/catalogue/vscode/catalogue.json').includes('generic/timeline'), true);
 		assert.ok(lock.files.some((f) => f.path === 'vscode/diagrams.md' && f.sourcePath === 'docs/diagrams.md'));
