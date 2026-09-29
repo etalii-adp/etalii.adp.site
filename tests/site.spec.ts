@@ -4,6 +4,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
 import { badgeOrigin, statsOrigin } from '../src/data/builds';
 import { visitorCounterOrigin } from '../src/data/visitors';
+import { examplesOf } from '../src/lib/reference/examples';
 import { latestOf } from '../src/lib/reference/load';
 
 // Every built page is checked (FR-012, FR-014, FR-015, FR-017, SC-003): the pages under dist/adp/ and the
@@ -178,6 +179,13 @@ test.describe('addresses (contracts/site-addresses.md)', () => {
 			await reference.locator(':scope > summary').click();
 			await expect(schema).toBeVisible();
 			await expect(schema).toHaveAttribute('href', `/adp/${version.language.id}/${version.record.version}/schema/`);
+			// Every example is its own page in a collapsible Examples group.
+			const examples = reference.locator('details').filter({ has: page.locator(':scope > summary', { hasText: 'Examples' }) });
+			await examples.locator(':scope > summary').click();
+			await expect(examples.getByRole('link', { name: 'Overview' })).toHaveAttribute('href', `/adp/${version.language.id}/${version.record.version}/examples/`);
+			const stems = examplesOf(version).map((example) => example.stem);
+			expect(stems.length).toBeGreaterThan(0);
+			for (const stem of stems) await expect(examples.locator(`a[href="/adp/${version.language.id}/${version.record.version}/examples/${stem}/"]`)).toBeVisible();
 		}
 		// A reference page shows the same sidebar, its own language opened at the current page.
 		const [first] = references;
