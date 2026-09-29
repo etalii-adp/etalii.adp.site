@@ -162,3 +162,22 @@ test('implemented becomes available only with a public release and a licence', (
 	writeFileSync(lockFile, JSON.stringify(lock, null, 2));
 	assert.equal(assembleCatalogue(options).designers.find((d) => d.origin === 'wardley/map')!.hosts.standalone.state, 'implemented');
 });
+
+// etalii.adp spec 002: a host's docs/tools.md says each tool's kind in a Kind column, which the refresh copies into
+// catalogue.json; the site reads it first and falls back to Notion's Kind (or Type).
+test('a kind from the host catalogue wins over Notion, which stays the fallback', () => {
+	const sourcesRoot = mkdtempSync(join(tmpdir(), 'adp-sources-'));
+	cpSync(join(fixtures, 'sources'), sourcesRoot, { recursive: true });
+	const file = join(sourcesRoot, 'catalogue', 'standalone', 'catalogue.json');
+	const rows = JSON.parse(readFileSync(file, 'utf8'));
+	for (const row of rows) {
+		if (row.origin === 'freeplane/mindmap') row.kind = 'editor';
+		if (row.origin === 'generic/timeline') row.kind = 'designer';
+	}
+	writeFileSync(file, JSON.stringify(rows, null, 2));
+	const kinds = Object.fromEntries(assembleCatalogue(fixtureOptions({}, sourcesRoot)).designers.map((d) => [d.origin, d.kind]));
+	assert.equal(kinds['freeplane/mindmap'], 'editor', 'the Kind column over Notion\'s Designer');
+	assert.equal(kinds['generic/timeline'], 'designer', 'the Kind column where Notion says nothing');
+	assert.equal(kinds['jgraph/drawio'], 'designer', 'Notion, for a row without a Kind');
+	assert.equal(kinds['wardley/map'], 'diagram');
+});

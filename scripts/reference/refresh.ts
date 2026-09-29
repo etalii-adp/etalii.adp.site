@@ -10,7 +10,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, rmSync, w
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { toString } from 'mdast-util-to-string';
-import { REFERENCE_DIR, compareVersions, languageById } from '../../src/lib/reference/load';
+import { REFERENCE_DIR, compareVersions, registeredLanguages } from '../../src/lib/reference/load';
 import { splitProse, type Split } from '../../src/lib/reference/split';
 import type { FileRecord, FileRole, Language, Version } from '../../src/lib/reference/types';
 
@@ -72,16 +72,29 @@ function snapshotsOf(contentRoot: string, language: string): Snapshot[] {
 		.sort((a, b) => compareVersions(a.record.version, b.record.version));
 }
 
-/** The `$schema` address of a definition or document of this language, for any version. */
+/** The `$schema` address of an example of this language, for any version, with the `$defs` root it names. */
 function exampleSchemaPattern(language: Language): RegExp {
 	const path = language.schemaAddress.replace('{schema}', language.schema).replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace('\\{version\\}', '([^/]+)');
-	return new RegExp(`^${SITE.replace(/[.]/g, '\\.')}${path}#/\\$defs/(Definition|Document)$`);
+	return new RegExp(`^${SITE.replace(/[.]/g, '\\.')}${path}#/\\$defs/(Specification|Definition|Document)$`);
 }
+
+/**
+ * The role of an example by the `$defs` root its `$schema` names. DEDL's `Definition` is what a tool engineer writes
+ * and its `Document` a stored diagram; etalii.adp spec 002 renames them to DISL's `Specification` and DID's
+ * `Definition`, so a DID `Definition` is a stored diagram, which the snapshot records as `document`.
+ */
+function exampleRole(language: Language, root: string): FileRole {
+	if (root === 'Document' || (root === 'Definition' && language.id === 'did')) return 'document';
+	return 'definition';
+}
+
+/** The file extensions of examples: DEDL's, and DISL's and DID's (etalii.adp spec 002). */
+const EXAMPLE = /\.(dedl|disl|did|json)$/;
 
 function classify(name: string, bytes: Buffer, language: Language, version: string): { role: FileRole; warning?: string } {
 	if (name === language.prose) return { role: 'prose' };
 	if (name === language.schema) return { role: 'schema' };
-	if (!/\.(dedl|json)$/.test(name)) return { role: 'other', warning: `\`${name}\` is not a definition or document; stored as \`other\` and not published.` };
+	if (!EXAMPLE.test(name)) return { role: 'other', warning: `\`${name}\` is not a definition or document; stored as \`other\` and not published.` };
 	let schema: unknown;
 	try {
 		schema = JSON.parse(bytes.toString('utf8')).$schema;
@@ -93,7 +106,7 @@ function classify(name: string, bytes: Buffer, language: Language, version: stri
 	if (match[1] !== version) {
 		throw new RefreshError(`schema version or address mismatch: \`${name}\` declares \`$schema\` version ${match[1]}, the prose declares ${version}.`);
 	}
-	return { role: match[2] === 'Definition' ? 'definition' : 'document' };
+	return { role: exampleRole(language, match[2]) };
 }
 
 function topLevelTexts(split: Split): Map<string, string> {
@@ -289,6 +302,37 @@ export async function refresh(options: RefreshOptions): Promise<RefreshResult> {
 	return { code: 0, report: report({ language, before, olderVersion, after: record, files: record.files, diff, warnings, outcome: before ? 'Snapshot updated.' : 'New version added.' }) };
 }
 
+// -- Which languages to refresh while etalii.adp moves from DEDL to DISL and DID --------------------------
+
+/** The languages that replace DEDL, and the one they replace (etalii.adp spec 002). */
+const SUCCESSORS: Record<string, string[]> = { dedl: ['disl', 'did'] };
+
+/**
+ * The languages a refresh of `id` reads (etalii.adp spec 002, Part 1). DEDL, DISL and DID are one family: while
+ * `specifications/disl/` exists upstream at the revision, the family is refreshed as DISL and DID; while it is
+ * absent, as DEDL. Any other language is refreshed as itself.
+ */
+export async function languagesToRefresh(id: string, github: GitHub, revision?: string, registered: Language[] = registeredLanguages()): Promise<Language[]> {
+	const byId = (wanted: string): Language => {
+		const language = registered.find((l) => l.id === wanted);
+		if (!language) throw new Error(`No language "${wanted}" in ${join(REFERENCE_DIR, 'languages.json')}.`);
+		return language;
+	};
+	const family = Object.entries(SUCCESSORS).find(([old, next]) => id === old || next.includes(id));
+	if (!family) return [byId(id)];
+	const [old, next] = family;
+	const successors = next.map(byId);
+	const first = successors[0];
+	const at = await github.resolve(first.repository, revision ?? first.branch);
+	let present: boolean;
+	try {
+		present = (await github.list(first.repository, first.path, at)).length > 0;
+	} catch {
+		present = false;
+	}
+	return present ? successors : [byId(old)];
+}
+
 // -- The GitHub REST API, read without a token when none is available (the source is public) -------
 
 function token(): string | undefined {
@@ -349,16 +393,22 @@ async function main(argv: string[]): Promise<number> {
 		console.error('usage: npm run reference:refresh -- <language> [--revision <sha-or-ref>] [--dry-run]');
 		return 1;
 	}
-	let language: Language;
+	let chosen: Language[];
+	const github = httpGitHub();
 	try {
-		language = languageById(positional[0]);
+		chosen = await languagesToRefresh(positional[0], github, revision);
 	} catch (error) {
 		console.error((error as Error).message);
 		return 1;
 	}
-	const result = await refresh({ language, revision, dryRun, contentRoot: REFERENCE_DIR, github: httpGitHub() });
-	console.log(result.report);
-	return result.code;
+	// Exit codes combined: 1 when any failed, else 0 when any changed, else 3 (every one current).
+	const codes: number[] = [];
+	for (const language of chosen) {
+		const result = await refresh({ language, revision, dryRun, contentRoot: REFERENCE_DIR, github });
+		console.log(result.report);
+		codes.push(result.code);
+	}
+	return codes.includes(1) ? 1 : codes.includes(0) ? 0 : 3;
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {

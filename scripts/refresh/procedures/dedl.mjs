@@ -1,11 +1,28 @@
 // refresh-dedl: the DEDL specification, schema and examples from etalii-adp/etalii.adp into
 // sources/dedl/<version>/, a frozen folder per version (research R12).
+//
+// etalii.adp spec 002 splits DEDL into DISL (specifications/disl/) and DID (specifications/did/). Until its Part 7
+// this procedure reads either layout: DISL and DID once specifications/disl/ exists, DEDL while it is absent. Both
+// are stored in the same version folder (their file names differ); the site publishes no DISL or DID page yet.
 import { existsSync, readFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import { compareSemver } from '../lib/util.mjs';
 
-const SPEC = 'DEDL-specification.md';
-const SCHEMA = 'dedl.schema.json';
+/** The two layouts, each a list of languages with their folder, specification and schema (etalii.adp spec 002). */
+export const LAYOUTS = {
+	dedl: [{ short: 'DEDL', folder: 'specifications/dedl/', spec: 'DEDL-specification.md', schema: 'dedl.schema.json' }],
+	disl: [
+		{ short: 'DISL', folder: 'specifications/disl/', spec: 'DISL-specification.md', schema: 'disl.schema.json' },
+		{ short: 'DID', folder: 'specifications/did/', spec: 'DID-specification.md', schema: 'did.schema.json' },
+	],
+};
+
+/** The layout of the watched files: `disl` when any is under specifications/disl/, else `dedl`. */
+export function layoutOf(files) {
+	return files.some((f) => f.sourcePath.startsWith(LAYOUTS.disl[0].folder)) ? 'disl' : 'dedl';
+}
+
+const SPEC = LAYOUTS.dedl[0].spec;
 
 /** The version in the specification's header (the text before its first `##` heading). */
 export function headerVersion(markdown) {
@@ -13,10 +30,11 @@ export function headerVersion(markdown) {
 	return header.match(/\bversion\b[\s|:*]*v?(\d+(?:\.\d+)+)/i)?.[1] ?? null;
 }
 
-/** The version segment of the schema's `$id`: `…/dedl/schema/<version>/dedl.schema.json`. */
-export function schemaVersion(json) {
+/** The version segment of the schema's `$id`: `…/<name>/schema/<version>/<name>.schema.json`, `name` `dedl` by default. */
+export function schemaVersion(json, name = 'dedl') {
 	const id = JSON.parse(json).$id ?? '';
-	return id.match(/\/dedl\/schema\/([^/]+)\/dedl\.schema\.json$/)?.[1] ?? null;
+	const address = new RegExp(String.raw`/${name}/schema/([^/]+)/${name}\.schema\.json$`);
+	return id.match(address)?.[1] ?? null;
 }
 
 /** Splits a specification on its `##` headings: `[{ heading, lines }]`, with the text before the first as "(header)". */
@@ -74,7 +92,7 @@ export default {
 	id: 'refresh-dedl',
 	short: 'dedl',
 	what: 'DEDL reference',
-	sources: [{ repository: 'etalii-adp/etalii.adp', ref: 'develop', paths: ['specifications/dedl/*'], host: null }],
+	sources: [{ repository: 'etalii-adp/etalii.adp', ref: 'develop', paths: ['specifications/dedl/*', 'specifications/disl/*', 'specifications/did/*'], host: null }],
 	usesReleases: false,
 
 	/** Only the newest version's files are compared with the source; older versions are frozen. */
@@ -85,45 +103,62 @@ export default {
 
 	async apply(ctx) {
 		const [source] = ctx.sources;
-		const byName = new Map(source.files.map((f) => [basename(f.sourcePath), f]));
-		const spec = byName.get(SPEC);
-		const schema = byName.get(SCHEMA);
-		if (!spec) throw new Error(`${source.repository}: ${source.paths[0]} has no ${SPEC} at ${source.head.slice(0, 7)}`);
-		if (!schema) throw new Error(`${source.repository}: ${source.paths[0]} has no ${SCHEMA} at ${source.head.slice(0, 7)}`);
-
-		const specText = readFileSync(spec.file, 'utf8');
-		const fromHeader = headerVersion(specText);
-		const fromSchema = schemaVersion(readFileSync(schema.file, 'utf8'));
-		if (!fromHeader || !fromSchema || fromHeader !== fromSchema) {
-			throw new Error(`${source.repository}: the DEDL version disagrees: the specification header says ${fromHeader ?? '(none)'}, the schema $id says ${fromSchema ?? '(none)'}`);
+		const layout = layoutOf(source.files);
+		const languages = LAYOUTS[layout];
+		// Only the files of the layout in use: while etalii.adp moves, a stale specifications/dedl/ beside the new
+		// folders is not published a second time.
+		const used = source.files.filter((f) => languages.some((l) => f.sourcePath.startsWith(l.folder)));
+		const byName = new Map(used.map((f) => [basename(f.sourcePath), f]));
+		const found = languages.map((language) => {
+			const spec = byName.get(language.spec);
+			const schema = byName.get(language.schema);
+			if (!spec) throw new Error(`${source.repository}: ${language.folder}* has no ${language.spec} at ${source.head.slice(0, 7)}`);
+			if (!schema) throw new Error(`${source.repository}: ${language.folder}* has no ${language.schema} at ${source.head.slice(0, 7)}`);
+			const specText = readFileSync(spec.file, 'utf8');
+			const fromHeader = headerVersion(specText);
+			const fromSchema = schemaVersion(readFileSync(schema.file, 'utf8'), language.short.toLowerCase());
+			if (!fromHeader || !fromSchema || fromHeader !== fromSchema) {
+				throw new Error(`${source.repository}: the ${language.short} version disagrees: the specification header says ${fromHeader ?? '(none)'}, the schema $id says ${fromSchema ?? '(none)'}`);
+			}
+			return { language, specText, version: fromHeader };
+		});
+		if (new Set(found.map((f) => f.version)).size > 1) {
+			throw new Error(`${source.repository}: ${found.map((f) => `${f.language.short} is version ${f.version}`).join(' and ')}; they are published together, so they must share a version`);
 		}
-		const version = fromHeader;
+		const version = found[0].version;
+		const specText = found[0].specText;
+		const specName = found[0].language.spec;
 		const versions = versionsIn(ctx.previous);
 		const latest = versions.at(-1) ?? null;
 		if (latest && compareSemver(version, latest) < 0) {
-			throw new Error(`${source.repository}: the source's DEDL version ${version} is older than the published ${latest}; an older version's folder is never rewritten`);
+			throw new Error(`${source.repository}: the source's ${languages.map((l) => l.short).join(' and ')} version ${version} is older than the published ${latest}; an older version's folder is never rewritten`);
 		}
 		const newVersion = latest !== null && version !== latest;
 
-		const files = source.files.map((from) => ({ path: `${version}/${basename(from.sourcePath)}`, from }));
+		const files = used.map((from) => ({ path: `${version}/${basename(from.sourcePath)}`, from }));
 		const keep = (ctx.previous?.files ?? []).map((f) => f.path).filter((path) => !path.startsWith(`${version}/`));
 
-		const oldSpec = latest && existsSync(join(ctx.target, latest, SPEC)) ? readFileSync(join(ctx.target, latest, SPEC), 'utf8') : null;
+		// The sections are compared with the previous specification of the same name, or DISL's with DEDL's the first
+		// time the new layout is read.
+		const oldSpecName = latest && existsSync(join(ctx.target, latest, specName)) ? specName : SPEC;
+		const oldSpec = latest && existsSync(join(ctx.target, latest, oldSpecName)) ? readFileSync(join(ctx.target, latest, oldSpecName), 'utf8') : null;
 		const previousEntries = new Map((ctx.previous?.files ?? []).filter((f) => f.path.startsWith(`${latest}/`)).map((f) => [basename(f.path), f]));
-		const others = source.files
-			.filter((f) => basename(f.sourcePath) !== SPEC)
+		const others = used
+			.filter((f) => basename(f.sourcePath) !== specName)
 			.map((f) => {
 				const was = previousEntries.get(basename(f.sourcePath));
 				return { file: basename(f.sourcePath), change: !was ? 'added' : was.gitBlob === f.gitBlob ? 'unchanged' : 'changed' };
 			});
 		for (const name of previousEntries.keys()) {
-			if (name !== SPEC && !byName.has(name)) others.push({ file: name, change: 'removed' });
+			if (name !== specName && name !== oldSpecName && !byName.has(name)) others.push({ file: name, change: 'removed' });
 		}
 
 		return {
 			files,
 			keep,
 			details: {
+				layout,
+				spec: specName,
 				version,
 				previousVersion: latest,
 				newVersion,
@@ -143,7 +178,8 @@ export default {
 		const lines = [];
 		if (d.newVersion) lines.push(`New version ${d.version} published beside ${d.previousVersion}; \`sources/dedl/${d.previousVersion}/\` is unchanged.`, '');
 		else if (!d.previousVersion) lines.push(`Version ${d.version} imported for the first time.`, '');
-		lines.push(`**Specification** (\`${d.version}/${SPEC}\`):`, '');
+		if (d.layout === 'disl') lines.push('Read from `specifications/disl/` and `specifications/did/` (DISL and DID, etalii.adp spec 002); the DISL specification is compared below.', '');
+		lines.push(`**Specification** (\`${d.version}/${d.spec ?? SPEC}\`):`, '');
 		if (!d.sections.length) lines.push('No section changed.');
 		else {
 			lines.push('| Section | Change | Lines changed |', '|---|---|---|');

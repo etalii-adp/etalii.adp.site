@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { catalogueHosts, hostById } from './hosts.ts';
 import { readNotionSnapshot, toNotionSourceRecord, type NotionRow } from './notion-snapshot.ts';
-import { licenceOf, posix, readSources, toSourceRecord, type CatalogueRow, type Sources } from './sources.ts';
+import { catalogueSourceRecord, licenceOf, posix, readSources, toSourceRecord, type CatalogueRow, type Sources } from './sources.ts';
 import { UnmappedStateError, bestState, defaultStatesConfig, isUsable, loadMapping, showsScreenshots, mapSourceState, states, type StateMapping } from './states.ts';
 import type {
 	CatalogueReport,
@@ -155,7 +155,7 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 	}
 	const catalogueRecord = (host: HostId): GitSourceRecord => {
 		const { lock } = sources.catalogues.get(host)!;
-		return toSourceRecord(lock, `${host}/diagrams.md`);
+		return catalogueSourceRecord(lock, host);
 	};
 
 	const releaseFor = (host: HostId) => {
@@ -335,7 +335,9 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 			report.pending.push({ origin, message: `${origin}: screenshot pending (usable, but no publishable screenshot)` });
 		}
 
-		const kind = (notion?.type ?? 'diagram').toLowerCase();
+		// A host catalogue's Kind column (docs/tools.md, etalii.adp spec 002) first, in the fixed host order; else Notion's.
+		const catalogueKind = catalogueHosts.map((host) => rows.get(host.id)?.kind).find(Boolean);
+		const kind = (catalogueKind ?? notion?.type ?? 'diagram').toLowerCase();
 		designers.push({
 			origin,
 			name,

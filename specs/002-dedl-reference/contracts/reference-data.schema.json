@@ -22,7 +22,8 @@
         "path": { "type": "string", "minLength": 1 },
         "prose": { "type": "string", "pattern": "\\.md$" },
         "schema": { "type": "string", "pattern": "\\.json$" },
-        "schemaAddress": { "type": "string", "pattern": "^/[a-z]+/schema/\\{version\\}/\\{schema\\}$" }
+        "schemaAddress": { "type": "string", "pattern": "^/[a-z]+/schema/\\{version\\}/\\{schema\\}$" },
+        "publish": { "type": "boolean", "description": "false while the language is registered for npm run reference:refresh only and has no pages; absent means true (etalii.adp spec 002, naming convention alignment)." }
       }
     },
     "Version": {

@@ -10,23 +10,26 @@ import { fixtureOptions } from './helpers.ts';
 const hostOptions = ['⛔ Not planned', '💡 Identified', '📝 Specified', '⏸️ To-do', '🛠️ Work-in-progress', '⚗️ Prototype', '✅ Implemented'];
 
 /** A fetch that answers the data source read and records every call. */
-function fakeNotion(options: string[] = hostOptions) {
+const oldColumns = ['Standalone Plugin Implementation', 'IntelliJ Plugin Implementation', 'VS Code Plugin Implementation', 'Eclipse'];
+const newColumns = ['Standalone', 'IntelliJ', 'VS Code', 'Eclipse'];
+
+function fakeNotion(options: string[] = hostOptions, columns: string[] = oldColumns) {
 	const calls: { method: string; url: string; body?: unknown }[] = [];
 	const fetchImpl = (async (url: string, init: RequestInit = {}) => {
 		const method = init.method ?? 'GET';
 		calls.push({ method, url, body: init.body ? JSON.parse(init.body as string) : undefined });
 		if (method === 'GET') {
 			const select = { type: 'select', select: { options: options.map((name) => ({ name })) } };
-			return Response.json({ object: 'data_source', properties: { 'Standalone Plugin Implementation': select, 'IntelliJ Plugin Implementation': select, 'VS Code Plugin Implementation': select, Eclipse: select } });
+			return Response.json({ object: 'data_source', properties: Object.fromEntries(columns.map((column) => [column, select])) });
 		}
 		return Response.json({ object: 'page' });
 	}) as typeof fetch;
 	return { calls, fetchImpl };
 }
 
-async function sync(args: string[], overrides: Record<string, unknown> = {}, options = hostOptions) {
+async function sync(args: string[], overrides: Record<string, unknown> = {}, options = hostOptions, columns = oldColumns) {
 	const inputs = fixtureOptions(overrides);
-	const notion = fakeNotion(options);
+	const notion = fakeNotion(options, columns);
 	const reportDir = mkdtempSync(join(tmpdir(), 'adp-refresh-'));
 	const lines: string[] = [];
 	const log = console.log;
@@ -84,4 +87,19 @@ test('it refuses to run when the catalogue does not assemble', async () => {
 	assert.equal(code, 1);
 	assert.match(out, /does not assemble/);
 	assert.deepEqual(calls, []);
+});
+
+// etalii.adp spec 002 renames the host columns to the hosts' names; the write-back uses whichever name exists.
+test('it writes to the new host column name once Notion has it', async () => {
+	const { code, out, calls } = await sync([], {}, hostOptions, newColumns);
+	assert.equal(code, 0, out);
+	const patches = calls.filter((call) => call.method === 'PATCH');
+	assert.equal(patches.length, 1);
+	assert.deepEqual(patches[0].body, { properties: { Standalone: { select: { name: '✅ Implemented' } } } });
+});
+
+test('it names the new host column when an option is missing there', async () => {
+	const { out, calls } = await sync([], {}, hostOptions.filter((name) => name !== '✅ Implemented'), newColumns);
+	assert.match(out, /wardley\/map · standalone: the Notion column "Standalone" has no option for "Implemented"; skipped/);
+	assert.deepEqual(calls.filter((call) => call.method === 'PATCH'), []);
 });

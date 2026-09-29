@@ -1,4 +1,5 @@
 import { hostIds } from '../../data/order.ts';
+import { notionColumnNames } from './notion-api.ts';
 import type { HostId } from './types.ts';
 
 export interface CatalogueHost {
@@ -6,15 +7,18 @@ export interface CatalogueHost {
 	name: string;
 	/** `owner/name` of the host's repository. */
 	repository: string;
-	/** The host's select column in the Notion "Diagrams" data source. */
-	notionColumn: string;
+	/**
+	 * The names of the host's select column in the Notion data source, newest first: the host's own name, and the
+	 * name before etalii.adp spec 002 renamed it (accepted until its Part 7). Whichever exists is read and written.
+	 */
+	notionColumns: readonly string[];
 }
 
 const details: Record<HostId, Omit<CatalogueHost, 'id'>> = {
-	standalone: { name: 'Standalone', repository: 'etalii-adp/etalii.adp.ide.standalone', notionColumn: 'Standalone Plugin Implementation' },
-	intellij: { name: 'IntelliJ Platform', repository: 'etalii-adp/etalii.adp.ide.intellij', notionColumn: 'IntelliJ Plugin Implementation' },
-	vscode: { name: 'Visual Studio Code', repository: 'etalii-adp/etalii.adp.ide.vscode', notionColumn: 'VS Code Plugin Implementation' },
-	eclipse: { name: 'Eclipse', repository: 'etalii-adp/etalii.adp.ide.eclipse', notionColumn: 'Eclipse' },
+	standalone: { name: 'Standalone', repository: 'etalii-adp/etalii.adp.ide.standalone', notionColumns: notionColumnNames.standalone },
+	intellij: { name: 'IntelliJ Platform', repository: 'etalii-adp/etalii.adp.ide.intellij', notionColumns: notionColumnNames.intellij },
+	vscode: { name: 'Visual Studio Code', repository: 'etalii-adp/etalii.adp.ide.vscode', notionColumns: notionColumnNames.vscode },
+	eclipse: { name: 'Eclipse', repository: 'etalii-adp/etalii.adp.ide.eclipse', notionColumns: notionColumnNames.eclipse },
 };
 
 /** The four hosts, in the site's fixed order (src/data/order.ts). */

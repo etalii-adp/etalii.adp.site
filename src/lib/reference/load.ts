@@ -68,7 +68,8 @@ function memo<T>(key: string, make: () => T): T {
 	return cache.get(key) as T;
 }
 
-export function languages(): Language[] {
+/** Every registered language, including those with `publish: false` that only the refresh reads. */
+export function registeredLanguages(): Language[] {
 	return memo('languages', () => {
 		const path = join(REFERENCE_DIR, 'languages.json');
 		const data = JSON.parse(readFileSync(path, 'utf8'));
@@ -77,8 +78,13 @@ export function languages(): Language[] {
 	});
 }
 
+/** The languages the site publishes pages for: every registered language but those with `publish: false`. */
+export function languages(): Language[] {
+	return registeredLanguages().filter((language) => language.publish !== false);
+}
+
 export function languageById(id: string): Language {
-	const language = languages().find((l) => l.id === id);
+	const language = registeredLanguages().find((l) => l.id === id);
 	if (!language) throw new Error(`No language "${id}" in ${join(REFERENCE_DIR, 'languages.json')}.`);
 	return language;
 }

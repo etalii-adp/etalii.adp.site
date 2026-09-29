@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://etalii.net/adp/disl/schema/0.1/disl.schema.json",
+  "title": "DISL 0.1 (test fixture)",
+  "$ref": "#/$defs/Specification",
+  "$defs": {
+    "Specification": { "type": "object" }
+  }
+}

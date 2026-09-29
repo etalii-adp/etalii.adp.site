@@ -4,7 +4,7 @@
 import { readFileSync } from 'node:fs';
 import { basename } from 'node:path';
 import { NeedsDecision } from '../lib/decision.mjs';
-import { CATALOGUE_PATH, designersFor, isUsable } from '../lib/catalogue-table.mjs';
+import { CATALOGUE_PATHS, catalogueFileOf, designersFor, isUsable } from '../lib/catalogue-table.mjs';
 import { catalogueReport } from '../lib/catalogue-site.mjs';
 import { readPngSize } from '../lib/png.mjs';
 
@@ -12,7 +12,7 @@ const README = 'docs/screenshots/readme.md';
 const KB = 1024;
 export const NOT_A_DESIGNER = 'none';
 
-const ide = (host) => ({ repository: `etalii-adp/etalii.adp.ide.${host}`, ref: 'develop', paths: ['docs/screenshots/*.png', README, CATALOGUE_PATH], host });
+const ide = (host) => ({ repository: `etalii-adp/etalii.adp.ide.${host}`, ref: 'develop', paths: ['docs/screenshots/*.png', README, ...CATALOGUE_PATHS], host });
 
 const cells = (line) => line.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map((cell) => cell.trim());
 const unquote = (cell) => cell.replace(/^`(.*)`$/, '$1');
@@ -115,7 +115,7 @@ export default {
 		for (const source of ctx.sources) {
 			const { host } = source;
 			const readmeFile = source.files.find((f) => f.sourcePath === README);
-			const catalogueFile = source.files.find((f) => f.sourcePath === CATALOGUE_PATH);
+			const catalogueFile = catalogueFileOf(source.files);
 			const pngs = source.files.filter((f) => f.sourcePath.endsWith('.png'));
 			result.inputs.push(...[readmeFile, catalogueFile].filter(Boolean));
 

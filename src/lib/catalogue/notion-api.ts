@@ -29,28 +29,45 @@ export interface NotionQueryResponse {
 	next_cursor: string | null;
 }
 
-/** The S3 properties, by the name of the NotionRow field they become. */
-export const notionColumns = {
-	name: 'Name',
-	origin: 'Origin',
-	purpose: 'One line purpose',
-	description: 'Description',
-	whySpecialized: 'Why specialized',
-	fileExtension: 'File extension (if single file)',
-	theory: 'Theory',
-	type: 'Type',
-	family: 'Family',
-	subfamily: 'Subfamily',
-	focusAreas: 'Focus areas',
-	previousOrigin: 'Previous origin',
-	standalone: 'Standalone Plugin Implementation',
-	intellij: 'IntelliJ Plugin Implementation',
-	vscode: 'VS Code Plugin Implementation',
-	eclipse: 'Eclipse',
-} as const;
+/**
+ * The S3 properties, by the name of the NotionRow field they become: each column's name, or its names, newest first.
+ * etalii.adp spec 002 (naming convention alignment) renames `Type` to `Kind` and the host columns to the hosts' own
+ * names; until its Part 7 the old names are read as well, so the refresh keeps working on either side of the rename.
+ */
+export const notionColumnNames = {
+	name: ['Name'],
+	origin: ['Origin'],
+	purpose: ['One line purpose'],
+	description: ['Description'],
+	whySpecialized: ['Why specialized'],
+	fileExtension: ['File extension (if single file)'],
+	theory: ['Theory'],
+	type: ['Kind', 'Type'],
+	family: ['Family'],
+	subfamily: ['Subfamily'],
+	focusAreas: ['Focus areas'],
+	previousOrigin: ['Previous origin'],
+	standalone: ['Standalone', 'Standalone Plugin Implementation'],
+	intellij: ['IntelliJ', 'IntelliJ Plugin Implementation'],
+	vscode: ['VS Code', 'VS Code Plugin Implementation'],
+	eclipse: ['Eclipse'],
+} as const satisfies Record<string, readonly string[]>;
+
+export type NotionField = keyof typeof notionColumnNames;
+
+/** Each column's newest name, by field: what the refresh reports and what an export should use. */
+export const notionColumns = Object.fromEntries(Object.entries(notionColumnNames).map(([field, names]) => [field, names[0]])) as { readonly [F in NotionField]: (typeof notionColumnNames)[F][0] };
+
+/** The field a Notion column name belongs to, under any of its names. */
+const fieldOfColumn = new Map<string, NotionField>(Object.entries(notionColumnNames).flatMap(([field, names]) => names.map((name) => [name, field as NotionField] as const)));
+
+/** The name under which `properties` holds `field`: the newest name present, or undefined when none is. */
+export function columnIn(properties: Record<string, unknown>, field: NotionField): string | undefined {
+	return notionColumnNames[field].find((name) => name in properties);
+}
 
 /** Columns that may be missing without a gap being reported: `Previous origin` is optional (data-model § Redirect). */
-const optionalColumns = new Set<string>([notionColumns.previousOrigin]);
+const optionalColumns = new Set<NotionField>(['previousOrigin']);
 
 /** The text fields where an empty Notion value keeps the snapshot's previous value (S3 "Empty values"). */
 const keptTextFields = ['name', 'purpose', 'description', 'whySpecialized', 'fileExtension', 'theory'] as const;
@@ -91,11 +108,15 @@ export function parseNotionPages(pages: NotionPage[], previous: NotionSnapshot =
 
 	for (const page of pages) {
 		const properties = page.properties ?? {};
-		for (const column of Object.values(notionColumns)) {
-			if (!(column in properties) && !optionalColumns.has(column)) missing.add(column);
+		const get = (field: NotionField): NotionProperty | undefined => {
+			const column = columnIn(properties, field);
+			return column === undefined ? undefined : properties[column];
+		};
+		for (const field of Object.keys(notionColumnNames) as NotionField[]) {
+			if (!columnIn(properties, field) && !optionalColumns.has(field)) missing.add(notionColumnNames[field].map((name) => `"${name}"`).join(' or '));
 		}
-		const origin = text(properties[notionColumns.origin]);
-		const name = text(properties[notionColumns.name]);
+		const origin = text(get('origin'));
+		const name = text(get('name'));
 		if (!origin) {
 			report.push({ message: `Notion row "${name ?? page.id}" (${page.id}) has no Origin, so it is left out` });
 			continue;
@@ -105,22 +126,22 @@ export function parseNotionPages(pages: NotionPage[], previous: NotionSnapshot =
 			lastEditedTime: page.last_edited_time,
 			origin,
 			name,
-			type: select(properties[notionColumns.type]),
-			purpose: text(properties[notionColumns.purpose]),
-			description: text(properties[notionColumns.description]),
-			whySpecialized: text(properties[notionColumns.whySpecialized]),
-			fileExtension: text(properties[notionColumns.fileExtension]),
-			focusAreas: multiSelect(properties[notionColumns.focusAreas]),
-			family: select(properties[notionColumns.family]),
-			subfamily: select(properties[notionColumns.subfamily]),
-			theory: text(properties[notionColumns.theory]),
+			type: select(get('type')),
+			purpose: text(get('purpose')),
+			description: text(get('description')),
+			whySpecialized: text(get('whySpecialized')),
+			fileExtension: text(get('fileExtension')),
+			focusAreas: multiSelect(get('focusAreas')),
+			family: select(get('family')),
+			subfamily: select(get('subfamily')),
+			theory: text(get('theory')),
 			hosts: {
-				standalone: select(properties[notionColumns.standalone]),
-				intellij: select(properties[notionColumns.intellij]),
-				vscode: select(properties[notionColumns.vscode]),
-				eclipse: select(properties[notionColumns.eclipse]),
+				standalone: select(get('standalone')),
+				intellij: select(get('intellij')),
+				vscode: select(get('vscode')),
+				eclipse: select(get('eclipse')),
 			},
-			previousOrigin: text(properties[notionColumns.previousOrigin]),
+			previousOrigin: text(get('previousOrigin')),
 		};
 		const earlier = before.get(page.id);
 		if (earlier) {
@@ -128,7 +149,7 @@ export function parseNotionPages(pages: NotionPage[], previous: NotionSnapshot =
 		}
 		rows.push(row);
 	}
-	for (const column of missing) report.push({ message: `Notion has no "${column}" column` });
+	for (const column of missing) report.push({ message: `Notion has no ${column} column` });
 	rows.sort((a, b) => (a.origin! < b.origin! ? -1 : a.origin! > b.origin! ? 1 : 0));
 	return { rows, report };
 }
@@ -181,7 +202,7 @@ export interface NotionExport {
 	rows: Record<string, unknown>[];
 }
 
-const selectColumns = new Set<string>([notionColumns.type, notionColumns.family, notionColumns.subfamily, notionColumns.standalone, notionColumns.intellij, notionColumns.vscode, notionColumns.eclipse]);
+const selectFields = new Set<NotionField>(['type', 'family', 'subfamily', 'standalone', 'intellij', 'vscode', 'eclipse']);
 
 /** The page id in a Notion page URL (its last 32 hex digits), as a dashed UUID. */
 export function pageIdFromUrl(url: string): string | null {
@@ -202,7 +223,8 @@ export function pagesFromExport(exported: NotionExport): NotionPage[] {
 		for (const column of columns) {
 			const raw = row[column];
 			if (column === 'url') continue;
-			if (column === notionColumns.focusAreas) {
+			const field = fieldOfColumn.get(column);
+			if (field === 'focusAreas') {
 				// An array, a JSON array in a string (as the connector returns it), or a comma-separated string.
 				const listed = typeof raw === 'string' && raw.trim().startsWith('[') ? (JSON.parse(raw) as unknown[]) : raw;
 				const names = Array.isArray(listed) ? listed.map(String) : String(listed ?? '').split(',');
@@ -213,9 +235,9 @@ export function pagesFromExport(exported: NotionExport): NotionPage[] {
 			// The connector writes a link inside text as Markdown, [text](url), where the API's plain_text has the text
 			// alone. Notion links words such as "draw.io" by itself, so every column but Theory, whose URLs the catalogue
 			// reads, keeps the text alone, as the API would give it.
-			const value = column === notionColumns.theory ? text : text.replace(/\[([^\]]*)\]\([^)\s]*\)/g, '$1');
-			if (column === notionColumns.name) properties[column] = { type: 'title', title: rich(value) };
-			else if (selectColumns.has(column)) properties[column] = { type: 'select', select: value ? { name: value } : null };
+			const value = field === 'theory' ? text : text.replace(/\[([^\]]*)\]\([^)\s]*\)/g, '$1');
+			if (field === 'name') properties[column] = { type: 'title', title: rich(value) };
+			else if (field !== undefined && selectFields.has(field)) properties[column] = { type: 'select', select: value ? { name: value } : null };
 			else properties[column] = { type: 'rich_text', rich_text: rich(value) };
 		}
 		return { object: 'page', id, last_edited_time: exported.exportedAt, properties };

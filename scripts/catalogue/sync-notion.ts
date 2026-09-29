@@ -64,6 +64,8 @@ export async function main(args: string[], options: SyncOptions = {}): Promise<n
 	}
 	const dataSource = (await response.json()) as { properties: Record<string, { type: string; select?: { options: { name: string }[] } }> };
 	const optionsOf = (column: string) => dataSource.properties[column]?.select?.options.map((option) => option.name) ?? [];
+	// Each host's column under the name the data source has now: the new name or the old one (etalii.adp spec 002).
+	const columnOf = (host: (typeof hosts)[number]) => host.notionColumns.find((name) => name in dataSource.properties) ?? host.notionColumns[0];
 
 	const changes: Change[] = [];
 	const skipped: string[] = [];
@@ -74,12 +76,13 @@ export async function main(args: string[], options: SyncOptions = {}): Promise<n
 			const target = catalogueRow?.developState ?? 'Not planned';
 			const before = row.hosts[host.id];
 			if (bareLabel(before ?? 'Not planned') === bareLabel(target)) continue;
-			const option = optionsOf(host.notionColumn).find((name) => bareLabel(name) === bareLabel(target));
+			const column = columnOf(host);
+			const option = optionsOf(column).find((name) => bareLabel(name) === bareLabel(target));
 			if (!option) {
-				skipped.push(`${row.origin} · ${host.id}: the Notion column "${host.notionColumn}" has no option for "${target}"; skipped`);
+				skipped.push(`${row.origin} · ${host.id}: the Notion column "${column}" has no option for "${target}"; skipped`);
 				continue;
 			}
-			changes.push({ origin: row.origin, host: host.id, page: row.page, column: host.notionColumn, before, after: option });
+			changes.push({ origin: row.origin, host: host.id, page: row.page, column, before, after: option });
 		}
 	}
 

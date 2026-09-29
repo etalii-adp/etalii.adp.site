@@ -2,10 +2,10 @@
 // latest release (research R10) into sources/hosts/hosts.json.
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { CATALOGUE_PATH, designersFor, isUnderway, isUsable } from '../lib/catalogue-table.mjs';
+import { CATALOGUE_PATHS, catalogueFileOf, designersFor, isUnderway, isUsable } from '../lib/catalogue-table.mjs';
 import { HOSTS } from './catalogue.mjs';
 
-const ide = (host) => ({ repository: `etalii-adp/etalii.adp.ide.${host}`, ref: 'develop', paths: [CATALOGUE_PATH], host });
+const ide = (host) => ({ repository: `etalii-adp/etalii.adp.ide.${host}`, ref: 'develop', paths: [...CATALOGUE_PATHS], host });
 
 /**
  * The three rules of research R10: available, else in progress, else planned. Usable designers are those at
@@ -32,7 +32,7 @@ export default {
 		const inputs = [];
 		const hosts = [];
 		for (const source of ctx.sources) {
-			const catalogue = source.files.find((f) => f.sourcePath === CATALOGUE_PATH);
+			const catalogue = catalogueFileOf(source.files);
 			let derived = { state: 'planned', usableDesigners: 0, designersInProgress: 0 };
 			if (catalogue) {
 				inputs.push(catalogue);
