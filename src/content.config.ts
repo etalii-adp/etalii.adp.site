@@ -57,21 +57,21 @@ const host = z
 		}
 	});
 
-// The designer catalogue (spec 003): assembled once per build from sources/, the state mapping, the Notion snapshot
+// The tool catalogue (spec 003): assembled once per build from sources/, the state mapping, the Notion snapshot
 // and the site-owned files in src/content/catalogue/, then validated by the schemas below (contracts/catalogue-data.schema.json).
 let assembled: Catalogue | undefined;
 
-function catalogueLoader(part: 'designers' | 'ideas' | 'focusAreas' | 'redirects'): Loader {
+function catalogueLoader(part: 'tools' | 'ideas' | 'focusAreas' | 'redirects'): Loader {
 	return {
 		name: `catalogue:${part}`,
 		async load({ store, parseData, generateDigest }) {
 			assembled ??= assembleCatalogue();
 			const entries: { id: string; data: Record<string, unknown> }[] = {
 				// Only a publishable screenshot gets an image to import. Astro emits exactly the images entries import, so an
-				// unlicensed or undescribed PNG, or one of a designer that is not usable, never reaches the build (FR-007).
-				designers: assembled.designers.map((designer) => ({
-					id: designer.origin,
-					data: { ...designer, screenshots: designer.screenshots.map((shot) => ({ ...shot, image: shot.publishable ? `/${shot.file}` : null })) },
+				// unlicensed or undescribed PNG, or one of a tool that is not usable, never reaches the build (FR-007).
+				tools: assembled.tools.map((tool) => ({
+					id: tool.origin,
+					data: { ...tool, screenshots: tool.screenshots.map((shot) => ({ ...shot, image: shot.publishable ? `/${shot.file}` : null })) },
 				})),
 				ideas: assembled.ideas.map((idea) => ({ id: idea.origin, data: { ...idea } })),
 				focusAreas: assembled.focusAreas.map((area) => ({ id: area.slug, data: { ...area } })),
@@ -149,7 +149,7 @@ const screenshot = (image: ImageFunction) =>
 		})
 		.refine((value) => value.publishable === (value.image !== null), { message: 'only a publishable screenshot has an image.' });
 
-const designer = ({ image }: { image: ImageFunction }) =>
+const tool = ({ image }: { image: ImageFunction }) =>
 	z
 		.object({
 			origin,
@@ -164,14 +164,14 @@ const designer = ({ image }: { image: ImageFunction }) =>
 			family: z.string().min(1),
 			focusAreas: z.array(z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/)),
 			theory: z.array(link),
-			definition: z.object({ url: z.string().url(), dedlVersion: z.string().min(1) }).strict().nullable(),
+			definition: z.object({ url: z.string().url(), dislVersion: z.string().min(1) }).strict().nullable(),
 			hosts: z.object({ standalone: hostAvailability, intellij: hostAvailability, vscode: hostAvailability, eclipse: hostAvailability }).strict(),
 			screenshots: z.array(screenshot(image)),
 			sources: z.array(catalogueSource).min(1),
 		})
 		.strict();
 
-const idea = z.object({ origin, name: z.string().min(1), purpose: z.string().min(1).max(140).nullable(), focusAreas: z.array(z.string()), family: z.string().min(1), theory: z.array(link), source: catalogueSource }).strict();
+const idea = z.object({ origin, name: z.string().min(1), kind: z.enum(['diagram', 'designer', 'editor']), purpose: z.string().min(1).max(140).nullable(), focusAreas: z.array(z.string()), family: z.string().min(1), theory: z.array(link), source: catalogueSource }).strict();
 
 const catalogueFocusArea = z
 	.object({
@@ -221,7 +221,7 @@ export const collections = {
 				})
 				.strict(),
 	}),
-	designers: defineCollection({ loader: catalogueLoader('designers'), schema: designer }),
+	tools: defineCollection({ loader: catalogueLoader('tools'), schema: tool }),
 	ideas: defineCollection({ loader: catalogueLoader('ideas'), schema: idea }),
 	catalogueFocusAreas: defineCollection({ loader: catalogueLoader('focusAreas'), schema: catalogueFocusArea }),
 	catalogueRedirects: defineCollection({ loader: catalogueLoader('redirects'), schema: catalogueRedirect }),

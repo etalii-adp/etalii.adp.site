@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { after, before, describe, it } from 'node:test';
 import { makeRepo, readFixture } from '../fixtures/repo.mjs';
 import { makeSite } from '../fixtures/site.mjs';
-import { compareSections, headerVersion, layoutOf, schemaVersion } from './dedl.mjs';
+import { compareSections, headerVersion, layoutOf, schemaVersion } from './disl.mjs';
 
 // The fixture holds both layouts of etalii.adp spec 002: specifications/dedl/, and specifications/disl/ with
 // specifications/did/. Each test repository gets the files of the layout it tests.
@@ -22,24 +22,24 @@ function setup(files = fixture) {
 	const site = makeSite();
 	cleanups.push(source.cleanup, site.cleanup);
 	const arg = `etalii-adp/etalii.adp=${source.dir}`;
-	return { source, site, arg, run: (mode = '--dry-run') => site.refresh(['dedl', mode, '--source', arg]) };
+	return { source, site, arg, run: (mode = '--dry-run') => site.refresh(['disl', mode, '--source', arg]) };
 }
 
-describe('refresh-dedl', () => {
+describe('refresh-disl', () => {
 	const { source, site, run } = setup();
 
-	it('(a) imports the first time into sources/dedl/0.1/, with a lock entry per file', () => {
+	it('(a) imports the first time into sources/disl/0.1/, with a lock entry per file', () => {
 		const result = run('--no-deliver');
 		assert.equal(result.code, 0, result.output);
-		const lock = site.json('sources/dedl/source.lock.json');
+		const lock = site.json('sources/disl/source.lock.json');
 		assert.deepEqual(lock.files.map((f) => f.path), ['0.1/DEDL-specification.md', '0.1/dedl.schema.json', '0.1/erd.dedl', '0.1/timeline.document.json']);
 		for (const file of lock.files) {
 			assert.equal(file.repository, 'etalii-adp/etalii.adp');
 			assert.equal(file.commit, source.head);
-			assert.ok(site.bytes(`sources/dedl/${file.path}`).equals(fixture[file.sourcePath]), `${file.path} is verbatim`);
+			assert.ok(site.bytes(`sources/disl/${file.path}`).equals(fixture[file.sourcePath]), `${file.path} is verbatim`);
 		}
 		assert.match(site.read('.refresh/pr-body.md'), /Version 0\.1 imported for the first time/);
-		site.accept('dedl');
+		site.accept('disl');
 	});
 
 	it('(b) reports current when nothing changed', () => {
@@ -53,7 +53,7 @@ describe('refresh-dedl', () => {
 		const result = run();
 		assert.equal(result.code, 0, result.output);
 		const summary = site.json('.refresh/summary.json');
-		assert.deepEqual(summary.files, [{ path: 'sources/dedl/0.1/DEDL-specification.md', change: 'changed' }]);
+		assert.deepEqual(summary.files, [{ path: 'sources/disl/0.1/DEDL-specification.md', change: 'changed' }]);
 		assert.deepEqual(summary.details.sections, [{ heading: '2. Foundations', change: 'changed', lines: 2 }]);
 		const patch = site.read('.refresh/diff.patch');
 		assert.match(patch, /^-Identifiers are simple names\.$/m);
@@ -83,16 +83,16 @@ describe('refresh-dedl', () => {
 		assert.deepEqual(summary.withdrawals.map((w) => w.path), ['0.1/timeline.document.json']);
 		assert.equal(summary.withdrawals[0].sourcePath, 'specifications/dedl/timeline.document.json');
 		assert.match(site.read('.refresh/pr-body.md'), /## Withdrawn\n\n- `0\.1\/timeline\.document\.json` \(from `specifications\/dedl\/timeline\.document\.json`/);
-		assert.match(site.read('.refresh/diff.patch'), /b\/sources\/dedl\/0\.1\/timeline\.document\.json\ndeleted file mode/);
+		assert.match(site.read('.refresh/diff.patch'), /b\/sources\/disl\/0\.1\/timeline\.document\.json\ndeleted file mode/);
 	});
 });
 
-describe('refresh-dedl versions', () => {
+describe('refresh-disl versions', () => {
 	let env;
 	before(() => {
 		env = setup();
 		assert.equal(env.run('--no-deliver').code, 0);
-		env.site.accept('dedl');
+		env.site.accept('disl');
 	});
 
 	it('(e) fails, naming both values, when only one of the two says 0.2', () => {
@@ -104,19 +104,19 @@ describe('refresh-dedl versions', () => {
 
 	it('(d) publishes a new version beside the old one, leaving 0.1 byte for byte unchanged', () => {
 		env.source.commit({ [SCHEMA]: text(SCHEMA).replace('/schema/0.1/', '/schema/0.2/') });
-		const before01 = env.site.read('sources/dedl/0.1/DEDL-specification.md');
+		const before01 = env.site.read('sources/disl/0.1/DEDL-specification.md');
 		const result = env.run('--no-deliver');
 		assert.equal(result.code, 0, result.output);
 		const summary = env.site.json('.refresh/summary.json');
-		assert.equal(summary.title, 'Refresh DEDL reference: publish 0.2 beside 0.1');
-		assert.ok(summary.files.every((f) => f.path.startsWith('sources/dedl/0.2/')), JSON.stringify(summary.files));
-		assert.equal(env.site.read('sources/dedl/0.1/DEDL-specification.md'), before01);
-		assert.ok(env.site.exists('sources/dedl/0.2/dedl.schema.json'));
+		assert.equal(summary.title, 'Refresh DISL and DID reference: publish 0.2 beside 0.1');
+		assert.ok(summary.files.every((f) => f.path.startsWith('sources/disl/0.2/')), JSON.stringify(summary.files));
+		assert.equal(env.site.read('sources/disl/0.1/DEDL-specification.md'), before01);
+		assert.ok(env.site.exists('sources/disl/0.2/dedl.schema.json'));
 		assert.match(env.site.read('.refresh/pr-body.md'), /New version 0\.2 published beside 0\.1/);
-		const lock = env.site.json('sources/dedl/source.lock.json');
+		const lock = env.site.json('sources/disl/source.lock.json');
 		assert.equal(lock.files.length, 8);
 		assert.deepEqual(lock.withdrawn, []);
-		env.site.accept('dedl');
+		env.site.accept('disl');
 		const verify = env.site.verify();
 		assert.match(verify.stdout, /"local": true/, 'a local run is never valid to commit');
 	});
@@ -126,18 +126,18 @@ describe('refresh-dedl versions', () => {
 	});
 });
 
-describe('refresh-dedl on the DISL and DID layout (etalii.adp spec 002)', () => {
+describe('refresh-disl on the DISL and DID layout (etalii.adp spec 002)', () => {
 	const NEW_FILES = ['0.1/DID-specification.md', '0.1/DISL-specification.md', '0.1/did.schema.json', '0.1/disl.schema.json', '0.1/erd.disl', '0.1/timeline.did'];
 
 	it('(h) reads specifications/disl/ and specifications/did/ into the version folder, verbatim', () => {
 		const { source, site, run } = setup(newLayout);
 		const result = run('--no-deliver');
 		assert.equal(result.code, 0, result.output);
-		const lock = site.json('sources/dedl/source.lock.json');
+		const lock = site.json('sources/disl/source.lock.json');
 		assert.deepEqual(lock.files.map((f) => f.path).sort(), NEW_FILES);
 		for (const file of lock.files) {
 			assert.equal(file.commit, source.head);
-			assert.ok(site.bytes(`sources/dedl/${file.path}`).equals(all[file.sourcePath]), `${file.path} is verbatim`);
+			assert.ok(site.bytes(`sources/disl/${file.path}`).equals(all[file.sourcePath]), `${file.path} is verbatim`);
 		}
 		const summary = site.json('.refresh/summary.json');
 		assert.equal(summary.details.layout, 'disl');
@@ -149,15 +149,15 @@ describe('refresh-dedl on the DISL and DID layout (etalii.adp spec 002)', () => 
 	it('(i) moves from DEDL to DISL and DID when etalii.adp does, withdrawing the DEDL files', () => {
 		const { source, site, run } = setup();
 		assert.equal(run('--no-deliver').code, 0);
-		site.accept('dedl');
+		site.accept('disl');
 		source.commit({ ...newLayout, ...Object.fromEntries(Object.keys(fixture).map((path) => [path, null])) });
 		const result = run('--no-deliver');
 		assert.equal(result.code, 0, result.output);
 		const summary = site.json('.refresh/summary.json');
 		assert.deepEqual(summary.withdrawals.map((w) => w.path).sort(), ['0.1/DEDL-specification.md', '0.1/dedl.schema.json', '0.1/erd.dedl', '0.1/timeline.document.json']);
-		assert.deepEqual(site.json('sources/dedl/source.lock.json').files.map((f) => f.path).sort(), NEW_FILES);
+		assert.deepEqual(site.json('sources/disl/source.lock.json').files.map((f) => f.path).sort(), NEW_FILES);
 		assert.ok(summary.details.sections.some((s) => s.heading === '1. Introduction' && s.change === 'changed'), 'DISL is compared with DEDL the first time');
-		site.accept('dedl');
+		site.accept('disl');
 		assert.match(run().stdout, /outcome: current/);
 	});
 
@@ -165,7 +165,7 @@ describe('refresh-dedl on the DISL and DID layout (etalii.adp spec 002)', () => 
 		const { site, run } = setup({ ...fixture, ...newLayout });
 		const result = run('--no-deliver');
 		assert.equal(result.code, 0, result.output);
-		assert.deepEqual(site.json('sources/dedl/source.lock.json').files.map((f) => f.path).sort(), NEW_FILES);
+		assert.deepEqual(site.json('sources/disl/source.lock.json').files.map((f) => f.path).sort(), NEW_FILES);
 	});
 
 	it('(k) fails when DISL and DID name different versions', () => {

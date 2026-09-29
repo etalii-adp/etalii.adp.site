@@ -1,17 +1,17 @@
 ---
 // Availability per IDE host (US3): always four rows, in the site's host order. "Available" needs a public install;
-// an implemented or prototype designer says "Not yet released" (constitution principle III). A Notion value that
+// an implemented or prototype tool says "Not yet released" (constitution principle III). A Notion value that
 // differs from the repository (notionDiffers) is for the refresh report, never for visitors.
 import { catalogueHosts } from '../../lib/catalogue/hosts';
-import type { Designer, HostAvailability } from '../../lib/catalogue/types';
+import type { Tool, HostAvailability } from '../../lib/catalogue/types';
 import StateLabel from './StateLabel.astro';
 import TableScroll from './TableScroll.astro';
 
 interface Props {
-	designer: Designer;
+	tool: Tool;
 }
 
-const { designer } = Astro.props;
+const { tool } = Astro.props;
 const howToGet = (availability: HostAvailability): string | null => {
 	switch (availability.state) {
 		case 'available':
@@ -42,12 +42,12 @@ const howToGet = (availability: HostAvailability): string | null => {
 		<tbody>
 			{
 				catalogueHosts.map((host) => {
-					const availability = designer.hosts[host.id];
+					const availability = tool.hosts[host.id];
 					return (
 						<tr>
 							<th scope="row">
 								{host.name}
-								{availability.localName && availability.localName !== designer.name && <span class="adp-note"> (called {availability.localName} here)</span>}
+								{availability.localName && availability.localName !== tool.name && <span class="adp-note"> (called {availability.localName} here)</span>}
 							</th>
 							<td>
 								<StateLabel state={availability.state} />

@@ -1,7 +1,8 @@
 ---
-// The overview's filter (FR-002 as amended 2026-09-28, research D6): one checkbox per focus area, host and state.
+// The overview's filter (FR-002 as amended 2026-09-28, research D6): one checkbox per kind, focus area, host and state
+// (the kind facet: etalii.adp spec 002).
 // This is the only client script in the catalogue. It hides the cards that do not match (OR within a facet, AND across
-// facets) and keeps the ticked options in the address (?focus=…&hosts=…&state=…), so a filtered view can be linked.
+// facets) and keeps the ticked options in the address (?kind=…&focus=…&hosts=…&state=…), so a filtered view can be linked.
 // When exactly one option is ticked, the overview's introduction ([data-adp-filter-intro]) shows that option's
 // description, and the breadcrumbs and document title gain the option's name; otherwise both are as built.
 // Without scripting the form stays hidden and the full list shows.
@@ -14,17 +15,23 @@ interface Props {
 }
 
 const { focusAreas } = Astro.props;
-const eachCard = 'Each card shows the designer’s state in every IDE host.';
+const eachCard = 'Each card shows the tool’s state in every IDE host.';
+const kinds = [
+	{ value: 'diagram', label: 'Diagram', description: 'The diagrams: tools that arrange elements and the relations between them.' },
+	{ value: 'designer', label: 'Designer', description: 'The designers: tools with a form-based visual layout in which nothing is connected.' },
+	{ value: 'editor', label: 'Editor', description: 'The editors: tools in which typing text is the core interaction.' },
+];
 const facets = [
+	{ key: 'kind', legend: 'Kind', options: kinds },
 	{
 		key: 'focus',
 		legend: 'Focus area',
-		options: focusAreas.map((area) => ({ value: area.slug, label: area.name, description: area.problem || `The designers for ${area.name.toLowerCase()}.` })),
+		options: focusAreas.map((area) => ({ value: area.slug, label: area.name, description: area.problem || `The tools for ${area.name.toLowerCase()}.` })),
 	},
 	{
 		key: 'hosts',
 		legend: 'Host',
-		options: catalogueHosts.map((host) => ({ value: host.id, label: host.name, description: `The designers that ${host.name} has, or plans to have. ${eachCard}` })),
+		options: catalogueHosts.map((host) => ({ value: host.id, label: host.name, description: `The tools that ${host.name} has, or plans to have. ${eachCard}` })),
 	},
 	{
 		key: 'state',
@@ -34,14 +41,14 @@ const facets = [
 			label: states[state].label,
 			description:
 				state === 'idea'
-					? 'The ideas: candidates for a designer that no host is building yet. Each may or may not become one.'
-					: `The designers whose most advanced state, over the four IDE hosts, is “${states[state].label}”. ${eachCard}`,
+					? 'The ideas: candidates for a tool that no host is building yet. Each may or may not become one.'
+					: `The tools whose most advanced state, over the four IDE hosts, is “${states[state].label}”. ${eachCard}`,
 		})),
 	},
 ];
 ---
 
-<form class="adp-filter not-content" aria-label="Filter designers" data-adp-filter hidden>
+<form class="adp-filter not-content" aria-label="Filter tools" data-adp-filter hidden>
 	{
 		facets.map((facet) => (
 			<fieldset>
@@ -59,7 +66,7 @@ const facets = [
 </form>
 
 <script>
-	type Key = 'focus' | 'hosts' | 'state';
+	type Key = 'kind' | 'focus' | 'hosts' | 'state';
 
 	for (const form of document.querySelectorAll<HTMLFormElement>('[data-adp-filter]')) {
 		form.hidden = false;
@@ -76,23 +83,23 @@ const facets = [
 		const title = document.title;
 		const here = location.pathname;
 
-		// Designers and ideas are filtered alike (amended 2026-09-28); an idea has no host, and its state is "idea".
-		const cards = [...document.querySelectorAll<HTMLElement>('.adp-designer')];
+		// Tools and ideas are filtered alike (amended 2026-09-28); an idea has no host, and its state is "idea".
+		const cards = [...document.querySelectorAll<HTMLElement>('.adp-tool')];
 		const ideaCards = [...document.querySelectorAll<HTMLElement>('.adp-idea')];
 		const ideasSection = document.querySelector<HTMLElement>('.adp-ideas');
 		const count = (n: number, noun: string) => `${n} ${noun}${n === 1 ? '' : 's'}`;
 		const values = (card: HTMLElement, key: Key): string[] => {
 			if (key === 'hosts') return (card.dataset.hosts ?? '').split(' ').filter(Boolean).map((pair) => pair.split(':')[0]);
-			return (key === 'focus' ? card.dataset.focus ?? '' : card.dataset.state ?? '').split(' ').filter(Boolean);
+			return ((key === 'kind' ? card.dataset.kind : key === 'focus' ? card.dataset.focus : card.dataset.state) ?? '').split(' ').filter(Boolean);
 		};
 
 		const describe = (single: HTMLInputElement | undefined) => {
 			if (intro) intro.textContent = single ? single.dataset.description! : introText;
-			document.title = single ? title.replace(/^Designers/, `Designers: ${single.dataset.label}`) : title;
+			document.title = single ? title.replace(/^Tools/, `Tools: ${single.dataset.label}`) : title;
 			if (!crumbs) return;
 			crumbs.innerHTML = crumbsHtml;
 			if (!single) return;
-			// Documentation › Designers › <option>: the current page becomes a link, the option the current crumb.
+			// Documentation › Tools › <option>: the current page becomes a link, the option the current crumb.
 			// New elements are shallow clones of the built ones, so they keep the breadcrumbs' scoped styles.
 			const last = crumbs.querySelector<HTMLElement>('[aria-current="page"]');
 			const sample = crumbs.querySelector('a');
@@ -124,14 +131,14 @@ const facets = [
 				card.hidden = !match;
 				if (match) ideasShown++;
 			}
-			// While any option is ticked, a group without a matching designer goes, including one with no designers yet.
+			// While any option is ticked, a group without a matching tool goes, including one with no tools yet.
 			const ticked = inputs.filter((input) => input.checked);
 			for (const group of document.querySelectorAll<HTMLElement>('.adp-catalogue-group')) {
-				group.hidden = ticked.length > 0 && group.querySelector('.adp-designer:not([hidden])') === null;
+				group.hidden = ticked.length > 0 && group.querySelector('.adp-tool:not([hidden])') === null;
 			}
 			if (ideasSection) ideasSection.hidden = ticked.length > 0 && ideasShown === 0;
-			// "N designers and M ideas" (amended 2026-09-28), both as filtered.
-			status.textContent = `${count(shown.size, 'designer')} and ${count(ideasShown, 'idea')}`;
+			// "N tools and M ideas" (amended 2026-09-28), both as filtered.
+			status.textContent = `${count(shown.size, 'tool')} and ${count(ideasShown, 'idea')}`;
 			describe(ticked.length === 1 ? ticked[0] : undefined);
 
 			const query = new URLSearchParams();
@@ -140,7 +147,7 @@ const facets = [
 			if (search !== location.search) history.replaceState(null, '', `${here}${search}${location.hash}`);
 		};
 
-		// A linked filter: /adp/designers/?focus=technology-assessment ticks that option.
+		// A linked filter: /adp/tools/?focus=technology-assessment ticks that option.
 		const requested = new URLSearchParams(location.search);
 		for (const input of inputs) input.checked = requested.getAll(input.name).includes(input.value);
 		form.addEventListener('change', update);
@@ -160,7 +167,7 @@ const facets = [
 	}
 	@media (min-width: 50rem) {
 		.adp-filter {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
+			grid-template-columns: repeat(4, minmax(0, 1fr));
 		}
 	}
 	fieldset {

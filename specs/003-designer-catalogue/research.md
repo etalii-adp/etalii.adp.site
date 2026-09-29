@@ -1,4 +1,4 @@
-# Research: Designer Catalogue
+# Research: Tool Catalogue
 
 **Feature**: [spec.md](spec.md) | **Plan**: [plan.md](plan.md) | **Date**: 2026-09-26
 
@@ -10,13 +10,13 @@ This records what was found in the sources on 2026-09-26 and the decisions taken
 
 `etalii-adp/etalii.adp.ide.standalone`, `docs/diagrams.md` on `develop`, is an HTML table of 114 rows grouped in 14 numbered sections (families). Columns: State, Origin, Diagram, Theory, Example. States found: 65 identified, 3 specified, 1 to-do, 2 work-in-progress, 17 prototype, 8 implemented. The legend defines six states (💡 Identified, 📝 Specified, ⏸️ To-do, 🛠️ Work-in-progress, ⚗️ Prototype, ✅ Implemented) and the origin tag `<architecture-or-vendor>/<diagram-type>`.
 
-So the catalogue starts with 31 designers that are specified or further along, and an ideas list of 65 entries.
+So the catalogue starts with 31 tools that are specified or further along, and an ideas list of 65 entries.
 
 ### F2. The standalone screenshots
 
-`docs/screenshots/` holds seven PNGs (72–143 KB each), `capture.mjs`, and `readme.md`. The readme gives the shared capture setup (1600×900, DPR 1, dark theme, only documents from `src/examples/`), a budget (each image ≤ 300 KB, the workspace overview ≤ 1 MB), and a table with the columns Image | Document opened | What must be visible. It does not name the origin tag of the designer each image shows, nor why what is visible matters.
+`docs/screenshots/` holds seven PNGs (72–143 KB each), `capture.mjs`, and `readme.md`. The readme gives the shared capture setup (1600×900, DPR 1, dark theme, only documents from `src/examples/`), a budget (each image ≤ 300 KB, the workspace overview ≤ 1 MB), and a table with the columns Image | Document opened | What must be visible. It does not name the origin tag of the tool each image shows, nor why what is visible matters.
 
-| Image | Designer (inferred, not stated in the source) |
+| Image | Tool (inferred, not stated in the source) |
 |---|---|
 | `mindmap.png` | `freeplane/mindmap` |
 | `wardley-map.png` | `wardley/map` |
@@ -28,11 +28,11 @@ So the catalogue starts with 31 designers that are specified or further along, a
 
 ### F3. The IntelliJ host
 
-`etalii-adp/etalii.adp.ide.intellij` (Apache-2.0) ships two designers: FreeMind mind maps (`.mm`) and draw.io diagrams (`.drawio`, uncompressed). It has no catalogue file, no screenshots and no published release. Its README describes installing from a locally built zip.
+`etalii-adp/etalii.adp.ide.intellij` (Apache-2.0) ships two tools: FreeMind mind maps (`.mm`) and draw.io diagrams (`.drawio`, uncompressed). It has no catalogue file, no screenshots and no published release. Its README describes installing from a locally built zip.
 
 ### F4. The VS Code and Eclipse hosts
 
-`etalii.adp.ide.vscode` and `etalii.adp.ide.eclipse` contain only tooling scaffolding (`.claude`, `.specify`, `CLAUDE.md`). They have no designers, no catalogue and no releases.
+`etalii.adp.ide.vscode` and `etalii.adp.ide.eclipse` contain only tooling scaffolding (`.claude`, `.specify`, `CLAUDE.md`). They have no tools, no catalogue and no releases.
 
 ### F5. Visibility and licences
 
@@ -40,7 +40,7 @@ All four IDE repositories are **private**, and so are their releases (the standa
 
 ### F6. Notion
 
-The Notion database "Diagrams" (`collection://3e7be2fd-05b6-8079-932d-000bfa0609af`) was imported from `diagrams.md` on 2026-09-26. It has columns Name, Origin, State, Type (Diagram/Designer), Rarity, One line purpose, Description, Family, Subfamily, Theory, Example, Abbreviation and File extension. As decided on 2026-09-26, four per-host select columns were added: Standalone, IntelliJ, VS Code, Eclipse. Each takes the six source states plus ⛔ Not planned. Notion has no row for draw.io and no focus-area column yet.
+The Notion database "Diagrams" (`collection://3e7be2fd-05b6-8079-932d-000bfa0609af`) was imported from `diagrams.md` on 2026-09-26. It has columns Name, Origin, State, Type (Diagram/Tool), Rarity, One line purpose, Description, Family, Subfamily, Theory, Example, Abbreviation and File extension. As decided on 2026-09-26, four per-host select columns were added: Standalone, IntelliJ, VS Code, Eclipse. Each takes the six source states plus ⛔ Not planned. Notion has no row for draw.io and no focus-area column yet.
 
 ## Decisions
 
@@ -48,7 +48,7 @@ The Notion database "Diagrams" (`collection://3e7be2fd-05b6-8079-932d-000bfa0609
 
 - **Decision**: Descriptive text is edited in Notion: focus areas, one-line purpose, why a specialized visualization helps, file formats, and per-host state for hosts without their own catalogue. The refresh reads the Notion "Diagrams" data source directly through the Notion REST API and writes what it reads into this repository's catalogue data, where it is site-owned (spec FR-010). Each record's source is the Notion page id and its `last_edited_time`. A field Notion leaves empty keeps its site-side value, and fields Notion has no column for (a focus area's problem statement, a screenshot's "why it matters") are written in the site's data directly.
 - **Rationale**: The owner's decision of 2026-09-26, given after an earlier choice for a committed export in `etalii-adp/etalii.adp` and replacing it: the text is site-owned data, fetched and updated from the Notion databases. The page id and edit time give every item a named source and revision (FR-009). The deviation from principle II's "named source repository" is recorded in the plan's Complexity Tracking.
-- **Alternatives considered**: A Notion export committed to `etalii-adp/etalii.adp` (the earlier choice: keeps principle II literal, but adds a second repository and pull request to every text change). Putting the text in each IDE repository (splits one designer's text across up to four repositories, away from where it is written).
+- **Alternatives considered**: A Notion export committed to `etalii-adp/etalii.adp` (the earlier choice: keeps principle II literal, but adds a second repository and pull request to every text change). Putting the text in each IDE repository (splits one tool's text across up to four repositories, away from where it is written).
 
 ### D2. Which source is authoritative for which fact
 
@@ -57,14 +57,14 @@ The Notion database "Diagrams" (`collection://3e7be2fd-05b6-8079-932d-000bfa0609
 | Fact | Owner | Cross-checked against |
 |---|---|---|
 | Standalone state, origin, name, theory links, example links | standalone `docs/diagrams.md` | Notion (Standalone column), which the refresh then updates (D13) |
-| IntelliJ, VS Code, Eclipse state | the host's own catalogue once it has one; until then the Notion host column | the host repository's README (a designer the README describes must not be "not planned") |
+| IntelliJ, VS Code, Eclipse state | the host's own catalogue once it has one; until then the Notion host column | the host repository's README (a tool the README describes must not be "not planned") |
 | Focus areas, one-line purpose, why specialized, file formats | Notion, copied into site-owned data (D1) | — |
 | Screenshots, what they show | the host repository's `docs/screenshots/` and its readme | — |
 | Why a screenshot matters | site-owned data, refreshed from Notion once it has a column for it (D8) | — |
 | Install link | the host repository's public release, if any | — |
 
-- **Rationale**: The code decides whether a designer exists in a host (principle III). Notion decides how ADP talks about it.
-- **Alternatives considered**: Notion as the single owner of everything (it would drift from the code, and `diagrams.md` is maintained by the agents that build the designers). `diagrams.md` as the single owner (it covers only one host and has no focus areas).
+- **Rationale**: The code decides whether a tool exists in a host (principle III). Notion decides how ADP talks about it.
+- **Alternatives considered**: Notion as the single owner of everything (it would drift from the code, and `diagrams.md` is maintained by the agents that build the tools). `diagrams.md` as the single owner (it covers only one host and has no focus areas).
 
 ### D3. One site state set, mapped from the source states
 
@@ -73,7 +73,7 @@ The Notion database "Diagrams" (`collection://3e7be2fd-05b6-8079-932d-000bfa0609
 
 | Site state | Source states | Shown |
 |---|---|---|
-| Not planned | ⛔ Not planned, or no entry | on designer pages only, per host |
+| Not planned | ⛔ Not planned, or no entry | on tool pages only, per host |
 | Idea | 💡 Identified | in the ideas list only |
 | Planned | 📝 Specified, ⏸️ To-do | catalogue |
 | In progress | 🛠️ Work-in-progress | catalogue |
@@ -81,12 +81,12 @@ The Notion database "Diagrams" (`collection://3e7be2fd-05b6-8079-932d-000bfa0609
 | Implemented | ✅ Implemented, no public release | catalogue, with screenshot, "not yet released" |
 | Available | ✅ Implemented with a public release or install page | catalogue, with screenshot and install link |
 
-- **Rationale**: Principle III forbids presenting something as obtainable when it is not. Every IDE repository and release is private today (F5), so nothing can be "Available" yet, but eight designers are implemented. Separating Implemented from Available keeps both facts true. Spec 001's host states (available, in progress, planned) are a subset of these.
+- **Rationale**: Principle III forbids presenting something as obtainable when it is not. Every IDE repository and release is private today (F5), so nothing can be "Available" yet, but eight tools are implemented. Separating Implemented from Available keeps both facts true. Spec 001's host states (available, in progress, planned) are a subset of these.
 - **Alternatives considered**: Taking the six source states as they are (they cannot express "implemented but not obtainable"). Collapsing Specified and To-do into separate site states (the distinction matters inside the team, not to a visitor). An unmapped source state stops the refresh and asks, as spec 004 US3 AS2 requires.
 
 ### D4. Catalogue membership
 
-- **Decision**: A designer is in the catalogue when at least one host has it at Planned or further. It is in the ideas list when every host has it at Idea or Not planned and at least one at Idea. It is left out when every host has it at Not planned.
+- **Decision**: A tool is in the catalogue when at least one host has it at Planned or further. It is in the ideas list when every host has it at Idea or Not planned and at least one at Idea. It is left out when every host has it at Not planned.
 - **Rationale**: FR-014 and the edge case "identified only → ideas list".
 
 ### D5. Static site generator: Astro
@@ -101,13 +101,13 @@ The Notion database "Diagrams" (`collection://3e7be2fd-05b6-8079-932d-000bfa0609
 
 ### D6. Filtering without scripting
 
-- **Decision**: Every facet has its own statically generated page: the overview grouped by focus area, `designers/hosts/<host>/`, `designers/states/<state>/` and `designers/focus/<area>/`. These are reached by plain links, and the overview shows the full list. A small script, loaded only on the overview, adds combined filter controls on top. Its results are announced through an `aria-live` region. Amended 2026-09-28 (owner): the overview's filter is rendered in the markup, one checkbox per option with the option's name as the link to its facet page, and it replaces the overview's separate block of facet links. The script only reveals the checkboxes and filters; without it the names are the plain links. Amended again 2026-09-28 (owner): the per-facet pages are dropped and the overview is the only place designers are filtered, by checkbox only. The ticked options live in the address (`?focus=…&hosts=…&state=…`), so a filtered view can still be bookmarked and linked, and each former facet address is an Astro redirect (`src/data/redirects.ts`) to the overview with that option ticked. A single ticked option swaps the introduction for its description and extends the breadcrumbs, as the facet pages did. Without scripting the full list shows and the filter is hidden, which the constitution allows: reading is not gated, only narrowing. The designer pages stay, one per designer, for readers and search engines.
+- **Decision**: Every facet has its own statically generated page: the overview grouped by focus area, `tools/hosts/<host>/`, `tools/states/<state>/` and `tools/focus/<area>/`. These are reached by plain links, and the overview shows the full list. A small script, loaded only on the overview, adds combined filter controls on top. Its results are announced through an `aria-live` region. Amended 2026-09-28 (owner): the overview's filter is rendered in the markup, one checkbox per option with the option's name as the link to its facet page, and it replaces the overview's separate block of facet links. The script only reveals the checkboxes and filters; without it the names are the plain links. Amended again 2026-09-28 (owner): the per-facet pages are dropped and the overview is the only place tools are filtered, by checkbox only. The ticked options live in the address (`?focus=…&hosts=…&state=…`), so a filtered view can still be bookmarked and linked, and each former facet address is an Astro redirect (`src/data/redirects.ts`) to the overview with that option ticked. A single ticked option swaps the introduction for its description and extends the breadcrumbs, as the facet pages did. Without scripting the full list shows and the filter is hidden, which the constitution allows: reading is not gated, only narrowing. The tool pages stay, one per tool, for readers and search engines.
 - **Rationale**: FR-002 requires the full list and a way to narrow it with scripting disabled. Per-facet pages give both, can be bookmarked, and are checked by the same link and accessibility tooling as every other page.
 - **Alternatives considered**: CSS-only filtering with `:has()` and checkboxes (works without script, but a screen-reader user gets no announcement that the list changed). Script-only filtering (breaks FR-002).
 
 ### D7. Stable addresses and redirects on GitHub Pages
 
-- **Decision**: A designer's address is `/adp/designers/<vendor>/<diagram-type>/`, taken directly from its origin tag, and an idea has no page of its own. When a source renames or removes an origin that had a page, `npm run catalogue:report` stops and asks, and the answer (`--rename` or `--withdraw`) adds an entry to `src/content/catalogue/redirects.json` in this repository. The build then emits a stub page at the old address: a meta refresh plus a visible link and `rel=canonical` for a rename, or a withdrawal notice for a removal.
+- **Decision**: A tool's address is `/adp/tools/<vendor>/<diagram-type>/`, taken directly from its origin tag, and an idea has no page of its own. When a source renames or removes an origin that had a page, `npm run catalogue:report` stops and asks, and the answer (`--rename` or `--withdraw`) adds an entry to `src/content/catalogue/redirects.json` in this repository. The build then emits a stub page at the old address: a meta refresh plus a visible link and `rel=canonical` for a rename, or a withdrawal notice for a removal.
 - **Rationale**: GitHub Pages cannot do server-side redirects. A stub page is the only mechanism that works under `/adp`, and it keeps the link visible for readers without scripting.
 - **Alternatives considered**: A JavaScript redirect in the 404 page (fails without scripting, and returns a 404 status). Deleting old pages (breaks FR-011).
 
@@ -115,12 +115,12 @@ The Notion database "Diagrams" (`collection://3e7be2fd-05b6-8079-932d-000bfa0609
 
 - **Decision**:
   - The refresh copies each screenshot at its source revision into `src/assets/catalogue/<vendor>/<diagram-type>/<host>--<image>.png`, with a sidecar record holding the host, source repository, path, revision (the last commit that touched the file), caption, alternative text, "what is visible" and "why it matters".
-  - At build time, Astro derives a WebP thumbnail (at most 480 px wide) for the overview and responsive WebP images (at most 1200 px wide) for the designer page. The original PNG is linked for a full-size view and is not loaded with the page.
-  - A post-build check adds up the bytes of every image a designer page loads and fails above 1 MB (FR-013).
+  - At build time, Astro derives a WebP thumbnail (at most 480 px wide) for the overview and responsive WebP images (at most 1200 px wide) for the tool page. The original PNG is linked for a full-size view and is not loaded with the page.
+  - A post-build check adds up the bytes of every image a tool page loads and fails above 1 MB (FR-013).
   - The refresh keeps the previous image when a new one is missing, over its source budget or unreadable, and reports it (edge case).
 - **Rationale**:
   - The owner's review comment asks for each screenshot to say what is visible and why it matters. The source readme already has "What must be visible", written for the retaker, which becomes the alternative text and the base of the description.
-  - "Why it matters" is descriptive text, so it is site-owned (spec FR-010): written in the designer's data here and reviewed in the refresh pull request. A designer usable in some host whose screenshot lacks it fails `check:catalogue` (FR-015).
+  - "Why it matters" is descriptive text, so it is site-owned (spec FR-010): written in the tool's data here and reviewed in the refresh pull request. A tool usable in some host whose screenshot lacks it fails `check:catalogue` (FR-015).
   - Deriving smaller formats from a sourced image does not retype content (principle II), and it is what makes the budget reachable.
 - **Alternatives considered**: Publishing the PNGs as they are (a page with two screenshots would be close to the budget at 1600 px). A `Why it matters` column in each host's screenshot readme (keeps the text beside the image, but the owner put descriptive text on the site side, FR-010).
 
@@ -135,7 +135,7 @@ The Notion database "Diagrams" (`collection://3e7be2fd-05b6-8079-932d-000bfa0609
 These are not built by this feature, but the catalogue is incomplete or cannot be published without them. The refresh reports each one that is missing.
 
 1. **Public repositories with licences.** The owner decided on 2026-09-26 that every `etalii-adp` repository is public and licensed under Apache-2.0, with a copyright statement for Peter Vrenken, 2026 (a `NOTICE` file). Today the four IDE repositories are private, and the standalone, VS Code, Eclipse and `etalii.adp` repositories have no licence. The constitution requires sourced content to show its source's licence. Until a source has one, the refresh does not publish its screenshots or text, and the page says a screenshot is pending. Before the standalone repository is made public, its history (4,343 commits across 15 branches) needs a secrets review. It includes historical `appsettings.*.json` files and Helm TLS secret templates, which were not reviewed during planning.
-2. **A `Designer` column in each host's screenshot readme** (origin tag), so that images map to designers without guessing (F2).
+2. **A `Tool` column in each host's screenshot readme** (origin tag), so that images map to tools without guessing (F2).
 3. **A Notion row for draw.io**, with its origin tag. It is implemented in IntelliJ (F3) but missing from both catalogues, so without the row SC-001 fails. The origin tag is the owner's to choose (for example `jgraph/drawio`).
 4. **Notion columns** `Focus areas` (multi-select with the eight focus areas of D11) and `Why specialized` (text). `File extension (if single file)` exists and is read as the file formats until a fuller `File formats` column replaces it.
 5. **A row for the Markdown editor**, or a decision that editors are out of scope for this catalogue. A screenshot of it exists (F2), but no catalogue has it.
@@ -151,7 +151,7 @@ These are not built by this feature, but the catalogue is incomplete or cannot b
   6. Software delivery: pipelines, Helm, Ansible, dependency graphs, C4
   7. Planning and roadmapping: timelines, dependency graphs, functional decomposition
   8. Psychological and societal insights
-- **Rationale**: The spec (FR-016) takes the three focus areas of spec 001, and the owner's review comment says more will be added over time and worked out in Notion. Focus areas are therefore data: `focus-areas.json` with a slug, a name and a problem statement. The names are the options of Notion's `Focus areas` multi-select; a new option there is added by the refresh with an empty problem statement and reported as a gap. They are not a fixed enumeration in code, so adding a ninth needs no code change. A focus area with no designers yet is listed on the overview as "no designers yet", not hidden.
+- **Rationale**: The spec (FR-016) takes the three focus areas of spec 001, and the owner's review comment says more will be added over time and worked out in Notion. Focus areas are therefore data: `focus-areas.json` with a slug, a name and a problem statement. The names are the options of Notion's `Focus areas` multi-select; a new option there is added by the refresh with an empty problem statement and reported as a gap. They are not a fixed enumeration in code, so adding a ninth needs no code change. A focus area with no tools yet is listed on the overview as "no tools yet", not hidden.
 - **Follow-up**: Spec 001's FR-005 names exactly three focus areas for the home page. Whether the home page shows all eight belongs to spec 001, which should be revisited with `/speckit-clarify`.
 
 ### D12. Checks
@@ -161,8 +161,8 @@ These are not built by this feature, but the catalogue is incomplete or cannot b
   - Post-build checks, with the page lists taken from `dist/` so no page is skipped:
     - Every sourced record shows its source and revision (FR-009).
     - Every image has non-empty alt text (FR-012).
-    - No designer that is below Prototype in every host has a screenshot (FR-007).
-    - Every designer page stays under the image budget (FR-013).
+    - No tool that is below Prototype in every host has a screenshot (FR-007).
+    - Every tool page stays under the image budget (FR-013).
     - Every `redirects.json` entry resolves.
   - Links and WCAG 2.2 AA are checked by the site-wide checks spec 001 defines, which cover the catalogue's pages like any other.
 - **Rationale**: Principle V requires each procedure to verify its own result, and the constitution requires CI checks for links, accessibility and source records.

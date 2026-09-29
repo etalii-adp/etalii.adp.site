@@ -190,7 +190,7 @@ export function addUnknownFocusAreas(focusAreas: FocusArea[], rows: NotionRow[],
 }
 
 /**
- * An export of the "Diagrams" data source made by an agent through a Notion connector, for runs without
+ * An export of the "Tools" data source made by an agent through a Notion connector, for runs without
  * NOTION_TOKEN (procedures/refresh-catalogue.md § Without a Notion token). `rows` are the connector's rows as it
  * returns them: property name → value (a string; for a multi-select, an array of option names, a JSON array in a
  * string, or a comma-separated

@@ -63,7 +63,7 @@ test('without --dry-run it sets only that select, then the snapshot agrees', asy
 	assert.equal(patches[0].url, 'https://api.notion.com/v1/pages/1a2b3c4d-0000-4000-8000-000000000002');
 	assert.deepEqual(patches[0].body, { properties: { 'Standalone Plugin Implementation': { select: { name: '✅ Implemented' } } } });
 
-	const after = assembleCatalogue(inputs).designers.find((designer) => designer.origin === 'wardley/map')!;
+	const after = assembleCatalogue(inputs).tools.find((tool) => tool.origin === 'wardley/map')!;
 	assert.equal(after.hosts.standalone.notionDiffers, null);
 });
 

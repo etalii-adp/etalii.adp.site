@@ -1,10 +1,11 @@
 // The schema of each version, byte-identical, at the address its own $id names (FR-009, research D8).
 import type { APIRoute } from 'astro';
-import { languages, versionsOf, type LoadedVersion } from '../../../../lib/reference/load';
+import { schemaLanguages, versionsOf, type LoadedVersion } from '../../../../lib/reference/load';
 import { schemaFileHref } from '../../../../lib/reference/site';
 
 export function getStaticPaths() {
-	return languages().flatMap((language) =>
+	// A moved language's schema too, at its unchanged address (etalii.adp spec 002).
+	return schemaLanguages().flatMap((language) =>
 		versionsOf(language.id).map((version) => {
 			const id = String(version.schema().$id);
 			const expected = `https://etalii.net${schemaFileHref(version)}`;

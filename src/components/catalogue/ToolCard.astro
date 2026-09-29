@@ -1,38 +1,38 @@
 ---
-// One designer on the overview (FR-001): name, origin tag right below it, purpose, the four host states as
-// text; no screenshot, which is on the designer page (amended 2026-09-28). The data-* attributes feed CatalogueFilter.
+// One tool on the overview (FR-001): name, origin tag right below it, purpose, the four host states as
+// text; no screenshot, which is on the tool page (amended 2026-09-28). The data-* attributes feed CatalogueFilter.
 import { catalogueHosts } from '../../lib/catalogue/hosts';
 import { states } from '../../lib/catalogue/states';
-import type { Designer } from '../../lib/catalogue/types';
-import { bestState, designerHref, isUsable } from './data';
+import type { Tool } from '../../lib/catalogue/types';
+import { bestState, toolHref, isUsable } from './data';
 import StateLabel from './StateLabel.astro';
 
 interface Props {
-	designer: Designer;
+	tool: Tool;
 }
 
-const { designer } = Astro.props;
-const best = bestState(designer.hosts);
+const { tool } = Astro.props;
+const best = bestState(tool.hosts);
 const usable = isUsable(best);
 const hostsWithState = catalogueHosts
-	.filter(({ id }) => states[designer.hosts[id].state].rank >= states.planned.rank)
-	.map(({ id }) => `${id}:${designer.hosts[id].state}`);
+	.filter(({ id }) => states[tool.hosts[id].state].rank >= states.planned.rank)
+	.map(({ id }) => `${id}:${tool.hosts[id].state}`);
 ---
 
-<li class="adp-designer" data-origin={designer.origin} data-focus={designer.focusAreas.join(' ')} data-hosts={hostsWithState.join(' ')} data-state={best}>
+<li class="adp-tool" data-origin={tool.origin} data-kind={tool.kind} data-focus={tool.focusAreas.join(' ')} data-hosts={hostsWithState.join(' ')} data-state={best}>
 	<hgroup>
-		<h3><a href={designerHref(designer.origin)}>{designer.name}</a></h3>
-		<p class="adp-origin adp-note">{designer.origin}</p>
+		<h3><a href={toolHref(tool.origin)}>{tool.name}</a></h3>
+		<p class="adp-origin adp-note">{tool.origin}</p>
 	</hgroup>
-	<p>{designer.purpose}</p>
+	<p>{tool.purpose}</p>
 	{!usable && <p class="adp-note">Not yet usable</p>}
-	<dl class="adp-designer-hosts">
+	<dl class="adp-tool-hosts">
 		{
 			catalogueHosts.map((host) => (
 				<div>
 					<dt>{host.name}</dt>
 					<dd>
-						<StateLabel state={designer.hosts[host.id].state} />
+						<StateLabel state={tool.hosts[host.id].state} />
 					</dd>
 				</div>
 			))
@@ -41,7 +41,7 @@ const hostsWithState = catalogueHosts
 </li>
 
 <style>
-	.adp-designer {
+	.adp-tool {
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
@@ -51,7 +51,7 @@ const hostsWithState = catalogueHosts
 		border-radius: 0.75rem;
 		background: var(--sl-color-gray-6);
 	}
-	.adp-designer[hidden] {
+	.adp-tool[hidden] {
 		display: none;
 	}
 	h3 {
@@ -71,7 +71,7 @@ const hostsWithState = catalogueHosts
 	.adp-origin {
 		overflow-wrap: anywhere;
 	}
-	.adp-designer-hosts {
+	.adp-tool-hosts {
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 0.25rem;
@@ -80,16 +80,16 @@ const hostsWithState = catalogueHosts
 		padding-block-start: 0.25rem;
 		font-size: var(--sl-text-sm);
 	}
-	.adp-designer-hosts div {
+	.adp-tool-hosts div {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
 		gap: 0.25rem 0.5rem;
 	}
-	.adp-designer-hosts dt {
+	.adp-tool-hosts dt {
 		font-weight: 400;
 	}
-	.adp-designer-hosts dd {
+	.adp-tool-hosts dd {
 		margin: 0;
 	}
 </style>

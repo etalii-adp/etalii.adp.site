@@ -8,20 +8,20 @@ describe('plan.mjs (the procedures a refresh.yml run starts)', () => {
 		assert.deepEqual(plan({ event: 'schedule' }), { procedures: ['all'] });
 	});
 
-	it('runs the chosen procedure on workflow_dispatch, with disl as the dedl procedure', () => {
-		assert.deepEqual(plan({ event: 'workflow_dispatch', chosen: 'dedl' }), { procedures: ['dedl'] });
-		assert.deepEqual(plan({ event: 'workflow_dispatch', chosen: 'disl' }), { procedures: ['dedl'] });
+	it('runs the chosen procedure on workflow_dispatch, with dedl as the disl procedure', () => {
+		assert.deepEqual(plan({ event: 'workflow_dispatch', chosen: 'dedl' }), { procedures: ['disl'] });
+		assert.deepEqual(plan({ event: 'workflow_dispatch', chosen: 'disl' }), { procedures: ['disl'] });
 		assert.deepEqual(plan({ event: 'workflow_dispatch', chosen: 'catalogue' }), { procedures: ['catalogue'] });
 		assert.deepEqual(plan({ event: 'workflow_dispatch', chosen: '' }), { procedures: ['all'] });
 	});
 
 	it('runs the reference procedure on source-changed from etalii.adp without paths', () => {
-		assert.deepEqual(plan({ event: 'repository_dispatch', source: 'etalii-adp/etalii.adp', paths: null }), { procedures: ['dedl'] });
+		assert.deepEqual(plan({ event: 'repository_dispatch', source: 'etalii-adp/etalii.adp', paths: null }), { procedures: ['disl'] });
 	});
 
 	for (const path of ['specifications/dedl/DEDL-specification.md', 'specifications/disl/erd.disl', 'specifications/did/timeline.did']) {
 		it(`runs the reference procedure for a change to ${path}`, () => {
-			assert.deepEqual(plan({ event: 'repository_dispatch', source: 'etalii-adp/etalii.adp', paths: ['README.md', path] }), { procedures: ['dedl'] });
+			assert.deepEqual(plan({ event: 'repository_dispatch', source: 'etalii-adp/etalii.adp', paths: ['README.md', path] }), { procedures: ['disl'] });
 		});
 	}
 
@@ -45,7 +45,7 @@ describe('plan.mjs (the procedures a refresh.yml run starts)', () => {
 
 	it('is what refresh.yml offers and calls', () => {
 		const workflow = readFileSync(new URL('../../.github/workflows/refresh.yml', import.meta.url), 'utf8');
-		assert.match(workflow, /options: \[all, dedl, disl, screenshots, catalogue, hosts\]/);
+		assert.match(workflow, /options: \[all, disl, screenshots, catalogue, hosts, dedl\]/);
 		assert.match(workflow, /run: node scripts\/refresh\/plan\.mjs/);
 	});
 });

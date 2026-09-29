@@ -1,6 +1,6 @@
 # Refresh the IDE host states
 
-Brings the state of each IDE host on the home page (spec 001) up to date: standalone, IntelliJ, VS Code and Eclipse. A host's state is derived from facts in its own repository, its catalogue and its latest release, so it changes when a host gains its first designer or publishes a release.
+Brings the state of each IDE host on the home page (spec 001) up to date: standalone, IntelliJ, VS Code and Eclipse. A host's state is derived from facts in its own repository, its catalogue and its latest release, so it changes when a host gains its first tool or publishes a release.
 
 ## Sources
 
@@ -13,14 +13,14 @@ Brings the state of each IDE host on the home page (spec 001) up to date: standa
 
 ## Updates
 
-- `sources/hosts/hosts.json`: one entry per host with its `state`, the facts it was derived from (the catalogue's commit, the number of usable designers, the number of designers in progress, the latest release and the `develop` head) and a `link` to the latest release, or to the repository when there is none.
+- `sources/hosts/hosts.json`: one entry per host with its `state`, the facts it was derived from (the catalogue's commit, the number of usable tools, the number of tools in progress, the latest release and the `develop` head) and a `link` to the latest release, or to the repository when there is none.
 - `sources/hosts/source.lock.json`: the catalogues and releases it was derived from.
 - The spec 001 home page and spec 003's per-host availability are built from this file. This procedure changes no mapping in `procedures/config/`.
 
 A host's state follows three rules, in order:
 
-1. **available**: at least one of its designers is `prototype`, `implemented` or `available` (see [refresh-catalogue.md](refresh-catalogue.md)), and the host has a published release to install;
-2. **in progress**: otherwise, its `docs/diagrams.md` has at least one designer whose `develop` state maps to `in-progress` or later (Work-in-progress, Prototype or Implemented);
+1. **available**: at least one of its tools is `prototype`, `implemented` or `available` (see [refresh-catalogue.md](refresh-catalogue.md)), and the host has a published release to install;
+2. **in progress**: otherwise, its catalogue (`docs/tools.md`, or `docs/diagrams.md`) has at least one tool whose `develop` state maps to `in-progress` or later (Work-in-progress, Prototype or Implemented);
 3. **planned**: otherwise, including a host with no `docs/diagrams.md`.
 
 ## Before you start
@@ -40,7 +40,7 @@ A host's state follows three rules, in order:
 
 ## Decisions
 
-None. A designer whose state label has no mapping yet is not counted; the catalogue procedure asks about it.
+None. A tool whose state label has no mapping yet is not counted; the catalogue procedure asks about it.
 
 ## Verification
 

@@ -1,17 +1,17 @@
 # Refresh the whole site
 
-Runs every refresh procedure in turn: the DEDL reference, the screenshots, the designer catalogue and the IDE host states. Each runs on its own, from a clean copy of `develop`, and opens its own pull request when it finds changes, so each can be reviewed and merged on its own. One procedure failing does not stop the others. This is also what the hourly Refresh workflow runs.
+Runs every refresh procedure in turn: the DISL and DID reference, the screenshots, the tool catalogue and the IDE host states. Each runs on its own, from a clean copy of `develop`, and opens its own pull request when it finds changes, so each can be reviewed and merged on its own. One procedure failing does not stop the others. This is also what the hourly Refresh workflow runs.
 
 ## Sources
 
 | Repository | Ref | Paths | Visibility |
 |---|---|---|---|
 
-The sources of each procedure below: [refresh-dedl](refresh-dedl.md), [refresh-screenshots](refresh-screenshots.md), [refresh-catalogue](refresh-catalogue.md) and [refresh-hosts](refresh-hosts.md).
+The sources of each procedure below: [refresh-disl](refresh-disl.md), [refresh-screenshots](refresh-screenshots.md), [refresh-catalogue](refresh-catalogue.md) and [refresh-hosts](refresh-hosts.md).
 
 ## Updates
 
-What each of the four procedures updates, each in its own pull request: `sources/dedl/`, `sources/screenshots/`, `sources/catalogue/` and `sources/hosts/`, and a mapping in `procedures/config/` when one of their decisions is answered.
+What each of the four procedures updates, each in its own pull request: `sources/disl/`, `sources/screenshots/`, `sources/catalogue/` and `sources/hosts/`, and a mapping in `procedures/config/` when one of their decisions is answered.
 
 ## Before you start
 
@@ -20,7 +20,7 @@ What each of the four procedures updates, each in its own pull request: `sources
 
 ## Steps
 
-1. Run `npm run refresh -- all`. It runs `dedl`, `screenshots`, `catalogue` and `hosts` in that order, prints each one's stages and outcome, and ends with a table of the four: procedure, outcome, and the pull request link or the failure. The table is also in `.refresh/summary.json`, and each procedure's own files are in `.refresh/<id>/`. The exit code is the highest of the four.
+1. Run `npm run refresh -- all`. It runs `disl`, `screenshots`, `catalogue` and `hosts` in that order, prints each one's stages and outcome, and ends with a table of the four: procedure, outcome, and the pull request link or the failure. The table is also in `.refresh/summary.json`, and each procedure's own files are in `.refresh/<id>/`. The exit code is the highest of the four.
 2. For each row of the table, act as that procedure's own document says for its outcome:
    - `current`: nothing to do.
    - `delivered` or `delivered-draft`: report the pull request link.

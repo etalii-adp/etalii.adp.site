@@ -67,19 +67,19 @@ export function mapSourceState(mapping: StateMapping, host: HostId, label: strin
 	return state as StateId;
 }
 
-/** A designer's best state: the highest rank over its hosts. */
+/** A tool's best state: the highest rank over its hosts. */
 export function bestState(hosts: Record<HostId, Pick<HostAvailability, 'state'>>): StateId {
 	return Object.values(hosts).reduce<StateId>((best, { state }) => (states[state].rank > states[best].rank ? state : best), 'not-planned');
 }
 
-/** Whether a visitor can use the designer in some form: prototype, implemented or available. */
+/** Whether a visitor can use the tool in some form: prototype, implemented or available. */
 export function isUsable(state: StateId): boolean {
 	return states[state].usable;
 }
 
 /**
- * Whether a designer in this state shows its screenshots (FR-007, amended 2026-09-28): from "In progress" up. A
- * designer in progress is not usable yet, so its screenshots are marked as work in progress.
+ * Whether a tool in this state shows its screenshots (FR-007, amended 2026-09-28): from "In progress" up. A
+ * tool in progress is not usable yet, so its screenshots are marked as work in progress.
  */
 export function showsScreenshots(state: StateId): boolean {
 	return states[state].rank >= states['in-progress'].rank;

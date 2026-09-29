@@ -3,7 +3,7 @@
     "whyItMatters": "An activity diagram with its swimlanes, activities and decisions opens from its .drawio file inside IntelliJ, so a diagram kept in the repository can be read and changed without leaving the IDE, and the file still opens in draw.io."
   },
   "intellij--drawio-cross-functional": {
-    "whyItMatters": "A cross-functional flowchart keeps its pool, lanes, process boxes and decisions when opened in IntelliJ, which shows the designer handles draw.io's containers as well as its shapes."
+    "whyItMatters": "A cross-functional flowchart keeps its pool, lanes, process boxes and decisions when opened in IntelliJ, which shows the diagram handles draw.io's containers as well as its shapes."
   },
   "intellij--mindmap": {
     "whyItMatters": "The same FreeMind file opens as a mind map inside IntelliJ, laid out as a tree around its central topic, so a map can be read and edited next to the code it belongs to."
@@ -51,7 +51,7 @@
     "whyItMatters": "Trends sit as banners along the years, coloured by their phase on the curve, with a filter by tag, so how technologies rise, fall and mature relative to each other can be compared over a long span."
   },
   "standalone--mindmap": {
-    "whyItMatters": "A large Freeplane map stays readable because the designer lays the branches out as a tree around the central topic, while the .mm file keeps working in Freeplane."
+    "whyItMatters": "A large Freeplane map stays readable because the diagram lays the branches out as a tree around the central topic, while the .mm file keeps working in Freeplane."
   },
   "standalone--owl": {
     "whyItMatters": "The ontology's classes and properties appear in the VOWL notation, which makes the structure of an OWL ontology readable by eye, where its Turtle or RDF/XML source is not."

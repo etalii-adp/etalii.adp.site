@@ -4,7 +4,7 @@
 import { readFileSync } from 'node:fs';
 import { basename } from 'node:path';
 import { NeedsDecision } from '../lib/decision.mjs';
-import { CATALOGUE_PATHS, catalogueFileOf, designersFor, isUsable } from '../lib/catalogue-table.mjs';
+import { CATALOGUE_PATHS, catalogueFileOf, toolsFor, isUsable } from '../lib/catalogue-table.mjs';
 import { catalogueReport } from '../lib/catalogue-site.mjs';
 import { readPngSize } from '../lib/png.mjs';
 
@@ -119,9 +119,9 @@ export default {
 			const pngs = source.files.filter((f) => f.sourcePath.endsWith('.png'));
 			result.inputs.push(...[readmeFile, catalogueFile].filter(Boolean));
 
-			const designers = catalogueFile ? await designersFor(host, source.reader, { head: source.head, release: source.release, states: ctx.config.states }) : { missingCatalogue: true };
+			const tools = catalogueFile ? await toolsFor(host, source.reader, { head: source.head, release: source.release, states: ctx.config.states }) : { missingCatalogue: true };
 			if (!readmeFile && !pngs.length) {
-				if (!designers.missingCatalogue) details.gaps.push(...gapsFor(host, designers.entries, new Set()));
+				if (!tools.missingCatalogue) details.gaps.push(...gapsFor(host, tools.entries, new Set()));
 				continue;
 			}
 			details.hosts.push(host);
@@ -135,9 +135,9 @@ export default {
 				const file = basename(png.sourcePath);
 				const path = `${host}/${file}`;
 				if (!(file in mapping)) {
-					const origins = designers.missingCatalogue ? [] : designers.entries.map((e) => e.origin);
+					const origins = tools.missingCatalogue ? [] : tools.entries.map((e) => e.origin);
 					throw new NeedsDecision({
-						question: `Which designer does the screenshot ${file} of ${host} show?`,
+						question: `Which tool does the screenshot ${file} of ${host} show?`,
 						subject: `${source.repository} docs/screenshots/${file}${readme.images.get(file) ? `: ${readme.images.get(file).expectation}` : ''}`,
 						options: [...origins, NOT_A_DESIGNER],
 						writeTo: 'procedures/config/screenshots.json',
@@ -168,7 +168,7 @@ export default {
 				entries.push(entry);
 			}
 			result.derived.push({ path: `${host}/screenshots.json`, content: `${JSON.stringify(entries.sort((a, b) => a.file.localeCompare(b.file)), null, 2)}\n` });
-			if (!designers.missingCatalogue) details.gaps.push(...gapsFor(host, designers.entries, shown));
+			if (!tools.missingCatalogue) details.gaps.push(...gapsFor(host, tools.entries, shown));
 		}
 
 		if (toReview.length) result.reviewNotes.push(['Check each image shows what its expectation says:', '', ...toReview].join('\n'));
@@ -195,7 +195,7 @@ export default {
 	},
 };
 
-/** Designers that are prototype or available in `host` after the release cap, but have no screenshot there. */
+/** Tools that are prototype or available in `host` after the release cap, but have no screenshot there. */
 function gapsFor(host, entries, shown) {
 	return entries.filter((e) => isUsable(e.state) && !shown.has(e.origin)).map((e) => ({ host, origin: e.origin, name: e.name, state: e.state }));
 }

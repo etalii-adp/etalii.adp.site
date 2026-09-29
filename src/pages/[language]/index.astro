@@ -25,7 +25,7 @@ const description = latest
 	: `The ${language.name} reference: no version is published on this site yet.`;
 ---
 
-<ReferenceLayout version={latest} title={language.name} description={description}>
+<ReferenceLayout version={latest} language={language.id} title={language.name} description={description}>
 	<p>
 		The specification of {language.short}, published from <a href={sourceHref}><code>{language.path}</code> in {language.repository}</a>. Every page says which
 		version and source revision it shows, and errors are reported to the source repository.

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import dedl from '../procedures/dedl.mjs';
+import disl from '../procedures/disl.mjs';
 import { buildSummary, renderDecisionIssue, renderPrBody, renderTitle } from './summary.mjs';
 
 const BEFORE = '1a2b3c4d'.padEnd(40, '0');
@@ -11,7 +11,7 @@ function sample(overrides = {}) {
 	return buildSummary({
 		before: { [REPO]: BEFORE },
 		after: { [REPO]: AFTER },
-		files: [{ path: 'sources/dedl/0.1/DEDL-specification.md', change: 'changed' }],
+		files: [{ path: 'sources/disl/0.1/DEDL-specification.md', change: 'changed' }],
 		details: { version: '0.1', previousVersion: '0.1', newVersion: false, sections: [{ heading: '2. Foundations', change: 'changed', lines: 2 }], files: [{ file: 'dedl.schema.json', change: 'unchanged' }] },
 		withdrawals: [],
 		caveats: [],
@@ -29,7 +29,7 @@ const headings = (body) => body.split('\n').filter((line) => line.startsWith('##
 
 describe('renderPrBody', () => {
 	it('renders the sections of contracts/pull-request.md in order, leaving out the optional ones when empty', () => {
-		const body = renderPrBody(sample(), { procedure: dedl });
+		const body = renderPrBody(sample(), { procedure: disl });
 		assert.deepEqual(headings(body), ['Source revisions', 'What changed', 'Withdrawn', 'Verification']);
 		assert.ok(body.includes('## Withdrawn\n\nNone'));
 	});
@@ -41,7 +41,7 @@ describe('renderPrBody', () => {
 				reviewNotes: ['Check each image shows what its expectation says.'],
 				withdrawals: [{ path: '0.1/erd.dedl', sourcePath: 'specifications/dedl/erd.dedl', withdrawnAt: '2026-09-27T00:00:00.000Z', lastCommit: BEFORE, replacedBy: null }],
 			}),
-			{ procedure: dedl },
+			{ procedure: disl },
 		);
 		assert.deepEqual(headings(body), ['Source revisions', 'What changed', 'Source caveats', 'Withdrawn', 'Verification', 'Review notes']);
 		assert.ok(body.includes('> The committed set shows a developer session marker.'));
@@ -50,12 +50,12 @@ describe('renderPrBody', () => {
 	});
 
 	it('shows short SHAs with commit and compare links', () => {
-		const body = renderPrBody(sample(), { procedure: dedl });
+		const body = renderPrBody(sample(), { procedure: disl });
 		assert.ok(body.includes(`| ${REPO} | [\`1a2b3c4\`](https://github.com/${REPO}/commit/${BEFORE}) | [\`5d6e7f8\`](https://github.com/${REPO}/compare/${BEFORE}...${AFTER}) |`));
 	});
 
 	it('marks each verification step and puts a failure’s output in a details block', () => {
-		const body = renderPrBody(sample(), { procedure: dedl });
+		const body = renderPrBody(sample(), { procedure: disl });
 		assert.ok(body.includes('| Site builds (`npm run build`) | ✅ passed |'));
 		assert.ok(body.includes('| Links and accessibility (`npm run check`) | ❌ failed |'));
 		assert.ok(body.includes('| Source records (`npm run refresh:verify`) | ⚪ not available |'));
@@ -63,23 +63,23 @@ describe('renderPrBody', () => {
 	});
 
 	it('ends with the footer line naming the procedure, the run and the previous scheduled run', () => {
-		const local = renderPrBody(sample(), { procedure: dedl });
-		assert.ok(local.trimEnd().endsWith('---\nOpened by procedure `refresh-dedl` (procedures/refresh-dedl.md), run local. Previous scheduled run: not checked (local run).'));
-		const ci = renderPrBody(sample(), { procedure: dedl, runLink: 'https://github.com/o/r/actions/runs/1', previousScheduledRun: null });
+		const local = renderPrBody(sample(), { procedure: disl });
+		assert.ok(local.trimEnd().endsWith('---\nOpened by procedure `refresh-disl` (procedures/refresh-disl.md), run local. Previous scheduled run: not checked (local run).'));
+		const ci = renderPrBody(sample(), { procedure: disl, runLink: 'https://github.com/o/r/actions/runs/1', previousScheduledRun: null });
 		assert.ok(ci.includes('run https://github.com/o/r/actions/runs/1. Previous scheduled run: none in 7 days: check that the Refresh workflow is enabled.'));
-		const dated = renderPrBody(sample(), { procedure: dedl, previousScheduledRun: '2026-09-27T07:17:00.000Z' });
+		const dated = renderPrBody(sample(), { procedure: disl, previousScheduledRun: '2026-09-27T07:17:00.000Z' });
 		assert.ok(dated.includes('Previous scheduled run: 2026-09-27T07:17:00.000Z.'));
 	});
 });
 
 describe('renderTitle', () => {
 	it('reads Refresh <what>: <before7>..<after7>', () => {
-		assert.equal(renderTitle(dedl, sample()), 'Refresh DEDL reference: 1a2b3c4..5d6e7f8');
+		assert.equal(renderTitle(disl, sample()), 'Refresh DISL and DID reference: 1a2b3c4..5d6e7f8');
 	});
 
-	it('reads Refresh DEDL reference: publish <new> beside <old> for a new version', () => {
+	it('reads Refresh DISL and DID reference: publish <new> beside <old> for a new version', () => {
 		const summary = sample({ details: { version: '0.2', previousVersion: '0.1', newVersion: true, sections: [], files: [] } });
-		assert.equal(renderTitle(dedl, summary), 'Refresh DEDL reference: publish 0.2 beside 0.1');
+		assert.equal(renderTitle(disl, summary), 'Refresh DISL and DID reference: publish 0.2 beside 0.1');
 	});
 });
 

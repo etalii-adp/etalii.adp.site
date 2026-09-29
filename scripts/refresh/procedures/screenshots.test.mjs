@@ -115,7 +115,7 @@ describe('refresh-screenshots', () => {
 		assert.equal(rejected.find((r) => r.file === 'extra.png').previousKept, false);
 	});
 
-	it('(d) lists a usable designer with no image as a gap, and creates no file for it', () => {
+	it('(d) lists a usable tool with no image as a gap, and creates no file for it', () => {
 		const { gaps } = site.json('.refresh/summary.json').details;
 		const gap = gaps.find((g) => g.origin === 'c4/context');
 		assert.deepEqual(gap, { host: 'standalone', origin: 'c4/context', name: 'System Context', state: 'prototype' });
@@ -135,12 +135,12 @@ describe('refresh-screenshots', () => {
 });
 
 describe('refresh-screenshots decisions', () => {
-	it('(e) asks which designer an unmapped image shows, offering the host’s origins', () => {
+	it('(e) asks which tool an unmapped image shows, offering the host’s origins', () => {
 		const { site, run } = setup({ mapping: { standalone: { 'mindmap.png': 'freeplane/mindmap', 'timeline.png': 'generic/timeline', 'workspace.png': 'c4/container' }, intellij: {}, vscode: {}, eclipse: {} } });
 		const result = run();
 		assert.equal(result.code, 3, result.output);
 		const decision = site.json('.refresh/decision.json');
-		assert.equal(decision.question, 'Which designer does the screenshot wardley-map.png of standalone show?');
+		assert.equal(decision.question, 'Which tool does the screenshot wardley-map.png of standalone show?');
 		assert.equal(decision.writeTo, 'procedures/config/screenshots.json');
 		assert.deepEqual(decision.key, ['standalone', 'wardley-map.png']);
 		assert.ok(decision.options.includes('wardley/map'));

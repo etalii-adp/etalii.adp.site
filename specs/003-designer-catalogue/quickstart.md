@@ -1,4 +1,4 @@
-# Quickstart: Validating the Designer Catalogue
+# Quickstart: Validating the Tool Catalogue
 
 **Feature**: [spec.md](spec.md) | **Plan**: [plan.md](plan.md)
 
@@ -33,14 +33,14 @@ npm run catalogue:report                   # writes .refresh/catalogue-report.md
 
 **Expect**:
 
-- Every designer page names each source with its revision, taken from the locks under `sources/`.
+- Every tool page names each source with its revision, taken from the locks under `sources/`.
 - `.refresh/catalogue-report.md` lists at least these known gaps as of 2026-09-26:
   - Licence missing for the standalone repository, so its screenshots are not publishable.
-  - The draw.io designer from IntelliJ has no origin tag.
+  - The draw.io tool from IntelliJ has no origin tag.
   - No screenshot has its site-owned "why it matters" text yet.
   - Notion has no `Focus areas` or `Why specialized` column yet.
   - Notion and `diagrams.md` disagree.
-- There are 26 or more designers and 64 or fewer ideas, the counts from the standalone catalogue at that date.
+- There are 26 or more tools and 64 or fewer ideas, the counts from the standalone catalogue at that date.
 - Every Notion-sourced record names the page and its edit time.
 - Running `catalogue:notion` and `catalogue:report` twice in a row gives an empty `git diff` the second time.
 
@@ -65,7 +65,7 @@ npm run build
 npm run check        # links, check:catalogue (source records, alt text, FR-007, image budget, redirects, internal links), then every page's WCAG 2.2 AA, phone-width, no-script and privacy checks
 ```
 
-**Expect**: zero failures. `check:catalogue` prints the heaviest designer page with its total image bytes, which must be under 1 MB.
+**Expect**: zero failures. `check:catalogue` prints the heaviest tool page with its total image bytes, which must be under 1 MB.
 
 ## 4. Visitor scenarios (spec US1–US3)
 
@@ -73,18 +73,18 @@ npm run check        # links, check:catalogue (source records, alt text, FR-007,
 npm run preview                      # serves dist/ at http://localhost:4321/adp/
 ```
 
-1. Open `/adp/designers/` with JavaScript disabled. Every designer and the ideas list are present; the filter is not shown (FR-002). With JavaScript on, tick one focus area: the list narrows, the introduction describes the focus area, and the breadcrumbs end in its name.
-2. Find the mind map (`/adp/designers/freeplane/mindmap/`). Its availability table shows four hosts: Standalone "Prototype", IntelliJ "Not yet released", VS Code and Eclipse "Not planned". None is marked Available, because no release is public (research D3).
+1. Open `/adp/tools/` with JavaScript disabled. Every tool and the ideas list are present; the filter is not shown (FR-002). With JavaScript on, tick one focus area: the list narrows, the introduction describes the focus area, and the breadcrumbs end in its name.
+2. Find the mind map (`/adp/tools/freeplane/mindmap/`). Its availability table shows four hosts: Standalone "Prototype", IntelliJ "Not yet released", VS Code and Eclipse "Not planned". None is marked Available, because no release is public (research D3).
 3. On that page, each screenshot has a caption naming the host and the short revision, and the Sources section links `etalii.adp.ide.standalone@<sha>`. While the standalone has no licence, "Screenshot pending" is shown instead.
-4. Open a specified-only designer (either of the two `📝 Specified` entries). It has no screenshot and is labelled Planned (FR-007).
-5. Open `/adp/designers/?hosts=intellij` and see the mind map and, once it has an origin tag, draw.io. The old address `/adp/designers/hosts/intellij/` leads there too.
+4. Open a specified-only tool (either of the two `📝 Specified` entries). It has no screenshot and is labelled Planned (FR-007).
+5. Open `/adp/tools/?hosts=intellij` and see the mind map and, once it has an origin tag, draw.io. The old address `/adp/tools/hosts/intellij/` leads there too.
 6. Switch the system to dark mode and narrow the window to 360 px. There is no horizontal scroll, and state labels stay readable as text.
 
 ## 5. Stay-current scenario (spec US4)
 
-1. In a local checkout of `etalii.adp.ide.standalone`, change one designer's state in `docs/diagrams.md`, for example `wardley/map` from Prototype to Implemented, and commit it.
+1. In a local checkout of `etalii.adp.ide.standalone`, change one tool's state in `docs/diagrams.md`, for example `wardley/map` from Prototype to Implemented, and commit it.
 2. Run `npm run refresh -- catalogue --no-deliver --source etalii-adp/etalii.adp.ide.standalone=<checkout>` (spec 004), then `npm run catalogue:report`.
-3. **Expect**: the diff touches only `sources/catalogue/`. The report lists `wardley/map · standalone · prototype → implemented`. The rebuilt overview and designer page both show "Not yet released". The recorded revision is the local commit.
+3. **Expect**: the diff touches only `sources/catalogue/`. The report lists `wardley/map · standalone · prototype → implemented`. The rebuilt overview and tool page both show "Not yet released". The recorded revision is the local commit.
 4. Rename that origin in the checkout, refresh and report again. **Expect**: `catalogue:report` exits 3 and asks whether the old origin was renamed or withdrawn. After `npm run catalogue:report -- --rename <old>=<new>`, `redirects.json` gains an entry and the old address serves the redirect stub.
 5. Discard the local changes. A lock marked `"local": true` can never be delivered (spec 004).
 

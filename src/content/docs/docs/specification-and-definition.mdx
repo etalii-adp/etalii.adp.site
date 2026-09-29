@@ -1,0 +1,29 @@
+---
+title: Specification & Definition
+description: How a tool engineer specifies a tool type, how the tools users create of it are stored, and the six languages that do so, one pair per kind.
+part: documentation
+section: specification
+---
+
+ADP's tools are specified once and then used many times. This page introduces the words for that, and the languages it happens in. The source of these definitions is [`docs/terminology.md` in etalii.adp](https://github.com/etalii-adp/etalii.adp/blob/develop/docs/terminology.md); the [Terminology](/adp/docs/terminology/) page has the full vocabulary.
+
+## The concepts
+
+- **Tool**: one of the new ways ADP offers to visualize, enter and interact with data, mostly text-based.
+- **Kind**: every tool is of exactly one of three kinds. A **diagram** is a visual arrangement of elements and the relations between them; a **designer** is a form-based visual layout in which nothing is connected; an **editor** is a way of working in which typing text is the core interaction.
+- **Tool type**: one particular tool ADP offers, such as the Wardley map; by kind a *diagram type*, *designer type* or *editor type*. It is identified by its origin, `<vendor>/<type>`, for example `wardley/map`.
+- **Tool engineer**: the person who specifies a tool type.
+- **Specification language**: the language in which a tool engineer specifies how one tool type functions and looks. A **specification file** (`.disl`, `.desl`, `.edsl`) holds one tool type: for example, what a state machine diagram's elements and relations are and how they are drawn.
+- **Definition language**: the language in which the tools users create of a type are stored. A **definition file** (`.did`, `.ded`, `.edd`) holds one diagram, designer or editor a user created of such a type: for example, one particular state machine.
+
+## The languages
+
+There is one specification language and one definition language per kind:
+
+| Kind | Specification language | Extension | Definition language | Extension |
+|---|---|---|---|---|
+| Diagram | [DISL, Diagram Specification Language](/adp/disl/) | `.disl` | [DID, Diagram Definition Language](/adp/did/) | `.did` |
+| Designer | DESL, Designer Specification Language | `.desl` | DED, Designer Definition Language | `.ded` |
+| Editor | EDSL, Editor Specification Language | `.edsl` | EDD, Editor Definition Language | `.edd` |
+
+DISL and DID have content: follow their names to their references. DESL, DED, EDSL and EDD are placeholders, with their content to come when a designer or an editor needs them. DID here always means ADP's Diagram Definition Language, not the W3C's Decentralized Identifiers.

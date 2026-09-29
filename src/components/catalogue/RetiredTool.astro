@@ -1,19 +1,19 @@
 ---
-// A retired designer address (FR-011, contracts/site-addresses.md § Redirect stub). GitHub Pages has no server-side
+// A retired tool address (FR-011, contracts/site-addresses.md § Redirect stub). GitHub Pages has no server-side
 // redirects, so a rename is a page with a meta refresh, a canonical link and a visible link; a withdrawal is a
 // normal page with the reason and the date. Neither is a sourced page, so neither carries adp:sourced.
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
-import type { Designer, Redirect } from '../../lib/catalogue/types';
-import { designerHref } from './data';
+import type { Tool, Redirect } from '../../lib/catalogue/types';
+import { toolHref } from './data';
 
 interface Props {
 	redirect: Redirect;
-	/** The designer a rename points to; absent for a withdrawal. */
-	target?: Designer;
+	/** The tool a rename points to; absent for a withdrawal. */
+	target?: Tool;
 }
 
 const { redirect, target } = Astro.props;
-const href = target ? designerHref(target.origin) : undefined;
+const href = target ? toolHref(target.origin) : undefined;
 const head = href
 	? [
 			{ tag: 'meta' as const, attrs: { 'http-equiv': 'refresh', content: `0; url=${href}` } },
@@ -28,30 +28,30 @@ const head = href
 		<StarlightPage
 			frontmatter={{
 				title: `Moved: ${redirect.from}`,
-				description: `The designer ${redirect.from} is now ${target.name}, at ${href}.`,
+				description: `The tool ${redirect.from} is now ${target.name}, at ${href}.`,
 				part: 'documentation',
-				section: 'designers',
+				section: 'tools',
 				head,
 			}}
 		>
 			<p>
-				This designer is now at <a href={href}>{target.name}</a> (<code>{target.origin}</code>).
+				This tool is now at <a href={href}>{target.name}</a> (<code>{target.origin}</code>).
 			</p>
 		</StarlightPage>
 	) : (
 		<StarlightPage
 			frontmatter={{
 				title: `Withdrawn: ${redirect.from}`,
-				description: `The designer ${redirect.from} was withdrawn on ${redirect.since}.`,
+				description: `The tool ${redirect.from} was withdrawn on ${redirect.since}.`,
 				part: 'documentation',
-				section: 'designers',
+				section: 'tools',
 			}}
 		>
 			<p class="adp-withdrawn">
-				This designer was withdrawn on <time datetime={redirect.since}>{redirect.since}</time>: {redirect.reason}
+				This tool was withdrawn on <time datetime={redirect.since}>{redirect.since}</time>: {redirect.reason}
 			</p>
 			<p>
-				See <a href="/adp/designers/">all designers</a>.
+				See <a href="/adp/tools/">all tools</a>.
 			</p>
 		</StarlightPage>
 	)

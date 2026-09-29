@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
-import { CATALOGUE_PATHS, catalogueFileOf, designersFor, isUnderway, isUsable, mapState, parseCatalogue, stripStateEmoji } from './catalogue-table.mjs';
+import { CATALOGUE_PATHS, catalogueFileOf, toolsFor, isUnderway, isUsable, mapState, parseCatalogue, stripStateEmoji } from './catalogue-table.mjs';
 
 const markdown = readFileSync(new URL('../fixtures/standalone/docs/diagrams.md', import.meta.url), 'utf8');
 const states = JSON.parse(readFileSync(new URL('../../../procedures/config/states.json', import.meta.url), 'utf8'));
@@ -10,7 +10,7 @@ describe('parseCatalogue', () => {
 	const rows = parseCatalogue(markdown);
 	const row = (origin) => rows.find((r) => r.origin === origin);
 
-	it('reads every designer row and skips the group rows', () => {
+	it('reads every tool row and skips the group rows', () => {
 		assert.equal(rows.length, 11);
 		assert.deepEqual(rows.slice(0, 3).map((r) => r.origin), ['uml/class', 'c4/context', 'c4/container']);
 	});
@@ -101,7 +101,7 @@ describe('the catalogue as docs/tools.md or docs/diagrams.md', () => {
 	it('reads Diagram, Designer and Editor in the Kind column, and an empty one as none', () => {
 		const table = (kind) => `<table><tr><th>State</th><th>Origin</th><th>Kind</th><th>Tool</th></tr><tr><td>Idea</td><td><code>a/b</code></td><td>${kind}</td><td>A tool</td></tr></table>`;
 		assert.equal(parseCatalogue(table('Editor'))[0].kind, 'editor');
-		assert.equal(parseCatalogue(table('Designer'))[0].kind, 'designer');
+		assert.equal(parseCatalogue(table('Designer'))[0].kind, 'tool');
 		assert.equal(parseCatalogue(table('Diagram'))[0].kind, 'diagram');
 		assert.equal(parseCatalogue(table('—'))[0].kind, null);
 		assert.equal(parseCatalogue(table('Editor'))[0].name, 'A tool');
@@ -113,16 +113,16 @@ describe('the catalogue as docs/tools.md or docs/diagrams.md', () => {
 	});
 
 	it('reads docs/tools.md at develop and falls back to docs/diagrams.md at the release', async () => {
-		const found = await designersFor('standalone', reader({ 'head:docs/tools.md': tools, 'head:docs/diagrams.md': 'stale', 'v1:docs/diagrams.md': markdown }), { head: 'head', release: { commit: 'v1' }, states });
+		const found = await toolsFor('standalone', reader({ 'head:docs/tools.md': tools, 'head:docs/diagrams.md': 'stale', 'v1:docs/diagrams.md': markdown }), { head: 'head', release: { commit: 'v1' }, states });
 		assert.equal(found.path, 'docs/tools.md');
 		assert.equal(found.entries.length, 11);
 		assert.equal(found.entries.find((e) => e.origin === 'freeplane/mindmap').releaseState, 'Prototype');
 	});
 
 	it('falls back to docs/diagrams.md at develop, and reports a host with neither as missing', async () => {
-		const found = await designersFor('standalone', reader({ 'head:docs/diagrams.md': markdown }), { head: 'head', release: null, states });
+		const found = await toolsFor('standalone', reader({ 'head:docs/diagrams.md': markdown }), { head: 'head', release: null, states });
 		assert.equal(found.path, 'docs/diagrams.md');
 		assert.equal(found.entries.length, 11);
-		assert.deepEqual(await designersFor('standalone', reader({}), { head: 'head', release: null, states }), { missingCatalogue: true });
+		assert.deepEqual(await toolsFor('standalone', reader({}), { head: 'head', release: null, states }), { missingCatalogue: true });
 	});
 });

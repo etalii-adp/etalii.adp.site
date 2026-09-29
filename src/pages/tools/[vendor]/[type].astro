@@ -1,0 +1,29 @@
+---
+// /adp/tools/<vendor>/<type>/: one page per tool, and a page at every retired address so that it keeps
+// resolving (FR-011): a redirect stub for a rename, a notice for a withdrawal.
+import { catalogue, redirects } from '../../../components/catalogue/data';
+import ToolPage from '../../../components/catalogue/ToolPage.astro';
+import RetiredTool from '../../../components/catalogue/RetiredTool.astro';
+import type { Tool, FocusArea, Redirect } from '../../../lib/catalogue/types';
+
+type Props = { tool: Tool; focusAreas: FocusArea[]; redirect?: undefined } | { redirect: Redirect; target?: Tool; tool?: undefined };
+
+export async function getStaticPaths() {
+	const { tools, focusAreas } = await catalogue();
+	const params = (origin: string) => {
+		const [vendor, type] = origin.split('/');
+		return { vendor, type };
+	};
+	return [
+		...tools.map((tool) => ({ params: params(tool.origin), props: { tool, focusAreas } })),
+		...(await redirects()).map((redirect) => ({
+			params: params(redirect.from),
+			props: { redirect, target: tools.find((tool) => tool.origin === redirect.to) },
+		})),
+	];
+}
+
+const props = Astro.props as Props;
+---
+
+{props.redirect ? <RetiredTool redirect={props.redirect} target={props.target} /> : <ToolPage tool={props.tool} focusAreas={props.focusAreas} />}

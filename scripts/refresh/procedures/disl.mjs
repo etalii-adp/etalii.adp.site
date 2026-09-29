@@ -1,9 +1,10 @@
-// refresh-dedl: the DEDL specification, schema and examples from etalii-adp/etalii.adp into
-// sources/dedl/<version>/, a frozen folder per version (research R12).
+// refresh-disl: the DISL and DID specifications, schemas and examples from etalii-adp/etalii.adp into
+// sources/disl/<version>/, a frozen folder per version (research R12). Named refresh-dedl until etalii.adp spec 002
+// renamed DEDL; `dedl` is still accepted as its name (lib/names.mjs).
 //
 // etalii.adp spec 002 splits DEDL into DISL (specifications/disl/) and DID (specifications/did/). Until its Part 7
 // this procedure reads either layout: DISL and DID once specifications/disl/ exists, DEDL while it is absent. Both
-// are stored in the same version folder (their file names differ); the site publishes no DISL or DID page yet.
+// are stored in the same version folder (their file names differ); the site publishes their pages at /adp/disl/ and /adp/did/.
 import { existsSync, readFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import { compareSemver } from '../lib/util.mjs';
@@ -89,9 +90,9 @@ function versionsIn(lock) {
 }
 
 export default {
-	id: 'refresh-dedl',
-	short: 'dedl',
-	what: 'DEDL reference',
+	id: 'refresh-disl',
+	short: 'disl',
+	what: 'DISL and DID reference',
 	sources: [{ repository: 'etalii-adp/etalii.adp', ref: 'develop', paths: ['specifications/dedl/*', 'specifications/disl/*', 'specifications/did/*'], host: null }],
 	usesReleases: false,
 
@@ -170,13 +171,13 @@ export default {
 
 	title(summary) {
 		const d = summary.details;
-		return d?.newVersion ? `Refresh DEDL reference: publish ${d.version} beside ${d.previousVersion}` : undefined;
+		return d?.newVersion ? `Refresh DISL and DID reference: publish ${d.version} beside ${d.previousVersion}` : undefined;
 	},
 
 	renderDetails(d) {
 		if (!d?.version) return '';
 		const lines = [];
-		if (d.newVersion) lines.push(`New version ${d.version} published beside ${d.previousVersion}; \`sources/dedl/${d.previousVersion}/\` is unchanged.`, '');
+		if (d.newVersion) lines.push(`New version ${d.version} published beside ${d.previousVersion}; \`sources/disl/${d.previousVersion}/\` is unchanged.`, '');
 		else if (!d.previousVersion) lines.push(`Version ${d.version} imported for the first time.`, '');
 		if (d.layout === 'disl') lines.push('Read from `specifications/disl/` and `specifications/did/` (DISL and DID, etalii.adp spec 002); the DISL specification is compared below.', '');
 		lines.push(`**Specification** (\`${d.version}/${d.spec ?? SPEC}\`):`, '');

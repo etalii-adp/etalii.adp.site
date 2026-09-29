@@ -2,7 +2,7 @@
 //
 // Run after spec 004's catalogue or screenshot refresh (spec 003 US4). It compares the catalogue assembled from the
 // working tree with the one at HEAD, writes .refresh/catalogue-report.md for the pull request, and rewrites
-// src/content/catalogue/published.json to the designers that now have a page. A published designer that no longer
+// src/content/catalogue/published.json to the tools that now have a page. A published tool that no longer
 // is one needs an answer, as any decision in spec 004: renamed (--rename) or withdrawn (--withdraw). Without one it
 // exits 3, asks, and writes nothing. It never guesses a rename (data-model § Redirect). With --no-write it only
 // writes the report and asks nothing: the screenshots refresh uses it, as the catalogue files are not its to change.
@@ -60,7 +60,7 @@ export function atHead(options: Required<AssembleOptions>): Required<AssembleOpt
 type Membership = 'catalogue' | 'ideas' | 'neither';
 
 function membership(catalogue: Catalogue, origin: string): Membership {
-	if (catalogue.designers.some((designer) => designer.origin === origin)) return 'catalogue';
+	if (catalogue.tools.some((tool) => tool.origin === origin)) return 'catalogue';
 	if (catalogue.ideas.some((idea) => idea.origin === origin)) return 'ideas';
 	return 'neither';
 }
@@ -118,15 +118,15 @@ export function main(args: string[], options: ReportOptions = {}): number {
 		answers.push({ from, to, reason: `Renamed to ${to}.` });
 	}
 	const redirects = readJson<Redirect[]>(redirectsFile, []);
-	const live = new Set(current.designers.map((designer) => designer.origin));
+	const live = new Set(current.tools.map((tool) => tool.origin));
 	const sources = readSources(inputs.sourcesRoot);
 	for (const answer of answers) {
 		if (live.has(answer.from)) {
-			console.error(`${answer.from} is still a designer, so it needs no redirect.`);
+			console.error(`${answer.from} is still a tool, so it needs no redirect.`);
 			return 2;
 		}
 		if (answer.to !== null && !live.has(answer.to)) {
-			console.error(`${answer.to} is not a designer, so ${answer.from} cannot be renamed to it.`);
+			console.error(`${answer.to} is not a tool, so ${answer.from} cannot be renamed to it.`);
 			return 2;
 		}
 		if (redirects.some((redirect) => redirect.from === answer.from)) {
@@ -136,10 +136,10 @@ export function main(args: string[], options: ReportOptions = {}): number {
 		// The source revision in which the origin disappeared: the catalogue of a host that had it, as it is now.
 		const hadIt = previous ? catalogueHosts.filter(({ id }) => states[previous.hostStates[answer.from]?.[id]?.state ?? 'not-planned'].rank > 0) : [];
 		const host = hadIt.find(({ id }) => sources.catalogues.has(id));
-		const former = previous?.designers.find((designer) => designer.origin === answer.from);
+		const former = previous?.tools.find((tool) => tool.origin === answer.from);
 		const source: SourceRecord | undefined = host ? catalogueSourceRecord(sources.catalogues.get(host.id)!.lock, host.id) : former?.sources[0];
 		if (!source) {
-			console.error(`${answer.from} was not a designer at HEAD, so there is nothing to redirect.`);
+			console.error(`${answer.from} was not a tool at HEAD, so there is nothing to redirect.`);
 			return 2;
 		}
 		redirects.push({ from: answer.from, to: answer.to, reason: answer.reason, since: today, source });
@@ -150,7 +150,7 @@ export function main(args: string[], options: ReportOptions = {}): number {
 		current = assembleCatalogue(inputs);
 	}
 
-	// A published designer that disappeared without a redirect is a question, and nothing is written.
+	// A published tool that disappeared without a redirect is a question, and nothing is written.
 	if (current.report.membership.length > 0 && !noWrite) {
 		for (const item of current.report.membership) {
 			const renamedTo = /renamed to (\S+)\)/.exec(item.message)?.[1];
@@ -167,7 +167,7 @@ export function main(args: string[], options: ReportOptions = {}): number {
 	const report = render(current, previous);
 	mkdirSync(reportDir, { recursive: true });
 	writeFileSync(join(reportDir, 'catalogue-report.md'), report);
-	if (!noWrite) writeFileSync(publishedFile, json(current.designers.map((designer) => designer.origin)));
+	if (!noWrite) writeFileSync(publishedFile, json(current.tools.map((tool) => tool.origin)));
 	console.log(report);
 	return 0;
 }
@@ -197,15 +197,15 @@ export function render(current: Catalogue, previous: Catalogue | undefined): str
 	}
 	const list = (items: string[]) => (items.length > 0 ? items.map((item) => `- ${item}`) : ['- None.']);
 	const messages = (items: { message: string }[]) => list(items.map((item) => item.message));
-	const differs = current.designers.flatMap((designer) =>
+	const differs = current.tools.flatMap((tool) =>
 		catalogueHosts
-			.filter(({ id }) => designer.hosts[id].notionDiffers !== null)
-			.map(({ id }) => `${designer.origin} · ${id} · Notion ${designer.hosts[id].notionDiffers} → ${designer.hosts[id].sourceState ?? 'no entry'}`),
+			.filter(({ id }) => tool.hosts[id].notionDiffers !== null)
+			.map(({ id }) => `${tool.origin} · ${id} · Notion ${tool.hosts[id].notionDiffers} → ${tool.hosts[id].sourceState ?? 'no entry'}`),
 	);
 	return [
-		'## Designer catalogue',
+		'## Tool catalogue',
 		'',
-		`${current.designers.length} designers and ${current.ideas.length} ideas.${previous ? '' : ' The catalogue at HEAD did not assemble, so no changes are listed.'}`,
+		`${current.tools.length} tools and ${current.ideas.length} ideas.${previous ? '' : ' The catalogue at HEAD did not assemble, so no changes are listed.'}`,
 		'',
 		'### State changes',
 		'',

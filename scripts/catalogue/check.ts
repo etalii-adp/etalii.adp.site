@@ -2,10 +2,10 @@
 //
 // Post-build checks of the catalogue's pages (spec 003 research D12), with the expectations taken from
 // assembleCatalogue() over the same inputs as the build. Prints each failure with its page and exits 1 on any.
-//   1. every designer page has a Sources list, and one adp:source meta per git source, each matching a lock entry (FR-009)
+//   1. every tool page has a Sources list, and one adp:source meta per git source, each matching a lock entry (FR-009)
 //   2. every <img> in a page's <main> has non-empty alt text (FR-012)
-//   3. no designer that is below Prototype in every host has an image, on its page or its cards (FR-007)
-//   4. the images a designer page loads weigh at most 1 MiB; the heaviest page is printed (FR-013)
+//   3. no tool that is below Prototype in every host has an image, on its page or its cards (FR-007)
+//   4. the images a tool page loads weigh at most 1 MiB; the heaviest page is printed (FR-013)
 //   5. every redirects.json entry has a page at its old address (FR-011)
 //   6. every screenshot shown says why it matters (FR-015)
 //   7. every internal link on a catalogue page resolves to a built file
@@ -55,29 +55,29 @@ export function check(options: AssembleOptions & { dist?: string } = {}): CheckR
 
 	const failures: string[] = [];
 	const fail = (page: string, message: string) => failures.push(`${page}: ${message}`);
-	const pageOf = (origin: string) => join(dist, 'adp', 'designers', ...origin.split('/'), 'index.html');
+	const pageOf = (origin: string) => join(dist, 'adp', 'tools', ...origin.split('/'), 'index.html');
 	const fileFor = (src: string) => join(dist, decodeURI(src.split(/[?#]/)[0]));
 	let heaviest: CheckResult['heaviest'] = null;
 
-	const pages = htmlFiles(join(dist, 'adp', 'designers'));
+	const pages = htmlFiles(join(dist, 'adp', 'tools'));
 	const html = new Map(pages.map((page) => [page, readFileSync(page, 'utf8')]));
 
-	for (const designer of catalogue.designers) {
-		const page = pageOf(designer.origin);
+	for (const tool of catalogue.tools) {
+		const page = pageOf(tool.origin);
 		const content = html.get(page);
 		if (content === undefined) {
-			fail(page, `no page for the designer ${designer.origin}`);
+			fail(page, `no page for the tool ${tool.origin}`);
 			continue;
 		}
 		// 1. Sources and adp:source metas.
 		if (!/<ul class="adp-sources[^"]*">\s*<li/.test(content)) fail(page, 'has no Sources list');
 		const metas = [...content.matchAll(/<meta name="adp:source" content="([^"]+)"/g)].map((match) => match[1]);
-		const git = designer.sources.filter((record) => record.kind === 'git');
+		const git = tool.sources.filter((record) => record.kind === 'git');
 		if (metas.length < git.length || (git.length > 0 && metas.length === 0)) fail(page, `has ${metas.length} adp:source metas for ${git.length} git sources`);
 		for (const meta of metas) if (!lockEntries.has(meta)) fail(page, `adp:source ${meta} matches no lock entry under sources/`);
 
 		// 3. Nothing below Prototype shows an image.
-		if (!showsScreenshots(bestState(designer.hosts)) && /<img\b/.test(main_(content))) fail(page, `${designer.origin} is not in progress in any host but its page shows an image`);
+		if (!showsScreenshots(bestState(tool.hosts)) && /<img\b/.test(main_(content))) fail(page, `${tool.origin} is not in progress in any host but its page shows an image`);
 
 		// 4. The image budget.
 		let bytes = 0;
@@ -97,10 +97,10 @@ export function check(options: AssembleOptions & { dist?: string } = {}): CheckR
 		for (const img of main_(content).matchAll(/<img\b[^>]*>/g)) {
 			if (!(attribute(img[0], 'alt') ?? '').trim()) fail(page, `an image has no alt text: ${img[0].slice(0, 120)}`);
 		}
-		// 3. Cards of designers that are not usable carry no image.
-		for (const card of content.matchAll(/<li class="adp-designer[^"]*"[^>]*data-origin="([^"]+)"[^>]*>([\s\S]*?)<\/li>/g)) {
-			const designer = catalogue.designers.find((candidate) => candidate.origin === card[1]);
-			if (designer && !isUsable(bestState(designer.hosts)) && /<img\b/.test(card[2])) fail(page, `the card of ${card[1]} shows an image, but it is not usable in any host`);
+		// 3. Cards of tools that are not usable carry no image.
+		for (const card of content.matchAll(/<li class="adp-tool[^"]*"[^>]*data-origin="([^"]+)"[^>]*>([\s\S]*?)<\/li>/g)) {
+			const tool = catalogue.tools.find((candidate) => candidate.origin === card[1]);
+			if (tool && !isUsable(bestState(tool.hosts)) && /<img\b/.test(card[2])) fail(page, `the card of ${card[1]} shows an image, but it is not usable in any host`);
 		}
 		// 6. Why it matters.
 		for (const figure of content.matchAll(/<figure class="adp-screenshot[\s\S]*?<\/figure>/g)) {
@@ -125,7 +125,7 @@ export function main(args: string[]): number {
 	const index = args.indexOf('--dist');
 	const result = check({ dist: index >= 0 ? args[index + 1] : undefined });
 	for (const failure of result.failures) console.error(failure);
-	const heaviest = result.heaviest ? `; heaviest designer page ${result.heaviest.page} loads ${result.heaviest.bytes} bytes of images` : '';
+	const heaviest = result.heaviest ? `; heaviest tool page ${result.heaviest.page} loads ${result.heaviest.bytes} bytes of images` : '';
 	console.log(`check:catalogue: ${result.pages} pages, ${result.failures.length} failures${heaviest}`);
 	return result.failures.length > 0 ? 1 : 0;
 }

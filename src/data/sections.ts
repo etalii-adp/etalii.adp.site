@@ -35,9 +35,13 @@ export const parts: readonly Part[] = [
 export const sections: readonly Section[] = [
 	{ id: 'home', label: 'Home', part: 'product', href: '/adp/', status: 'available', deliveredBy: '001' },
 	{ id: 'docs', label: 'Documentation', part: 'documentation', href: '/adp/docs/', status: 'available', deliveredBy: '001' },
-	// Coming until a version of DEDL is published (spec 002; its source needs a licence first).
-	{ id: 'dedl', label: 'DEDL reference', part: 'documentation', href: '/adp/dedl/', status: hasPublishedVersion('dedl') ? 'available' : 'coming', deliveredBy: '002' },
-	{ id: 'designers', label: 'Designers', part: 'documentation', href: '/adp/designers/', status: 'available', deliveredBy: '003' },
+	// The six languages in which tools are specified and stored (etalii.adp spec 002, research R7).
+	{ id: 'specification', label: 'Specification & Definition', part: 'documentation', href: '/adp/docs/specification-and-definition/', status: 'available', deliveredBy: 'etalii.adp 002' },
+	// Coming until a version is published (spec 002; its source needs a licence first). DEDL became DISL and DID
+	// (etalii.adp spec 002), and /adp/dedl/ redirects to /adp/disl/.
+	{ id: 'disl', label: 'DISL reference', part: 'documentation', href: '/adp/disl/', status: hasPublishedVersion('disl') ? 'available' : 'coming', deliveredBy: '002' },
+	{ id: 'did', label: 'DID reference', part: 'documentation', href: '/adp/did/', status: hasPublishedVersion('did') ? 'available' : 'coming', deliveredBy: '002' },
+	{ id: 'tools', label: 'Tools', part: 'documentation', href: '/adp/tools/', status: 'available', deliveredBy: '003' },
 ];
 
 export const sectionIds = sections.map((section) => section.id) as [string, ...string[]];

@@ -2,7 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import type { NotionSourceRecord } from './types.ts';
 
 /**
- * The Notion "Diagrams" data source as `catalogue:notion` last fetched it (contracts/source-formats.md § S3),
+ * The Notion "Tools" data source as `catalogue:notion` last fetched it (contracts/source-formats.md § S3),
  * committed as `src/content/catalogue/notion.json`. The build reads this file and never the Notion API.
  */
 

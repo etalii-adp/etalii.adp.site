@@ -74,19 +74,19 @@ export async function catalogueReport(root, { write = true, procedure = 'refresh
 }
 
 /**
- * The report's question (a published designer that is no longer in any source) as a decision of `procedure`. It
+ * The report's question (a published tool that is no longer in any source) as a decision of `procedure`. It
  * is answered with catalogue:report's own flags, not with refresh:decide, so it carries `answerWith` instead of a key.
  */
 export function reportDecision(output, procedure = 'refresh-catalogue') {
 	const shortId = procedure.replace(/^refresh-/, '');
 	const lines = output.split('\n').map((line) => line.trimEnd());
 	const at = lines.findIndex((line) => /is no longer in any source/.test(line));
-	const question = at >= 0 ? lines[at].trim() : 'A published designer is no longer in any source. Renamed or withdrawn?';
+	const question = at >= 0 ? lines[at].trim() : 'A published tool is no longer in any source. Renamed or withdrawn?';
 	const commands = lines
 		.slice(at + 1)
 		.filter((line) => /^\s+npm run catalogue:report -- /.test(line))
 		.map((line) => `\`${line.trim()}\``);
-	const origin = /`([^`]+)`/.exec(question)?.[1] ?? 'a designer';
+	const origin = /`([^`]+)`/.exec(question)?.[1] ?? 'a tool';
 	return new NeedsDecision({
 		question,
 		subject: `${REDIRECTS_FILE}: ${origin}`,

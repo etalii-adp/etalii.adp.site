@@ -17,7 +17,7 @@
 
 - id: intellij
   name: IntelliJ Platform
-  summary: A plug-in that opens designers as real editors in IntelliJ IDEA, Rider, WebStorm and the other JetBrains IDEs.
+  summary: A plug-in that opens tools in real editors in IntelliJ IDEA, Rider, WebStorm and the other JetBrains IDEs.
   state: in-progress
   unavailableNote: Not public yet
   source:
@@ -30,7 +30,7 @@
 
 - id: vscode
   name: Visual Studio Code
-  summary: An extension that brings the same designers to Visual Studio Code.
+  summary: An extension that brings the same tools to Visual Studio Code.
   state: planned
   unavailableNote: Not public yet
   source:
@@ -43,7 +43,7 @@
 
 - id: eclipse
   name: Eclipse
-  summary: A plug-in that brings the same designers to the Eclipse IDE.
+  summary: A plug-in that brings the same tools to the Eclipse IDE.
   state: planned
   unavailableNote: Not public yet
   source:

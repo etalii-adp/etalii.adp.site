@@ -36,7 +36,7 @@ export interface SourceLock {
 	file: string;
 }
 
-/** A row of `sources/catalogue/<host>/catalogue.json` (004 data-model § Designer entry). */
+/** A row of `sources/catalogue/<host>/catalogue.json` (004 data-model § Tool entry). */
 export interface CatalogueRow {
 	origin: string;
 	name: string;

@@ -6,7 +6,7 @@ import { catalogueSourceRecord, licenceOf, posix, readSources, toSourceRecord, t
 import { UnmappedStateError, bestState, defaultStatesConfig, isUsable, loadMapping, showsScreenshots, mapSourceState, states, type StateMapping } from './states.ts';
 import type {
 	CatalogueReport,
-	Designer,
+	Tool,
 	FileFormat,
 	FocusArea,
 	GitSourceRecord,
@@ -41,7 +41,7 @@ export interface AssembleOptions {
 }
 
 export interface Catalogue {
-	designers: Designer[];
+	tools: Tool[];
 	ideas: Idea[];
 	focusAreas: FocusArea[];
 	redirects: Redirect[];
@@ -167,7 +167,7 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 		return { url: entry.link, label: `Install from ${entry.facts.latestRelease.tag}` };
 	};
 
-	const designers: Designer[] = [];
+	const tools: Tool[] = [];
 	const ideas: Idea[] = [];
 	const hostStates: Catalogue['hostStates'] = {};
 	const origins = [...new Set([...catalogueRows.keys(), ...notionByOrigin.keys()])].sort();
@@ -259,10 +259,14 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 		const theoryLinks = theory.filter((link, index) => theory.findIndex((other) => other.url === link.url) === index);
 
 		if (states[best].rank < states.idea.rank) continue;
+		// A host catalogue's Kind column (docs/tools.md, etalii.adp spec 002) first, in the fixed host order; else Notion's.
+		const catalogueKind = catalogueHosts.map((host) => rows.get(host.id)?.kind).find(Boolean);
+		const kindName = (catalogueKind ?? notion?.type ?? 'diagram').toLowerCase();
+		const kind: Tool['kind'] = kindName === 'designer' || kindName === 'editor' ? kindName : 'diagram';
 		if (best === 'idea') {
 			const ideaPurpose = notion?.purpose && notion.purpose.length <= purposeLimit ? notion.purpose : null;
 			const ideaFocus = (notion?.focusAreas ?? []).map((option) => focusAreas.find((area) => area.name === option)?.slug).filter((slug): slug is string => slug !== undefined);
-			ideas.push({ origin, name, purpose: ideaPurpose, family, focusAreas: ideaFocus, theory: theoryLinks, source: primary });
+			ideas.push({ origin, name, kind, purpose: ideaPurpose, family, focusAreas: ideaFocus, theory: theoryLinks, source: primary });
 			continue;
 		}
 
@@ -296,7 +300,7 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 			else report.gaps.push({ origin, message: `${origin}: the focus area "${option}" is not in focus-areas.json; run npm run catalogue:notion` });
 		}
 
-		// Screenshots: accepted images only, for a designer in progress or better, from a host where it is (FR-007).
+		// Screenshots: accepted images only, for a tool in progress or better, from a host where it is (FR-007).
 		const screenshots: Screenshot[] = [];
 		for (const [host, { entries, lock }] of sources.screenshots) {
 			for (const entry of entries.filter((candidate) => candidate.origin === origin)) {
@@ -305,7 +309,7 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 					continue;
 				}
 				if (!showsScreenshots(best) || !showsScreenshots(hosts[host].state)) {
-					report.disagreements.push({ origin, host, message: `${origin}: ${host} has a screenshot ${entry.file}, but the designer is ${states[hosts[host].state].label.toLowerCase()} there, so it is not shown` });
+					report.disagreements.push({ origin, host, message: `${origin}: ${host} has a screenshot ${entry.file}, but the tool is ${states[hosts[host].state].label.toLowerCase()} there, so it is not shown` });
 					continue;
 				}
 				const record = toSourceRecord(lock, `${host}/${entry.file}`);
@@ -335,13 +339,10 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 			report.pending.push({ origin, message: `${origin}: screenshot pending (usable, but no publishable screenshot)` });
 		}
 
-		// A host catalogue's Kind column (docs/tools.md, etalii.adp spec 002) first, in the fixed host order; else Notion's.
-		const catalogueKind = catalogueHosts.map((host) => rows.get(host.id)?.kind).find(Boolean);
-		const kind = (catalogueKind ?? notion?.type ?? 'diagram').toLowerCase();
-		designers.push({
+		tools.push({
 			origin,
 			name,
-			kind: kind === 'designer' || kind === 'editor' ? kind : 'diagram',
+			kind,
 			purpose,
 			task,
 			whySpecialized,
@@ -356,7 +357,7 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 		});
 	}
 
-	// Screenshots that name no designer or idea.
+	// Screenshots that name no tool or idea.
 	for (const [host, { entries }] of sources.screenshots) {
 		for (const entry of entries) {
 			if (!catalogueRows.has(entry.origin) && !notionByOrigin.has(entry.origin)) {
@@ -366,11 +367,11 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 	}
 
 	// Redirects must agree with the catalogue; published origins that disappeared need one (data-model § Membership).
-	const live = new Set(designers.map((designer) => designer.origin));
+	const live = new Set(tools.map((tool) => tool.origin));
 	const redirectsFile = posix(join(contentDir, 'redirects.json'));
 	for (const redirect of redirects) {
-		if (live.has(redirect.from)) throw new Error(`${redirectsFile}: ${redirect.from} is redirected, but it is still a designer; remove the redirect or the designer.`);
-		if (redirect.to !== null && !live.has(redirect.to)) throw new Error(`${redirectsFile}: ${redirect.from} is redirected to ${redirect.to}, which is not a designer.`);
+		if (live.has(redirect.from)) throw new Error(`${redirectsFile}: ${redirect.from} is redirected, but it is still a tool; remove the redirect or the tool.`);
+		if (redirect.to !== null && !live.has(redirect.to)) throw new Error(`${redirectsFile}: ${redirect.from} is redirected to ${redirect.to}, which is not a tool.`);
 	}
 	const redirected = new Set(redirects.map((redirect) => redirect.from));
 	for (const origin of published) {
@@ -382,15 +383,15 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 		});
 	}
 
-	designers.sort(byKey((designer) => designer.origin));
+	tools.sort(byKey((tool) => tool.origin));
 	ideas.sort(byKey((idea) => idea.origin));
 	return {
-		designers,
+		tools,
 		ideas,
 		focusAreas,
 		redirects: [...redirects].sort(byKey((redirect) => redirect.from)),
 		report,
-		sources: unique([...designers.flatMap((designer) => designer.sources), ...ideas.map((idea) => idea.source)]),
+		sources: unique([...tools.flatMap((tool) => tool.sources), ...ideas.map((idea) => idea.source)]),
 		hostStates,
 	};
 }

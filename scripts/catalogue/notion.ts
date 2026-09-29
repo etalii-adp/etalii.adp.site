@@ -1,6 +1,6 @@
 // npm run catalogue:notion [--dry-run] [--fixture <dir> | --export <file>] [--content-dir <dir>]
 //
-// Fetches the Notion "Diagrams" data source (specs/003-designer-catalogue/contracts/source-formats.md § S3) into
+// Fetches the Notion "Tools" data source (specs/003-designer-catalogue/contracts/source-formats.md § S3) into
 // src/content/catalogue/notion.json, and appends Notion focus-area options that focus-areas.json does not know.
 // The build never calls Notion; this script is the only reader. Exit codes: 0 done, 1 Notion failed, 2 usage.
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
@@ -63,7 +63,7 @@ export async function main(args: string[], fetchImpl: typeof fetch = fetch): Pro
 	const contentDir = option(args, '--content-dir') ?? 'src/content/catalogue';
 	const token = process.env.NOTION_TOKEN;
 	if (!fixture && !exportFile && !token) {
-		console.error('NOTION_TOKEN is not set. Set it to the token of the Notion integration shared with the "Diagrams" database, or pass --fixture <dir> or --export <file>.');
+		console.error('NOTION_TOKEN is not set. Set it to the token of the Notion integration shared with the "Tools" database, or pass --fixture <dir> or --export <file>.');
 		return 2;
 	}
 

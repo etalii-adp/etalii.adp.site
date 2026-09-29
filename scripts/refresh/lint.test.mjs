@@ -47,16 +47,16 @@ describe('refresh:lint', () => {
 	it('names a procedure missing from the index, and an index row with no file', () => {
 		const result = copy((dir, edit) => {
 			edit('README.md', (t) => t.replace(/^\| \[`refresh-hosts`\].*\n/m, ''));
-			unlinkSync(join(dir, 'refresh-dedl.md'));
+			unlinkSync(join(dir, 'refresh-disl.md'));
 		});
 		expectProblem(result, /refresh-hosts\.md: not listed in the index/);
-		expectProblem(result, /README\.md: the index lists refresh-dedl, but refresh-dedl\.md does not exist/);
+		expectProblem(result, /README\.md: the index lists refresh-disl, but refresh-disl\.md does not exist/);
 	});
 
 	it('names a Sources table that disagrees with the module', () => {
-		const paths = copy((dir, edit) => edit('refresh-dedl.md', (t) => t.replace('`specifications/dedl/*`', '`specification/dedl/*`')));
-		expectProblem(paths, /refresh-dedl\.md: Sources gives etalii-adp\/etalii\.adp the paths specification\/dedl\/\*, specifications\/disl\/\*, specifications\/did\/\*, but the module reads specifications\/dedl\/\*, specifications\/disl\/\*, specifications\/did\/\*/);
-		const repo = copy((dir, edit) => edit('refresh-dedl.md', (t) => t.replace('| etalii-adp/etalii.adp |', '| etalii-adp/etalii.dedl |')));
+		const paths = copy((dir, edit) => edit('refresh-disl.md', (t) => t.replace('`specifications/dedl/*`', '`specification/dedl/*`')));
+		expectProblem(paths, /refresh-disl\.md: Sources gives etalii-adp\/etalii\.adp the paths specification\/dedl\/\*, specifications\/disl\/\*, specifications\/did\/\*, but the module reads specifications\/dedl\/\*, specifications\/disl\/\*, specifications\/did\/\*/);
+		const repo = copy((dir, edit) => edit('refresh-disl.md', (t) => t.replace('| etalii-adp/etalii.adp |', '| etalii-adp/etalii.dedl |')));
 		expectProblem(repo, /Sources lists no row for etalii-adp\/etalii\.adp, which the module reads/);
 		expectProblem(repo, /Sources lists etalii-adp\/etalii\.dedl, which the module does not read/);
 	});
