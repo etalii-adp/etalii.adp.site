@@ -2,56 +2,56 @@
   {
     "slug": "technology-assessment",
     "name": "Technology assessment",
-    "problem": "Weighing a new technology means holding options, actors and consequences side by side. A tool made for (constructive) technology assessment lays them out so trade-offs can be seen and argued over, not buried in a document.",
+    "problem": "An assessment of a new technology is written down as reports, interviews and scenario notes, where options, actors and consequences sit pages apart. Seen from a different perspective, that text becomes a map of who expects what and which trade-offs follow, so the assessment can be argued over instead of read front to back.",
     "order": 1,
     "source": null
   },
   {
     "slug": "humans-and-agents",
     "name": "Humans and agents together",
-    "problem": "When people and software agents work on the same task, each needs to see what the other is doing and why. A shared, specialized view gives both the same picture of the work and its state.",
+    "problem": "When people and agents work together, what each is doing lives in text: prompts, task lists, logs and chat. A new perspective on that text shows the shared work as a picture of tasks, owners and states, so a person sees at a glance what an agent did and why, and an agent reads the same file.",
     "order": 2,
     "source": null
   },
   {
     "slug": "textual-clarity",
     "name": "Clarity in textual data",
-    "problem": "Structure hidden in logs, notes and plain-text formats is hard to see line by line. A tool tuned to one format shows that structure directly, while the text stays the source of truth.",
+    "problem": "Logs, notes and plain-text formats hide their structure in line after line. A new perspective on that text shows the structure directly, the hierarchy, the repetition and the outliers, while the text stays the source of truth and still reads as text.",
     "order": 3,
     "source": null
   },
   {
     "slug": "systems-and-strategy",
     "name": "Systems and strategy",
-    "problem": "Systems and strategies are shaped by feedback, dependencies and position, which a list of boxes hides. A tool made for them shows loops, value chains and landscapes as they are, so a decision can be traced to the structure behind it.",
+    "problem": "Strategies and system descriptions are written as prose and bullet lists, where feedback loops, dependencies and positions can only be inferred. A new perspective on that text draws the loops, value chains and landscapes it describes, so a decision can be traced to the structure behind it.",
     "order": 4,
     "source": null
   },
   {
     "slug": "knowledge-and-semantics",
     "name": "Knowledge and semantics",
-    "problem": "Ontologies, vocabularies and linked data are graphs written down as text, and their meaning lives in the links. A tool made for them draws the classes, concepts and relations, so a model can be checked by eye while the file stays the standard.",
+    "problem": "Ontologies, vocabularies and linked data are graphs written down as text, and their meaning lives in the links between lines. A new perspective on that text draws the classes, concepts and relations, so a model can be checked by eye while the file stays the standard.",
     "order": 5,
     "source": null
   },
   {
     "slug": "software-delivery",
     "name": "Software delivery",
-    "problem": "Pipelines, deployments and dependencies are spread over many configuration files, and their order and coupling only show when something breaks. A tool made for software delivery draws them as they run, so a change can be understood before it ships.",
+    "problem": "Pipelines, deployments and dependencies are spread over many configuration files, whose order and coupling only show when something breaks. A new perspective on those files draws the delivery as it runs, so a change can be understood before it ships.",
     "order": 6,
     "source": null
   },
   {
     "slug": "planning-and-roadmapping",
     "name": "Planning and roadmapping",
-    "problem": "Plans are about time, order and what waits on what, and a flat list of items loses all three. A tool made for planning places work on a timeline and draws its dependencies, so overlaps and critical paths show at a glance.",
+    "problem": "Plans are mostly written as lists and documents, which lose time, order and what waits on what. A new perspective on that text places the work on a timeline and draws its dependencies, so overlaps and critical paths show at a glance.",
     "order": 7,
     "source": null
   },
   {
     "slug": "psychological-and-societal-insights",
     "name": "Psychological and societal insights",
-    "problem": "How people and societies respond to change, from hype to adoption to feedback in behaviour, is easy to state and hard to see. A tool made for these insights lays trends and influences out, so patterns can be discussed rather than assumed.",
+    "problem": "How people and societies respond to change is recorded in articles, surveys and observations, where hype, adoption and feedback in behaviour are easy to state and hard to see. A new perspective on that text lays out trends and influences, so patterns can be discussed rather than assumed.",
     "order": 8,
     "source": null
   }
