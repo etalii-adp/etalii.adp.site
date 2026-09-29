@@ -8,7 +8,7 @@ import type { Visual } from './types';
 
 export type LayerSection = Pick<SiteLayerSection, 'layer' | 'title' | 'href'>;
 
-/** The eight layers of a definition and the keys that hold them (DEDL section 3). */
+/** The eight layers of a definition and the keys that hold them (DISL section 3). */
 export const LAYERS: { layer: number; name: string; keys: string[] }[] = [
 	{ layer: 1, name: 'Metamodel', keys: ['metamodel'] },
 	{ layer: 2, name: 'Coordinates', keys: ['coordinates'] },
@@ -141,7 +141,7 @@ export function layerMapVisual(file: string, definition: Json, revision: string,
 	const empty = LAYERS.filter((l) => counts[l.layer] === undefined);
 	const title = `Layers of ${file}`;
 	const description = oneLine(
-		`The eight DEDL layers in order. ${file} fills ${filled.length} of them: ${filled.map((l) => `${l.name} (${counts[l.layer]} items)`).join(', ')}.${empty.length ? ` It leaves ${empty.map((l) => l.name).join(', ')} empty.` : ''}`
+		`The eight DISL layers in order. ${file} fills ${filled.length} of them: ${filled.map((l) => `${l.name} (${counts[l.layer]} items)`).join(', ')}.${empty.length ? ` It leaves ${empty.map((l) => l.name).join(', ')} empty.` : ''}`
 	);
 	return {
 		kind: 'layer-map',

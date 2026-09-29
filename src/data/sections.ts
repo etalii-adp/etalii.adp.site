@@ -38,7 +38,7 @@ export const sections: readonly Section[] = [
 	// The six languages in which tools are specified and stored (etalii.adp spec 002, research R7).
 	{ id: 'specification', label: 'Specification & Definition', part: 'documentation', href: '/adp/docs/specification-and-definition/', status: 'available', deliveredBy: 'etalii.adp 002' },
 	// Coming until a version is published (spec 002; its source needs a licence first). DEDL became DISL and DID
-	// (etalii.adp spec 002), and /adp/dedl/ redirects to /adp/disl/.
+	// (etalii.adp spec 002), and its old addresses redirect to /adp/disl/.
 	{ id: 'disl', label: 'DISL reference', part: 'documentation', href: '/adp/disl/', status: hasPublishedVersion('disl') ? 'available' : 'coming', deliveredBy: '002' },
 	{ id: 'did', label: 'DID reference', part: 'documentation', href: '/adp/did/', status: hasPublishedVersion('did') ? 'available' : 'coming', deliveredBy: '002' },
 	{ id: 'tools', label: 'Tools', part: 'documentation', href: '/adp/tools/', status: 'available', deliveredBy: '003' },

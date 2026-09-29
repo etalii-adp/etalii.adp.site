@@ -9,7 +9,7 @@ describe('heading ids (rule S5)', () => {
 		expect(headingId('5.10 Snap rules')).toBe('510-snap-rules');
 		expect(headingId('5.1 Concepts')).toBe('51-concepts');
 		expect(headingId('4. Layer 1 — Metamodel')).toBe('4-layer-1--metamodel');
-		expect(headingId('1.2 How DEDL is intended to be used (informative)')).toBe('12-how-dedl-is-intended-to-be-used-informative');
+		expect(headingId('1.2 How DISL is intended to be used (informative)')).toBe('12-how-disl-is-intended-to-be-used-informative');
 	});
 
 	it('match every link of the source table of contents', () => {

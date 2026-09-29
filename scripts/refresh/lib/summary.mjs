@@ -26,7 +26,7 @@ function mainRepository(summary) {
 	return repos.find((repo) => summary.before[repo] !== summary.after[repo]) ?? repos[0];
 }
 
-/** `Refresh <what>: <before7>..<after7>`, unless the procedure module words its own title (a new DEDL version). */
+/** `Refresh <what>: <before7>..<after7>`, unless the procedure module words its own title (a new DISL and DID version). */
 export function renderTitle(procedure, summary) {
 	const own = procedure.title?.(summary);
 	if (own) return own;
