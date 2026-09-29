@@ -55,7 +55,7 @@ describe('refresh:lint', () => {
 
 	it('names a Sources table that disagrees with the module', () => {
 		const paths = copy((dir, edit) => edit('refresh-dedl.md', (t) => t.replace('`specifications/dedl/*`', '`specification/dedl/*`')));
-		expectProblem(paths, /refresh-dedl\.md: Sources gives etalii-adp\/etalii\.adp the paths specification\/dedl\/\*, but the module reads specifications\/dedl\/\*/);
+		expectProblem(paths, /refresh-dedl\.md: Sources gives etalii-adp\/etalii\.adp the paths specification\/dedl\/\*, specifications\/disl\/\*, specifications\/did\/\*, but the module reads specifications\/dedl\/\*, specifications\/disl\/\*, specifications\/did\/\*/);
 		const repo = copy((dir, edit) => edit('refresh-dedl.md', (t) => t.replace('| etalii-adp/etalii.adp |', '| etalii-adp/etalii.dedl |')));
 		expectProblem(repo, /Sources lists no row for etalii-adp\/etalii\.adp, which the module reads/);
 		expectProblem(repo, /Sources lists etalii-adp\/etalii\.dedl, which the module does not read/);
