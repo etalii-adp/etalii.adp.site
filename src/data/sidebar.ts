@@ -2,11 +2,12 @@
  * The one documentation sidebar, shown on docs pages and reference pages alike (Peter, 2026-09-29): the
  * documentation-part sections of sections.ts, with a section's children grouped under it. Specification & Definition
  * is a group holding its own page and each language's whole reference (cover, sections, appendices, schema, examples,
- * search) as a collapsible group; Starlight opens the groups that hold the current page. A section not written yet
- * carries "Coming" (research R6).
+ * search) as a collapsible group, and Research a collapsible group of its articles; Starlight opens the groups that hold
+ * the current page. A section not written yet carries "Coming" (research R6).
  */
 import { latestOf } from '../lib/reference/load';
 import { sidebarFor, SITE_BASE, type SidebarItem } from '../lib/reference/site';
+import { researchArticles } from './research';
 import { sectionsOf, type Section } from './sections';
 
 /** The reference a page shows, which the sidebar lists instead of that language's latest version. */
@@ -43,6 +44,11 @@ export function docsSidebar(shown?: ShownReference): SidebarItem[] {
 	return sections
 		.filter((section) => !section.parent)
 		.map((section) => {
+			// Each research article is an item of its own (Peter, 2026-09-29).
+			if (section.id === 'research') {
+				const articles = researchArticles().map((article) => ({ label: article.title, link: unbased(article.href) }));
+				return { label: section.label, collapsed: true, items: [link(section, 'Overview'), ...articles] };
+			}
 			const children = sections.filter((child) => child.parent === section.id);
 			if (children.length === 0) return link(section);
 			return { label: section.label, items: [link(section, 'Overview'), ...children.map((child) => reference(child, shown))] };
