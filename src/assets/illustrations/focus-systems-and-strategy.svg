@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Original artwork for etalii.net/adp, Apache-2.0: a feedback loop of three nodes beside a rising value chain. -->
+  <style>
+    .a { stroke: #32cd32; }
+    .af { fill: #32cd32; }
+    .g { stroke: #aeb6be; }
+    .gf { fill: #aeb6be; }
+    .t { fill: #32cd32; fill-opacity: 0.15; }
+    @media (prefers-color-scheme: light) {
+      .a { stroke: #16782a; } .af { fill: #16782a; } .g { stroke: #49525b; } .gf { fill: #49525b; } .t { fill: #16782a; fill-opacity: 0.12; }
+    }
+  </style>
+  <path class="g" d="M36 40 C50 22 70 24 76 40 M72 70 C64 90 40 92 30 78 M24 64 C14 54 18 44 28 40" stroke-width="1.5"/>
+  <path class="g" d="M70 34 L76 40 L80 32 M36 74 L30 78 L32 70" stroke-width="1.5"/>
+  <circle class="gf" cx="30" cy="42" r="7"/>
+  <circle class="gf" cx="76" cy="48" r="7"/>
+  <circle class="gf" cx="28" cy="72" r="6"/>
+  <path class="g" d="M100 100 H146 M100 100 V20" stroke-width="1.5"/>
+  <path class="a" d="M108 86 L122 64 L134 48 L142 28" stroke-width="2"/>
+  <rect class="a t" x="102" y="80" width="12" height="12" rx="2"/>
+  <rect class="a t" x="116" y="58" width="12" height="12" rx="2"/>
+  <rect class="a t" x="128" y="42" width="12" height="12" rx="2"/>
+  <circle class="af" cx="142" cy="28" r="4"/>
+</svg>

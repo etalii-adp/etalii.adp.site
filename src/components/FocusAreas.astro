@@ -1,22 +1,27 @@
 ---
-// The three focus areas on the home page (FR-005, US1 AS2). Illustrations are decorative; the text carries the meaning.
-// Each heading links to the tools overview filtered on that focus area (spec 003); the ids are shared with src/content/catalogue/focus-areas.json.
+// The focus areas on the home page (FR-005, US1 AS2). Illustrations are decorative; the text carries the meaning.
+// The names and descriptions are the catalogue's focus areas (src/content/catalogue/focus-areas.json), so they are written
+// once; src/data/focus-areas.yaml adds one illustration per area. A focus area without one still gets its box.
+// Each heading links to the tools overview filtered on that focus area (spec 003).
 import { getCollection } from 'astro:content';
-import { focusAreaIds, inOrder } from '../data/order';
 
-const areas = inOrder(await getCollection('focusAreas'), focusAreaIds);
+const illustrations = new Map((await getCollection('focusAreas')).map(({ data }) => [data.id as string, data.illustration]));
+const areas = (await getCollection('catalogueFocusAreas')).map(({ data }) => data).sort((a, b) => a.order - b.order);
 ---
 
 <ul class="adp-cards not-content">
 	{
-		areas.map(({ data }) => (
-			<li class="adp-card">
-				<img src={data.illustration.src} alt="" width="160" height="120" loading="lazy" decoding="async" />
-				<h3>
-					<a href={`/adp/tools/?focus=${data.id}`}>{data.name}</a>
-				</h3>
-				<p>{data.problem}</p>
-			</li>
-		))
+		areas.map((area) => {
+			const illustration = illustrations.get(area.slug);
+			return (
+				<li class="adp-card">
+					{illustration && <img src={illustration.src} alt="" width="160" height="120" loading="lazy" decoding="async" />}
+					<h3>
+						<a href={`/adp/tools/?focus=${area.slug}`}>{area.name}</a>
+					</h3>
+					<p>{area.problem}</p>
+				</li>
+			);
+		})
 	}
 </ul>

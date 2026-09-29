@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Original artwork for etalii.net/adp, Apache-2.0: a hype curve with a group of people watching it settle. -->
+  <style>
+    .a { stroke: #32cd32; }
+    .af { fill: #32cd32; }
+    .g { stroke: #aeb6be; }
+    .gf { fill: #aeb6be; }
+    .t { fill: #32cd32; fill-opacity: 0.15; }
+    @media (prefers-color-scheme: light) {
+      .a { stroke: #16782a; } .af { fill: #16782a; } .g { stroke: #49525b; } .gf { fill: #49525b; } .t { fill: #16782a; fill-opacity: 0.12; }
+    }
+  </style>
+  <path class="g" d="M14 100 H148 M14 100 V16" stroke-width="1.5"/>
+  <path class="a" d="M20 92 C34 90 38 22 50 22 C62 22 64 78 78 80 C96 82 110 56 146 48" stroke-width="2"/>
+  <circle class="af" cx="50" cy="22" r="4"/>
+  <circle class="af" cx="78" cy="80" r="4"/>
+  <circle class="gf" cx="110" cy="80" r="5"/>
+  <circle class="gf" cx="126" cy="76" r="5"/>
+  <circle class="gf" cx="142" cy="80" r="5"/>
+  <path class="g" d="M104 94 C104 88 116 88 116 94 M120 90 C120 84 132 84 132 90 M136 94 C136 88 148 88 148 94" stroke-width="1.5"/>
+</svg>
