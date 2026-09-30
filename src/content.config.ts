@@ -202,6 +202,12 @@ export const collections = {
 				description: z.string().trim().min(1, 'Every page needs a non-empty description.'),
 				part: z.enum(['about', 'documentation']),
 				section: z.enum(sectionIds).optional(),
+				// The date an article was written, shown under its title (Peter, 2026-09-30). YAML reads a bare
+				// 2026-09-28 as a date, so both forms are accepted and kept as the ISO day.
+				date: z
+					.union([z.date(), z.string().regex(/^\d{4}-\d{2}-\d{2}$/)])
+					.transform((value) => (typeof value === 'string' ? value : value.toISOString().slice(0, 10)))
+					.optional(),
 			}),
 		}),
 	}),

@@ -1,7 +1,9 @@
 ---
 // Replaces Starlight's PageTitle: breadcrumbs (part › section › page) above the <h1> on every page
-// that belongs to a section (US2 AS3, contracts/site-navigation.md item 4).
+// that belongs to a section (US2 AS3, contracts/site-navigation.md item 4), and a page's date, if it has one, under
+// the <h1> in plain English: "28 September 2026" (Peter, 2026-09-30).
 import { partOf, sectionById } from '../data/sections';
+import { longDate } from '../lib/dates';
 
 const { data } = Astro.locals.starlightRoute.entry;
 const section = sectionById(data.section);
@@ -36,6 +38,13 @@ if (section) {
 	)
 }
 <h1 id="_top">{data.title}</h1>
+{
+	data.date && (
+		<p class="adp-page-date">
+			<time datetime={data.date}>{longDate(data.date)}</time>
+		</p>
+	)
+}
 
 <style>
 	.adp-breadcrumbs ol {
@@ -61,5 +70,10 @@ if (section) {
 		line-height: var(--sl-line-height-headings);
 		font-weight: 600;
 		color: var(--sl-color-white);
+	}
+	.adp-page-date {
+		margin-top: 0.25rem;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
 	}
 </style>
