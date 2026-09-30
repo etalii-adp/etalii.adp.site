@@ -86,8 +86,8 @@ function exampleRole(language: Language, root: string): FileRole {
 	return root === 'Definition' && language.id === 'did' ? 'document' : 'definition';
 }
 
-/** The file extensions of examples: DISL's and DID's, or JSON. */
-const EXAMPLE = /\.(disl|did|json)$/;
+/** The file extensions of examples: DISL's (`.dis`, and the one it had before, still read) and DID's, or JSON. */
+const EXAMPLE = /\.(dis|disl|did|json)$/;
 
 function classify(name: string, bytes: Buffer, language: Language, version: string): { role: FileRole; warning?: string } {
 	if (name === language.prose) return { role: 'prose' };

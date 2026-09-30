@@ -44,7 +44,7 @@ The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHALL**, **SHALL NOT**, **
 
 ### 1.1 What DID is
 
-Each kind of ADP tool has a specification language and a definition language. For diagrams they are DISL and DID. In DISL a **tool engineer** writes a **specification** (a `.disl` file): one diagram type, with its metamodel, coordinates, notation, toolbox, constraints, behavior, layout and persistence settings. The diagrams users then create of that type are stored as **definitions** in DID (`.did` files): the elements and relations a user added, their attribute values, and the view data of each diagram.
+Each kind of ADP tool has a specification language and a definition language. For diagrams they are DISL and DID. In DISL a **tool engineer** writes a **specification** (a `.dis` file): one diagram type, with its metamodel, coordinates, notation, toolbox, constraints, behavior, layout and persistence settings. The diagrams users then create of that type are stored as **definitions** in DID (`.did` files): the elements and relations a user added, their attribute values, and the view data of each diagram.
 
 A DID definition is always read together with the specification it names in its `language` object. The specification says which types and attributes exist, how view data relates to the model, and which persistence settings apply (DISL section 11); this document says what the stored result looks like and how it is read and written.
 
@@ -177,7 +177,7 @@ Nesting is expressed by `parent`, not by physical nesting, so moving an element 
 
 **EdgeView**: `waypoints` (list of Points in domain values), `sourceAnchor`, `targetAnchor` (`[fx, fy]` fixed anchors), `controlPoints` (for bezier), `labels` (map id → `{at, dx, dy}`), `routing` (per-edge override if allowed), `style`, `z`, `hidden`.
 
-`language` names the specification: `id` and `version` are **REQUIRED** and equal the specification's `language.id` and the `language.version` the definition was written with; `definition` (the URI of the `.disl` file) and `integrity` (its hash) are written when the specification's `persistence.definition.embed` is `"reference"` (DISL 11.8). The property keeps the name `definition` it had in the earlier format.
+`language` names the specification: `id` and `version` are **REQUIRED** and equal the specification's `language.id` and the `language.version` the definition was written with; `definition` (the URI of the `.dis` file) and `integrity` (its hash) are written when the specification's `persistence.definition.embed` is `"reference"` (DISL 11.8). The property keeps the name `definition` it had in the earlier format.
 
 `meta` holds the metadata the specification lists in `persistence.metadata` (DISL 11.8). `diagram.attributes` holds the attributes of the diagram root element (DISL 4.1).
 
@@ -252,7 +252,7 @@ Elements of unknown types, unknown attributes and unknown view properties in a d
 
 ## 10. Example
 
-This definition was written with the timeline specification of DISL 17.2 (`timeline.disl`). Several things to notice:
+This definition was written with the timeline specification of DISL 17.2 (`timeline.dis`). Several things to notice:
 
 - Elements are a flat list; relations are separate.
 - All placement of tasks and milestones lives in the model (`start`, `end`, `assignee`). The view stores only a moved label and the viewport.
@@ -354,7 +354,7 @@ The normative JSON Schema is published as `did.schema.json` (JSON Schema draft 2
 | **Document**       | The content a user works on in a host; for a diagram, its stored form is a definition.                         |
 | **Fragment**       | Part of a definition, copied or exported (section 7).                                                          |
 | **Runtime**        | Software in a host that loads a specification and lets users create and change definitions with it.            |
-| **Specification**  | A DISL file (`.disl`) in which a tool engineer specifies one diagram type.                                     |
+| **Specification**  | A DISL file (`.dis`) in which a tool engineer specifies one diagram type.                                      |
 | **Tool engineer**  | The person who specifies a diagram type in DISL.                                                               |
 | **View data**      | Per-diagram placement and presentation data stored separately from the model (section 5).                      |
 

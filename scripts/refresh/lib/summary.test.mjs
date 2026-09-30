@@ -39,14 +39,14 @@ describe('renderPrBody', () => {
 			sample({
 				caveats: [{ title: 'Known artefact', repository: 'etalii-adp/etalii.adp.ide.standalone', sourcePath: 'docs/screenshots/readme.md', commit: AFTER, text: 'The committed set shows a developer session marker.' }],
 				reviewNotes: ['Check each image shows what its expectation says.'],
-				withdrawals: [{ path: '0.1/erd.disl', sourcePath: 'specifications/disl/erd.disl', withdrawnAt: '2026-09-27T00:00:00.000Z', lastCommit: BEFORE, replacedBy: null }],
+				withdrawals: [{ path: '0.1/erd.dis', sourcePath: 'specifications/disl/erd.dis', withdrawnAt: '2026-09-27T00:00:00.000Z', lastCommit: BEFORE, replacedBy: null }],
 			}),
 			{ procedure: disl },
 		);
 		assert.deepEqual(headings(body), ['Source revisions', 'What changed', 'Source caveats', 'Withdrawn', 'Verification', 'Review notes']);
 		assert.ok(body.includes('> The committed set shows a developer session marker.'));
 		assert.ok(body.includes(`https://github.com/etalii-adp/etalii.adp.ide.standalone/blob/${AFTER}/docs/screenshots/readme.md`));
-		assert.ok(body.includes('- `0.1/erd.disl` (from `specifications/disl/erd.disl`, last present at `1a2b3c4`)'));
+		assert.ok(body.includes('- `0.1/erd.dis` (from `specifications/disl/erd.dis`, last present at `1a2b3c4`)'));
 	});
 
 	it('shows short SHAs with commit and compare links', () => {

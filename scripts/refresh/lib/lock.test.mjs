@@ -87,8 +87,8 @@ describe('compareResolved', () => {
 	});
 
 	it('reports an added and a removed file', () => {
-		const result = compareResolved(recorded, [resolved()[0], { repository: REPO, sourcePath: 'specifications/disl/new.disl', gitBlob: C }]);
-		assert.deepEqual(result.added.map((f) => f.sourcePath), ['specifications/disl/new.disl']);
+		const result = compareResolved(recorded, [resolved()[0], { repository: REPO, sourcePath: 'specifications/disl/new.dis', gitBlob: C }]);
+		assert.deepEqual(result.added.map((f) => f.sourcePath), ['specifications/disl/new.dis']);
 		assert.deepEqual(result.removed.map((f) => f.path), ['0.1/schema.json']);
 	});
 
@@ -109,22 +109,22 @@ describe('compareResolved', () => {
 describe('applyWithdrawals', () => {
 	it('records a removed file with its source path, time and last commit', () => {
 		const next = lock([entry('0.1/spec.md', A)]);
-		const removed = entry('0.1/erd.disl', B, { commit: C });
+		const removed = entry('0.1/erd.dis', B, { commit: C });
 		const now = new Date('2026-09-27T12:00:00Z');
 		const [withdrawal] = applyWithdrawals(next, [removed], now);
-		assert.deepEqual(withdrawal, { path: '0.1/erd.disl', sourcePath: 'specifications/disl/erd.disl', withdrawnAt: '2026-09-27T12:00:00.000Z', lastCommit: C, replacedBy: null });
+		assert.deepEqual(withdrawal, { path: '0.1/erd.dis', sourcePath: 'specifications/disl/erd.dis', withdrawnAt: '2026-09-27T12:00:00.000Z', lastCommit: C, replacedBy: null });
 		assert.deepEqual(next.withdrawn, [withdrawal]);
 		assert.deepEqual(validateLock(next), []);
 	});
 
 	it('sets replacedBy when an added file has the same blob (a rename)', () => {
-		const next = lock([entry('0.1/entities.disl', B)]);
-		const [withdrawal] = applyWithdrawals(next, [entry('0.1/erd.disl', B)]);
-		assert.equal(withdrawal.replacedBy, '0.1/entities.disl');
+		const next = lock([entry('0.1/entities.dis', B)]);
+		const [withdrawal] = applyWithdrawals(next, [entry('0.1/erd.dis', B)]);
+		assert.equal(withdrawal.replacedBy, '0.1/entities.dis');
 	});
 
 	it('drops an earlier withdrawal of a path that is present again', () => {
-		const next = lock([entry('0.1/erd.disl', B)], { withdrawn: [{ path: '0.1/erd.disl', sourcePath: 'x', withdrawnAt: '2026-01-01T00:00:00.000Z', lastCommit: A }] });
+		const next = lock([entry('0.1/erd.dis', B)], { withdrawn: [{ path: '0.1/erd.dis', sourcePath: 'x', withdrawnAt: '2026-01-01T00:00:00.000Z', lastCommit: A }] });
 		applyWithdrawals(next, []);
 		assert.deepEqual(next.withdrawn, []);
 	});

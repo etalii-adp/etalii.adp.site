@@ -8,7 +8,7 @@ describe('languages.json', () => {
 	it('registers DISL, DID and DEDL with the layout of etalii.adp spec 002', () => {
 		const byId = Object.fromEntries(registeredLanguages().map((l) => [l.id, l]));
 		expect(Object.keys(byId).sort()).toEqual(['dedl', 'did', 'disl']);
-		expect(byId.disl).toMatchObject({ path: 'specifications/disl', prose: 'DISL-specification.md', schema: 'disl.schema.json', schemaAddress: '/disl/schema/{version}/{schema}' });
+		expect(byId['disl']).toMatchObject({ path: 'specifications/disl', prose: 'DISL-specification.md', schema: 'disl.schema.json', schemaAddress: '/disl/schema/{version}/{schema}' });
 		expect(byId.did).toMatchObject({ path: 'specifications/did', prose: 'DID-specification.md', schema: 'did.schema.json', schemaAddress: '/did/schema/{version}/{schema}' });
 		expect(byId.dedl).toMatchObject({ schemaAddress: '/dedl/schema/{version}/{schema}', publish: false, movedTo: 'disl' });
 	});

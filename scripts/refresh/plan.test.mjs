@@ -19,7 +19,7 @@ describe('plan.mjs (the procedures a refresh.yml run starts)', () => {
 		assert.deepEqual(plan({ event: 'repository_dispatch', source: 'etalii-adp/etalii.adp', paths: null }), { procedures: ['disl'] });
 	});
 
-	for (const path of ['specifications/disl/erd.disl', 'specifications/did/timeline.did']) {
+	for (const path of ['specifications/disl/erd.dis', 'specifications/did/timeline.did']) {
 		it(`runs the reference procedure for a change to ${path}`, () => {
 			assert.deepEqual(plan({ event: 'repository_dispatch', source: 'etalii-adp/etalii.adp', paths: ['README.md', path] }), { procedures: ['disl'] });
 		});
@@ -40,7 +40,7 @@ describe('plan.mjs (the procedures a refresh.yml run starts)', () => {
 	it('reads the payload paths as the workflow passes them', () => {
 		assert.equal(parsePaths(''), null);
 		assert.equal(parsePaths('null'), null);
-		assert.deepEqual(parsePaths('["specifications/disl/erd.disl"]'), ['specifications/disl/erd.disl']);
+		assert.deepEqual(parsePaths('["specifications/disl/erd.dis"]'), ['specifications/disl/erd.dis']);
 	});
 
 	it('is what refresh.yml offers and calls', () => {

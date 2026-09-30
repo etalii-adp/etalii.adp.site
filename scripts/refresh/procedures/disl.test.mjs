@@ -12,7 +12,7 @@ const SCHEMA = 'specifications/disl/disl.schema.json';
 const DID_SPEC = 'specifications/did/DID-specification.md';
 const DID_SCHEMA = 'specifications/did/did.schema.json';
 const text = (path) => fixture[path].toString('utf8');
-const FILES = ['0.1/DID-specification.md', '0.1/DISL-specification.md', '0.1/did.schema.json', '0.1/disl.schema.json', '0.1/erd.disl', '0.1/timeline.did'];
+const FILES = ['0.1/DID-specification.md', '0.1/DISL-specification.md', '0.1/did.schema.json', '0.1/disl.schema.json', '0.1/erd.dis', '0.1/timeline.did'];
 const cleanups = [];
 after(() => cleanups.forEach((fn) => fn()));
 
@@ -69,13 +69,13 @@ describe('refresh-disl', () => {
 			{ file: 'DID-specification.md', change: 'unchanged' },
 			{ file: 'did.schema.json', change: 'unchanged' },
 			{ file: 'disl.schema.json', change: 'unchanged' },
-			{ file: 'erd.disl', change: 'unchanged' },
+			{ file: 'erd.dis', change: 'unchanged' },
 			{ file: 'timeline.did', change: 'unchanged' },
 		]);
-		source.commit({ 'specifications/disl/erd.disl': '{ "name": "erd", "elements": ["entity"] }\n' });
+		source.commit({ 'specifications/disl/erd.dis': '{ "name": "erd", "elements": ["entity"] }\n' });
 		run();
 		const changed = site.json('.refresh/summary.json').details.files;
-		assert.equal(changed.find((f) => f.file === 'erd.disl').change, 'changed');
+		assert.equal(changed.find((f) => f.file === 'erd.dis').change, 'changed');
 		assert.equal(changed.find((f) => f.file === 'disl.schema.json').change, 'unchanged');
 	});
 

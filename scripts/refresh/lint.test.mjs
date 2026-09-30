@@ -56,9 +56,9 @@ describe('refresh:lint', () => {
 	it('names a Sources table that disagrees with the module', () => {
 		const paths = copy((dir, edit) => edit('refresh-disl.md', (t) => t.replace('`specifications/did/*`', '`specification/did/*`')));
 		expectProblem(paths, /refresh-disl\.md: Sources gives etalii-adp\/etalii\.adp the paths specifications\/disl\/\*, specification\/did\/\*, but the module reads specifications\/disl\/\*, specifications\/did\/\*/);
-		const repo = copy((dir, edit) => edit('refresh-disl.md', (t) => t.replace('| etalii-adp/etalii.adp |', '| etalii-adp/etalii.disl |')));
+		const repo = copy((dir, edit) => edit('refresh-disl.md', (t) => t.replace('| etalii-adp/etalii.adp |', '| etalii-adp/etalii.specs |')));
 		expectProblem(repo, /Sources lists no row for etalii-adp\/etalii\.adp, which the module reads/);
-		expectProblem(repo, /Sources lists etalii-adp\/etalii\.disl, which the module does not read/);
+		expectProblem(repo, /Sources lists etalii-adp\/etalii\.specs, which the module does not read/);
 	});
 
 	it('names a mapping value that is not a site state', () => {

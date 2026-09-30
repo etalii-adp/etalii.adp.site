@@ -27,16 +27,16 @@ A **tool engineer** specifies how one tool type functions and looks, in its kind
 
 | Kind | Specification language | Extension | Definition language | Extension |
 |---|---|---|---|---|
-| Diagram | DISL, Diagram Specification Language | `.disl` | DID, Diagram Definition Language | `.did` |
-| Designer | DESL, Designer Specification Language | `.desl` | DED, Designer Definition Language | `.ded` |
-| Editor | EDSL, Editor Specification Language | `.edsl` | EDD, Editor Definition Language | `.edd` |
+| Diagram | DISL, Diagram Specification Language | `.dis` | DID, Diagram Definition Language | `.did` |
+| Designer | DESL, Designer Specification Language | `.des` | DED, Designer Definition Language | `.ded` |
+| Editor | EDSL, Editor Specification Language | `.eds` | EDD, Editor Definition Language | `.edd` |
 
-- A **specification file** (`.disl`, `.desl`, `.edsl`) holds one tool type as a tool engineer specifies how it functions and looks: for example, what a state machine diagram's elements and relations are and how they are drawn.
+- A **specification file** (`.dis`, `.des`, `.eds`) holds one tool type as a tool engineer specifies how it functions and looks: for example, what a state machine diagram's elements and relations are and how they are drawn.
 - A **definition file** (`.did`, `.ded`, `.edd`) holds one diagram, designer or editor a user created of such a type: for example, one particular state machine.
 
 DISL and DID have content; DESL, DED, EDSL and EDD are placeholders until a designer or an editor needs them. DID here always means ADP's Diagram Definition Language, not the W3C's Decentralized Identifiers.
 
-History: DEDL became DISL and DID. What was one language, DEDL 0.1, holding both a language definition and the documents made with it, is now DISL (the specification of a diagram type) and DID (a stored diagram). The acronym DEDL is retired and has no current meaning; files, schema addresses and links in its old form are still read or redirected as DISL or DID.
+History: DEDL became DISL and DID. What was one language, DEDL 0.1, holding both a language definition and the documents made with it, is now DISL (the specification of a diagram type) and DID (a stored diagram). The acronym DEDL is retired and has no current meaning; files, schema addresses and links in its old form are still read or redirected as DISL or DID. Specification files were named after their language (`.disl`, `.desl`, `.edsl`) until 2026-09-30, when they took `.dis`, `.des` and `.eds`, because a file holds a specification, not the language; `.disl` files are still read.
 
 ## Related terms
 
@@ -57,8 +57,9 @@ History: DEDL became DISL and DID. What was one language, DEDL 0.1, holding both
 | "designer" or "author" for the person who writes a specification ("language designer") | tool engineer |
 | "diagram" for any tool, or for all tools (the "Diagrams" database, "diagram type" for an editor) | tool; or the kind that applies |
 | "editor" for the running diagram or designer ("diagram editor", "editor runtime", "a designer is an editor") | the kind (diagram, designer); the software that runs specifications is a runtime |
-| DEDL, Diagram Editor Definition Language, `.dedl`, `dedl.schema.json` | DISL for a diagram type (`.disl`, `disl.schema.json`); DID for a stored diagram (`.did`, `did.schema.json`) |
+| DEDL, Diagram Editor Definition Language, `.dedl`, `dedl.schema.json` | DISL for a diagram type (`.dis`, `disl.schema.json`); DID for a stored diagram (`.did`, `did.schema.json`) |
 | DIFL, DEFL, EDFL, DIDL, EDDL and their extensions; `disl.disl` | earlier drafts' names: use the tables above |
+| `.disl`, `.desl`, `.edsl` for a specification file | `.dis`, `.des`, `.eds`: the file holds a specification, not the language |
 | "diagram, designer and text editors", "diagram and text designers" | tools: diagrams, designers and editors |
 
 ## Exceptions
