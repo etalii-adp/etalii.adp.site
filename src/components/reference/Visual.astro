@@ -1,6 +1,6 @@
 ---
 // A diagram shown as a picture that reads without scripting, in light and dark, with alt text from its
-// accTitle and accDescr, its caption, and its Mermaid text as a full text alternative (FR-018, research D10).
+// accTitle and accDescr, and its caption (FR-018, research D10).
 import { mermaidPicture } from '../../lib/reference/mermaid';
 import type { Visual } from '../../lib/reference/types';
 
@@ -19,8 +19,4 @@ const captionParts = visual.caption.split('`').map((text, i) => ({ text, code: i
 	<figcaption>
 		{captionParts.map((part) => (part.code ? <code>{part.text}</code> : part.text))}
 	</figcaption>
-	<details>
-		<summary>Diagram as text (Mermaid)</summary>
-		<pre tabindex="0"><code>{visual.mermaid}</code></pre>
-	</details>
 </figure>
