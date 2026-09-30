@@ -109,7 +109,7 @@ function rehypeCode() {
 			const code = node.children.find((c): c is Element => c.type === 'element' && c.tagName === 'code');
 			const language = ((code?.properties.className as string[] | undefined) ?? []).find((c) => c.startsWith('language-'));
 			if (code && language === 'language-mermaid') {
-				// B3: a picture in light and dark, with alt text.
+				// B3: a picture in light and dark, with the Mermaid text as its alternative.
 				const text = hastToString(code).replace(/\n$/, '');
 				const previous = parent.children.slice(0, index).reverse().find((c): c is Element => c.type === 'element');
 				const { alt } = proseDiagramAlt(text, previous?.tagName === 'p' ? hastToString(previous) : null);
@@ -121,6 +121,15 @@ function rehypeCode() {
 							properties: { className: ['ref-visual'], dataKind: 'source-diagram' },
 							children: [
 								{ type: 'element', tagName: 'div', properties: { className: ['ref-visual-picture'] }, children: [picture] },
+								{
+									type: 'element',
+									tagName: 'details',
+									properties: {},
+									children: [
+										{ type: 'element', tagName: 'summary', properties: {}, children: [{ type: 'text', value: 'Diagram as text (Mermaid)' }] },
+										{ type: 'element', tagName: 'pre', properties: { tabIndex: 0 }, children: [{ type: 'element', tagName: 'code', properties: {}, children: [{ type: 'text', value: text }] }] },
+									],
+								},
 							],
 						};
 					})

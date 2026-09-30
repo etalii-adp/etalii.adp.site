@@ -234,6 +234,13 @@
 	font-size: var(--sl-text-sm);
 	color: var(--sl-color-gray-3);
 }
+.ref-visual details {
+	margin-top: 0.5rem;
+	font-size: var(--sl-text-sm);
+}
+.ref-visual summary {
+	cursor: pointer;
+}
 .ref-quoted {
 	padding-inline-start: 1rem;
 	border-inline-start: 3px solid var(--sl-color-gray-5);
