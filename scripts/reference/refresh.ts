@@ -363,9 +363,18 @@ export function httpGitHub(): GitHub {
 			await ok(response, `reading the licence of ${repository}`);
 			const body = (await response.json()) as { license?: { spdx_id?: string }; content?: string };
 			const text = body.content ? Buffer.from(body.content, 'base64').toString('utf8') : '';
-			return { spdx: body.license?.spdx_id ?? 'NOASSERTION', copyright: /^\s*(Copyright .+)$/m.exec(text)?.[1].trim() ?? null };
+			return { spdx: body.license?.spdx_id ?? 'NOASSERTION', copyright: copyrightOf(text) };
 		},
 	};
+}
+
+/** The licence's copyright line, skipping the Apache appendix template ("Copyright [yyyy] [name of copyright owner]") when it was never filled. */
+export function copyrightOf(text: string): string | null {
+	for (const match of text.matchAll(/^\s*(Copyright .+)$/gm)) {
+		const line = match[1].trim();
+		if (!/\[[^\]]*\]/.test(line)) return line;
+	}
+	return null;
 }
 
 // -- Command line ---------------------------------------------------------------------------------

@@ -2,7 +2,7 @@ import { cpSync, existsSync, mkdtempSync, readdirSync, readFileSync, rmSync } fr
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { languagesToRefresh, refresh, type GitHub } from '../../scripts/reference/refresh';
+import { copyrightOf, languagesToRefresh, refresh, type GitHub } from '../../scripts/reference/refresh';
 import type { Language } from '../../src/lib/reference/types';
 
 // The DISL and DID sources pinned in tests/reference/fixtures/disl-c2623d4/ (see its README).
@@ -231,5 +231,18 @@ describe('reference:refresh of DISL and DID (etalii.adp spec 002)', () => {
 		const { code, report } = await refresh({ language: disl, contentRoot: root, github });
 		expect(code).toBe(1);
 		expect(report).toContain('schema version or address mismatch');
+	});
+});
+
+describe('copyrightOf', () => {
+	const appendix = '   APPENDIX: How to apply the Apache License to your work.\n\n   Copyright [yyyy] [name of copyright owner]\n';
+
+	it('never takes the unfilled Apache appendix template for the notice', () => {
+		expect(copyrightOf(`   2. Grant of Copyright License. Subject to\n${appendix}`)).toBeNull();
+	});
+
+	it('takes the filled notice, wherever it stands', () => {
+		expect(copyrightOf('   Copyright © Peter Vrenken 2026\n')).toBe('Copyright © Peter Vrenken 2026');
+		expect(copyrightOf(`${appendix}\nCopyright © Peter Vrenken 2026\n`)).toBe('Copyright © Peter Vrenken 2026');
 	});
 });
