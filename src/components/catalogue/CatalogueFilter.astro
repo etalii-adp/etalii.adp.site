@@ -24,14 +24,14 @@ const kinds = [
 const facets = [
 	{ key: 'kind', legend: 'Kind', options: kinds },
 	{
-		key: 'focus',
-		legend: 'Focus area',
-		options: focusAreas.map((area) => ({ value: area.slug, label: area.name, description: area.problem || `The tools for ${area.name.toLowerCase()}.` })),
-	},
-	{
 		key: 'hosts',
 		legend: 'Host',
 		options: catalogueHosts.map((host) => ({ value: host.id, label: host.name, description: `The tools that ${host.name} has, or plans to have. ${eachCard}` })),
+	},
+	{
+		key: 'focus',
+		legend: 'Focus area',
+		options: focusAreas.map((area) => ({ value: area.slug, label: area.name, description: area.problem || `The tools for ${area.name.toLowerCase()}.` })),
 	},
 	{
 		key: 'state',
@@ -51,7 +51,7 @@ const facets = [
 <form class="adp-filter not-content" aria-label="Filter tools" data-adp-filter hidden>
 	{
 		facets.map((facet) => (
-			<fieldset>
+			<fieldset class={`adp-filter-${facet.key}`}>
 				<legend>{facet.legend}</legend>
 				{facet.options.map((option) => (
 					<label class="adp-filter-option">
@@ -142,7 +142,9 @@ const facets = [
 			describe(ticked.length === 1 ? ticked[0] : undefined);
 
 			const query = new URLSearchParams();
-			for (const input of ticked) query.append(input.name, input.value);
+			// The address keeps one order of facets, whatever order the groups are laid out in.
+			const order: Key[] = ['kind', 'focus', 'hosts', 'state'];
+			for (const key of order) for (const input of ticked.filter((input) => input.name === key)) query.append(input.name, input.value);
 			const search = query.toString() ? `?${query}` : '';
 			if (search !== location.search) history.replaceState(null, '', `${here}${search}${location.hash}`);
 		};
@@ -165,9 +167,23 @@ const facets = [
 	.adp-filter[hidden] {
 		display: none;
 	}
+	/* Wide: Kind above Host in the first column, which together are as tall as Focus area and Best state beside them;
+	   the rows share out the height, so both short groups stretch (Peter, 2026-09-30). */
 	@media (min-width: 50rem) {
 		.adp-filter {
-			grid-template-columns: repeat(4, minmax(0, 1fr));
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+		.adp-filter-kind {
+			grid-area: 1 / 1;
+		}
+		.adp-filter-hosts {
+			grid-area: 2 / 1;
+		}
+		.adp-filter-focus {
+			grid-area: 1 / 2 / span 2;
+		}
+		.adp-filter-state {
+			grid-area: 1 / 3 / span 2;
 		}
 	}
 	fieldset {
