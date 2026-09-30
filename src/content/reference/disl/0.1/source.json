@@ -7,7 +7,7 @@
     "kind": "git",
     "repository": "etalii-adp/etalii.adp",
     "path": "specifications/disl",
-    "revision": "0b6ec0820728eb75e9f0b42b2b6ac9d3d2417a4b",
+    "revision": "6da1f7b0503e573d45679c6ee24291c91af52474",
     "licence": "Apache-2.0",
     "copyright": "Copyright © Peter Vrenken 2026"
   },
@@ -15,8 +15,8 @@
     {
       "name": "DISL-specification.md",
       "role": "prose",
-      "sha256": "9c7ce0b8314cf38dc74974e9b9e3f09de0c60d70c08e00d8f01ed91e54bacc78",
-      "size": 443336
+      "sha256": "79ff6d382eb8e307bf9fedefd086f8d1eb3b6f143d436dec75fee2f984c1624a",
+      "size": 443635
     },
     {
       "name": "disl.schema.json",
@@ -25,23 +25,23 @@
       "size": 257888
     },
     {
-      "name": "erd.disl",
+      "name": "erd.dis",
       "role": "definition",
       "sha256": "7cda227c7f8df6f6da8054b7d8c89b7e306c83df58f0816ddea78ee751b97cc6",
       "size": 9674
     },
     {
-      "name": "statemachine.disl",
+      "name": "statemachine.dis",
       "role": "definition",
       "sha256": "737cbfa601dcfdc0a262eeb376eef89d732efd06e8cd740bd762439aac3202b1",
       "size": 22809
     },
     {
-      "name": "timeline.disl",
+      "name": "timeline.dis",
       "role": "definition",
       "sha256": "b3c3f123d69a0259b9b4e5e23ac9ff7f3376a28f9afc1f8755f37a8ea986d37b",
       "size": 15376
     }
   ],
-  "retrieved": "2026-09-30T01:04:42Z"
+  "retrieved": "2026-09-30T11:26:53Z"
 }

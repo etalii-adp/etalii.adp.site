@@ -56,7 +56,7 @@ describe('refresh:verify', () => {
 	});
 
 	const cases = [
-		['an unlisted file', ({ files }) => (files['sources/disl/0.1/extra.disl'] = '{}'), /0\.1\/extra\.disl: not listed in the lock/],
+		['an unlisted file', ({ files }) => (files['sources/disl/0.1/extra.dis'] = '{}'), /0\.1\/extra\.dis: not listed in the lock/],
 		['a missing file', ({ files }) => (files['sources/disl/0.1/DISL-specification.md'] = null), /DISL-specification\.md: listed in the lock but missing/],
 		['a SHA-256 mismatch', ({ files }) => (files['sources/disl/0.1/DISL-specification.md'] = '# DISL, edited by hand\n'), /SHA-256 differs from the lock/],
 		['"local": true', ({ lock }) => (lock.local = true), /"local": true/],

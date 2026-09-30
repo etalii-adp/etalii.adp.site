@@ -9,7 +9,7 @@
 | Definition language       | DID, the Diagram Definition Language, in [`../did/`](../did/DID-specification.md) |
 | Expression language       | CEL — Common Expression Language (https://cel.dev)                           |
 | Media type (provisional)  | `application/vnd.disl.specification+json`                                    |
-| File extension            | `.disl`                                                                      |
+| File extension            | `.dis`                                                                       |
 
 ---
 
@@ -74,7 +74,7 @@ flowchart TB
   accTitle: How DISL is intended to be used
   accDescr: A tool engineer writes a DISL specification. A runtime loads the specification, and the specification also feeds docs and code generators, CI validators, format converters and AI context. The runtime reads and writes DID definitions, the diagrams users draw.
   engineer["<b>Tool engineer</b><br/>domain expert, tool builder,<br/>standards body, AI assistant"]
-  specification["<b>DISL specification</b><br/>my-lang.disl<br/>checked by JSON Schema<br/>+ CEL type checker"]
+  specification["<b>DISL specification</b><br/>my-lang.dis<br/>checked by JSON Schema<br/>+ CEL type checker"]
   runtime["<b>Runtime</b><br/>web, desktop, IDE, headless<br/>toolbox, canvas, forms,<br/>snapping, rules, save"]
   consumers["Docs & code generators,<br/>CI validators, format<br/>converters, AI context"]
   definitions["<b>DID definitions</b><br/>the diagrams users draw,<br/>deterministic, versioned, migrated"]
@@ -86,7 +86,7 @@ flowchart TB
 
 A typical workflow:
 
-1. **Write a specification.** A tool engineer writes `my-lang.disl` by hand with IDE support from the JSON Schema (validation, completion, hover help), or generates it from an existing source such as a class model, an ontology or an older tool configuration. Specifications can import shared libraries of shapes, markers, styles and types (section 3.3).
+1. **Write a specification.** A tool engineer writes `my-lang.dis` by hand with IDE support from the JSON Schema (validation, completion, hover help), or generates it from an existing source such as a class model, an ontology or an older tool configuration. Specifications can import shared libraries of shapes, markers, styles and types (section 3.3).
 2. **Validate it.** A validator checks the specification against the JSON Schema, resolves names and imports, flattens inheritance, and type-checks every CEL expression in the context in which it will be evaluated (section 12). Problems are reported with the JSON Pointer of the offending node.
 3. **Load it into a runtime.** A conforming runtime needs no language-specific code: palette, canvas, rendering, snapping, property forms, validation and saving all come from the specification. Whatever the declarative core cannot express is delegated to named, versioned plugins (section 13) rather than to embedded scripts.
 4. **Draw.** End users create diagrams of the type, stored as **DID definitions**, that conform to the specification. The runtime surfaces the specification's documentation as tooltips, field help, problem explanations and a help view, so users learn the language while using it.
@@ -151,7 +151,7 @@ DISL deliberately borrows proven ideas:
 
 ### 2.1 Serialization
 
-A DISL specification is a JSON text (RFC 8259) encoded in UTF-8 without a byte-order mark. Its top-level value MUST be an object. The file extension **SHOULD** be `.disl`.
+A DISL specification is a JSON text (RFC 8259) encoded in UTF-8 without a byte-order mark. Its top-level value MUST be an object. The file extension **SHOULD** be `.dis`.
 
 A specification **SHOULD** declare the schema it conforms to, and MUST declare the DISL version it targets:
 
@@ -2690,7 +2690,7 @@ A conforming writer applies these settings as DID, section 6, specifies, includi
 
 `metadata` lists the metadata a DID definition carries in `meta`: `languageVersion` (always written in `language.version`), `createdAt`, `modifiedAt`, `generator`, `authors` (from `env.user` if the user consents), `title` (mirrors a diagram attribute), `checksum`.
 
-`definition` controls how DID definitions refer to their specification: `{ "embed": "none" | "reference" | "inline", "uri": "https://…/statemachine-1.2.0.disl" }`. `reference` writes `language.definition` with the URI of the specification and its integrity hash; `inline` embeds the whole specification (self-contained archives). The property names `definition` are kept unchanged from the earlier format.
+`definition` controls how DID definitions refer to their specification: `{ "embed": "none" | "reference" | "inline", "uri": "https://…/statemachine-1.2.0.dis" }`. `reference` writes `language.definition` with the URI of the specification and its integrity hash; `inline` embeds the whole specification (self-contained archives). The property names `definition` are kept unchanged from the earlier format.
 
 ### 11.9 Migrations
 
@@ -2991,7 +2991,7 @@ This example shows a classic node-and-edge diagram type:
 - **Behavior:** automatic naming, an operation that groups the selection into a composite state, and deletion and clipboard policies.
 - **Persistence:** split model and view files, prefixed UUIDv7 ids, tree ordering and a chain of migrations.
 
-File `statemachine.disl`:
+File `statemachine.dis`:
 
 ```json
 {
@@ -3513,7 +3513,7 @@ This example shows the coordinate layer in action. The x axis is a **time axis**
 
 Snapping is **different per axis**. On x, tasks snap to whole working days using calendar rules. On y, they snap to the centre of a lane. Sizes snap to whole days with a minimum of one day. The task bar is a composite `progressBar` shape whose progress handle snaps to quarters. Dependencies anchor at the finish and start of bars; variants move the anchors for start-to-start and finish-to-finish links. The link type is shown at the edge start and the lag in the middle, and conditional styles turn a violated dependency red.
 
-File `timeline.disl`:
+File `timeline.dis`:
 
 ```json
 {
@@ -3866,7 +3866,7 @@ File `timeline.disl`:
 
 This example shows notation driven by the model. Columns are child elements listed in a compartment, with conditional item styles and icons. Relationship markers are **computed** from the cardinality attributes (`erZeroOrMany`, `erOne`, …). The line is dashed for non-identifying relationships. Cardinality labels sit at both ends and only appear when zoomed in. Tables align to a 20 px grid while bendpoints use a 10 px grid. Ids are **natural** (derived from table and column names), persistence is YAML, and a plugin provides SQL export.
 
-File `erd.disl`:
+File `erd.dis`:
 
 ```json
 {
@@ -4103,16 +4103,17 @@ If a user then drags *Build pages* one working day to the left, the calendar sna
 
 ## 18. Deprecated aliases
 
-DISL 0.1 continues the combined format it came from: DEDL became DISL and DID, and the constructs did not change. What that format called a definition is a DISL specification, and what it called a document is a DID definition (DID, section 11). Runtimes of DISL 0.x **MUST** accept the following identifiers of the earlier format, version 0.1, as deprecated aliases, read them as their DISL form, and never write them:
+DISL 0.1 continues the combined format it came from: DEDL became DISL and DID, and the constructs did not change. What that format called a definition is a DISL specification, and what it called a document is a DID definition (DID, section 11). Runtimes of DISL 0.x **MUST** accept the following identifiers as deprecated aliases (those of the earlier format, version 0.1, and the extension `.disl` that DISL 0.1 specification files had before they took `.dis`), read them as their DISL form, and never write them:
 
 | Deprecated alias                                                              | DISL 0.1                                                                       |
 |-------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
-| file extension `.dedl`                                                        | `.disl`                                                                        |
+| file extension `.dedl`                                                        | `.dis`                                                                         |
+| file extension `.disl` (DISL 0.1 before 2026-09-30)                           | `.dis`                                                                         |
 | `$schema` `https://etalii.net/adp/dedl/schema/0.1/dedl.schema.json#/$defs/Definition` | `https://etalii.net/adp/disl/schema/0.1/disl.schema.json#/$defs/Specification` |
 | media type `application/vnd.dedl.definition+json`                             | `application/vnd.disl.specification+json`                                      |
 | version key `"dedl": "0.1"`                                                   | `"disl": "0.1"`                                                                |
 
-A specification carries exactly one of the two version keys; the schema accepts either and marks the old one `deprecated`. The old schema address stays published unchanged, so files that name it keep validating. A legacy fixture in the earlier form, in `specifications/disl/legacy/`, is validated through these aliases on every change to this repository. The aliases are removed no earlier than DISL 1.0.
+A specification carries exactly one of the two version keys; the schema accepts either and marks the old one `deprecated`. The old schema address stays published unchanged, so files that name it keep validating. The legacy fixtures in `specifications/disl/legacy/`, one in the earlier form and one with the old `.disl` extension, are validated through these aliases on every change to this repository. The aliases are removed no earlier than DISL 1.0.
 
 ---
 
@@ -4948,7 +4949,7 @@ Runtimes provide these monochrome icons under `std.`: `add`, `remove`, `delete`,
 | **Plugin**             | Named, declared, versioned code that extends a runtime.                                                      |
 | **Port**               | A named connection point on a node.                                                                          |
 | **Runtime**            | Software in a host that loads a specification and lets users create and change DID definitions with it.      |
-| **Specification**      | A DISL file (`.disl`) in which a tool engineer specifies one diagram type.                                   |
+| **Specification**      | A DISL file (`.dis`) in which a tool engineer specifies one diagram type.                                    |
 | **Tool engineer**      | The person who specifies a diagram type in DISL.                                                             |
 | **Snap rule**          | A function mapping a raw domain value to an allowed value on one axis.                                       |
 | **Token**              | A named theme value (a color, font or size), resolved per theme mode.                                        |

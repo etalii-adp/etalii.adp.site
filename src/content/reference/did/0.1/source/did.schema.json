@@ -33,7 +33,7 @@
             },
             "definition": {
               "type": "string",
-              "description": "URI of the DISL specification (.disl) the diagram was made with."
+              "description": "URI of the DISL specification (.dis) the diagram was made with."
             },
             "integrity": {
               "type": "string"

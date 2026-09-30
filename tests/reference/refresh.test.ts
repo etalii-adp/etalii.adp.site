@@ -9,7 +9,8 @@ import type { Language } from '../../src/lib/reference/types';
 const pinned = join('tests', 'reference', 'fixtures', 'disl-c2623d4');
 const fixtureRevision = 'c2623d4e3835a995520febd95ea39b545aa0a42d';
 const fixtureVersionDir = join(pinned, 'disl', '0.1');
-const fixtureFile = (name: string): Buffer => readFileSync(join(fixtureVersionDir, 'source', name));
+// The pinned fixture predates the `.dis` extension: its examples keep the one DISL files had before (`$&l`).
+const fixtureFile = (name: string): Buffer => readFileSync(join(fixtureVersionDir, 'source', name.replace(/\.dis$/, '$&l')));
 const didFile = (name: string): Buffer => readFileSync(join(pinned, 'did', '0.1', 'source', name));
 
 const disl: Language = {
@@ -25,7 +26,7 @@ const disl: Language = {
 };
 const did: Language = { ...disl, id: 'did', name: 'DID — Diagram Definition Language', short: 'DID', path: 'specifications/did', prose: 'DID-specification.md', schema: 'did.schema.json', schemaAddress: '/did/schema/{version}/{schema}' };
 
-const names = ['DISL-specification.md', 'disl.schema.json', 'erd.disl', 'statemachine.disl', 'timeline.disl'];
+const names = ['DISL-specification.md', 'disl.schema.json', 'erd.dis', 'statemachine.dis', 'timeline.dis'];
 
 /** A GitHub stand-in serving the fixture, with the given changes. */
 function fakeGitHub(changes: { files?: Record<string, Buffer | null>; licence?: string | null; revision?: string; unreachable?: boolean } = {}): GitHub {
@@ -86,7 +87,7 @@ describe('reference:refresh (contracts/refresh-cli.md)', () => {
 		const record = JSON.parse(readFileSync(join(dir, 'source.json'), 'utf8'));
 		expect(record.source).toMatchObject({ kind: 'git', repository: 'etalii-adp/etalii.adp', revision: fixtureRevision, licence: 'Apache-2.0' });
 		expect(record.version).toBe('0.1');
-		expect(record.files.find((f: { name: string }) => f.name === 'erd.disl').role).toBe('definition');
+		expect(record.files.find((f: { name: string }) => f.name === 'erd.dis').role).toBe('definition');
 		expect(record.files.find((f: { name: string }) => f.name === 'disl.schema.json').role).toBe('schema');
 		expect(readFileSync(join(dir, 'source', 'disl.schema.json'))).toEqual(fixtureFile('disl.schema.json'));
 		expect(report).toContain('new version');
@@ -114,8 +115,8 @@ describe('reference:refresh (contracts/refresh-cli.md)', () => {
 	});
 
 	it("refuses an example whose $schema names another version", async () => {
-		const example = edit('erd.disl', 'schema/0.1/disl.schema.json', 'schema/0.2/disl.schema.json');
-		const { code, report } = await run(fakeGitHub({ files: { 'erd.disl': example } }));
+		const example = edit('erd.dis', 'schema/0.1/disl.schema.json', 'schema/0.2/disl.schema.json');
+		const { code, report } = await run(fakeGitHub({ files: { 'erd.dis': example } }));
 		expect(code).toBe(1);
 		expect(report).toContain('schema version or address mismatch');
 		expect(readdirSync(root)).toEqual([]);
