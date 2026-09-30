@@ -35,7 +35,7 @@ const facets = [
 	},
 	{
 		key: 'state',
-		legend: 'Best state',
+		legend: 'State',
 		options: (['idea', ...facetStates] as const).map((state) => ({
 			value: state,
 			label: states[state].label,
@@ -167,7 +167,7 @@ const facets = [
 	.adp-filter[hidden] {
 		display: none;
 	}
-	/* Wide: Kind above Host in the first column, which together are as tall as Focus area and Best state beside them;
+	/* Wide: Kind above Host in the first column, which together are as tall as Focus area and State beside them;
 	   the rows share out the height, so both short groups stretch (Peter, 2026-09-30). */
 	@media (min-width: 50rem) {
 		.adp-filter {
