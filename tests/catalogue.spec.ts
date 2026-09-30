@@ -184,6 +184,23 @@ test.describe('overview', () => {
 		await context.close();
 	});
 
+	test('on a wide screen Kind sits above Host, and that column is as tall as Focus area and State (Peter, 2026-09-30)', async ({ browser }) => {
+		const context = await browser.newContext({ viewport: { width: 1400, height: 1000 } });
+		const page = await context.newPage();
+		await page.goto('/adp/tools/');
+		const box = async (name: string) => (await page.getByRole('group', { name, exact: true }).boundingBox())!;
+		const [kind, host, focus, state] = [await box('Kind'), await box('Host'), await box('Focus area'), await box('State')];
+		expect(Math.round(host.x)).toBe(Math.round(kind.x));
+		expect(host.y).toBeGreaterThan(kind.y + kind.height - 1);
+		for (const other of [focus, state]) {
+			expect(Math.round(other.y)).toBe(Math.round(kind.y));
+			expect(Math.round(other.y + other.height)).toBe(Math.round(host.y + host.height));
+		}
+		expect(focus.x).toBeGreaterThan(kind.x + kind.width - 1);
+		expect(state.x).toBeGreaterThan(focus.x + focus.width - 1);
+		await context.close();
+	});
+
 	test('every state label in a card has the same width (Peter, 2026-09-29)', async ({ page }) => {
 		await page.goto('/adp/tools/');
 		const widths = await page.locator('.adp-tool').evaluateAll((cards) =>
@@ -257,7 +274,7 @@ test.describe('overview', () => {
 		const host = catalogueHosts[0];
 		const state = 'planned';
 		await page.getByRole('group', { name: 'Host' }).getByLabel(host.name).check();
-		await page.getByRole('group', { name: 'Best state' }).getByLabel(states[state].label).check();
+		await page.getByRole('group', { name: 'State' }).getByLabel(states[state].label).check();
 		const expected = catalogue.tools.filter(
 			(tool) => states[tool.hosts[host.id].state].rank >= states.planned.rank && bestState(tool.hosts) === state,
 		);
