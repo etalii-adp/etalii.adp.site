@@ -32,7 +32,7 @@ Text is never changed. T1 to T4 only wrap existing text in links, T5 only adds a
 |---|---|---|
 | B1 | Code blocks keep their text exactly. `json` blocks get build-time highlighting. | D7 |
 | B2 | Tables render as HTML tables inside a focusable, labelled region that scrolls horizontally on its own. | D7 |
-| B3 | `mermaid` code blocks render as a light/dark `<picture>` of SVG, with no copy of the Mermaid text beside it (Peter, 2026-09-30). | D10 |
+| B3 | `mermaid` code blocks render as a light/dark `<picture>` of SVG. The Mermaid text follows in a `<details>` element. | D10 |
 | B4 | Raw HTML, or a node type outside the allowlist, is shown as its source lines in `<pre class="verbatim">`, with the note "Shown as written in the source." | D7 |
 
 ## Allowlist of node types

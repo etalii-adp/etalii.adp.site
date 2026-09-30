@@ -70,12 +70,12 @@ describe('faithful rendering (rules B1, B2, B4)', () => {
 });
 
 describe('diagrams in the prose (rule B3)', () => {
-	it('render as a light/dark picture with alt text and nothing else', async () => {
+	it('render as a light/dark picture with alt text and the Mermaid text as its alternative', async () => {
 		const html = await renderMarkdown('```mermaid\nflowchart LR\n  accTitle: Two boxes\n  accDescr: A points at B.\n  A --> B\n```');
 		expect(html).toMatch(/<figure class="ref-visual" data-kind="source-diagram"><div class="ref-visual-picture"><picture><source [^>]*media="\(prefers-color-scheme: dark\)"/);
 		expect(html).not.toMatch(/<(source|img) [^>]*\sid="/);
 		expect(html).toContain('alt="Two boxes. A points at B."');
-		expect(html).not.toContain('<details>');
-		expect(html).not.toContain('<pre');
+		expect(html).toContain('<summary>Diagram as text (Mermaid)</summary>');
+		expect(html).toContain('<pre tabindex="0"><code>flowchart LR\n  accTitle: Two boxes\n  accDescr: A points at B.\n  A --> B</code></pre>');
 	});
 });
