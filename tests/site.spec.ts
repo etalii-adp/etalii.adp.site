@@ -222,6 +222,17 @@ test.describe('addresses (contracts/site-addresses.md)', () => {
 		await expect(research.locator('[aria-current="page"]')).toHaveText(articles[0].title);
 	});
 
+	test('every research article shows its date under its title, as "28 September 2026" (Peter, 2026-09-30)', async ({ page }) => {
+		for (const article of researchArticles()) {
+			await page.goto(article.href);
+			const date = page.locator('h1 + .adp-page-date time');
+			await expect(date, article.href).toHaveText(/^[1-9]\d? (January|February|March|April|May|June|July|August|September|October|November|December) \d{4}$/);
+			await expect(date).toHaveAttribute('datetime', /^\d{4}-\d{2}-\d{2}$/);
+		}
+		await page.goto('/adp/docs/research/structuring-insight/');
+		await expect(page.locator('.adp-page-date time')).toHaveText('28 September 2026');
+	});
+
 	test('the part marker follows the page', async ({ page }) => {
 		const current = page.getByRole('navigation', { name: 'Site parts' }).locator('[aria-current="true"]');
 		await page.goto('/adp/');
