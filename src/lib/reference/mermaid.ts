@@ -67,7 +67,7 @@ export function proseDiagramAlt(mermaid: string, before: string | null): { alt: 
 	const { title, description } = accessibleText(mermaid);
 	if (title || description) return { alt: [title, description].filter(Boolean).join('. '), warning: null };
 	return {
-		alt: before?.trim() || 'Diagram; its text follows.',
+		alt: before?.trim() || 'Diagram.',
 		warning: 'A Mermaid diagram in the prose has no accTitle or accDescr; its alt text is taken from the paragraph before it.',
 	};
 }
