@@ -6,8 +6,7 @@ import type { GitSourceRecord, HostId, ReportItem } from './types.ts';
 /**
  * Reads what spec 004's procedures write under `sources/` (004 contracts/site-integration.md, data-model.md).
  * Nothing here writes under `sources/`. Each `sources/<short>/source.lock.json` holds the records of that folder,
- * with `path` relative to the folder, e.g. `standalone/tools.md` (or `standalone/diagrams.md`, the host catalogue's name
- * before etalii.adp spec 002).
+ * with `path` relative to the folder, e.g. `standalone/tools.md`.
  */
 
 export const defaultSourcesRoot = 'sources';
@@ -40,7 +39,7 @@ export interface SourceLock {
 export interface CatalogueRow {
 	origin: string;
 	name: string;
-	/** From the Kind column of `docs/tools.md` (etalii.adp spec 002); absent in a `docs/diagrams.md` catalogue. */
+	/** From the Kind column of `docs/tools.md` (etalii.adp spec 002); absent when a catalogue has no Kind column. */
 	kind?: 'diagram' | 'designer' | 'editor';
 	group: string;
 	developState: string;
@@ -149,11 +148,7 @@ export function toSourceRecord(lock: SourceLock, path: string): GitSourceRecord 
 	return { kind: 'git', repository: entry.repository, path: entry.sourcePath, revision: entry.commit, retrievedAt: lock.refreshedAt, licence: licenceOf(entry) };
 }
 
-/** The names a host's catalogue is copied under, newest first: `docs/tools.md`, then `docs/diagrams.md` (etalii.adp spec 002). */
-export const catalogueFileNames = ['tools.md', 'diagrams.md'] as const;
-
-/** The git SourceRecord of `host`'s catalogue in the catalogue lock, whichever of its names the host uses. */
+/** The git SourceRecord of `host`'s catalogue (`docs/tools.md`, copied as `<host>/tools.md`) in the catalogue lock. */
 export function catalogueSourceRecord(lock: SourceLock, host: HostId): GitSourceRecord {
-	const name = catalogueFileNames.find((candidate) => lock.files.some((file) => file.path === `${host}/${candidate}`)) ?? catalogueFileNames[1];
-	return toSourceRecord(lock, `${host}/${name}`);
+	return toSourceRecord(lock, `${host}/tools.md`);
 }

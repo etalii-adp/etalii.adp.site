@@ -3,7 +3,7 @@
   "specName": "Designer Catalogue",
   "branch": "claude/project-thread-yu2w2z",
   "currentStep": "implement",
-  "status": "implementing",
+  "status": "completed",
   "history": [
     {
       "step": "specify",
@@ -537,6 +537,13 @@
       "kind": "complete",
       "by": "extension",
       "at": "2026-09-27T18:38:51.223Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-01T19:55:20.009Z"
     }
   ],
   "telemetryInstanceId": "3770302d-bb70-4180-97e2-ca6896b96082",

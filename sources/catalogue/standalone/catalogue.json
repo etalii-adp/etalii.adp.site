@@ -1,7 +1,8 @@
 [
   {
     "origin": "cmap/concept-map",
-    "name": "Concept map (free-form network of concepts with labeled relationships)",
+    "name": "Concept map",
+    "kind": "diagram",
     "group": "10. Knowledge & informal modeling",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -21,7 +22,8 @@
   },
   {
     "origin": "freeplane/mindmap",
-    "name": "Mind map (radial/hierarchical, single central topic)",
+    "name": "Mind map",
+    "kind": "diagram",
     "group": "10. Knowledge & informal modeling",
     "developState": "Prototype",
     "releaseState": "Prototype",
@@ -41,7 +43,8 @@
   },
   {
     "origin": "systems/causal-loop-diagram",
-    "name": "Causal loop diagram (variables joined by polarised causal links, with the feedback loops they form enumerated and labelled R or B by arithmetic rather than by assertion; .cld — ADP’s own line-oriented text format, adopted after XMILE was rejected for carrying stocks, flows and equations this diagram states none of, and carrying one presentation word of its own, flipped, which bows a link’s arc to the other side of its chord where the automatic side crosses something); causal-loop-diagram (specification removed from the tree; in history before 53f68611)",
+    "name": "Causal loop diagram",
+    "kind": "diagram",
     "group": "10. Knowledge & informal modeling",
     "developState": "Work-in-progress",
     "releaseState": "Work-in-progress",
@@ -55,13 +58,14 @@
     "example": [
       {
         "label": "Authored examples",
-        "href": "../src/diagrams/causal-loop/examples/"
+        "href": "../src/diagrams/causal-loop-diagram/examples/"
       }
     ]
   },
   {
     "origin": "mermaid/architecture",
     "name": "Architecture diagram",
+    "kind": "diagram",
     "group": "11a. Mermaid",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -81,7 +85,8 @@
   },
   {
     "origin": "mermaid/c4",
-    "name": "C4 diagram (subset)",
+    "name": "C4 diagram",
+    "kind": "diagram",
     "group": "11a. Mermaid",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -102,6 +107,7 @@
   {
     "origin": "mermaid/class",
     "name": "Class diagram",
+    "kind": "diagram",
     "group": "11a. Mermaid",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -121,7 +127,8 @@
   },
   {
     "origin": "mermaid/er",
-    "name": "Entity-Relationship diagram",
+    "name": "Entity-relationship diagram",
+    "kind": "diagram",
     "group": "11a. Mermaid",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -142,6 +149,7 @@
   {
     "origin": "mermaid/flowchart",
     "name": "Flowchart",
+    "kind": "diagram",
     "group": "11a. Mermaid",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -162,6 +170,7 @@
   {
     "origin": "mermaid/gantt",
     "name": "Gantt chart",
+    "kind": "diagram",
     "group": "11a. Mermaid",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -182,6 +191,7 @@
   {
     "origin": "mermaid/sequence",
     "name": "Sequence diagram",
+    "kind": "diagram",
     "group": "11a. Mermaid",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -202,6 +212,7 @@
   {
     "origin": "mermaid/state",
     "name": "State diagram",
+    "kind": "diagram",
     "group": "11a. Mermaid",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -221,7 +232,8 @@
   },
   {
     "origin": "plantuml/c4",
-    "name": "C4 diagram, via C4-PlantUML",
+    "name": "C4-PlantUML diagram",
+    "kind": "diagram",
     "group": "11b. PlantUML",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -241,7 +253,8 @@
   },
   {
     "origin": "plantuml/uml",
-    "name": "Full UML set (see section 1)",
+    "name": "UML diagram",
+    "kind": "diagram",
     "group": "11b. PlantUML",
     "developState": "Specified",
     "releaseState": "Specified",
@@ -261,7 +274,8 @@
   },
   {
     "origin": "structurizr/c4",
-    "name": "C4 model (\"model once, view many\")",
+    "name": "C4 model",
+    "kind": "diagram",
     "group": "11c. Structurizr",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -281,7 +295,8 @@
   },
   {
     "origin": "d2/diagram",
-    "name": "General-purpose declarative diagram",
+    "name": "D2 diagram",
+    "kind": "diagram",
     "group": "11d. D2",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -301,7 +316,8 @@
   },
   {
     "origin": "diagrams-python/cloud-infrastructure",
-    "name": "Cloud/infrastructure diagram with official-style vendor icons",
+    "name": "Cloud infrastructure diagram",
+    "kind": "diagram",
     "group": "11e. Diagrams (Python)",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -321,7 +337,8 @@
   },
   {
     "origin": "contextmapper/context-map",
-    "name": "DDD Context Map, plus generated PlantUML/BPMN sketches",
+    "name": "Context Mapper context map",
+    "kind": "diagram",
     "group": "11f. Context Mapper",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -341,7 +358,8 @@
   },
   {
     "origin": "airflow/dag",
-    "name": "Apache Airflow DAG (tasks and dependencies; DAG files are Python, so a read-only structural view is the realistic first step)",
+    "name": "Apache Airflow DAG",
+    "kind": "diagram",
     "group": "12. Data platforms & pipeline orchestration",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -365,7 +383,8 @@
   },
   {
     "origin": "argoproj/workflow",
-    "name": "Argo Workflows definition (Kubernetes CRD YAML: steps, DAG templates, artifacts)",
+    "name": "Argo workflow",
+    "kind": "diagram",
     "group": "12. Data platforms & pipeline orchestration",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -385,7 +404,8 @@
   },
   {
     "origin": "commonwl/workflow",
-    "name": "Common Workflow Language workflow (open standard YAML: steps, inputs/outputs, scatter)",
+    "name": "Common Workflow Language workflow",
+    "kind": "diagram",
     "group": "12. Data platforms & pipeline orchestration",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -409,7 +429,8 @@
   },
   {
     "origin": "dagster/assets",
-    "name": "Dagster asset graph (software-defined assets and their dependencies)",
+    "name": "Dagster asset graph",
+    "kind": "diagram",
     "group": "12. Data platforms & pipeline orchestration",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -433,7 +454,8 @@
   },
   {
     "origin": "databricks/bundle",
-    "name": "Databricks Bundle",
+    "name": "Databricks bundle",
+    "kind": "diagram",
     "group": "12. Data platforms & pipeline orchestration",
     "developState": "Prototype",
     "releaseState": "Prototype",
@@ -457,7 +479,8 @@
   },
   {
     "origin": "databricks/job",
-    "name": "Databricks Job",
+    "name": "Databricks job",
+    "kind": "diagram",
     "group": "12. Data platforms & pipeline orchestration",
     "developState": "Prototype",
     "releaseState": "Prototype",
@@ -477,7 +500,8 @@
   },
   {
     "origin": "databricks/pipeline",
-    "name": "Databricks Pipeline",
+    "name": "Databricks pipeline",
+    "kind": "diagram",
     "group": "12. Data platforms & pipeline orchestration",
     "developState": "Prototype",
     "releaseState": "Prototype",
@@ -497,7 +521,8 @@
   },
   {
     "origin": "dbt/lineage",
-    "name": "dbt project lineage (models, sources, ref()/source() edges from dbt_project.yml + schema.yml + manifest)",
+    "name": "dbt project lineage",
+    "kind": "diagram",
     "group": "12. Data platforms & pipeline orchestration",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -521,7 +546,8 @@
   },
   {
     "origin": "kubeflow/pipeline",
-    "name": "Kubeflow Pipelines definition (compiled pipeline IR YAML: components, inputs/outputs, DAG)",
+    "name": "Kubeflow pipeline",
+    "kind": "diagram",
     "group": "12. Data platforms & pipeline orchestration",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -541,7 +567,8 @@
   },
   {
     "origin": "meltano/project",
-    "name": "Meltano ELT project (meltano.yml: extractors, loaders, transforms, schedules as a source→target flow)",
+    "name": "Meltano ELT project",
+    "kind": "diagram",
     "group": "12. Data platforms & pipeline orchestration",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -558,14 +585,15 @@
     ],
     "example": [
       {
-        "label": "the meltano.yml a repository already has",
+        "label": "meltano.yml: extractors, loaders, transforms, schedules as a source→target flow · the meltano.yml a repository already has",
         "href": null
       }
     ]
   },
   {
     "origin": "nextflow/workflow",
-    "name": "Nextflow pipeline (.nf DSL2 processes and channels; read-only structural view)",
+    "name": "Nextflow pipeline",
+    "kind": "diagram",
     "group": "12. Data platforms & pipeline orchestration",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -585,7 +613,8 @@
   },
   {
     "origin": "nifi/flow",
-    "name": "Apache NiFi flow definition (processors, connections, process groups from an exported flow definition JSON)",
+    "name": "Apache NiFi flow",
+    "kind": "diagram",
     "group": "12. Data platforms & pipeline orchestration",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -605,7 +634,8 @@
   },
   {
     "origin": "openlineage/lineage",
-    "name": "OpenLineage lineage graph (open standard run/job/dataset events, LF AI & Data; read-only graph over captured events)",
+    "name": "OpenLineage lineage graph",
+    "kind": "diagram",
     "group": "12. Data platforms & pipeline orchestration",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -629,7 +659,8 @@
   },
   {
     "origin": "openwdl/workflow",
-    "name": "Workflow Description Language workflow (open standard .wdl: tasks, calls, dataflow)",
+    "name": "Workflow Description Language workflow",
+    "kind": "diagram",
     "group": "12. Data platforms & pipeline orchestration",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -649,7 +680,8 @@
   },
   {
     "origin": "snakemake/workflow",
-    "name": "Snakemake workflow (Snakefile rules and their input/output dependency DAG)",
+    "name": "Snakemake workflow",
+    "kind": "diagram",
     "group": "12. Data platforms & pipeline orchestration",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -669,7 +701,8 @@
   },
   {
     "origin": "spark/declarative-pipeline",
-    "name": "Spark Declarative Pipelines (SDP) spec (spark-pipeline.yml: name, libraries, storage; flows, streaming tables and materialized views declared in the SQL/Python sources it names). The open-source donation of Databricks DLT, native to Apache Spark since 4.1 — the upstream sibling of databricks/pipeline",
+    "name": "Spark declarative pipeline",
+    "kind": "diagram",
     "group": "12. Data platforms & pipeline orchestration",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -682,14 +715,15 @@
     ],
     "example": [
       {
-        "label": "the spark-pipeline.yml a repository already has",
+        "label": "Spark Declarative Pipelines (SDP) spec (spark-pipeline.yml: name, libraries, storage; flows, streaming tables and materialized views declared in the SQL/Python sources it names). The open-source donation of Databricks DLT, native to Apache Spark since 4.1 — the upstream sibling of databricks/pipeline · the spark-pipeline.yml a repository already has",
         "href": null
       }
     ]
   },
   {
     "origin": "linkml/schema",
-    "name": "LinkML schema (open-source YAML modeling language: classes, slots, enums, inheritance)",
+    "name": "LinkML schema",
+    "kind": "diagram",
     "group": "13. Ontologies & semantic web",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -713,7 +747,8 @@
   },
   {
     "origin": "w3c/owl",
-    "name": "OWL 2 ontology (classes, hierarchy, restrictions and axioms in the VOWL vocabulary, asserted-only; an RDF reading over the w3c/rdf engine) · owl-diagram (specification removed from the tree; in history before 53f68611)",
+    "name": "OWL ontology",
+    "kind": "diagram",
     "group": "13. Ontologies & semantic web",
     "developState": "Implemented",
     "releaseState": "Implemented",
@@ -737,7 +772,8 @@
   },
   {
     "origin": "w3c/rdf",
-    "name": "RDF Graph",
+    "name": "RDF graph",
+    "kind": "diagram",
     "group": "13. Ontologies & semantic web",
     "developState": "Implemented",
     "releaseState": "Implemented",
@@ -761,7 +797,8 @@
   },
   {
     "origin": "w3c/shacl",
-    "name": "SHACL Shapes",
+    "name": "SHACL shapes",
+    "kind": "diagram",
     "group": "13. Ontologies & semantic web",
     "developState": "Implemented",
     "releaseState": "Implemented",
@@ -781,7 +818,8 @@
   },
   {
     "origin": "w3c/skos",
-    "name": "SKOS Concept Scheme",
+    "name": "SKOS concept scheme",
+    "kind": "diagram",
     "group": "13. Ontologies & semantic web",
     "developState": "Prototype",
     "releaseState": "Prototype",
@@ -801,7 +839,8 @@
   },
   {
     "origin": "mongodb/aggregation-pipeline",
-    "name": "MongoDB aggregation pipeline (MQL stages — $match, $group, $lookup, … — as a left-to-right stage flow, with document shape per stage)",
+    "name": "MongoDB aggregation pipeline",
+    "kind": "diagram",
     "group": "14. Database queries & results",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -821,7 +860,8 @@
   },
   {
     "origin": "mongodb/query",
-    "name": "MongoDB find query and result documents (MQL filter/projection as a predicate tree; results as a document/tree view)",
+    "name": "MongoDB find query",
+    "kind": "diagram",
     "group": "14. Database queries & results",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -841,7 +881,8 @@
   },
   {
     "origin": "neo4j/cypher",
-    "name": "Cypher query and result graph (MATCH patterns as node/edge structure; results as an interactive graph). Cypher is standardized via openCypher and the ISO GQL standard",
+    "name": "Cypher query and result graph",
+    "kind": "diagram",
     "group": "14. Database queries & results",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -854,6 +895,14 @@
     ],
     "example": [
       {
+        "label": "openCypher",
+        "href": "https://opencypher.org/"
+      },
+      {
+        "label": "GQL",
+        "href": "https://www.gqlstandards.org/"
+      },
+      {
         "label": "Neo4j Browser graph view",
         "href": "https://neo4j.com/docs/browser-manual/current/"
       }
@@ -861,7 +910,8 @@
   },
   {
     "origin": "w3c/sparql",
-    "name": "SPARQL query (.rq: the basic graph pattern as a node/edge structure with variables as joins, groups as regions, filters and solution modifiers as annotation and frame; read-only). Deliberately a sibling of the rdf-diagram family rather than part of it — a query visualizes asking, not modeling, which is this section's whole distinction · sparql-diagram (specification removed from the tree; in history before 53f68611)",
+    "name": "SPARQL query",
+    "kind": "diagram",
     "group": "14. Database queries & results",
     "developState": "Implemented",
     "releaseState": "Implemented",
@@ -880,8 +930,46 @@
     ]
   },
   {
+    "origin": "editor/markdown",
+    "name": "Markdown editor",
+    "kind": "editor",
+    "group": "16. Editors",
+    "developState": "Implemented",
+    "releaseState": "Implemented",
+    "state": "implemented",
+    "theory": [
+      {
+        "label": "CommonMark",
+        "href": "https://commonmark.org/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Markdown text beside its rendered preview, for .md and .markdown files",
+        "href": null
+      }
+    ]
+  },
+  {
+    "origin": "editor/plain",
+    "name": "Plain text editor",
+    "kind": "editor",
+    "group": "16. Editors",
+    "developState": "Implemented",
+    "releaseState": "Implemented",
+    "state": "implemented",
+    "theory": [],
+    "example": [
+      {
+        "label": "Any text file no other editor claims, with its encoding and line endings kept as they were",
+        "href": null
+      }
+    ]
+  },
+  {
     "origin": "uml/class",
     "name": "Class diagram",
+    "kind": "diagram",
     "group": "1a. Structural diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -902,6 +990,7 @@
   {
     "origin": "uml/component",
     "name": "Component diagram",
+    "kind": "diagram",
     "group": "1a. Structural diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -922,6 +1011,7 @@
   {
     "origin": "uml/composite-structure",
     "name": "Composite structure diagram",
+    "kind": "diagram",
     "group": "1a. Structural diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -942,6 +1032,7 @@
   {
     "origin": "uml/deployment",
     "name": "Deployment diagram",
+    "kind": "diagram",
     "group": "1a. Structural diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -962,6 +1053,7 @@
   {
     "origin": "uml/object",
     "name": "Object diagram",
+    "kind": "diagram",
     "group": "1a. Structural diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -982,6 +1074,7 @@
   {
     "origin": "uml/package",
     "name": "Package diagram",
+    "kind": "diagram",
     "group": "1a. Structural diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1002,6 +1095,7 @@
   {
     "origin": "uml/profile",
     "name": "Profile diagram",
+    "kind": "diagram",
     "group": "1a. Structural diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1022,6 +1116,7 @@
   {
     "origin": "uml/activity",
     "name": "Activity diagram",
+    "kind": "diagram",
     "group": "1b. Behavioral diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1042,6 +1137,7 @@
   {
     "origin": "uml/state-machine",
     "name": "State machine diagram",
+    "kind": "diagram",
     "group": "1b. Behavioral diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1062,6 +1158,7 @@
   {
     "origin": "uml/use-case",
     "name": "Use case diagram",
+    "kind": "diagram",
     "group": "1b. Behavioral diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1082,6 +1179,7 @@
   {
     "origin": "uml/communication",
     "name": "Communication diagram",
+    "kind": "diagram",
     "group": "1c. Interaction diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1102,6 +1200,7 @@
   {
     "origin": "uml/interaction-overview",
     "name": "Interaction overview diagram",
+    "kind": "diagram",
     "group": "1c. Interaction diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1122,6 +1221,7 @@
   {
     "origin": "uml/sequence",
     "name": "Sequence diagram",
+    "kind": "diagram",
     "group": "1c. Interaction diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1142,6 +1242,7 @@
   {
     "origin": "uml/timing",
     "name": "Timing diagram",
+    "kind": "diagram",
     "group": "1c. Interaction diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1161,7 +1262,8 @@
   },
   {
     "origin": "c4/code",
-    "name": "Code (optional)",
+    "name": "C4 code diagram",
+    "kind": "diagram",
     "group": "2. The C4 Model",
     "developState": "Specified",
     "releaseState": "Specified",
@@ -1174,14 +1276,15 @@
     ],
     "example": [
       {
-        "label": "Usually IDE-generated",
+        "label": "Optional · Usually IDE-generated",
         "href": null
       }
     ]
   },
   {
     "origin": "c4/component",
-    "name": "Component",
+    "name": "C4 component diagram",
+    "kind": "diagram",
     "group": "2. The C4 Model",
     "developState": "Prototype",
     "releaseState": "Prototype",
@@ -1201,7 +1304,8 @@
   },
   {
     "origin": "c4/container",
-    "name": "Container",
+    "name": "C4 container diagram",
+    "kind": "diagram",
     "group": "2. The C4 Model",
     "developState": "Prototype",
     "releaseState": "Prototype",
@@ -1221,7 +1325,8 @@
   },
   {
     "origin": "c4/context",
-    "name": "System Context",
+    "name": "C4 system context diagram",
+    "kind": "diagram",
     "group": "2. The C4 Model",
     "developState": "Prototype",
     "releaseState": "Prototype",
@@ -1241,7 +1346,8 @@
   },
   {
     "origin": "c4/deployment",
-    "name": "Deployment (supplementary)",
+    "name": "C4 deployment diagram",
+    "kind": "diagram",
     "group": "2. The C4 Model",
     "developState": "Prototype",
     "releaseState": "Prototype",
@@ -1254,14 +1360,15 @@
     ],
     "example": [
       {
-        "label": "Containers mapped onto infrastructure",
+        "label": "Supplementary · Containers mapped onto infrastructure",
         "href": null
       }
     ]
   },
   {
     "origin": "c4/dynamic",
-    "name": "Dynamic (supplementary)",
+    "name": "C4 dynamic diagram",
+    "kind": "diagram",
     "group": "2. The C4 Model",
     "developState": "Prototype",
     "releaseState": "Prototype",
@@ -1274,14 +1381,15 @@
     ],
     "example": [
       {
-        "label": "One scenario across containers/components",
+        "label": "Supplementary · One scenario across containers/components",
         "href": null
       }
     ]
   },
   {
     "origin": "c4/system-landscape",
-    "name": "System Landscape (supplementary)",
+    "name": "C4 system landscape diagram",
+    "kind": "diagram",
     "group": "2. The C4 Model",
     "developState": "Prototype",
     "releaseState": "Prototype",
@@ -1294,7 +1402,7 @@
     ],
     "example": [
       {
-        "label": "Multiple systems across an org",
+        "label": "Supplementary · Multiple systems across an org",
         "href": null
       }
     ]
@@ -1302,6 +1410,7 @@
   {
     "origin": "archimate/application",
     "name": "ArchiMate — Application layer",
+    "kind": "diagram",
     "group": "4. Enterprise Architecture frameworks",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1322,6 +1431,7 @@
   {
     "origin": "archimate/business",
     "name": "ArchiMate — Business layer",
+    "kind": "diagram",
     "group": "4. Enterprise Architecture frameworks",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1342,6 +1452,7 @@
   {
     "origin": "archimate/implementation-migration",
     "name": "ArchiMate — Implementation & Migration layer",
+    "kind": "diagram",
     "group": "4. Enterprise Architecture frameworks",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1362,6 +1473,7 @@
   {
     "origin": "archimate/motivation",
     "name": "ArchiMate — Motivation layer",
+    "kind": "diagram",
     "group": "4. Enterprise Architecture frameworks",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1382,6 +1494,7 @@
   {
     "origin": "archimate/strategy",
     "name": "ArchiMate — Strategy layer",
+    "kind": "diagram",
     "group": "4. Enterprise Architecture frameworks",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1402,6 +1515,7 @@
   {
     "origin": "archimate/technology",
     "name": "ArchiMate — Technology layer",
+    "kind": "diagram",
     "group": "4. Enterprise Architecture frameworks",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1422,6 +1536,7 @@
   {
     "origin": "togaf/adm",
     "name": "TOGAF ADM cycle diagram",
+    "kind": "diagram",
     "group": "4. Enterprise Architecture frameworks",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1442,6 +1557,7 @@
   {
     "origin": "zachman/matrix",
     "name": "Zachman Framework matrix",
+    "kind": "diagram",
     "group": "4. Enterprise Architecture frameworks",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1462,6 +1578,7 @@
   {
     "origin": "bpmn/process",
     "name": "BPMN process diagram",
+    "kind": "diagram",
     "group": "5. Business process & workflow notation",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1485,7 +1602,8 @@
   },
   {
     "origin": "etalii/functional-decomposition-graph",
-    "name": "Functional decomposition graph (UI elements, data elements, actions and functions linked parent to child, drawn as a superellipse, parallelogram, trapezoid and diode with bezier arrows; .fdg, ADP's own line-oriented schema); functional-decomposition-graph",
+    "name": "Functional decomposition graph",
+    "kind": "diagram",
     "group": "5. Business process & workflow notation",
     "developState": "Prototype",
     "releaseState": "Prototype",
@@ -1496,11 +1614,17 @@
         "href": null
       }
     ],
-    "example": []
+    "example": [
+      {
+        "label": "Functional decomposition graph (UI elements, data elements, actions and functions linked parent to child, drawn as a superellipse, parallelogram, trapezoid and diode with bezier arrows; .fdg, ADP's own line-oriented schema); functional-decomposition-graph",
+        "href": null
+      }
+    ]
   },
   {
     "origin": "generic/dependencies",
-    "name": "Dependency graph (named nodes and directed depends-on edges, freely placed and freely connected; .dgr — ADP's own YAML schema and extension, on the generic/timeline model with every time-related aspect removed: authored placement, directed depends-on edges drawn with an arrowhead, one command per edit); dependency-graph (specification removed from the tree; in history before d573ad87)",
+    "name": "Dependency graph",
+    "kind": "diagram",
     "group": "5. Business process & workflow notation",
     "developState": "Implemented",
     "releaseState": "Implemented",
@@ -1511,11 +1635,17 @@
         "href": null
       }
     ],
-    "example": []
+    "example": [
+      {
+        "label": "Dependency graph (named nodes and directed depends-on edges, freely placed and freely connected; .dgr — ADP's own YAML schema and extension, on the generic/timeline model with every time-related aspect removed: authored placement, directed depends-on edges drawn with an arrowhead, one command per edit); dependency-graph (specification removed from the tree; in history before d573ad87)",
+        "href": null
+      }
+    ]
   },
   {
     "origin": "generic/swimlane",
     "name": "Swimlane diagram",
+    "kind": "diagram",
     "group": "5. Business process & workflow notation",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1535,7 +1665,8 @@
   },
   {
     "origin": "generic/timeline",
-    "name": "Timeline diagram (left-to-right, elements spanning begin→end on snap-to rows, bezier connections; .tml — Timeline Markup Language); timeline-diagram (specification removed from the tree; in history before ece03c36)",
+    "name": "Timeline diagram",
+    "kind": "diagram",
     "group": "5. Business process & workflow notation",
     "developState": "Implemented",
     "releaseState": "Implemented",
@@ -1546,11 +1677,17 @@
         "href": null
       }
     ],
-    "example": []
+    "example": [
+      {
+        "label": "Timeline diagram (left-to-right, elements spanning begin→end on snap-to rows, bezier connections; .tml — Timeline Markup Language); timeline-diagram (specification removed from the tree; in history before ece03c36)",
+        "href": null
+      }
+    ]
   },
   {
     "origin": "iso/flowchart",
     "name": "Flowchart",
+    "kind": "diagram",
     "group": "5. Business process & workflow notation",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1570,7 +1707,8 @@
   },
   {
     "origin": "ddd/context-map",
-    "name": "Bounded Context / Context Map",
+    "name": "Context map",
+    "kind": "diagram",
     "group": "6. Domain-Driven Design collaborative modeling",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1591,6 +1729,7 @@
   {
     "origin": "ddd/event-storming",
     "name": "Event Storming",
+    "kind": "diagram",
     "group": "6. Domain-Driven Design collaborative modeling",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1610,7 +1749,8 @@
   },
   {
     "origin": "dfd/data-flow",
-    "name": "Data Flow Diagram (Yourdon/DeMarco or Gane–Sarson notation)",
+    "name": "Data flow diagram",
+    "kind": "diagram",
     "group": "7. Data-oriented diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1630,7 +1770,8 @@
   },
   {
     "origin": "erd/entity-relationship",
-    "name": "Entity-Relationship Diagram (Chen or Crow's Foot notation)",
+    "name": "Entity-relationship diagram",
+    "kind": "diagram",
     "group": "7. Data-oriented diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1650,7 +1791,8 @@
   },
   {
     "origin": "ansible/structure",
-    "name": "Ansible project structure (playbooks, roles, inventories and their include/import/dependency relationships; Ansible's own files are never written, and node positions a user arranges are authored into the .adp)",
+    "name": "Ansible project structure",
+    "kind": "diagram",
     "group": "8. Infrastructure, network & cloud diagrams",
     "developState": "Prototype",
     "releaseState": "Prototype",
@@ -1679,6 +1821,7 @@
   {
     "origin": "aws/architecture",
     "name": "AWS architecture diagram",
+    "kind": "diagram",
     "group": "8. Infrastructure, network & cloud diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1698,7 +1841,8 @@
   },
   {
     "origin": "azure-devops/pipeline",
-    "name": "Azure DevOps pipeline diagram, read at three levels: stages, the jobs inside an opened stage, and the steps inside an opened job (one element per step in declared order, no edges - steps are a sequence and not a graph). Opening either level is a menu entry on the element; there is no keyboard path for expansion at either level. Both levels push add and remove deltas rather than the Group/Ungroup actions the archived requirement named, deliberately and for the reasoning at PipelineElementMapper.cs:87; a change there would cover both levels at once",
+    "name": "Azure DevOps pipeline",
+    "kind": "diagram",
     "group": "8. Infrastructure, network & cloud diagrams",
     "developState": "Prototype",
     "releaseState": "Prototype",
@@ -1723,6 +1867,7 @@
   {
     "origin": "azure/architecture",
     "name": "Azure architecture diagram",
+    "kind": "diagram",
     "group": "8. Infrastructure, network & cloud diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1742,7 +1887,8 @@
   },
   {
     "origin": "dotnet/dependency-graph",
-    "name": ".NET project and package dependency graph (read-only: the projects of a .sln/.slnx, the NuGet packages they consume, and every ProjectReference and PackageReference between them, computed from the project files rather than authored; the solution is never written, and node positions a user arranges are authored into the .adp); dotnet-dependency-graph",
+    "name": ".NET dependency graph",
+    "kind": "diagram",
     "group": "8. Infrastructure, network & cloud diagrams",
     "developState": "Prototype",
     "releaseState": "Prototype",
@@ -1759,6 +1905,10 @@
     ],
     "example": [
       {
+        "label": "dotnet-dependency-graph",
+        "href": "../.spec-workflow/archive/specs/dotnet-dependency-graph/requirements.md"
+      },
+      {
         "label": "dotnet-project-dependency-graph",
         "href": "https://github.com/mmarinchenko/dotnet-project-dependency-graph"
       }
@@ -1767,6 +1917,7 @@
   {
     "origin": "gcp/architecture",
     "name": "GCP architecture diagram",
+    "kind": "diagram",
     "group": "8. Infrastructure, network & cloud diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1786,7 +1937,8 @@
   },
   {
     "origin": "helm/chart",
-    "name": "Helm chart anatomy (read-only, folder-subject: Chart.yaml metadata, values layering, templates and the kinds they render, declared dependencies and their vendored resolution)",
+    "name": "Helm chart",
+    "kind": "diagram",
     "group": "8. Infrastructure, network & cloud diagrams",
     "developState": "Prototype",
     "releaseState": "Prototype",
@@ -1811,6 +1963,7 @@
   {
     "origin": "network/topology",
     "name": "Network topology diagram",
+    "kind": "diagram",
     "group": "8. Infrastructure, network & cloud diagrams",
     "developState": "Identified",
     "releaseState": "Identified",
@@ -1830,7 +1983,8 @@
   },
   {
     "origin": "gartner/hypecycle-graph",
-    "name": "Gartner hype cycle graph (trends on a time axis, each a right-pointing arrow banner divided into the Peak, Trough, Slope and Plateau phases it has reached, joined by influences anchored to a phase of each trend; .ghg, ADP's own YAML schema; unique to ADP); gartner-hype-cycle-graph (approved; backend module, client canvas and the technology-trends, digital-trends, energy-breakthroughs, llms-and-agents, eras-of-innovation, coal-technologies, electric-vehicles, internet-evolution and warfare-in-ukraine examples in place, a per-document time unit of month, year, decade or century, browser pass recorded in tests.md; a Compact toggle drawing every trend one width in start order, specified in ghg-compact-mode; triggers - moments drawn as circles, influencing trends - and word-wrapped notes, with real triggers in every example, specified in ghg-triggers-and-notes)",
+    "name": "Gartner hype cycle graph",
+    "kind": "diagram",
     "group": "9. Strategy & landscape mapping",
     "developState": "Work-in-progress",
     "releaseState": "Work-in-progress",
@@ -1841,11 +1995,25 @@
         "href": "https://en.wikipedia.org/wiki/Gartner_hype_cycle"
       }
     ],
-    "example": []
+    "example": [
+      {
+        "label": "gartner-hype-cycle-graph",
+        "href": "../.spec-workflow/specs/gartner-hype-cycle-graph/requirements.md"
+      },
+      {
+        "label": "ghg-compact-mode",
+        "href": "../.spec-workflow/specs/ghg-compact-mode/requirements.md"
+      },
+      {
+        "label": "ghg-triggers-and-notes",
+        "href": "../.spec-workflow/specs/ghg-triggers-and-notes/requirements.md"
+      }
+    ]
   },
   {
     "origin": "wardley/map",
-    "name": "Wardley Map",
+    "name": "Wardley map",
+    "kind": "diagram",
     "group": "9. Strategy & landscape mapping",
     "developState": "Prototype",
     "releaseState": "Prototype",

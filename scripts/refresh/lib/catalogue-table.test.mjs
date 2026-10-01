@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
 import { CATALOGUE_PATHS, catalogueFileOf, toolsFor, isUnderway, isUsable, mapState, parseCatalogue, stripStateEmoji } from './catalogue-table.mjs';
 
-const markdown = readFileSync(new URL('../fixtures/standalone/docs/diagrams.md', import.meta.url), 'utf8');
+const markdown = readFileSync(new URL('../fixtures/standalone/docs/tools.md', import.meta.url), 'utf8');
 const states = JSON.parse(readFileSync(new URL('../../../procedures/config/states.json', import.meta.url), 'utf8'));
 
 describe('parseCatalogue', () => {
@@ -77,16 +77,16 @@ describe('isUsable and isUnderway', () => {
 	});
 });
 
-// etalii.adp spec 002 renames a host's docs/diagrams.md to docs/tools.md ("Tool types", with a Kind column); until its
-// Part 7 the refresh reads either.
-describe('the catalogue as docs/tools.md or docs/diagrams.md', () => {
+// etalii.adp spec 002 renamed a host's docs/diagrams.md to docs/tools.md ("Tool types", with a Kind column); since its
+// Part 7 (T064) the refresh reads docs/tools.md only.
+describe('the catalogue as docs/tools.md', () => {
 	const tools = markdown.replace('<tr><th>State</th><th>Origin</th><th>Diagram</th>', '<tr><th>State</th><th>Origin</th><th>Kind</th><th>Tool</th>').replace(/(<td style="white-space: nowrap;"><code>[^<]+<\/code><\/td>)/g, '$1<td>Diagram</td>');
 	const reader = (files) => ({ async readFileAt(ref, path) { return files[`${ref}:${path}`] ?? null; } });
 
-	it('tries docs/tools.md first', () => {
-		assert.deepEqual(CATALOGUE_PATHS, ['docs/tools.md', 'docs/diagrams.md']);
+	it('reads docs/tools.md and no longer docs/diagrams.md', () => {
+		assert.deepEqual(CATALOGUE_PATHS, ['docs/tools.md']);
 		assert.equal(catalogueFileOf([{ sourcePath: 'docs/diagrams.md' }, { sourcePath: 'docs/tools.md' }]).sourcePath, 'docs/tools.md');
-		assert.equal(catalogueFileOf([{ sourcePath: 'docs/diagrams.md' }]).sourcePath, 'docs/diagrams.md');
+		assert.equal(catalogueFileOf([{ sourcePath: 'docs/diagrams.md' }]), undefined);
 		assert.equal(catalogueFileOf([{ sourcePath: 'README.md' }]), undefined);
 	});
 
@@ -95,7 +95,7 @@ describe('the catalogue as docs/tools.md or docs/diagrams.md', () => {
 		const rows = parseCatalogue(tools);
 		assert.ok(rows.every((row) => row.kind === 'diagram'));
 		assert.deepEqual(rows.map(({ kind, ...row }) => row), parseCatalogue(markdown));
-		assert.ok(parseCatalogue(markdown).every((row) => !('kind' in row)), 'docs/diagrams.md has no Kind column, so no kind');
+		assert.ok(parseCatalogue(markdown).every((row) => !('kind' in row)), 'a catalogue without a Kind column gives no kind');
 	});
 
 	it('reads each kind (Diagram, Designer, Editor) in the Kind column, and an empty one as none', () => {
@@ -112,17 +112,15 @@ describe('the catalogue as docs/tools.md or docs/diagrams.md', () => {
 		assert.throws(() => parseCatalogue('<table><tr><th>State</th><th>Origin</th><th>Label</th></tr><tr><td>Idea</td><td>a/b</td><td>x</td></tr></table>'), /no name column: one of diagram, tool, name, tool type \(found state, origin, label\)/);
 	});
 
-	it('reads docs/tools.md at develop and falls back to docs/diagrams.md at the release', async () => {
-		const found = await toolsFor('standalone', reader({ 'head:docs/tools.md': tools, 'head:docs/diagrams.md': 'stale', 'v1:docs/diagrams.md': markdown }), { head: 'head', release: { commit: 'v1' }, states });
+	it('reads docs/tools.md at develop and at the release', async () => {
+		const found = await toolsFor('standalone', reader({ 'head:docs/tools.md': tools, 'head:docs/diagrams.md': 'stale', 'v1:docs/tools.md': markdown }), { head: 'head', release: { commit: 'v1' }, states });
 		assert.equal(found.path, 'docs/tools.md');
 		assert.equal(found.entries.length, 11);
 		assert.equal(found.entries.find((e) => e.origin === 'freeplane/mindmap').releaseState, 'Prototype');
 	});
 
-	it('falls back to docs/diagrams.md at develop, and reports a host with neither as missing', async () => {
-		const found = await toolsFor('standalone', reader({ 'head:docs/diagrams.md': markdown }), { head: 'head', release: null, states });
-		assert.equal(found.path, 'docs/diagrams.md');
-		assert.equal(found.entries.length, 11);
+	it('reports a host without docs/tools.md as missing, even when it still has docs/diagrams.md', async () => {
+		assert.deepEqual(await toolsFor('standalone', reader({ 'head:docs/diagrams.md': markdown }), { head: 'head', release: null, states }), { missingCatalogue: true });
 		assert.deepEqual(await toolsFor('standalone', reader({}), { head: 'head', release: null, states }), { missingCatalogue: true });
 	});
 });

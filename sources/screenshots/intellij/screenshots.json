@@ -2,7 +2,7 @@
   {
     "file": "drawio-activity.png",
     "origin": "jgraph/drawio",
-    "expectation": "The draw.io designer in its tab: the three thread swimlanes with their activities, the `queue empty` decision with its `yes`/`no` branches and the red bar; the ADP Toolbox on the right listing the Elements (Rectangle to List) and Connections (Connector). Nothing selected.",
+    "expectation": "The draw.io diagram in its tab: the three thread swimlanes with their activities, the `queue empty` decision with its `yes`/`no` branches and the red bar; the ADP Toolbox on the right listing the Elements (Rectangle to List) and Connections (Connector). Nothing selected.",
     "document": "`drawio/testdata/examples/activity_diagram_1.drawio`",
     "bytes": 111176,
     "width": 1600,
@@ -13,7 +13,7 @@
   {
     "file": "drawio-cross-functional.png",
     "origin": "jgraph/drawio",
-    "expectation": "The draw.io designer in its tab: the `Pool` with its six lanes, the process boxes and decisions with their orthogonal connectors; the ADP Toolbox on the right as above. Nothing selected.",
+    "expectation": "The draw.io diagram in its tab: the `Pool` with its six lanes, the process boxes and decisions with their orthogonal connectors; the ADP Toolbox on the right as above. Nothing selected.",
     "document": "`drawio/testdata/examples/cross_functional_flowchart_1.drawio`",
     "bytes": 107585,
     "width": 1600,
@@ -24,7 +24,7 @@
   {
     "file": "mindmap.png",
     "origin": "freeplane/mindmap",
-    "expectation": "The FreeMind Mind Map designer in its tab: the root `Thu_learn` on the left with its branches laid out to the right, the blue arrow links between nodes drawn, and the info icons on `file` and `note`. The map is taller than the window, so its lower branches run off the bottom. Nothing selected.",
+    "expectation": "The FreeMind Mind map in its tab: the root `Thu_learn` on the left with its branches laid out to the right, the blue arrow links between nodes drawn, and the info icons on `file` and `note`. The map is taller than the window, so its lower branches run off the bottom. Nothing selected.",
     "document": "`freemind/testdata/examples/freemind-0.9.0-arrow-links-icons-cjk.mm`",
     "bytes": 109179,
     "width": 1600,

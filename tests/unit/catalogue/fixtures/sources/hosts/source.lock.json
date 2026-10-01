@@ -17,7 +17,7 @@
     {
       "path": "hosts.json",
       "repository": "etalii-adp/etalii.adp.ide.standalone",
-      "sourcePath": "docs/diagrams.md",
+      "sourcePath": "docs/tools.md",
       "commit": "9831d6465ed9c9a9d9bb04ae34bca95769f27c73",
       "gitBlob": "2b8f453fe168c3b69fa2aa18a9555b2d377e9016",
       "sha256": "0d7b023abf31539f7ed7233fdcb33ce0853e6e9030bd9078b9328fbba1792b40",

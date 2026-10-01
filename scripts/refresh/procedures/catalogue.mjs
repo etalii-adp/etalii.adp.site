@@ -1,4 +1,4 @@
-// refresh-catalogue: each IDE host's tool catalogue (docs/tools.md, else docs/diagrams.md), copied verbatim and turned into
+// refresh-catalogue: each IDE host's tool catalogue (docs/tools.md), copied verbatim and turned into
 // sources/catalogue/<host>/catalogue.json with site states: the mapped `develop` state, with the release state recorded.
 // Then spec 003's catalogue steps: the Notion snapshot and the catalogue report before Verify, and the Notion host
 // columns after it. Only this procedure changes the catalogue files under src/content/catalogue/.

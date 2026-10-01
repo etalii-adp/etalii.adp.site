@@ -88,7 +88,7 @@ describe('renderDecisionIssue', () => {
 		const body = renderDecisionIssue({
 			procedure: 'refresh-catalogue',
 			question: 'How should the source state "Experimental" in standalone map to a site state?',
-			subject: 'etalii-adp/etalii.adp.ide.standalone docs/diagrams.md',
+			subject: 'etalii-adp/etalii.adp.ide.standalone docs/tools.md',
 			options: ['identified', 'prototype'],
 			writeTo: 'procedures/config/states.json',
 			key: ['mappings', 'standalone', 'Experimental'],

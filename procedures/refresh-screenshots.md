@@ -6,10 +6,10 @@ Brings the site's screenshots (spec 003) up to the images committed in each IDE 
 
 | Repository | Ref | Paths | Visibility |
 |---|---|---|---|
-| etalii-adp/etalii.adp.ide.standalone | develop | `docs/screenshots/*.png`, `docs/screenshots/readme.md`, `docs/tools.md`, `docs/diagrams.md` | private |
-| etalii-adp/etalii.adp.ide.intellij | develop | `docs/screenshots/*.png`, `docs/screenshots/readme.md`, `docs/tools.md`, `docs/diagrams.md` | private (not present yet) |
-| etalii-adp/etalii.adp.ide.vscode | develop | `docs/screenshots/*.png`, `docs/screenshots/readme.md`, `docs/tools.md`, `docs/diagrams.md` | private (not present yet) |
-| etalii-adp/etalii.adp.ide.eclipse | develop | `docs/screenshots/*.png`, `docs/screenshots/readme.md`, `docs/tools.md`, `docs/diagrams.md` | private (not present yet) |
+| etalii-adp/etalii.adp.ide.standalone | develop | `docs/screenshots/*.png`, `docs/screenshots/readme.md`, `docs/tools.md` | private |
+| etalii-adp/etalii.adp.ide.intellij | develop | `docs/screenshots/*.png`, `docs/screenshots/readme.md`, `docs/tools.md` | private (not present yet) |
+| etalii-adp/etalii.adp.ide.vscode | develop | `docs/screenshots/*.png`, `docs/screenshots/readme.md`, `docs/tools.md` | private (not present yet) |
+| etalii-adp/etalii.adp.ide.eclipse | develop | `docs/screenshots/*.png`, `docs/screenshots/readme.md`, `docs/tools.md` | private (not present yet) |
 
 The readme and the catalogue are read, not copied: the readme states what each image must show and its budget, and the catalogue says which tools are usable, so that a missing screenshot is reported.
 

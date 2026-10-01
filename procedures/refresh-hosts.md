@@ -6,10 +6,10 @@ Brings the state of each IDE host on the home page (spec 001) up to date: standa
 
 | Repository | Ref | Paths | Visibility |
 |---|---|---|---|
-| etalii-adp/etalii.adp.ide.standalone | develop | `docs/tools.md`, `docs/diagrams.md` | private |
-| etalii-adp/etalii.adp.ide.intellij | develop | `docs/tools.md`, `docs/diagrams.md` | private (not present yet) |
-| etalii-adp/etalii.adp.ide.vscode | develop | `docs/tools.md`, `docs/diagrams.md` | private (not present yet) |
-| etalii-adp/etalii.adp.ide.eclipse | develop | `docs/tools.md`, `docs/diagrams.md` | private (not present yet) |
+| etalii-adp/etalii.adp.ide.standalone | develop | `docs/tools.md` | private |
+| etalii-adp/etalii.adp.ide.intellij | develop | `docs/tools.md` | private (not present yet) |
+| etalii-adp/etalii.adp.ide.vscode | develop | `docs/tools.md` | private (not present yet) |
+| etalii-adp/etalii.adp.ide.eclipse | develop | `docs/tools.md` | private (not present yet) |
 
 ## Updates
 
@@ -20,8 +20,8 @@ Brings the state of each IDE host on the home page (spec 001) up to date: standa
 A host's state follows three rules, in order:
 
 1. **available**: at least one of its tools is `prototype`, `implemented` or `available` (see [refresh-catalogue.md](refresh-catalogue.md)), and the host has a published release to install;
-2. **in progress**: otherwise, its catalogue (`docs/tools.md`, or `docs/diagrams.md`) has at least one tool whose `develop` state maps to `in-progress` or later (Work-in-progress, Prototype or Implemented);
-3. **planned**: otherwise, including a host with no `docs/diagrams.md`.
+2. **in progress**: otherwise, its catalogue (`docs/tools.md`) has at least one tool whose `develop` state maps to `in-progress` or later (Work-in-progress, Prototype or Implemented);
+3. **planned**: otherwise, including a host with no `docs/tools.md`.
 
 ## Before you start
 

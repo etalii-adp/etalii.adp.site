@@ -66,7 +66,7 @@ describe('refresh-screenshots', () => {
 		const lock = site.json('sources/screenshots/source.lock.json');
 		assert.ok(lock.files.every((f) => f.path.endsWith('.png')), JSON.stringify(lock.files.map((f) => f.path)));
 		assert.ok(!site.exists('sources/screenshots/standalone/capture.mjs'));
-		assert.deepEqual(lock.inputs.map((i) => i.sourcePath).sort(), ['docs/diagrams.md', README]);
+		assert.deepEqual(lock.inputs.map((i) => i.sourcePath).sort(), [README, 'docs/tools.md']);
 	});
 
 	it('(g) takes nothing from a host without docs/screenshots/, without failing', () => {
