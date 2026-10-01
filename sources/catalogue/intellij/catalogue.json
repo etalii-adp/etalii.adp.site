@@ -2,6 +2,7 @@
   {
     "origin": "jgraph/drawio",
     "name": "draw.io diagram (shapes, edges, labels and swimlanes; uncompressed .drawio files)",
+    "kind": "diagram",
     "group": "General-purpose diagramming",
     "developState": "Implemented",
     "releaseState": null,
@@ -26,6 +27,7 @@
   {
     "origin": "freeplane/mindmap",
     "name": "FreeMind mind map (radial/hierarchical, single central topic; FreeMind and Freeplane .mm files)",
+    "kind": "diagram",
     "group": "Knowledge & informal modeling",
     "developState": "Implemented",
     "releaseState": null,

@@ -12,6 +12,8 @@
   "databricks/job",
   "databricks/pipeline",
   "dotnet/dependency-graph",
+  "editor/markdown",
+  "editor/plain",
   "etalii/functional-decomposition-graph",
   "freeplane/mindmap",
   "gartner/hypecycle-graph",
