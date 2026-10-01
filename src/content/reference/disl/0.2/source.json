@@ -1,0 +1,95 @@
+{
+  "language": "disl",
+  "version": "0.2",
+  "status": "Working Draft",
+  "date": "2026-09-30",
+  "source": {
+    "kind": "git",
+    "repository": "etalii-adp/etalii.adp",
+    "path": "specifications/disl",
+    "revision": "4590c569a8b4f24d3304a83ca43fa4b700c33ad3",
+    "licence": "Apache-2.0",
+    "copyright": "Copyright © Peter Vrenken 2026"
+  },
+  "files": [
+    {
+      "name": "c4-container.dis",
+      "role": "definition",
+      "sha256": "74e90cd2f99de4759e9809740058811a58e8b5ed0b50140c4718fd704385ff28",
+      "size": 25257
+    },
+    {
+      "name": "causal-loop.dis",
+      "role": "definition",
+      "sha256": "85857a8a7a304582014f0270c3f9e2d4e20460712b1307236da942e16ff28733",
+      "size": 20224
+    },
+    {
+      "name": "databricks-job.dis",
+      "role": "definition",
+      "sha256": "dc1f5b1d9c54b52ceaaa379c18edb27a8805777f5e3a1bfe605ec6297704abba",
+      "size": 26021
+    },
+    {
+      "name": "DISL-specification.md",
+      "role": "prose",
+      "sha256": "fb48dd9c6a799d209caf81a926409683495ebe088cd731a1b88090497834eb80",
+      "size": 635229
+    },
+    {
+      "name": "disl.schema.json",
+      "role": "schema",
+      "sha256": "a95cc4ac5ff7d3dc941265fb6793f5ddc73a3c53b8047e16ffe549657a298ef8",
+      "size": 379474
+    },
+    {
+      "name": "erd.dis",
+      "role": "definition",
+      "sha256": "7cda227c7f8df6f6da8054b7d8c89b7e306c83df58f0816ddea78ee751b97cc6",
+      "size": 9674
+    },
+    {
+      "name": "findings.json",
+      "role": "other",
+      "sha256": "71e4e09e37733a2784436b95b620ceee41fff446e5b630eac1c5be6851437f29",
+      "size": 1926
+    },
+    {
+      "name": "functional-decomposition.dis",
+      "role": "definition",
+      "sha256": "583280913f65a81be17d29ba5935648403fbaa30ffe3703d5aea9179abd12e54",
+      "size": 15834
+    },
+    {
+      "name": "gartner-hype-cycle.dis",
+      "role": "definition",
+      "sha256": "a887e3734b246c67530be2da690798488cac6d3d2e777df8911a37c75547fea0",
+      "size": 31156
+    },
+    {
+      "name": "mindmap.dis",
+      "role": "definition",
+      "sha256": "10515927ace66a2077d9492a909c60e6e919f8e28907da64cc1f7d041086b383",
+      "size": 17933
+    },
+    {
+      "name": "rdf-graph.dis",
+      "role": "definition",
+      "sha256": "e206a85e26c0fbfb356b0fe6bcdf808a0eadfd788d4678eaa3f303bad2a21fa2",
+      "size": 34247
+    },
+    {
+      "name": "statemachine.dis",
+      "role": "definition",
+      "sha256": "c0a864d831cbfaef3eccdb593673c3667ff5fbd113bd1137fa9249776f1e73c9",
+      "size": 22809
+    },
+    {
+      "name": "timeline.dis",
+      "role": "definition",
+      "sha256": "b3c3f123d69a0259b9b4e5e23ac9ff7f3376a28f9afc1f8755f37a8ea986d37b",
+      "size": 15376
+    }
+  ],
+  "retrieved": "2026-10-01T06:35:19Z"
+}

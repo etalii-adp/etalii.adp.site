@@ -8,7 +8,7 @@ This contract states every transformation between the prose source and the publi
 |---|---|---|
 | S1 | Everything before the first `## <number>.` heading forms the cover page. | D4 |
 | S2 | The H2 whose text is `Table of contents` and its body are not rendered. The generated table of contents replaces it. | D4 |
-| S3 | Each H2 `## <n>. <title>` and `## Appendix <X> — <title>` starts a new page, which runs up to the next such H2. | D4 |
+| S3 | From the first `## <n>. <title>` on, each H2 starts a new page, which runs up to the next H2: `## <n>. <title>` a section, `## Appendix <X> — <title>` an appendix, any other a page without a number. | D4 |
 | S4 | Thematic breaks (`---`) directly before a page split are dropped. Everywhere else they are kept. | D4 |
 | S5 | Every heading keeps the GitHub slug of its source text as its `id`. | D4 |
 

@@ -71,8 +71,9 @@ describe('splitting the prose (rules S1–S4)', () => {
 		expect(pages.at(-1)!.next).toBeNull();
 	});
 
-	it('fails on a top-level heading of an unknown form, naming it', () => {
-		const bad = prose.replace('## Appendix D — Design rationale and open questions', '## Design rationale');
-		expect(() => splitProse(bad)).toThrow(/"Design rationale"/);
+	it('makes an unnumbered top-level heading a page without a number', () => {
+		const split = splitProse(prose.replace('## Appendix D — Design rationale and open questions', '## Changes from 0.1'));
+		const page = split.sections.find((s) => s.page.slug === 'changes-from-01')!.page;
+		expect(page).toMatchObject({ number: null, title: 'Changes from 0.1' });
 	});
 });

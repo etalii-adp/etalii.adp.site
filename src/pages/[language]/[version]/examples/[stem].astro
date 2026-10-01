@@ -9,7 +9,7 @@ import { exampleFileHref, renderDemonstrates } from '../../../../lib/reference/e
 import { highlightJson } from '../../../../lib/reference/render';
 import { versionRoutes, type VersionRoute } from '../../../../lib/reference/routes';
 import { examplesHref, layerSections, pageHref } from '../../../../lib/reference/site';
-import { documentStructureVisual, LAYERS, layerMapVisual, metamodelVisual } from '../../../../lib/reference/visuals';
+import { bindingMapVisual, documentStructureVisual, LAYERS, layerMapVisual, metamodelVisual } from '../../../../lib/reference/visuals';
 import { toHtml } from 'hast-util-to-html';
 
 export function getStaticPaths() {
@@ -30,7 +30,9 @@ const isDefinition = example.file.role === 'definition';
 const layers = layerSections(version, segment);
 const visuals = isDefinition
 	? [metamodelVisual(example.file.name, example.parsed, revision), layerMapVisual(example.file.name, example.parsed, revision, layers)]
-	: [documentStructureVisual(example.file.name, example.parsed, revision)];
+	: language === 'fbl'
+		? [bindingMapVisual(example.file.name, example.parsed, revision)]
+		: [documentStructureVisual(example.file.name, example.parsed, revision)];
 const demonstrates = await renderDemonstrates(version, segment, example);
 const fileHtml = toHtml(await highlightJson(version.file(example.file.name).toString('utf8').replace(/\r?\n$/, '')));
 const title = example.label.replace(/^\d+(?:\.\d+)*\s+/, '');

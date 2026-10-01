@@ -105,14 +105,11 @@ export function splitProse(markdown: string): Split {
 		if (!inToc) coverNodes.push(node);
 	}
 
-	// S3: each top-level heading of the known forms starts a page.
+	// S3: each top-level heading after the first section starts a page; one that is neither numbered nor an appendix
+	// ("## Changes from 0.1") is a page without a number.
 	const groups: RootContent[][] = [];
 	for (const node of children.slice(firstSection)) {
 		if (isTopLevel(node)) {
-			const text = toString(node);
-			if (!TOP_LEVEL.test(text)) {
-				throw new Error(`The top-level heading "${text}" is neither "## <n>. <title>" nor "## Appendix <X> — <title>" (contracts/source-inputs.md S1).`);
-			}
 			groups.push([node]);
 		} else {
 			groups.at(-1)!.push(node);
@@ -142,13 +139,13 @@ export function splitProse(markdown: string): Split {
 	const sections: SplitPage[] = groups.map((group) => {
 		const head = group[0] as MdHeading;
 		const { text, informative } = headingText(head);
-		const match = TOP_LEVEL.exec(text)!;
+		const match = TOP_LEVEL.exec(text);
 		const slug = pageSlug(text);
 		const page: Page = {
 			kind: 'section',
 			slug,
-			title: withoutInformative(match[2] ?? match[4]),
-			number: match[1] ?? match[3],
+			title: withoutInformative(match ? (match[2] ?? match[4]) : text),
+			number: match ? (match[1] ?? match[3]) : null,
 			informative,
 			prev: null,
 			next: null,

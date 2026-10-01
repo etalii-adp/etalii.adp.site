@@ -114,7 +114,7 @@ describe('reference:refresh (contracts/refresh-cli.md)', () => {
 		expect(readdirSync(root)).toEqual([]);
 	});
 
-	it("refuses an example whose $schema names another version", async () => {
+	it("refuses an example whose $schema names a newer version", async () => {
 		const example = edit('erd.dis', 'schema/0.1/disl.schema.json', 'schema/0.2/disl.schema.json');
 		const { code, report } = await run(fakeGitHub({ files: { 'erd.dis': example } }));
 		expect(code).toBe(1);

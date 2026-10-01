@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { documentStructureVisual, layerCounts, layerMapVisual, metamodelVisual, type LayerSection } from '../../src/lib/reference/visuals';
+import { bindingMapVisual, documentStructureVisual, layerCounts, layerMapVisual, metamodelVisual, type LayerSection } from '../../src/lib/reference/visuals';
 import { fixtureFile, fixtureRevision } from './fixture';
 
 const json = (name: string) => JSON.parse(fixtureFile(name).toString('utf8'));
@@ -86,5 +86,36 @@ describe('the document-structure view', () => {
 	it('is described and captioned', () => {
 		expectAccessible(visual.mermaid);
 		expect(visual.caption).toBe('Generated from `timeline.document.json` at `aaef333`');
+	});
+});
+
+describe('the binding-map view', () => {
+	const fbl = {
+		fbl: '0.1',
+		bindings: {
+			cld: {
+				title: 'Causal loop diagram',
+				claims: { extensions: ['.cld'] },
+				body: { kind: 'file', family: 'line' },
+				elements: [{ name: 'variable', type: 'Variable' }],
+				relations: [{ name: 'link', type: 'CausalLink' }],
+			},
+			chart: { title: 'Helm chart', claims: {}, body: { kind: 'folder' }, readOnly: true },
+		},
+	};
+	const visual = bindingMapVisual('causal-loop-diagram.fbl', fbl, fixtureRevision);
+
+	it('is a flowchart of each binding with its element and relation rules', () => {
+		expect(visual.kind).toBe('binding-map');
+		expect(visual.mermaid).toMatch(/^flowchart\b/);
+		expect(visual.mermaid).toContain('b_cld["Causal loop diagram<br/>cld<br/>.cld, line family"]');
+		expect(visual.mermaid).toContain('e_cld_variable("variable<br/>Variable")');
+		expect(visual.mermaid).toContain('b_cld -->|relation| r_cld_link');
+		expect(visual.mermaid).toContain('b_chart["Helm chart<br/>chart<br/>read only"]');
+	});
+
+	it('is described and captioned', () => {
+		expectAccessible(visual.mermaid);
+		expect(visual.caption).toBe('Generated from `causal-loop-diagram.fbl` at `aaef333`');
 	});
 });

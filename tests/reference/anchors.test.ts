@@ -44,9 +44,15 @@ describe('page slugs (research D4)', () => {
 		expect(pageSlug('5. Layer 2 — Coordinate systems, placement and snapping')).toBe('layer-2-coordinate-systems-placement-and-snapping');
 	});
 
-	it('refuse the reserved slugs', () => {
+	it('keep the number when the slug without it is reserved', () => {
 		for (const reserved of ['Latest', 'Schema', 'Search', 'Examples']) {
-			expect(() => pageSlug(`9. ${reserved}`)).toThrow(/reserved/);
+			expect(pageSlug(`9. ${reserved}`)).toBe(`9-${reserved.toLowerCase()}`);
+		}
+	});
+
+	it('refuse an unnumbered heading that gives a reserved slug', () => {
+		for (const reserved of ['Latest', 'Schema', 'Search', 'Examples']) {
+			expect(() => pageSlug(reserved)).toThrow(/reserved/);
 		}
 	});
 });

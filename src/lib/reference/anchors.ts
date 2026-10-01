@@ -21,12 +21,16 @@ export function headingNumber(text: string): string | null {
 	return numbered ? numbered[1] : null;
 }
 
-/** The page slug of a top-level heading: its GitHub slug without the leading number, runs of `-` collapsed. */
+/**
+ * The page slug of a top-level heading: its GitHub slug without the leading number, runs of `-` collapsed. When that
+ * slug is reserved, the number stays (`10. Examples` gives `10-examples`), so a specification need not know the site's
+ * addresses; an unnumbered heading that gives a reserved slug is refused.
+ */
 export function pageSlug(text: string): string {
-	const result = headingId(text)
-		.replace(/^\d+-/, '')
-		.replace(/-{2,}/g, '-')
-		.replace(/^-|-$/g, '');
+	const collapse = (value: string): string => value.replace(/-{2,}/g, '-').replace(/^-|-$/g, '');
+	const numbered = collapse(headingId(text));
+	let result = collapse(headingId(text).replace(/^\d+-/, ''));
+	if ((RESERVED_SLUGS as readonly string[]).includes(result)) result = numbered;
 	if ((RESERVED_SLUGS as readonly string[]).includes(result)) {
 		throw new Error(`The heading "${text}" gives the page slug "${result}", which is reserved (contracts/site-addresses.md).`);
 	}

@@ -22,6 +22,17 @@
     "schemaAddress": "/did/schema/{version}/{schema}"
   },
   {
+    "id": "fbl",
+    "name": "FBL — Format Binding Language",
+    "short": "FBL",
+    "repository": "etalii-adp/etalii.adp",
+    "branch": "develop",
+    "path": "specifications/fbl",
+    "prose": "FBL-specification.md",
+    "schema": "fbl.schema.json",
+    "schemaAddress": "/fbl/schema/{version}/{schema}"
+  },
+  {
     "id": "dedl",
     "name": "DEDL — Diagram Editor Definition Language",
     "short": "DEDL",

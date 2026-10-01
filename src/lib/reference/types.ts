@@ -159,7 +159,7 @@ export interface SchemaDefinition {
 	anchor: string;
 }
 
-export type VisualKind = 'source-diagram' | 'metamodel' | 'layer-map' | 'document-structure';
+export type VisualKind = 'source-diagram' | 'metamodel' | 'layer-map' | 'document-structure' | 'binding-map';
 
 /** A picture of a construct or an example (data-model "Visual"). */
 export interface Visual {
