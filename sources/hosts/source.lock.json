@@ -1,18 +1,18 @@
 {
   "procedure": "refresh-hosts",
-  "refreshedAt": "2026-09-28T11:09:44.052Z",
+  "refreshedAt": "2026-10-01T20:09:54.472Z",
   "sourceHeads": {
-    "etalii-adp/etalii.adp.ide.eclipse": "3c6cf515fa6e6a3cb6d3df6d707467eccba72e9b",
-    "etalii-adp/etalii.adp.ide.intellij": "613402d4eed252e354ad613edc60eca196c441bd",
-    "etalii-adp/etalii.adp.ide.standalone": "091d364826b850bba40f251d0c1719dc84676f76",
-    "etalii-adp/etalii.adp.ide.vscode": "c360bcc1b283a08c6c7c455eb6fd842431be4206"
+    "etalii-adp/etalii.adp.ide.eclipse": "cef652124f722dfe54da912579bd55a7d240733d",
+    "etalii-adp/etalii.adp.ide.intellij": "d5ae4cd98e599f32f672ee02d33a74dcbf14b527",
+    "etalii-adp/etalii.adp.ide.standalone": "38d4495f58ee95139141cfa932e1362d1de0bf66",
+    "etalii-adp/etalii.adp.ide.vscode": "0ba20075af978062180575ab5afc30a730f1f48a"
   },
   "releases": {
     "etalii-adp/etalii.adp.ide.eclipse": null,
     "etalii-adp/etalii.adp.ide.intellij": null,
     "etalii-adp/etalii.adp.ide.standalone": {
-      "tag": "v0.1.2068-alpha",
-      "commit": "091d364826b850bba40f251d0c1719dc84676f76"
+      "tag": "v0.1.2091-alpha",
+      "commit": "38d4495f58ee95139141cfa932e1362d1de0bf66"
     },
     "etalii-adp/etalii.adp.ide.vscode": null
   },
@@ -22,16 +22,22 @@
   "files": [],
   "inputs": [
     {
+      "repository": "etalii-adp/etalii.adp.ide.intellij",
+      "sourcePath": "docs/tools.md",
+      "commit": "f198f7514a49242244d45b66e9b7145c29131cdf",
+      "gitBlob": "a67240685ab72ea6732f340b65777fb4075d3b0a"
+    },
+    {
       "repository": "etalii-adp/etalii.adp.ide.standalone",
-      "sourcePath": "docs/diagrams.md",
-      "commit": "c5ef8d26b14f4cad6534d32b31849f20806c2201",
-      "gitBlob": "21eabb6e6884efcaacf243b89166f30046d7543e"
+      "sourcePath": "docs/tools.md",
+      "commit": "207e18f65ac539011d91dcda153b4cb91b258c3e",
+      "gitBlob": "c9f6d4afae89b3d032fa8116e593401bdb4a5456"
     }
   ],
   "derived": [
     {
       "path": "hosts.json",
-      "sha256": "43702bf6b61453c3a4649b46892c92c167ee119b7868f5f2691124a4bfc16dc8"
+      "sha256": "bca1b1180ef3ae7f42d239903cd2ae0e5af0087ae2f6707a81d46cf500f393ff"
     }
   ],
   "withdrawn": []
