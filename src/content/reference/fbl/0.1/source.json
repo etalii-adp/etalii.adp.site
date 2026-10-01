@@ -1,0 +1,77 @@
+{
+  "language": "fbl",
+  "version": "0.1",
+  "status": "Working Draft",
+  "date": "2026-09-30",
+  "source": {
+    "kind": "git",
+    "repository": "etalii-adp/etalii.adp",
+    "path": "specifications/fbl",
+    "revision": "4590c569a8b4f24d3304a83ca43fa4b700c33ad3",
+    "licence": "Apache-2.0",
+    "copyright": "Copyright © Peter Vrenken 2026"
+  },
+  "files": [
+    {
+      "name": "causal-loop-diagram.fbl",
+      "role": "document",
+      "sha256": "349a77751b9d1b2f2880a3e3a5a8693936e7b2aa4b87556c86d0b7c0865cc671",
+      "size": 3243
+    },
+    {
+      "name": "databricks-job.fbl",
+      "role": "document",
+      "sha256": "1097ed0d8cb0ebc5e6a35fae6df7efd9eae222df64d718040e839f59a2c8d5a8",
+      "size": 3957
+    },
+    {
+      "name": "databricks-pipeline.fbl",
+      "role": "document",
+      "sha256": "d3ca17f98181bbf597767ed1c234966edf0fd0bdd897d5da01498d3f381f203b",
+      "size": 2884
+    },
+    {
+      "name": "FBL-specification.md",
+      "role": "prose",
+      "sha256": "628886ff843aa4d55ab27bc38cd7e0bf70d451a7b6ed53c73db82c73a5f9f319",
+      "size": 80445
+    },
+    {
+      "name": "fbl.schema.json",
+      "role": "schema",
+      "sha256": "c05a39307d267f5411dc3a788e1c37ebde9b5c44e3eb48ea72b66601086665ae",
+      "size": 52420
+    },
+    {
+      "name": "helm-chart.fbl",
+      "role": "document",
+      "sha256": "8ae35c35fbcec34d0305373235524d280bbb864fc53efb2a6e9ab834026349aa",
+      "size": 1754
+    },
+    {
+      "name": "mindmap.fbl",
+      "role": "document",
+      "sha256": "e51769acede09a39b0906b00049f52fdb3e3b71137be5f96124347564c948950",
+      "size": 2601
+    },
+    {
+      "name": "structurizr.fbl",
+      "role": "document",
+      "sha256": "f588a18a3d9d15a43058d9d7a64129ade0b21be58296a7633be0d8cf5f138f7b",
+      "size": 6547
+    },
+    {
+      "name": "timeline.fbl",
+      "role": "document",
+      "sha256": "b51dc184e2384c1e2fa15b5d9077ef1277470ec7268081d3b9696e096b44e70b",
+      "size": 2782
+    },
+    {
+      "name": "w3c-turtle.fbl",
+      "role": "document",
+      "sha256": "f835a56efafc76800fdfec8868942d4ee74a8312c788f21baf411fd1a066d83b",
+      "size": 2248
+    }
+  ],
+  "retrieved": "2026-10-01T06:35:26Z"
+}

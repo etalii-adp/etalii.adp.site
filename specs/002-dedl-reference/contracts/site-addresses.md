@@ -18,7 +18,7 @@ These addresses are the reference's public interface. Readers link to them, vali
 | `/adp/dedl/latest/<old-slug>/` | stub for a page that was moved or removed | "moved to" or "removed in", link to last version that had it |
 | `/adp/dedl/search/` | search | `?v=<v>` preselects a version; `?q=` a query |
 
-The slugs `latest`, `schema`, `search` and `examples` are reserved. A section slug that equals one of them fails the build.
+The slugs `latest`, `schema`, `search` and `examples` are reserved. A numbered section whose slug would equal one of them keeps its number (`## 10. Examples` in DID 0.2 gives `10-examples`); an unnumbered one fails the build.
 
 ## Files
 

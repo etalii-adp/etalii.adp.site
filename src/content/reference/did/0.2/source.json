@@ -1,0 +1,41 @@
+{
+  "language": "did",
+  "version": "0.2",
+  "status": "Working Draft",
+  "date": "2026-09-30",
+  "source": {
+    "kind": "git",
+    "repository": "etalii-adp/etalii.adp",
+    "path": "specifications/did",
+    "revision": "4590c569a8b4f24d3304a83ca43fa4b700c33ad3",
+    "licence": "Apache-2.0",
+    "copyright": "Copyright © Peter Vrenken 2026"
+  },
+  "files": [
+    {
+      "name": "DID-specification.md",
+      "role": "prose",
+      "sha256": "8490880ca67e4073355a9698d0bc557052a64b6bf57c5153ce352f93e6549847",
+      "size": 46029
+    },
+    {
+      "name": "did.schema.json",
+      "role": "schema",
+      "sha256": "d1ab6e4dae9ae6432a27774fd3752b273c7081b8ebe44fa38f9dfcc59e804f4f",
+      "size": 14650
+    },
+    {
+      "name": "time-values.did",
+      "role": "document",
+      "sha256": "1a5158bace30af4a47e23d20fad320e9ca439740498a92227345bb47d2cdf35d",
+      "size": 2424
+    },
+    {
+      "name": "timeline.did",
+      "role": "document",
+      "sha256": "fa1a7fe90d05b64be169d144e321fb35ab8ec5898fe14499e30ec7bb96da4568",
+      "size": 2172
+    }
+  ],
+  "retrieved": "2026-10-01T06:35:20Z"
+}

@@ -75,19 +75,20 @@ function snapshotsOf(contentRoot: string, language: string): Snapshot[] {
 /** The `$schema` address of an example of this language, for any version, with the `$defs` root it names. */
 function exampleSchemaPattern(language: Language): RegExp {
 	const path = language.schemaAddress.replace('{schema}', language.schema).replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace('\\{version\\}', '([^/]+)');
-	return new RegExp(`^${SITE.replace(/[.]/g, '\\.')}${path}#/\\$defs/(Specification|Definition)$`);
+	return new RegExp(`^${SITE.replace(/[.]/g, '\\.')}${path}#/\\$defs/(Specification|Definition|Document)$`);
 }
 
 /**
  * The role of an example by the `$defs` root its `$schema` names: a DISL `Specification` is what a tool engineer
- * writes, recorded as `definition`, and a DID `Definition` is a stored diagram, recorded as `document`.
+ * writes, recorded as `definition`; a DID `Definition` is a stored diagram and an FBL `Document` a set of format
+ * bindings, both recorded as `document`.
  */
 function exampleRole(language: Language, root: string): FileRole {
-	return root === 'Definition' && language.id === 'did' ? 'document' : 'definition';
+	return (root === 'Definition' && language.id === 'did') || root === 'Document' ? 'document' : 'definition';
 }
 
-/** The file extensions of examples: DISL's (`.dis`, and the one it had before, still read) and DID's, or JSON. */
-const EXAMPLE = /\.(dis|disl|did|json)$/;
+/** The file extensions of examples: DISL's (`.dis`, and the one it had before, still read), DID's and FBL's, or JSON. */
+const EXAMPLE = /\.(dis|disl|did|fbl|json)$/;
 
 function classify(name: string, bytes: Buffer, language: Language, version: string): { role: FileRole; warning?: string } {
 	if (name === language.prose) return { role: 'prose' };
@@ -101,8 +102,9 @@ function classify(name: string, bytes: Buffer, language: Language, version: stri
 	}
 	const match = typeof schema === 'string' ? exampleSchemaPattern(language).exec(schema) : null;
 	if (!match) return { role: 'other', warning: `\`${name}\` has no \`$schema\` of this language's schema; stored as \`other\` and not published.` };
-	if (match[1] !== version) {
-		throw new RefreshError(`schema version or address mismatch: \`${name}\` declares \`$schema\` version ${match[1]}, the prose declares ${version}.`);
+	// An example may keep an older version's address: a newer version reads it (DISL 0.2 reads every 0.1 specification).
+	if (!/^\d+\.\d+(\.\d+)?$/.test(match[1]) || compareVersions(match[1], version) > 0) {
+		throw new RefreshError(`schema version or address mismatch: \`${name}\` declares \`$schema\` version ${match[1]}, newer than the prose's ${version}.`);
 	}
 	return { role: exampleRole(language, match[2]) };
 }

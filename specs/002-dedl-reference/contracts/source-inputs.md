@@ -11,10 +11,10 @@ If a source changes one of these expectations, the refresh stops and reports it 
 | Exactly one prose file, named as in `languages.json` (`DEDL-specification.md`) | refresh | stop |
 | The prose opens with an H1, then a line `**Specification, version <v> (<status>)**` | refresh | stop: "version not declared" |
 | The prose has a metadata table with a `Date` row (`YYYY-MM-DD`) | refresh | stop |
-| Top-level sections are H2s `## <n>. <title>` or `## Appendix <X> — <title>` | build | build fails, naming the heading |
+| Top-level sections start with an H2 `## <n>. <title>`; after it, every H2 starts a page, `## Appendix <X> — <title>` an appendix and any other (`## Changes from 0.1`) a page without a number (DISL 0.2, 2026-10-01) | build | build fails when there is no `## 1. …` |
 | Heading texts are unique enough that their GitHub slugs are unique | build | build fails, naming both headings |
 | One schema file, named as in `languages.json`, whose `$id` is `https://etalii.net/adp/<language>/schema/<v>/<schema>` with the same `<v>` | refresh | stop: "schema version or address mismatch" |
-| Every other `.dedl` or `.json` file has a `$schema` of `<$id>#/$defs/Definition` or `<$id>#/$defs/Document` | refresh | the file is stored as `other`, reported, not published |
+| Every other example file (`.dis`, `.did`, `.fbl` or `.json`) has a `$schema` of the language's schema address with `#/$defs/Specification`, `#/$defs/Definition` or `#/$defs/Document`; its version may be older than the prose's, which reads it (DISL 0.2 reads every 0.1 specification), never newer | refresh | no such `$schema`: stored as `other`, reported, not published; a newer version: stop, "schema version or address mismatch" |
 | A section of the prose embeds each example after a line ``File `…/<file>`:`` | build | warning: the example page has no "what it demonstrates" and no section link |
 | Appendix A.2 maps layers to `$defs` names in a two-column table | build | warning: schema definitions shown without layer grouping |
 | Appendix C is a two-column table of terms, with each term in bold | build | warning: no glossary links (T4) |

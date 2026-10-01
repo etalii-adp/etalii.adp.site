@@ -185,3 +185,53 @@ export function documentStructureVisual(file: string, document: Json, revision: 
 		caption: caption(file, revision),
 	};
 }
+
+/** Mermaid node ids are letters, digits and `_`. */
+function nodeId(...parts: string[]): string {
+	return parts.join('_').replace(/[^A-Za-z0-9_]/g, '_');
+}
+
+/**
+ * An FBL document's bindings (FBL section 3): each binding as a box with the files it claims and its body's format
+ * family, and the element and relation rules that read the body, each with the DISL type it produces.
+ */
+export function bindingMapVisual(file: string, document: Json, revision: string): Visual {
+	const bindings = isObject(document.bindings) ? Object.entries(document.bindings).filter((entry): entry is [string, Json] => isObject(entry[1])) : [];
+	const lines: string[] = [];
+	let elements = 0;
+	let relations = 0;
+	for (const [name, binding] of bindings) {
+		const claims = isObject(binding.claims) ? binding.claims : {};
+		const extensions = Array.isArray(claims.extensions) ? claims.extensions.filter((e): e is string => typeof e === 'string') : [];
+		const body = isObject(binding.body) ? binding.body : {};
+		const family = typeof body.family === 'string' ? body.family : null;
+		const title = typeof binding.title === 'string' ? binding.title : name;
+		const details = [extensions.join(' '), family && `${family} family`, binding.readOnly === true && 'read only'].filter(Boolean).join(', ');
+		const id = nodeId('b', name);
+		lines.push(`  ${id}["${label(title)}<br/>${label(name)}${details ? `<br/>${label(details)}` : ''}"]`);
+		for (const [kind, rules] of [
+			['element', binding.elements],
+			['relation', binding.relations],
+		] as const) {
+			for (const rule of Array.isArray(rules) ? rules.filter(isObject) : []) {
+				const ruleName = String(rule.name ?? '');
+				const ruleId = nodeId(kind === 'element' ? 'e' : 'r', name, ruleName);
+				lines.push(`  ${ruleId}${kind === 'element' ? '(' : '(['}"${label(ruleName)}<br/>${label(String(rule.type ?? ''))}"${kind === 'element' ? ')' : '])'}`);
+				lines.push(`  ${id} -->|${kind}| ${ruleId}`);
+				if (kind === 'element') elements++;
+				else relations++;
+			}
+		}
+	}
+	const title = `Bindings of ${file}`;
+	const description = oneLine(
+		`Flowchart of the bindings in ${file}: ${bindings.length} binding(s) (${bindings.map(([name]) => name).join(', ') || 'none'}) as boxes with the files they claim and their body's format family, and ${elements} element rule(s) and ${relations} relation rule(s) as rounded boxes with the type each produces.`
+	);
+	return {
+		kind: 'binding-map',
+		mermaid: ['flowchart LR', `  accTitle: ${title}`, `  accDescr: ${description}`, ...lines].join('\n'),
+		title,
+		description,
+		caption: caption(file, revision),
+	};
+}

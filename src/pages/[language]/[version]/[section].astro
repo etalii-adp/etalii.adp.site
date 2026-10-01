@@ -35,7 +35,7 @@ const rendered = await renderVersion(version, segment);
 const body = page ? rendered.pages.get(slug)! : undefined;
 const examples = examplesOf(version);
 const layer = layerSections(version, segment).find((l) => l.slug === slug)?.layer;
-const where = page && (/^[A-Z]$/.test(page.number ?? '') ? `Appendix ${page.number}` : `Section ${page.number}`);
+const where = page && (page.number === null ? 'A section' : /^[A-Z]$/.test(page.number) ? `Appendix ${page.number}` : `Section ${page.number}`);
 ---
 
 {
