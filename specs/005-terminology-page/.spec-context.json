@@ -1,0 +1,35 @@
+{
+  "workflow": "speckit",
+  "specName": "Terminology Page",
+  "branch": "features/005-terminology-page",
+  "currentStep": "implement",
+  "history": [
+    {
+      "step": "implement",
+      "substep": "fast-path",
+      "kind": "start",
+      "by": "ai",
+      "at": "2026-10-01T19:37:10.240Z"
+    },
+    {
+      "step": "implement",
+      "substep": "fast-path",
+      "kind": "complete",
+      "by": "ai",
+      "at": "2026-10-01T19:37:21.224Z"
+    },
+    {
+      "step": "implement",
+      "substep": null,
+      "kind": "start",
+      "by": "ai",
+      "at": "2026-10-01T19:37:41.402Z"
+    }
+  ],
+  "verified": [
+    {
+      "what": "FR-001 and FR-002: src/content/docs/docs/terminology.mdx is the page at /adp/docs/terminology/, it links to docs/terminology.md in etalii.adp, and src/content/docs/docs/index.mdx line 20 links to it (commit 62c92f7 on develop). Built without a plan or tasks; closed out 2026-10-01 at Peter's request to resolve the open Spec Kit specifications."
+    }
+  ],
+  "status": "completed"
+}
