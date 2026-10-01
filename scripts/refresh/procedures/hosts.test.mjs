@@ -3,7 +3,7 @@ import { after, before, describe, it } from 'node:test';
 import { makeRepo } from '../fixtures/repo.mjs';
 import { makeSite } from '../fixtures/site.mjs';
 
-const CATALOGUE = 'docs/diagrams.md';
+const CATALOGUE = 'docs/tools.md';
 const table = (state) => `<table><tr><th>State</th><th>Origin</th><th>Diagram</th><th>Theory</th><th>Example</th></tr>\n<tr><td>${state}</td><td><code>generic/timeline</code></td><td>Timeline</td><td>—</td><td>—</td></tr></table>\n`;
 const cleanups = [];
 after(() => cleanups.forEach((fn) => fn()));
@@ -29,7 +29,7 @@ describe('refresh-hosts', () => {
 		site.accept('hosts');
 	});
 
-	it('(a) derives planned for a host without docs/diagrams.md, and available for a released usable tool', () => {
+	it('(a) derives planned for a host without docs/tools.md, and available for a released usable tool', () => {
 		assert.equal(host('vscode').state, 'planned');
 		assert.equal(host('vscode').facts.catalogueCommit, null);
 		assert.equal(host('vscode').link, 'https://github.com/etalii-adp/etalii.adp.ide.vscode');

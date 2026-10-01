@@ -1,23 +1,23 @@
 # Refresh the tool catalogue
 
-Brings the site's tool catalogue (spec 003) up to each IDE host's own catalogue, `docs/tools.md` (or `docs/diagrams.md`, its name before etalii.adp spec 002), and maps each tool's state there to the site's shared states. States change less often than text, but mislead most when stale (constitution principle III).
+Brings the site's tool catalogue (spec 003) up to each IDE host's own catalogue, `docs/tools.md`, and maps each tool's state there to the site's shared states. States change less often than text, but mislead most when stale (constitution principle III).
 
 ## Sources
 
 | Repository | Ref | Paths | Visibility |
 |---|---|---|---|
-| etalii-adp/etalii.adp.ide.standalone | develop | `docs/tools.md`, `docs/diagrams.md` | private |
-| etalii-adp/etalii.adp.ide.intellij | develop | `docs/tools.md`, `docs/diagrams.md` | private (not present yet) |
-| etalii-adp/etalii.adp.ide.vscode | develop | `docs/tools.md`, `docs/diagrams.md` | private (not present yet) |
-| etalii-adp/etalii.adp.ide.eclipse | develop | `docs/tools.md`, `docs/diagrams.md` | private (not present yet) |
+| etalii-adp/etalii.adp.ide.standalone | develop | `docs/tools.md` | private |
+| etalii-adp/etalii.adp.ide.intellij | develop | `docs/tools.md` | private (not present yet) |
+| etalii-adp/etalii.adp.ide.vscode | develop | `docs/tools.md` | private (not present yet) |
+| etalii-adp/etalii.adp.ide.eclipse | develop | `docs/tools.md` | private (not present yet) |
 
-A host's catalogue is read from `docs/tools.md` when it has one, else from `docs/diagrams.md`: etalii.adp spec 002 (naming convention alignment) renamed the file to `docs/tools.md` ("Tool types", with a Kind column), but a host's latest release can still carry `docs/diagrams.md`, and its release states are read from there. The name column may be headed Diagram, Tool, Name or Tool type. A Kind column (Diagram, Designer or Editor), when present, gives each entry its `kind` in `catalogue.json`, and the site shows that kind; a catalogue without one falls back to Notion's Kind. Any other Kind value fails the run, naming the row.
+A host's catalogue is read from `docs/tools.md`, the name etalii.adp spec 002 (naming convention alignment) gave it ("Tool types", with a Kind column). Its earlier name, `docs/diagrams.md`, is no longer read: a host that has only that file is reported as having no catalogue. The name column may be headed Diagram, Tool, Name or Tool type. A Kind column (Diagram, Designer or Editor), when present, gives each entry its `kind` in `catalogue.json`, and the site shows that kind; a catalogue without one falls back to Notion's Kind. Any other Kind value fails the run, naming the row.
 
-The run also reads the catalogue at each host's latest published release, `docs/tools.md` or else `docs/diagrams.md` there, to record each tool's release state.
+The run also reads the catalogue at each host's latest published release, `docs/tools.md` there, to record each tool's release state.
 
 ## Updates
 
-- `sources/catalogue/<host>/tools.md` (or `diagrams.md`, after the file it was read from): the host's catalogue, verbatim.
+- `sources/catalogue/<host>/tools.md`: the host's catalogue, verbatim.
 - `sources/catalogue/<host>/catalogue.json`: one entry per tool with its origin, name, kind (only from a Kind column), group, theory, example, its state as written on `develop` (`developState`) and at the latest release (`releaseState`), and its site `state`.
 - `sources/catalogue/source.lock.json`: the source record of each catalogue, and each host's latest release.
 - `procedures/config/states.json`, only when a decision is answered.
@@ -32,7 +32,7 @@ Only this procedure changes the four files under `src/content/catalogue/`; the s
 
 A tool's site state is its `develop` state mapped through `procedures/config/states.json`, and is never lowered (spec 003 research D3, owner's decision of 2026-09-27). The release state is recorded next to it, so the pull request and the page can say what a user can install. For example, a tool marked Implemented on `develop` the day after a release that had it as Prototype is shown as `implemented`, with `releaseState` Prototype.
 
-IntelliJ has no `docs/diagrams.md` yet, so its FreeMind and draw.io tools are not listed; every pull request says so until `etalii-adp/etalii.adp.ide.intellij` adds one in the standalone's format. Its README is not retyped into the catalogue (constitution principle II).
+VS Code and Eclipse have no `docs/tools.md` yet, so they list no tools; every pull request says so until their repositories add one in the standalone's format. A host's README is not retyped into the catalogue (constitution principle II).
 
 ## Before you start
 

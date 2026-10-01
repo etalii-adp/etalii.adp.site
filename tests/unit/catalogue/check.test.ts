@@ -54,7 +54,7 @@ test('a correct build passes', () => {
 test('1. a tool page needs its sources and adp:source metas that match a lock', () => {
 	assert.match(run({ '/adp/tools/wardley/map/': page('', sources) }), /wardley.*adp:source metas/);
 	assert.match(run({ '/adp/tools/wardley/map/': page(wardleyMetas(), '<p>no list</p>') }), /no Sources list/);
-	const stale = `<meta name="adp:source" content="etalii-adp/etalii.adp.ide.standalone@${'0'.repeat(40)}:docs/diagrams.md">`;
+	const stale = `<meta name="adp:source" content="etalii-adp/etalii.adp.ide.standalone@${'0'.repeat(40)}:docs/tools.md">`;
 	assert.match(run({ '/adp/tools/wardley/map/': page(wardleyMetas() + stale, sources) }), /matches no lock entry/);
 });
 

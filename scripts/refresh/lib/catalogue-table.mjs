@@ -1,20 +1,16 @@
-// Reads a host's tool catalogue (`docs/tools.md`, or `docs/diagrams.md` before etalii.adp spec 002 renames it:
-// an HTML table inside Markdown) and applies the site's
+// Reads a host's tool catalogue (`docs/tools.md`, an HTML table inside Markdown) and applies the site's
 // state mapping. By the owner's decision of 2026-09-27 (spec 003) the `develop` state is shown as mapped, never
 // capped at the release; the release state is only recorded. Shared by the screenshot, catalogue and hosts procedures, so
 // that each stays independent of the others' output.
 import { parse } from 'parse5';
 
 /**
- * Where a host keeps its catalogue, in the order they are tried: `docs/tools.md` (the "Tool types" of etalii.adp
- * spec 002, naming convention alignment), then `docs/diagrams.md`, its name before, which a host's latest release
- * can still carry.
+ * Where a host keeps its catalogue: `docs/tools.md`, the "Tool types" of etalii.adp spec 002 (naming convention
+ * alignment). Its earlier name, `docs/diagrams.md`, is no longer read (spec 002 Part 7, T064).
  */
-export const CATALOGUE_PATHS = ['docs/tools.md', 'docs/diagrams.md'];
-/** The catalogue's name before etalii.adp spec 002, which the refresh still reads when a host has no `docs/tools.md`. */
-export const CATALOGUE_PATH = 'docs/diagrams.md';
+export const CATALOGUE_PATHS = ['docs/tools.md'];
 
-/** The catalogue among a source's watched files: `docs/tools.md` when it has one, else `docs/diagrams.md`, else undefined. */
+/** The catalogue among a source's watched files: `docs/tools.md`, or undefined when the host has none. */
 export function catalogueFileOf(files) {
 	for (const path of CATALOGUE_PATHS) {
 		const file = files.find((f) => f.sourcePath === path);
@@ -69,8 +65,8 @@ export function stripStateEmoji(label) {
 }
 
 /**
- * The column that names a row: "Diagram" in `docs/diagrams.md`; "Tool", "Name" or "Tool type" in `docs/tools.md`
- * (etalii.adp spec 002).
+ * The column that names a row: "Tool", "Name" or "Tool type" in `docs/tools.md`, or "Diagram", as the
+ * catalogue headed it before etalii.adp spec 002.
  */
 const NAME_COLUMNS = ['diagram', 'tool', 'name', 'tool type'];
 
@@ -167,7 +163,7 @@ export function isUnderway(state) {
 }
 
 /**
- * Reads the catalogue (`docs/tools.md`, else `docs/diagrams.md`) of `host` at `head` (the `develop` head) and at
+ * Reads the catalogue (`docs/tools.md`) of `host` at `head` (the `develop` head) and at
  * `release.commit`, each with its own fallback, and returns `{ entries, text, path }` with each entry's `developState`, `releaseState` (or null) and mapped `state`, or
  * `{ missingCatalogue: true }` when the file does not exist. An entry whose label the mapping lacks gets
  * `unmapped: <label>` and `state: null`.

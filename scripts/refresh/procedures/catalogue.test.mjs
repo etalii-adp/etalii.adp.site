@@ -5,8 +5,8 @@ import { after, before, describe, it } from 'node:test';
 import { makeRepo } from '../fixtures/repo.mjs';
 import { makeSite } from '../fixtures/site.mjs';
 
-const CATALOGUE = 'docs/diagrams.md';
-const markdown = readFileSync(fileURLToPath(new URL('../fixtures/standalone/docs/diagrams.md', import.meta.url)), 'utf8');
+const CATALOGUE = 'docs/tools.md';
+const markdown = readFileSync(fileURLToPath(new URL('../fixtures/standalone/docs/tools.md', import.meta.url)), 'utf8');
 const cleanups = [];
 after(() => cleanups.forEach((fn) => fn()));
 
@@ -38,7 +38,7 @@ describe('refresh-catalogue', () => {
 	});
 
 	it('writes the verbatim catalogue and catalogue.json with mapped states', () => {
-		assert.equal(env.site.read('sources/catalogue/standalone/diagrams.md'), markdown);
+		assert.equal(env.site.read('sources/catalogue/standalone/tools.md'), markdown);
 		assert.deepEqual(entry('standalone', 'freeplane/mindmap'), {
 			origin: 'freeplane/mindmap',
 			name: 'Mind map (radial/hierarchical, single central topic)',
@@ -58,9 +58,9 @@ describe('refresh-catalogue', () => {
 		assert.equal(entry('vscode', 'generic/timeline').releaseState, null);
 	});
 
-	it('(g) reports a host without docs/diagrams.md without failing', () => {
+	it('(g) reports a host without docs/tools.md without failing', () => {
 		assert.ok(!env.site.exists('sources/catalogue/intellij'));
-		assert.match(env.site.read('.refresh/pr-body.md'), /- intellij: no catalogue at `docs\/tools\.md` or `docs\/diagrams\.md` in etalii-adp\/etalii\.adp\.ide\.intellij/);
+		assert.match(env.site.read('.refresh/pr-body.md'), /- intellij: no catalogue at `docs\/tools\.md` in etalii-adp\/etalii\.adp\.ide\.intellij/);
 	});
 
 	it('(a) shows a tool implemented on develop as implemented, recording the release state', () => {
@@ -69,7 +69,7 @@ describe('refresh-catalogue', () => {
 		assert.equal(result.code, 0, result.output);
 		const summary = env.site.json('.refresh/summary.json');
 		assert.deepEqual(summary.details.changes, [{ host: 'standalone', origin: 'freeplane/mindmap', from: 'prototype', to: 'implemented', developState: 'Implemented', releaseState: 'Prototype' }]);
-		assert.ok(summary.files.some((f) => f.path === 'sources/catalogue/standalone/diagrams.md' && f.change === 'changed'));
+		assert.ok(summary.files.some((f) => f.path === 'sources/catalogue/standalone/tools.md' && f.change === 'changed'));
 		assert.equal(entry('standalone', 'freeplane/mindmap').state, 'implemented');
 		env.site.accept('catalogue');
 	});
@@ -86,7 +86,7 @@ describe('refresh-catalogue', () => {
 	});
 
 	it('(c, f) shows a row absent from the release at its mapped state, and lists added and withdrawn tools', () => {
-		const next = withRow(env.standalone.git(['show', 'HEAD:docs/diagrams.md']), row('✅&nbsp;Implemented', 'w3c/sparql', 'SPARQL query')).replace(/<tr>.*<code>uml\/class<\/code>.*<\/tr>\n/, '');
+		const next = withRow(env.standalone.git(['show', `HEAD:${CATALOGUE}`]), row('✅&nbsp;Implemented', 'w3c/sparql', 'SPARQL query')).replace(/<tr>.*<code>uml\/class<\/code>.*<\/tr>\n/, '');
 		env.standalone.commit({ [CATALOGUE]: next });
 		const result = env.run();
 		assert.equal(result.code, 0, result.output);
@@ -96,7 +96,7 @@ describe('refresh-catalogue', () => {
 	});
 
 	it('(h) fails on a duplicate origin, naming both rows', () => {
-		const doubled = env.standalone.git(['show', 'HEAD:docs/diagrams.md']).replace('<code>c4/container</code>', '<code>c4/context</code>');
+		const doubled = env.standalone.git(['show', `HEAD:${CATALOGUE}`]).replace('<code>c4/container</code>', '<code>c4/context</code>');
 		env.standalone.commit({ [CATALOGUE]: doubled });
 		const result = env.run();
 		assert.equal(result.code, 2, result.output);
@@ -127,14 +127,13 @@ describe('refresh-catalogue decisions', () => {
 });
 
 describe('refresh-catalogue on docs/tools.md (etalii.adp spec 002)', () => {
-	it('reads docs/tools.md in place of docs/diagrams.md, keeping the release state from the release docs/diagrams.md', () => {
+	it('copies the Kind column of docs/tools.md, keeping the release state from the release', () => {
 		const env = setup();
 		const tools = markdown.replace('<th>Diagram</th>', '<th>Kind</th><th>Tool</th>').replace('<code>freeplane/mindmap</code></td>', '<code>freeplane/mindmap</code></td><td>Editor</td>').replace(/(<code>(?!freeplane\/mindmap)[^<]+<\/code><\/td>)/g, '$1<td>Diagram</td>');
-		env.standalone.commit({ [CATALOGUE]: null, 'docs/tools.md': tools });
+		env.standalone.commit({ [CATALOGUE]: tools });
 		const result = env.run('--no-deliver');
 		assert.equal(result.code, 0, result.output);
 		assert.equal(env.site.read('sources/catalogue/standalone/tools.md'), tools);
-		assert.ok(!env.site.exists('sources/catalogue/standalone/diagrams.md'));
 		const lock = env.site.json('sources/catalogue/source.lock.json');
 		assert.equal(lock.files.find((f) => f.path === 'standalone/tools.md').sourcePath, 'docs/tools.md');
 		const mindmap = env.site.json('sources/catalogue/standalone/catalogue.json').find((e) => e.origin === 'freeplane/mindmap');
@@ -143,8 +142,16 @@ describe('refresh-catalogue on docs/tools.md (etalii.adp spec 002)', () => {
 		assert.equal(mindmap.kind, 'editor', 'the Kind column is copied');
 		assert.equal(env.site.json('sources/catalogue/standalone/catalogue.json').find((e) => e.origin === 'c4/context').kind, 'diagram');
 		assert.ok(!('kind' in env.site.json('sources/catalogue/vscode/catalogue.json')[0]), 'no Kind column, no kind');
-		// The VS Code host still has docs/diagrams.md, which is read as before.
-		assert.equal(env.site.read('sources/catalogue/vscode/catalogue.json').includes('generic/timeline'), true);
-		assert.ok(lock.files.some((f) => f.path === 'vscode/diagrams.md' && f.sourcePath === 'docs/diagrams.md'));
+	});
+
+	it('no longer reads docs/diagrams.md: a host with only that file has no catalogue (T064)', () => {
+		const env = setup();
+		const old = env.vscode.git(['show', `HEAD:${CATALOGUE}`]);
+		env.vscode.commit({ [CATALOGUE]: null, 'docs/diagrams.md': old });
+		const result = env.run('--no-deliver');
+		assert.equal(result.code, 0, result.output);
+		assert.ok(!env.site.exists('sources/catalogue/vscode'));
+		assert.ok(!env.site.json('sources/catalogue/source.lock.json').files.some((f) => f.sourcePath === 'docs/diagrams.md'));
+		assert.match(env.site.read('.refresh/pr-body.md'), /- vscode: no catalogue at `docs\/tools\.md` in etalii-adp\/etalii\.adp\.ide\.vscode/);
 	});
 });
