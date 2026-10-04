@@ -99,6 +99,12 @@
 	margin-top: 0.25rem;
 }
 
+/* Inline code keeps the box's light text; the theme's code colour is for light backgrounds. */
+.sl-markdown-content .article-adp code {
+	color: inherit;
+	background: rgba(255, 255, 255, 0.12);
+}
+
 .sl-markdown-content .article-method {
 	margin-top: 3rem;
 }
