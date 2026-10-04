@@ -1,23 +1,23 @@
 {
   "procedure": "refresh-screenshots",
-  "refreshedAt": "2026-10-01T19:41:36.410Z",
+  "refreshedAt": "2026-10-04T23:01:29.189Z",
   "sourceHeads": {
     "etalii-adp/etalii.adp.ide.eclipse": "cef652124f722dfe54da912579bd55a7d240733d",
-    "etalii-adp/etalii.adp.ide.intellij": "d5ae4cd98e599f32f672ee02d33a74dcbf14b527",
-    "etalii-adp/etalii.adp.ide.standalone": "38d4495f58ee95139141cfa932e1362d1de0bf66",
+    "etalii-adp/etalii.adp.ide.intellij": "fcfbabe24c391f219286fc3c70bd23d750321d32",
+    "etalii-adp/etalii.adp.ide.standalone": "923cf5e78f6bc810aed93269bb0f460de8e47cac",
     "etalii-adp/etalii.adp.ide.vscode": "0ba20075af978062180575ab5afc30a730f1f48a"
   },
   "releases": {
     "etalii-adp/etalii.adp.ide.eclipse": null,
     "etalii-adp/etalii.adp.ide.intellij": null,
     "etalii-adp/etalii.adp.ide.standalone": {
-      "tag": "v0.1.2091-alpha",
-      "commit": "38d4495f58ee95139141cfa932e1362d1de0bf66"
+      "tag": "v0.1.2138-alpha",
+      "commit": "d5da104f7aa4a3da9ba64d6491094d929b64eb01"
     },
     "etalii-adp/etalii.adp.ide.vscode": null
   },
   "config": {
-    "procedures/config/screenshots.json": "d3256e7ee8479a59be456a0cd4353e1cefa445fea9008bfab678055dbe8fe192",
+    "procedures/config/screenshots.json": "d85adfddd7784d3fd4cb6c3cefe315f6931df766dd17df7bb14bc44c894bca92",
     "procedures/config/states.json": "11c6e39937682dc079d4661c0f207870dedbc5253be3e3d7398602e39ecee47a"
   },
   "files": [
@@ -46,6 +46,33 @@
       "commit": "b562c7f5320e1cf749f34cec2a10e2d4de6a7a17",
       "gitBlob": "324a3b7e4c5211c3d2c75839bbdc4c31df1bea08",
       "sha256": "06608789a2cd473d5d891afa11c71fde0827a1d8f5fc1bee0c06ad55a427a87b",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/agent-behavior-modelling-bug-fixer-light.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/agent-behavior-modelling-bug-fixer-light.png",
+      "commit": "2bf65f19f5f80a06335b9fa841239aa92234b8f8",
+      "gitBlob": "2e6951aff397759074970c55ea16139abddf5aee",
+      "sha256": "94c907b1a79a1fc30d66f25aeb08f8c82c06d78836a8a1bc869a53e4dad0a8bd",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/agent-behavior-modelling-pull-request-reviewer.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/agent-behavior-modelling-pull-request-reviewer.png",
+      "commit": "2bf65f19f5f80a06335b9fa841239aa92234b8f8",
+      "gitBlob": "92d88abb4eb11dce0890a8e0a07e5d6d57b99b7f",
+      "sha256": "6924c5889122fa04e2dc76c9bad773475f1ea087aa39b44e08136a405dd7f0ce",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/agent-behavior-modelling-research-assistant.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/agent-behavior-modelling-research-assistant.png",
+      "commit": "c400088d74c1f8b4f003a83b59ad0a4c1684b08f",
+      "gitBlob": "5e74cc3a2c0662294018e51e948598f2eb80b714",
+      "sha256": "9094965aaf1c79934b06eae89f70d8b3e67ea262603e5411a6302574e9435264",
       "licence": "Apache-2.0"
     },
     {
@@ -220,6 +247,33 @@
       "licence": "Apache-2.0"
     },
     {
+      "path": "standalone/sankey-brightwater-coffee.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/sankey-brightwater-coffee.png",
+      "commit": "c400088d74c1f8b4f003a83b59ad0a4c1684b08f",
+      "gitBlob": "c9c4b67675fa9c436019bc5b89acd428945104f5",
+      "sha256": "743d0ea883717e50b7b75ffbb6d77c1a523cf26a051cc0bfec3e4631e6eea7d5",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/sankey-recent-graduates-light.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/sankey-recent-graduates-light.png",
+      "commit": "2bf65f19f5f80a06335b9fa841239aa92234b8f8",
+      "gitBlob": "62da366b59b77432004168330724a7e4e03d8630",
+      "sha256": "060e0d5f8802512afebe371c166f5660e1ec03e5660d06bf4b5caa74356c021d",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/sankey-uk-energy.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/sankey-uk-energy.png",
+      "commit": "2bf65f19f5f80a06335b9fa841239aa92234b8f8",
+      "gitBlob": "1ebe11702629cbfc8768e7bbec6d94e363e6a1b7",
+      "sha256": "df3afd7b9a850898d17472f978d37279fd4ddf48233121735e982651ae65669f",
+      "licence": "Apache-2.0"
+    },
+    {
       "path": "standalone/shacl.png",
       "repository": "etalii-adp/etalii.adp.ide.standalone",
       "sourcePath": "docs/screenshots/shacl.png",
@@ -235,6 +289,33 @@
       "commit": "3e2df46ebb046bb1b12e6175abb8ae746486ae18",
       "gitBlob": "b3d98f307d0bf6e39cdeaa52a34a9064b5760bbb",
       "sha256": "86f396fd87e10b88338fc60c681a6df7ec389357cb0c72e01073fd35ecb492ef",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/supply-chain-automotive-light.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/supply-chain-automotive-light.png",
+      "commit": "2bf65f19f5f80a06335b9fa841239aa92234b8f8",
+      "gitBlob": "c08eb07c16ae7a234fea6202adc1bef5588a023c",
+      "sha256": "d67999366767fd434232640f425bf5598e05ba4a0b0dc07b74b7884176f841eb",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/supply-chain-automotive.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/supply-chain-automotive.png",
+      "commit": "2bf65f19f5f80a06335b9fa841239aa92234b8f8",
+      "gitBlob": "39b39903ee8f211b993a9a2701a4da0259366f7f",
+      "sha256": "30f6ea0fd49b3ea610b82233bcfa905287ed7226959e944821280e4fe94c357e",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/supply-chain-gpu-memory.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/supply-chain-gpu-memory.png",
+      "commit": "2bf65f19f5f80a06335b9fa841239aa92234b8f8",
+      "gitBlob": "9d6a68f25f0b6994ebb67007a8eb27397464e5d9",
+      "sha256": "6ce95fddccf5658049cbdd8ce0a170ff1b674b2de4d893b9158bf3c16bbcd836",
       "licence": "Apache-2.0"
     },
     {
@@ -281,14 +362,14 @@
     {
       "repository": "etalii-adp/etalii.adp.ide.standalone",
       "sourcePath": "docs/screenshots/readme.md",
-      "commit": "38d4495f58ee95139141cfa932e1362d1de0bf66",
-      "gitBlob": "b43c7512edb692e0615ccf17f4d543530ca953a5"
+      "commit": "c400088d74c1f8b4f003a83b59ad0a4c1684b08f",
+      "gitBlob": "c831d832cbd011fb3ccfbcf24de91673ffb67adc"
     },
     {
       "repository": "etalii-adp/etalii.adp.ide.standalone",
       "sourcePath": "docs/tools.md",
-      "commit": "207e18f65ac539011d91dcda153b4cb91b258c3e",
-      "gitBlob": "c9f6d4afae89b3d032fa8116e593401bdb4a5456"
+      "commit": "486db573adea2ba4fca6fde1037b0965c6631e36",
+      "gitBlob": "138719343312e6fd79bca6677f7cc51442d5b201"
     }
   ],
   "derived": [
@@ -298,7 +379,7 @@
     },
     {
       "path": "standalone/screenshots.json",
-      "sha256": "5c5aaf7492a4ec18fd18aff4c67a06635b8331d1f193eadfaae677d5fcc9d1d4"
+      "sha256": "748b71d039a966a80867400763ac8b2151c4aebdbedc4e2e28c406595b4ac3b4"
     }
   ],
   "withdrawn": []
