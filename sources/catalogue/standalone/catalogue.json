@@ -1601,6 +1601,27 @@
     ]
   },
   {
+    "origin": "etalii/agent-behavior-modelling",
+    "name": "Agent Behavior Modelling",
+    "kind": "diagram",
+    "group": "5. Business process & workflow notation",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "Behavior tree (Wikipedia)",
+        "href": "https://en.wikipedia.org/wiki/Behavior_tree_(artificial_intelligence,_robotics_and_control)"
+      }
+    ],
+    "example": [
+      {
+        "label": "Agent Behavior Modelling (a chat agent's instructions as a behavior tree: Do in order, Try in order and Do together composites, Retry, Repeat until, Only while and Ask approval before wrappers, and Check, Do, Ask the user and Delegate leaves, drawn top-down; the tree is a keyword-marked bullet list under the Behavior heading of a Markdown file the agent reads as its instructions, and the .adp keeps only the layout; .md, a shared extension, so a file becomes a model only when registered); agent-behavior-modelling (backend module, client canvas and the pull-request-reviewer, customer-support, bug-fixer and research-assistant examples in place; no browser pass recorded yet)",
+        "href": null
+      }
+    ]
+  },
+  {
     "origin": "etalii/functional-decomposition-graph",
     "name": "Functional decomposition graph",
     "kind": "diagram",
@@ -1617,6 +1638,27 @@
     "example": [
       {
         "label": "Functional decomposition graph (UI elements, data elements, actions and functions linked parent to child, drawn as a superellipse, parallelogram, trapezoid and diode with bezier arrows; .fdg, ADP's own line-oriented schema); functional-decomposition-graph",
+        "href": null
+      }
+    ]
+  },
+  {
+    "origin": "etalii/supply-chain",
+    "name": "Supply chain diagram",
+    "kind": "diagram",
+    "group": "5. Business process & workflow notation",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "yFiles supply chain showcase",
+        "href": "https://www.yfiles.com/demos/showcase/supply-chain/"
+      }
+    ],
+    "example": [
+      {
+        "label": "Raw materials, suppliers, manufacturers, assemblers, distributors, retailers and consumers in named groups, joined by flows whose band width follows their volume; selecting one traces everything upstream and downstream of it, and its quantity or volume steps up and down in place (.supply, ADP's own YAML schema); supply-chain",
         "href": null
       }
     ]
@@ -1786,6 +1828,27 @@
       {
         "label": "Lucidchart ERD examples",
         "href": "https://www.lucidchart.com/pages/examples/entity-relationship-diagram-tool"
+      }
+    ]
+  },
+  {
+    "origin": "etalii/sankey",
+    "name": "Sankey diagram",
+    "kind": "diagram",
+    "group": "7. Data-oriented diagrams",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "Sankey diagram",
+        "href": "https://en.wikipedia.org/wiki/Sankey_diagram"
+      }
+    ],
+    "example": [
+      {
+        "label": "Nodes in columns joined by flows whose thickness follows their value, drawn as smooth translucent bands; domain agnostic (money, energy, people), with each node and flow coloured from a twelve-word palette or a hex of its own, a thickness scale, values stepped up and down in place, and nodes dragged within their column while the others make room (.skv, ADP's own YAML schema); sankey",
+        "href": null
       }
     ]
   },
