@@ -1,5 +1,38 @@
 [
   {
+    "file": "agent-behavior-modelling-bug-fixer-light.png",
+    "origin": "etalii/agent-behavior-modelling",
+    "expectation": "In the light theme: the bug fixer's tree with its Only while, Repeat until, Retry up to 2 times and Ask approval before wrappers, a Delegate and an Ask the user leaf. Nothing selected.",
+    "document": "`diagrams/agent-behavior-modelling/bug-fixer/` → `bug-fixer.md` → `bug-fixer.adp`",
+    "bytes": 136876,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "agent-behavior-modelling-pull-request-reviewer.png",
+    "origin": "etalii/agent-behavior-modelling",
+    "expectation": "The reviewer's behavior tree top-down: Try in order at the root, Do in order and Do together composites, the Retry up to 2 times and Ask approval before wrappers, and the Check and Do leaves, each labelled with its kind; Toolbox showing the eleven kinds. Nothing selected.",
+    "document": "`diagrams/agent-behavior-modelling/pull-request-reviewer/` → `pull-request-reviewer.md` → `pull-request-reviewer.adp`",
+    "bytes": 126326,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "agent-behavior-modelling-research-assistant.png",
+    "origin": "etalii/agent-behavior-modelling",
+    "expectation": "The research assistant's tree: Ask the user while settling the question, three Delegate leaves under Do together, and a Repeat until around drafting and checking. Nothing selected.",
+    "document": "`diagrams/agent-behavior-modelling/research-assistant/` → `research-assistant.md` → `research-assistant.adp`",
+    "bytes": 130548,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
     "file": "ansible-structure.png",
     "origin": "ansible/structure",
     "expectation": "The playbooks, roles and inventories of the folder, with import, role and dependency edges labelled; the Toolbox saying the type offers no elements, since it is read from the folder. Nothing selected.",
@@ -209,6 +242,39 @@
     "status": "accepted"
   },
   {
+    "file": "sankey-brightwater-coffee.png",
+    "origin": "etalii/sankey",
+    "expectation": "The coffee company's income statement as columns of nodes joined by translucent bands as thick as their value: four revenue streams on the left flowing into revenue, then gross profit and cost of revenue, and on to operating expenses, tax and net profit on the right; Toolbox showing Node. Nothing selected.",
+    "document": "`diagrams/sankey/brightwater-coffee/` → `brightwater-coffee.skv` → `brightwater-coffee.adp`",
+    "bytes": 119908,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "sankey-recent-graduates-light.png",
+    "origin": "etalii/sankey",
+    "expectation": "In the light theme: the fields of study on the left flowing into employed, unemployed and not in the labour force, and the employed on into jobs that do or do not require a degree. Nothing selected.",
+    "document": "`diagrams/sankey/recent-graduates/` → `recent-graduates.skv` → `recent-graduates.adp`",
+    "bytes": 161082,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "sankey-uk-energy.png",
+    "origin": "etalii/sankey",
+    "expectation": "The UK energy flows from supplies on the left, through conversion, to the uses and losses on the right, each node and band in its own colour with its value in TWh. Nothing selected.",
+    "document": "`diagrams/sankey/uk-energy/` → `uk-energy.skv` → `uk-energy.adp`",
+    "bytes": 211161,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
     "file": "shacl.png",
     "origin": "w3c/shacl",
     "expectation": "The five navigation node shapes as cards with their targets and property rows (path and cardinality), and the edges between shapes. Nothing selected.",
@@ -225,6 +291,39 @@
     "expectation": "The `SELECT` frame, the `?x` pattern with its `foaf:name` edge, and the `OPTIONAL` group as a region holding `?mbox`. Nothing selected.",
     "document": "`diagrams/sparql/w3c-sparql/` → `optional.rq` → `optional.adp`",
     "bytes": 86158,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "supply-chain-automotive-light.png",
+    "origin": "etalii/supply-chain",
+    "expectation": "The same automotive chain in the light theme. Nothing selected.",
+    "document": "as `supply-chain-automotive.png`",
+    "bytes": 213140,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "supply-chain-automotive.png",
+    "origin": "etalii/supply-chain",
+    "expectation": "The automotive chain from raw materials in their regional groups through suppliers, manufacturers and assemblers to the distributor, retailers and consumers, every flow a band as wide as its volume; Toolbox showing the seven element kinds. Nothing selected.",
+    "document": "`diagrams/supply-chain/automotive/` → `automotive.supply` → `automotive.adp`",
+    "bytes": 214554,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "supply-chain-gpu-memory.png",
+    "origin": "etalii/supply-chain",
+    "expectation": "The GPU memory chain in its named groups, its flows drawn as bands whose width follows their volume. Nothing selected.",
+    "document": "`diagrams/supply-chain/gpu-memory/` → `gpu-memory.supply` → `gpu-memory.adp`",
+    "bytes": 209720,
     "width": 1600,
     "height": 900,
     "budgetBytes": 307200,

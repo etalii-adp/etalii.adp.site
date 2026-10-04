@@ -8,6 +8,15 @@
   "intellij--mindmap": {
     "whyItMatters": "The same FreeMind file opens as a mind map inside IntelliJ, laid out as a tree around its central topic, so a map can be read and edited next to the code it belongs to."
   },
+  "standalone--agent-behavior-modelling-bug-fixer-light": {
+    "whyItMatters": "The guards an agent works under, Only while, Repeat until, Retry and Ask approval before, each wrap the steps they govern, so where the agent may loop and where it must stop and ask is checkable at a glance, here in the light theme."
+  },
+  "standalone--agent-behavior-modelling-pull-request-reviewer": {
+    "whyItMatters": "A reviewer's instructions read as a tree: what it tries first, what it gathers together, how often it retries the tests and that it asks before posting, which prose instructions leave implicit while the Markdown file the agent reads stays plain text."
+  },
+  "standalone--agent-behavior-modelling-research-assistant": {
+    "whyItMatters": "The searches the assistant delegates side by side and the draft-and-check loop it repeats until every claim has a source stand out as shapes, so a reader sees the agent's control flow rather than reconstructing it from paragraphs."
+  },
   "standalone--ansible-structure": {
     "whyItMatters": "The folder's playbooks, roles and inventories appear as one graph with every import and dependency labelled, so how the project hangs together is visible without opening its YAML files, and Ansible's own files are left untouched."
   },
@@ -59,11 +68,29 @@
   "standalone--rdf": {
     "whyItMatters": "The Turtle document's resources become cards with their types and literals, language tags included, and their relations become edges, so the graph the text describes is visible as a graph."
   },
+  "standalone--sankey-brightwater-coffee": {
+    "whyItMatters": "Every band is as thick as the money it carries, so an income statement shows at once where revenue comes from and how much of it each cost takes before profit, the proportions a table of figures leaves the reader to compute."
+  },
+  "standalone--sankey-recent-graduates-light": {
+    "whyItMatters": "Each field of study splits into employment outcomes and on into jobs that do or do not need a degree, with thickness following the number of graduates, so the balance between columns is visible in the light theme as well as the dark one."
+  },
+  "standalone--sankey-uk-energy": {
+    "whyItMatters": "Dozens of energy sources, conversions and uses stay readable because each node and band keeps its own colour and value and the columns balance, which shows that the diagram scales from a small statement to a national energy system."
+  },
   "standalone--shacl": {
     "whyItMatters": "Each node shape is a card with its target and property rows, path and cardinality, with edges between shapes, so what the constraints demand can be checked side by side instead of in nested Turtle."
   },
   "standalone--sparql": {
     "whyItMatters": "The query's pattern is drawn as the graph it matches, with the OPTIONAL group as a region, so which variables join and which parts are optional is visible before the query runs."
+  },
+  "standalone--supply-chain-automotive": {
+    "whyItMatters": "Raw materials, suppliers, manufacturers, assemblers, distributors, retailers and consumers each keep their own stage and region, and every flow is a band as wide as its volume, so where a car's chain is concentrated and what depends on what can be read directly."
+  },
+  "standalone--supply-chain-automotive-light": {
+    "whyItMatters": "The same automotive chain in the light theme: stage colours and band widths carry the meaning, so the diagram reads the same way whichever theme the IDE uses."
+  },
+  "standalone--supply-chain-gpu-memory": {
+    "whyItMatters": "A second chain, from rare earths and quartz to data centres and gamers, drawn by the same rules, which shows the diagram is not tied to one industry and that a long, many-tier chain stays legible."
   },
   "standalone--timeline": {
     "whyItMatters": "Periods and moments sit on rows against a year ruler, with connections between them, so a multi-year roadmap shows what overlaps and what waits on what."

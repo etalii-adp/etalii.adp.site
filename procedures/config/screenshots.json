@@ -23,7 +23,16 @@
     "plain-text-editor.png": "none",
     "rdf.png": "w3c/rdf",
     "shacl.png": "w3c/shacl",
-    "sparql.png": "w3c/sparql"
+    "sparql.png": "w3c/sparql",
+    "agent-behavior-modelling-bug-fixer-light.png": "etalii/agent-behavior-modelling",
+    "agent-behavior-modelling-pull-request-reviewer.png": "etalii/agent-behavior-modelling",
+    "agent-behavior-modelling-research-assistant.png": "etalii/agent-behavior-modelling",
+    "sankey-brightwater-coffee.png": "etalii/sankey",
+    "sankey-recent-graduates-light.png": "etalii/sankey",
+    "sankey-uk-energy.png": "etalii/sankey",
+    "supply-chain-automotive-light.png": "etalii/supply-chain",
+    "supply-chain-automotive.png": "etalii/supply-chain",
+    "supply-chain-gpu-memory.png": "etalii/supply-chain"
   },
   "intellij": {
     "drawio-activity.png": "jgraph/drawio",
