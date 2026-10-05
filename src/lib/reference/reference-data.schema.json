@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://etalii.net/adp/site/contracts/reference-data.schema.json",
-  "title": "DEDL reference: stored data",
+  "title": "DISL and DID reference: stored data",
   "description": "Shapes of src/content/reference/languages.json and src/content/reference/<language>/<version>/source.json (data-model.md).",
   "$defs": {
     "Languages": {
@@ -24,7 +24,7 @@
         "schema": { "type": "string", "pattern": "\\.json$" },
         "schemaAddress": { "type": "string", "pattern": "^/[a-z]+/schema/\\{version\\}/\\{schema\\}$" },
         "publish": { "type": "boolean", "description": "false while the language is registered for npm run reference:refresh only and has no pages; absent means true (etalii.adp spec 002, naming convention alignment)." },
-        "movedTo": { "type": "string", "pattern": "^[a-z]+$", "description": "The id of the language that replaces this one; with publish false, every page address of this language redirects to that language's landing, and its schema files are still served at their own addresses (etalii.adp spec 002: DEDL moved to DISL)." }
+        "movedTo": { "type": "string", "pattern": "^[a-z]+$", "description": "The id of the language that replaces this one; with publish false, every page address of this language redirects to that language's landing, and its schema files are still served at their own addresses (etalii.adp spec 002, naming convention alignment)." }
       }
     },
     "Version": {
