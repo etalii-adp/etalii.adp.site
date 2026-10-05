@@ -95,6 +95,9 @@ test.describe('overview', () => {
 			await expect(page.locator('.adp-idea:not([hidden])')).toHaveCount(ideas);
 			const visible = await page.locator('.adp-tool:not([hidden])').evaluateAll((cards) => [...new Set(cards.map((card) => (card as HTMLElement).dataset.origin))]);
 			expect(visible.sort()).toEqual(expected.map((tool) => tool.origin).sort());
+			// A tool that serves several focus areas is listed under each, but only the ticked area's group shows.
+			const groups = await page.locator('.adp-catalogue-group:not([hidden]) h2').allTextContents();
+			expect(groups).toEqual(expected.length > 0 ? [area.name] : []);
 			await checkbox.uncheck();
 		}
 	});

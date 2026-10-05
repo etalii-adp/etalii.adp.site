@@ -10,10 +10,10 @@ import IdeasList from '../../components/catalogue/IdeasList.astro';
 import SourceList from '../../components/catalogue/SourceList.astro';
 
 const { tools, ideas, focusAreas, sources } = await catalogue();
-const groups = focusAreas.map((area) => ({ id: `focus-${area.slug}`, name: area.name, tools: tools.filter((tool) => tool.focusAreas.includes(area.slug)) }));
+const groups = focusAreas.map((area) => ({ id: `focus-${area.slug}`, focus: area.slug, name: area.name, tools: tools.filter((tool) => tool.focusAreas.includes(area.slug)) }));
 const known = new Set(focusAreas.map((area) => area.slug));
 const others = tools.filter((tool) => !tool.focusAreas.some((slug) => known.has(slug)));
-if (others.length > 0) groups.push({ id: 'other-tools', name: 'Other tools', tools: others });
+if (others.length > 0) groups.push({ id: 'other-tools', focus: '', name: 'Other tools', tools: others });
 ---
 
 <StarlightPage
@@ -35,7 +35,7 @@ if (others.length > 0) groups.push({ id: 'other-tools', name: 'Other tools', too
 
 	{
 		groups.map((group) => (
-			<section class="adp-catalogue-group" aria-labelledby={group.id}>
+			<section class="adp-catalogue-group" aria-labelledby={group.id} data-focus={group.focus}>
 				<h2 id={group.id}>{group.name}</h2>
 				<ToolList tools={group.tools} />
 			</section>
