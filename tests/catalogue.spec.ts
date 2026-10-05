@@ -305,11 +305,15 @@ test.describe('tool page', () => {
 			await expect(content).toContainText(tool.purpose);
 
 			// FR-004: the task, why a specialized view helps, and the file formats, or "Not described yet".
-			const purpose = page.locator('section[aria-labelledby="what-it-is-for"]');
-			await expect(purpose).toContainText(tool.task ?? 'Not described yet');
-			await expect(purpose).toContainText(tool.whySpecialized ?? 'Not described yet');
-			if (tool.fileFormats.length === 0) await expect(purpose.locator('table')).toHaveCount(0);
-			for (const format of tool.fileFormats) await expect(purpose.locator('table')).toContainText(format.extension);
+			// Each is a section of its own, its heading one level below the page title (flattened 2026-10-05).
+			await expect(page.locator('section[aria-labelledby="what-it-is-for"]')).toContainText(tool.task ?? 'Not described yet');
+			await expect(page.locator('section[aria-labelledby="why-specialized"]')).toContainText(tool.whySpecialized ?? 'Not described yet');
+			const formats = page.locator('section[aria-labelledby="file-formats"]');
+			if (tool.fileFormats.length === 0) await expect(formats.locator('table')).toHaveCount(0);
+			for (const format of tool.fileFormats) await expect(formats.locator('table')).toContainText(format.extension);
+			await expect(content.locator('#the-task')).toHaveCount(0);
+			const levels = await content.locator(':is(#what-it-is-for, #why-specialized, #file-formats)').evaluateAll((headings) => headings.map((heading) => heading.tagName));
+			expect(levels).toEqual(['H2', 'H2', 'H2']);
 
 			// FR-006, FR-007, FR-012, FR-015.
 			const shown = tool.screenshots.filter((screenshot) => screenshot.publishable);
