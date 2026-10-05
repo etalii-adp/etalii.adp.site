@@ -100,5 +100,11 @@
   },
   "standalone--workspace": {
     "whyItMatters": "The C4 container diagram opens from its Structurizr model in the explorer, with a Toolbox limited to C4's own element kinds and a problems strip for validation, so the diagram and its model stay one."
+  },
+  "vscode--agent-behavior-modelling": {
+    "whyItMatters": "An agent's Markdown instructions open as a behavior tree inside VS Code, with the ADP Toolbox offering every kind of step and ADP Properties showing the selected node, so the behavior can be read and changed beside the code the agent works on."
+  },
+  "vscode--gartner-hypecycle-graph-light": {
+    "whyItMatters": "A hype cycle file opens as its graph inside VS Code, each trend a banner coloured by phase on the year axis, with the ADP Toolbox and the selected trend's dates and phases in ADP Properties, here in the light theme."
   }
 }

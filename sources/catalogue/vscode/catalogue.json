@@ -1,0 +1,52 @@
+[
+  {
+    "origin": "etalii/agent-behavior-modelling",
+    "name": "Agent Behavior Modelling",
+    "kind": "diagram",
+    "group": "Collaboration between people and agents",
+    "developState": "Prototype",
+    "releaseState": null,
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "Behavior tree (Wikipedia)",
+        "href": "https://en.wikipedia.org/wiki/Behavior_tree_(artificial_intelligence,_robotics_and_control)"
+      }
+    ],
+    "example": [
+      {
+        "label": "definition",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/diagrams/agent-behavior-modelling.md"
+      },
+      {
+        "label": "four example agents",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/tree/develop/examples/agent-behavior-modelling"
+      }
+    ]
+  },
+  {
+    "origin": "gartner/hypecycle-graph",
+    "name": "Gartner hype cycle graph",
+    "kind": "diagram",
+    "group": "Technology assessment",
+    "developState": "Prototype",
+    "releaseState": null,
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "Gartner hype cycle (Wikipedia)",
+        "href": "https://en.wikipedia.org/wiki/Gartner_hype_cycle"
+      }
+    ],
+    "example": [
+      {
+        "label": "definition",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/diagrams/gartner-hype-cycle-graph.md"
+      },
+      {
+        "label": "nine example graphs",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/tree/develop/examples/gartner-hypecycle-graph"
+      }
+    ]
+  }
+]
