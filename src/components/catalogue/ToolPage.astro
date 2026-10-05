@@ -31,9 +31,8 @@ const head = [
 const headings = [
 	{ depth: 2, slug: 'availability-heading', text: 'Availability' },
 	{ depth: 2, slug: 'what-it-is-for', text: 'What it is for' },
-	{ depth: 3, slug: 'the-task', text: 'The task' },
-	{ depth: 3, slug: 'why-specialized', text: 'Why a specialized view helps' },
-	{ depth: 3, slug: 'file-formats', text: 'File formats' },
+	{ depth: 2, slug: 'why-specialized', text: 'Why a specialized view helps' },
+	{ depth: 2, slug: 'file-formats', text: 'File formats' },
 	...(withScreenshots ? [{ depth: 2, slug: 'screenshots', text: 'Screenshots' }] : []),
 	{ depth: 2, slug: 'background', text: 'Background' },
 	{ depth: 2, slug: 'focus-areas', text: 'Focus areas' },
@@ -54,11 +53,16 @@ const headings = [
 
 	<section aria-labelledby="what-it-is-for">
 		<h2 id="what-it-is-for">What it is for</h2>
-		<h3 id="the-task">The task</h3>
 		<p>{tool.task ?? notDescribed}</p>
-		<h3 id="why-specialized">Why a specialized view helps</h3>
+	</section>
+
+	<section aria-labelledby="why-specialized">
+		<h2 id="why-specialized">Why a specialized view helps</h2>
 		<p>{tool.whySpecialized ?? notDescribed}</p>
-		<h3 id="file-formats">File formats</h3>
+	</section>
+
+	<section aria-labelledby="file-formats">
+		<h2 id="file-formats">File formats</h2>
 		{
 			tool.fileFormats.length > 0 ? (
 				<TableScroll label="File formats">
