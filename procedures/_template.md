@@ -1,5 +1,5 @@
 <!--
-Template for a refresh procedure (specs/004-content-refresh-procedures/contracts/procedure-document.md).
+Template for a refresh procedure (etalii.adp: specs/etalii.adp.site/004-content-refresh-procedures/contracts/procedure-document.md).
 Copy it to procedures/refresh-<id>.md and replace every <placeholder>. Keep the sections, in this order.
 
 Rules every procedure follows:

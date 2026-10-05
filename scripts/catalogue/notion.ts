@@ -1,6 +1,6 @@
 // npm run catalogue:notion [--dry-run] [--fixture <dir> | --export <file>] [--content-dir <dir>]
 //
-// Fetches the Notion "Tools" data source (specs/003-designer-catalogue/contracts/source-formats.md § S3) into
+// Fetches the Notion "Tools" data source (etalii.adp: specs/etalii.adp.site/003-designer-catalogue/contracts/source-formats.md § S3) into
 // src/content/catalogue/notion.json, and appends Notion focus-area options that focus-areas.json does not know.
 // The build never calls Notion; this script is the only reader. Exit codes: 0 done, 1 Notion failed, 2 usage.
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';

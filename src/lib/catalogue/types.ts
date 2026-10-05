@@ -1,5 +1,5 @@
 /**
- * The catalogue's entities (specs/003-designer-catalogue/data-model.md). Plain, erasable TypeScript, so both
+ * The catalogue's entities (etalii.adp: specs/etalii.adp.site/003-designer-catalogue/data-model.md). Plain, erasable TypeScript, so both
  * Astro and the Node scripts under scripts/catalogue/ import it. The rules a type cannot express are doc comments;
  * the content collections in src/content.config.ts enforce them at build time.
  */

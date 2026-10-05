@@ -12,7 +12,8 @@ import type { FileRecord, Language, Version } from './types';
 
 /** Where the site's own reference data lives: the registry and, by default, the snapshots. */
 export const REFERENCE_DIR = join('src', 'content', 'reference');
-export const CONTRACT = join('specs', '002-dedl-reference', 'contracts', 'reference-data.schema.json');
+/** The reference data's schema, the contract of spec 002 (etalii.adp: specs/etalii.adp.site/002-dedl-reference/contracts/). */
+export const CONTRACT = join('src', 'lib', 'reference', 'reference-data.schema.json');
 
 /** The folder holding `<language>/<version>/` snapshots; `REFERENCE_CONTENT_DIR` points development builds and tests at a fixture. */
 export function contentDir(): string {
