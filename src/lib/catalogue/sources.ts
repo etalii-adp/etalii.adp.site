@@ -11,7 +11,7 @@ import type { GitSourceRecord, HostId, ReportItem } from './types.ts';
 
 export const defaultSourcesRoot = 'sources';
 
-/** One entry of a lock's `files` (004 contracts/source-lock.schema.json). */
+/** One entry of a lock's `files` (scripts/refresh/lib/source-lock.schema.json). */
 export interface LockEntry {
 	path: string;
 	repository: string;

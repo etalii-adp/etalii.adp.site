@@ -35,8 +35,8 @@ describe('readLock and writeLock', () => {
 		assert.deepEqual(validateLock(read), []);
 	});
 
-	it('accepts exactly the properties of contracts/source-lock.schema.json', () => {
-		const schema = JSON.parse(readFileSync(new URL('../../../specs/004-content-refresh-procedures/contracts/source-lock.schema.json', import.meta.url), 'utf8'));
+	it('accepts exactly the properties of source-lock.schema.json', () => {
+		const schema = JSON.parse(readFileSync(new URL('./source-lock.schema.json', import.meta.url), 'utf8'));
 		const every = Object.fromEntries(Object.keys(schema.properties).map((key) => [key, undefined]));
 		const problems = validateLock({ ...lock([]), ...every, ...lock([]) });
 		assert.deepEqual(problems.filter((p) => p.includes('unexpected property')), []);

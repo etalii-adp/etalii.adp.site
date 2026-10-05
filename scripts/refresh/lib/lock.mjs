@@ -1,4 +1,4 @@
-// Reads, writes and compares sources/<short>/source.lock.json (contracts/source-lock.schema.json).
+// Reads, writes and compares sources/<short>/source.lock.json (source-lock.schema.json beside this file, the contract of spec 004).
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -36,7 +36,7 @@ function checkRequired(object, required, where, problems) {
 }
 
 /**
- * Checks a lock against the shape of contracts/source-lock.schema.json, by hand, and returns one line per problem.
+ * Checks a lock against the shape of source-lock.schema.json, by hand, and returns one line per problem.
  * `"local": true` is a problem unless `allowLocal` is set, for runs that are themselves local.
  */
 export function validateLock(lock, { allowLocal = false } = {}) {

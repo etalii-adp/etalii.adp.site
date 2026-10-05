@@ -27,4 +27,4 @@ Nothing is published by hand. Every pull request into `develop` runs the `ci` wo
 
 ## How work is done here
 
-Every change starts as a specification, using GitHub Spec Kit with the SpecKit Companion extension. See `CLAUDE.md` and the features under `specs/`.
+Every change starts as a specification, using GitHub Spec Kit with the SpecKit Companion extension in [etalii.adp](https://github.com/etalii-adp/etalii.adp), where this repository's features are kept under [`specs/etalii.adp.site/`](https://github.com/etalii-adp/etalii.adp/tree/develop/specs/etalii.adp.site). See `CLAUDE.md`.
