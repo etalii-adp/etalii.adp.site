@@ -132,9 +132,13 @@ const facets = [
 				if (match) ideasShown++;
 			}
 			// While any option is ticked, a group without a matching tool goes, including one with no tools yet.
+			// While focus areas are ticked, the other focus areas' groups and "Other tools" go too, even where a tool that
+			// serves several areas would still match in them (Peter, 2026-10-05).
 			const ticked = inputs.filter((input) => input.checked);
+			const focus = chosen.find(({ key }) => key === 'focus')?.values ?? [];
 			for (const group of document.querySelectorAll<HTMLElement>('.adp-catalogue-group')) {
-				group.hidden = ticked.length > 0 && group.querySelector('.adp-tool:not([hidden])') === null;
+				const otherArea = focus.length > 0 && !focus.includes(group.dataset.focus ?? '');
+				group.hidden = otherArea || (ticked.length > 0 && group.querySelector('.adp-tool:not([hidden])') === null);
 			}
 			if (ideasSection) ideasSection.hidden = ticked.length > 0 && ideasShown === 0;
 			// "N tools and M ideas" (amended 2026-09-28), both as filtered.
