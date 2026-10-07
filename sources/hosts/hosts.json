@@ -8,12 +8,12 @@
       "usableTools": 28,
       "toolsInProgress": 30,
       "latestRelease": {
-        "tag": "v0.1.2146-alpha",
-        "commit": "25fc7b4af7a99989d23d75d1af9d844303243b9d"
+        "tag": "v0.1.2206-alpha",
+        "commit": "9a9347bac838622f28be2f6986e0591f0851fef6"
       },
-      "developHead": "25fc7b4af7a99989d23d75d1af9d844303243b9d"
+      "developHead": "9a9347bac838622f28be2f6986e0591f0851fef6"
     },
-    "link": "https://github.com/etalii-adp/etalii.adp.ide.standalone/releases/tag/v0.1.2146-alpha"
+    "link": "https://github.com/etalii-adp/etalii.adp.ide.standalone/releases/tag/v0.1.2206-alpha"
   },
   {
     "host": "intellij",
@@ -24,7 +24,7 @@
       "usableTools": 2,
       "toolsInProgress": 2,
       "latestRelease": null,
-      "developHead": "70ec911bf64876938cfceee2d68c7b3ffa01908f"
+      "developHead": "087d2bae39624424b1e8b7c7f5008d49fa41882f"
     },
     "link": "https://github.com/etalii-adp/etalii.adp.ide.intellij"
   },
@@ -37,7 +37,7 @@
       "usableTools": 2,
       "toolsInProgress": 2,
       "latestRelease": null,
-      "developHead": "130b645dec997aa3a908eea46a815716b236c0f9"
+      "developHead": "271a92ca83548276f63b669454637491f31f9264"
     },
     "link": "https://github.com/etalii-adp/etalii.adp.ide.vscode"
   },
@@ -50,7 +50,7 @@
       "usableTools": 0,
       "toolsInProgress": 0,
       "latestRelease": null,
-      "developHead": "2e423f66ca279e5a70611c7a7a48c287e6e602ce"
+      "developHead": "59d855d9f4cd390659fe52746ed29d48309b285f"
     },
     "link": "https://github.com/etalii-adp/etalii.adp.ide.eclipse"
   }
