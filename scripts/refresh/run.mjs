@@ -114,11 +114,20 @@ function pruneEmpty(dir) {
 	if (!readdirSync(dir).length) rmdirSync(dir);
 }
 
-/** Links the invoking checkout's node_modules into a temporary worktree (a junction on Windows). */
-function linkNodeModules(from, root) {
+/**
+ * Gives a temporary worktree the invoking checkout's dependencies. On Windows a junction to its node_modules. Elsewhere
+ * a symlink breaks the site build: Vite resolves a module through the link to its real path, and Astro then looks its
+ * compiled styles up under a path joined from both, which does not exist. So there the worktree gets its own
+ * `npm ci`, from the npm cache the invoking checkout's own install filled. Returns a link to remove, or null.
+ */
+async function linkNodeModules(from, root) {
 	const source = join(from, 'node_modules');
 	const target = join(root, 'node_modules');
 	if (from === root || !existsSync(source) || existsSync(target)) return null;
+	if (process.platform !== 'win32') {
+		await run('npm', ['ci', '--prefer-offline', '--no-audit', '--no-fund'], { cwd: root });
+		return null;
+	}
 	symlinkSync(source, target, 'junction');
 	return target;
 }
@@ -258,7 +267,7 @@ export async function runProcedure(procedure, options, { cwd = process.cwd(), ou
 
 		// The procedure's own site steps on the applied sources (spec 003's catalogue report), then Verify: the site's
 		// build and checks when it defines them (R8), and always the source-record check.
-		nodeModulesLink = linkNodeModules(cwd, root);
+		nodeModulesLink = await linkNodeModules(cwd, root);
 		const reports = [...((await procedure.afterApply?.(ctx, { log: (text) => stage('apply', text) })) ?? [])];
 		const verification = await runVerification(root, local);
 		stage('verify', verification.map((v) => `${v.step} ${v.status}`).join(', '));
