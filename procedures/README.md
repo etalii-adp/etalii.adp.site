@@ -36,9 +36,11 @@ The job summary and every refresh pull request name the date of the previous sch
 
 **One-time setup (the owner):**
 
-1. Create a GitHub App in the `etalii-adp` organization, named "ADP site refresh", with repository permissions `contents: read` on the five source repositories (`etalii.adp` and the four `etalii.adp.ide.*`) and `contents: write`, `pull-requests: write` and `issues: write` on this repository, and no webhook. Install it on those six repositories.
+1. Create a GitHub App in the `etalii-adp` organization (Settings → Developer settings → GitHub Apps → New GitHub App), named "ADP site refresh", with any homepage URL (this repository's will do), the webhook unticked, the repository permissions `Contents`, `Pull requests` and `Issues` set to read and write, and installable only on this account. Install it on six repositories: this one, `etalii.adp` and the four `etalii.adp.ide.*` that are sources (standalone, IntelliJ, VS Code, Eclipse). An App's permissions hold on every repository it is installed on, so it can write to the sources too; the workflow only reads them.
 2. Store its App ID as the secret `REFRESH_APP_ID` and a private key as `REFRESH_APP_PRIVATE_KEY` in this repository (Settings → Secrets and variables → Actions). Until the App exists, a fine-grained personal access token with the same permissions, stored as `REFRESH_TOKEN`, is an acceptable stopgap; it is tied to one person and expires, so replace it with the App.
 3. Enable "Automatically delete head branches" in this repository's settings, so a merged `refresh/*` branch goes away by itself.
+
+To check the setup, run the Refresh workflow from the Actions tab with `hosts`: it ends in `current` or a refresh pull request, not in the error naming the missing secrets. A refresh pull request is checked by `Build` and `refresh-checks` like any other, and once merged the site is published by itself (see `README.md`, Publishing).
 
 **The 60-day risk.** GitHub switches off a scheduled workflow in a public repository after 60 days without activity in it, and says so only in the Actions tab. If the previous scheduled run shown in a pull request or job summary is "none in 7 days", re-enable the workflow with `gh workflow enable refresh.yml` (or the button in the Actions tab). `repository_dispatch` keeps working while the schedule is off.
 

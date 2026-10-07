@@ -1,6 +1,6 @@
 # Checks the refresh procedures on every pull request into develop and every push to it: their tests, that every
 # procedure follows the template and is indexed, and that every file under sources/ matches its source record, so a
-# hand edit there fails (constitution principle II). The site's ci.yml may absorb these three steps later.
+# hand edit there fails (constitution principle II). The site's Build workflow may absorb these three steps later.
 name: refresh-checks
 
 on:
