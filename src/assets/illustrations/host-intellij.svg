@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Original artwork for etalii.net/adp, Apache-2.0: an IDE window with a file tree, the text of a file beside the same file as a diagram. -->
+  <style>
+    .a { stroke: #32cd32; }
+    .af { fill: #32cd32; }
+    .g { stroke: #aeb6be; }
+    .gf { fill: #aeb6be; }
+    .t { fill: #32cd32; fill-opacity: 0.15; }
+    @media (prefers-color-scheme: light) {
+      .a { stroke: #16782a; } .af { fill: #16782a; } .g { stroke: #49525b; } .gf { fill: #49525b; } .t { fill: #16782a; fill-opacity: 0.12; }
+    }
+  </style>
+  <rect class="g" x="12" y="16" width="136" height="88" rx="6" stroke-width="1.5"/>
+  <path class="g" d="M40 16 V104 M40 30 H148 M94 30 V104" stroke-width="1.5"/>
+  <path class="g" d="M20 26 H32 M24 40 H34 M24 50 H32 M24 60 H34 M20 70 H32" stroke-width="1.5"/>
+  <path class="a" d="M46 24 H64" stroke-width="2"/>
+  <path class="g" d="M70 24 H86" stroke-width="1.5"/>
+  <path class="g" d="M48 42 H74 M54 52 H86 M54 62 H80 M48 72 H70 M54 82 H84 M54 92 H76" stroke-width="1.5"/>
+  <path class="g" d="M110 52 L120 76 M132 52 L120 76" stroke-width="1.5"/>
+  <circle class="a t" cx="110" cy="48" r="7"/>
+  <circle class="a t" cx="134" cy="48" r="7"/>
+  <circle class="af" cx="120" cy="82" r="6"/>
+</svg>

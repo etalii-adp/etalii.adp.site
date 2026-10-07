@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Original artwork for etalii.net/adp, Apache-2.0: an editor window with an activity bar, a side bar and a diagram open in the editor. -->
+  <style>
+    .a { stroke: #32cd32; }
+    .af { fill: #32cd32; }
+    .g { stroke: #aeb6be; }
+    .gf { fill: #aeb6be; }
+    .t { fill: #32cd32; fill-opacity: 0.15; }
+    @media (prefers-color-scheme: light) {
+      .a { stroke: #16782a; } .af { fill: #16782a; } .g { stroke: #49525b; } .gf { fill: #49525b; } .t { fill: #16782a; fill-opacity: 0.12; }
+    }
+  </style>
+  <rect class="g" x="12" y="16" width="136" height="88" rx="6" stroke-width="1.5"/>
+  <path class="g" d="M26 16 V96 M56 16 V96 M12 96 H148" stroke-width="1.5"/>
+  <rect class="af" x="16" y="24" width="6" height="6" rx="1.5"/>
+  <rect class="gf" x="16" y="36" width="6" height="6" rx="1.5"/>
+  <rect class="gf" x="16" y="48" width="6" height="6" rx="1.5"/>
+  <path class="g" d="M32 26 H50 M34 36 H48 M34 46 H50 M34 56 H46" stroke-width="1.5"/>
+  <path class="a" d="M60 24 H82" stroke-width="2"/>
+  <path class="g" d="M88 50 C96 50 92 72 100 72 M124 72 C130 72 126 52 130 52" stroke-width="1.5"/>
+  <rect class="a t" x="64" y="42" width="24" height="16" rx="4"/>
+  <rect class="a" x="100" y="64" width="24" height="16" rx="4" stroke-width="2"/>
+  <circle class="af" cx="134" cy="52" r="5"/>
+</svg>

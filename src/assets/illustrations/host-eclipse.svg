@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Original artwork for etalii.net/adp, Apache-2.0: a workbench perspective: a diagram editor surrounded by its views. -->
+  <style>
+    .a { stroke: #32cd32; }
+    .af { fill: #32cd32; }
+    .g { stroke: #aeb6be; }
+    .gf { fill: #aeb6be; }
+    .t { fill: #32cd32; fill-opacity: 0.15; }
+    @media (prefers-color-scheme: light) {
+      .a { stroke: #16782a; } .af { fill: #16782a; } .g { stroke: #49525b; } .gf { fill: #49525b; } .t { fill: #16782a; fill-opacity: 0.12; }
+    }
+  </style>
+  <rect class="g" x="12" y="16" width="136" height="88" rx="6" stroke-width="1.5"/>
+  <path class="g" d="M38 16 V104 M122 16 V76 M38 76 H148" stroke-width="1.5"/>
+  <path class="g" d="M18 26 H32 M22 36 H32 M22 46 H30 M18 56 H32" stroke-width="1.5"/>
+  <path class="g" d="M128 28 H142 M128 38 H138 M128 48 H142" stroke-width="1.5"/>
+  <path class="g" d="M44 86 H78 M86 86 H140 M44 96 H70 M86 96 H128" stroke-width="1.5"/>
+  <path class="g" d="M66 40 H94 M80 40 V58" stroke-width="1.5"/>
+  <rect class="a t" x="48" y="30" width="20" height="20" rx="4"/>
+  <rect class="a t" x="94" y="30" width="20" height="20" rx="4"/>
+  <rect class="a" x="70" y="56" width="20" height="14" rx="7" stroke-width="2"/>
+</svg>

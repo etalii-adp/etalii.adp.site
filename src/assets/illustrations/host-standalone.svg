@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Original artwork for etalii.net/adp, Apache-2.0: a browser window with a diagram in it, running on its own. -->
+  <style>
+    .a { stroke: #32cd32; }
+    .af { fill: #32cd32; }
+    .g { stroke: #aeb6be; }
+    .gf { fill: #aeb6be; }
+    .t { fill: #32cd32; fill-opacity: 0.15; }
+    @media (prefers-color-scheme: light) {
+      .a { stroke: #16782a; } .af { fill: #16782a; } .g { stroke: #49525b; } .gf { fill: #49525b; } .t { fill: #16782a; fill-opacity: 0.12; }
+    }
+  </style>
+  <rect class="g" x="16" y="16" width="128" height="88" rx="6" stroke-width="1.5"/>
+  <path class="g" d="M16 32 H144" stroke-width="1.5"/>
+  <circle class="gf" cx="26" cy="24" r="2.5"/>
+  <circle class="gf" cx="35" cy="24" r="2.5"/>
+  <circle class="gf" cx="44" cy="24" r="2.5"/>
+  <rect class="g" x="56" y="20" width="76" height="8" rx="4" stroke-width="1.5"/>
+  <path class="g" d="M56 64 L70 74 M104 64 L90 74 M72 55 H88" stroke-width="1.5"/>
+  <rect class="a t" x="40" y="46" width="32" height="18" rx="4"/>
+  <rect class="a t" x="88" y="46" width="32" height="18" rx="4"/>
+  <rect class="a" x="64" y="72" width="32" height="18" rx="9" stroke-width="2"/>
+</svg>

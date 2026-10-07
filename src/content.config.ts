@@ -33,29 +33,31 @@ const sourceRecord = z.object({
 	licence: z.string().min(1),
 });
 
-const host = z
-	.object({
-		id: z.enum(listedHostIds),
-		name: z.string().min(1),
-		summary: z.string().min(1),
-		state: z.enum(['available', 'in-progress', 'planned']),
-		link: z.string().url().startsWith('https://', 'link must be https://').optional(),
-		linkLabel: z.string().min(1).optional(),
-		unavailableNote: z.string().min(1).optional(),
-		source: sourceRecord,
-	})
-	.strict()
-	.superRefine((value, ctx) => {
-		if (value.link && !value.linkLabel) {
-			ctx.addIssue({ code: 'custom', path: ['linkLabel'], message: 'linkLabel is required with link.' });
-		}
-		if (!value.link && !value.unavailableNote) {
-			ctx.addIssue({ code: 'custom', path: ['unavailableNote'], message: 'unavailableNote is required without link.' });
-		}
-		if (value.state === 'available' && !value.link) {
-			ctx.addIssue({ code: 'custom', path: ['link'], message: 'state: available needs a public link (constitution principle III).' });
-		}
-	});
+const host = (image: ImageFunction) =>
+	z
+		.object({
+			id: z.enum(listedHostIds),
+			name: z.string().min(1),
+			summary: z.string().min(1),
+			state: z.enum(['available', 'in-progress', 'planned']),
+			link: z.string().url().startsWith('https://', 'link must be https://').optional(),
+			linkLabel: z.string().min(1).optional(),
+			unavailableNote: z.string().min(1).optional(),
+			illustration: image(),
+			source: sourceRecord,
+		})
+		.strict()
+		.superRefine((value, ctx) => {
+			if (value.link && !value.linkLabel) {
+				ctx.addIssue({ code: 'custom', path: ['linkLabel'], message: 'linkLabel is required with link.' });
+			}
+			if (!value.link && !value.unavailableNote) {
+				ctx.addIssue({ code: 'custom', path: ['unavailableNote'], message: 'unavailableNote is required without link.' });
+			}
+			if (value.state === 'available' && !value.link) {
+				ctx.addIssue({ code: 'custom', path: ['link'], message: 'state: available needs a public link (constitution principle III).' });
+			}
+		});
 
 // The tool catalogue (spec 003): assembled once per build from sources/, the state mapping, the Notion snapshot
 // and the site-owned files in src/content/catalogue/, then validated by the schemas below (contracts/catalogue-data.schema.json).
@@ -213,7 +215,7 @@ export const collections = {
 	}),
 	hosts: defineCollection({
 		loader: orderedFile('src/data/hosts.yaml', listedHostIds),
-		schema: host,
+		schema: ({ image }) => host(image),
 	}),
 	focusAreas: defineCollection({
 		loader: orderedFile('src/data/focus-areas.yaml', focusAreaIds),
