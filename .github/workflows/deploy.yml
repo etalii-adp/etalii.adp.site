@@ -1,19 +1,24 @@
-# Publishes develop to GitHub Pages at https://etalii.net (FR-011). The site is built and checked first;
-# if any step fails, nothing is uploaded and the published site stays as it was (FR-013).
+# Publishes develop to GitHub Pages at https://etalii.net (FR-011). It publishes the site that the Build workflow
+# built and checked for develop's head, so the site is never published without passing every check, and never
+# checked twice: if Build fails, nothing is uploaded and the published site stays as it was (FR-013).
 #
 # One run publishes both the site, at /adp, and the Notion add-ons of etalii.adp.ide.notion, at /adp-notion
 # (etalii.adp spec 011-notion-repository, contracts/publication.md). A Pages deployment replaces the whole
 # domain, so the add-ons are built into dist beside the site and uploaded in the same artifact. A merge into
-# develop of etalii.adp.ide.notion starts this workflow through workflow_dispatch.
+# develop of etalii.adp.ide.notion starts this workflow through workflow_dispatch; it then republishes the site
+# Build checked for develop's head with the add-ons of that moment.
 name: deploy
 
 on:
-  push:
+  workflow_run:
+    workflows: [Build]
+    types: [completed]
     branches: [develop]
   workflow_dispatch:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: pages
@@ -21,44 +26,76 @@ concurrency:
 
 jobs:
   build:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push')
     runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.find.outputs.run }}
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      # Only develop's head is published. A Build of an older commit leaves it to the Build of the newer one; a
+      # dispatch while the head's Build is still running leaves it to that Build, which takes the add-ons as they
+      # are when it finishes.
+      - name: Find the checked site of develop's head
+        id: find
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          EVENT: ${{ github.event_name }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          RUN_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          head=$(gh api "repos/$REPO/commits/develop" --jq .sha)
+          if [ "$EVENT" = workflow_run ]; then
+            if [ "$RUN_SHA" != "$head" ]; then
+              echo "::notice::Build checked $RUN_SHA, but develop is at $head now; its Build publishes."
+              exit 0
+            fi
+            run=$RUN_ID
+          else
+            run=$(gh api "repos/$REPO/actions/workflows/build.yml/runs?branch=develop&event=push&head_sha=$head&status=success" --jq '.workflow_runs[0].id // empty')
+            if [ -z "$run" ]; then
+              echo "::notice::Build has not passed for develop's head $head; its Build publishes once it passes."
+              exit 0
+            fi
+          fi
+          echo "run=$run" >> "$GITHUB_OUTPUT"
+
+      - if: steps.find.outputs.run != ''
+        uses: actions/download-artifact@v8
         with:
-          node-version-file: .nvmrc
-          cache: npm
-      - run: npm ci
-      # Chromium serves the page checks and the build-time Mermaid rendering of the DISL and DID reference
-      # (spec 002 research D10); the browser download is cached between runs.
-      - uses: actions/cache@v6
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-      - run: npx playwright install --with-deps chromium
-      - run: npm run test
-      - run: npm run build
-      - run: npm run check:reference
-      - run: npm run check
-      # The site's checks have run by now, so they never read an add-on. The checkout needs no token:
-      # the repository is public.
-      - name: Check out the Notion add-ons
+          name: site
+          path: dist
+          run-id: ${{ steps.find.outputs.run }}
+          github-token: ${{ github.token }}
+
+      # The checkout needs no token: the repository is public.
+      - if: steps.find.outputs.run != ''
+        name: Check out the Notion add-ons
         uses: actions/checkout@v7
         with:
           repository: etalii-adp/etalii.adp.ide.notion
           ref: develop
           path: .notion-addons
-      - name: Build the Notion add-ons
+      - if: steps.find.outputs.run != ''
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - if: steps.find.outputs.run != ''
+        name: Build the Notion add-ons
         working-directory: .notion-addons
         run: node scripts/build.mjs --out "$GITHUB_WORKSPACE/dist/adp-notion"
-      - name: Check the add-on index was built
-        run: test -f dist/adp-notion/index.html
-      - uses: actions/upload-pages-artifact@v5
+      - if: steps.find.outputs.run != ''
+        name: Check the site and the add-on index are there
+        run: test -f dist/index.html && test -f dist/adp/index.html && test -f dist/adp-notion/index.html
+      - if: steps.find.outputs.run != ''
+        uses: actions/upload-pages-artifact@v5
         with:
           path: dist
 
   deploy:
     needs: build
+    if: needs.build.outputs.run != ''
     runs-on: ubuntu-latest
     permissions:
       pages: write

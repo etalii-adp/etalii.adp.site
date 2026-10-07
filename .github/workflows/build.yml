@@ -2,7 +2,11 @@
 # on every change to develop, and its badge stands for this repository. It checks that the unit tests pass, the
 # site builds, the DISL and DID references pass check:reference, its internal links resolve and every page passes the
 # accessibility, phone-width, no-script and privacy checks (FR-012). It has no Pages permissions, so it never
-# changes the published site (FR-011); deploy.yml publishes.
+# changes the published site (FR-011); deploy.yml publishes the site this workflow built and checked on develop.
+#
+# The jobs run in the Playwright image of the version package-lock.json pins, so Chromium and its system packages
+# are not installed on every run; bump the image tag together with @playwright/test. Chromium serves the page
+# checks and the build-time Mermaid rendering of the DISL and DID references (spec 002 research D10).
 name: Build
 
 on:
@@ -16,8 +20,13 @@ permissions:
   contents: read
 
 jobs:
+  # Builds the site once, runs every check that does not open a page in a browser, and hands the built site to
+  # the page checks and, on develop, to deploy.yml.
   check:
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+      options: --ipc=host
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -25,23 +34,50 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      # Chromium serves the page checks and the build-time Mermaid rendering of the DISL and DID references
-      # (spec 002 research D10); the browser download is cached between runs.
-      - uses: actions/cache@v6
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-      - run: npx playwright install --with-deps chromium
       - run: npm run test
       - run: npm run test:catalogue
       - run: npm run build
       - run: npm run check:reference
-      - run: npm run check
+      - run: npm run check:links
+      - run: npm run check:catalogue
+      - uses: actions/upload-artifact@v7
+        with:
+          name: site
+          path: dist
+          if-no-files-found: error
+          retention-days: 7
+
+  # The page checks (npm run check:pages) of the site built above, split over three runners.
+  pages:
+    needs: check
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+      options: --ipc=host
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v8
+        with:
+          name: site
+          path: dist
+      - run: npm run check:pages -- --shard=${{ matrix.shard }}/3
 
   # The DISL and DID references (spec 002) built from their pinned test fixture, so that their pages are checked
   # before a licensed snapshot exists. This build is never published; its licence check reports a warning, not a failure.
   reference-fixture:
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+      options: --ipc=host
     env:
       REFERENCE_CONTENT_DIR: tests/reference/fixtures/disl-c2623d4
     steps:
@@ -51,11 +87,6 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      - uses: actions/cache@v6
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-      - run: npx playwright install --with-deps chromium
       - run: npm run build
       - run: npm run check:reference
       - run: npm run check
@@ -90,3 +121,15 @@ jobs:
         run: |
           curl -fsSL "$SOURCE/.github/scripts/terminology-check.py" -o "$RUNNER_TEMP/terminology-check.py"
           python "$RUNNER_TEMP/terminology-check.py" --name "${{ github.event.repository.name }}" --config "$SOURCE/docs/terminology-check.json"
+
+  # The one result to require before a pull request may merge (branch rules name it), whatever jobs are added or
+  # split above. A skipped job (terminology, outside pull requests) counts as passed.
+  complete:
+    if: always()
+    needs: [check, pages, reference-fixture, terminology]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Every job passed or was skipped
+        env:
+          FAILED: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
+        run: test "$FAILED" = false
