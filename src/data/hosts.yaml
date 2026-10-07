@@ -1,4 +1,4 @@
-# The four IDE hosts ADP runs in, in their fixed order (data-model "IDE host", contracts/hosts.schema.json).
+# The hosts ADP runs in, in their fixed order: the four IDE hosts, then Notion (data-model "IDE host", contracts/hosts.schema.json).
 # A host links only to something a visitor can reach; while a repository is private it says so instead.
 # Taken by hand on 2026-09-26 (plan, Complexity Tracking); spec 004 replaces this with a procedure.
 
@@ -53,3 +53,16 @@
     taken: 2026-09-26
     method: manual
     licence: none
+
+- id: notion
+  name: Notion
+  summary: Notion add-ons, web pages that each show one ADP tool inside a Notion page.
+  state: planned
+  unavailableNote: No tool is available yet
+  source:
+    repository: etalii-adp/etalii.adp.ide.notion
+    path: README.md
+    revision: 10464fa79b049831cc278cfcf2f69aaec020213f
+    taken: 2026-10-07
+    method: manual
+    licence: Apache-2.0
