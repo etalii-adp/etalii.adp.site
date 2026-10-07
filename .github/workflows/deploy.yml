@@ -1,5 +1,10 @@
 # Publishes develop to GitHub Pages at https://etalii.net (FR-011). The site is built and checked first;
 # if any step fails, nothing is uploaded and the published site stays as it was (FR-013).
+#
+# One run publishes both the site, at /adp, and the Notion add-ons of etalii.adp.ide.notion, at /adp-notion
+# (etalii.adp spec 011-notion-repository, contracts/publication.md). A Pages deployment replaces the whole
+# domain, so the add-ons are built into dist beside the site and uploaded in the same artifact. A merge into
+# develop of etalii.adp.ide.notion starts this workflow through workflow_dispatch.
 name: deploy
 
 on:
@@ -35,6 +40,19 @@ jobs:
       - run: npm run build
       - run: npm run check:reference
       - run: npm run check
+      # The site's checks have run by now, so they never read an add-on. The checkout needs no token:
+      # the repository is public.
+      - name: Check out the Notion add-ons
+        uses: actions/checkout@v7
+        with:
+          repository: etalii-adp/etalii.adp.ide.notion
+          ref: develop
+          path: .notion-addons
+      - name: Build the Notion add-ons
+        working-directory: .notion-addons
+        run: node scripts/build.mjs --out "$GITHUB_WORKSPACE/dist/adp-notion"
+      - name: Check the add-on index was built
+        run: test -f dist/adp-notion/index.html
       - uses: actions/upload-pages-artifact@v5
         with:
           path: dist
