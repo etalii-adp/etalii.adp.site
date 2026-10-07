@@ -1,5 +1,6 @@
 # The hosts ADP runs in, in their fixed order: the four IDE hosts, then Notion (data-model "IDE host", contracts/hosts.schema.json).
 # A host links only to something a visitor can reach; while a repository is private it says so instead.
+# Each host has an illustration on the home page, in the style of the focus-area ones; it is decorative.
 # Taken by hand on 2026-09-26 (plan, Complexity Tracking); spec 004 replaces this with a procedure.
 
 - id: standalone
@@ -7,6 +8,7 @@
   summary: A web workspace that runs on its own, next to any repository, with no IDE required.
   state: in-progress
   unavailableNote: Not public yet
+  illustration: ../assets/illustrations/host-standalone.svg
   source:
     repository: etalii-adp/etalii.adp.ide.standalone
     path: readme.md
@@ -20,6 +22,7 @@
   summary: A plug-in that opens tools in real editors in IntelliJ IDEA, Rider, WebStorm and the other JetBrains IDEs.
   state: in-progress
   unavailableNote: Not public yet
+  illustration: ../assets/illustrations/host-intellij.svg
   source:
     repository: etalii-adp/etalii.adp.ide.intellij
     path: README.md
@@ -33,6 +36,7 @@
   summary: An extension that brings the same tools to Visual Studio Code.
   state: planned
   unavailableNote: Not public yet
+  illustration: ../assets/illustrations/host-vscode.svg
   source:
     repository: etalii-adp/etalii.adp.ide.vscode
     path: CLAUDE.md
@@ -46,6 +50,7 @@
   summary: A plug-in that brings the same tools to the Eclipse IDE.
   state: planned
   unavailableNote: Not public yet
+  illustration: ../assets/illustrations/host-eclipse.svg
   source:
     repository: etalii-adp/etalii.adp.ide.eclipse
     path: CLAUDE.md
@@ -59,6 +64,7 @@
   summary: Notion add-ons, web pages that each show one ADP tool inside a Notion page.
   state: planned
   unavailableNote: No tool is available yet
+  illustration: ../assets/illustrations/host-notion.svg
   source:
     repository: etalii-adp/etalii.adp.ide.notion
     path: README.md

@@ -119,9 +119,6 @@ h4,
 	.adp-cards {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 	}
-	.adp-cards.adp-hosts {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-	}
 }
 .adp-card {
 	display: flex;

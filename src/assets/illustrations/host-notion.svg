@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Original artwork for etalii.net/adp, Apache-2.0: two databases on a page, their rows linked by relations. -->
+  <style>
+    .a { stroke: #32cd32; }
+    .af { fill: #32cd32; }
+    .g { stroke: #aeb6be; }
+    .gf { fill: #aeb6be; }
+    .t { fill: #32cd32; fill-opacity: 0.15; }
+    @media (prefers-color-scheme: light) {
+      .a { stroke: #16782a; } .af { fill: #16782a; } .g { stroke: #49525b; } .gf { fill: #49525b; } .t { fill: #16782a; fill-opacity: 0.12; }
+    }
+  </style>
+  <rect class="g" x="14" y="22" width="56" height="76" rx="4" stroke-width="1.5"/>
+  <rect class="a t" x="14" y="22" width="56" height="14" rx="4"/>
+  <path class="g" d="M14 54 H70 M14 72 H70 M34 36 V98" stroke-width="1.5"/>
+  <path class="g" d="M40 45 H62 M40 63 H58 M40 81 H64" stroke-width="1.5"/>
+  <circle class="gf" cx="24" cy="45" r="3"/>
+  <circle class="gf" cx="24" cy="63" r="3"/>
+  <circle class="gf" cx="24" cy="81" r="3"/>
+  <rect class="g" x="96" y="30" width="50" height="58" rx="4" stroke-width="1.5"/>
+  <rect class="a t" x="96" y="30" width="50" height="14" rx="4"/>
+  <path class="g" d="M96 59 H146 M96 74 H146" stroke-width="1.5"/>
+  <path class="g" d="M106 52 H136 M106 67 H130 M106 81 H138" stroke-width="1.5"/>
+  <path class="a" d="M70 45 C84 45 82 52 96 52 M70 63 C84 63 82 52 96 52 M70 81 C84 81 82 81 96 81" stroke-width="2"/>
+  <circle class="af" cx="70" cy="45" r="3.5"/>
+  <circle class="af" cx="70" cy="63" r="3.5"/>
+  <circle class="af" cx="70" cy="81" r="3.5"/>
+  <circle class="af" cx="96" cy="52" r="3.5"/>
+  <circle class="af" cx="96" cy="81" r="3.5"/>
+</svg>
