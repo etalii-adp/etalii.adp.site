@@ -5,6 +5,8 @@ export default defineConfig({
 	testDir: 'tests',
 	// Page checks only; the *.test.ts files are unit tests (npm run test, npm run test:catalogue).
 	testMatch: '**/*.spec.ts',
+	// Every test opens its own browser context, so the per-page checks of one file spread over all workers and shards.
+	fullyParallel: true,
 	forbidOnly: !!process.env.CI,
 	reporter: process.env.CI ? 'github' : 'list',
 	projects: [
