@@ -103,7 +103,7 @@ jobs:
       - name: npm run refresh -- ${{ matrix.procedure }}
         env:
           GH_TOKEN: ${{ steps.app.outputs.token || secrets.REFRESH_TOKEN }}
-          # Only the catalogue and screenshot procedures (alone or in "all") read Notion (spec 003 research D9); never ci.yml or deploy.yml.
+          # Only the catalogue and screenshot procedures (alone or in "all") read Notion (spec 003 research D9); never build.yml or deploy.yml.
           NOTION_TOKEN: ${{ contains(fromJSON('["all", "catalogue", "screenshots"]'), matrix.procedure) && secrets.NOTION_TOKEN || '' }}
         run: |
           set +e

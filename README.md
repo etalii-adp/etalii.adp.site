@@ -19,11 +19,15 @@ npm run check                           # internal links, then accessibility, ph
 npm run preview                         # serve dist/ at http://localhost:4321/adp/
 ```
 
-`npm run build` and `npm run check` are the whole verification a change needs before its pull request; CI runs the same two commands.
+`npm run build` and `npm run check` are the whole verification a change needs before its pull request; CI runs the same two commands, with the page checks of `npm run check` split over three runners.
 
 ## Publishing
 
-Nothing is published by hand. Every pull request into `develop` runs the `ci` workflow, which builds and checks the site and publishes nothing. Every push to `develop`, that is every merged pull request, runs the `deploy` workflow, which builds, checks and then deploys `dist/` to GitHub Pages; if any step fails, the published site stays as it was.
+Nothing is published by hand. Every pull request into `develop` and every push to it runs the `Build` workflow (`.github/workflows/build.yml`), which builds the site once, checks it and publishes nothing; its `complete` job is the one result that says every check passed. `develop` has a ruleset that requires `complete` and `refresh-checks`, so a pull request with auto-merge enabled merges by itself, with a merge commit, as soon as both pass.
+
+When `Build` passes on a push to `develop`, that is on every merged pull request, it starts the `deploy` workflow (`.github/workflows/deploy.yml`). `deploy` takes the site `Build` built and checked, adds the Notion add-ons of `etalii.adp.ide.notion` at `/adp-notion`, and deploys `dist/` to GitHub Pages, in about a minute. It publishes only the head of `develop`, so an older commit's `Build` leaves the publishing to the newer one; if `Build` fails, nothing is published and the site stays as it was. A merge in `etalii.adp.ide.notion` starts `deploy` by hand (`workflow_dispatch`), which republishes the checked site of `develop`'s head with the new add-ons.
+
+The workflows run in the Playwright container image of the version `package-lock.json` pins (`mcr.microsoft.com/playwright:v<version>-noble`), so a Playwright upgrade bumps that image tag in `build.yml` in the same change.
 
 ## How work is done here
 
