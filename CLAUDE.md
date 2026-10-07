@@ -1,6 +1,6 @@
 # etalii.adp.site
 
-The website for ADP ("A Different Perspective"): specialized tools (diagrams, designers and editors) for any task where a specialized visualization beats a generic diagram or plain text. The formats the tools implement are specified in [etalii-adp/etalii.adp](https://github.com/etalii-adp/etalii.adp); the tools themselves live in the `etalii.adp.ide.*` repositories (standalone, IntelliJ, VS Code, Eclipse). The words tool, diagram, designer, editor, tool engineer, specification and definition are used as defined in the glossary, [`docs/terminology.md` in etalii.adp](https://github.com/etalii-adp/etalii.adp/blob/develop/docs/terminology.md).
+The website for ADP ("A Different Perspective"): specialized tools (diagrams, designers and editors) for any task where a specialized visualization beats a generic diagram or plain text. The formats the tools implement are specified in [etalii-adp/etalii.adp](https://github.com/etalii-adp/etalii.adp); the tools themselves live in the `etalii.adp.ide.*` repositories (standalone, IntelliJ, VS Code, Eclipse, Notion). The words tool, diagram, designer, editor, tool engineer, specification and definition are used as defined in the glossary, [`docs/terminology.md` in etalii.adp](https://github.com/etalii-adp/etalii.adp/blob/develop/docs/terminology.md).
 
 ## How work is done here: spec-driven development (GitHub Spec Kit)
 
