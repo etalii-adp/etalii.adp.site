@@ -5,7 +5,7 @@ import { z } from 'astro/zod';
 import { docsLoader } from '@astrojs/starlight/loaders';
 import { docsSchema } from '@astrojs/starlight/schema';
 import { sectionIds } from './data/sections';
-import { focusAreaIds, hostIds } from './data/order';
+import { focusAreaIds, hostIds, listedHostIds } from './data/order';
 import { assembleCatalogue, type Catalogue } from './lib/catalogue/assemble';
 
 /** Wraps the file() loader and fails the build unless the entries are exactly `expected`, in that order. */
@@ -35,7 +35,7 @@ const sourceRecord = z.object({
 
 const host = z
 	.object({
-		id: z.enum(hostIds),
+		id: z.enum(listedHostIds),
 		name: z.string().min(1),
 		summary: z.string().min(1),
 		state: z.enum(['available', 'in-progress', 'planned']),
@@ -212,7 +212,7 @@ export const collections = {
 		}),
 	}),
 	hosts: defineCollection({
-		loader: orderedFile('src/data/hosts.yaml', hostIds),
+		loader: orderedFile('src/data/hosts.yaml', listedHostIds),
 		schema: host,
 	}),
 	focusAreas: defineCollection({

@@ -1,5 +1,7 @@
 /** The fixed order of the entries in src/data/hosts.yaml and src/data/focus-areas.yaml, checked at build time. */
 export const hostIds = ['standalone', 'intellij', 'vscode', 'eclipse'] as const;
+/** The hosts listed on the home page: the four IDE hosts of the tool catalogue, then Notion, which has no tool yet. */
+export const listedHostIds = [...hostIds, 'notion'] as const;
 export const focusAreaIds = [
 	'technology-assessment',
 	'humans-and-agents',
