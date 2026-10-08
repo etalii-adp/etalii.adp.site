@@ -16,10 +16,30 @@ const MAPPING = {
 	intellij: {},
 	vscode: {},
 	eclipse: {},
+	notion: { 'gartner-hype-cycle-graph.png': 'gartner/hypecycle-graph', 'gartner-hype-cycle-graph-light.png': 'gartner/hypecycle-graph' },
 };
 
-/** The standalone fixture with four valid screenshots and a release, the other three hosts as empty repositories. */
-function setup({ mapping = MAPPING } = {}) {
+/** A test copy of the format of etalii.adp.ide.notion's docs/screenshots/readme.md. */
+const NOTION_README = `# Screenshots
+
+The images of the ADP tools in Notion, and how each was taken.
+
+## The shared setup, for every image
+
+- **Window**: viewport **1600×900 CSS px, device pixel ratio 1**, the whole page.
+- **Appearance**: dark, unless the image's name ends in \`-light\`.
+- **Format and budget**: PNG; each image ≤ 300 KB.
+
+## The images
+
+| Image | Document opened | What must be visible |
+|---|---|---|
+| \`gartner-hype-cycle-graph.png\` | \`gartner-hype-cycle-graph/digital-trends/\` → \`digital-trends.ghg\` | The digital trends as banners on the year axis. Dark appearance. |
+| \`gartner-hype-cycle-graph-light.png\` | \`gartner-hype-cycle-graph/digital-trends/\` → \`digital-trends.ghg\` | The same in the light appearance. |
+`;
+
+/** The standalone fixture with four valid screenshots and a release, the other hosts as empty repositories unless `notion` gives the Notion repository's files. */
+function setup({ mapping = MAPPING, notion = { 'README.md': 'notion\n' } } = {}) {
 	const source = makeRepo(
 		{
 			...standalone,
@@ -30,7 +50,7 @@ function setup({ mapping = MAPPING } = {}) {
 		},
 		{ tags: ['v1.0.0'] },
 	);
-	const others = ['intellij', 'vscode', 'eclipse'].map((host) => [host, makeRepo({ 'README.md': `${host}\n` })]);
+	const others = [...['intellij', 'vscode', 'eclipse'].map((host) => [host, makeRepo({ 'README.md': `${host}\n` })]), ['notion', makeRepo(notion)]];
 	const site = makeSite({ config: { 'screenshots.json': mapping } });
 	cleanups.push(source.cleanup, site.cleanup, ...others.map(([, repo]) => repo.cleanup));
 	const args = ['--source', `etalii-adp/etalii.adp.ide.standalone=${source.dir}`, ...others.flatMap(([host, repo]) => ['--source', `etalii-adp/etalii.adp.ide.${host}=${repo.dir}`])];
@@ -134,9 +154,32 @@ describe('refresh-screenshots', () => {
 	});
 });
 
+describe('refresh-screenshots from the Notion host', () => {
+	it('imports the Notion add-on images by their readme, without a catalogue and without a gap', () => {
+		const { site, run } = setup({
+			notion: { 'README.md': 'notion\n', [README]: NOTION_README, 'docs/screenshots/capture.mjs': '// not copied\n', 'docs/screenshots/gartner-hype-cycle-graph.png': valid(7), 'docs/screenshots/gartner-hype-cycle-graph-light.png': valid(8) },
+		});
+		const result = run('--no-deliver');
+		assert.equal(result.code, 0, result.output);
+		const records = site.json('sources/screenshots/notion/screenshots.json');
+		assert.deepEqual(records.map((r) => [r.file, r.origin, r.status]), [
+			['gartner-hype-cycle-graph-light.png', 'gartner/hypecycle-graph', 'accepted'],
+			['gartner-hype-cycle-graph.png', 'gartner/hypecycle-graph', 'accepted'],
+		]);
+		assert.equal(records[1].budgetBytes, 300 * 1024);
+		assert.match(records[1].expectation, /^The digital trends as banners/);
+		assert.ok(site.bytes('sources/screenshots/notion/gartner-hype-cycle-graph.png').equals(valid(7)));
+		assert.ok(!site.exists('sources/screenshots/notion/capture.mjs'));
+		const lock = site.json('sources/screenshots/source.lock.json');
+		assert.deepEqual(lock.files.filter((f) => f.path.startsWith('notion/')).map((f) => f.repository), ['etalii-adp/etalii.adp.ide.notion', 'etalii-adp/etalii.adp.ide.notion']);
+		assert.deepEqual(lock.inputs.filter((i) => i.repository === 'etalii-adp/etalii.adp.ide.notion').map((i) => i.sourcePath), [README]);
+		assert.ok(!site.json('.refresh/summary.json').details.gaps.some((g) => g.host === 'notion'), 'Notion keeps no catalogue, so no gap is derived for it');
+	});
+});
+
 describe('refresh-screenshots decisions', () => {
 	it('(e) asks which tool an unmapped image shows, offering the host’s origins', () => {
-		const { site, run } = setup({ mapping: { standalone: { 'mindmap.png': 'freeplane/mindmap', 'timeline.png': 'generic/timeline', 'workspace.png': 'c4/container' }, intellij: {}, vscode: {}, eclipse: {} } });
+		const { site, run } = setup({ mapping: { standalone: { 'mindmap.png': 'freeplane/mindmap', 'timeline.png': 'generic/timeline', 'workspace.png': 'c4/container' }, intellij: {}, vscode: {}, eclipse: {}, notion: {} } });
 		const result = run();
 		assert.equal(result.code, 3, result.output);
 		const decision = site.json('.refresh/decision.json');

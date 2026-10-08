@@ -43,5 +43,9 @@
     "agent-behavior-modelling.png": "etalii/agent-behavior-modelling",
     "gartner-hypecycle-graph-light.png": "gartner/hypecycle-graph"
   },
-  "eclipse": {}
+  "eclipse": {},
+  "notion": {
+    "gartner-hype-cycle-graph-light.png": "gartner/hypecycle-graph",
+    "gartner-hype-cycle-graph.png": "gartner/hypecycle-graph"
+  }
 }

@@ -44,6 +44,29 @@ test('the Notion host has no catalogue, so its state comes from Notion\'s Notion
 	assert.equal(tool('jgraph/drawio').hosts.notion.state, 'not-planned');
 });
 
+// etalii.adp spec 012: the Notion host's screenshots come from its repository's docs/screenshots/ like any host's.
+test('a screenshot from the Notion host is attached to its tool beside the other hosts\'', () => {
+	const dir = mkdtempSync(join(tmpdir(), 'adp-sources-'));
+	cpSync(join(fixtures, 'sources'), dir, { recursive: true });
+	const shots = join(dir, 'screenshots');
+	const [mindmap] = JSON.parse(readFileSync(join(shots, 'standalone', 'screenshots.json'), 'utf8')).filter((entry: { file: string }) => entry.file === 'mindmap.png');
+	cpSync(join(shots, 'standalone', 'mindmap.png'), join(shots, 'notion', 'mindmap.png'));
+	writeFileSync(join(shots, 'notion', 'screenshots.json'), JSON.stringify([mindmap], null, 2));
+	const lockFile = join(shots, 'source.lock.json');
+	const lock = JSON.parse(readFileSync(lockFile, 'utf8'));
+	const entry = lock.files.find((file: { path: string }) => file.path === 'standalone/mindmap.png');
+	lock.files.push({ ...entry, path: 'notion/mindmap.png', repository: 'etalii-adp/etalii.adp.ide.notion', licence: 'Apache-2.0' });
+	writeFileSync(lockFile, JSON.stringify(lock, null, 2));
+
+	const screenshots = assembleCatalogue(fixtureOptions({}, dir)).tools.find((d) => d.origin === 'freeplane/mindmap')!.screenshots;
+	assert.deepEqual(screenshots.map((shot) => shot.id), ['standalone--mindmap', 'notion--mindmap']);
+	const notion = screenshots[1];
+	assert.equal(notion.host, 'notion');
+	assert.match(notion.caption, /^Notion, at [0-9a-f]{7}$/);
+	assert.equal(notion.source.repository, 'etalii-adp/etalii.adp.ide.notion');
+	assert.equal(notion.source.licence, 'Apache-2.0');
+});
+
 test('(c) implemented without a public release is not available, and a differing Notion value is kept', () => {
 	const wardley = tool('wardley/map');
 	assert.equal(wardley.hosts.standalone.state, 'implemented');

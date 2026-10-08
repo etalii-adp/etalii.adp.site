@@ -1,4 +1,4 @@
-// refresh-screenshots: the screenshots committed in each IDE repository's docs/screenshots/, checked against the
+// refresh-screenshots: the screenshots committed in each host repository's docs/screenshots/, checked against the
 // expectations and budgets of that folder's readme, into sources/screenshots/<host>/ (research R11). It only
 // copies committed images; it never runs capture.mjs or retakes an image (FR-013).
 import { readFileSync } from 'node:fs';
@@ -13,6 +13,8 @@ const KB = 1024;
 export const NOT_A_DESIGNER = 'none';
 
 const ide = (host) => ({ repository: `etalii-adp/etalii.adp.ide.${host}`, ref: 'develop', paths: ['docs/screenshots/*.png', README, ...CATALOGUE_PATHS], host });
+/** Notion, the fifth host: the same screenshots folder, and no catalogue (its tools' states come from Notion's own column). */
+const notion = { repository: 'etalii-adp/etalii.adp.ide.notion', ref: 'develop', paths: ['docs/screenshots/*.png', README], host: 'notion' };
 
 const cells = (line) => line.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map((cell) => cell.trim());
 const unquote = (cell) => cell.replace(/^`(.*)`$/, '$1');
@@ -95,7 +97,7 @@ export default {
 	id: 'refresh-screenshots',
 	short: 'screenshots',
 	what: 'screenshots',
-	sources: ['standalone', 'intellij', 'vscode', 'eclipse'].map(ide),
+	sources: [...['standalone', 'intellij', 'vscode', 'eclipse'].map(ide), notion],
 	usesReleases: true,
 	derivedFiles: ['*/screenshots.json'],
 	configFiles: ['screenshots.json', 'states.json'],
