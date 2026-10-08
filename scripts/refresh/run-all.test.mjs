@@ -18,8 +18,8 @@ describe('refresh -- all', () => {
 	let stepSummary;
 	before(() => {
 		const standalone = makeRepo({ ...fixture('standalone'), 'docs/screenshots/mindmap.png': makePng(1600, 900) }, { tags: ['v1.0.0'] });
-		const others = ['intellij', 'vscode', 'eclipse'].map((host) => [host, makeRepo({ 'README.md': `${host}\n` })]);
-		site = makeSite({ config: { 'screenshots.json': { standalone: { 'mindmap.png': 'freeplane/mindmap' }, intellij: {}, vscode: {}, eclipse: {} } } });
+		const others = ['intellij', 'vscode', 'eclipse', 'notion'].map((host) => [host, makeRepo({ 'README.md': `${host}\n` })]);
+		site = makeSite({ config: { 'screenshots.json': { standalone: { 'mindmap.png': 'freeplane/mindmap' }, intellij: {}, vscode: {}, eclipse: {}, notion: {} } } });
 		const dir = mkdtempSync(join(tmpdir(), 'refresh-step-summary-'));
 		stepSummary = join(dir, 'summary.md');
 		writeFileSync(stepSummary, '# Earlier step\n');
