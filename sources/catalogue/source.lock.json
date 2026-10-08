@@ -1,18 +1,18 @@
 {
   "procedure": "refresh-catalogue",
-  "refreshedAt": "2026-10-05T14:58:47.778Z",
+  "refreshedAt": "2026-10-08T14:05:28.394Z",
   "sourceHeads": {
-    "etalii-adp/etalii.adp.ide.eclipse": "2e423f66ca279e5a70611c7a7a48c287e6e602ce",
-    "etalii-adp/etalii.adp.ide.intellij": "70ec911bf64876938cfceee2d68c7b3ffa01908f",
-    "etalii-adp/etalii.adp.ide.standalone": "25fc7b4af7a99989d23d75d1af9d844303243b9d",
-    "etalii-adp/etalii.adp.ide.vscode": "130b645dec997aa3a908eea46a815716b236c0f9"
+    "etalii-adp/etalii.adp.ide.eclipse": "59d855d9f4cd390659fe52746ed29d48309b285f",
+    "etalii-adp/etalii.adp.ide.intellij": "087d2bae39624424b1e8b7c7f5008d49fa41882f",
+    "etalii-adp/etalii.adp.ide.standalone": "a516eefbb6b9dba2c2c69cadebafd5fc4cea2bf8",
+    "etalii-adp/etalii.adp.ide.vscode": "271a92ca83548276f63b669454637491f31f9264"
   },
   "releases": {
     "etalii-adp/etalii.adp.ide.eclipse": null,
     "etalii-adp/etalii.adp.ide.intellij": null,
     "etalii-adp/etalii.adp.ide.standalone": {
-      "tag": "v0.1.2146-alpha",
-      "commit": "25fc7b4af7a99989d23d75d1af9d844303243b9d"
+      "tag": "v0.1.2314-alpha",
+      "commit": "91a3579adf9f1244e3769b556d6a16a1864bd6ab"
     },
     "etalii-adp/etalii.adp.ide.vscode": null
   },
@@ -33,9 +33,9 @@
       "path": "standalone/tools.md",
       "repository": "etalii-adp/etalii.adp.ide.standalone",
       "sourcePath": "docs/tools.md",
-      "commit": "486db573adea2ba4fca6fde1037b0965c6631e36",
-      "gitBlob": "138719343312e6fd79bca6677f7cc51442d5b201",
-      "sha256": "e6683af87c9d1a6a34bc0fc65a1bf7903c51fdfac4adcf8420421b0462c0f51e",
+      "commit": "b8a4313326e0084a21a08a8538d2b1d33e373387",
+      "gitBlob": "240ccf273e402bf9b9be54d56e53f58ba7a98a43",
+      "sha256": "aef2d694159a13e07c313b76c01c9480aae6c6cd14237556d88047367a6794cc",
       "licence": "Apache-2.0"
     },
     {
@@ -55,7 +55,7 @@
     },
     {
       "path": "standalone/catalogue.json",
-      "sha256": "673cb4248129bea0d3f97b6b04a2091f30ea2d82c84b9a66a01c56be4f553f44"
+      "sha256": "9b4bd09440dc3a406ea4aaf5b59b7465f2e1bbf9d2a7c77242d2935ddd76da04"
     },
     {
       "path": "vscode/catalogue.json",

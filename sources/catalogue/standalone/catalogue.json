@@ -930,6 +930,27 @@
     ]
   },
   {
+    "origin": "etalii/knowledge",
+    "name": "Knowledge designer",
+    "kind": "designer",
+    "group": "15. Designers",
+    "developState": "Identified",
+    "releaseState": null,
+    "state": "idea",
+    "theory": [
+      {
+        "label": "Notion's databases",
+        "href": "https://www.notion.com/help/intro-to-databases"
+      }
+    ],
+    "example": [
+      {
+        "label": "Row and column based knowledge in local YAML, XML or JSON files: typed properties (text, number, date and time, selection, multiple selection), (multi) directional relations between files, and views that set property visibility, sorting, filtering and row grouping",
+        "href": null
+      }
+    ]
+  },
+  {
     "origin": "editor/markdown",
     "name": "Markdown editor",
     "kind": "editor",
