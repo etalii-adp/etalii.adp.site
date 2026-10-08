@@ -152,6 +152,10 @@
           "type": "select",
           "select": null
         },
+        "Notion": {
+          "type": "select",
+          "select": { "name": "🛠️ Work-in-progress" }
+        },
         "Focus areas": {
           "type": "multi_select",
           "multi_select": [
@@ -311,6 +315,10 @@
             "color": "default"
           }
         },
+        "Notion": {
+          "type": "select",
+          "select": null
+        },
         "Focus areas": {
           "type": "multi_select",
           "multi_select": [
@@ -445,6 +453,10 @@
           "select": null
         },
         "Eclipse": {
+          "type": "select",
+          "select": null
+        },
+        "Notion": {
           "type": "select",
           "select": null
         },

@@ -1,5 +1,5 @@
 ---
-// Availability per IDE host (US3): always four rows, in the site's host order. "Available" needs a public install;
+// Availability per host (US3): always five rows, the four IDE hosts and Notion, in the site's host order. "Available" needs a public install;
 // an implemented or prototype tool says "Not yet released" (constitution principle III). A Notion value that
 // differs from the repository (notionDiffers) is for the refresh report, never for visitors.
 import { catalogueHosts } from '../../lib/catalogue/hosts';
@@ -29,9 +29,9 @@ const howToGet = (availability: HostAvailability): string | null => {
 };
 ---
 
-<TableScroll label="Availability per IDE host">
+<TableScroll label="Availability per host">
 	<table class="adp-availability">
-		<caption>Availability per IDE host</caption>
+		<caption>Availability per host</caption>
 		<thead>
 			<tr>
 				<th scope="col">Host</th>

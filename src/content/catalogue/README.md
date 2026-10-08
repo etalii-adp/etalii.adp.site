@@ -47,7 +47,7 @@ This section is for people and agents alike. The tool catalogue (spec 003) is bu
 | What the site shows | Where it is written | How it reaches the site |
 |---|---|---|
 | The tool itself, its origin tag (`vendor/type`), name, kind, group and theory links | A row in `docs/tools.md` of the IDE host's repository (`etalii-adp/etalii.adp.ide.*`) | "Refresh the tool catalogue" |
-| Its state per host (Planned, Prototype, …) | The state column of that row, mapped through `procedures/config/states.json` | "Refresh the tool catalogue" |
+| Its state per host (Planned, Prototype, …) | The state column of that row, mapped through `procedures/config/states.json`; for a host without a catalogue (Notion, and an IDE host before it has `docs/tools.md`), the host's column in the Notion "Tools" database | "Refresh the tool catalogue" |
 | One-line purpose (at most 140 characters), the task (`Description`), `Why specialized`, file extension, focus areas, family | The tool's row in the Notion "Tools" database, matched on its `Origin` column | "Refresh the tool catalogue", which runs `npm run catalogue:notion` when `NOTION_TOKEN` is set |
 | Screenshots and what they must show | `docs/screenshots/*.png` and `docs/screenshots/readme.md` in the host's repository | "Refresh the screenshots" |
 | Why a screenshot matters | `screenshot-notes.json` in this folder | Edited in the review of the screenshots refresh pull request |

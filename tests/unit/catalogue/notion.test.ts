@@ -185,6 +185,7 @@ test('the column names are what the refresh reports and an export uses', () => {
 	assert.equal(notionColumns.intellij, 'IntelliJ');
 	assert.equal(notionColumns.vscode, 'VS Code');
 	assert.equal(notionColumns.eclipse, 'Eclipse');
+	assert.equal(notionColumns.notion, 'Notion');
 	assert.deepEqual(notionColumnNames.type, ['Kind']);
 	assert.equal(columnIn({ Kind: {} }, 'type'), 'Kind');
 	assert.equal(columnIn({}, 'type'), undefined);

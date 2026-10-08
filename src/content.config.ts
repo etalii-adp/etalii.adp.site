@@ -5,7 +5,7 @@ import { z } from 'astro/zod';
 import { docsLoader } from '@astrojs/starlight/loaders';
 import { docsSchema } from '@astrojs/starlight/schema';
 import { sectionIds } from './data/sections';
-import { focusAreaIds, hostIds, listedHostIds } from './data/order';
+import { focusAreaIds, hostIds } from './data/order';
 import { assembleCatalogue, type Catalogue } from './lib/catalogue/assemble';
 
 /** Wraps the file() loader and fails the build unless the entries are exactly `expected`, in that order. */
@@ -36,7 +36,7 @@ const sourceRecord = z.object({
 const host = (image: ImageFunction) =>
 	z
 		.object({
-			id: z.enum(listedHostIds),
+			id: z.enum(hostIds),
 			name: z.string().min(1),
 			summary: z.string().min(1),
 			state: z.enum(['available', 'in-progress', 'planned']),
@@ -131,7 +131,7 @@ const hostAvailability = z
 const screenshot = (image: ImageFunction) =>
 	z
 		.object({
-			id: z.string().regex(/^(standalone|intellij|vscode|eclipse)--[a-z0-9-]+$/),
+			id: z.string().regex(/^(standalone|intellij|vscode|eclipse|notion)--[a-z0-9-]+$/),
 			host: z.enum(hostIds),
 			file: z.string().regex(/\.png$/),
 			caption: z.string().min(1),
@@ -167,7 +167,7 @@ const tool = ({ image }: { image: ImageFunction }) =>
 			focusAreas: z.array(z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/)),
 			theory: z.array(link),
 			definition: z.object({ url: z.string().url(), dislVersion: z.string().min(1) }).strict().nullable(),
-			hosts: z.object({ standalone: hostAvailability, intellij: hostAvailability, vscode: hostAvailability, eclipse: hostAvailability }).strict(),
+			hosts: z.object({ standalone: hostAvailability, intellij: hostAvailability, vscode: hostAvailability, eclipse: hostAvailability, notion: hostAvailability }).strict(),
 			screenshots: z.array(screenshot(image)),
 			sources: z.array(catalogueSource).min(1),
 		})
@@ -214,7 +214,7 @@ export const collections = {
 		}),
 	}),
 	hosts: defineCollection({
-		loader: orderedFile('src/data/hosts.yaml', listedHostIds),
+		loader: orderedFile('src/data/hosts.yaml', hostIds),
 		schema: ({ image }) => host(image),
 	}),
 	focusAreas: defineCollection({

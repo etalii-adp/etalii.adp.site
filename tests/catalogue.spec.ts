@@ -12,7 +12,7 @@ const known = new Set(catalogue.focusAreas.map((area) => area.slug));
 const others = catalogue.tools.filter((tool) => !tool.focusAreas.some((slug) => known.has(slug)));
 
 test.describe('overview', () => {
-	test('lists every tool with its purpose, origin and four host states, without scripting (FR-001)', async ({ browser }) => {
+	test('lists every tool with its purpose, origin and five host states, without scripting (FR-001)', async ({ browser }) => {
 		const context = await browser.newContext({ javaScriptEnabled: false });
 		const page = await context.newPage();
 		await page.goto('/adp/tools/');
@@ -46,7 +46,7 @@ test.describe('overview', () => {
 		await expect(page.locator('.adp-facets')).toHaveCount(0);
 		const filter = page.locator('.adp-filter');
 		await expect(filter.locator('a')).toHaveCount(0);
-		await expect(filter.getByRole('checkbox')).toHaveCount(3 + catalogue.focusAreas.length + 4 + 6);
+		await expect(filter.getByRole('checkbox')).toHaveCount(3 + catalogue.focusAreas.length + catalogueHosts.length + 6);
 		for (const kind of ['Diagram', 'Designer', 'Editor']) {
 			await expect(filter.getByRole('group', { name: 'Kind' }).getByRole('checkbox', { name: kind, exact: true })).toBeVisible();
 		}
@@ -126,6 +126,20 @@ test.describe('overview', () => {
 		await page.getByRole('group', { name: 'Host' }).getByRole('checkbox', { name: host.name }).uncheck();
 		await expect(crumbs.locator('li')).toHaveText(['Documentation', 'Tools']);
 		expect(new URL(page.url()).search).toBe('');
+	});
+
+	test('each host heading on the home page opens the overview filtered on that host, Notion included', async ({ page }) => {
+		await page.goto('/adp/');
+		const headings = page.locator('.adp-hosts h3 a');
+		await expect(headings).toHaveText(catalogueHosts.map((host) => host.name));
+		for (const [index, host] of catalogueHosts.entries()) await expect(headings.nth(index)).toHaveAttribute('href', `/adp/tools/?hosts=${host.id}`);
+
+		const notion = catalogueHosts.find((host) => host.id === 'notion')!;
+		await headings.nth(catalogueHosts.indexOf(notion)).click();
+		await expect(page.getByRole('group', { name: 'Host' }).getByRole('checkbox', { name: notion.name, exact: true })).toBeChecked();
+		const expected = catalogue.tools.filter((tool) => states[tool.hosts.notion.state].rank >= states.planned.rank).map((tool) => tool.origin);
+		const visible = await page.locator('.adp-tool:not([hidden])').evaluateAll((cards) => [...new Set(cards.map((card) => (card as HTMLElement).dataset.origin))]);
+		expect(visible.sort()).toEqual(expected.sort());
 	});
 
 	test('the introduction sits between the filter and the list, and card names are link-coloured (FR-002)', async ({ page }) => {
@@ -365,12 +379,12 @@ test.describe('tool page', () => {
 
 test.describe('availability', () => {
 	for (const tool of catalogue.tools) {
-		test(`${tool.origin} lists all four hosts with their state and how to get it (US3)`, async ({ page }) => {
+		test(`${tool.origin} lists all five hosts with their state and how to get it (US3)`, async ({ page }) => {
 			await page.goto(`/adp/tools/${tool.origin}/`);
 			const table = page.locator('table.adp-availability');
-			await expect(table.locator('caption')).toHaveText('Availability per IDE host');
+			await expect(table.locator('caption')).toHaveText('Availability per host');
 			const rows = table.locator('tbody tr');
-			await expect(rows).toHaveCount(4);
+			await expect(rows).toHaveCount(catalogueHosts.length);
 			for (const [index, host] of catalogueHosts.entries()) {
 				const row = rows.nth(index);
 				const availability = tool.hosts[host.id];
