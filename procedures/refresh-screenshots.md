@@ -1,6 +1,6 @@
 # Refresh the screenshots
 
-Brings the site's screenshots (spec 003) up to the images committed in each IDE repository's `docs/screenshots/`. Screenshots are the first thing a visitor looks at and the first thing to go out of date after a UI change. This procedure never retakes a screenshot: it only publishes images already committed in their source repository, after checking each against that folder's readme. A fix to an image belongs in its source repository (FR-013).
+Brings the site's screenshots (spec 003) up to the images committed in each host repository's `docs/screenshots/`: the four IDE hosts and Notion. Screenshots are the first thing a visitor looks at and the first thing to go out of date after a UI change. This procedure never retakes a screenshot: it only publishes images already committed in their source repository, after checking each against that folder's readme. A fix to an image belongs in its source repository (FR-013).
 
 ## Sources
 
@@ -10,8 +10,9 @@ Brings the site's screenshots (spec 003) up to the images committed in each IDE 
 | etalii-adp/etalii.adp.ide.intellij | develop | `docs/screenshots/*.png`, `docs/screenshots/readme.md`, `docs/tools.md` | private (not present yet) |
 | etalii-adp/etalii.adp.ide.vscode | develop | `docs/screenshots/*.png`, `docs/screenshots/readme.md`, `docs/tools.md` | private (not present yet) |
 | etalii-adp/etalii.adp.ide.eclipse | develop | `docs/screenshots/*.png`, `docs/screenshots/readme.md`, `docs/tools.md` | private (not present yet) |
+| etalii-adp/etalii.adp.ide.notion | develop | `docs/screenshots/*.png`, `docs/screenshots/readme.md` | public (not present yet) |
 
-The readme and the catalogue are read, not copied: the readme states what each image must show and its budget, and the catalogue says which tools are usable, so that a missing screenshot is reported.
+The readme and the catalogue are read, not copied: the readme states what each image must show and its budget, and the catalogue says which tools are usable, so that a missing screenshot is reported. Notion keeps no `docs/tools.md` (see [refresh-catalogue.md](refresh-catalogue.md)), so its images are checked and published, and no gap is reported for it.
 
 ## Updates
 
@@ -25,7 +26,7 @@ The catalogue files under `src/content/catalogue/` (`notion.json`, `published.js
 
 ## Before you start
 
-- `gh auth status` shows a login with read access to the four IDE repositories and write access to this repository.
+- `gh auth status` shows a login with read access to the four IDE repositories and `etalii-adp/etalii.adp.ide.notion`, and write access to this repository.
 - A clean checkout of this repository, with Node.js 24 and `npm ci` done.
 
 ## Steps

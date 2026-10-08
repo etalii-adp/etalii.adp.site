@@ -62,13 +62,14 @@
 - id: notion
   name: Notion
   summary: Notion add-ons, web pages that each show one ADP tool inside a Notion page.
-  state: planned
-  unavailableNote: No tool is available yet
+  state: in-progress
+  link: https://etalii.net/adp-notion/
+  linkLabel: The Notion add-ons
   illustration: ../assets/illustrations/host-notion.svg
   source:
     repository: etalii-adp/etalii.adp.ide.notion
     path: README.md
-    revision: 10464fa79b049831cc278cfcf2f69aaec020213f
-    taken: 2026-10-07
+    revision: 8f4671fc8487c0e0a346253aafb6f2f124f718c4
+    taken: 2026-10-08
     method: manual
     licence: Apache-2.0
