@@ -21,7 +21,7 @@ The run also reads the catalogue at each host's latest published release, `docs/
 - `sources/catalogue/<host>/catalogue.json`: one entry per tool with its origin, name, kind (only from a Kind column), group, theory, example, its state as written on `develop` (`developState`) and at the latest release (`releaseState`), and its site `state`.
 - `sources/catalogue/source.lock.json`: the source record of each catalogue, and each host's latest release.
 - `procedures/config/states.json`, only when a decision is answered.
-- `src/content/catalogue/notion.json`: the Notion "Tools" snapshot (`npm run catalogue:notion`). The columns are read under the names etalii.adp spec 002 gave them: `Kind`, and a host column each, `Standalone`, `IntelliJ`, `VS Code` and `Eclipse`, which the write-back writes to.
+- `src/content/catalogue/notion.json`: the Notion "Tools" snapshot (`npm run catalogue:notion`). The columns are read under the names etalii.adp spec 002 gave them: `Kind`, and a host column each, `Standalone`, `IntelliJ`, `VS Code`, `Eclipse` and `Notion`. The write-back writes only to the column of a host that has a catalogue.
 - Notion's host columns, only after the pull request is merged: `.github/workflows/catalogue-sync.yml` runs `npm run catalogue:sync-notion` on every push to `develop` that changes `sources/catalogue/`, so Notion is never ahead of the site.
 - `src/content/catalogue/focus-areas.json`: a focus area Notion uses that the file does not have yet, added by `npm run catalogue:notion`.
 - `src/content/catalogue/published.json`: the tools that have a page (`npm run catalogue:report`).
@@ -32,7 +32,7 @@ Only this procedure changes the four files under `src/content/catalogue/`; the s
 
 A tool's site state is its `develop` state mapped through `procedures/config/states.json`, and is never lowered (spec 003 research D3, owner's decision of 2026-09-27). The release state is recorded next to it, so the pull request and the page can say what a user can install. For example, a tool marked Implemented on `develop` the day after a release that had it as Prototype is shown as `implemented`, with `releaseState` Prototype.
 
-VS Code and Eclipse have no `docs/tools.md` yet, so they list no tools; every pull request says so until their repositories add one in the standalone's format. A host's README is not retyped into the catalogue (constitution principle II).
+Notion, the fifth host, keeps no `docs/tools.md` (its add-ons are listed in `etalii.adp.ide.notion`'s `addons/`), so a tool's state in Notion is read from Notion's `Notion` column alone, and Notion is not in the Sources table. VS Code and Eclipse have no `docs/tools.md` yet, so they list no tools; every pull request says so until their repositories add one in the standalone's format. A host's README is not retyped into the catalogue (constitution principle II).
 
 ## Before you start
 

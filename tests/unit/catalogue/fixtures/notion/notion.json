@@ -22,7 +22,8 @@
         "standalone": "⚗️ Prototype",
         "intellij": "✅ Implemented",
         "vscode": null,
-        "eclipse": null
+        "eclipse": null,
+        "notion": "🛠️ Work-in-progress"
       },
       "previousOrigin": null
     },
@@ -44,7 +45,8 @@
         "standalone": null,
         "intellij": "✅ Implemented",
         "vscode": null,
-        "eclipse": null
+        "eclipse": null,
+        "notion": null
       },
       "previousOrigin": null
     },
@@ -66,7 +68,8 @@
         "standalone": "📝 Specified",
         "intellij": null,
         "vscode": null,
-        "eclipse": null
+        "eclipse": null,
+        "notion": null
       },
       "previousOrigin": null
     },
@@ -90,7 +93,8 @@
         "standalone": "💡 Identified",
         "intellij": null,
         "vscode": null,
-        "eclipse": null
+        "eclipse": null,
+        "notion": null
       },
       "previousOrigin": null
     },
@@ -115,7 +119,8 @@
         "standalone": "⚗️ Prototype",
         "intellij": null,
         "vscode": null,
-        "eclipse": "⛔ Not planned"
+        "eclipse": "⛔ Not planned",
+        "notion": null
       },
       "previousOrigin": null
     }

@@ -4,7 +4,7 @@
  * the content collections in src/content.config.ts enforce them at build time.
  */
 
-export type HostId = 'standalone' | 'intellij' | 'vscode' | 'eclipse';
+export type HostId = 'standalone' | 'intellij' | 'vscode' | 'eclipse' | 'notion';
 
 export type StateId = 'not-planned' | 'idea' | 'planned' | 'in-progress' | 'prototype' | 'implemented' | 'available';
 

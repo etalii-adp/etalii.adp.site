@@ -15,7 +15,7 @@ interface Props {
 }
 
 const { focusAreas } = Astro.props;
-const eachCard = 'Each card shows the tool’s state in every IDE host.';
+const eachCard = 'Each card shows the tool’s state in every host.';
 const kinds = [
 	{ value: 'diagram', label: 'Diagram', description: 'Tools of the diagram kind: a visual arrangement of elements and the relations between them.' },
 	{ value: 'designer', label: 'Designer', description: 'Tools of the designer kind: a form-based visual layout in which nothing is connected.' },
@@ -42,7 +42,7 @@ const facets = [
 			description:
 				state === 'idea'
 					? 'The ideas: candidates for a tool that no host is building yet. Each may or may not become one.'
-					: `The tools whose most advanced state, over the four IDE hosts, is “${states[state].label}”. ${eachCard}`,
+					: `The tools whose most advanced state, over the five hosts, is “${states[state].label}”. ${eachCard}`,
 		})),
 	},
 ];

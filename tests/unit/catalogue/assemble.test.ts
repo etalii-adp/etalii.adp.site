@@ -28,12 +28,20 @@ test('(a) membership follows the best state', () => {
 	);
 });
 
-test('(b) every tool has exactly four hosts; draw.io is implemented in IntelliJ from Notion', () => {
-	for (const d of catalogue.tools) assert.deepEqual(Object.keys(d.hosts), ['standalone', 'intellij', 'vscode', 'eclipse'], d.origin);
+test('(b) every tool has exactly five hosts; draw.io is implemented in IntelliJ from Notion', () => {
+	for (const d of catalogue.tools) assert.deepEqual(Object.keys(d.hosts), ['standalone', 'intellij', 'vscode', 'eclipse', 'notion'], d.origin);
 	const drawio = tool('jgraph/drawio');
 	assert.equal(drawio.hosts.intellij.state, 'implemented');
 	assert.equal(drawio.hosts.intellij.source.kind, 'notion');
 	assert.equal(drawio.hosts.standalone.state, 'not-planned');
+});
+
+test('the Notion host has no catalogue, so its state comes from Notion\'s Notion column', () => {
+	const mindmap = tool('freeplane/mindmap');
+	assert.equal(mindmap.hosts.notion.state, 'in-progress');
+	assert.equal(mindmap.hosts.notion.sourceState, '🛠️ Work-in-progress');
+	assert.equal(mindmap.hosts.notion.source.kind, 'notion');
+	assert.equal(tool('jgraph/drawio').hosts.notion.state, 'not-planned');
 });
 
 test('(c) implemented without a public release is not available, and a differing Notion value is kept', () => {

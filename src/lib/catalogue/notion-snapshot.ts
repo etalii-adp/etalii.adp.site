@@ -25,7 +25,7 @@ export interface NotionRow {
 	subfamily: string | null;
 	theory: string | null;
 	/** The raw select values of the host columns, e.g. `⚗️ Prototype`; `null` when empty. */
-	hosts: { standalone: string | null; intellij: string | null; vscode: string | null; eclipse: string | null };
+	hosts: { standalone: string | null; intellij: string | null; vscode: string | null; eclipse: string | null; notion: string | null };
 	previousOrigin: string | null;
 }
 

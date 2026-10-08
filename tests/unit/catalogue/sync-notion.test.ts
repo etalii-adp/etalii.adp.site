@@ -10,7 +10,7 @@ import { fixtureOptions } from './helpers.ts';
 const hostOptions = ['⛔ Not planned', '💡 Identified', '📝 Specified', '⏸️ To-do', '🛠️ Work-in-progress', '⚗️ Prototype', '✅ Implemented'];
 
 /** A fetch that answers the data source read and records every call. */
-const hostColumns = ['Standalone', 'IntelliJ', 'VS Code', 'Eclipse'];
+const hostColumns = ['Standalone', 'IntelliJ', 'VS Code', 'Eclipse', 'Notion'];
 
 function fakeNotion(options: string[] = hostOptions, columns: string[] = hostColumns) {
 	const calls: { method: string; url: string; body?: unknown }[] = [];

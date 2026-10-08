@@ -50,6 +50,7 @@ export const notionColumnNames = {
 	intellij: ['IntelliJ'],
 	vscode: ['VS Code'],
 	eclipse: ['Eclipse'],
+	notion: ['Notion'],
 } as const satisfies Record<string, readonly string[]>;
 
 export type NotionField = keyof typeof notionColumnNames;
@@ -139,6 +140,7 @@ export function parseNotionPages(pages: NotionPage[], previous: NotionSnapshot =
 				intellij: select(get('intellij')),
 				vscode: select(get('vscode')),
 				eclipse: select(get('eclipse')),
+				notion: select(get('notion')),
 			},
 			previousOrigin: text(get('previousOrigin')),
 		};
@@ -201,7 +203,7 @@ export interface NotionExport {
 	rows: Record<string, unknown>[];
 }
 
-const selectFields = new Set<NotionField>(['type', 'family', 'subfamily', 'standalone', 'intellij', 'vscode', 'eclipse']);
+const selectFields = new Set<NotionField>(['type', 'family', 'subfamily', 'standalone', 'intellij', 'vscode', 'eclipse', 'notion']);
 
 /** The page id in a Notion page URL (its last 32 hex digits), as a dashed UUID. */
 export function pageIdFromUrl(url: string): string | null {

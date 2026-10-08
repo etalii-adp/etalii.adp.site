@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { hostIds } from './order.ts';
+import { ideHostIds } from './order.ts';
 import { facetStates } from '../lib/catalogue/states.ts';
 import { movedReferenceRedirects } from '../lib/reference/moved.ts';
 
@@ -24,7 +24,7 @@ function facetRedirects(): Record<string, string> {
 	const focusAreas = JSON.parse(readFileSync(new URL('../content/catalogue/focus-areas.json', import.meta.url), 'utf8')) as { slug: string }[];
 	const entries: [string, string][] = [
 		...focusAreas.map(({ slug }): [string, string] => [`/designers/focus/${slug}/`, `/adp/tools/?focus=${slug}`]),
-		...hostIds.map((id): [string, string] => [`/designers/hosts/${id}/`, `/adp/tools/?hosts=${id}`]),
+		...ideHostIds.map((id): [string, string] => [`/designers/hosts/${id}/`, `/adp/tools/?hosts=${id}`]),
 		...facetStates.map((state): [string, string] => [`/designers/states/${state}/`, `/adp/tools/?state=${state}`]),
 	];
 	return Object.fromEntries(entries);
