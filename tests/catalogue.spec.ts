@@ -46,7 +46,7 @@ test.describe('overview', () => {
 		await expect(page.locator('.adp-facets')).toHaveCount(0);
 		const filter = page.locator('.adp-filter');
 		await expect(filter.locator('a')).toHaveCount(0);
-		await expect(filter.getByRole('checkbox')).toHaveCount(3 + catalogue.focusAreas.length + 4 + 6);
+		await expect(filter.getByRole('checkbox')).toHaveCount(3 + catalogue.focusAreas.length + catalogueHosts.length + 6);
 		for (const kind of ['Diagram', 'Designer', 'Editor']) {
 			await expect(filter.getByRole('group', { name: 'Kind' }).getByRole('checkbox', { name: kind, exact: true })).toBeVisible();
 		}
@@ -384,7 +384,7 @@ test.describe('availability', () => {
 			const table = page.locator('table.adp-availability');
 			await expect(table.locator('caption')).toHaveText('Availability per host');
 			const rows = table.locator('tbody tr');
-			await expect(rows).toHaveCount(4);
+			await expect(rows).toHaveCount(catalogueHosts.length);
 			for (const [index, host] of catalogueHosts.entries()) {
 				const row = rows.nth(index);
 				const availability = tool.hosts[host.id];
