@@ -935,7 +935,7 @@
     "kind": "designer",
     "group": "15. Designers",
     "developState": "Identified",
-    "releaseState": null,
+    "releaseState": "Identified",
     "state": "idea",
     "theory": [
       {
@@ -1990,7 +1990,7 @@
     "example": [
       {
         "label": "dotnet-dependency-graph",
-        "href": "../.spec-workflow/archive/specs/dotnet-dependency-graph/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.standalone/blob/fae8ab1eb516094fd3b1afd0c323dd915562f322/.spec-workflow/archive/specs/dotnet-dependency-graph/requirements.md"
       },
       {
         "label": "dotnet-project-dependency-graph",
