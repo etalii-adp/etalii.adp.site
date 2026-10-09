@@ -8,6 +8,12 @@
   "intellij--mindmap": {
     "whyItMatters": "The same FreeMind file opens as a mind map inside IntelliJ, laid out as a tree around its central topic, so a map can be read and edited next to the code it belongs to."
   },
+  "notion--gartner-hype-cycle-graph": {
+    "whyItMatters": "The same hype cycle graph is read and edited inside a Notion page, with its trends, triggers and influences kept as rows of a Notion database, so a team that works in Notion follows how trends moved one another without leaving it."
+  },
+  "notion--gartner-hype-cycle-graph-light": {
+    "whyItMatters": "In Notion's light appearance the add-on takes the page's look, with the toolbox and the property grid beside the drawing, so the graph reads as a part of the page it is embedded in."
+  },
   "standalone--agent-behavior-modelling-bug-fixer-light": {
     "whyItMatters": "The guards an agent works under, Only while, Repeat until, Retry and Ask approval before, each wrap the steps they govern, so where the agent may loop and where it must stop and ask is checkable at a glance, here in the light theme."
   },
