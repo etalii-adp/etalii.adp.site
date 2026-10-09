@@ -205,3 +205,32 @@ test('the column names are what the refresh reports and an export uses', () => {
 		assert.equal(row.hosts.vscode, null);
 	});
 }
+
+test('a link in the Theory column read from Notion is kept as Markdown, as the connector exports it', () => {
+	const pages = structuredClone(fixturePages()) as NotionPage[];
+	const column = columnIn(pages[0].properties ?? {}, 'theory')!;
+	pages[0].properties![column] = {
+		type: 'rich_text',
+		rich_text: [
+			{ plain_text: 'The ', href: null },
+			{ plain_text: 'layout guide', href: 'https://example.org/layout' },
+		],
+	} as never;
+	const { rows } = parseNotionPages(pages);
+	const row = rows.find((candidate) => candidate.page === pages[0].id)!;
+	assert.equal(row.theory, 'The [layout guide](https://example.org/layout)');
+});
+
+test('code in a text read from Notion keeps its backticks, as the connector exports it', () => {
+	const pages = structuredClone(fixturePages()) as NotionPage[];
+	const column = columnIn(pages[0].properties ?? {}, 'description')!;
+	pages[0].properties![column] = {
+		type: 'rich_text',
+		rich_text: [
+			{ plain_text: 'Reads ', annotations: { code: false } },
+			{ plain_text: 'site.yml', annotations: { code: true } },
+		],
+	} as never;
+	const { rows } = parseNotionPages(pages);
+	assert.equal(rows.find((candidate) => candidate.page === pages[0].id)!.description, 'Reads `site.yml`');
+});
