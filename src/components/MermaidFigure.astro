@@ -1,0 +1,22 @@
+---
+// A Mermaid diagram on a documentation page, drawn at build time as the reference pages draw the diagrams of their
+// prose: a picture in light and dark, with alt text from its accTitle and accDescr, and its Mermaid text as a full
+// text alternative.
+import { accessibleText, mermaidPicture } from '../lib/reference/mermaid';
+
+interface Props {
+	code: string;
+}
+
+const code = Astro.props.code.trim();
+const { title, description } = accessibleText(code);
+const picture = await mermaidPicture(code, [title, description].filter(Boolean).join('. ') || 'Diagram; its text follows.');
+---
+
+<figure class="ref-visual not-content" data-kind="docs-diagram">
+	<div class="ref-visual-picture"><Fragment set:html={picture} /></div>
+	<details>
+		<summary>Diagram as text (Mermaid)</summary>
+		<pre tabindex="0"><code>{code}</code></pre>
+	</details>
+</figure>

@@ -5,7 +5,7 @@
  * search) as a collapsible group, and Research a group of its articles, open by default (Peter, 2026-10-09); Starlight
  * opens the groups that hold the current page. A section not written yet carries "Coming" (research R6).
  */
-import { latestOf } from '../lib/reference/load';
+import { latestOf, registeredLanguages } from '../lib/reference/load';
 import { sidebarFor, SITE_BASE, type SidebarItem } from '../lib/reference/site';
 import { researchArticles } from './research';
 import { sectionsOf, type Section } from './sections';
@@ -30,6 +30,8 @@ function link(section: Section, label = section.label): SidebarItem {
 
 /** A language's reference as one group, or its landing page with "Coming" while no version is published. */
 function reference(section: Section, shown?: ShownReference): SidebarItem {
+	// A child that is a page of its own rather than a language's reference, such as DISL at a glance.
+	if (!registeredLanguages().some((language) => language.id === section.id)) return link(section);
 	const items = shown?.language === section.id ? shown.items : undefined;
 	const latest = items ? undefined : latestOf(section.id);
 	const entries = items ?? (latest ? sidebarFor(latest, latest.record.version) : undefined);

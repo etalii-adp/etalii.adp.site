@@ -41,6 +41,8 @@ export const sections: readonly Section[] = [
 	{ id: 'specification', label: 'Specification & Definition', part: 'documentation', href: '/adp/docs/specification-and-definition/', status: 'available', deliveredBy: 'etalii.adp 002' },
 	// Coming until a version is published (spec 002; its source needs a licence first). DEDL became DISL and DID
 	// (etalii.adp spec 002), and its old addresses redirect to /adp/disl/.
+	// The high-level concepts of DISL and how they group, from etalii.adp's docs/disl-overview.md.
+	{ id: 'disl-overview', label: 'DISL at a glance', part: 'documentation', href: '/adp/docs/disl-overview/', status: 'available', deliveredBy: 'etalii.adp docs', parent: 'specification' },
 	{ id: 'disl', label: 'DISL reference', part: 'documentation', href: '/adp/disl/', status: hasPublishedVersion('disl') ? 'available' : 'coming', deliveredBy: '002', parent: 'specification' },
 	{ id: 'did', label: 'DID reference', part: 'documentation', href: '/adp/did/', status: hasPublishedVersion('did') ? 'available' : 'coming', deliveredBy: '002', parent: 'specification' },
 	// FBL serves every kind: how a tool reads and writes a model in another tool's file (etalii.adp spec 005).

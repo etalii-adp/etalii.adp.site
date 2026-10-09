@@ -1,0 +1,107 @@
+---
+title: DISL at a glance
+description: The high-level concepts of DISL, the Diagram Specification Language, and how they group together.
+part: documentation
+section: disl-overview
+---
+
+import MermaidFigure from '../../../components/MermaidFigure.astro';
+
+DISL, the Diagram Specification Language, is the language in which a tool engineer specifies a diagram type: not one diagram, but the kind of diagram people can draw, and everything a runtime needs to support it. This page shows its main concepts and how they group together. It is an overview, not the specification: every term below is defined, with its rules, in the [DISL reference](/adp/disl/), and the section numbers given here point into it.
+
+The source of this page is [`docs/disl-overview.md` in etalii.adp](https://github.com/etalii-adp/etalii.adp/blob/develop/docs/disl-overview.md); it describes the specification on etalii.adp's `develop` branch, which can be newer than the latest version published in the reference.
+
+## The big picture
+
+<MermaidFigure code={`
+---
+config:
+  flowchart:
+    wrappingWidth: 320
+---
+flowchart TB
+  accTitle: DISL at a glance
+  accDescr: A tool engineer writes a DISL specification, a .dis file that describes one diagram type. Inside it are five groups of concepts. The frame says which type it is: the language with its id, version, origin and limits, imports and functions, and viewpoints. The model says what exists: the metamodel of node types, relation types, attributes, data types, enumerations, ports and derived elements. Three groups build on the model: appearance (coordinates, notation, layout), editing (toolbox and forms, constraints, behavior) and storage (persistence). CEL expressions, documentation, plugins and x- extensions are used throughout. A runtime loads the specification and reads and writes the diagrams users draw, as DID definitions or, through an FBL binding, in another tool's file.
+  engineer["<b>Tool engineer</b>"]
+  crosscutting["<b>Cross-cutting</b><br/>CEL expressions · documentation<br/>plugins · x- extensions"]
+  subgraph specification["DISL specification (.dis): one diagram type"]
+    direction TB
+    frame["<b>Frame</b> · which type it is<br/>───<br/>language: id · version<br/>origin · limits<br/>imports · functions<br/>viewpoints"]
+    model["<b>Model</b> · what exists<br/>───<br/>metamodel (layer 1)<br/>node types · relation types<br/>attributes · data types · enumerations<br/>ports · derived elements"]
+    appearance["<b>Appearance</b> · how it looks<br/>───<br/>coordinates (layer 2)<br/>notation (layer 3)<br/>layout (layer 7)"]
+    editing["<b>Editing</b> · how it is used<br/>───<br/>toolbox and forms (layer 4)<br/>constraints (layer 5)<br/>behavior (layer 6)"]
+    storage["<b>Storage</b> · how it is kept<br/>───<br/>persistence (layer 8)"]
+    frame ~~~ model
+    model --- appearance
+    model --- editing
+    model --- storage
+  end
+  runtime["<b>Runtime</b><br/>in a host: standalone, an IDE, Notion"]
+  did["<b>DID definition</b> (.did)<br/>a diagram a user drew"]
+  body["<b>Another tool's file</b><br/>read and written through an FBL binding"]
+  engineer -- writes --> specification
+  crosscutting -. used throughout .- specification
+  specification -- loaded by --> runtime
+  runtime -- reads and writes --> did
+  runtime -- reads and writes --> body
+`} />
+
+A specification is one JSON file. Only three of its properties are required: `disl` (the DISL version), `language` and `metamodel`. Every other layer has a documented default, so a specification can start with a handful of lines and grow (section 3.1).
+
+## Frame: which type it is
+
+The frame says which diagram type this is and what it builds on.
+
+- **Language** (3.2): the type's globally unique id, its version, its origin (`<vendor>/<type>`, the name hosts and FBL use for the tool type), its display name, documentation and limits. Limits include **budgets**, which cap how much of a large model a view draws and say which edits are withheld meanwhile.
+- **Imports and functions** (3.3, 3.4): a specification can import other specifications or libraries of shapes, markers, styles and types, and can declare reusable, documented CEL functions. A standard library is always available under the alias `std`.
+- **Viewpoints** (3.5): several diagram kinds over one model, such as a structure diagram and a timeline of the same project. Each selects the types it shows, its coordinate system, its layout and its toolbox groups. A viewpoint can also be a variant of another, offered as a toggle.
+
+## Model: what exists
+
+The **metamodel** (layer 1, section 4) is the abstract syntax of the diagram type and says nothing about appearance. It declares the **node types** (everything drawn as a node, including containers, lanes and annotations), the **relation types** (everything drawn as an edge), their **attributes** with primitive types, named **data types** and **enumerations**, how nodes nest (**containment**) and refer to each other, which **ports** they expose, and **inheritance** between types. **Derived elements** are computed from other elements, for example to group, merge or lift them, and are never stored.
+
+Every other layer refers to the metamodel; the metamodel refers to none of them. That is why, in the picture, appearance, editing and storage hang from the model.
+
+## Appearance: how it looks
+
+- **Coordinates** (layer 2, section 5): diagrams are not always one infinite pixel plane. An **axis** maps domain values, such as numbers, timestamps or categories, to distances on the canvas, and two axes form a **coordinate system**. **Placement** says where each coordinate of an element comes from: stored freely, bound to a model attribute, or computed. **Snapping** restricts positions to discrete values per axis, in the axis's own units, so a Gantt task snaps to days and a swimlane activity to its lane.
+- **Notation** (layer 3, section 6): the concrete syntax. A **theme** of tokens and modes (such as dark), cascading **styles**, **shapes** from built-in primitives to parameterised custom paths, **markers** for line ends, **labels**, **icons**, the look of every node and edge, and the **canvas** around them.
+- **Layout** (layer 7, section 10): automatic arrangement of nodes and routing of edges. DISL names the algorithm and its options and says when layout runs and how it respects what a user placed. A few algorithms, such as row-packed and tidy-tree layouts, are defined by DISL itself so that every runtime draws the same result.
+
+## Editing: how it is used
+
+- **Toolbox and forms** (layer 4, section 7): how users create and change elements. The **toolbox** is the palette, grouped; **context tools** appear next to a selection; **templates** insert pre-built fragments such as starter structures; **forms** are property inspectors and widgets embedded in nodes.
+- **Constraints** (layer 5, section 8): what makes a diagram valid, as rules written in CEL. A rule either prevents a gesture or reports a **finding** afterwards, with a severity, a message that explains it and **quick fixes**. Built-in constraints cover what the metamodel already implies, such as required attributes.
+- **Behavior** (layer 6, section 9): what happens when users act, beyond direct manipulation. **Hooks** react to events such as creation, **operations** are named multi-step commands, **policies** govern deletion, the clipboard, retyping and undo, and **simulations** play a run of the diagram step by step without changing it.
+
+## Storage: how it is kept
+
+**Persistence** (layer 8, section 11) declares exactly how a diagram is stored: its format, how it is split over files, how ids are generated, how elements and keys are ordered, which view data is kept, how precise numbers are, how old diagrams are migrated and how several people can edit at once. Two conforming runtimes saving the same diagram write byte-identical files. The stored diagram is a **DID definition**, specified by [DID](/adp/did/). When the model lives in a file that another tool owns, such as a Structurizr workspace or a FreeMind mind map, persistence names an [FBL](/adp/fbl/) binding instead, which reads that file and writes each change back as a minimal splice.
+
+## Cross-cutting
+
+- **CEL** (section 12): every dynamic value is an expression in the Common Expression Language: label text, visibility, conditional styles, shape geometry, constraint rules, default values, placement bindings. CEL is side-effect free and always terminates.
+- **Documentation** (2.4): every object may carry a `doc`, so a specification is also the reference manual of its diagram type and the source of the help a runtime shows.
+- **Plugins and extensions** (section 13): what the declarative core cannot express is delegated to named, versioned plugins rather than embedded scripts. Vendor extensions live under `x-` keys and are preserved on round trips.
+
+## Around the language
+
+- **Processing** (section 14): a runtime or validator loads a specification by parsing it, resolving imports and names, flattening inheritance, deriving defaults and type-checking every CEL expression. Every user gesture, form commit, operation or quick fix is then one transaction: it is applied as a whole and becomes one undo step, or it is rolled back entirely.
+- **Conformance** (section 15): a runtime is *core*, *standard* or *full*, and states which optional features it lacks; a specification can require a minimum class.
+
+## A minimal specification
+
+This five-line diagram type already yields a usable tool: a palette with an *Idea* and a *Branch* tool, labelled rectangles, arrows, a generated property form and JSON persistence (section 3.1).
+
+```json
+{
+  "disl": "0.2",
+  "language": { "id": "org.example.mindmap", "version": "0.1.0", "label": "Mind map" },
+  "metamodel": {
+    "types": { "Idea": { "attributes": { "text": { "type": "string", "required": true } } } },
+    "relations": { "Branch": { "source": "Idea", "target": "Idea" } }
+  }
+}
+```
+
+Complete specifications are the `*.dis` files beside the specification in [`specifications/disl/`](https://github.com/etalii-adp/etalii.adp/tree/develop/specifications/disl), and the tool definitions under [`definitions/diagrams/`](https://github.com/etalii-adp/etalii.adp/tree/develop/definitions/diagrams) in etalii.adp.
