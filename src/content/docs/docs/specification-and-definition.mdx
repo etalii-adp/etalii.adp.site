@@ -26,6 +26,6 @@ There is one specification language and one definition language per kind:
 | Designer | DESL, Designer Specification Language | `.des` | DED, Designer Definition Language | `.ded` |
 | Editor | EDSL, Editor Specification Language | `.eds` | EDD, Editor Definition Language | `.edd` |
 
-DISL and DID have content: follow their names to their references. DESL, DED, EDSL and EDD are placeholders, with their content to come when a designer or an editor needs them. DID here always means ADP's Diagram Definition Language, not the W3C's Decentralized Identifiers.
+DISL and DID have content: follow their names to their references. [DISL at a glance](/adp/docs/disl-overview/) shows DISL's main concepts and how they group together. DESL, DED, EDSL and EDD are placeholders, with their content to come when a designer or an editor needs them. DID here always means ADP's Diagram Definition Language, not the W3C's Decentralized Identifiers.
 
 Beside the six, the [FBL, Format Binding Language](/adp/fbl/) (`.fbl`) serves every kind. When a tool's model lives in another tool's file, such as a Structurizr DSL workspace, a YAML file or a `.mm` mind map, an FBL document declares how the tool reads that file and writes its changes back while leaving every byte it did not change as it was. It also defines the `.adp` registration beside such a file, which names its tool type and keeps the positions a user placed, so they never have to be written into the file.
