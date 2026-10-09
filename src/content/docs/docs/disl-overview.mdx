@@ -96,10 +96,22 @@ This five-line diagram type already yields a usable tool: a palette with an *Ide
 ```json
 {
   "disl": "0.2",
-  "language": { "id": "org.example.mindmap", "version": "0.1.0", "label": "Mind map" },
+  "language": {
+    "id": "org.example.mindmap",
+    "version": "0.1.0",
+    "label": "Mind map"
+  },
   "metamodel": {
-    "types": { "Idea": { "attributes": { "text": { "type": "string", "required": true } } } },
-    "relations": { "Branch": { "source": "Idea", "target": "Idea" } }
+    "types": {
+      "Idea": {
+        "attributes": {
+          "text": { "type": "string", "required": true }
+        }
+      }
+    },
+    "relations": {
+      "Branch": { "source": "Idea", "target": "Idea" }
+    }
   }
 }
 ```
