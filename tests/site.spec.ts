@@ -207,14 +207,12 @@ test.describe('addresses (contracts/site-addresses.md)', () => {
 		await context.close();
 	});
 
-	test('each research article is its own item in a collapsible Research group (Peter, 2026-09-29)', async ({ page }) => {
+	test('each research article is its own item in a Research group that starts open (Peter, 2026-09-29, 2026-10-09)', async ({ page }) => {
 		const articles = researchArticles();
 		expect(articles.length).toBeGreaterThan(0);
 		const research = page.locator('.sidebar-content details').filter({ has: page.locator(':scope > summary', { hasText: 'Research' }) });
 		await page.goto('/adp/docs/');
-		const first = research.locator(`a[href="${articles[0].href}"]`);
-		await expect(first).toBeHidden();
-		await research.locator(':scope > summary').click();
+		await expect(research.locator(`a[href="${articles[0].href}"]`)).toBeVisible();
 		await expect(research.getByRole('link', { name: 'Overview' })).toHaveAttribute('href', '/adp/docs/research/');
 		for (const article of articles) await expect(research.getByRole('link', { name: article.title, exact: true })).toHaveAttribute('href', article.href);
 		// An article's own page opens the group at that article.
