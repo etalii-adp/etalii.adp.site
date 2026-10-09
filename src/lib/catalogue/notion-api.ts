@@ -7,7 +7,7 @@ import type { FocusArea, ReportItem } from './types.ts';
  * `catalogue:notion` script and the tests share it; only the script reaches the network.
  */
 
-type RichText = { plain_text: string }[];
+type RichText = { plain_text: string; href?: string | null; annotations?: { code?: boolean } }[];
 
 export type NotionProperty =
 	| { type: 'title'; title: RichText }
@@ -72,11 +72,22 @@ const optionalColumns = new Set<NotionField>(['previousOrigin']);
 /** The text fields where an empty Notion value keeps the snapshot's previous value (S3 "Empty values"). */
 const keptTextFields = ['name', 'purpose', 'description', 'whySpecialized', 'fileExtension', 'theory'] as const;
 
-function text(property: NotionProperty | undefined): string | null {
+/**
+ * The text of a title or rich text property, as the connector's export writes it, so that a snapshot is the same
+ * whichever way it was taken: code in backticks, and with `links` a linked part as Markdown, [text](url). Theory is the
+ * one column whose URLs the catalogue reads.
+ */
+function text(property: NotionProperty | undefined, links = false): string | null {
 	if (!property) return null;
 	const parts = property.type === 'title' ? (property.title as RichText) : property.type === 'rich_text' ? (property.rich_text as RichText) : null;
 	if (!parts) return null;
-	const value = parts.map((part) => part.plain_text).join('').trim();
+	const value = parts
+		.map((part) => {
+			const written = part.annotations?.code ? `\`${part.plain_text}\`` : part.plain_text;
+			return links && part.href ? `[${written}](${part.href})` : written;
+		})
+		.join('')
+		.trim();
 	return value === '' ? null : value;
 }
 
@@ -134,7 +145,7 @@ export function parseNotionPages(pages: NotionPage[], previous: NotionSnapshot =
 			focusAreas: multiSelect(get('focusAreas')),
 			family: select(get('family')),
 			subfamily: select(get('subfamily')),
-			theory: text(get('theory')),
+			theory: text(get('theory'), true),
 			hosts: {
 				standalone: select(get('standalone')),
 				intellij: select(get('intellij')),
