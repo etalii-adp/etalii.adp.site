@@ -48,8 +48,6 @@ export const sections: readonly Section[] = [
 	// FBL serves every kind: how a tool reads and writes a model in another tool's file (etalii.adp spec 005).
 	{ id: 'fbl', label: 'FBL reference', part: 'documentation', href: '/adp/fbl/', status: hasPublishedVersion('fbl') ? 'available' : 'coming', deliveredBy: 'etalii.adp 005', parent: 'specification' },
 	{ id: 'tools', label: 'Tools', part: 'documentation', href: '/adp/tools/', status: 'available', deliveredBy: '003' },
-	// What the agent activity diagram is for and how its parts fit, from etalii.adp's docs/agent-activity-diagram.md.
-	{ id: 'agent-activity-diagram', label: 'Agent activity diagram', part: 'documentation', href: '/adp/docs/agent-activity-diagram/', status: 'available', deliveredBy: 'etalii.adp docs', parent: 'tools' },
 	// Analyses behind ADP, each written in etalii.adp under docs/research/ and shown here as an article page.
 	{ id: 'research', label: 'Research', part: 'documentation', href: '/adp/docs/research/', status: 'available', deliveredBy: 'research' },
 ];
