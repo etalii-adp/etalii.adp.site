@@ -191,7 +191,8 @@ test.describe('addresses (contracts/site-addresses.md)', () => {
 		// A reference page shows the same sidebar, its own language opened at the current page.
 		const [first] = references;
 		await page.goto(`/adp/${first.language.id}/${first.record.version}/schema/`);
-		await expect(sidebar.getByRole('link', { name: 'Tools', exact: true })).toBeVisible();
+		// Tools is a group of its own, holding the catalogue and Agent activity diagram at a glance.
+		await expect(group('Tools').getByRole('link', { name: 'Overview' })).toHaveAttribute('href', '/adp/tools/');
 		await expect(sidebar.locator('[aria-current="page"]')).toHaveText('Schema');
 	});
 
