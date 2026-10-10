@@ -1,24 +1,26 @@
 {
   "procedure": "refresh-screenshots",
-  "refreshedAt": "2026-10-05T14:56:01.287Z",
+  "refreshedAt": "2026-10-10T15:28:04.763Z",
   "sourceHeads": {
-    "etalii-adp/etalii.adp.ide.eclipse": "2e423f66ca279e5a70611c7a7a48c287e6e602ce",
-    "etalii-adp/etalii.adp.ide.intellij": "70ec911bf64876938cfceee2d68c7b3ffa01908f",
-    "etalii-adp/etalii.adp.ide.standalone": "25fc7b4af7a99989d23d75d1af9d844303243b9d",
-    "etalii-adp/etalii.adp.ide.vscode": "130b645dec997aa3a908eea46a815716b236c0f9"
+    "etalii-adp/etalii.adp.ide.eclipse": "59d855d9f4cd390659fe52746ed29d48309b285f",
+    "etalii-adp/etalii.adp.ide.intellij": "087d2bae39624424b1e8b7c7f5008d49fa41882f",
+    "etalii-adp/etalii.adp.ide.notion": "4a0cdb46c99e0cf2c335cda7dde8ca76b088911c",
+    "etalii-adp/etalii.adp.ide.standalone": "68df9dd39fe198a18a0c6716c2a0c4f8fb3af9e5",
+    "etalii-adp/etalii.adp.ide.vscode": "271a92ca83548276f63b669454637491f31f9264"
   },
   "releases": {
     "etalii-adp/etalii.adp.ide.eclipse": null,
     "etalii-adp/etalii.adp.ide.intellij": null,
+    "etalii-adp/etalii.adp.ide.notion": null,
     "etalii-adp/etalii.adp.ide.standalone": {
-      "tag": "v0.1.2146-alpha",
-      "commit": "25fc7b4af7a99989d23d75d1af9d844303243b9d"
+      "tag": "v0.1.2446-alpha",
+      "commit": "616da681bdc49baafcbdef680d5b0bd823f89679"
     },
     "etalii-adp/etalii.adp.ide.vscode": null
   },
   "config": {
-    "procedures/config/screenshots.json": "e40897c494b5c581efbcd08fd033758248d2e8d96375db9f04307004f25a7242",
-    "procedures/config/states.json": "11c6e39937682dc079d4661c0f207870dedbc5253be3e3d7398602e39ecee47a"
+    "procedures/config/screenshots.json": "c40754b59c0cfe8bc9597effdb916b217dd8953ee1357133f03bc0e3debe378b",
+    "procedures/config/states.json": "9b6621be7d65c24345c35133822e06ffa716f27fdb48f61104d3abf8b2659406"
   },
   "files": [
     {
@@ -46,6 +48,24 @@
       "commit": "b562c7f5320e1cf749f34cec2a10e2d4de6a7a17",
       "gitBlob": "324a3b7e4c5211c3d2c75839bbdc4c31df1bea08",
       "sha256": "06608789a2cd473d5d891afa11c71fde0827a1d8f5fc1bee0c06ad55a427a87b",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "notion/gartner-hype-cycle-graph-light.png",
+      "repository": "etalii-adp/etalii.adp.ide.notion",
+      "sourcePath": "docs/screenshots/gartner-hype-cycle-graph-light.png",
+      "commit": "df6f9fecff6f8f0826d400a807e6f8be8cc5e091",
+      "gitBlob": "942a7e5e04fbe63534721d6b57fd0f3d201fde74",
+      "sha256": "19d19fe891b4ef71b0a61d93dfe0f5a2aad63a4a70eb9d9bbccea9bf1f99fa67",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "notion/gartner-hype-cycle-graph.png",
+      "repository": "etalii-adp/etalii.adp.ide.notion",
+      "sourcePath": "docs/screenshots/gartner-hype-cycle-graph.png",
+      "commit": "df6f9fecff6f8f0826d400a807e6f8be8cc5e091",
+      "gitBlob": "3b7911cfcf5ddb005c072d418c55d6f43c21e562",
+      "sha256": "c1f0179141a6ac1ff17a7f5c2156ba39fdb7b395df89a9e9751f6b8fac46ff86",
       "licence": "Apache-2.0"
     },
     {
@@ -378,6 +398,12 @@
       "gitBlob": "a9f8f21933584f58d78d96d4fabc8d2ba1c66aaf"
     },
     {
+      "repository": "etalii-adp/etalii.adp.ide.notion",
+      "sourcePath": "docs/screenshots/readme.md",
+      "commit": "1dac0d7130860d3b85e1f99b59f4be50471c0134",
+      "gitBlob": "61bbd363a26861757c6b77f465eeb6ceb45fc27c"
+    },
+    {
       "repository": "etalii-adp/etalii.adp.ide.standalone",
       "sourcePath": "docs/screenshots/readme.md",
       "commit": "c400088d74c1f8b4f003a83b59ad0a4c1684b08f",
@@ -386,8 +412,8 @@
     {
       "repository": "etalii-adp/etalii.adp.ide.standalone",
       "sourcePath": "docs/tools.md",
-      "commit": "486db573adea2ba4fca6fde1037b0965c6631e36",
-      "gitBlob": "138719343312e6fd79bca6677f7cc51442d5b201"
+      "commit": "daa6e0c84de59203c794a362e53240a7a51c493c",
+      "gitBlob": "df8c6f7af2038f3c429f2cf47c4dcf1a26f807f5"
     },
     {
       "repository": "etalii-adp/etalii.adp.ide.vscode",
@@ -406,6 +432,10 @@
     {
       "path": "intellij/screenshots.json",
       "sha256": "85482d5a75bd8e16ca0ff6c02e8d9f4eaf0fdb71d0db9a48934d5ac852b56698"
+    },
+    {
+      "path": "notion/screenshots.json",
+      "sha256": "05fa6b234c03ff778058dbc897aff9ce9ef336f7ca8ff753043c0c4d46d97958"
     },
     {
       "path": "standalone/screenshots.json",
