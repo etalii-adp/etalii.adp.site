@@ -934,9 +934,9 @@
     "name": "Knowledge designer",
     "kind": "designer",
     "group": "15. Designers",
-    "developState": "Identified",
-    "releaseState": null,
-    "state": "idea",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
     "theory": [
       {
         "label": "Notion's databases",
@@ -1622,6 +1622,31 @@
     ]
   },
   {
+    "origin": "etalii/agent-activity-diagram",
+    "name": "Agent activity diagram",
+    "kind": "diagram",
+    "group": "5. Business process & workflow notation",
+    "developState": "Work-in-progress",
+    "releaseState": "Work-in-progress",
+    "state": "in-progress",
+    "theory": [
+      {
+        "label": "etalii.adp",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/diagrams/agent-activity-diagram.md"
+      }
+    ],
+    "example": [
+      {
+        "label": "agent-activity-diagram",
+        "href": "../.spec-workflow/specs/agent-activity-diagram/requirements.md"
+      },
+      {
+        "label": "an instruction text for agents",
+        "href": "../src/diagrams/agent-activity-diagram/examples/updating-this-file.md"
+      }
+    ]
+  },
+  {
     "origin": "etalii/agent-behavior-modelling",
     "name": "Agent Behavior Modelling",
     "kind": "diagram",
@@ -1990,7 +2015,7 @@
     "example": [
       {
         "label": "dotnet-dependency-graph",
-        "href": "../.spec-workflow/archive/specs/dotnet-dependency-graph/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.standalone/blob/fae8ab1eb516094fd3b1afd0c323dd915562f322/.spec-workflow/archive/specs/dotnet-dependency-graph/requirements.md"
       },
       {
         "label": "dotnet-project-dependency-graph",
