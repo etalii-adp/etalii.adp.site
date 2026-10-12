@@ -32,7 +32,12 @@
     "sankey-uk-energy.png": "etalii/sankey",
     "supply-chain-automotive-light.png": "etalii/supply-chain",
     "supply-chain-automotive.png": "etalii/supply-chain",
-    "supply-chain-gpu-memory.png": "etalii/supply-chain"
+    "supply-chain-gpu-memory.png": "etalii/supply-chain",
+    "agent-activity-diagram.png": "etalii/agent-activity-diagram",
+    "c4-deployment.png": "c4/deployment",
+    "c4-dynamic.png": "c4/dynamic",
+    "knowledge.png": "etalii/knowledge",
+    "skos.png": "w3c/skos"
   },
   "intellij": {
     "drawio-activity.png": "jgraph/drawio",

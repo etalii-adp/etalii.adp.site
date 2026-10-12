@@ -14,6 +14,9 @@
   "notion--gartner-hype-cycle-graph-light": {
     "whyItMatters": "In Notion's light appearance the add-on takes the page's look, with the toolbox and the property grid beside the drawing, so the graph reads as a part of the page it is embedded in."
   },
+  "standalone--agent-activity-diagram": {
+    "whyItMatters": "One picture shows which agents work on which specification of which project, where and on what system: projects in the middle, their specifications with tasks by status around them, then agents, branches with their pull requests, and environments, so a day of human and agent work reads at a glance."
+  },
   "standalone--agent-behavior-modelling-bug-fixer-light": {
     "whyItMatters": "The guards an agent works under, Only while, Repeat until, Retry and Ask approval before, each wrap the steps they govern, so where the agent may loop and where it must stop and ask is checkable at a glance, here in the light theme."
   },
@@ -34,6 +37,12 @@
   },
   "standalone--c4-context": {
     "whyItMatters": "The system sits among the people and systems it works with, drawn from the model rather than by hand, so the widest C4 view agrees with every more detailed one."
+  },
+  "standalone--c4-deployment": {
+    "whyItMatters": "The production deployment nests each deployment node around what it hosts, from the load balancer down to the container instances, so the infrastructure is read straight from the Structurizr workspace the other C4 views come from."
+  },
+  "standalone--c4-dynamic": {
+    "whyItMatters": "One scenario, the release of a batch, is drawn as numbered interactions between the containers and external systems taking part, so the order of the calls reads from the same workspace as the static views."
   },
   "standalone--c4-system-landscape": {
     "whyItMatters": "All systems of the organization appear in one view from the shared model, which shows where each system fits before zooming into any of them."
@@ -65,11 +74,20 @@
   "standalone--hype-cycle": {
     "whyItMatters": "Trends sit as banners along the years, coloured by their phase on the curve, with a filter by tag, so how technologies rise, fall and mature relative to each other can be compared over a long span."
   },
+  "standalone--knowledge": {
+    "whyItMatters": "A table of cities kept in a plain YAML file opens as a database: typed columns, coloured choices, a relation to the provinces file and views of its own, while every change is written back to the file under version control."
+  },
+  "standalone--markdown-editor": {
+    "whyItMatters": "A markdown file opens with its heading outline above, the text on the left and the rendered page on the right, so a document is written and checked in the same place as the diagrams beside it."
+  },
   "standalone--mindmap": {
     "whyItMatters": "A large Freeplane map stays readable because the diagram lays the branches out as a tree around the central topic, while the .mm file keeps working in Freeplane."
   },
   "standalone--owl": {
     "whyItMatters": "The ontology's classes and properties appear in the VOWL notation, which makes the structure of an OWL ontology readable by eye, where its Turtle or RDF/XML source is not."
+  },
+  "standalone--plain-text-editor": {
+    "whyItMatters": "A plain text file opens with line numbers in a monospace face and keeps its own line endings, so notes that belong to a project are edited without leaving it."
   },
   "standalone--rdf": {
     "whyItMatters": "The Turtle document's resources become cards with their types and literals, language tags included, and their relations become edges, so the graph the text describes is visible as a graph."
@@ -85,6 +103,9 @@
   },
   "standalone--shacl": {
     "whyItMatters": "Each node shape is a card with its target and property rows, path and cardinality, with edges between shapes, so what the constraints demand can be checked side by side instead of in nested Turtle."
+  },
+  "standalone--skos": {
+    "whyItMatters": "The STW thesaurus's geographic names, read straight from its Turtle file, are drawn as concepts on wrapped rows with their broader and related links, so a controlled vocabulary is seen as a structure rather than a list."
   },
   "standalone--sparql": {
     "whyItMatters": "The query's pattern is drawn as the graph it matches, with the OPTIONAL group as a region, so which variables join and which parts are optional is visible before the query runs."
