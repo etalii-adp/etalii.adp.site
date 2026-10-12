@@ -2,7 +2,7 @@
   "standalone": {
     "azure-pipeline.png": "azure-devops/pipeline",
     "dependency-graph.png": "generic/dependencies",
-    "markdown-editor.png": "none",
+    "markdown-editor.png": "editor/markdown",
     "mindmap.png": "freeplane/mindmap",
     "timeline.png": "generic/timeline",
     "wardley-map.png": "wardley/map",
@@ -20,7 +20,7 @@
     "helm-chart.png": "helm/chart",
     "hype-cycle.png": "gartner/hypecycle-graph",
     "owl.png": "w3c/owl",
-    "plain-text-editor.png": "none",
+    "plain-text-editor.png": "editor/plain",
     "rdf.png": "w3c/rdf",
     "shacl.png": "w3c/shacl",
     "sparql.png": "w3c/sparql",
