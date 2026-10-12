@@ -22,6 +22,28 @@
     "schemaAddress": "/did/schema/{version}/{schema}"
   },
   {
+    "id": "desl",
+    "name": "DESL — Designer Specification Language",
+    "short": "DESL",
+    "repository": "etalii-adp/etalii.adp",
+    "branch": "develop",
+    "path": "specifications/desl",
+    "prose": "DESL-specification.md",
+    "schema": "desl.schema.json",
+    "schemaAddress": "/desl/schema/{version}/{schema}"
+  },
+  {
+    "id": "ded",
+    "name": "DED — Designer Definition Language",
+    "short": "DED",
+    "repository": "etalii-adp/etalii.adp",
+    "branch": "develop",
+    "path": "specifications/ded",
+    "prose": "DED-specification.md",
+    "schema": "ded.schema.json",
+    "schemaAddress": "/ded/schema/{version}/{schema}"
+  },
+  {
     "id": "fbl",
     "name": "FBL — Format Binding Language",
     "short": "FBL",

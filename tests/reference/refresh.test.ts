@@ -106,7 +106,7 @@ describe('reference:refresh (contracts/refresh-cli.md)', () => {
 		expect(report).toContain('source has no licence');
 	});
 
-	it('refuses a schema $id whose version differs from the prose', async () => {
+	it('refuses a schema $id whose version is newer than the prose', async () => {
 		const schema = edit('disl.schema.json', 'schema/0.1/disl.schema.json', 'schema/0.2/disl.schema.json');
 		const { code, report } = await run(fakeGitHub({ files: { 'disl.schema.json': schema } }));
 		expect(code).toBe(1);
@@ -151,6 +151,15 @@ describe('reference:refresh (contracts/refresh-cli.md)', () => {
 		expect(report).toContain('new version');
 		expect(existsSync(join(root, 'disl', '0.2', 'source.json'))).toBe(true);
 		expect(readFileSync(join(root, 'disl', '0.1', 'source.json'))).toEqual(before);
+	});
+
+	it("accepts a draft's schema that keeps an earlier version's address, and says so", async () => {
+		const prose = edit('DISL-specification.md', '**Specification, version 0.1 (Working Draft)**', '**Specification, version 0.2 (Working Draft)**');
+		const { code, report } = await run(fakeGitHub({ files: { 'DISL-specification.md': prose } }));
+		expect(code).toBe(0);
+		expect(report).toContain('keeps the 0.1 address');
+		const record = JSON.parse(readFileSync(join(root, 'disl', '0.2', 'source.json'), 'utf8'));
+		expect(record.version).toBe('0.2');
 	});
 
 	it('stores an unclassifiable file as other and reports it', async () => {

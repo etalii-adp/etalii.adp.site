@@ -9,6 +9,7 @@
 | Specification language    | DISL, the Diagram Specification Language, in [`../disl/`](../disl/DISL-specification.md) |
 | Media types (provisional) | `application/vnd.did.definition+json`, `application/vnd.did.fragment+json`           |
 | File extension            | `.did`                                                                               |
+| Licence                   | [Apache License 2.0](https://github.com/etalii-adp/etalii.adp/blob/develop/LICENSE) (`Apache-2.0`) |
 
 ---
 

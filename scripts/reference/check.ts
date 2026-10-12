@@ -9,7 +9,7 @@ import { pathToFileURL } from 'node:url';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { REFERENCE_DIR, contentDir, languages, versionsOf, type LoadedVersion } from '../../src/lib/reference/load';
-import { LATEST, languageHref, pageHref, schemaFileHref, versionHref } from '../../src/lib/reference/site';
+import { LATEST, languageHref, pageHref, schemaFileHref, servesSchema, versionHref } from '../../src/lib/reference/site';
 
 export interface CheckContext {
 	/** The build output, `dist/`. */
@@ -166,7 +166,8 @@ checks.push({
 			// A schema may reference another language's by absolute $id (DID's references DISL's primitives, etalii.adp
 			// spec 002), so the schemas of the other published versions are known too.
 			const added = new Set([schema.$id]);
-			for (const other of versions) {
+			// The newest version with an `$id` first, since that is the schema served at the address.
+			for (const other of [...versions].reverse()) {
 				const id = other.schema().$id;
 				if (!added.has(id)) {
 					ajv.addSchema(other.schema());
@@ -197,7 +198,8 @@ checks.push({
 	run({ versions, bytes, fail }) {
 		for (const version of versions) {
 			const language = version.language.id;
-			const expected: [string, string][] = [[schemaFileHref(version), version.language.schema]];
+			// Versions sharing a schema address (a draft keeps an earlier one's): the newest of them is served there.
+			const expected: [string, string][] = servesSchema(version, versions) ? [[schemaFileHref(version), version.language.schema]] : [];
 			const segments = version === versions.filter((v) => v.language.id === language).at(-1) ? [version.record.version, LATEST] : [version.record.version];
 			for (const segment of segments) {
 				expected.push([`${versionHref(language, segment)}${version.language.prose}`, version.language.prose]);
