@@ -1,0 +1,35 @@
+{
+  "language": "ded",
+  "version": "0.1",
+  "status": "Draft",
+  "date": "2026-10-09",
+  "source": {
+    "kind": "git",
+    "repository": "etalii-adp/etalii.adp",
+    "path": "specifications/ded",
+    "revision": "d31b993546c01a9692bfde6c3888655128022d84",
+    "licence": "Apache-2.0",
+    "copyright": "Copyright © Peter Vrenken 2026"
+  },
+  "files": [
+    {
+      "name": "DED-specification.md",
+      "role": "prose",
+      "sha256": "7ec9aaaa01dad8ef2d72e20882b591a4b8cf401ee7f62a684431ee57d7da2a78",
+      "size": 9350
+    },
+    {
+      "name": "ded.schema.json",
+      "role": "schema",
+      "sha256": "6c7466d8a802876d6482d48eb1a1261564b9da4282d539e3fa001c1f41dfb986",
+      "size": 1054
+    },
+    {
+      "name": "library.ded",
+      "role": "other",
+      "sha256": "b4ee25f358d2e86476751745cd8525c14306f9877537e1f5ec5850cfeecc524d",
+      "size": 860
+    }
+  ],
+  "retrieved": "2026-10-12T20:50:28Z"
+}

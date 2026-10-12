@@ -7,7 +7,7 @@
     "kind": "git",
     "repository": "etalii-adp/etalii.adp",
     "path": "specifications/did",
-    "revision": "4590c569a8b4f24d3304a83ca43fa4b700c33ad3",
+    "revision": "d31b993546c01a9692bfde6c3888655128022d84",
     "licence": "Apache-2.0",
     "copyright": "Copyright © Peter Vrenken 2026"
   },
@@ -15,8 +15,8 @@
     {
       "name": "DID-specification.md",
       "role": "prose",
-      "sha256": "8490880ca67e4073355a9698d0bc557052a64b6bf57c5153ce352f93e6549847",
-      "size": 46029
+      "sha256": "0fd547140e135e23f607b4c50362621a013e01be91a627b95ba51da6585389e4",
+      "size": 46160
     },
     {
       "name": "did.schema.json",
@@ -37,5 +37,5 @@
       "size": 2172
     }
   ],
-  "retrieved": "2026-10-01T06:35:20Z"
+  "retrieved": "2026-10-12T20:49:12Z"
 }

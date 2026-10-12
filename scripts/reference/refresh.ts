@@ -72,6 +72,12 @@ function snapshotsOf(contentRoot: string, language: string): Snapshot[] {
 		.sort((a, b) => compareVersions(a.record.version, b.record.version));
 }
 
+/** The schema's own `$id` for any version of this language, capturing the version. */
+function schemaAddressPattern(language: Language): RegExp {
+	const path = language.schemaAddress.replace('{schema}', language.schema).replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace('\\{version\\}', '([^/]+)');
+	return new RegExp(`^${SITE.replace(/[.]/g, '\\.')}${path}$`);
+}
+
 /** The `$schema` address of an example of this language, for any version, with the `$defs` root it names. */
 function exampleSchemaPattern(language: Language): RegExp {
 	const path = language.schemaAddress.replace('{schema}', language.schema).replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace('\\{version\\}', '([^/]+)');
@@ -80,15 +86,15 @@ function exampleSchemaPattern(language: Language): RegExp {
 
 /**
  * The role of an example by the `$defs` root its `$schema` names: a DISL `Specification` is what a tool engineer
- * writes, recorded as `definition`; a DID `Definition` is a stored diagram and an FBL `Document` a set of format
+ * writes, recorded as `definition` (a DESL `Specification` too); a DID or DED `Definition` is a stored diagram or designer and an FBL `Document` a set of format
  * bindings, both recorded as `document`.
  */
 function exampleRole(language: Language, root: string): FileRole {
-	return (root === 'Definition' && language.id === 'did') || root === 'Document' ? 'document' : 'definition';
+	return (root === 'Definition' && (language.id === 'did' || language.id === 'ded')) || root === 'Document' ? 'document' : 'definition';
 }
 
-/** The file extensions of examples: DISL's (`.dis`, and the one it had before, still read), DID's and FBL's, or JSON. */
-const EXAMPLE = /\.(dis|disl|did|fbl|json)$/;
+/** The file extensions of examples: DISL's (`.dis`, and the one it had before, still read), DID's, DESL's, DED's and FBL's, or JSON. */
+const EXAMPLE = /\.(dis|disl|did|des|ded|fbl|json)$/;
 
 function classify(name: string, bytes: Buffer, language: Language, version: string): { role: FileRole; warning?: string } {
 	if (name === language.prose) return { role: 'prose' };
@@ -235,10 +241,14 @@ export async function refresh(options: RefreshOptions): Promise<RefreshResult> {
 		} catch {
 			throw new RefreshError(`\`${language.schema}\` is not JSON.`);
 		}
+		// While a version is a draft its schema may keep an earlier version's address (DISL 0.3 and 0.4 publish theirs at
+		// the 0.2 address, FBL 0.2 to 0.6 at the 0.1 address), so the `$id` names this version or an earlier one.
 		const expected = SITE + language.schemaAddress.replace('{version}', split.version).replace('{schema}', language.schema);
-		if (id !== expected) {
-			throw new RefreshError(`schema version or address mismatch: the schema's \`$id\` is \`${String(id)}\`, expected \`${expected}\` for version ${split.version}.`);
+		const idVersion = typeof id === 'string' ? schemaAddressPattern(language).exec(id)?.[1] : undefined;
+		if (!idVersion || !/^\d+\.\d+(\.\d+)?$/.test(idVersion) || compareVersions(idVersion, split.version) > 0) {
+			throw new RefreshError(`schema version or address mismatch: the schema's \`$id\` is \`${String(id)}\`, expected \`${expected}\` or the address of an earlier version.`);
 		}
+		if (idVersion !== split.version) warnings.push(`The schema keeps the ${idVersion} address \`${String(id)}\`; it is published there, beside the prose of ${split.version}.`);
 		const records: FileRecord[] = [];
 		for (const [name, bytes] of files) {
 			const { role, warning } = classify(name, bytes, language, split.version);

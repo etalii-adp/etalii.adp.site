@@ -36,10 +36,17 @@ export function searchHref(language: string): string {
 	return `${languageHref(language)}search/`;
 }
 
-/** The address of the schema file, which equals the path of its `$id` (FR-009). */
+/** The address of the schema file, which equals the path of its `$id` (FR-009). While a version is a draft, its schema
+ * may keep an earlier version's address (DISL 0.3 and 0.4 at the 0.2 address, FBL 0.2 to 0.6 at the 0.1 address). */
 export function schemaFileHref(version: LoadedVersion): string {
-	const { language } = version;
-	return SITE_BASE + language.schemaAddress.replace('{version}', version.record.version).replace('{schema}', language.schema);
+	return new URL(String(version.schema().$id)).pathname;
+}
+
+/** Whether the schema file at this version's address is this version's: the newest version whose schema has that `$id`
+ * is served there, since a draft adds its constructs to the schema at the address it keeps. */
+export function servesSchema(version: LoadedVersion, versions: LoadedVersion[]): boolean {
+	const id = version.schema().$id;
+	return versions.filter((v) => v.language.id === version.language.id && v.schema().$id === id).at(-1) === version;
 }
 
 export interface TocEntry {

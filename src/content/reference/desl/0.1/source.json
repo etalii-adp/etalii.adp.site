@@ -1,0 +1,41 @@
+{
+  "language": "desl",
+  "version": "0.1",
+  "status": "Draft",
+  "date": "2026-10-09",
+  "source": {
+    "kind": "git",
+    "repository": "etalii-adp/etalii.adp",
+    "path": "specifications/desl",
+    "revision": "d31b993546c01a9692bfde6c3888655128022d84",
+    "licence": "Apache-2.0",
+    "copyright": "Copyright © Peter Vrenken 2026"
+  },
+  "files": [
+    {
+      "name": "DESL-specification.md",
+      "role": "prose",
+      "sha256": "ba955444712d48057b10a191f9f8e10aa4c9de4b461065a4c22cdc41496cb558",
+      "size": 52974
+    },
+    {
+      "name": "desl.schema.json",
+      "role": "schema",
+      "sha256": "e9bf410e0b545a8010b04ac6bf1eb2400f685a1a5f66b27c7aad11aeae7df32c",
+      "size": 40507
+    },
+    {
+      "name": "minimal-table.des",
+      "role": "definition",
+      "sha256": "e8a99366165e0b26c86ac7c93470128dd48922420effedd7a936642ce064cf77",
+      "size": 2507
+    },
+    {
+      "name": "minimal-table.fbl",
+      "role": "other",
+      "sha256": "338799c22ebb3a3b19577d1aa9807028eab56c11521ed7b77cbab34da7afa4e5",
+      "size": 2720
+    }
+  ],
+  "retrieved": "2026-10-12T20:50:27Z"
+}

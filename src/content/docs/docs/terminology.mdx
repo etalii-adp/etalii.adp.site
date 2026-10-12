@@ -14,10 +14,12 @@ ADP offers new ways to visualize, enter and interact with data, mostly text-base
 | Kind | What it is | The test | Examples |
 |---|---|---|---|
 | **Diagram** | A visual arrangement of elements and the relations between them. | Are elements connected to each other? Then it is a diagram. | Mind map, Wardley map, C4 container diagram, causal loop diagram |
-| **Designer** | A form-based visual layout. More than text input, and not a diagram, because nothing in it is connected. | Is it laid out visually, with nothing connected, and filled in rather than typed? Then it is a designer. | None yet |
+| **Designer** | A form-based visual layout. More than text input, and not a diagram, because nothing in it is connected. | Is it laid out visually, with nothing connected, and filled in rather than typed? Then it is a designer. | Knowledge designer |
 | **Editor** | A way of working in which typing text is the core interaction. | Is typing text the main thing the user does? Then it is an editor. | Markdown editor, plain text editor |
 
 Apply the tests in the order editor, diagram, designer: a text format that is also drawn (a Mermaid file, for example) is a diagram when the user works in the drawing, and an editor when the user works in the text.
+
+A designer may hold relations as values and stays a designer: the Knowledge designer's relation cells name rows of other tables, but a relation there is a value in a cell, filled in like any other, and nothing is drawn connected. A diagram draws its relations; a designer only lists them.
 
 "Tool" replaces "designer" wherever all three kinds are meant: "ADP's tools", "the tool catalogue", "a tool type". "Designer" now means only the second kind.
 
@@ -34,21 +36,34 @@ A **tool engineer** specifies how one tool type functions and looks, in its kind
 - A **specification file** (`.dis`, `.des`, `.eds`) holds one tool type as a tool engineer specifies how it functions and looks: for example, what a state machine diagram's elements and relations are and how they are drawn.
 - A **definition file** (`.did`, `.ded`, `.edd`) holds one diagram, designer or editor a user created of such a type: for example, one particular state machine.
 
-DISL and DID have content; DESL, DED, EDSL and EDD are placeholders until a designer or an editor needs them. DID here always means ADP's Diagram Definition Language, not the W3C's Decentralized Identifiers.
+DISL, DID, DESL and DED have content; EDSL and EDD are placeholders until an editor needs them. DID here always means ADP's Diagram Definition Language, not the W3C's Decentralized Identifiers.
 
 History: DEDL became DISL and DID. What was one language, DEDL 0.1, holding both a language definition and the documents made with it, is now DISL (the specification of a diagram type) and DID (a stored diagram). The acronym DEDL is retired and has no current meaning; files, schema addresses and links in its old form are still read or redirected as DISL or DID. Specification files were named after their language (`.disl`, `.desl`, `.edsl`) until 2026-09-30, when they took `.dis`, `.des` and `.eds`, because a file holds a specification, not the language; `.disl` files are still read.
+
+## Tools whose model is another tool's file
+
+Many tools do not store their model in a definition file of their own: the model is a file that belongs to another tool as much as to ADP, such as a Structurizr workspace, an Azure Pipelines YAML file or a Freeplane mind map. FBL, the **Format Binding Language** (`.fbl`), describes how such a file is read and written, and serves every kind of tool.
+
+- **Binding**: an FBL declaration of how one file format maps to a tool type's model in both directions: which files it claims, how elements, relations and attributes are read, and how each change is written back.
+- **Body**: the file or folder that holds a document's model when that model is another tool's file. The body is the model's only store; ADP never keeps a second copy of it.
+- **Splice**: one minimal, named replacement of a range of bytes in a body. Every edit a user makes is written as one or more splices, and everything outside them stays byte for byte as it was.
+- **Reading**: one tool type's view of a body. One body can have several readings open at once, such as six C4 diagram types of one Structurizr workspace, and they share one model and one undo history.
+- **Folder subject**: a body that is a folder rather than a file, such as a Helm chart, recognised by the files in it and watched for changes.
+- **Persistence plugin**: code that reads and writes a body in a format FBL cannot declare, under the plugin contract FBL defines.
 
 ## Related terms
 
 - **Tool type**: one particular tool ADP offers, such as the Wardley map; by kind a *diagram type*, *designer type* or *editor type*. Identified by its **origin**, `<vendor>/<type>`, for example `wardley/map`.
 - **Tool engineer**: the person who specifies a tool type in a specification language. Not a "designer", which is a kind of tool, and not an "author".
-- **Document**: one piece of content a user works on with a tool, such as one Wardley map. Where a host registers documents, its **registration file** (`.adp`) names the origin on its first line. For a diagram built on DISL, the stored form of the document is a DID definition file.
+- **Document**: one piece of content a user works on with a tool, such as one Wardley map. Where a host registers documents, its **registration file** (`.adp`) names the origin on its first line; for a document whose model is another tool's file, it also names the body and keeps the positions the user placed (FBL, section 8). For a diagram built on DISL, the stored form of the document is a DID definition file.
 - **Module**: the code package in a host that implements one or more tool types of one kind: a *diagram module*, *designer module* or *editor module*.
 - **Host**: an environment that ADP's tools run in: standalone, IntelliJ, VS Code, Eclipse or Notion.
 - **IDE host**: one of the four hosts that are IDEs: standalone, IntelliJ, VS Code and Eclipse. Notion is a host and not an IDE host.
 - **Notion add-on**: a web page that shows one tool inside a Notion page. It is how a tool runs in the Notion host.
+- **Store**: the Notion database that holds one document of a tool in the Notion host, as one row per element. It is the document's only store, as a body is where the model is another tool's file: ADP keeps no second copy beside either. A store is not a body: it holds no file and no text, and a binding reads its rows.
 - **Runtime**: the software in a host that loads a specification file and lets users create and change definition files with it.
 - **Canvas**: the surface a diagram or a designer is drawn on.
+- **Finding**: the result of evaluating a rule or reading a model, such as a broken constraint, an unreadable entry or a duplicate id. It has a severity (error, warning, info or hint) and says where it is: an element, a source location in a file, or a subject that is not drawn. DISL 0.1 called it a *problem*.
 - **Display name**: the one name of a tool type, spelled and capitalised the same in every host, the catalogue, the site and the Notion workspace. It is a name, not a description: "Mind map", not "Mind map (radial/hierarchical, single central topic)".
 
 ## Retired uses

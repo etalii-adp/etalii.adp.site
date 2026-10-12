@@ -45,6 +45,9 @@ export const sections: readonly Section[] = [
 	{ id: 'disl-overview', label: 'DISL at a glance', part: 'documentation', href: '/adp/docs/disl-overview/', status: 'available', deliveredBy: 'etalii.adp docs', parent: 'specification' },
 	{ id: 'disl', label: 'DISL reference', part: 'documentation', href: '/adp/disl/', status: hasPublishedVersion('disl') ? 'available' : 'coming', deliveredBy: '002', parent: 'specification' },
 	{ id: 'did', label: 'DID reference', part: 'documentation', href: '/adp/did/', status: hasPublishedVersion('did') ? 'available' : 'coming', deliveredBy: '002', parent: 'specification' },
+	// The designer kind's pair (etalii.adp spec 013): DESL specifies a designer type, DED stores a designer.
+	{ id: 'desl', label: 'DESL reference', part: 'documentation', href: '/adp/desl/', status: hasPublishedVersion('desl') ? 'available' : 'coming', deliveredBy: 'etalii.adp 013', parent: 'specification' },
+	{ id: 'ded', label: 'DED reference', part: 'documentation', href: '/adp/ded/', status: hasPublishedVersion('ded') ? 'available' : 'coming', deliveredBy: 'etalii.adp 013', parent: 'specification' },
 	// FBL serves every kind: how a tool reads and writes a model in another tool's file (etalii.adp spec 005).
 	{ id: 'fbl', label: 'FBL reference', part: 'documentation', href: '/adp/fbl/', status: hasPublishedVersion('fbl') ? 'available' : 'coming', deliveredBy: 'etalii.adp 005', parent: 'specification' },
 	{ id: 'tools', label: 'Tools', part: 'documentation', href: '/adp/tools/', status: 'available', deliveredBy: '003' },
