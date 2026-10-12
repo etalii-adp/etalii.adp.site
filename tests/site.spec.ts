@@ -33,11 +33,39 @@ function addressOf(file: string): string {
 const referencePage = /^\/adp\/(?:disl|did)\/(?!$|search\/$)/;
 const referenceSample = /^\/adp\/(?:disl|did)\/(?:[0-9.]+\/(?:layer-3-notation-visual-definition\/|schema\/|examples\/(?:statemachine\/)?)?|latest\/foundations\/)$/;
 const redirectsAway = (file: string) => /<meta http-equiv="refresh"/.test(readFileSync(file, 'utf8'));
+// CHECK_PAGES_ONLY narrows the per-page checks to the addresses its pattern matches. The reference-fixture job of
+// page-checks.yml sets it to the DISL and DID references, the only pages of its build the real build does not have.
+const only = process.env.CHECK_PAGES_ONLY ? new RegExp(process.env.CHECK_PAGES_ONLY) : undefined;
 const pages = [...htmlFiles(join(dist, 'adp')), join(dist, '404.html')]
 	.filter((file) => !redirectsAway(file))
 	.map(addressOf)
 	.filter((address) => !referencePage.test(address) || referenceSample.test(address))
+	.filter((address) => !only || only.test(address))
 	.sort();
+
+// The order the pages are checked in, which is also how page-checks.yml's shards divide them: a shard takes a
+// consecutive run of tests. The DISL and DID schema browsers are the slow pages (test.slow below; the DISL ones' WCAG checks
+// are the slowest tests of the suite by far), and sorted they sit side by side, which put them all in the first of
+// three shards: 293 s against 136 s and 120 s (CI speed analysis, 2026-10-12). So they are spread evenly through
+// the list, ordered by version and then language so that each version's two land apart.
+const slowPage = /^\/adp\/(?:disl|did)\/[^/]+\/schema\/$/;
+function spreadSlowPages(addresses: string[]): string[] {
+	const slow = addresses
+		.filter((address) => slowPage.test(address))
+		.sort((a, b) => {
+			const [, , languageA, versionA] = a.split('/');
+			const [, , languageB, versionB] = b.split('/');
+			return versionA.localeCompare(versionB) || languageA.localeCompare(languageB);
+		});
+	const rest = addresses.filter((address) => !slowPage.test(address));
+	const positions = slow.map((_, index) => Math.floor(((index + 0.5) * addresses.length) / slow.length));
+	const ordered: string[] = [];
+	for (let position = 0, next = 0; position < addresses.length; position++) {
+		ordered.push(next < slow.length && position === positions[next] ? slow[next++] : rest.shift()!);
+	}
+	return ordered;
+}
+const checkOrder = spreadSlowPages(pages);
 const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 
 async function expectNoViolations(page: Page) {
@@ -47,16 +75,17 @@ async function expectNoViolations(page: Page) {
 }
 
 test('the build contains the pages of this feature', () => {
+	test.skip(only !== undefined, 'CHECK_PAGES_ONLY narrows the page list on purpose');
 	expect(pages).toEqual(expect.arrayContaining(['/404.html', '/adp/', '/adp/docs/', '/adp/docs/specification-and-definition/', '/adp/disl/', '/adp/did/', '/adp/tools/']));
 });
 
-for (const address of pages) {
+for (const address of checkOrder) {
 	const isHome = address === '/adp/';
 	const isNotFound = address.endsWith('404.html');
 
 	test.describe(address, () => {
 		// The schema browser holds every highlighted definition of a schema; axe needs longer there.
-		if (/^\/adp\/(?:disl|did)\/[^/]+\/schema\/$/.test(address)) test.slow();
+		if (slowPage.test(address)) test.slow();
 		for (const colorScheme of ['light', 'dark'] as const) {
 			test(`passes WCAG 2.2 AA in the ${colorScheme} scheme`, async ({ browser }) => {
 				const context = await browser.newContext({ colorScheme });
