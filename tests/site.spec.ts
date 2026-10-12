@@ -44,7 +44,7 @@ const pages = [...htmlFiles(join(dist, 'adp')), join(dist, '404.html')]
 	.sort();
 
 // The order the pages are checked in, which is also how page-checks.yml's shards divide them: a shard takes a
-// consecutive run of tests. The DISL and DID schema browsers are the slow pages (test.slow below; the DISL ones' WCAG checks
+// consecutive run of tests. The DISL and DID schema browsers are the slow pages (their longer timeout below; the DISL ones' WCAG checks
 // are the slowest tests of the suite by far), and sorted they sit side by side, which put them all in the first of
 // three shards: 293 s against 136 s and 120 s (CI speed analysis, 2026-10-12). So they are spread evenly through
 // the list, ordered by version and then language so that each version's two land apart.
@@ -84,8 +84,9 @@ for (const address of checkOrder) {
 	const isNotFound = address.endsWith('404.html');
 
 	test.describe(address, () => {
-		// The schema browser holds every highlighted definition of a schema; axe needs longer there.
-		if (slowPage.test(address)) test.slow();
+		// The schema browser holds every highlighted definition of a schema; axe needs longer there. test.slow()'s 90 s was
+		// not enough for DISL 0.4's (a 419 kB schema; 0.2's is 379 kB), so the schema browsers get four minutes.
+		if (slowPage.test(address)) test.setTimeout(240_000);
 		for (const colorScheme of ['light', 'dark'] as const) {
 			test(`passes WCAG 2.2 AA in the ${colorScheme} scheme`, async ({ browser }) => {
 				const context = await browser.newContext({ colorScheme });
