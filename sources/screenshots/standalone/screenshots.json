@@ -1,5 +1,16 @@
 [
   {
+    "file": "agent-activity-diagram.png",
+    "origin": "etalii/agent-activity-diagram",
+    "expectation": "One day of ADP work: the projects in the middle, their specifications around them with tasks listed by status, the agents, the locations with their branches and pull requests, and the environments at the rim, with the Show archived toggle at the top right; Toolbox showing Project, Specification, Agent, Location and Environment. Nothing selected.",
+    "document": "`diagrams/agent-activity-diagram/adp-one-day/` → `adp-one-day.aad` → `adp-one-day.adp`",
+    "bytes": 144058,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
     "file": "agent-behavior-modelling-bug-fixer-light.png",
     "origin": "etalii/agent-behavior-modelling",
     "expectation": "In the light theme: the bug fixer's tree with its Only while, Repeat until, Retry up to 2 times and Ask approval before wrappers, a Delegate and an Ask the user leaf. Nothing selected.",
@@ -71,6 +82,28 @@
     "expectation": "The system context: the Manufacturing Execution System in the middle, the five people above it and the external systems below; Toolbox showing Person and Software System. Nothing selected.",
     "document": "`diagrams/c4/industrial-plant/architecture/` → `bottling-mes.dsl` → `bottling-mes.adp`",
     "bytes": 137827,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "c4-deployment.png",
+    "origin": "c4/deployment",
+    "expectation": "Courier Tracking's production deployment: dashed deployment nodes nested around the load balancer and the container instances they host, fitted and then **zoomed in once** so the nesting reads, so the top and bottom of the drawing are cut off; Toolbox showing Deployment Node, Infrastructure Node, Container Instance and Software System Instance. The industrial plant's deployment is denser and fits to a picture too small to read, hence the other corpus. Nothing selected.",
+    "document": "`diagrams/c4/reference/architecture/` → `courier.dsl` → `courier.production.adp`",
+    "bytes": 155029,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "c4-dynamic.png",
+    "origin": "c4/dynamic",
+    "expectation": "The batch release scenario: the OPC UA Gateway, Plant Event Bus, Quality Service, Batch Execution Service, Batch Record Archive and ERP Adapter as containers, LIMS and SAP S/4HANA as external systems, joined by numbered interactions; the key along the bottom and Toolbox showing Person, Software System, Container and Component. Nothing selected.",
+    "document": "`diagrams/c4/industrial-plant/architecture/` → `bottling-mes.dsl` → `bottling-mes.batch-release.adp`",
+    "bytes": 162710,
     "width": 1600,
     "height": 900,
     "budgetBytes": 307200,
@@ -187,8 +220,19 @@
     "status": "accepted"
   },
   {
+    "file": "knowledge.png",
+    "origin": "etalii/knowledge",
+    "expectation": "The knowledge designer's table of cities in its view *Map*: the *All cities* and *Map* view tabs, the columns Country, Name, Population, Tags, Province and Visited with their type icons, selection values as coloured chips, the Province relation as links, and the column summary along the bottom. Not fitted: a table has no canvas. Nothing selected.",
+    "document": "`designers/knowledge/yaml/` → `cities.yaml` → `cities.adp`",
+    "bytes": 139845,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
     "file": "markdown-editor.png",
-    "origin": null,
+    "origin": "editor/markdown",
     "expectation": "The three-part editor: heading outline above, CodeMirror text left, rendered preview right — and the status line reading **Saved**, since nothing was edited.",
     "document": "`editors/markdown/` → `guide.md`",
     "bytes": 104647,
@@ -221,7 +265,7 @@
   },
   {
     "file": "plain-text-editor.png",
-    "origin": null,
+    "origin": "editor/plain",
     "expectation": "The plain-text editor: line numbers and the four lines of the note in a monospace face, and the status line reading **Saved**.",
     "document": "`editors/plain/` → `crlf-notes.txt`",
     "bytes": 84559,
@@ -280,6 +324,17 @@
     "expectation": "The five navigation node shapes as cards with their targets and property rows (path and cardinality), and the edges between shapes. Nothing selected.",
     "document": "`diagrams/shacl/fair-data-point/` → `navigation-shapes.ttl` → `navigation-shapes.adp`",
     "bytes": 109189,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "skos.png",
+    "origin": "w3c/skos",
+    "expectation": "The STW geographic names as concept boxes on wrapped rows with their broader and related links between them, fitted and then **zoomed in five times** so the names read, so only the middle of the scheme is shown; Toolbox showing Concept. Nothing selected.",
+    "document": "`diagrams/skos/stw/` → `geographic-names.ttl` → `geographic-names.adp`",
+    "bytes": 188456,
     "width": 1600,
     "height": 900,
     "budgetBytes": 307200,
