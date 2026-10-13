@@ -1013,6 +1013,31 @@
     ]
   },
   {
+    "origin": "editor/xml",
+    "name": "XML editor",
+    "kind": "editor",
+    "group": "16. Editors",
+    "developState": "Implemented",
+    "releaseState": "Implemented",
+    "state": "implemented",
+    "theory": [
+      {
+        "label": "XML 1.0",
+        "href": "https://www.w3.org/TR/xml/"
+      },
+      {
+        "label": "XSD 1.0",
+        "href": "https://www.w3.org/TR/xmlschema-1/"
+      }
+    ],
+    "example": [
+      {
+        "label": "XML text with tags kept matched, mistakes marked where they are made, and checking against the XSD or DTD the document names, with what the XSD allows offered while typing; for .xml, .xsd, .xsl and .xslt files",
+        "href": null
+      }
+    ]
+  },
+  {
     "origin": "editor/yaml",
     "name": "YAML editor",
     "kind": "editor",
