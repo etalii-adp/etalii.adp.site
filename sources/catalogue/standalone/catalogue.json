@@ -951,6 +951,31 @@
     ]
   },
   {
+    "origin": "editor/json",
+    "name": "JSON editor",
+    "kind": "editor",
+    "group": "16. Editors",
+    "developState": "Implemented",
+    "releaseState": "Implemented",
+    "state": "implemented",
+    "theory": [
+      {
+        "label": "RFC 8259",
+        "href": "https://www.rfc-editor.org/rfc/rfc8259"
+      },
+      {
+        "label": "JSON Schema",
+        "href": "https://json-schema.org/"
+      }
+    ],
+    "example": [
+      {
+        "label": ".json files coloured, checked for the mistakes of JSON itself and against the JSON Schema their $schema names, with completion and descriptions from that schema",
+        "href": null
+      }
+    ]
+  },
+  {
     "origin": "editor/markdown",
     "name": "Markdown editor",
     "kind": "editor",
@@ -983,6 +1008,31 @@
     "example": [
       {
         "label": "Any text file no other editor claims, with its encoding and line endings kept as they were",
+        "href": null
+      }
+    ]
+  },
+  {
+    "origin": "editor/yaml",
+    "name": "YAML editor",
+    "kind": "editor",
+    "group": "16. Editors",
+    "developState": "Implemented",
+    "releaseState": "Implemented",
+    "state": "implemented",
+    "theory": [
+      {
+        "label": "YAML 1.2",
+        "href": "https://yaml.org/spec/1.2.2/"
+      },
+      {
+        "label": "Red Hat YAML language service",
+        "href": "https://github.com/redhat-developer/yaml-language-server"
+      }
+    ],
+    "example": [
+      {
+        "label": ".yaml and .yml files no diagram claims: YAML's own mistakes, and findings, completion and hover from the JSON Schema each document names on a # yaml-language-server: $schema= line",
         "href": null
       }
     ]
