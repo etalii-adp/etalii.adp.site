@@ -74,6 +74,9 @@
   "standalone--hype-cycle": {
     "whyItMatters": "Trends sit as banners along the years, coloured by their phase on the curve, with a filter by tag, so how technologies rise, fall and mature relative to each other can be compared over a long span."
   },
+  "standalone--json-editor": {
+    "whyItMatters": "A JSON file is checked against the JSON Schema its $schema names while it is typed, so a key the schema rejects or a deprecated setting is marked on its line before the file is ever loaded by the program that reads it."
+  },
   "standalone--knowledge": {
     "whyItMatters": "A table of cities kept in a plain YAML file opens as a database: typed columns, coloured choices, a relation to the provinces file and views of its own, while every change is written back to the file under version control."
   },
