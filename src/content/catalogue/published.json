@@ -15,6 +15,7 @@
   "editor/json",
   "editor/markdown",
   "editor/plain",
+  "editor/xml",
   "editor/yaml",
   "etalii/agent-activity-diagram",
   "etalii/agent-behavior-modelling",

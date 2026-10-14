@@ -1,5 +1,34 @@
 [
   {
+    "origin": "etalii/agent-activity-diagram",
+    "name": "Agent activity diagram",
+    "kind": "diagram",
+    "group": "Collaboration between people and agents",
+    "developState": "Prototype",
+    "releaseState": null,
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "etalii.adp",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/diagrams/agent-activity-diagram.md"
+      }
+    ],
+    "example": [
+      {
+        "label": "definition",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/diagrams/agent-activity-diagram.md"
+      },
+      {
+        "label": "three example diagrams",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/tree/develop/examples/agent-activity-diagram"
+      },
+      {
+        "label": "the instruction text for agents",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/blob/develop/examples/agent-activity-diagram/updating-this-file.md"
+      }
+    ]
+  },
+  {
     "origin": "etalii/agent-behavior-modelling",
     "name": "Agent Behavior Modelling",
     "kind": "diagram",
@@ -21,6 +50,64 @@
       {
         "label": "four example agents",
         "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/tree/develop/examples/agent-behavior-modelling"
+      }
+    ]
+  },
+  {
+    "origin": "etalii/knowledge",
+    "name": "Knowledge",
+    "kind": "designer",
+    "group": "Knowledge and informal modelling",
+    "developState": "Prototype",
+    "releaseState": null,
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "Notion's databases",
+        "href": "https://www.notion.com/help/database-properties"
+      },
+      {
+        "label": "etalii.adp",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/designers/knowledge.md"
+      }
+    ],
+    "example": [
+      {
+        "label": "definition",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/designers/knowledge.md"
+      },
+      {
+        "label": "one table in each of the three formats, and the table its relation names",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/tree/develop/examples/knowledge"
+      }
+    ]
+  },
+  {
+    "origin": "freeplane/mindmap",
+    "name": "Mind map",
+    "kind": "diagram",
+    "group": "Knowledge and informal modelling",
+    "developState": "Prototype",
+    "releaseState": null,
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "Mind map (Wikipedia)",
+        "href": "https://en.wikipedia.org/wiki/Mind_map"
+      },
+      {
+        "label": "Freeplane",
+        "href": "https://www.freeplane.org/"
+      }
+    ],
+    "example": [
+      {
+        "label": "definition",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/diagrams/mindmap.md"
+      },
+      {
+        "label": "two example maps",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/tree/develop/examples/mindmap"
       }
     ]
   },
