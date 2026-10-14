@@ -1,18 +1,18 @@
 {
   "procedure": "refresh-hosts",
-  "refreshedAt": "2026-10-13T01:42:48.017Z",
+  "refreshedAt": "2026-10-13T23:11:04.072Z",
   "sourceHeads": {
     "etalii-adp/etalii.adp.ide.eclipse": "59d855d9f4cd390659fe52746ed29d48309b285f",
     "etalii-adp/etalii.adp.ide.intellij": "a36a84628b858172e3f62ab11bc3abeee607b0d1",
-    "etalii-adp/etalii.adp.ide.standalone": "4a2af5cb96357b6e8c68d2f7440b1e7a1ec42670",
-    "etalii-adp/etalii.adp.ide.vscode": "a6c65808b23ee9d3acf1339b3c2351f6de5c6651"
+    "etalii-adp/etalii.adp.ide.standalone": "29522939c48eb1fdc7840c1405dfd4167a86d65a",
+    "etalii-adp/etalii.adp.ide.vscode": "bf9ec248be348dca3f7911214aee47cac310ef8b"
   },
   "releases": {
     "etalii-adp/etalii.adp.ide.eclipse": null,
     "etalii-adp/etalii.adp.ide.intellij": null,
     "etalii-adp/etalii.adp.ide.standalone": {
-      "tag": "v0.1.2589-alpha",
-      "commit": "4a2af5cb96357b6e8c68d2f7440b1e7a1ec42670"
+      "tag": "v0.1.2684-alpha",
+      "commit": "29522939c48eb1fdc7840c1405dfd4167a86d65a"
     },
     "etalii-adp/etalii.adp.ide.vscode": null
   },
@@ -30,20 +30,20 @@
     {
       "repository": "etalii-adp/etalii.adp.ide.standalone",
       "sourcePath": "docs/tools.md",
-      "commit": "ae7978f3e9a86dfff9638dad040fa7190f352a76",
-      "gitBlob": "962744895586d37c2806ebf6c995040a1670a0ff"
+      "commit": "9b8f062d2fb7e54e0d4e46bd323029e58d8aab94",
+      "gitBlob": "3225ceed21fc217e5bcb68441638f40095d2ece2"
     },
     {
       "repository": "etalii-adp/etalii.adp.ide.vscode",
       "sourcePath": "docs/tools.md",
-      "commit": "b369180f8e21976de0353f30cb9abd318756aa7d",
-      "gitBlob": "683a0ff56ee789ce19f8e8c6fb2d4249b1006793"
+      "commit": "3bcb00c2527f5b944bf049813a38b2c35c7b98e3",
+      "gitBlob": "bb23c8cd3c3f6ad48ecf194a1b93790214d3989c"
     }
   ],
   "derived": [
     {
       "path": "hosts.json",
-      "sha256": "78fa4b8c69b85067ce66a74c86c024198c97b481f4029c3d50c923e7e6a5a305"
+      "sha256": "8744826c025b7a25438a0b8bca845a20eefdd6bbb2a68a39109c86cd6dabd7fd"
     }
   ],
   "withdrawn": []
