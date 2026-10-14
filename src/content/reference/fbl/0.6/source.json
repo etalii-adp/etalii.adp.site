@@ -7,7 +7,7 @@
     "kind": "git",
     "repository": "etalii-adp/etalii.adp",
     "path": "specifications/fbl",
-    "revision": "d31b993546c01a9692bfde6c3888655128022d84",
+    "revision": "665b8e20fa32d00d10b359d29a1b974d5a005563",
     "licence": "Apache-2.0",
     "copyright": "Copyright © Peter Vrenken 2026"
   },
@@ -15,8 +15,8 @@
     {
       "name": "causal-loop-diagram.fbl",
       "role": "document",
-      "sha256": "349a77751b9d1b2f2880a3e3a5a8693936e7b2aa4b87556c86d0b7c0865cc671",
-      "size": 3243
+      "sha256": "5e860ed0e63034b7639ace152462f98cb4d3c304fa61733f21f7f4710b96e743",
+      "size": 5818
     },
     {
       "name": "databricks-job.fbl",
@@ -79,5 +79,5 @@
       "size": 7304
     }
   ],
-  "retrieved": "2026-10-12T20:49:12Z"
+  "retrieved": "2026-10-14T01:13:38Z"
 }
