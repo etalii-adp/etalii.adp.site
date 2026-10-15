@@ -131,6 +131,12 @@
   "standalone--workspace": {
     "whyItMatters": "The C4 container diagram opens from its Structurizr model in the explorer, with a Toolbox limited to C4's own element kinds and a problems strip for validation, so the diagram and its model stay one."
   },
+  "standalone--xml-editor": {
+    "whyItMatters": "An XML file is checked against the XSD or DTD it names while it is typed, so a missing attribute, a missing element or a value the schema rejects is marked on its line before any program reads the file."
+  },
+  "standalone--yaml-editor": {
+    "whyItMatters": "A YAML file is checked against the JSON Schema its first line names while it is typed, including values an alias brings in, so a wrong type, an unknown key or a deprecated setting is marked on its line before deployment."
+  },
   "vscode--agent-behavior-modelling": {
     "whyItMatters": "An agent's Markdown instructions open as a behavior tree inside VS Code, with the ADP Toolbox offering every kind of step and ADP Properties showing the selected node, so the behavior can be read and changed beside the code the agent works on."
   },
