@@ -220,6 +220,17 @@
     "status": "accepted"
   },
   {
+    "file": "json-editor.png",
+    "origin": "editor/json",
+    "expectation": "The JSON editor on a document that breaks the schema beside it: the keys and values coloured, a red marker in the gutter on each line the schema rejects and the yellow warning on the deprecated `verbose`, wavy underlines under the offending values, and the status line reading **Saved**, **7 errors, 1 warning** and the schema's title *Service settings*.",
+    "document": "`editors/json/` → `service-broken.json`",
+    "bytes": 100938,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
     "file": "knowledge.png",
     "origin": "etalii/knowledge",
     "expectation": "The knowledge designer's table of cities in its view *Map*: the *All cities* and *Map* view tabs, the columns Country, Name, Population, Tags, Province and Visited with their type icons, selection values as coloured chips, the Province relation as links, and the column summary along the bottom. Not fitted: a table has no canvas. Nothing selected.",
@@ -415,6 +426,28 @@
     "width": 1600,
     "height": 900,
     "budgetBytes": 1048576,
+    "status": "accepted"
+  },
+  {
+    "file": "xml-editor.png",
+    "origin": "editor/xml",
+    "expectation": "The XML editor on a document that breaks the XSD it names: tags, attributes and values coloured, a red marker in the gutter on each line the schema rejects (a book without its required `isbn`, a book without its required year, a year that is not a year and an element the schema does not allow there), wavy underlines under the offending names and values, and the status line reading **Saved**, **4 errors** and **Schema: library.xsd**.",
+    "document": "`editors/xml/` → `library-broken.xml`",
+    "bytes": 153749,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "yaml-editor.png",
+    "origin": "editor/yaml",
+    "expectation": "The YAML editor on a document that breaks the JSON Schema its first line names: keys and values coloured, a red marker in the gutter on each line the schema rejects and the yellow warning on the deprecated `memory`, wavy underlines under the offending keys and values, including the value an alias brings in, and the status line reading **Saved**, **10 errors, 1 warning** and the schema's title *Service*.",
+    "document": "`editors/yaml/` → `service-broken.yaml`",
+    "bytes": 131145,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
     "status": "accepted"
   }
 ]
