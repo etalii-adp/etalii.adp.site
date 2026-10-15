@@ -57,6 +57,14 @@
     ],
     "example": [
       {
+        "label": "causal-loop-disl-fbl",
+        "href": "../.spec-workflow/specs/causal-loop-disl-fbl/requirements.md"
+      },
+      {
+        "label": "definition's companion",
+        "href": "../src/diagrams/causal-loop-diagram/definition/causal-loop-diagram.md"
+      },
+      {
         "label": "Authored examples",
         "href": "../src/diagrams/causal-loop-diagram/examples/"
       }
