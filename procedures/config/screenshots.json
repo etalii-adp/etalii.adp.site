@@ -20,6 +20,8 @@
     "helm-chart.png": "helm/chart",
     "hype-cycle.png": "gartner/hypecycle-graph",
     "json-editor.png": "editor/json",
+    "xml-editor.png": "editor/xml",
+    "yaml-editor.png": "editor/yaml",
     "owl.png": "w3c/owl",
     "plain-text-editor.png": "editor/plain",
     "rdf.png": "w3c/rdf",
