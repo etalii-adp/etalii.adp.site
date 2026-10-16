@@ -1,26 +1,26 @@
 # Refresh the whole site
 
-Runs every refresh procedure in turn: the DISL and DID reference, the screenshots, the tool catalogue and the IDE host states. Each runs on its own, from a clean copy of `develop`, and opens its own pull request when it finds changes, so each can be reviewed and merged on its own. One procedure failing does not stop the others. This is also what the hourly Refresh workflow runs.
+Runs every refresh procedure in turn: the screenshots, the tool catalogue and the IDE host states. Each runs on its own, from a clean copy of `develop`, and opens its own pull request when it finds changes, so each can be reviewed and merged on its own. One procedure failing does not stop the others. This is also what the hourly Refresh workflow runs.
 
 ## Sources
 
 | Repository | Ref | Paths | Visibility |
 |---|---|---|---|
 
-The sources of each procedure below: [refresh-disl](refresh-disl.md), [refresh-screenshots](refresh-screenshots.md), [refresh-catalogue](refresh-catalogue.md) and [refresh-hosts](refresh-hosts.md).
+The sources of each procedure below: [refresh-screenshots](refresh-screenshots.md), [refresh-catalogue](refresh-catalogue.md) and [refresh-hosts](refresh-hosts.md).
 
 ## Updates
 
-What each of the four procedures updates, each in its own pull request: `sources/disl/`, `sources/screenshots/`, `sources/catalogue/` and `sources/hosts/`, and a mapping in `procedures/config/` when one of their decisions is answered.
+What each of the three procedures updates, each in its own pull request: `sources/screenshots/`, `sources/catalogue/` and `sources/hosts/`, and a mapping in `procedures/config/` when one of their decisions is answered.
 
 ## Before you start
 
-- `gh auth status` shows a login with read access to `etalii-adp/etalii.adp` and the four IDE repositories, and write access to this repository.
+- `gh auth status` shows a login with read access to the IDE repositories the procedures read (standalone, IntelliJ, VS Code, Eclipse and Notion), and write access to this repository.
 - A clean checkout of this repository, with Node.js 24 and `npm ci` done.
 
 ## Steps
 
-1. Run `npm run refresh -- all`. It runs `disl`, `screenshots`, `catalogue` and `hosts` in that order, prints each one's stages and outcome, and ends with a table of the four: procedure, outcome, and the pull request link or the failure. The table is also in `.refresh/summary.json`, and each procedure's own files are in `.refresh/<id>/`. The exit code is the highest of the four.
+1. Run `npm run refresh -- all`. It runs `screenshots`, `catalogue` and `hosts` in that order, prints each one's stages and outcome, and ends with a table of the three: procedure, outcome, and the pull request link or the failure. The table is also in `.refresh/summary.json`, and each procedure's own files are in `.refresh/<id>/`. The exit code is the highest of the three.
 2. For each row of the table, act as that procedure's own document says for its outcome:
    - `current`: nothing to do.
    - `delivered` or `delivered-draft`: report the pull request link.

@@ -13,7 +13,7 @@ on:
       procedure:
         description: The refresh procedure to run
         type: choice
-        options: [all, disl, screenshots, catalogue, hosts]
+        options: [all, screenshots, catalogue, hosts]
         default: all
   repository_dispatch:
     types: [source-changed]
@@ -27,8 +27,8 @@ jobs:
     outputs:
       procedures: ${{ steps.plan.outputs.procedures }}
     steps:
-      # The mapping lives in scripts/refresh/plan.mjs, where it is tested: etalii-adp/etalii.adp starts disl (when the
-      # payload lists paths, only for a change under specifications/disl/ or did/); an IDE host starts the rest.
+      # The mapping lives in scripts/refresh/plan.mjs, where it is tested: an IDE host starts screenshots, catalogue and
+      # hosts; etalii-adp/etalii.adp starts nothing, its DISL and DID reference being refreshed by reference:refresh.
       - uses: actions/checkout@v7
         with:
           sparse-checkout: scripts/refresh
@@ -37,7 +37,6 @@ jobs:
           EVENT: ${{ github.event_name }}
           CHOSEN: ${{ inputs.procedure }}
           SOURCE: ${{ github.event.client_payload.repository }}
-          PATHS: ${{ toJSON(github.event.client_payload.paths) }}
         run: node scripts/refresh/plan.mjs
 
   refresh:

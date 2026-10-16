@@ -142,14 +142,14 @@ describe('run.mjs', () => {
 	it('fails on an unknown id, listing the valid ids', () => {
 		const run = site.refresh(['nonsense'], env);
 		assert.equal(run.code, 2);
-		assert.match(run.stdout, /valid ids are disl, screenshots, catalogue, hosts, all/);
+		assert.match(run.stdout, /valid ids are screenshots, catalogue, hosts, all/);
 	});
 
 	it('accepts a procedure name with or without the prefix', async () => {
 		const { loadProcedure, parseArgs } = await import('./run.mjs');
-		assert.equal(parseArgs(['disl', '--dry-run']).id, 'disl');
-		assert.equal(parseArgs(['refresh-disl']).id, 'disl');
-		assert.equal((await loadProcedure('refresh-disl')).id, 'refresh-disl');
+		assert.equal(parseArgs(['catalogue', '--dry-run']).id, 'catalogue');
+		assert.equal(parseArgs(['refresh-catalogue']).id, 'catalogue');
+		assert.equal((await loadProcedure('refresh-catalogue')).id, 'refresh-catalogue');
 	});
 
 	it('refuses to deliver a run that reads a local --source', () => {

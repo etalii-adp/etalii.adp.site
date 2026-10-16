@@ -14,7 +14,7 @@ Specs say *what* and *why*; plans say *how*. Do not put implementation choices i
 
 - `develop` is the integration branch.
 - One feature per branch, named `features/<number>-<name>` (the name etalii.adp's Spec Kit gave the feature). The one exception is `claude/<name>`, which Claude's cloud sessions are handed by their harness.
-- A third category, `refresh/<procedure>` (for example `refresh/disl`), is written only by a refresh procedure (see "Refreshing sourced content"). It is recreated from `develop` and force-pushed on every run, so never commit to it by hand; the owner merges its pull request like any other.
+- A third category, `refresh/<procedure>` (for example `refresh/catalogue`), is written only by a refresh procedure (see "Refreshing sourced content"). It is recreated from `develop` and force-pushed on every run, so never commit to it by hand; the owner merges its pull request like any other.
 - A feature branch is built in its own git worktree at `.claude/worktrees/<number>-<name>/` inside this repository (git-ignored), not in a sibling folder. Bring the branch up to date with `origin/develop` (fast-forward) before starting work in it.
 - A feature branch is never merged locally into `develop`. When its work is done, push the branch from the worktree it was built in to `origin` and open a pull request into `develop`; nothing reaches `develop` except through a pull request. A ruleset on `develop` refuses direct pushes and requires the `Build` workflow's `complete` job and the `refresh-checks` job to pass, so an agent opening a pull request that is ready enables auto-merge (merge commit) on it, and it merges by itself once those checks pass; GitHub refuses auto-merge on a pull request whose checks have already passed, and such a pull request is merged directly. Publication follows by itself: a passing `Build` on `develop` starts `deploy`, which publishes the site that `Build` checked (see `README.md`, Publishing).
 - Pull requests are merged with a merge commit, never a squash or a rebase.
@@ -27,9 +27,8 @@ Specs say *what* and *why*; plans say *how*. Do not put implementation choices i
 
 ## Refreshing sourced content
 
-The DISL and DID reference, the tool catalogue, the screenshots and the IDE host states are copied from their source repositories into `sources/` by written procedures, indexed in [procedures/README.md](procedures/README.md). Naming a procedure is enough to run it:
+The tool catalogue, the screenshots and the IDE host states are copied from their source repositories into `sources/` by written procedures, indexed in [procedures/README.md](procedures/README.md). The DISL and DID reference is not among them: its snapshots under `src/content/reference/` are written by `npm run reference:refresh -- <language>` (`scripts/reference/refresh.ts`). Naming a procedure is enough to run it:
 
-- "Refresh the DISL and DID reference": [procedures/refresh-disl.md](procedures/refresh-disl.md)
 - "Refresh the screenshots": [procedures/refresh-screenshots.md](procedures/refresh-screenshots.md)
 - "Refresh the tool catalogue": [procedures/refresh-catalogue.md](procedures/refresh-catalogue.md)
 - "Refresh the IDE host states": [procedures/refresh-hosts.md](procedures/refresh-hosts.md)
