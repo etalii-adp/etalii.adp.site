@@ -47,18 +47,18 @@ describe('refresh:lint', () => {
 	it('names a procedure missing from the index, and an index row with no file', () => {
 		const result = copy((dir, edit) => {
 			edit('README.md', (t) => t.replace(/^\| \[`refresh-hosts`\].*\n/m, ''));
-			unlinkSync(join(dir, 'refresh-disl.md'));
+			unlinkSync(join(dir, 'refresh-catalogue.md'));
 		});
 		expectProblem(result, /refresh-hosts\.md: not listed in the index/);
-		expectProblem(result, /README\.md: the index lists refresh-disl, but refresh-disl\.md does not exist/);
+		expectProblem(result, /README\.md: the index lists refresh-catalogue, but refresh-catalogue\.md does not exist/);
 	});
 
 	it('names a Sources table that disagrees with the module', () => {
-		const paths = copy((dir, edit) => edit('refresh-disl.md', (t) => t.replace('`specifications/did/*`', '`specification/did/*`')));
-		expectProblem(paths, /refresh-disl\.md: Sources gives etalii-adp\/etalii\.adp the paths specifications\/disl\/\*, specification\/did\/\*, but the module reads specifications\/disl\/\*, specifications\/did\/\*/);
-		const repo = copy((dir, edit) => edit('refresh-disl.md', (t) => t.replace('| etalii-adp/etalii.adp |', '| etalii-adp/etalii.specs |')));
-		expectProblem(repo, /Sources lists no row for etalii-adp\/etalii\.adp, which the module reads/);
-		expectProblem(repo, /Sources lists etalii-adp\/etalii\.specs, which the module does not read/);
+		const paths = copy((dir, edit) => edit('refresh-catalogue.md', (t) => t.replace('| etalii-adp/etalii.adp.ide.standalone | develop | `docs/tools.md` |', '| etalii-adp/etalii.adp.ide.standalone | develop | `doc/tools.md` |')));
+		expectProblem(paths, /refresh-catalogue\.md: Sources gives etalii-adp\/etalii\.adp\.ide\.standalone the paths doc\/tools\.md, but the module reads docs\/tools\.md/);
+		const repo = copy((dir, edit) => edit('refresh-catalogue.md', (t) => t.replace('| etalii-adp/etalii.adp.ide.standalone |', '| etalii-adp/etalii.adp.ide.standalones |')));
+		expectProblem(repo, /Sources lists no row for etalii-adp\/etalii\.adp\.ide\.standalone, which the module reads/);
+		expectProblem(repo, /Sources lists etalii-adp\/etalii\.adp\.ide\.standalones, which the module does not read/);
 	});
 
 	it('names a mapping value that is not a site state', () => {

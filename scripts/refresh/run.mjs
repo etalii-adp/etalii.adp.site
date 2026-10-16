@@ -26,7 +26,7 @@ import { git, posix, run, runCaptured, short, writeJson } from './lib/util.mjs';
 import { verify } from './verify.mjs';
 
 const here = fileURLToPath(new URL('.', import.meta.url));
-export const PROCEDURES = ['disl', 'screenshots', 'catalogue', 'hosts'];
+export const PROCEDURES = ['screenshots', 'catalogue', 'hosts'];
 /** Every name `npm run refresh` accepts: the procedures and `all`. */
 export const NAMES = [...PROCEDURES, 'all'];
 export const EXIT = { current: 0, delivered: 0, 'delivered-draft': 1, failed: 2, 'needs-decision': 3 };
@@ -483,7 +483,7 @@ async function reportBlocked(procedure, result, options, log) {
 	}
 }
 
-/** Runs the four procedures in turn, each on its own, and prints the summary table (research R13). */
+/** Runs the three procedures in turn, each on its own, and prints the summary table (research R13). */
 export async function runAll(options, { cwd = process.cwd(), log = console.log } = {}) {
 	const rows = [];
 	for (const shortId of PROCEDURES) {
