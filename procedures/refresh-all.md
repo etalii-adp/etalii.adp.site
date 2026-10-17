@@ -1,6 +1,6 @@
 # Refresh the whole site
 
-Runs every refresh procedure in turn: the screenshots, the tool catalogue and the IDE host states. Each runs on its own, from a clean copy of `develop`, and opens its own pull request when it finds changes, so each can be reviewed and merged on its own. One procedure failing does not stop the others. This is also what the hourly Refresh workflow runs.
+Runs every refresh procedure in turn: the screenshots, the tool catalogue and the IDE host states. Each runs on its own, from a clean copy of `develop`, and opens its own pull request when it finds changes, so each can be reviewed and merged on its own. One procedure failing does not stop the others. The hourly Refresh workflow runs the same three, each in a job of its own (`scripts/refresh/plan.mjs`).
 
 ## Sources
 

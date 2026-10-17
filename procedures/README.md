@@ -27,8 +27,8 @@ Options for every procedure: `--dry-run` does everything in a temporary worktree
 
 The Refresh workflow (`.github/workflows/refresh.yml`) runs the same command by itself, so a change on a source's `develop` branch reaches a pull request without anyone asking (FR-012):
 
-- **Every hour** (`schedule`, at 17 minutes past), it runs `refresh -- all`. A run whose sources have not changed ends at the Resolve stage after a few API calls, with `current`.
-- **On request**, from the Actions tab: run the Refresh workflow and choose a procedure, or `all`.
+- **Every hour** (`schedule`, at 17 minutes past), it runs every procedure, each as `refresh -- <id>` in a job of its own, so each gets a fresh App token (an installation token lasts an hour, and the three in turn took longer). A run whose sources have not changed ends at the Resolve stage after a few API calls, with `current`.
+- **On request**, from the Actions tab: run the Refresh workflow and choose a procedure, or `all`, which starts the same three jobs.
 - **When a source says so**: a source repository may send a `repository_dispatch` event of type `source-changed`, with the payload `{"repository": "<owner/name>"}`, to skip the wait. Any `etalii-adp/etalii.adp.ide.*` repository starts `screenshots`, `catalogue` and `hosts`; `etalii-adp/etalii.adp` is accepted but starts nothing, since no procedure reads it (the mapping is `scripts/refresh/plan.mjs`). For example: `gh api repos/etalii-adp/etalii.adp.site/dispatches -f event_type=source-changed -F 'client_payload[repository]=etalii-adp/etalii.adp.ide.standalone'`, with a token allowed to write to this repository's contents.
 
 The job summary and every refresh pull request name the date of the previous scheduled run. A job fails only when a procedure `failed`; a draft pull request or a "Refresh blocked" issue is its own signal.
@@ -52,7 +52,7 @@ When the site takes a new kind of content from a source repository:
 1. Copy [`_template.md`](_template.md) to `refresh-<id>.md` and fill in every section.
 2. Add `scripts/refresh/procedures/<id>.mjs`, a module implementing the interface described at the top of `scripts/refresh/run.mjs` (its `sources`, and an `apply` that returns the files to copy and derive), with a `<id>.test.mjs` beside it that runs it against a fixture source through `--source`. The procedure owns `sources/<id>/`, and no other procedure writes there. A procedure that also updates site files outside `sources/` (only `refresh-catalogue`, for spec 003's catalogue files) lists them as its `siteFiles`, which no other procedure lists, and produces them in `afterApply` or `afterVerify`.
 3. Add its row to the table at the top of this file.
-4. Add its title to the "Refreshing sourced content" section of `CLAUDE.md`; add its id to the `procedure` choices of `workflow_dispatch` in `.github/workflows/refresh.yml`, to the `repository_dispatch` mapping in `scripts/refresh/plan.mjs` when it reads a new repository, and to `PROCEDURES` in `scripts/refresh/run.mjs` so that `all` runs it.
+4. Add its title to the "Refreshing sourced content" section of `CLAUDE.md`; add its id to the `procedure` choices of `workflow_dispatch` in `.github/workflows/refresh.yml`, to the `repository_dispatch` mapping in `scripts/refresh/plan.mjs` when it reads a new repository, and to `PROCEDURES` in `scripts/refresh/run.mjs` and `ALL` in `scripts/refresh/plan.mjs` so that `all` runs it (a test holds the two lists equal).
 5. Run `npm run test:refresh` and `npm run refresh:lint`; both exit 0 when the procedure is complete and indexed.
 
 ## Answering a decision

@@ -29,6 +29,7 @@ jobs:
     steps:
       # The mapping lives in scripts/refresh/plan.mjs, where it is tested: an IDE host starts screenshots, catalogue and
       # hosts; etalii-adp/etalii.adp starts nothing, its DISL and DID reference being refreshed by reference:refresh.
+      # "all" becomes one job per procedure, so that each mints its own App token, which expires after an hour.
       - uses: actions/checkout@v7
         with:
           sparse-checkout: scripts/refresh
