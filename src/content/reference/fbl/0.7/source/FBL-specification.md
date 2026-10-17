@@ -994,7 +994,7 @@ The 25 diagram definitions in `definitions/diagrams/` were written before FBL; 2
 |---|---|
 | A declared binding (15 plus the timeline) | timeline (`timeline.fbl`), dependency graph, functional decomposition graph, hype cycle graph, Databricks bundle, job (`databricks-job.fbl`) and pipeline (`databricks-pipeline.fbl`), causal loop diagram (`causal-loop-diagram.fbl`), Wardley map, mind map (`mindmap.fbl`), the six C4 types (`structurizr.fbl`) |
 | A declared binding, with a plugin for part of its reading | Azure DevOps pipeline (template expansion) |
-| A plugin reader under the contract (8) | the four W3C types (`w3c-turtle.fbl`), SPARQL query, .NET dependency graph, Ansible structure, Helm chart (`helm-chart.fbl`) |
+| A plugin reader under the contract (8) | the four W3C types (`w3c-turtle.fbl`), SPARQL query, .NET dependency graph, Ansible structure (`ansible-structure.fbl`), Helm chart (`helm-chart.fbl`) |
 
 The timeline's specification would then say:
 
@@ -1017,4 +1017,4 @@ Rewriting the definitions to use FBL is follow-up work, as is implementing FBL i
 
 The normative schema is [`fbl.schema.json`](fbl.schema.json) beside this document (JSON Schema draft 2020-12, `$id` `https://etalii.net/adp/fbl/schema/0.1/fbl.schema.json`). Its `$defs` are: `Document`, `Binding`, `Claims`, `Marker`, `Body`, `Family`, `FileRule`, `PluginReader`, `TextDefaults`, `Header`, `BlockRule`, *(FBL 0.7)* `SectionRule`, `ElementRule`, `RelationRule`, `IdBinding`, `Slot`, `AttributeBinding`, `Insert`, `Remove`, `RegistrationSettings`, `Template`, `Registration`, `Splice`, `Fixture`, `Edit`, the model changes `ModelChange` and `ChangePosition` (FBL 0.2, section 11.2), and the helpers `Name`, `BindingRef`, `Regex`, `Selector`. While FBL is a draft, the schema keeps its 0.1 `$id` and accepts every version from `"fbl": "0.1"` to `"0.7"`. It references DISL's `Doc`, `LocalizedText`, `Expression` and `TypeRef`.
 
-The examples beside this document are `timeline.fbl`, `databricks-job.fbl`, `databricks-pipeline.fbl`, `mindmap.fbl`, `causal-loop-diagram.fbl`, `structurizr.fbl`, `w3c-turtle.fbl`, `helm-chart.fbl` and *(FBL 0.7)* `behavior-tree.fbl`, Agent Behavior Modelling's Markdown read by the `bullets` family; registrations are in `registrations/` and round-trip fixtures in `fixtures/`. `python .github/scripts/validate-examples.py` validates them all.
+The examples beside this document are `timeline.fbl`, `databricks-job.fbl`, `databricks-pipeline.fbl`, `mindmap.fbl`, `causal-loop-diagram.fbl`, `structurizr.fbl`, `w3c-turtle.fbl`, `helm-chart.fbl`, `ansible-structure.fbl` and *(FBL 0.7)* `behavior-tree.fbl`, Agent Behavior Modelling's Markdown read by the `bullets` family; registrations are in `registrations/` and round-trip fixtures in `fixtures/`. `python .github/scripts/validate-examples.py` validates them all.
