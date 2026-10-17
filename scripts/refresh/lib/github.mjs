@@ -120,6 +120,14 @@ export async function createPr({ base, head, title, body, draft, labels = [] }) 
 	return out.trim().split('\n').pop();
 }
 
+/**
+ * Turns on auto-merge, with a merge commit, so a verified refresh pull request merges once Build and refresh-checks
+ * pass (the owner's standing rule since 2026-10-17). Where its checks have already passed, gh merges it at once.
+ */
+export async function enableAutoMerge(pr) {
+	await gh(['pr', 'merge', String(pr), '--auto', '--merge'], { what: `this repository: enable auto-merge on ${pr}` });
+}
+
 /** Updates an open pull request's title, body and draft state. */
 export async function updatePr(number, { title, body, draft, isDraft }) {
 	await gh(['pr', 'edit', String(number), '--title', title, '--body-file', '-'], { what: `this repository: update pull request #${number}`, input: body });

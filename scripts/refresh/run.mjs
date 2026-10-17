@@ -318,7 +318,17 @@ export async function runProcedure(procedure, options, { cwd = process.cwd(), ou
 			} else {
 				result.prUrl = await github.createPr({ base: options.base, head: branch, title: summary.title, body, draft: failedStep, labels: ['refresh', `refresh:${shortId}`] });
 			}
-			stage('deliver', `${open ? 'updated' : 'opened'} ${result.prUrl}${failedStep ? ' as a draft' : ''}`);
+			// A draft failed verification and waits for a person; anything else merges by itself once its checks pass.
+			let merging = '';
+			if (!failedStep) {
+				try {
+					await github.enableAutoMerge(result.prUrl);
+					merging = ', auto-merge on';
+				} catch (error) {
+					merging = `, auto-merge not enabled (${error.message})`;
+				}
+			}
+			stage('deliver', `${open ? 'updated' : 'opened'} ${result.prUrl}${failedStep ? ' as a draft' : ''}${merging}`);
 		} else {
 			stage('deliver', options.dryRun ? 'dry run: nothing committed or pushed' : `--no-deliver: changes left in the working tree on refresh/${shortId}`);
 		}
