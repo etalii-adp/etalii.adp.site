@@ -1,18 +1,27 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { describe, it } from 'node:test';
-import { plan } from './plan.mjs';
+import { ALL, plan } from './plan.mjs';
+import { PROCEDURES } from './run.mjs';
 
 describe('plan.mjs (the procedures a refresh.yml run starts)', () => {
-	it('runs all on the schedule', () => {
-		assert.deepEqual(plan({ event: 'schedule' }), { procedures: ['all'] });
+	it('runs every procedure, each in its own job, on the schedule', () => {
+		assert.deepEqual(plan({ event: 'schedule' }), { procedures: ['screenshots', 'catalogue', 'hosts'] });
+	});
+
+	it('expands all into every procedure on workflow_dispatch', () => {
+		assert.deepEqual(plan({ event: 'workflow_dispatch', chosen: 'all' }), { procedures: ['screenshots', 'catalogue', 'hosts'] });
+	});
+
+	it('lists the procedures run.mjs runs for all', () => {
+		assert.deepEqual(ALL, PROCEDURES);
 	});
 
 	it('runs the chosen procedure on workflow_dispatch, with or without the refresh- prefix', () => {
 		assert.deepEqual(plan({ event: 'workflow_dispatch', chosen: 'refresh-catalogue' }), { procedures: ['catalogue'] });
 		assert.deepEqual(plan({ event: 'workflow_dispatch', chosen: 'catalogue' }), { procedures: ['catalogue'] });
 		assert.deepEqual(plan({ event: 'workflow_dispatch', chosen: 'hosts' }), { procedures: ['hosts'] });
-		assert.deepEqual(plan({ event: 'workflow_dispatch', chosen: '' }), { procedures: ['all'] });
+		assert.deepEqual(plan({ event: 'workflow_dispatch', chosen: '' }), { procedures: ['screenshots', 'catalogue', 'hosts'] });
 	});
 
 	it('runs nothing on source-changed from etalii.adp, whose DISL and DID reference no procedure refreshes', () => {
