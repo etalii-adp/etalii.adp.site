@@ -7,11 +7,17 @@
     "kind": "git",
     "repository": "etalii-adp/etalii.adp",
     "path": "specifications/fbl",
-    "revision": "ccfafddb8a5612ef2e60774a342079eeff305a8f",
+    "revision": "a3da874645853e3d67fab2ec85b39e4683d2b7fd",
     "licence": "Apache-2.0",
     "copyright": "Copyright © Peter Vrenken 2026"
   },
   "files": [
+    {
+      "name": "ansible-structure.fbl",
+      "role": "document",
+      "sha256": "80ece355648d1dc66bf879b217ae7258061d2a5d9a0e330d43774939d6f576c1",
+      "size": 2293
+    },
     {
       "name": "behavior-tree.fbl",
       "role": "document",
@@ -39,8 +45,8 @@
     {
       "name": "FBL-specification.md",
       "role": "prose",
-      "sha256": "39fb29ee2362e292c56f3dac9fd8a970dd72a9ebf72b755c4819f27bace5b544",
-      "size": 124880
+      "sha256": "eae12bc15d5d898064bbe0c0338cd58e1a8dc8e1999ea310f80a25651060ab3e",
+      "size": 124931
     },
     {
       "name": "fbl.schema.json",
@@ -85,5 +91,5 @@
       "size": 7304
     }
   ],
-  "retrieved": "2026-10-15T01:13:23Z"
+  "retrieved": "2026-10-17T01:13:04Z"
 }
