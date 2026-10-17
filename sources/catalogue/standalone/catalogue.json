@@ -2155,6 +2155,14 @@
     ],
     "example": [
       {
+        "label": "helm-chart-disl-fbl",
+        "href": "../.spec-workflow/specs/helm-chart-disl-fbl/requirements.md"
+      },
+      {
+        "label": "definition's companion",
+        "href": "../src/diagrams/helm-chart/definition/helm-chart.md"
+      },
+      {
         "label": "Helm-Visualizer",
         "href": "https://github.com/unrealandychan/Helm-Visualizer"
       }
