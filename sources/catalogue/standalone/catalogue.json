@@ -2059,6 +2059,14 @@
     ],
     "example": [
       {
+        "label": "azure-devops-pipeline-disl-fbl",
+        "href": "../.spec-workflow/specs/azure-devops-pipeline-disl-fbl/requirements.md"
+      },
+      {
+        "label": "definition's companion",
+        "href": "../src/diagrams/azure-devops-pipeline/definition/azure-devops-pipeline.md"
+      },
+      {
         "label": "Stages, dependsOn and conditions",
         "href": "https://learn.microsoft.com/en-us/azure/devops/pipelines/process/stages"
       }
