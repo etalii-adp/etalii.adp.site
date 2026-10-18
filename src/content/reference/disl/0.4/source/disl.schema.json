@@ -5688,6 +5688,14 @@
                 "$ref": "#/$defs/Action"
               }
             },
+            "accepts": {
+              "description": "Whether the entered text, value, is accepted; when it is not, the edit is refused with refusal. Form context. See DISL 0.3, section 6.12.",
+              "$ref": "#/$defs/Expression"
+            },
+            "refusal": {
+              "description": "Shown when accepts is false. Form context. See DISL 0.3, section 6.12.",
+              "$ref": "#/$defs/Message"
+            },
             "doc": {
               "$ref": "#/$defs/Doc"
             }

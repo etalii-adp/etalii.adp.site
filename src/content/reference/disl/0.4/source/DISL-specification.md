@@ -2675,7 +2675,7 @@ Labels display text on nodes, edges, ports and compartments. The same **Label** 
 | `format`         | `"plain"`, `"markdown"`, `"rich"`               | `markdown` renders a safe inline subset (emphasis, code, links); `rich` enables spans from `{ "cel": … }` returning a list of `{text, style}`.        |
 | `placeholder`    | LocalizedText                                   | Shown (dimmed) when text is empty and the element is selected.                                                                                        |
 | `editable`       | `false`, `"inline"`, `"multiline"`, `"form"`    | How users edit the text; `form` opens the field in the form. Requires an attribute binding. Default: `"inline"` for attribute bindings, else `false`. |
-| `parse`          | `{cel, write}`                                  | Parse edited text into several attributes (for example `"name : Type"` → `name`, `type`), with `value` = entered text and `write` actions (9.4).      |
+| `parse`          | `{cel, write, accepts, refusal}`                | Parse edited text into several attributes (for example `"name : Type"` → `name`, `type`), with `value` = entered text and `write` actions (9.4). *(DISL 0.3)* `accepts` and `refusal` as a form item's (below). |
 | `editText`       | Message or `{ "attribute": … }`               | *(DISL 0.3)* The text an inline editor starts with, in place of the label's text (below).                                                              |
 | `position`       | Position                                        | For nodes and ports (6.9).                                                                                                                            |
 | `style`          | StyleRef                                        | Font, color, alignment.                                                                                                                               |
@@ -2710,6 +2710,15 @@ A Wardley map reads each component's label offset from the map text, and draws t
 ```
 
 A hype cycle trigger's label reads `Steam engine · 1712`, but its inline editor opens on `Steam engine`, and what is committed is written to `name`.
+
+**A label's text that is refused** *(DISL 0.3)*. A label's `parse` may carry `accepts` (Expression → bool) and `refusal` (Message), as a form item's `parse` does (7.5), both in the `form` context with `value` bound to the entered text. When an inline edit of the label is committed, the runtime **MUST** refuse it with `refusal` unless `accepts` is true, and otherwise **MUST** run `write` as one transaction. Without `accepts`, every text is accepted, as in 0.2. The refusal belongs to the label's editor alone: a form item on the same attribute keeps its own validation, so a tool can refuse an inline rename with its own sentence and still take in its property grid what the grid takes.
+
+```json
+"parse": {
+  "accepts": "value != '' && !value.contains('\"')",
+  "write": [ { "set": { "label": "value" } } ],
+  "refusal": "A name needs at least one character, and cannot contain a quote." }
+```
 
 **Edge label positioning** — for labels in `EdgeNotation.labels`:
 
@@ -6043,6 +6052,7 @@ DISL 0.3 (draft, 2026-10-05) adds the constructs listed below, approved by the p
 | `drawnFrom` on anchors | 6.9 | `AnchorSpec.drawnFrom` |
 | `pointer` on a connect gesture | 6.10 | `ConnectGesture.pointer`, `$defs/GesturePointer` |
 | `editText` on a label | 6.12 | `Label.editText` |
+| `accepts` and `refusal` on a label's `parse` | 6.12 | `Label.parse.accepts`, `Label.parse.refusal` |
 | `place` on a drop and a `create` action; `behavior.placements` | 7.2, 9.1, 9.4, 12.3 | `DropSpec.place`, `Action.create.place`, `Behavior.placements`, `$defs/ParentPlacement` |
 | `display` and `parse` on form items | 7.5 | `FormItem.display`, `FormItem.parse`, `$defs/FieldParse` |
 | Form items of kind `type`; `when` on a retype entry | 7.5, 9.5 | `FormItem.kind`, `FormItem.optionLabel`, `FormItem.refusals`, `Behavior.retype.*.when` |

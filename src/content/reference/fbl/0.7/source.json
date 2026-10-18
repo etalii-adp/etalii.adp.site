@@ -7,7 +7,7 @@
     "kind": "git",
     "repository": "etalii-adp/etalii.adp",
     "path": "specifications/fbl",
-    "revision": "a3da874645853e3d67fab2ec85b39e4683d2b7fd",
+    "revision": "35cd38254ecbfa9bcd0de6248ed6c2e8aea23b05",
     "licence": "Apache-2.0",
     "copyright": "Copyright © Peter Vrenken 2026"
   },
@@ -17,6 +17,12 @@
       "role": "document",
       "sha256": "80ece355648d1dc66bf879b217ae7258061d2a5d9a0e330d43774939d6f576c1",
       "size": 2293
+    },
+    {
+      "name": "azure-devops-pipeline.fbl.draft",
+      "role": "other",
+      "sha256": "027da0587928d171355ccf1908f264ec5b8f613dd2c976760a3753a6106b1bf1",
+      "size": 11738
     },
     {
       "name": "behavior-tree.fbl",
@@ -43,10 +49,16 @@
       "size": 2912
     },
     {
+      "name": "dependency-graph.fbl",
+      "role": "document",
+      "sha256": "2e19421afc8866c54c0a06ab23581f47dc4227f9fefc0561f544ea4ea72c85ef",
+      "size": 3485
+    },
+    {
       "name": "FBL-specification.md",
       "role": "prose",
-      "sha256": "eae12bc15d5d898064bbe0c0338cd58e1a8dc8e1999ea310f80a25651060ab3e",
-      "size": 124931
+      "sha256": "79656acef1f32bb69a166b670f3f2eec030a21b82a83f866f0bb28cce9fb0690",
+      "size": 125044
     },
     {
       "name": "fbl.schema.json",
@@ -91,5 +103,5 @@
       "size": 7304
     }
   ],
-  "retrieved": "2026-10-17T01:13:04Z"
+  "retrieved": "2026-10-18T01:12:35Z"
 }
