@@ -1,18 +1,18 @@
 {
   "procedure": "refresh-hosts",
-  "refreshedAt": "2026-10-19T04:53:21.468Z",
+  "refreshedAt": "2026-10-19T10:52:51.485Z",
   "sourceHeads": {
     "etalii-adp/etalii.adp.ide.eclipse": "59d855d9f4cd390659fe52746ed29d48309b285f",
     "etalii-adp/etalii.adp.ide.intellij": "a36a84628b858172e3f62ab11bc3abeee607b0d1",
-    "etalii-adp/etalii.adp.ide.standalone": "de37b5fc933fe6049c47593d5c68cbd55e594be2",
+    "etalii-adp/etalii.adp.ide.standalone": "ebd4aa7892c55223e8343868a5259c8574656563",
     "etalii-adp/etalii.adp.ide.vscode": "bf9ec248be348dca3f7911214aee47cac310ef8b"
   },
   "releases": {
     "etalii-adp/etalii.adp.ide.eclipse": null,
     "etalii-adp/etalii.adp.ide.intellij": null,
     "etalii-adp/etalii.adp.ide.standalone": {
-      "tag": "v0.1.3205-alpha",
-      "commit": "c2ae45cda99aec70ac2fddbeb96f2c43a780afdd"
+      "tag": "v0.1.3225-alpha",
+      "commit": "29823c200f20d3347ebb95a4df5ce65edaa0e72d"
     },
     "etalii-adp/etalii.adp.ide.vscode": null
   },
@@ -43,7 +43,7 @@
   "derived": [
     {
       "path": "hosts.json",
-      "sha256": "201ee235ef0c0ddc643fd94732301a2e1414a6cdc57ebbe96409956c2e6c9b98"
+      "sha256": "bfb680ed36378662f95040c8c9125aaa68e292d957245c1fc9b49e382660449f"
     }
   ],
   "withdrawn": []
