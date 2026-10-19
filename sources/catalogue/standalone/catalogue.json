@@ -1380,8 +1380,8 @@
     ],
     "example": [
       {
-        "label": "Optional · Usually IDE-generated",
-        "href": null
+        "label": "c4-disl-fbl",
+        "href": "../.spec-workflow/specs/c4-disl-fbl/requirements.md"
       }
     ]
   },
@@ -1401,8 +1401,12 @@
     ],
     "example": [
       {
-        "label": "Building blocks inside one container",
-        "href": null
+        "label": "c4-disl-fbl",
+        "href": "../.spec-workflow/specs/c4-disl-fbl/requirements.md"
+      },
+      {
+        "label": "definition's companion",
+        "href": "../src/diagrams/c4/definition/c4-component.md"
       }
     ]
   },
@@ -1422,8 +1426,12 @@
     ],
     "example": [
       {
-        "label": "Deployable/runnable units",
-        "href": null
+        "label": "c4-disl-fbl",
+        "href": "../.spec-workflow/specs/c4-disl-fbl/requirements.md"
+      },
+      {
+        "label": "definition's companion",
+        "href": "../src/diagrams/c4/definition/c4-container.md"
       }
     ]
   },
@@ -1443,8 +1451,12 @@
     ],
     "example": [
       {
-        "label": "Everyone-facing overview",
-        "href": null
+        "label": "c4-disl-fbl",
+        "href": "../.spec-workflow/specs/c4-disl-fbl/requirements.md"
+      },
+      {
+        "label": "definition's companion",
+        "href": "../src/diagrams/c4/definition/c4-context.md"
       }
     ]
   },
@@ -1464,8 +1476,12 @@
     ],
     "example": [
       {
-        "label": "Supplementary · Containers mapped onto infrastructure",
-        "href": null
+        "label": "c4-disl-fbl",
+        "href": "../.spec-workflow/specs/c4-disl-fbl/requirements.md"
+      },
+      {
+        "label": "definition's companion",
+        "href": "../src/diagrams/c4/definition/c4-deployment.md"
       }
     ]
   },
@@ -1485,8 +1501,12 @@
     ],
     "example": [
       {
-        "label": "Supplementary · One scenario across containers/components",
-        "href": null
+        "label": "c4-disl-fbl",
+        "href": "../.spec-workflow/specs/c4-disl-fbl/requirements.md"
+      },
+      {
+        "label": "definition's companion",
+        "href": "../src/diagrams/c4/definition/c4-dynamic.md"
       }
     ]
   },
@@ -1506,8 +1526,12 @@
     ],
     "example": [
       {
-        "label": "Supplementary · Multiple systems across an org",
-        "href": null
+        "label": "c4-disl-fbl",
+        "href": "../.spec-workflow/specs/c4-disl-fbl/requirements.md"
+      },
+      {
+        "label": "definition's companion",
+        "href": "../src/diagrams/c4/definition/c4-system-landscape.md"
       }
     ]
   },
