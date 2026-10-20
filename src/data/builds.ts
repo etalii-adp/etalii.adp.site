@@ -16,6 +16,7 @@ export const builds: readonly Build[] = [
 	{ repository: 'etalii.adp', public: true, workflow: 'build.yml' },
 	{ repository: 'etalii.adp.ide.intellij', public: true, workflow: 'build.yml' },
 	{ repository: 'etalii.adp.ide.standalone', public: true, workflow: 'build.yml' },
+	{ repository: 'etalii.adp.ide.desktop', public: true, workflow: 'build.yml' },
 	{ repository: 'etalii.adp.ide.vscode', public: true, workflow: 'build.yml' },
 	{ repository: 'etalii.adp.ide.eclipse', public: true, workflow: 'build.yml' },
 	{ repository: 'etalii.adp.ide.notion', public: true, workflow: 'build.yml' },
