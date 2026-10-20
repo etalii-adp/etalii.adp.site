@@ -4,16 +4,16 @@
     "repository": "etalii-adp/etalii.adp.ide.standalone",
     "state": "available",
     "facts": {
-      "catalogueCommit": "7a2948d0d5b7c0c3c260afed6c9e8dc0959fc27e",
+      "catalogueCommit": "3d90b1742e85e6a357be622ef0f73351ede84c7f",
       "usableTools": 32,
       "toolsInProgress": 35,
       "latestRelease": {
-        "tag": "v0.1.3302-alpha",
-        "commit": "4d5f9a7e67592fce4562f887508deda5899d4c2d"
+        "tag": "v0.1.3321-alpha",
+        "commit": "514e784f1bbe824eb3aae2677a2b1d09b9ee2359"
       },
-      "developHead": "4d5f9a7e67592fce4562f887508deda5899d4c2d"
+      "developHead": "514e784f1bbe824eb3aae2677a2b1d09b9ee2359"
     },
-    "link": "https://github.com/etalii-adp/etalii.adp.ide.standalone/releases/tag/v0.1.3302-alpha"
+    "link": "https://github.com/etalii-adp/etalii.adp.ide.standalone/releases/tag/v0.1.3321-alpha"
   },
   {
     "host": "intellij",
