@@ -480,8 +480,12 @@
     ],
     "example": [
       {
-        "label": "Asset bundle topology (targets, resources, overrides) in the databricks.yml a repository already has · databricks-diagrams (specification removed from the tree; in history before 53f68611)",
-        "href": null
+        "label": "databricks-disl-fbl",
+        "href": "../.spec-workflow/specs/databricks-disl-fbl/requirements.md"
+      },
+      {
+        "label": "definition's companion",
+        "href": "../src/diagrams/databricks/definition/databricks-bundle.md"
       }
     ]
   },
@@ -501,8 +505,12 @@
     ],
     "example": [
       {
-        "label": "Lakeflow Jobs task DAG (tasks, depends_on, run_if, clusters) in the job resource .yml a bundle already has · databricks-diagrams (specification removed from the tree; in history before 53f68611)",
-        "href": null
+        "label": "databricks-disl-fbl",
+        "href": "../.spec-workflow/specs/databricks-disl-fbl/requirements.md"
+      },
+      {
+        "label": "definition's companion",
+        "href": "../src/diagrams/databricks/definition/databricks-job.md"
       }
     ]
   },
@@ -522,8 +530,12 @@
     ],
     "example": [
       {
-        "label": "Lakeflow Declarative Pipelines flow (sources, pipeline, target catalog) in the settings .json a workspace exports · databricks-diagrams (specification removed from the tree; in history before 53f68611)",
-        "href": null
+        "label": "databricks-disl-fbl",
+        "href": "../.spec-workflow/specs/databricks-disl-fbl/requirements.md"
+      },
+      {
+        "label": "definition's companion",
+        "href": "../src/diagrams/databricks/definition/databricks-pipeline.md"
       }
     ]
   },
