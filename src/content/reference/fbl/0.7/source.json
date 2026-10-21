@@ -7,7 +7,7 @@
     "kind": "git",
     "repository": "etalii-adp/etalii.adp",
     "path": "specifications/fbl",
-    "revision": "35cd38254ecbfa9bcd0de6248ed6c2e8aea23b05",
+    "revision": "eb8f668c638e0d602f9c2cb0bc41a600142d0ce1",
     "licence": "Apache-2.0",
     "copyright": "Copyright © Peter Vrenken 2026"
   },
@@ -55,10 +55,16 @@
       "size": 3485
     },
     {
+      "name": "dotnet-dependency-graph.fbl",
+      "role": "document",
+      "sha256": "ff308e35bad8ba43c52383afb1bf517d3f66549c5c829b8b1c2bdbf2a650b4ea",
+      "size": 1646
+    },
+    {
       "name": "FBL-specification.md",
       "role": "prose",
-      "sha256": "79656acef1f32bb69a166b670f3f2eec030a21b82a83f866f0bb28cce9fb0690",
-      "size": 125044
+      "sha256": "530c0cf0d475ed49c28d1b58540e460743ef58e0dbd4b55b82c6a57221f8f3b7",
+      "size": 125181
     },
     {
       "name": "fbl.schema.json",
@@ -103,5 +109,5 @@
       "size": 7304
     }
   ],
-  "retrieved": "2026-10-18T01:12:35Z"
+  "retrieved": "2026-10-21T01:13:26Z"
 }
