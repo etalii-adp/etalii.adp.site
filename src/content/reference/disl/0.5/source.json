@@ -7,7 +7,7 @@
     "kind": "git",
     "repository": "etalii-adp/etalii.adp",
     "path": "specifications/disl",
-    "revision": "eb8f668c638e0d602f9c2cb0bc41a600142d0ce1",
+    "revision": "4e69c28831b4b7792871157ac98ad5e45b5c6eb3",
     "licence": "Apache-2.0",
     "copyright": "Copyright © Peter Vrenken 2026"
   },
@@ -57,8 +57,8 @@
     {
       "name": "functional-decomposition.dis",
       "role": "definition",
-      "sha256": "583280913f65a81be17d29ba5935648403fbaa30ffe3703d5aea9179abd12e54",
-      "size": 15834
+      "sha256": "e855c4f09bed04cb5e9ffb624c41788d0c6a8d1f20417bd6513db1dc449af31f",
+      "size": 16150
     },
     {
       "name": "gartner-hype-cycle.dis",
@@ -97,5 +97,5 @@
       "size": 12069
     }
   ],
-  "retrieved": "2026-10-21T01:13:24Z"
+  "retrieved": "2026-10-22T01:12:51Z"
 }
