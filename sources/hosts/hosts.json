@@ -8,12 +8,12 @@
       "usableTools": 32,
       "toolsInProgress": 36,
       "latestRelease": {
-        "tag": "v0.1.3495-alpha",
-        "commit": "08c7b68646e30788d7c1fef5398934cada29d479"
+        "tag": "v0.1.3511-alpha",
+        "commit": "eab39870cd44f4f5a27738bc4a07cf13d6640426"
       },
-      "developHead": "08c7b68646e30788d7c1fef5398934cada29d479"
+      "developHead": "eab39870cd44f4f5a27738bc4a07cf13d6640426"
     },
-    "link": "https://github.com/etalii-adp/etalii.adp.ide.standalone/releases/tag/v0.1.3495-alpha"
+    "link": "https://github.com/etalii-adp/etalii.adp.ide.standalone/releases/tag/v0.1.3511-alpha"
   },
   {
     "host": "intellij",
