@@ -944,6 +944,14 @@
     ],
     "example": [
       {
+        "label": "sparql-disl-fbl",
+        "href": "../.spec-workflow/specs/sparql-disl-fbl/requirements.md"
+      },
+      {
+        "label": "definition's companion",
+        "href": "../src/diagrams/sparql/definition/sparql-query.md"
+      },
+      {
         "label": "sparql.org",
         "href": "https://sparql.org/"
       }
