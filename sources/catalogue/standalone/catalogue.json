@@ -1802,8 +1802,8 @@
     ],
     "example": [
       {
-        "label": "Functional decomposition graph (UI elements, data elements, actions and functions linked parent to child, drawn as a superellipse, parallelogram, trapezoid and diode with bezier arrows; .fdg, ADP's own line-oriented schema); functional-decomposition-graph",
-        "href": null
+        "label": "functional-decomposition-graph-disl-fbl",
+        "href": "../.spec-workflow/specs/functional-decomposition-graph-disl-fbl/requirements.md"
       }
     ]
   },
