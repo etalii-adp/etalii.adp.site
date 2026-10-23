@@ -20,6 +20,7 @@
   "etalii/agent-activity-diagram",
   "etalii/agent-behavior-modelling",
   "etalii/functional-decomposition-graph",
+  "etalii/hierarchical-requirement",
   "etalii/knowledge",
   "etalii/sankey",
   "etalii/supply-chain",

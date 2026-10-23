@@ -1,18 +1,18 @@
 {
   "procedure": "refresh-catalogue",
-  "refreshedAt": "2026-10-23T01:36:32.175Z",
+  "refreshedAt": "2026-10-23T07:39:43.685Z",
   "sourceHeads": {
     "etalii-adp/etalii.adp.ide.eclipse": "59d855d9f4cd390659fe52746ed29d48309b285f",
-    "etalii-adp/etalii.adp.ide.intellij": "255c57c2cc92d0e44500681ac03aeb367597d35e",
-    "etalii-adp/etalii.adp.ide.standalone": "9b3276bb12fe465d61f84f23b9b2327f26f351e7",
-    "etalii-adp/etalii.adp.ide.vscode": "6ebc91d0707c23c273918c882269a6a9923a26f7"
+    "etalii-adp/etalii.adp.ide.intellij": "4b2c7f3e3206dfada1a5952d17414f45c9106b40",
+    "etalii-adp/etalii.adp.ide.standalone": "08c7b68646e30788d7c1fef5398934cada29d479",
+    "etalii-adp/etalii.adp.ide.vscode": "b489b3725ea44fadee3f850341d2f3439c4cd08a"
   },
   "releases": {
     "etalii-adp/etalii.adp.ide.eclipse": null,
     "etalii-adp/etalii.adp.ide.intellij": null,
     "etalii-adp/etalii.adp.ide.standalone": {
-      "tag": "v0.1.3475-alpha",
-      "commit": "63cd4cfaeea7b5c918b686b6a66895100807e527"
+      "tag": "v0.1.3495-alpha",
+      "commit": "08c7b68646e30788d7c1fef5398934cada29d479"
     },
     "etalii-adp/etalii.adp.ide.vscode": null
   },
@@ -33,9 +33,9 @@
       "path": "standalone/tools.md",
       "repository": "etalii-adp/etalii.adp.ide.standalone",
       "sourcePath": "docs/tools.md",
-      "commit": "e31f28572b31e9d02dee16f658b05e584a5e7cb8",
-      "gitBlob": "785367e523bb1b2d24ac3a3579fb34db1d333952",
-      "sha256": "b0a89bf80cafee0365d3d1b3dbe97caf9617f80d4dadae8dbe8fe0c94d86aaf9",
+      "commit": "e006b4cb12d3213f9956c00408acd6a7545f9601",
+      "gitBlob": "c7db65f2db5a484e552d001548c3acdbbb815603",
+      "sha256": "7786da3c0305d53e0040fe4939bd5772e1cc311929368c914f1aed21c0ca3d2f",
       "licence": "Apache-2.0"
     },
     {
@@ -55,7 +55,7 @@
     },
     {
       "path": "standalone/catalogue.json",
-      "sha256": "9744a170f28af40de28dc34e83f0335a70f22280c9c3864e656443525c2e2f6a"
+      "sha256": "54ec0821021a01e3058a307d963e8309dc7ff164e6cb0791eaeeadd8fff4c043"
     },
     {
       "path": "vscode/catalogue.json",

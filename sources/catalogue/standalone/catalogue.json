@@ -950,6 +950,27 @@
     ]
   },
   {
+    "origin": "etalii/hierarchical-requirement",
+    "name": "Hierarchical Requirement Designer",
+    "kind": "designer",
+    "group": "15. Designers",
+    "developState": "Work-in-progress",
+    "releaseState": "Work-in-progress",
+    "state": "in-progress",
+    "theory": [
+      {
+        "label": "A tool defined by the user of this repository, so ADP owns the format and the etalii/ origin; specified in etalii-adp/etalii.adp (specs 028 and 029)",
+        "href": null
+      }
+    ],
+    "example": [
+      {
+        "label": "The requirements of one subject on one page of nested boxes, by its structure: items holding requirements and further items, numbered, tagged and assessed, kept in a Markdown file an agent can write too, recognised by the envelope on its first line",
+        "href": null
+      }
+    ]
+  },
+  {
     "origin": "etalii/knowledge",
     "name": "Knowledge designer",
     "kind": "designer",
