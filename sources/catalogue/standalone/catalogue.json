@@ -962,9 +962,9 @@
     "name": "Hierarchical Requirement Designer",
     "kind": "designer",
     "group": "15. Designers",
-    "developState": "Work-in-progress",
-    "releaseState": "Work-in-progress",
-    "state": "in-progress",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
     "theory": [
       {
         "label": "A tool defined by the user of this repository, so ADP owns the format and the etalii/ origin; specified in etalii-adp/etalii.adp (specs 028 and 029)",
