@@ -40,7 +40,8 @@
     "c4-deployment.png": "c4/deployment",
     "c4-dynamic.png": "c4/dynamic",
     "knowledge.png": "etalii/knowledge",
-    "skos.png": "w3c/skos"
+    "skos.png": "w3c/skos",
+    "hierarchical-requirement.png": "etalii/hierarchical-requirement"
   },
   "intellij": {
     "drawio-activity.png": "jgraph/drawio",

@@ -209,6 +209,17 @@
     "status": "accepted"
   },
   {
+    "file": "hierarchical-requirement.png",
+    "origin": "etalii/hierarchical-requirement",
+    "expectation": "The Hierarchical Requirement Designer's page of the web shop: the items *Storefront*, *Backend* and *Data* as boxes down the left with their requirements to their right, *Checkout* nested in *Storefront* with the mark of its hidden level, numbers beside the titles, tags, categories and states as coloured chips, *REQ-0002* collapsed, the note icons of the open assessments, and the finding about `REQ-NEW` above the page. Not fitted: the page has no canvas. Nothing selected.",
+    "document": "`designers/hierarchical-requirement/web-shop/` → `web-shop.md` → `web-shop.adp`",
+    "bytes": 252335,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
     "file": "hype-cycle.png",
     "origin": "gartner/hypecycle-graph",
     "expectation": "The trends as banners on the year axis (1900 and 2000 labelled along the bottom), coloured by phase with the Peak/Trough/Slope/Plateau key and the tag filter above; Toolbox showing Trend, Trigger and Note. **Not fitted**: fitting a century-long axis squeezes every banner into a sliver, so the document's stored view is kept. Nothing selected.",
