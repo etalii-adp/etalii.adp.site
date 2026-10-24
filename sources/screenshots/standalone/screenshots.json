@@ -211,9 +211,9 @@
   {
     "file": "hierarchical-requirement.png",
     "origin": "etalii/hierarchical-requirement",
-    "expectation": "The Hierarchical Requirement Designer's page of the web shop: the items *Storefront*, *Backend* and *Data* as boxes down the left with their requirements to their right, *Checkout* nested in *Storefront* with the mark of its hidden level, numbers beside the titles, tags, categories and states as coloured chips, *REQ-0002* collapsed, the note icons of the open assessments, and the finding about `REQ-NEW` above the page. Not fitted: the page has no canvas. Nothing selected.",
+    "expectation": "The Hierarchical Requirement Designer's page of the web shop, from the small example (never the NIST one): the filter bar, the finding about `REQ-NEW` above the page, the item *Storefront* as a box on the left with its requirements to its right and *Checkout* nested in it with the mark of its hidden level (the next item, *Backend*, starts just below the fold); numbers beside the titles, tags with their `#`, categories as badges and states with a dot, *REQ-0002* collapsed, the note icons of the open assessments, and the add icons at the end of each level. Not fitted: the page has no canvas. Nothing selected, and no box under the pointer, so no box shows its hover controls.",
     "document": "`designers/hierarchical-requirement/web-shop/` → `web-shop.md` → `web-shop.adp`",
-    "bytes": 252335,
+    "bytes": 151129,
     "width": 1600,
     "height": 900,
     "budgetBytes": 307200,

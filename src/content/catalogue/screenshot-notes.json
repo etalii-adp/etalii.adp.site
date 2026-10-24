@@ -140,10 +140,19 @@
   "standalone--yaml-editor": {
     "whyItMatters": "A YAML file is checked against the JSON Schema its first line names while it is typed, including values an alias brings in, so a wrong type, an unknown key or a deprecated setting is marked on its line before deployment."
   },
+  "vscode--agent-activity-diagram": {
+    "whyItMatters": "A day of ADP opens inside VS Code as projects, specifications, agents, locations and environments, each in the shape and colour of its kind, with the selected element's properties in ADP Properties, so who works on what can be read beside the files the agents change."
+  },
   "vscode--agent-behavior-modelling": {
     "whyItMatters": "An agent's Markdown instructions open as a behavior tree inside VS Code, with the ADP Toolbox offering every kind of step and ADP Properties showing the selected node, so the behavior can be read and changed beside the code the agent works on."
   },
   "vscode--gartner-hypecycle-graph-light": {
     "whyItMatters": "A hype cycle file opens as its graph inside VS Code, each trend a banner coloured by phase on the year axis, with the ADP Toolbox and the selected trend's dates and phases in ADP Properties, here in the light theme."
+  },
+  "vscode--knowledge": {
+    "whyItMatters": "A table of cities kept in a plain YAML file opens inside VS Code as a database view, grouped, sorted and filtered, with tags and a relation to the provinces file as chips, while every change is written back to the file."
+  },
+  "vscode--mindmap": {
+    "whyItMatters": "A FreeMind map opens inside VS Code with its root in the middle and its branches to both sides, and the selected node's text, notes and link in ADP Properties, so a map kept beside the code is read and edited without leaving the editor."
   }
 }
