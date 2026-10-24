@@ -55,6 +55,17 @@
     "schemaAddress": "/fbl/schema/{version}/{schema}"
   },
   {
+    "id": "atd",
+    "name": "ATD — ADP Tool Language",
+    "short": "ATD",
+    "repository": "etalii-adp/etalii.adp",
+    "branch": "develop",
+    "path": "specifications/atd",
+    "prose": "ATD-specification.md",
+    "schema": "atd.schema.json",
+    "schemaAddress": "/atd/schema/{version}/{schema}"
+  },
+  {
     "id": "dedl",
     "name": "DEDL — Diagram Editor Definition Language",
     "short": "DEDL",

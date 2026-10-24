@@ -1,0 +1,89 @@
+{
+  "language": "atd",
+  "version": "0.1",
+  "status": "Working Draft",
+  "date": "2026-10-23",
+  "source": {
+    "kind": "git",
+    "repository": "etalii-adp/etalii.adp",
+    "path": "specifications/atd",
+    "revision": "52269a3c2d3dcdd47af2986eb14a8523781dcb50",
+    "licence": "Apache-2.0",
+    "copyright": "Copyright © Peter Vrenken 2026"
+  },
+  "files": [
+    {
+      "name": "ATD-specification.md",
+      "role": "prose",
+      "sha256": "bce5920bf75fbba8819157906205e27f946f7e41af28b2602a07da550b695172",
+      "size": 333117
+    },
+    {
+      "name": "atd.schema.json",
+      "role": "schema",
+      "sha256": "f9c5e834015cbf17c973cbcbfadca963963ced680dac01cd11c6289aeb5576f0",
+      "size": 123041
+    },
+    {
+      "name": "binding-blocks.atd",
+      "role": "other",
+      "sha256": "95a2b07d3493ae67321a407644894f55d0865841b403f61c1980c696ad8ccdf1",
+      "size": 2392
+    },
+    {
+      "name": "binding-capability.atd",
+      "role": "other",
+      "sha256": "a2b07f8f19a18fcc2c3df78e6910e971cc4433acbe068eb2a7b3976dcad16c67",
+      "size": 1024
+    },
+    {
+      "name": "binding-json.atd",
+      "role": "other",
+      "sha256": "4f6549a98e9823e50d0593dac73f889e7640cfc92ec357a2dcdb5d35e696b3e3",
+      "size": 1469
+    },
+    {
+      "name": "binding-lines.atd",
+      "role": "other",
+      "sha256": "ca467a4ad08aa2867678b7864345e95ffe5303501a31b425a0ede93e164a3962",
+      "size": 1639
+    },
+    {
+      "name": "mindmap.atd",
+      "role": "other",
+      "sha256": "d64390569536ad02404b96916736fa4b0a4f6c129a2f5061251f6b3946aa69aa",
+      "size": 6403
+    },
+    {
+      "name": "mindmap.md",
+      "role": "other",
+      "sha256": "0930eb42de4c7718f8ba936e73a1c00c99d362209a85dec18f6e4bdc0d6b6291",
+      "size": 673
+    },
+    {
+      "name": "mindmap.notation.atd",
+      "role": "other",
+      "sha256": "3adcedfabda7f385431dffc4b84b06429d4434cafb5be25d69b7e00d0a9caa8c",
+      "size": 2643
+    },
+    {
+      "name": "mindmap.trace.json",
+      "role": "other",
+      "sha256": "1caffa808e86bcaeda27fe402d89597be0733457a82d62fbf5774ab8dd88e7fb",
+      "size": 1531
+    },
+    {
+      "name": "notes.atd",
+      "role": "other",
+      "sha256": "2843bed0d4455364f142feb0d18870df303628f6cece34d5f405041e484553d5",
+      "size": 1488
+    },
+    {
+      "name": "reading-list.atd",
+      "role": "other",
+      "sha256": "f50a1de4ab6803fd21c89e477c22bcd279ffa89cee5af78e2fb96e7e03faef33",
+      "size": 3467
+    }
+  ],
+  "retrieved": "2026-10-24T13:07:39Z"
+}
