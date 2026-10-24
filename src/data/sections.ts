@@ -50,6 +50,8 @@ export const sections: readonly Section[] = [
 	{ id: 'ded', label: 'DED reference', part: 'documentation', href: '/adp/ded/', status: hasPublishedVersion('ded') ? 'available' : 'coming', deliveredBy: 'etalii.adp 013', parent: 'specification' },
 	// FBL serves every kind: how a tool reads and writes a model in another tool's file (etalii.adp spec 005).
 	{ id: 'fbl', label: 'FBL reference', part: 'documentation', href: '/adp/fbl/', status: hasPublishedVersion('fbl') ? 'available' : 'coming', deliveredBy: 'etalii.adp 005', parent: 'specification' },
+	// ATD serves every kind too: a tool type of any kind described completely in one text file (etalii.adp spec 035).
+	{ id: 'atd', label: 'ATD reference', part: 'documentation', href: '/adp/atd/', status: hasPublishedVersion('atd') ? 'available' : 'coming', deliveredBy: 'etalii.adp 035', parent: 'specification' },
 	{ id: 'tools', label: 'Tools', part: 'documentation', href: '/adp/tools/', status: 'available', deliveredBy: '003' },
 	// Analyses behind ADP, each written in etalii.adp under docs/research/ and shown here as an article page.
 	{ id: 'research', label: 'Research', part: 'documentation', href: '/adp/docs/research/', status: 'available', deliveredBy: 'research' },
