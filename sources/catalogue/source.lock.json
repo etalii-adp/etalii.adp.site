@@ -1,18 +1,18 @@
 {
   "procedure": "refresh-catalogue",
-  "refreshedAt": "2026-10-24T07:24:01.099Z",
+  "refreshedAt": "2026-10-24T12:45:07.583Z",
   "sourceHeads": {
     "etalii-adp/etalii.adp.ide.eclipse": "59d855d9f4cd390659fe52746ed29d48309b285f",
     "etalii-adp/etalii.adp.ide.intellij": "4b2c7f3e3206dfada1a5952d17414f45c9106b40",
-    "etalii-adp/etalii.adp.ide.standalone": "82e524fb4885673ae9f95a624833415da46daee9",
+    "etalii-adp/etalii.adp.ide.standalone": "c22a6091c11cdb0a76de73d041b58747134b77b1",
     "etalii-adp/etalii.adp.ide.vscode": "b489b3725ea44fadee3f850341d2f3439c4cd08a"
   },
   "releases": {
     "etalii-adp/etalii.adp.ide.eclipse": null,
     "etalii-adp/etalii.adp.ide.intellij": null,
     "etalii-adp/etalii.adp.ide.standalone": {
-      "tag": "v0.1.3571-alpha",
-      "commit": "82e524fb4885673ae9f95a624833415da46daee9"
+      "tag": "v0.1.3586-alpha",
+      "commit": "c22a6091c11cdb0a76de73d041b58747134b77b1"
     },
     "etalii-adp/etalii.adp.ide.vscode": null
   },
