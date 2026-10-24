@@ -71,6 +71,9 @@
   "standalone--helm-chart": {
     "whyItMatters": "The chart, its values, its templates and the helpers they include are drawn with the include edges labelled, so it is clear which values and helpers shape which rendered resources."
   },
+  "standalone--hierarchical-requirement": {
+    "whyItMatters": "The web shop's requirements follow its structure: Storefront holds its requirements and the nested Checkout, each numbered, tagged, categorised and given a state, so a person sees how they fit together in a Markdown file an agent writes as plain text, and the finding above the page says what the next save will number."
+  },
   "standalone--hype-cycle": {
     "whyItMatters": "Trends sit as banners along the years, coloured by their phase on the curve, with a filter by tag, so how technologies rise, fall and mature relative to each other can be compared over a long span."
   },
