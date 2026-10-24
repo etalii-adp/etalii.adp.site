@@ -2041,8 +2041,12 @@
     ],
     "example": [
       {
-        "label": "Nodes in columns joined by flows whose thickness follows their value, drawn as smooth translucent bands; domain agnostic (money, energy, people), with each node and flow coloured from a twelve-word palette or a hex of its own, a thickness scale, values stepped up and down in place, and nodes dragged within their column while the others make room (.skv, ADP's own YAML schema); sankey",
-        "href": null
+        "label": "sankey-disl-fbl",
+        "href": "../.spec-workflow/specs/sankey-disl-fbl/requirements.md"
+      },
+      {
+        "label": "definition's companion",
+        "href": "../src/diagrams/sankey/definition/sankey.md"
       }
     ]
   },
