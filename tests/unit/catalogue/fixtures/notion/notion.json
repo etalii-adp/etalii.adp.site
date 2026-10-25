@@ -23,7 +23,9 @@
         "intellij": "✅ Implemented",
         "vscode": null,
         "eclipse": null,
-        "notion": "🛠️ Work-in-progress"
+        "thinkrail": null,
+        "notion": "🛠️ Work-in-progress",
+        "claude": null
       },
       "previousOrigin": null
     },
@@ -46,7 +48,9 @@
         "intellij": "✅ Implemented",
         "vscode": null,
         "eclipse": null,
-        "notion": null
+        "thinkrail": null,
+        "notion": null,
+        "claude": null
       },
       "previousOrigin": null
     },
@@ -69,7 +73,9 @@
         "intellij": null,
         "vscode": null,
         "eclipse": null,
-        "notion": null
+        "thinkrail": null,
+        "notion": null,
+        "claude": null
       },
       "previousOrigin": null
     },
@@ -94,7 +100,9 @@
         "intellij": null,
         "vscode": null,
         "eclipse": null,
-        "notion": null
+        "thinkrail": null,
+        "notion": null,
+        "claude": null
       },
       "previousOrigin": null
     },
@@ -120,7 +128,9 @@
         "intellij": null,
         "vscode": null,
         "eclipse": "⛔ Not planned",
-        "notion": null
+        "thinkrail": null,
+        "notion": null,
+        "claude": null
       },
       "previousOrigin": null
     }

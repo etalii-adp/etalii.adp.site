@@ -152,9 +152,17 @@
           "type": "select",
           "select": null
         },
+        "ThinkRail": {
+          "type": "select",
+          "select": null
+        },
         "Notion": {
           "type": "select",
           "select": { "name": "🛠️ Work-in-progress" }
+        },
+        "Claude": {
+          "type": "select",
+          "select": null
         },
         "Focus areas": {
           "type": "multi_select",
@@ -315,7 +323,15 @@
             "color": "default"
           }
         },
+        "ThinkRail": {
+          "type": "select",
+          "select": null
+        },
         "Notion": {
+          "type": "select",
+          "select": null
+        },
+        "Claude": {
           "type": "select",
           "select": null
         },
@@ -456,7 +472,15 @@
           "type": "select",
           "select": null
         },
+        "ThinkRail": {
+          "type": "select",
+          "select": null
+        },
         "Notion": {
+          "type": "select",
+          "select": null
+        },
+        "Claude": {
           "type": "select",
           "select": null
         },

@@ -1,4 +1,4 @@
-# The hosts ADP runs in, in their fixed order: the four IDE hosts, then Notion (data-model "IDE host", contracts/hosts.schema.json).
+# The hosts ADP runs in, in their fixed order: the five IDE hosts, ThinkRail last, then Notion and Claude (data-model "IDE host", contracts/hosts.schema.json).
 # A host links only to something a visitor can reach; while a repository is private it says so instead.
 # Each host has an illustration on the home page, in the style of the focus-area ones; it is decorative.
 # Taken by hand on 2026-09-26 (plan, Complexity Tracking); spec 004 replaces this with a procedure.
@@ -59,6 +59,20 @@
     method: manual
     licence: none
 
+- id: thinkrail
+  name: ThinkRail
+  summary: An IDE host that brings the same tools to JetBrains ThinkRail.
+  state: planned
+  unavailableNote: No tools yet
+  illustration: ../assets/illustrations/host-thinkrail.svg
+  source:
+    repository: etalii-adp/etalii.adp.ide.thinkrail
+    path: README.md
+    revision: 40a81d498862a531c2dfcbd389dd3b0f19f80a8a
+    taken: 2026-10-25
+    method: manual
+    licence: Apache-2.0
+
 - id: notion
   name: Notion
   summary: Notion add-ons, web pages that each show one ADP tool inside a Notion page.
@@ -71,5 +85,19 @@
     path: README.md
     revision: 8f4671fc8487c0e0a346253aafb6f2f124f718c4
     taken: 2026-10-08
+    method: manual
+    licence: Apache-2.0
+
+- id: claude
+  name: Claude
+  summary: ADP tools that open within a Claude conversation.
+  state: planned
+  unavailableNote: No tools yet
+  illustration: ../assets/illustrations/host-claude.svg
+  source:
+    repository: etalii-adp/etalii.adp.ide.claude
+    path: README.md
+    revision: 313db618abd8b26eb9725f70d133d8a5fe80838d
+    taken: 2026-10-25
     method: manual
     licence: Apache-2.0

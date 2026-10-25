@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Original artwork for etalii.net/adp, Apache-2.0: two rails running towards a small diagram at the end of the line. -->
+  <style>
+    .a { stroke: #32cd32; }
+    .af { fill: #32cd32; }
+    .g { stroke: #aeb6be; }
+    .gf { fill: #aeb6be; }
+    .t { fill: #32cd32; fill-opacity: 0.15; }
+    @media (prefers-color-scheme: light) {
+      .a { stroke: #16782a; } .af { fill: #16782a; } .g { stroke: #49525b; } .gf { fill: #49525b; } .t { fill: #16782a; fill-opacity: 0.12; }
+    }
+  </style>
+  <path class="g" d="M18 104 L58 34 M70 104 L74 34" stroke-width="1.5"/>
+  <path class="g" d="M24 94 H68 M30 82 H69 M36 71 H70 M41 61 H71 M46 52 H72 M51 43 H73" stroke-width="1.5"/>
+  <rect class="a t" x="88" y="18" width="60" height="50" rx="4"/>
+  <path class="a" d="M104 34 L132 34 M104 34 L118 54 M132 34 L118 54" stroke-width="2"/>
+  <circle class="af" cx="104" cy="34" r="4.5"/>
+  <circle class="af" cx="132" cy="34" r="4.5"/>
+  <circle class="af" cx="118" cy="54" r="4.5"/>
+  <path class="a" d="M74 34 C80 34 82 43 88 43" stroke-width="2"/>
+</svg>
