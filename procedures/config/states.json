@@ -50,7 +50,25 @@
       "Prototype": "prototype",
       "Implemented": "implemented"
     },
+    "thinkrail": {
+      "Not planned": "not-planned",
+      "Identified": "idea",
+      "Specified": "planned",
+      "To-do": "planned",
+      "Work-in-progress": "in-progress",
+      "Prototype": "prototype",
+      "Implemented": "implemented"
+    },
     "notion": {
+      "Not planned": "not-planned",
+      "Identified": "idea",
+      "Specified": "planned",
+      "To-do": "planned",
+      "Work-in-progress": "in-progress",
+      "Prototype": "prototype",
+      "Implemented": "implemented"
+    },
+    "claude": {
       "Not planned": "not-planned",
       "Identified": "idea",
       "Specified": "planned",

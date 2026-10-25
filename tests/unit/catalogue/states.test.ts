@@ -34,7 +34,7 @@ test('an unmapped label throws UnmappedStateError naming the host and the label'
 	);
 });
 
-test('bestState is the highest rank over the five hosts', () => {
+test('bestState is the highest rank over the seven hosts', () => {
 	const hosts = (values: StateId[]) =>
 		Object.fromEntries((['standalone', 'intellij', 'vscode', 'eclipse', 'notion'] as HostId[]).map((id, i) => [id, { state: values[i] ?? 'not-planned' }])) as Record<HostId, Pick<HostAvailability, 'state'>>;
 	assert.equal(bestState(hosts(['idea', 'not-planned', 'not-planned', 'not-planned'])), 'idea');

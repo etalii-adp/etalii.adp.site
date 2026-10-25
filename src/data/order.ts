@@ -1,10 +1,14 @@
-/** The four IDE hosts, the hosts whose repositories keep a catalogue (docs/tools.md) and screenshots. */
+/**
+ * The four IDE hosts whose repositories keep a catalogue (docs/tools.md) and screenshots. ThinkRail, the fifth IDE
+ * host, keeps none yet, so it is listed after them in hostIds.
+ */
 export const ideHostIds = ['standalone', 'intellij', 'vscode', 'eclipse'] as const;
 /**
- * Every host, in the site's fixed order: the four IDE hosts, then Notion. The order of the entries in
- * src/data/hosts.yaml, of the host rows of the tool catalogue and of its Host filter; checked at build time.
+ * Every host, in the site's fixed order: the four IDE hosts above, then ThinkRail, Notion and Claude, which keep
+ * no catalogue and whose states come from their Notion column. The order of the entries in src/data/hosts.yaml, of the
+ * host rows of the tool catalogue and of its Host filter; checked at build time.
  */
-export const hostIds = [...ideHostIds, 'notion'] as const;
+export const hostIds = [...ideHostIds, 'thinkrail', 'notion', 'claude'] as const;
 export const focusAreaIds = [
 	'technology-assessment',
 	'humans-and-agents',

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Original artwork for etalii.net/adp, Apache-2.0: a conversation, one of its replies holding a small diagram. -->
+  <style>
+    .a { stroke: #32cd32; }
+    .af { fill: #32cd32; }
+    .g { stroke: #aeb6be; }
+    .gf { fill: #aeb6be; }
+    .t { fill: #32cd32; fill-opacity: 0.15; }
+    @media (prefers-color-scheme: light) {
+      .a { stroke: #16782a; } .af { fill: #16782a; } .g { stroke: #49525b; } .gf { fill: #49525b; } .t { fill: #16782a; fill-opacity: 0.12; }
+    }
+  </style>
+  <path class="g" d="M14 22 H86 a4 4 0 0 1 4 4 V48 a4 4 0 0 1 -4 4 H34 L22 62 V52 H14 a4 4 0 0 1 -4 -4 V26 a4 4 0 0 1 4 -4 Z" stroke-width="1.5"/>
+  <path class="g" d="M22 32 H76 M22 42 H62" stroke-width="1.5"/>
+  <path class="a t" d="M54 46 H146 a4 4 0 0 1 4 4 V96 a4 4 0 0 1 -4 4 H138 V110 L126 100 H54 a4 4 0 0 1 -4 -4 V50 a4 4 0 0 1 4 -4 Z"/>
+  <path class="a" d="M80 64 L104 80 M80 64 L124 64 M104 80 L124 64" stroke-width="2"/>
+  <circle class="af" cx="80" cy="64" r="5"/>
+  <circle class="af" cx="124" cy="64" r="5"/>
+  <circle class="af" cx="104" cy="82" r="5"/>
+</svg>

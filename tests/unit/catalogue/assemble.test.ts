@@ -28,8 +28,8 @@ test('(a) membership follows the best state', () => {
 	);
 });
 
-test('(b) every tool has exactly five hosts; draw.io is implemented in IntelliJ from Notion', () => {
-	for (const d of catalogue.tools) assert.deepEqual(Object.keys(d.hosts), ['standalone', 'intellij', 'vscode', 'eclipse', 'notion'], d.origin);
+test('(b) every tool has exactly seven hosts; draw.io is implemented in IntelliJ from Notion', () => {
+	for (const d of catalogue.tools) assert.deepEqual(Object.keys(d.hosts), ['standalone', 'intellij', 'vscode', 'eclipse', 'thinkrail', 'notion', 'claude'], d.origin);
 	const drawio = tool('jgraph/drawio');
 	assert.equal(drawio.hosts.intellij.state, 'implemented');
 	assert.equal(drawio.hosts.intellij.source.kind, 'notion');

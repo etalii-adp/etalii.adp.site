@@ -379,7 +379,7 @@ test.describe('tool page', () => {
 
 test.describe('availability', () => {
 	for (const tool of catalogue.tools) {
-		test(`${tool.origin} lists all five hosts with their state and how to get it (US3)`, async ({ page }) => {
+		test(`${tool.origin} lists all seven hosts with their state and how to get it (US3)`, async ({ page }) => {
 			await page.goto(`/adp/tools/${tool.origin}/`);
 			const table = page.locator('table.adp-availability');
 			await expect(table.locator('caption')).toHaveText('Availability per host');
