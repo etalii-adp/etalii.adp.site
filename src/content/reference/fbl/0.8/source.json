@@ -7,7 +7,7 @@
     "kind": "git",
     "repository": "etalii-adp/etalii.adp",
     "path": "specifications/fbl",
-    "revision": "693ca1f6712940414e18bceb101300f835709cd5",
+    "revision": "2f3c7aab69cd58a61d69d9365bec0b3f131c7230",
     "licence": "Apache-2.0",
     "copyright": "Copyright © Peter Vrenken 2026"
   },
@@ -63,8 +63,8 @@
     {
       "name": "FBL-specification.md",
       "role": "prose",
-      "sha256": "941e44083247f0568466e0f053105ee4953caf931c82609bd86594367d01fe42",
-      "size": 128506
+      "sha256": "45207d93795fc735cfd075d6db6cc2c78397412b24ed4e0d5cc117603c35e6b9",
+      "size": 128804
     },
     {
       "name": "fbl.schema.json",
@@ -83,6 +83,18 @@
       "role": "document",
       "sha256": "e51769acede09a39b0906b00049f52fdb3e3b71137be5f96124347564c948950",
       "size": 2601
+    },
+    {
+      "name": "sankey.fbl",
+      "role": "document",
+      "sha256": "020cab121b0bb67f90790f3a969aff820dcbb16eec7106dc9bd4bb1ebc0c566c",
+      "size": 4974
+    },
+    {
+      "name": "SPEC.md",
+      "role": "other",
+      "sha256": "5e7fb9825aad8af6645eecee29fa22f663f34ca607fbee1f10f9ac199a387caf",
+      "size": 933
     },
     {
       "name": "structurizr.fbl",
@@ -115,5 +127,5 @@
       "size": 7304
     }
   ],
-  "retrieved": "2026-10-23T01:12:39Z"
+  "retrieved": "2026-10-25T02:13:42Z"
 }
