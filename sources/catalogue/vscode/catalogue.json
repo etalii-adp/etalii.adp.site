@@ -54,6 +54,31 @@
     ]
   },
   {
+    "origin": "etalii/hierarchical-requirement",
+    "name": "Hierarchical Requirement Designer",
+    "kind": "designer",
+    "group": "Collaboration between people and agents",
+    "developState": "Prototype",
+    "releaseState": null,
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "etalii.adp",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/designers/hierarchical-requirement.md"
+      }
+    ],
+    "example": [
+      {
+        "label": "definition",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/designers/hierarchical-requirement.md"
+      },
+      {
+        "label": "two example documents with their registrations",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/tree/develop/examples/hierarchical-requirement"
+      }
+    ]
+  },
+  {
     "origin": "etalii/knowledge",
     "name": "Knowledge",
     "kind": "designer",
