@@ -47,8 +47,9 @@ const pages = [...htmlFiles(join(dist, 'adp')), join(dist, '404.html')]
 // consecutive run of tests. The DISL and DID schema browsers are the slow pages (their longer timeout below; the DISL ones' WCAG checks
 // are the slowest tests of the suite by far), and sorted they sit side by side, which put them all in the first of
 // three shards: 293 s against 136 s and 120 s (CI speed analysis, 2026-10-12). So they are spread evenly through
-// the list, ordered by version and then language so that each version's two land apart.
-const slowPage = /^\/adp\/(?:disl|did)\/[^/]+\/schema\/$/;
+// the list, ordered by version and then language so that each version's two land apart. ATD's schema browser and its
+// appendix C, which carries DISL, DESL and FBL in ATD, joined them on 2026-10-25: their WCAG checks outran 30 s.
+const slowPage = /^\/adp\/(?:(?:disl|did|atd)\/[^/]+\/schema|atd\/[^/]+\/appendix-c-[^/]+)\/$/;
 function spreadSlowPages(addresses: string[]): string[] {
 	const slow = addresses
 		.filter((address) => slowPage.test(address))
