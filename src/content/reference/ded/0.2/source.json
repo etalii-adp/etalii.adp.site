@@ -7,7 +7,7 @@
     "kind": "git",
     "repository": "etalii-adp/etalii.adp",
     "path": "specifications/ded",
-    "revision": "ccfafddb8a5612ef2e60774a342079eeff305a8f",
+    "revision": "2f3c7aab69cd58a61d69d9365bec0b3f131c7230",
     "licence": "Apache-2.0",
     "copyright": "Copyright © Peter Vrenken 2026"
   },
@@ -15,8 +15,8 @@
     {
       "name": "DED-specification.md",
       "role": "prose",
-      "sha256": "b0acca0275abc24ec407de97f17018ea9c528e8db52f92c6459bf43952ae8175",
-      "size": 11553
+      "sha256": "e46cc1cd52d294899af573c200db7572192569080ace6ad15c8bcd9e511d1a91",
+      "size": 11702
     },
     {
       "name": "ded.schema.json",
@@ -31,11 +31,17 @@
       "size": 860
     },
     {
+      "name": "SPEC.md",
+      "role": "other",
+      "sha256": "c6d81bc37bdc1bfca6bfd3c80a01b9e183da1a3afa93abf2dbc5a655a6e2443c",
+      "size": 936
+    },
+    {
       "name": "web-shop.md",
       "role": "other",
       "sha256": "21686afe706bf0bda543a1975abc2678ca1e0b4b575ed5c1f43006f9d937ef7f",
       "size": 1691
     }
   ],
-  "retrieved": "2026-10-15T01:13:21Z"
+  "retrieved": "2026-10-25T02:13:41Z"
 }

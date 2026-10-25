@@ -77,3 +77,22 @@ describe('splitting the prose (rules S1–S4)', () => {
 		expect(page).toMatchObject({ number: null, title: 'Changes from 0.1' });
 	});
 });
+
+// etalii.adp put YAML front matter at the top of every specification on 2026-10-24; plain GFM reads it as a thematic
+// break and a setext heading above the H1.
+describe('a specification with front matter', () => {
+	const front = '---\nid: dedl-specification\ntype: submodule-design\nstatus: draft\n---\n';
+	const withFront = splitProse(front + prose);
+
+	it('reads the same title, version, status and date', () => {
+		expect(withFront.title).toBe(split.title);
+		expect(withFront.version).toBe(split.version);
+		expect(withFront.status).toBe(split.status);
+		expect(withFront.date).toBe(split.date);
+	});
+
+	it('has the same headings, with no heading made of the front matter', () => {
+		expect(withFront.headings.map((h) => h.text)).toEqual(split.headings.map((h) => h.text));
+		expect(withFront.cover.nodes[0]?.type).toBe('heading');
+	});
+});

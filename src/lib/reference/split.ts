@@ -41,9 +41,21 @@ export interface Split {
 const TOP_LEVEL = /^(?:(\d+)\. (.+)|Appendix ([A-Z]) — (.+))$/;
 const TABLE_OF_CONTENTS = 'Table of contents';
 
-/** Parses Markdown the way the reference renders it (GFM). */
+/** A YAML front matter block at the very start of a file, as etalii.adp's specifications carry since 2026-10-24. */
+const FRONT_MATTER = /^---\r?\n[\s\S]*?\r?\n---(?=\r?\n|$)/;
+
+/**
+ * Blanks a leading YAML front matter block, which is metadata for etalii.adp's own tooling and not part of the
+ * prose; plain GFM would read it as a thematic break and a setext heading. Every character but a line break becomes
+ * a space, so offsets and line numbers stay those of the source.
+ */
+export function blankFrontMatter(markdown: string): string {
+	return markdown.replace(FRONT_MATTER, (block) => block.replace(/[^\r\n]/g, ' '));
+}
+
+/** Parses Markdown the way the reference renders it (GFM), without its front matter. */
 export function parseMarkdown(markdown: string): Root {
-	return unified().use(remarkParse).use(remarkGfm).parse(markdown);
+	return unified().use(remarkParse).use(remarkGfm).parse(blankFrontMatter(markdown));
 }
 
 /** A heading's text as GitHub slugs it, and whether it ends in `*(informative)*` (rule T6). */
