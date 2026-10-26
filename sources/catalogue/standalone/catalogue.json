@@ -1852,8 +1852,12 @@
     ],
     "example": [
       {
-        "label": "Sources, processors, producers, integrators, hubs, outlets and consumers in named groups (each dropped from the toolbox, and a node joins the group it is dragged into), joined by flows whose band width follows their volume; selecting one traces everything upstream and downstream of it, and its quantity or volume steps up and down in place (.supply, ADP's own YAML schema); supply-chain",
-        "href": null
+        "label": "supply-chain-disl-fbl",
+        "href": "../.spec-workflow/specs/supply-chain-disl-fbl/requirements.md"
+      },
+      {
+        "label": "definition's companion",
+        "href": "../src/diagrams/supply-chain/definition/supply-chain.md"
       }
     ]
   },
