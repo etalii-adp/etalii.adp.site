@@ -2,12 +2,12 @@
   "language": "atd",
   "version": "0.1",
   "status": "Working Draft",
-  "date": "2026-10-23",
+  "date": "2026-10-25",
   "source": {
     "kind": "git",
     "repository": "etalii-adp/etalii.adp",
     "path": "specifications/atd",
-    "revision": "2f3c7aab69cd58a61d69d9365bec0b3f131c7230",
+    "revision": "661e6263635fdec1b88b322fd43cfb580c3421dc",
     "licence": "Apache-2.0",
     "copyright": "Copyright © Peter Vrenken 2026"
   },
@@ -15,14 +15,14 @@
     {
       "name": "ATD-specification.md",
       "role": "prose",
-      "sha256": "26c43820e3ef4542d43a7208d2ec975bcee62537962dc755262829b412eafcad",
-      "size": 333255
+      "sha256": "ce8612efe7e711ccbdf95b2abc44e5edb80d107078281225110ada75f95c3f11",
+      "size": 349122
     },
     {
       "name": "atd.schema.json",
       "role": "schema",
-      "sha256": "f9c5e834015cbf17c973cbcbfadca963963ced680dac01cd11c6289aeb5576f0",
-      "size": 123041
+      "sha256": "66e6d446e5bffab2125021e21f9f10bbf5662f49b5d261ba916bd4f5a2bd8984",
+      "size": 132002
     },
     {
       "name": "binding-blocks.atd",
@@ -35,6 +35,12 @@
       "role": "other",
       "sha256": "a2b07f8f19a18fcc2c3df78e6910e971cc4433acbe068eb2a7b3976dcad16c67",
       "size": 1024
+    },
+    {
+      "name": "binding-grammar.atd",
+      "role": "other",
+      "sha256": "eb0a79f94c1b27d01acafa4799d5b8802a4d41f39e04474a7ed057cffa0a0cc3",
+      "size": 4655
     },
     {
       "name": "binding-json.atd",
@@ -91,5 +97,5 @@
       "size": 1344
     }
   ],
-  "retrieved": "2026-10-25T02:13:43Z"
+  "retrieved": "2026-10-26T02:15:18Z"
 }

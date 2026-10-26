@@ -3003,7 +3003,7 @@
       ]
     },
     "ConformanceStep": {
-      "description": "One gesture of a case and what it must produce (ATD §2.3). Exactly one of `action`, `property`, `move`, `create`, `connect`, `delete`, `undo` and `redo`; `select` before it.",
+      "description": "One gesture of a case and what it must produce (ATD §2.3). Exactly one of `action`, `property`, `move`, `create`, `connect`, `delete`, `outside`, `undo` and `redo`; `select` before it.",
       "type": "object",
       "properties": {
         "select": {
@@ -3037,7 +3037,7 @@
           ]
         },
         "move": {
-          "description": "A move gesture.",
+          "description": "A move gesture: to a place (`x`, `y`), or into a parent before its child at `index`, last when it is -1.",
           "type": "object",
           "properties": {
             "element": {
@@ -3051,6 +3051,11 @@
             },
             "parent": {
               "type": "string"
+            },
+            "index": {
+              "description": "With `parent`: the place among the parent's children as they are before the move, the element itself included; -1, or absent, puts it last.",
+              "type": "integer",
+              "minimum": -1
             }
           },
           "additionalProperties": false
@@ -3104,6 +3109,36 @@
           "items": {
             "type": "string"
           }
+        },
+        "outside": {
+          "description": "A file of the case written outside the host, as another program or an agent would, and the host told it changed: the first occurrence of `from` in `file` replaced by `to`.",
+          "type": "object",
+          "properties": {
+            "file": {
+              "type": "string"
+            },
+            "replace": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string"
+                },
+                "to": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "from",
+                "to"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "file",
+            "replace"
+          ]
         },
         "undo": {
           "const": true
@@ -3999,8 +4034,26 @@
                   "y"
                 ]
               },
+              "position": {
+                "description": "Where the node is now: its top-left corner in the canvas's domain units, rounded to 0.01, for a layout that reads it without holding the node to it.",
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "x",
+                  "y"
+                ]
+              },
               "attributes": {
-                "type": "object"
+                "type": "object",
+                "description": "What the layout's arguments read of the node, by argument."
               }
             },
             "additionalProperties": false,
@@ -4025,6 +4078,10 @@
               },
               "target": {
                 "type": "string"
+              },
+              "attributes": {
+                "description": "What the layout's arguments read of the edge, by argument.",
+                "type": "object"
               }
             },
             "additionalProperties": false,
@@ -4049,7 +4106,7 @@
       ]
     },
     "LayoutResult": {
-      "description": "The output of a `layout` capability: a position for every node it places, in the canvas's domain units, rounded to 0.01, and optionally route points.",
+      "description": "The output of a `layout` capability: a position for every node it places, in the canvas's domain units, rounded to 0.01, optionally the size it gives a node it resizes, and optionally route points.",
       "type": "object",
       "properties": {
         "positions": {
@@ -4070,6 +4127,23 @@
               "x",
               "y"
             ]
+          }
+        },
+        "sizes": {
+          "type": "object",
+          "additionalProperties": {
+            "description": "The size a layout gives a node, in the canvas's domain units, rounded to 0.01: its width, its height, or both.",
+            "type": "object",
+            "properties": {
+              "width": {
+                "type": "number"
+              },
+              "height": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false,
+            "minProperties": 1
           }
         },
         "routes": {
@@ -4099,6 +4173,208 @@
       "additionalProperties": false,
       "required": [
         "positions"
+      ]
+    },
+    "RoutingInput": {
+      "description": "The input of a `routing` capability: each edge with the boxes of its two ends, and the boxes it must keep clear of, in the canvas's domain units.",
+      "type": "object",
+      "properties": {
+        "edges": {
+          "type": "array",
+          "items": {
+            "description": "An edge to route.",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "source": {
+                "description": "The box of the edge's source: its top-left corner and size, rounded to 0.01.",
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  },
+                  "width": {
+                    "type": "number"
+                  },
+                  "height": {
+                    "type": "number"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "x",
+                  "y",
+                  "width",
+                  "height"
+                ]
+              },
+              "target": {
+                "description": "The box of the edge's target: its top-left corner and size, rounded to 0.01.",
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  },
+                  "width": {
+                    "type": "number"
+                  },
+                  "height": {
+                    "type": "number"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "x",
+                  "y",
+                  "width",
+                  "height"
+                ]
+              },
+              "from": {
+                "description": "Where the edge leaves its source, where the notation fixes it, rounded to 0.01.",
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "x",
+                  "y"
+                ]
+              },
+              "to": {
+                "description": "Where the edge reaches its target, where the notation fixes it, rounded to 0.01.",
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "x",
+                  "y"
+                ]
+              },
+              "attributes": {
+                "description": "What the routing's arguments read of the edge, by argument.",
+                "type": "object"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "source",
+              "target"
+            ]
+          }
+        },
+        "obstacles": {
+          "type": "array",
+          "items": {
+            "description": "A box the routes keep clear of: its top-left corner and size, rounded to 0.01.",
+            "type": "object",
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              },
+              "width": {
+                "type": "number"
+              },
+              "height": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "x",
+              "y",
+              "width",
+              "height"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "edges"
+      ]
+    },
+    "RoutingResult": {
+      "description": "The output of a `routing` capability: the route of every edge it routes, by edge id, as path commands from the edge's first point to its last.",
+      "type": "object",
+      "properties": {
+        "routes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "description": "One command of a route, as a path draws it: its operation and its points, control points first and the point it ends at last (one for `move` and `line`, two for `quad`, three for `cubic`).",
+              "type": "object",
+              "properties": {
+                "op": {
+                  "enum": [
+                    "move",
+                    "line",
+                    "quad",
+                    "cubic"
+                  ]
+                },
+                "points": {
+                  "type": "array",
+                  "items": {
+                    "description": "A point in the canvas's domain units, rounded to 0.01.",
+                    "type": "object",
+                    "properties": {
+                      "x": {
+                        "type": "number"
+                      },
+                      "y": {
+                        "type": "number"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "x",
+                      "y"
+                    ]
+                  },
+                  "minItems": 1,
+                  "maxItems": 3
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "op",
+                "points"
+              ]
+            },
+            "minItems": 2
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "routes"
       ]
     },
     "ReaderInput": {
