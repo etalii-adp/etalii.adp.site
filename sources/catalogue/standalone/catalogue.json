@@ -2311,6 +2311,14 @@
       {
         "label": "OnlineWardleyMaps .owm DSL",
         "href": "https://onlinewardleymaps.com/"
+      },
+      {
+        "label": "wardley-map-disl-fbl",
+        "href": "../.spec-workflow/specs/wardley-map-disl-fbl/requirements.md"
+      },
+      {
+        "label": "definition's companion",
+        "href": "../src/diagrams/wardley-map/definition/wardley-map.md"
       }
     ],
     "example": [
