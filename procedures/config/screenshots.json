@@ -53,7 +53,8 @@
     "gartner-hypecycle-graph-light.png": "gartner/hypecycle-graph",
     "agent-activity-diagram.png": "etalii/agent-activity-diagram",
     "knowledge.png": "etalii/knowledge",
-    "mindmap.png": "freeplane/mindmap"
+    "mindmap.png": "freeplane/mindmap",
+    "hierarchical-requirement.png": "etalii/hierarchical-requirement"
   },
   "eclipse": {},
   "notion": {
