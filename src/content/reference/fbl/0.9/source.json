@@ -7,7 +7,7 @@
     "kind": "git",
     "repository": "etalii-adp/etalii.adp",
     "path": "specifications/fbl",
-    "revision": "661e6263635fdec1b88b322fd43cfb580c3421dc",
+    "revision": "0b8c33373414d53c9c9e966c4e5bdad930f014c1",
     "licence": "Apache-2.0",
     "copyright": "Copyright © Peter Vrenken 2026"
   },
@@ -63,8 +63,8 @@
     {
       "name": "FBL-specification.md",
       "role": "prose",
-      "sha256": "10978d6a70c929746be1eb410b8eb6c0654920ce8e088e86231dd2f0146e5c6c",
-      "size": 143827
+      "sha256": "38f82a0839c611d67c7ecdc1fd69deda961672a4205aeaa2285dabad118eb8be",
+      "size": 144080
     },
     {
       "name": "fbl.schema.json",
@@ -103,6 +103,12 @@
       "size": 6547
     },
     {
+      "name": "supply-chain.fbl",
+      "role": "document",
+      "sha256": "061d3d8bad83b3c3a30e2c6760ef30c308f9908f9a1a91e84b2d18a6e26e62e4",
+      "size": 6874
+    },
+    {
       "name": "timeline.fbl",
       "role": "document",
       "sha256": "89ccc4142a0b6ecb329e9e2fee94f024fab4beb4b60990733d5b70e0a7eb884c",
@@ -139,5 +145,5 @@
       "size": 7304
     }
   ],
-  "retrieved": "2026-10-26T02:15:17Z"
+  "retrieved": "2026-10-27T02:13:15Z"
 }
