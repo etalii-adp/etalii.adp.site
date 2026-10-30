@@ -179,8 +179,10 @@ test.describe('addresses (contracts/site-addresses.md)', () => {
 	});
 
 	test('the domain root lands on the home page', async ({ page }) => {
-		await page.goto('/');
-		await page.waitForURL('**/adp/');
+		// The home page's badges come from github.com and img.shields.io; its load event waits for them, which is not
+		// what these address tests are about, so they wait for the document alone.
+		await page.goto('/', { waitUntil: 'domcontentloaded' });
+		await page.waitForURL('**/adp/', { waitUntil: 'domcontentloaded' });
 		await expect(page.locator('h1')).toHaveText('A Different Perspective');
 	});
 
@@ -264,7 +266,7 @@ test.describe('addresses (contracts/site-addresses.md)', () => {
 
 	test('the part marker follows the page', async ({ page }) => {
 		const current = page.getByRole('navigation', { name: 'Site parts' }).locator('[aria-current="true"]');
-		await page.goto('/adp/');
+		await page.goto('/adp/', { waitUntil: 'domcontentloaded' });
 		await expect(current).toHaveText('About');
 		for (const address of ['/adp/docs/', '/adp/docs/specification-and-definition/', '/adp/disl/', '/adp/did/', '/adp/tools/']) {
 			await page.goto(address);
