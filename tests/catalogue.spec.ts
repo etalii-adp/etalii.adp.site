@@ -448,3 +448,19 @@ test.describe('phone width and dark mode', () => {
 		});
 	}
 });
+
+test.describe('example exports', () => {
+	test('the causal loop tool page links to every flow page, and each one opens and moves (spec 074, FR-039)', async ({ page }) => {
+		const { exampleExports } = await import('../src/data/example-exports.ts');
+		const examples = exampleExports['systems/causal-loop-diagram'];
+		await page.goto('/adp/tools/systems/causal-loop-diagram/');
+		for (const example of examples) {
+			await expect(page.locator(`a[href="${example.href}"]`).first()).toHaveText(example.name);
+		}
+		const requests: string[] = [];
+		page.on('request', (request) => requests.push(request.url()));
+		await page.goto(examples[0].href);
+		await page.waitForFunction(() => (document.getElementById('time')?.textContent ?? '') !== 't = 0.0');
+		expect(requests.filter((url) => !url.endsWith(examples[0].href))).toEqual([]);
+	});
+});

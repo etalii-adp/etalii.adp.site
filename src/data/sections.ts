@@ -42,6 +42,8 @@ export const sections: readonly Section[] = [
 	// Coming until a version is published (spec 002; its source needs a licence first). DEDL became DISL and DID
 	// (etalii.adp spec 002), and its old addresses redirect to /adp/disl/.
 	// The high-level concepts of DISL and how they group, from etalii.adp's docs/disl-overview.md.
+	// The causal loop diagram's examples as exported flow pages (etalii.adp spec 074, FR-038).
+	{ id: 'causal-loop-flow-pages', label: 'Causal loop flow pages', part: 'documentation', href: '/adp/docs/causal-loop-flow-pages/', status: 'available', deliveredBy: '074' },
 	{ id: 'disl-overview', label: 'DISL at a glance', part: 'documentation', href: '/adp/docs/disl-overview/', status: 'available', deliveredBy: 'etalii.adp docs', parent: 'specification' },
 	{ id: 'disl', label: 'DISL reference', part: 'documentation', href: '/adp/disl/', status: hasPublishedVersion('disl') ? 'available' : 'coming', deliveredBy: '002', parent: 'specification' },
 	{ id: 'did', label: 'DID reference', part: 'documentation', href: '/adp/did/', status: hasPublishedVersion('did') ? 'available' : 'coming', deliveredBy: '002', parent: 'specification' },

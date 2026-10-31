@@ -1,0 +1,31 @@
+---
+title: Causal loop flow pages
+description: The causal loop diagram's examples, each exported as one animated web page you can open and change.
+part: documentation
+section: causal-loop-flow-pages
+---
+
+import { exampleExports } from '../../../data/example-exports';
+
+The desktop host exports a [causal loop diagram](/adp/tools/systems/causal-loop-diagram/) as one self-contained web page, from the **Export flow page** button on its ribbon. Influence flows along the links as dots, delays hold it, and a heatmap shows where it piles up. Each page below is that export of one example. It works offline, and nothing you change in it is written anywhere.
+
+<ul>
+	{exampleExports['systems/causal-loop-diagram'].map((example) => (
+		<li>
+			<a href={example.href}>{example.name}</a>: {example.about}
+		</li>
+	))}
+</ul>
+
+## What you can do in a page
+
+- Watch influence flow along the links, and see delayed links hold it.
+- Switch the heatmap between Backlog, Pressure, Throughput and Level.
+- Move the sliders of the external pressures and the dynamics: simulation speed, link strength, the length of a delay, the inertia of a variable and the dot density.
+- Click a variable to give it an outside push or a shock up or down.
+- Click a link to change its strength, add or remove its delay, or flip its polarity.
+- Hover or click a loop to trace it, and read its gain.
+- Follow the main variables over the last minute in the chart.
+- Pan, zoom and drag variables to another place.
+
+The numbers come from a simple model of the diagram's structure. They are not measurements.
