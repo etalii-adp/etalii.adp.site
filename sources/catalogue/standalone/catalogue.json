@@ -51,7 +51,7 @@
     "state": "in-progress",
     "theory": [
       {
-        "label": "The notation is the established one from system dynamics — polarity on the link, R/B on the loop, strokes across a delayed arrow. What ADP adds is the check: a loop is reinforcing on an even count of negative links and balancing on an odd one, so a stated label is verifiable, and a disagreement is reported rather than corrected. Cycles are enumerated with Johnson’s elementary cycles algorithm, bounded. The self-organizing layout adopts Meyer’s method with every source of randomness replaced by a function of the document and the iteration index",
+        "label": "The notation is the established one from system dynamics — polarity on the link, R/B on the loop, strokes across a delayed arrow. What ADP adds is the check: a loop is reinforcing on an even count of negative links and balancing on an odd one, so a stated label is verifiable, and a disagreement is reported rather than corrected. Cycles are enumerated with Johnson’s elementary cycles algorithm, bounded. The self-organizing layout adopts Meyer’s method with every source of randomness replaced by a function of the document and the iteration index The diagram and its variables also state the values an exported flow page starts from (its title, dynamics and heatmap reading; a variable's starting level and outside push), and the desktop host exports that page.",
         "href": null
       }
     ],
