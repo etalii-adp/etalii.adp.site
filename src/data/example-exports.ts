@@ -8,8 +8,10 @@ export interface ExampleExport {
 	name: string;
 	/** Address of the page, with the site's base. */
 	href: string;
-	/** One sentence on what the example is about. */
+	/** What the example is about. */
 	about: string;
+	/** The Wikipedia article the example comes from, linked after the text (Peter, 2026-10-31). */
+	wikipedia?: string;
 }
 
 const flowPage = (file: string) => `/adp/docs/causal-loop-flow-pages/${file}.html`;
@@ -24,7 +26,12 @@ export const exampleExports: Readonly<Record<string, readonly ExampleExport[]>> 
 		{
 			name: 'Life insurance',
 			href: flowPage('life-insurance'),
-			about: 'The growth or decline of a life insurance company, redrawn from a public-domain U.S. Department of Energy figure: thirty-four variables and thirty-eight loops.',
+			about:
+				'The growth or decline of a life insurance company, redrawn from a public-domain U.S. Department of Energy figure: thirty-four variables and thirty-eight loops. ' +
+				'Wikipedia\'s article on causal loop diagrams shows the figure as its example of reinforcing and balancing loops. Following a loop around tells which it is: a loop with an even number of negative links, none included, reinforces a change, and one with an odd number balances it. ' +
+				'Reinforcing loops go with exponential growth or decline, balancing loops with levelling off at a plateau, and delays can make the system fluctuate, which is why finding the loops is a step towards the behaviour a system can show. ' +
+				'Robert A. Taylor drew the figure in 2008 for the "Feedback" chapter of the Department of Energy\'s Introduction to System Dynamics.',
+			wikipedia: 'https://en.wikipedia.org/wiki/Causal_loop_diagram',
 		},
 		{
 			name: 'Mental health',

@@ -51,7 +51,8 @@ export interface FocusArea {
 
 export interface Link {
 	title: string;
-	url: string;
+	/** `null` for a catalogue entry that is text and names no address, which is shown as text, never as a link. */
+	url: string | null;
 }
 
 export interface ActionLink {

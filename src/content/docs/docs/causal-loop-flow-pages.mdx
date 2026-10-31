@@ -2,7 +2,7 @@
 title: Causal loop flow pages
 description: The causal loop diagram's examples, each exported as one animated web page you can open and change.
 part: documentation
-section: causal-loop-flow-pages
+section: tools
 ---
 
 import { exampleExports } from '../../../data/example-exports';
@@ -13,6 +13,7 @@ The desktop host exports a [causal loop diagram](/adp/tools/systems/causal-loop-
 	{exampleExports['systems/causal-loop-diagram'].map((example) => (
 		<li>
 			<a href={example.href}>{example.name}</a>: {example.about}
+			{example.wikipedia && <> (Corresponding Wikipedia article can be accessed <a href={example.wikipedia}>here</a>)</>}
 		</li>
 	))}
 </ul>

@@ -29,7 +29,12 @@
     "name": "Timeline",
     "group": "7. Planning",
     "developState": "Work-in-progress",
-    "theory": [],
+    "theory": [
+      {
+        "label": "Placement is authored on both axes",
+        "href": null
+      }
+    ],
     "example": "",
     "releaseState": null,
     "state": "in-progress"

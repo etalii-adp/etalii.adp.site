@@ -119,6 +119,12 @@ const headings = [
 					{exports.map((example) => (
 						<li>
 							<a href={example.href}>{example.name}</a>: {example.about}
+							{example.wikipedia && (
+								<>
+									{' '}
+									(Corresponding Wikipedia article can be accessed <a href={example.wikipedia}>here</a>)
+								</>
+							)}
 						</li>
 					))}
 				</ul>
@@ -133,7 +139,7 @@ const headings = [
 				<ul>
 					{tool.theory.map((link) => (
 						<li>
-							<a href={link.url}>{link.title}</a>
+							{link.url ? <a href={link.url}>{link.title}</a> : link.title}
 						</li>
 					))}
 				</ul>
