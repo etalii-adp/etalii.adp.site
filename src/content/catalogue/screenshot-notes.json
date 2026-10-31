@@ -50,6 +50,9 @@
   "standalone--causal-loop": {
     "whyItMatters": "Every loop is named and labelled reinforcing or balancing from the signs on its own links, and slow links carry their delay marks, so the feedback structure can be read and trusted rather than inferred."
   },
+  "standalone--causal-loop-flow-page": {
+    "whyItMatters": "The desktop host's ribbon exports any causal loop diagram as one self-contained web page that works offline, opened in your browser. In it you watch influence flow along the links and delays hold it; switch the heatmap between Backlog, Pressure, Throughput and Level to see where it piles up; move the external pressures and the dynamics; push or shock a variable; change a link's strength, delay or polarity; trace each loop and read its gain; follow the main variables in the chart; and pan, zoom and move variables. Its numbers come from a simple model of the diagram's structure, not from measurements."
+  },
   "standalone--databricks-bundle": {
     "whyItMatters": "The bundle's resources and its dev and prod targets sit in one picture, with prod naming its overrides, so what gets deployed where is clear without reading every included YAML file."
   },
