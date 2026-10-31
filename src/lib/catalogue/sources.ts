@@ -45,7 +45,7 @@ export interface CatalogueRow {
 	developState: string;
 	releaseState: string | null;
 	state: string | null;
-	theory: { label: string; href: string }[];
+	theory: { label: string; href: string | null }[];
 	example: string | { label: string; href: string } | null;
 }
 

@@ -89,7 +89,7 @@ function catalogueLoader(part: 'tools' | 'ideas' | 'focusAreas' | 'redirects'): 
 
 const origin = z.string().regex(/^[a-z0-9.-]+\/[a-z0-9.-]+$/, 'origin must be <vendor>/<type> in lower case');
 const stateId = z.enum(['not-planned', 'idea', 'planned', 'in-progress', 'prototype', 'implemented', 'available']);
-const link = z.object({ title: z.string().min(1), url: z.string().url() }).strict();
+const link = z.object({ title: z.string().min(1), url: z.string().url().nullable() }).strict();
 const actionLink = z.object({ url: z.string().url(), label: z.string().min(1) }).strict();
 
 const gitSource = z

@@ -33,7 +33,7 @@ const areaName = (slug: string) => focusAreas.find((area) => area.slug === slug)
 								<ul class="adp-idea-theory">
 									{idea.theory.map((link) => (
 										<li>
-											<a href={link.url}>{link.title}</a>
+											{link.url ? <a href={link.url}>{link.title}</a> : link.title}
 										</li>
 									))}
 								</ul>

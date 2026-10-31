@@ -248,7 +248,9 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 		for (const [host, row] of rows) {
 			const record = catalogueRecord(host);
 			for (const link of row.theory ?? []) {
-				if (isAbsolute(link.href)) theory.push({ title: link.label, url: link.href });
+				// A cell that is text alone names no address, so it stays text rather than resolving to a link to "null".
+				if (link.href === null) theory.push({ title: link.label, url: null });
+				else if (isAbsolute(link.href)) theory.push({ title: link.label, url: link.href });
 				else if (record.licence !== null) {
 					const base = `https://github.com/${record.repository}/blob/${record.revision}/${record.path}`;
 					theory.push({ title: link.label, url: new URL(link.href, base).href });
@@ -256,7 +258,7 @@ export function assembleCatalogue(options: AssembleOptions = {}): Catalogue {
 			}
 		}
 		theory.push(...urlsIn(notion?.theory ?? null));
-		const theoryLinks = theory.filter((link, index) => theory.findIndex((other) => other.url === link.url) === index);
+		const theoryLinks = theory.filter((link, index) => link.url === null || theory.findIndex((other) => other.url === link.url) === index);
 
 		if (states[best].rank < states.idea.rank) continue;
 		// A host catalogue's Kind column (docs/tools.md, etalii.adp spec 002) first, in the fixed host order; else Notion's.

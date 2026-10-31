@@ -116,11 +116,15 @@ test('(h) a relative theory link is dropped without a licence; an absolute one i
 
 	const licensed = tool('wardley/map').theory;
 	assert.equal(licensed.length, 2);
-	assert.match(licensed[0].url, /^https:\/\/github\.com\/etalii-adp\/etalii\.adp\.ide\.standalone\/blob\/[0-9a-f]{40}\/docs\/theory\/wardley\.md$/);
+	assert.match(licensed[0].url ?? '', /^https:\/\/github\.com\/etalii-adp\/etalii\.adp\.ide\.standalone\/blob\/[0-9a-f]{40}\/docs\/theory\/wardley\.md$/);
 	assert.deepEqual(tool('freeplane/mindmap').theory, [
 		{ title: 'Mind map', url: 'https://en.wikipedia.org/wiki/Mind_map' },
 		{ title: 'docs.freeplane.org', url: 'https://docs.freeplane.org/' },
 	]);
+});
+
+test('(h2) a theory cell that is text alone stays text, never a link resolved from "null"', () => {
+	assert.deepEqual(tool('generic/timeline').theory, [{ title: 'Placement is authored on both axes', url: null }]);
 });
 
 test('(i) an empty Notion purpose falls back to the catalogue name and is reported', () => {
