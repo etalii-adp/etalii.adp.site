@@ -125,6 +125,12 @@ const headings = [
 									(Corresponding Wikipedia article can be accessed <a href={example.wikipedia}>here</a>)
 								</>
 							)}
+							{example.source && (
+								<>
+									{' '}
+									Source: {example.source.authors} <a href={example.source.href}><cite>{example.source.title}</cite></a>. {example.source.published}
+								</>
+							)}
 						</li>
 					))}
 				</ul>

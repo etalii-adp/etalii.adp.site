@@ -12,6 +12,12 @@ export interface ExampleExport {
 	about: string;
 	/** The Wikipedia article the example comes from, linked after the text (Peter, 2026-10-31). */
 	wikipedia?: string;
+	/**
+	 * The published work the example is redrawn from, cited after the text as the source asks to be cited: its authors and
+	 * year, its title (linked to the address it was read at), and where it was published and when it was read. For a source whose
+	 * licence does not grant reuse, redrawn as cited academic content (Peter, 2026-10-31).
+	 */
+	source?: { authors: string; title: string; href: string; published: string };
 }
 
 const flowPage = (file: string) => `/adp/docs/causal-loop-flow-pages/${file}.html`;
@@ -47,6 +53,19 @@ export const exampleExports: Readonly<Record<string, readonly ExampleExport[]>> 
 			name: 'Reference',
 			href: flowPage('reference'),
 			about: 'Every construct the causal loop diagram understands, in one diagram.',
+		},
+		{
+			name: 'UK cod population',
+			href: flowPage('uk-cod-population'),
+			about:
+				'What impacts the cod population in the UK: spawning, recruitment and mortality, carrying capacity as a tipping point, fishing activity and the communities it supports, prices and trade, and the regulation of the catch. ' +
+				'Redrawn from a handwritten teaching figure that marks its own loops: forty-nine variables and thirty-five cycles, four of whose labels disagree with their arrows and twelve of which run through the tipping point and cannot be counted.',
+			source: {
+				authors: 'Kamath, A., Palmer, F. I., Manikarachchige, I. and Hutton, C. (2024).',
+				title: 'Causal Loop Diagram',
+				href: 'https://repository.ncrm.ac.uk/resources/online/all/causal_loop-diagram',
+				published: 'National Centre for Research Methods online learning resource, University of Southampton. Diagram 7; accessed 31 October 2026.',
+			},
 		},
 	],
 };
