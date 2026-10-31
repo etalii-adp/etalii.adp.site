@@ -14,7 +14,7 @@ describe('the causal loop flow pages', () => {
 	});
 
 	it('is one page per example, none holding a date in its name', () => {
-		expect([...pages].sort()).toEqual(['business-philosophy.html', 'life-insurance.html', 'mental-health.html', 'on-call.html', 'reference.html']);
+		expect([...pages].sort()).toEqual(['business-philosophy.html', 'life-insurance.html', 'mental-health.html', 'on-call.html', 'reference.html', 'uk-cod-population.html']);
 	});
 
 	it.each(pages)('%s loads nothing from outside itself', (page) => {

@@ -14,6 +14,7 @@ The desktop host exports a [causal loop diagram](/adp/tools/systems/causal-loop-
 		<li>
 			<a href={example.href}>{example.name}</a>: {example.about}
 			{example.wikipedia && <> (Corresponding Wikipedia article can be accessed <a href={example.wikipedia}>here</a>)</>}
+			{example.source && <> Source: {example.source.authors} <a href={example.source.href}><cite>{example.source.title}</cite></a>. {example.source.published}</>}
 		</li>
 	))}
 </ul>
