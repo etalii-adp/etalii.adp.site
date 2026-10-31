@@ -33,12 +33,15 @@ function addressOf(file: string): string {
 const referencePage = /^\/adp\/(?:disl|did)\/(?!$|search\/$)/;
 const referenceSample = /^\/adp\/(?:disl|did)\/(?:[0-9.]+\/(?:layer-3-notation-visual-definition\/|schema\/|examples\/(?:statemachine\/)?)?|latest\/foundations\/)$/;
 const redirectsAway = (file: string) => /<meta http-equiv="refresh"/.test(readFileSync(file, 'utf8'));
+// An exported flow page is the desktop host's output, the prototype the maintainer accepted, and no page of the site (etalii.adp spec 074, FR-035); tests/catalogue.spec.ts and tests/flow-pages hold it to what it must be.
+const isFlowPage = (address: string) => /^\/adp\/docs\/causal-loop-flow-pages\/[^/]+\.html$/.test(address);
 // CHECK_PAGES_ONLY narrows the per-page checks to the addresses its pattern matches. The reference-fixture job of
 // page-checks.yml sets it to the DISL and DID references, the only pages of its build the real build does not have.
 const only = process.env.CHECK_PAGES_ONLY ? new RegExp(process.env.CHECK_PAGES_ONLY) : undefined;
 const pages = [...htmlFiles(join(dist, 'adp')), join(dist, '404.html')]
 	.filter((file) => !redirectsAway(file))
 	.map(addressOf)
+	.filter((address) => !isFlowPage(address))
 	.filter((address) => !referencePage.test(address) || referenceSample.test(address))
 	.filter((address) => !only || only.test(address))
 	.sort();
