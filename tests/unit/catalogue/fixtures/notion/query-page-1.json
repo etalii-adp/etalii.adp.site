@@ -164,6 +164,10 @@
           "type": "select",
           "select": null
         },
+        "Desktop": {
+          "type": "select",
+          "select": null
+        },
         "Focus areas": {
           "type": "multi_select",
           "multi_select": [
@@ -335,6 +339,10 @@
           "type": "select",
           "select": null
         },
+        "Desktop": {
+          "type": "select",
+          "select": null
+        },
         "Focus areas": {
           "type": "multi_select",
           "multi_select": [
@@ -481,6 +489,10 @@
           "select": null
         },
         "Claude": {
+          "type": "select",
+          "select": null
+        },
+        "Desktop": {
           "type": "select",
           "select": null
         },

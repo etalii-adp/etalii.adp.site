@@ -47,6 +47,7 @@ export const notionColumnNames = {
 	focusAreas: ['Focus areas'],
 	previousOrigin: ['Previous origin'],
 	standalone: ['Standalone'],
+	desktop: ['Desktop'],
 	intellij: ['IntelliJ'],
 	vscode: ['VS Code'],
 	eclipse: ['Eclipse'],
@@ -150,6 +151,7 @@ export function parseNotionPages(pages: NotionPage[], previous: NotionSnapshot =
 			theory: text(get('theory'), true),
 			hosts: {
 				standalone: select(get('standalone')),
+				desktop: select(get('desktop')),
 				intellij: select(get('intellij')),
 				vscode: select(get('vscode')),
 				eclipse: select(get('eclipse')),
@@ -218,7 +220,7 @@ export interface NotionExport {
 	rows: Record<string, unknown>[];
 }
 
-const selectFields = new Set<NotionField>(['type', 'family', 'subfamily', 'standalone', 'intellij', 'vscode', 'eclipse', 'thinkrail', 'notion', 'claude']);
+const selectFields = new Set<NotionField>(['type', 'family', 'subfamily', 'standalone', 'desktop', 'intellij', 'vscode', 'eclipse', 'thinkrail', 'notion', 'claude']);
 
 /** The page id in a Notion page URL (its last 32 hex digits), as a dashed UUID. */
 export function pageIdFromUrl(url: string): string | null {

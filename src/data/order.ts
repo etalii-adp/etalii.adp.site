@@ -4,11 +4,12 @@
  */
 export const ideHostIds = ['standalone', 'intellij', 'vscode', 'eclipse'] as const;
 /**
- * Every host, in the site's fixed order: the four IDE hosts above, then ThinkRail, Notion and Claude, which keep
- * no catalogue and whose states come from their Notion column. The order of the entries in src/data/hosts.yaml, of the
- * host rows of the tool catalogue and of its Host filter; checked at build time.
+ * Every host, in the site's fixed order: standalone, then desktop (the native duplicate of standalone), the other
+ * three IDE hosts above, then ThinkRail, Notion and Claude. Desktop, ThinkRail, Notion and Claude keep no catalogue the
+ * refresh reads, so their states come from their Notion column. The order of the entries in src/data/hosts.yaml, of
+ * the host rows of the tool catalogue and of its Host filter; checked at build time.
  */
-export const hostIds = [...ideHostIds, 'thinkrail', 'notion', 'claude'] as const;
+export const hostIds = ['standalone', 'desktop', 'intellij', 'vscode', 'eclipse', 'thinkrail', 'notion', 'claude'] as const;
 export const focusAreaIds = [
 	'technology-assessment',
 	'humans-and-agents',
