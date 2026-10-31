@@ -58,7 +58,7 @@
     "example": [
       {
         "label": "causal-loop-disl-fbl",
-        "href": "../.spec-workflow/specs/causal-loop-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.standalone/blob/bd7e2ea95b8e4195bf6f8d97f7aede9ab4dc3ad8/.spec-workflow/specs/causal-loop-disl-fbl/requirements.md"
       },
       {
         "label": "definition's companion",
@@ -481,7 +481,7 @@
     "example": [
       {
         "label": "databricks-disl-fbl",
-        "href": "../.spec-workflow/specs/databricks-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/specs/069-standalone-databricks-disl-fbl/standalone-databricks-disl-fbl.spec.md"
       },
       {
         "label": "definition's companion",
@@ -506,7 +506,7 @@
     "example": [
       {
         "label": "databricks-disl-fbl",
-        "href": "../.spec-workflow/specs/databricks-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/specs/069-standalone-databricks-disl-fbl/standalone-databricks-disl-fbl.spec.md"
       },
       {
         "label": "definition's companion",
@@ -531,7 +531,7 @@
     "example": [
       {
         "label": "databricks-disl-fbl",
-        "href": "../.spec-workflow/specs/databricks-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/specs/069-standalone-databricks-disl-fbl/standalone-databricks-disl-fbl.spec.md"
       },
       {
         "label": "definition's companion",
@@ -945,7 +945,7 @@
     "example": [
       {
         "label": "sparql-disl-fbl",
-        "href": "../.spec-workflow/specs/sparql-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.standalone/blob/bd7e2ea95b8e4195bf6f8d97f7aede9ab4dc3ad8/.spec-workflow/specs/sparql-disl-fbl/requirements.md"
       },
       {
         "label": "definition's companion",
@@ -1422,7 +1422,7 @@
     "example": [
       {
         "label": "c4-disl-fbl",
-        "href": "../.spec-workflow/specs/c4-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/specs/068-standalone-c4-disl-fbl/standalone-c4-disl-fbl.spec.md"
       }
     ]
   },
@@ -1443,7 +1443,7 @@
     "example": [
       {
         "label": "c4-disl-fbl",
-        "href": "../.spec-workflow/specs/c4-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/specs/068-standalone-c4-disl-fbl/standalone-c4-disl-fbl.spec.md"
       },
       {
         "label": "definition's companion",
@@ -1468,7 +1468,7 @@
     "example": [
       {
         "label": "c4-disl-fbl",
-        "href": "../.spec-workflow/specs/c4-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/specs/068-standalone-c4-disl-fbl/standalone-c4-disl-fbl.spec.md"
       },
       {
         "label": "definition's companion",
@@ -1493,7 +1493,7 @@
     "example": [
       {
         "label": "c4-disl-fbl",
-        "href": "../.spec-workflow/specs/c4-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/specs/068-standalone-c4-disl-fbl/standalone-c4-disl-fbl.spec.md"
       },
       {
         "label": "definition's companion",
@@ -1518,7 +1518,7 @@
     "example": [
       {
         "label": "c4-disl-fbl",
-        "href": "../.spec-workflow/specs/c4-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/specs/068-standalone-c4-disl-fbl/standalone-c4-disl-fbl.spec.md"
       },
       {
         "label": "definition's companion",
@@ -1543,7 +1543,7 @@
     "example": [
       {
         "label": "c4-disl-fbl",
-        "href": "../.spec-workflow/specs/c4-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/specs/068-standalone-c4-disl-fbl/standalone-c4-disl-fbl.spec.md"
       },
       {
         "label": "definition's companion",
@@ -1568,7 +1568,7 @@
     "example": [
       {
         "label": "c4-disl-fbl",
-        "href": "../.spec-workflow/specs/c4-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/specs/068-standalone-c4-disl-fbl/standalone-c4-disl-fbl.spec.md"
       },
       {
         "label": "definition's companion",
@@ -1786,7 +1786,7 @@
     "example": [
       {
         "label": "agent-activity-diagram",
-        "href": "../.spec-workflow/specs/agent-activity-diagram/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.standalone/blob/bd7e2ea95b8e4195bf6f8d97f7aede9ab4dc3ad8/.spec-workflow/specs/agent-activity-diagram/requirements.md"
       },
       {
         "label": "an instruction text for agents",
@@ -1832,7 +1832,7 @@
     "example": [
       {
         "label": "functional-decomposition-graph-disl-fbl",
-        "href": "../.spec-workflow/specs/functional-decomposition-graph-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.standalone/blob/bd7e2ea95b8e4195bf6f8d97f7aede9ab4dc3ad8/.spec-workflow/specs/functional-decomposition-graph-disl-fbl/requirements.md"
       }
     ]
   },
@@ -1853,7 +1853,7 @@
     "example": [
       {
         "label": "supply-chain-disl-fbl",
-        "href": "../.spec-workflow/specs/supply-chain-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.standalone/blob/bd7e2ea95b8e4195bf6f8d97f7aede9ab4dc3ad8/.spec-workflow/specs/supply-chain-disl-fbl/requirements.md"
       },
       {
         "label": "definition's companion",
@@ -2046,7 +2046,7 @@
     "example": [
       {
         "label": "sankey-disl-fbl",
-        "href": "../.spec-workflow/specs/sankey-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.standalone/blob/bd7e2ea95b8e4195bf6f8d97f7aede9ab4dc3ad8/.spec-workflow/specs/sankey-disl-fbl/requirements.md"
       },
       {
         "label": "definition's companion",
@@ -2075,7 +2075,7 @@
     "example": [
       {
         "label": "ansible-structure-disl-fbl",
-        "href": "../.spec-workflow/specs/ansible-structure-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.standalone/blob/bd7e2ea95b8e4195bf6f8d97f7aede9ab4dc3ad8/.spec-workflow/specs/ansible-structure-disl-fbl/requirements.md"
       },
       {
         "label": "definition's companion",
@@ -2133,7 +2133,7 @@
     "example": [
       {
         "label": "azure-devops-pipeline-disl-fbl",
-        "href": "../.spec-workflow/specs/azure-devops-pipeline-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.standalone/blob/bd7e2ea95b8e4195bf6f8d97f7aede9ab4dc3ad8/.spec-workflow/specs/azure-devops-pipeline-disl-fbl/requirements.md"
       },
       {
         "label": "definition's companion",
@@ -2237,7 +2237,7 @@
     "example": [
       {
         "label": "helm-chart-disl-fbl",
-        "href": "../.spec-workflow/specs/helm-chart-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.standalone/blob/bd7e2ea95b8e4195bf6f8d97f7aede9ab4dc3ad8/.spec-workflow/specs/helm-chart-disl-fbl/requirements.md"
       },
       {
         "label": "definition's companion",
@@ -2287,15 +2287,15 @@
     "example": [
       {
         "label": "gartner-hype-cycle-graph",
-        "href": "../.spec-workflow/specs/gartner-hype-cycle-graph/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.standalone/blob/bd7e2ea95b8e4195bf6f8d97f7aede9ab4dc3ad8/.spec-workflow/specs/gartner-hype-cycle-graph/requirements.md"
       },
       {
         "label": "ghg-compact-mode",
-        "href": "../.spec-workflow/specs/ghg-compact-mode/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.standalone/blob/bd7e2ea95b8e4195bf6f8d97f7aede9ab4dc3ad8/.spec-workflow/specs/ghg-compact-mode/requirements.md"
       },
       {
         "label": "ghg-triggers-and-notes",
-        "href": "../.spec-workflow/specs/ghg-triggers-and-notes/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.standalone/blob/bd7e2ea95b8e4195bf6f8d97f7aede9ab4dc3ad8/.spec-workflow/specs/ghg-triggers-and-notes/requirements.md"
       }
     ]
   },
@@ -2318,7 +2318,7 @@
       },
       {
         "label": "wardley-map-disl-fbl",
-        "href": "../.spec-workflow/specs/wardley-map-disl-fbl/requirements.md"
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/specs/071-standalone-wardley-map-disl-fbl/standalone-wardley-map-disl-fbl.spec.md"
       },
       {
         "label": "definition's companion",
