@@ -1,18 +1,18 @@
 {
   "procedure": "refresh-hosts",
-  "refreshedAt": "2026-10-30T18:39:45.382Z",
+  "refreshedAt": "2026-10-31T02:32:07.992Z",
   "sourceHeads": {
     "etalii-adp/etalii.adp.ide.eclipse": "59d855d9f4cd390659fe52746ed29d48309b285f",
     "etalii-adp/etalii.adp.ide.intellij": "4b2c7f3e3206dfada1a5952d17414f45c9106b40",
-    "etalii-adp/etalii.adp.ide.standalone": "158656223f7ea88e28462341a41f3d9495662b20",
-    "etalii-adp/etalii.adp.ide.vscode": "3d0d482019f06832e6780d99af96aeab67903f12"
+    "etalii-adp/etalii.adp.ide.standalone": "b8c1ea13a83c7ae61ffcdcaed1083dee0680ca57",
+    "etalii-adp/etalii.adp.ide.vscode": "905e8a6c1b39be705760420e872a4e3c79926216"
   },
   "releases": {
     "etalii-adp/etalii.adp.ide.eclipse": null,
     "etalii-adp/etalii.adp.ide.intellij": null,
     "etalii-adp/etalii.adp.ide.standalone": {
-      "tag": "v0.1.3721-alpha",
-      "commit": "158656223f7ea88e28462341a41f3d9495662b20"
+      "tag": "v0.1.3725-alpha",
+      "commit": "82b99c7e58f614fe001fae8b59a677ef06c97094"
     },
     "etalii-adp/etalii.adp.ide.vscode": null
   },
@@ -30,8 +30,8 @@
     {
       "repository": "etalii-adp/etalii.adp.ide.standalone",
       "sourcePath": "docs/tools.md",
-      "commit": "a2c90e684f5658bf3d78fc3130b85bd3d67b2494",
-      "gitBlob": "3377594ae5af308dc7ee9e01e7184314aa75f123"
+      "commit": "653b2b6b5d7c99bb38ac63ff5ebae04d1522b1d8",
+      "gitBlob": "9dc4454f87b2acf7fcebb62779dcceedca3649d2"
     },
     {
       "repository": "etalii-adp/etalii.adp.ide.vscode",
@@ -43,7 +43,7 @@
   "derived": [
     {
       "path": "hosts.json",
-      "sha256": "b50d78a91d5dcef4159d55b10b4ddb65b4d92e3f517baa4ff1b42c91b85b6df3"
+      "sha256": "d7c0c6e980137665493bdc18b8d45f4f801a988a0a474b59a021e709e86c6688"
     }
   ],
   "withdrawn": []
