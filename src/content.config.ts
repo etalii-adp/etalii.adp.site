@@ -131,7 +131,7 @@ const hostAvailability = z
 const screenshot = (image: ImageFunction) =>
 	z
 		.object({
-			id: z.string().regex(/^(standalone|intellij|vscode|eclipse|thinkrail|notion|claude)--[a-z0-9-]+$/),
+			id: z.string().regex(/^(standalone|desktop|intellij|vscode|eclipse|thinkrail|notion|claude)--[a-z0-9-]+$/),
 			host: z.enum(hostIds),
 			file: z.string().regex(/\.png$/),
 			caption: z.string().min(1),
@@ -168,7 +168,7 @@ const tool = ({ image }: { image: ImageFunction }) =>
 			theory: z.array(link),
 			definition: z.object({ url: z.string().url(), dislVersion: z.string().min(1) }).strict().nullable(),
 			hosts: z
-				.object({ standalone: hostAvailability, intellij: hostAvailability, vscode: hostAvailability, eclipse: hostAvailability, thinkrail: hostAvailability, notion: hostAvailability, claude: hostAvailability })
+				.object({ standalone: hostAvailability, desktop: hostAvailability, intellij: hostAvailability, vscode: hostAvailability, eclipse: hostAvailability, thinkrail: hostAvailability, notion: hostAvailability, claude: hostAvailability })
 				.strict(),
 			screenshots: z.array(screenshot(image)),
 			sources: z.array(catalogueSource).min(1),

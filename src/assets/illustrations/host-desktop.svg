@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Original artwork for etalii.net/adp, Apache-2.0: a native application window with a ribbon and a diagram, on a monitor. -->
+  <style>
+    .a { stroke: #32cd32; }
+    .af { fill: #32cd32; }
+    .g { stroke: #aeb6be; }
+    .gf { fill: #aeb6be; }
+    .t { fill: #32cd32; fill-opacity: 0.15; }
+    @media (prefers-color-scheme: light) {
+      .a { stroke: #16782a; } .af { fill: #16782a; } .g { stroke: #49525b; } .gf { fill: #49525b; } .t { fill: #16782a; fill-opacity: 0.12; }
+    }
+  </style>
+  <rect class="g" x="16" y="12" width="128" height="84" rx="6" stroke-width="1.5"/>
+  <path class="g" d="M64 96 L60 108 H100 L96 96" stroke-width="1.5"/>
+  <path class="g" d="M16 26 H144 M16 38 H144" stroke-width="1.5"/>
+  <path class="g" d="M126 19 H136" stroke-width="1.5"/>
+  <rect class="gf" x="24" y="29" width="10" height="6" rx="1"/>
+  <rect class="gf" x="38" y="29" width="10" height="6" rx="1"/>
+  <rect class="gf" x="52" y="29" width="10" height="6" rx="1"/>
+  <path class="g" d="M56 60 L70 70 M104 60 L90 70 M72 51 H88" stroke-width="1.5"/>
+  <rect class="a t" x="40" y="44" width="32" height="16" rx="4"/>
+  <rect class="a t" x="88" y="44" width="32" height="16" rx="4"/>
+  <rect class="a" x="64" y="68" width="32" height="16" rx="8" stroke-width="2"/>
+</svg>

@@ -16,6 +16,7 @@ export interface CatalogueHost {
 
 const details: Record<HostId, Omit<CatalogueHost, 'id'>> = {
 	standalone: { name: 'Standalone', repository: 'etalii-adp/etalii.adp.ide.standalone', notionColumns: notionColumnNames.standalone },
+	desktop: { name: 'Desktop', repository: 'etalii-adp/etalii.adp.ide.desktop', notionColumns: notionColumnNames.desktop },
 	intellij: { name: 'IntelliJ Platform', repository: 'etalii-adp/etalii.adp.ide.intellij', notionColumns: notionColumnNames.intellij },
 	vscode: { name: 'Visual Studio Code', repository: 'etalii-adp/etalii.adp.ide.vscode', notionColumns: notionColumnNames.vscode },
 	eclipse: { name: 'Eclipse', repository: 'etalii-adp/etalii.adp.ide.eclipse', notionColumns: notionColumnNames.eclipse },
@@ -25,8 +26,8 @@ const details: Record<HostId, Omit<CatalogueHost, 'id'>> = {
 };
 
 /**
- * The seven hosts, in the site's fixed order (src/data/order.ts). ThinkRail, Notion and Claude keep no catalogue, so
- * their states come from their own Notion column.
+ * The eight hosts, in the site's fixed order (src/data/order.ts). Desktop, ThinkRail, Notion and Claude keep no
+ * catalogue the refresh reads, so their states come from their own Notion column.
  */
 export const catalogueHosts: readonly CatalogueHost[] = hostIds.map((id) => ({ id, ...details[id] }));
 

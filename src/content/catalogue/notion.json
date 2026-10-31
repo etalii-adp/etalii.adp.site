@@ -19,6 +19,7 @@
       "theory": "[airflow.apache.org](https://airflow.apache.org/) · [DAGs concept](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -46,6 +47,7 @@
       "theory": "[Ansible directory layout](https://charlesreid1.com/wiki/Ansible/Directory_Layout/Details) · [Role dependencies](https://oneuptime.com/blog/post/2026-01-24-ansible-roles-dependencies/view)",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -73,6 +75,7 @@
       "theory": "[ArchiMate spec](https://pubs.opengroup.org/architecture/archimate3-doc/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -100,6 +103,7 @@
       "theory": "[ArchiMate spec](https://pubs.opengroup.org/architecture/archimate3-doc/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -128,6 +132,7 @@
       "theory": "[ArchiMate spec](https://pubs.opengroup.org/architecture/archimate3-doc/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -156,6 +161,7 @@
       "theory": "[ArchiMate spec](https://pubs.opengroup.org/architecture/archimate3-doc/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -184,6 +190,7 @@
       "theory": "[ArchiMate spec](https://pubs.opengroup.org/architecture/archimate3-doc/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -212,6 +219,7 @@
       "theory": "[ArchiMate spec](https://pubs.opengroup.org/architecture/archimate3-doc/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -239,6 +247,7 @@
       "theory": "[argo-workflows docs](https://argo-workflows.readthedocs.io/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -266,6 +275,7 @@
       "theory": "[AWS Architecture Icons](https://aws.amazon.com/architecture/icons/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -293,6 +303,7 @@
       "theory": "[Azure Pipelines YAML schema](https://learn.microsoft.com/en-us/azure/devops/pipelines/yaml-schema/) · [Key pipelines concepts](https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/key-pipelines-concepts)",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -320,6 +331,7 @@
       "theory": "[Azure Architecture Icons](https://learn.microsoft.com/en-us/azure/architecture/icons/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -347,6 +359,7 @@
       "theory": "[bpmn.org](https://www.bpmn.org/) · [OMG BPMN spec](https://www.omg.org/bpmn/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -374,6 +387,7 @@
       "theory": "[c4model.com](https://c4model.com/diagrams/code)",
       "hosts": {
         "standalone": "📝 Specified",
+        "desktop": "📝 Specified",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -402,6 +416,7 @@
       "theory": "[c4model.com](https://c4model.com/diagrams/component)",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -430,6 +445,7 @@
       "theory": "[c4model.com](https://c4model.com/diagrams/container)",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -458,6 +474,7 @@
       "theory": "[c4model.com](https://c4model.com/diagrams/system-context)",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -485,6 +502,7 @@
       "theory": "[c4model.com](https://c4model.com/diagrams/deployment)",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -512,6 +530,7 @@
       "theory": "[c4model.com](https://c4model.com/diagrams/dynamic)",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -540,6 +559,7 @@
       "theory": "[c4model.com](https://c4model.com/diagrams/system-landscape)",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -568,6 +588,7 @@
       "theory": "[Novak & Cañas, \"The Theory Underlying Concept Maps\"](https://cmap.ihmc.us/docs/theory-of-concept-maps)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -595,6 +616,7 @@
       "theory": "[commonwl.org](https://www.commonwl.org/) · [CWL user guide](https://www.commonwl.org/user_guide/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -623,6 +645,7 @@
       "theory": "[contextmapper.org](https://contextmapper.org/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -651,6 +674,7 @@
       "theory": "[d2lang.com](https://d2lang.com/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -678,6 +702,7 @@
       "theory": "[dagster.io](https://dagster.io/) · [Asset definitions](https://docs.dagster.io/guides/build/assets/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -705,6 +730,7 @@
       "theory": "[Bundle configuration](https://docs.databricks.com/aws/en/dev-tools/bundles/settings) · [reference](https://docs.databricks.com/aws/en/dev-tools/bundles/reference)",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -732,6 +758,7 @@
       "theory": "[Job task types](https://docs.databricks.com/aws/en/dev-tools/bundles/job-task-types)",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -759,6 +786,7 @@
       "theory": "[Pipeline properties](https://docs.databricks.com/aws/en/ldp/properties)",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -786,6 +814,7 @@
       "theory": "[docs.getdbt.com](https://docs.getdbt.com/) · [About dbt projects](https://docs.getdbt.com/docs/build/projects)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -814,6 +843,7 @@
       "theory": "[Context Mapping reference](https://www.domainlanguage.com/ddd/context-mapping/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -842,6 +872,7 @@
       "theory": "[eventstorming.com](https://www.eventstorming.com/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -869,6 +900,7 @@
       "theory": "[DeMarco's foundational text](https://en.wikipedia.org/wiki/Data_flow_diagram)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -897,6 +929,7 @@
       "theory": "[diagrams.mingrammer.com](https://diagrams.mingrammer.com/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -924,6 +957,7 @@
       "theory": "[PackageReference in project files](https://learn.microsoft.com/en-us/nuget/consume-packages/package-references-in-project-files) · [Central Package Management](https://learn.microsoft.com/en-us/nuget/consume-packages/central-package-management)",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -949,6 +983,7 @@
       "theory": null,
       "hosts": {
         "standalone": "✅ Implemented",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -976,6 +1011,7 @@
       "theory": null,
       "hosts": {
         "standalone": "✅ Implemented",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1003,6 +1039,7 @@
       "theory": null,
       "hosts": {
         "standalone": "✅ Implemented",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1028,6 +1065,7 @@
       "theory": null,
       "hosts": {
         "standalone": "✅ Implemented",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1053,6 +1091,7 @@
       "theory": null,
       "hosts": {
         "standalone": "✅ Implemented",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1081,6 +1120,7 @@
       "theory": "[Chen's original paper](https://dl.acm.org/doi/10.1145/320434.320440)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1109,6 +1149,7 @@
       "theory": "A notation defined by the user of this repository, so ADP owns the schema and the `etalii/` origin rather than a standards body's",
       "hosts": {
         "standalone": "🛠️ Work-in-progress",
+        "desktop": "🛠️ Work-in-progress",
         "intellij": null,
         "vscode": "⚗️ Prototype",
         "eclipse": null,
@@ -1137,6 +1178,7 @@
       "theory": "Behavior trees from game development and robotics, tuned to agent engineering; ADP owns the schema and the etalii/ origin",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": "⚗️ Prototype",
         "eclipse": null,
@@ -1165,6 +1207,7 @@
       "theory": "A notation defined by the user of this repository, so ADP owns the schema and the `etalii/` origin rather than a standards body's",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1193,6 +1236,7 @@
       "theory": "A tool defined by ADP, so ADP owns the format and the etalii/ origin; specified in etalii.adp, spec 028 (the definition in DESL, FBL and DED) and spec 029 (the standalone host)",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1221,6 +1265,7 @@
       "theory": "After Notion's databases (typed properties, table views, relations) and similar solutions; ADP owns the schema and the etalii/ origin. Defined in etalii.adp as an FBL binding per format plus a DESL specification, so every host builds the same designer",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": "⚗️ Prototype",
         "eclipse": null,
@@ -1249,6 +1294,7 @@
       "theory": "After the Sankey diagram (Matthew Sankey, 1898) as popularised by published income-statement visualisations; ADP owns the schema and the etalii/ origin",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": "💡 Identified",
         "vscode": "💡 Identified",
         "eclipse": "💡 Identified",
@@ -1277,6 +1323,7 @@
       "theory": "After the yFiles supply chain showcase ([https://www.yfiles.com/demos/showcase/supply-chain/](https://www.yfiles.com/demos/showcase/supply-chain/)); a notation defined by the user of this repository, so ADP owns the schema and the etalii/ origin",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": "💡 Identified",
         "vscode": "💡 Identified",
         "eclipse": "💡 Identified",
@@ -1305,6 +1352,7 @@
       "theory": "[Freeplane](https://www.freeplane.org/) · `.mm` file format ([tech.md](http://tech.md)'s diagram-type test fixture)",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": "✅ Implemented",
         "vscode": "⚗️ Prototype",
         "eclipse": null,
@@ -1334,6 +1382,7 @@
       "theory": "[https://en.wikipedia.org/wiki/Gartner_hype_cycle](https://en.wikipedia.org/wiki/Gartner_hype_cycle)",
       "hosts": {
         "standalone": "🛠️ Work-in-progress",
+        "desktop": "🛠️ Work-in-progress",
         "intellij": null,
         "vscode": "⚗️ Prototype",
         "eclipse": null,
@@ -1361,6 +1410,7 @@
       "theory": "[Google Cloud Architecture Icons](https://cloud.google.com/icons)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1388,6 +1438,7 @@
       "theory": null,
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": "💡 Identified",
         "vscode": null,
         "eclipse": null,
@@ -1416,6 +1467,7 @@
       "theory": null,
       "hosts": {
         "standalone": null,
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1444,6 +1496,7 @@
       "theory": null,
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1472,6 +1525,7 @@
       "theory": "Follows the `generic/timeline` precedent: no standards body owns \"a box depends on a box\", so ADP defines the schema and owns the extension outright, keeping the document diffable text. Specified as a duplicate of the timeline module with every time-related aspect removed",
       "hosts": {
         "standalone": "✅ Implemented",
+        "desktop": "✅ Implemented",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1500,6 +1554,7 @@
       "theory": null,
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1528,6 +1583,7 @@
       "theory": "[Lucidchart guide](https://www.lucidchart.com/pages/tutorial/swim-lane-diagram)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1556,6 +1612,7 @@
       "theory": "Distinct from `mermaid/gantt`: placement is authored on both axes, not computed, and connections are arbitrary rather than scheduling dependencies",
       "hosts": {
         "standalone": "✅ Implemented",
+        "desktop": "✅ Implemented",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1583,6 +1640,7 @@
       "theory": null,
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1610,6 +1668,7 @@
       "theory": "[Helm charts guide](https://helm.sh/docs/topics/charts/) · [chart template guide](https://helm.sh/docs/chart_template_guide/) · `helm-charts` (specification removed from the tree; in history before `53f68611`)",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1637,6 +1696,7 @@
       "theory": "[ISO 5807 overview](https://en.wikipedia.org/wiki/Flowchart)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1664,6 +1724,7 @@
       "theory": "[https://www.drawio.com/](https://www.drawio.com/) · [https://www.drawio.com/doc/faq/diagram-source-edit](https://www.drawio.com/doc/faq/diagram-source-edit)",
       "hosts": {
         "standalone": null,
+        "desktop": null,
         "intellij": "✅ Implemented",
         "vscode": null,
         "eclipse": null,
@@ -1691,6 +1752,7 @@
       "theory": "[kubeflow.org](https://www.kubeflow.org/docs/components/pipelines/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1718,6 +1780,7 @@
       "theory": "[linkml.io](https://linkml.io/) · [schema guide](https://linkml.io/linkml/schemas/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1745,6 +1808,7 @@
       "theory": "[meltano.com](https://meltano.com/) · [meltano.yml reference](https://docs.meltano.com/reference/project)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1773,6 +1837,7 @@
       "theory": "[mermaid.js.org](https://mermaid.js.org/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1801,6 +1866,7 @@
       "theory": "[mermaid.js.org](https://mermaid.js.org/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1829,6 +1895,7 @@
       "theory": "[mermaid.js.org](https://mermaid.js.org/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1857,6 +1924,7 @@
       "theory": "[mermaid.js.org](https://mermaid.js.org/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1885,6 +1953,7 @@
       "theory": "[mermaid.js.org](https://mermaid.js.org/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1913,6 +1982,7 @@
       "theory": "[mermaid.js.org](https://mermaid.js.org/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1941,6 +2011,7 @@
       "theory": "[mermaid.js.org](https://mermaid.js.org/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1969,6 +2040,7 @@
       "theory": "[mermaid.js.org](https://mermaid.js.org/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -1997,6 +2069,7 @@
       "theory": "[Aggregation pipeline manual](https://www.mongodb.com/docs/manual/core/aggregation-pipeline/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2025,6 +2098,7 @@
       "theory": "[MongoDB CRUD queries](https://www.mongodb.com/docs/manual/tutorial/query-documents/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2053,6 +2127,7 @@
       "theory": "[Cypher manual](https://neo4j.com/docs/cypher-manual/current/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2080,6 +2155,7 @@
       "theory": "[Cisco iconography](https://www.cisco.com/c/en/us/products/downloads.html)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2107,6 +2183,7 @@
       "theory": "[nextflow.io](https://www.nextflow.io/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2134,6 +2211,7 @@
       "theory": "[nifi.apache.org](https://nifi.apache.org/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2162,6 +2240,7 @@
       "theory": "[openlineage.io](https://openlineage.io/) · [spec on GitHub](https://github.com/OpenLineage/openlineage)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2189,6 +2268,7 @@
       "theory": "[openwdl.org](https://openwdl.org/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2217,6 +2297,7 @@
       "theory": "[C4-PlantUML](https://github.com/plantuml-stdlib/C4-PlantUML)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2245,6 +2326,7 @@
       "theory": "[plantuml.com](https://plantuml.com/) · `plantuml-uml` (specification archived and removed from the tree; in history before `ece03c36`) specifies class and sequence first",
       "hosts": {
         "standalone": "📝 Specified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2272,6 +2354,7 @@
       "theory": "[snakemake.readthedocs.io](https://snakemake.readthedocs.io/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2299,6 +2382,7 @@
       "theory": "[SDP programming guide](https://spark.apache.org/docs/latest/declarative-pipelines-programming-guide.html)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2327,6 +2411,7 @@
       "theory": "[structurizr.com](https://structurizr.com/)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2356,6 +2441,7 @@
       "theory": "The notation is the established one from system dynamics — polarity on the link, `R`/`B` on the loop, strokes across a delayed arrow. What ADP adds is the check: a loop is reinforcing on an even count of negative links and balancing on an odd one, so a stated label is verifiable, and a disagreement is reported rather than corrected. Cycles are enumerated with Johnson’s elementary cycles algorithm, bounded. The self-organizing layout adopts Meyer’s method with every source of randomness replaced by a function of the document and the iteration index",
       "hosts": {
         "standalone": "🛠️ Work-in-progress",
+        "desktop": "🛠️ Work-in-progress",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2384,6 +2470,7 @@
       "theory": "[TOGAF Standard](https://www.opengroup.org/togaf)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2411,6 +2498,7 @@
       "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/activity-diagrams.html)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2438,6 +2526,7 @@
       "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/class-diagrams-overview.html)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2465,6 +2554,7 @@
       "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/communication-diagrams.html)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2492,6 +2582,7 @@
       "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/component-diagrams.html)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2519,6 +2610,7 @@
       "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/composite-structure-diagrams.html)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2546,6 +2638,7 @@
       "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/deployment-diagrams.html)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2573,6 +2666,7 @@
       "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/interaction-overview-diagrams.html)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2600,6 +2694,7 @@
       "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/object-diagrams.html)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2627,6 +2722,7 @@
       "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/package-diagrams.html)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2655,6 +2751,7 @@
       "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/profile-diagrams.html)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2682,6 +2779,7 @@
       "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/sequence-diagrams.html)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2709,6 +2807,7 @@
       "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/state-machine-diagrams.html)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2736,6 +2835,7 @@
       "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/timing-diagrams.html)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2764,6 +2864,7 @@
       "theory": "[uml-diagrams.org](https://www.uml-diagrams.org/use-case-diagrams.html)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2791,6 +2892,7 @@
       "theory": "[W3C OWL 2 overview](https://www.w3.org/TR/owl2-overview/)",
       "hosts": {
         "standalone": "✅ Implemented",
+        "desktop": "✅ Implemented",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2820,6 +2922,7 @@
       "theory": "[RDF 1.1 concepts](https://www.w3.org/TR/rdf11-concepts/) · [Turtle](https://www.w3.org/TR/turtle/)",
       "hosts": {
         "standalone": "✅ Implemented",
+        "desktop": "✅ Implemented",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2847,6 +2950,7 @@
       "theory": "[W3C SHACL](https://www.w3.org/TR/shacl/) · `shacl-diagram` (specification removed from the tree; in history before `53f68611`)",
       "hosts": {
         "standalone": "✅ Implemented",
+        "desktop": "✅ Implemented",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2875,6 +2979,7 @@
       "theory": "[W3C SKOS reference](https://www.w3.org/TR/skos-reference/) · `skos-diagram` (specification removed from the tree; in history before `53f68611`)",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2904,6 +3009,7 @@
       "theory": "[SPARQL 1.1](https://www.w3.org/TR/sparql11-query/)",
       "hosts": {
         "standalone": "✅ Implemented",
+        "desktop": "✅ Implemented",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2933,6 +3039,7 @@
       "theory": "[learnwardleymapping.com](https://learnwardleymapping.com/) · reads and writes the [OnlineWardleyMaps .owm DSL](https://onlinewardleymaps.com/), keeping a map another tool wrote byte-for-byte · `wardley-map` (specification removed from the tree; in history before `ece03c36`)",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": "⚗️ Prototype",
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -2960,6 +3067,7 @@
       "theory": "[Zachman International](https://www.zachman.com/about-the-zachman-framework)",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,

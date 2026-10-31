@@ -20,6 +20,7 @@
       "theory": "See https://en.wikipedia.org/wiki/Mind_map and https://docs.freeplane.org/",
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": null,
         "intellij": "✅ Implemented",
         "vscode": null,
         "eclipse": null,
@@ -45,6 +46,7 @@
       "theory": null,
       "hosts": {
         "standalone": null,
+        "desktop": null,
         "intellij": "✅ Implemented",
         "vscode": null,
         "eclipse": null,
@@ -70,6 +72,7 @@
       "theory": null,
       "hosts": {
         "standalone": "📝 Specified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -97,6 +100,7 @@
       "theory": "https://www.w3.org/TR/turtle/",
       "hosts": {
         "standalone": "💡 Identified",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": null,
@@ -125,6 +129,7 @@
       "theory": null,
       "hosts": {
         "standalone": "⚗️ Prototype",
+        "desktop": null,
         "intellij": null,
         "vscode": null,
         "eclipse": "⛔ Not planned",

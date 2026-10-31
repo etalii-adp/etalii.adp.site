@@ -1,4 +1,4 @@
-# The hosts ADP runs in, in their fixed order: the five IDE hosts, ThinkRail last, then Notion and Claude (data-model "IDE host", contracts/hosts.schema.json).
+# The hosts ADP runs in, in their fixed order: the six IDE hosts (standalone, desktop, IntelliJ, VS Code, Eclipse, ThinkRail last), then Notion and Claude (data-model "IDE host", contracts/hosts.schema.json).
 # A host links only to something a visitor can reach; while a repository is private it says so instead.
 # Each host has an illustration on the home page, in the style of the focus-area ones; it is decorative.
 # Taken by hand on 2026-09-26 (plan, Complexity Tracking); spec 004 replaces this with a procedure.
@@ -16,6 +16,21 @@
     taken: 2026-09-26
     method: manual
     licence: none
+
+- id: desktop
+  name: Desktop
+  summary: A native desktop application, written in Rust, with the standalone workspace and its tools and no browser, web view or local server.
+  state: in-progress
+  link: https://github.com/etalii-adp/etalii.adp.ide.desktop
+  linkLabel: The desktop repository
+  illustration: ../assets/illustrations/host-desktop.svg
+  source:
+    repository: etalii-adp/etalii.adp.ide.desktop
+    path: README.md
+    revision: aa28938ea9ade9407653908e9ce3b37fe27552db
+    taken: 2026-10-31
+    method: manual
+    licence: Apache-2.0
 
 - id: intellij
   name: IntelliJ Platform
