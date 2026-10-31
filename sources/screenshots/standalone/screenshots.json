@@ -121,6 +121,17 @@
     "status": "accepted"
   },
   {
+    "file": "causal-loop-flow-page.png",
+    "origin": "systems/causal-loop-diagram",
+    "expectation": "The page after 20 seconds under Backlog at the size above: dots on the links, Mental health dropout, Exhaustion and the delayed links among those hottest, the external variables' sliders, the dynamics and the chart along the bottom. Nothing selected.",
+    "document": "`diagrams/causal-loop-diagram/mental-health/mental-health.cld`, exported from the desktop host as its flow page (etalii.adp spec 074) and opened in a browser, not in this host, so `capture.mjs` does not take it; retaken with the `flow_page` example of `modules/diagrams/causal-loop-diagram` in `etalii.adp.ide.desktop`",
+    "bytes": 113291,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
     "file": "causal-loop.png",
     "origin": "systems/causal-loop-diagram",
     "expectation": "The on-call variables joined by polarised links, the delay marks on the slow ones, and the three named loops (R1-R3) at their centres; Toolbox showing Variable, Causal link and Feedback loop. Nothing selected.",
