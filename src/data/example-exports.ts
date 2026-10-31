@@ -22,6 +22,11 @@ export const exampleExports: Readonly<Record<string, readonly ExampleExport[]>> 
 			about: 'Whether a Business Philosophy study is applicable at a university of applied sciences: eighteen variables and ten loops.',
 		},
 		{
+			name: 'Life insurance',
+			href: flowPage('life-insurance'),
+			about: 'The growth or decline of a life insurance company, redrawn from a public-domain U.S. Department of Energy figure: thirty-four variables and thirty-eight loops.',
+		},
+		{
 			name: 'Mental health',
 			href: flowPage('mental-health'),
 			about: 'Why mental health at work stays out of sight: thirty variables and eight loops, a wicked problem drawn as structure alone.',
