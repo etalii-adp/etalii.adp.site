@@ -76,7 +76,7 @@ Today a tool engineer specifies a tool type in up to three JSON files, each in a
 
 ### 1.3 Relation to the other specifications
 
-DISL, DID, DESL, DED, EDSL, EDD and FBL remain specifications of this repository. ATD carries every construct of DISL 0.8, DESL 0.2 and FBL 0.15 (Appendix C maps each of their properties to the ATD construct that carries it), and the constructs an editor needs, which EDSL, a placeholder, does not yet have (section 10). ATD reuses their schemas: a setting of an ATD construct is checked against the `$defs` entry of DISL, DESL or FBL for the same thing (section 14.6), and a binding in ATD is an FBL binding written as text. Tools keep storing their documents in DID, DED or a body a binding reads; a tool description replaces none of them.
+DISL, DID, DESL, DED, EDSL, EDD and FBL remain specifications of this repository. ATD carries every construct of DISL 0.8, DESL 0.2 and FBL 0.16 (Appendix C maps each of their properties to the ATD construct that carries it), and the constructs an editor needs, which EDSL, a placeholder, does not yet have (section 10). ATD reuses their schemas: a setting of an ATD construct is checked against the `$defs` entry of DISL, DESL or FBL for the same thing (section 14.6), and a binding in ATD is an FBL binding written as text. Tools keep storing their documents in DID, DED or a body a binding reads; a tool description replaces none of them.
 
 ---
 
@@ -105,7 +105,7 @@ A **conformance fixture** is one case of one tool type: input files, the gesture
 - `steps` are the gestures, in order. A step has exactly one of `action` (with `args`, after `select`), `property`, `move`, `create`, `connect`, `delete`, `outside`, `undo` and `redo`, and states what it produces: `splices` (FBL `$defs/Splice`, UTF-8 byte offsets into the body before the step), the body's bytes after it (`expect` inline, or `expectFile`), `findings`, `drawing`, or `refused` with the reason the gesture was refused with. `ids` lists the ids the reference host generated in the step, in order; a runtime **MUST** be given them, in that order, in place of ids of its own, so that bytes can be equal.
 - A `create` step's `type` and a `connect` step's `type` name what the gesture is, as the tool's toolbox or its binding's wire form names it, or the element or relation type: a type alone cannot choose between tools that create one type. `at` is where a `create` lands. `args.value` answers a prompt the gesture raises; on an `action`, `args.at` is the canvas point it is made at. A `connect` to an end that does not exist yet carries that end as a `create` in the same step, the one exception to a step's having one gesture.
 - A step never carries a target string only one host understands. A gesture these steps cannot state is named when the case is recorded, and either ATD gains a step for it or the case leaves it out.
-- A `refused` reason is compared exactly, unless both sides are a host's own sentence that a gesture is not offered: `Unknown action '<id>'.`, `'<id>' does not apply to this selection.` and `That action is not available for this item.` count as one refusal, since no description wrote them.
+- A `refused` reason is compared exactly, unless the case's is a host's or a module's own sentence that a gesture is not offered: `Unknown action '<id>'.`, `'<id>' does not apply to this selection.`, `'<id>' cannot be edited on this selection.` and `That action is not available for this item.`, a closed set. Such a sentence says only that the tool refuses the step, and no description could have written it, so any reason given for refusing that step counts as the same refusal: the runtime's own sentence, or the description's own reason. A step one tool refuses and the other makes stays a difference, and a reason of the case's that is not one of these sentences is compared exactly.
 - A `move` step moves `element` to a place, `x` and `y`, by a distance from where it is drawn, `dx` and `dy`, or into `parent`: before the child at `index` there, counted among the parent's children as they are before the move, the element itself included, or after the last when `index` is -1 or absent, as the reference host's gesture placed it.
 - An `outside` step writes a file of the case as another program or an agent would, replacing the first occurrence of `from` in `file` by `to`, and tells the host the file changed, as its watcher does; the history starts afresh with it, so no step before it can be undone, and a refused step leaves the bytes as they were. A designer's gesture on its page is an `action` naming the operation, with the entry it is made on in `select` and the operation's parameters in `args`.
 - An `undo` **MUST** give back the bytes before the step it undoes exactly, and a `redo` the bytes after it.
@@ -216,13 +216,15 @@ The terminals of the grammar, and of every grammar a binding carries (section 11
 
 ### 3.6 The lexing rule and soft keywords
 
-The lexer is **contextual**. At each position, the candidates are the terminals the parser's current state can shift, with the ignored ones (whitespace and comments); among the candidates that match:
+The lexer is **contextual**, and its rule is the rule of Lark's contextual lexer (Lark 1.3.1), so that a host that reads a grammar with Lark or with a port of it reads the same tokens as every other implementation (Peter's ruling of 2026-11-01). At each position, the candidates are the terminals the parser's current state can shift, with the ignored ones (whitespace and comments); among them:
 
-1. the longest match wins;
-2. of matches of the same length, the terminal of the higher priority (no terminal of ATD 0.1 states one, so all are of priority 0);
-3. of those, a string terminal wins over a pattern terminal.
+1. **A keyword is read by the pattern that spells it.** A string terminal is a keyword of a pattern terminal among the candidates when the two have the same priority and the pattern's match of the string's text, at its start, is the whole text. The keyword is not tried on its own by rule 2, unless it has the flag `i` and the pattern does not.
+2. **The first that matches wins.** The candidates rule 1 leaves are tried in this order, and the first whose expression matches at the position gives the token, with the text that match takes: the higher priority first (a terminal that states none is of priority 0); then the greater width, the length of the longest text the terminal can match, a terminal that matches text of any length before every one that does not; then the longer expression, a string terminal's text or the text of the regular expression a pattern terminal compiles to; then the name, in code-point order.
+3. **A pattern's token spelled as its keyword is the keyword.** When the token is a pattern terminal's and its whole text is the text of one of that pattern's keywords, exactly or, for a keyword with `i`, in any case of its ASCII letters, the token is that keyword's, the first such keyword in the order of rule 2.
 
-**Keywords are soft** (FR-008). A keyword is a string terminal that spells a name. By rule 3 it wins over `NAME` only where the state can shift it; elsewhere the same word is a `NAME`. Where the grammar expects a name, it expects the rule `name`, which admits `NAME` and every keyword (Appendix B), so a keyword can always stand as a name. A setting's key and an assignment's target are tokens of their own (`KEY`, `ASSIGN`), so any word, keywords included, can be a key or a local variable. The names of a binding and of its rules, blocks, sections and file rules are FBL's (FBL §2.2), which admit `-` and `.`: where a binding declares or names one, the grammar expects the rule `rule_name`, a `name` or a `DASHED_WORD`, or several joined by `.` (`unreadable-requirement`, `by-id.v2`). `atd-grammar.py --probe` puts every keyword in the place of every name of the examples and checks that the parser reads it as that name.
+This is not the longest match *(informative)*: a terminal of a higher priority wins with a shorter match, and of two patterns of one priority the one rule 2 tries first wins even where the other would match more. A keyword that must yield to a longer word is written as a string at the priority of the pattern that reads the word, with `i` where the format reads keywords in any case (section 4.1): beside `WORD`, `_GROUP: "group"i` reads `grouped` as one `WORD` and `Group` as the keyword where the state can shift it, while a pattern at a priority above the word's, `_GROUP.2: /[Gg][Rr][Oo][Uu][Pp]/`, takes the first five letters of `grouped` and leaves `ed`. The grammars of `definitions/diagrams/structurizr.lark` and `wardley-map.lark` write their keywords so.
+
+**Keywords are soft** (FR-008). A keyword is a string terminal that spells a name. No terminal of ATD 0.1's own grammar states a priority, so every keyword is a keyword of `NAME` by rule 1: a word is read as a `NAME`, and is the keyword by rule 3 only where it is spelled as one and the state can shift the keyword; elsewhere the same word is a `NAME`. Where the grammar expects a name, it expects the rule `name`, which admits `NAME` and every keyword (Appendix B), so a keyword can always stand as a name. A setting's key and an assignment's target are tokens of their own (`KEY`, `ASSIGN`), so any word, keywords included, can be a key or a local variable. The names of a binding and of its rules, blocks, sections and file rules are FBL's (FBL §2.2), which admit `-` and `.`: where a binding declares or names one, the grammar expects the rule `rule_name`, a `name` or a `DASHED_WORD`, or several joined by `.` (`unreadable-requirement`, `by-id.v2`). `atd-grammar.py --probe` puts every keyword in the place of every name of the examples and checks that the parser reads it as that name.
 
 **CEL's reserved words** (`as`, `break`, `const`, `continue`, `else`, `false`, `for`, `function`, `if`, `import`, `in`, `let`, `loop`, `namespace`, `null`, `package`, `return`, `true`, `var`, `void`, `while`) stay reserved inside CEL, as CEL requires: the rule `word`, which CEL's identifiers use, lists every keyword but those, and the checker refuses one of them used as an identifier in an expression (`ATD4003`). Outside CEL they are names like any other keyword; `true`, `false` and `null` are not keywords of ATD at all, but bare words, which section 6.6 reads as JSON's literals.
 
@@ -242,7 +244,8 @@ ATD's grammar is written in **ATD grammar notation**, a subset of the grammar la
 | `?rule` (inlined when it has one child), `_rule` and `_TERMINAL` (filtered from the tree) | rule priorities `rule.2` |
 | `x?`, `x*`, `x+`, `[x]`, `( … )` | `%declare`, `%override`, `%extend` |
 | an alias `-> name` | `%import` of anything outside the language's modules (in a binding, outside the binding's own files beside it) |
-| a terminal priority `TERMINAL.2` | the flags of strings and regular expressions (`"x"i`, `/x/i`) |
+| a terminal priority `TERMINAL.2` | the flags of regular expressions (`/x/i`), and every flag of a string but `i` |
+| a string matched in any case of its ASCII letters, `"x"i`, whose text is ASCII (section 3.6) | |
 | `%ignore TERMINAL` | terminals outside the subset of section 3.5 |
 | `%import .module (names)` | keep-all-tokens rules `!rule`, ranges `"a".."z"`, repetitions `x ~ 3` |
 
@@ -252,7 +255,7 @@ Rule names are lowercase, terminal names uppercase. Comments are `//` to the end
 
 - A rule's expansions are its alternatives; an expansion is a sequence of items; an item is a rule, a terminal, an anonymous string (a terminal whose pattern is that string), an anonymous regular expression, or a group.
 - `x?` and `[x]` are `x` or nothing; `x*` is any number of `x`; `x+` one or more; `( … )` groups alternatives.
-- A terminal is a string, a regular expression, or a sequence and choice of other terminals; it matches as section 3.6 says.
+- A terminal is a string, a string with `i`, which matches its text in any case of its ASCII letters, a regular expression, or a sequence and choice of other terminals; it matches as section 3.6 says. In `grammar/notation.lark` a string and its `i` are one token, `GRAMMAR_STRING`, so that the flag is never read as a reference to a rule `i`.
 - `%ignore T` makes `T` a candidate in every state and drops what it matches.
 
 ### 4.3 Modules and imports
@@ -287,7 +290,7 @@ A conforming parser need not build Lark's tree; ATD's own tree is the abstract t
 
 ### 4.7 Parse tables
 
-`grammar/atd.tables.json` (`$defs/ParseTables`) is the LALR(1) automaton of the grammar, normalized so that two implementations can be compared byte for byte: terminals by name, an anonymous string terminal named by its quoted string; the rules after section 4.4, sorted and numbered, the rule `H` of a repetition named `(<alternatives>)+`, its expansions that do not start with `H`, sorted and joined with ` | `; and the states numbered breadth first from the start state, visiting the shifted symbols in sorted order, each with its actions on terminals (`s<state>`, `r<rule>`, `accept`) and its gotos. `atd-grammar.py --tables` writes it from Lark; `atd tables` writes it from another implementation. The grammar builds with no shift/reduce and no reduce/reduce conflict, and no two terminals a state accepts match the same text (FR-002, SC-001).
+`grammar/atd.tables.json` (`$defs/ParseTables`) is the LALR(1) automaton of the grammar, normalized so that two implementations can be compared byte for byte: terminals by name, an anonymous string terminal named by its quoted string, a string with `i` carrying `"flags": "i"`; the rules after section 4.4, sorted and numbered, the rule `H` of a repetition named `(<alternatives>)+`, its expansions that do not start with `H`, sorted and joined with ` | `; and the states numbered breadth first from the start state, visiting the shifted symbols in sorted order, each with its actions on terminals (`s<state>`, `r<rule>`, `accept`) and its gotos. `atd-grammar.py --tables` writes it from Lark; `atd tables` writes it from another implementation. The grammar builds with no shift/reduce and no reduce/reduce conflict, and no two pattern terminals of one priority that a state accepts match the same text (FR-002, SC-001); a keyword and the pattern that spells it are rule 1 of section 3.6, not such a pair.
 
 ---
 
@@ -615,7 +618,7 @@ The text's model is the description's model: its element types are what the edit
 
 ## 11. Bindings
 
-A binding (`grammar/binding.lark`) is an FBL 0.15 binding written as text (FBL §3 to §13): every property of FBL's `Binding` has its ATD form in Appendix C. Its meaning, reading and writing are FBL's, unchanged.
+A binding (`grammar/binding.lark`) is an FBL 0.16 binding written as text (FBL §3 to §13): every property of FBL's `Binding` has its ATD form in Appendix C. Its meaning, reading and writing are FBL's, unchanged.
 
 ### 11.1 The binding
 
@@ -651,7 +654,7 @@ A **slot** is `<kind> [<argument>]`: `key "<key>"`, `attribute "<name>"`, `text`
 
 ### 11.5 Inserting and removing
 
-`insert { … }` and `remove { … }` are FBL's `Insert` and `Remove` (FBL §6.2), as settings: `place`, `container`, `emit`, `keys`, `create`, `skeleton`, `constant`, *(FBL 0.10)* `refusals` (`when`, `container`, *(FBL 0.14)* `key`, `duplicate`), `cascade`. *(FBL 0.14)* In the `yaml` and `json` families, the `insert` of a rule whose `at` ends in a capture adds a member to a mapping under the key the add gives the attribute bound to that capture (FBL §6.2); ATD writes it with no setting of its own.
+`insert { … }` and `remove { … }` are FBL's `Insert` and `Remove` (FBL §6.2), as settings: `place`, `container`, `emit`, `keys`, `create`, `skeleton`, `constant`, *(FBL 0.10)* `refusals` (`when`, `container`, *(FBL 0.14)* `key`, `duplicate`), `cascade`. *(FBL 0.14)* In the `yaml` and `json` families, the `insert` of a rule whose `at` ends in a capture adds a member to a mapping under the key the add gives the attribute bound to that capture (FBL §6.2); ATD writes it with no setting of its own. *(FBL 0.16)* In the `grammar` family, `insert` takes `continues: { at: "<selector>", same: { <attribute>: <slot> }, separator: "<text>", emit: "<text>" }` and `remove` takes `parts: [{ item: "<selector>", separator: "<text>" }, …]` and `whole: "<selector>"` (FBL §6.2, §6.3).
 
 ### 11.6 Registration and template
 
@@ -678,6 +681,7 @@ FBL's guarantees hold for every binding in ATD (FBL §1.4, §6, §7): reading ne
 - *(FBL 0.11)* A rule's `opens` is, in this family, a settings map, `opens: { open: " {", close: "}" }`, the text of a block written around a first child (FBL §4.9); and `selectedView: true` reads the rule for the selected view only (FBL §4.9, *Views*, §9.3).
 - *(FBL 0.12)* An attribute binding's slot takes, in this family, `items: { <attribute>: <slot>, … }`, a slot per item attribute relative to each node the slot reaches, and `separator: "<text>"`, so that a `many` attribute is a list of structured values (FBL §5.2, §6.3): `attribute positions from node "positions/position" { items: { visibility: { node: "visibility" }, maturity: { node: "maturity" } }, separator: "," }`.
 - *(FBL 0.15)* A slot's selector may reach up and across with `..` and `+`; an attribute binding takes `or: [<slots>]`, further slots of which the first present is the value; and a slot takes `expand: true` or `expand: { keywords: { … } }`, `ordinal: <numbering>` and `name: true`, and its `escape` takes `sequences`, `unicode`, `writes` and `requote` (FBL §4.9, §5.2, §6.3). A value is read in Turtle's terms with them, as `w3c-turtle.lark` shows.
+- *(FBL 0.16)* An `insert`'s `continues` writes a new entry into the last statement of the same subject, replacing its last token (`replace-separator`), and a `remove`'s `parts` and `whole` take a part of a list with its separator and the whole statement when it is the last (FBL §4.9, §6.2, §6.3, section 11.5): `insert { place: end-of-document, emit: "\n{s} {p} {o} .", continues: { at: "/triples_statement", same: { s: { node: "triples/subject/iri", expand: true } }, separator: ";", emit: "{p} {o} ." } }` and `remove { parts: [{ item: ".", separator: "," }, { item: "../..", separator: ";" }], whole: "../../../../.." }`.
 - *(FBL 0.13)* An attribute binding's slot takes, in this family, `split: "<text>"`, the text at which the value of each node it reaches is cut into the items of a `many` attribute, each without the white space around it, and a set of them is written into the node by splices (FBL §4.9, §5.2, §6.3): `attribute tags from node "tags" { split: ",", readOnly: true }` reads `"Extra, More"` as the two tags `Extra` and `More`.
 - *(FBL 0.11)* A block rule of this family is `block <name> { … }` with the settings `at`, the selector of the view's node, `view`, its key from a slot, `origins`, the readings that show it, and `insert`, how a view block is added (FBL §5.1, §4.9, *Views*); it has no `line`.
 - A rule's `at "<selector>"` selects nodes of the tree by their names (`at "/triples_statement"`), and a slot `node "<selector>"` reads the text of the node or token its relative selector reaches, with the setting `match` when only part of the text is the value (`attribute name from node "PNAME_NS" { match: r"(?<value>[^:]*):" }`); FBL §4.9 and §5.2 define both.
@@ -1098,7 +1102,9 @@ An agent writing a description is given `grammar/atd.flat.lark`, with which a mo
 - **0.1, amendment of 2026-10-29, FBL 0.12** (spec 066, pull request C, for the Wardley map conversion): FBL 0.12's constructs of the `grammar` family, as settings and with no change under `grammar/` but the tables of `wardley-map.lark` (§11.9): a slot's and an attribute binding's `items` and `separator`, a sidecar id's `kind` and `ordinal`, and `legacyIdentities` read as the array the tool writes (§11.6, §11.9); C.3 is FBL 0.12's, with a row for each new property. Every description that checked before still checks, with the same meaning.
 - **0.1, amendment of 2026-10-30, FBL 0.13** (spec 066, gap 16 of the C4 conversions, by the maintainer's ruling of 2026-10-30): FBL 0.13's `split` of a slot and of an attribute binding of the `grammar` family, as a setting and with no change under `grammar/` (§11.3, §11.9); C.3 is FBL 0.13's, with a row for each. A setting is checked against FBL's `$defs` (§14.6), so a description gains it with the schema. Every description that checked before still checks, with the same meaning.
 - **0.1, amendment of 2026-10-30, FBL 0.14** (spec 066, databricks-disl-fbl task 12, written to the recommended answer of the maintainer's pending card): FBL 0.14's member insert of the `yaml` and `json` families, which needs no setting of its own, and the sentences `key` and `duplicate` of an insert's `refusals`, as settings and with no change under `grammar/` (§11.5); C.3 is FBL 0.14's, its count unchanged, since `refusals` gains keys and no property. Every description that checked before still checks, with the same meaning.
+- **0.1, amendment of 2026-11-01, FBL 0.16** (spec 067, by Peter's ruling of 2026-11-01): FBL 0.16's writes of the `grammar` family, as settings and with no change under `grammar/`: an insert's `continues`, a remove's `parts` and `whole` (§11.5, §11.9), the operation `replace-separator`; C.3 is FBL 0.16's, with a row for each new property. Every description that checked before still checks, with the same meaning. With it §2.3's comparison of a refusal widens (spec 067, FR-011): a description's own reason counts as the case's sentence that a gesture is not offered, and `'<id>' cannot be edited on this selection.` is one of those sentences.
 - **0.1, amendment of 2026-10-31, FBL 0.15** (spec 067, T036, for Turtle): FBL 0.15's constructs of the `grammar` family, as settings and with no change under `grammar/` but the tables of `w3c-turtle.lark` (§11.9): `body`'s `prefixes`, `ordinals` and `order`, a slot's and an attribute binding's `expand`, `ordinal` and `name`, an attribute binding's `or`, and `..` and `+` in a slot's selector (§11.3, §11.9); C.3 is FBL 0.15's, with a row for each new property. Every description that checked before still checks, with the same meaning.
+- **0.1, amendment of 2026-11-01, the lexing rule** (by Peter's ruling of 2026-11-01, the decision card "Change ATD"): the lexing rule of §3.6 is Lark's contextual lexer's, which reads a keyword by the pattern that spells it and tries the rest by priority before width, in place of the longest match, which no host that reads with Lark or EtAlii.Lark gave; ATD grammar notation admits a string's flag `i`, matched in any case of its ASCII letters (§4.1, §4.2), which `grammar/notation.lark` reads with the string as one token, `GRAMMAR_STRING`, in place of `STRING` in `grammar_atom`; a parse table's terminal carries `flags` (§4.7, `$defs/ParseTables`); and the collision §4.7 refuses is one of two pattern terminals of one priority. FBL §2.6, which restated the rule, points to it. `structurizr.lark` and `wardley-map.lark` write their keywords as strings with `i` at the priority of the word they stand in place of, in place of case-insensitive patterns at a raised priority, so that a word that starts with a keyword (`grouped`, `title Pipelines`, `inertial`) is read as a word, as the earlier rule read it; every fixture of theirs reads as it did, and `specifications/fbl/fixtures/structurizr-keyword-prefixes/` shows the identifiers. ATD's own grammar states no priority, so every description reads, checks and means what it did.
 
 
 ---
@@ -3154,14 +3160,14 @@ Every property of DISL 0.6, DESL 0.2 and FBL 0.8, by the JSON pointer of its sch
 | `desl.schema.json#/$defs/CelValue/properties/resultType` | the key `resultType` in a value of CelValue (a settings map, §6.4) | §6.4 |
 | `desl.schema.json#/$defs/CelValue/properties/doc` | the key `doc` in a value of CelValue (a settings map, §6.4) | §6.4 |
 
-### C.3 FBL 0.15
+### C.3 FBL 0.16
 
-251 properties.
+254 properties.
 
 | JSON pointer | ATD | Section |
 |---|---|---|
 | `fbl.schema.json#/$defs/Document/properties/$schema` | none | §11.1 |
-| `fbl.schema.json#/$defs/Document/properties/fbl` | the header `atd <version>` (§5.1); a binding is FBL 0.15's in ATD 0.1 | §11.1 |
+| `fbl.schema.json#/$defs/Document/properties/fbl` | the header `atd <version>` (§5.1); a binding is FBL 0.16's in ATD 0.1 | §11.1 |
 | `fbl.schema.json#/$defs/Document/properties/doc` | `doc` and `///` | §11.1 |
 | `fbl.schema.json#/$defs/Document/properties/bindings` | `binding` | §11.1 |
 | `fbl.schema.json#/$defs/Binding/properties/title` | `label` | §11.1 |
@@ -3349,8 +3355,11 @@ Every property of DISL 0.6, DESL 0.2 and FBL 0.8, by the JSON pointer of its sch
 | `fbl.schema.json#/$defs/Insert/properties/constant` | the setting `constant` of `insert` | §11.5 |
 | `fbl.schema.json#/$defs/Insert/properties/skeleton` | the setting `skeleton` of `insert` | §11.5 |
 | `fbl.schema.json#/$defs/Insert/properties/when` | the setting `when` of `insert` | §11.5 |
+| `fbl.schema.json#/$defs/Insert/properties/continues` | *(FBL 0.16)* the setting `continues` of `insert` | §11.5, §11.9 |
 | `fbl.schema.json#/$defs/Insert/properties/refusals` | *(FBL 0.10)* the setting `refusals` of `insert` (`when`, `container`; *(FBL 0.14)* `key`, `duplicate`) | §11.5 |
 | `fbl.schema.json#/$defs/Remove/properties/cascade` | the setting `cascade` of `remove` | §11.5 |
+| `fbl.schema.json#/$defs/Remove/properties/parts` | *(FBL 0.16)* the setting `parts` of `remove` | §11.5, §11.9 |
+| `fbl.schema.json#/$defs/Remove/properties/whole` | *(FBL 0.16)* the setting `whole` of `remove` | §11.5, §11.9 |
 | `fbl.schema.json#/$defs/Remove/properties/container` | the setting `container` of `remove` | §11.5 |
 | `fbl.schema.json#/$defs/RegistrationSettings/properties/headers` | the setting `headers` of `registration` | §11.6 |
 | `fbl.schema.json#/$defs/RegistrationSettings/properties/blocks` | the setting `blocks` of `registration` | §11.6 |

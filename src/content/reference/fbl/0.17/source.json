@@ -1,0 +1,173 @@
+{
+  "language": "fbl",
+  "version": "0.17",
+  "status": "Draft",
+  "date": "2026-11-01",
+  "source": {
+    "kind": "git",
+    "repository": "etalii-adp/etalii.adp",
+    "path": "specifications/fbl",
+    "revision": "c6fd2ffbe3df8c16dceb949846573c110d5da24c",
+    "licence": "Apache-2.0",
+    "copyright": "Copyright © Peter Vrenken 2026"
+  },
+  "files": [
+    {
+      "name": "ansible-structure.fbl",
+      "role": "document",
+      "sha256": "80ece355648d1dc66bf879b217ae7258061d2a5d9a0e330d43774939d6f576c1",
+      "size": 2293
+    },
+    {
+      "name": "azure-devops-pipeline.fbl.draft",
+      "role": "other",
+      "sha256": "027da0587928d171355ccf1908f264ec5b8f613dd2c976760a3753a6106b1bf1",
+      "size": 11738
+    },
+    {
+      "name": "behavior-tree.fbl",
+      "role": "document",
+      "sha256": "5b637dda5ea36acd59ff345017974b81527cdfd3143628ecf505ec66da1e9f6f",
+      "size": 16742
+    },
+    {
+      "name": "causal-loop-diagram.fbl",
+      "role": "document",
+      "sha256": "195768ebde4e419d82d3aa93f8abe26657158590d646460cb854b7c07ae15b27",
+      "size": 9058
+    },
+    {
+      "name": "databricks-job.fbl",
+      "role": "document",
+      "sha256": "aa9cd05009b738075b7091cc839c2e55111140b7e3906774edb20b701c78583f",
+      "size": 4161
+    },
+    {
+      "name": "databricks-pipeline.fbl",
+      "role": "document",
+      "sha256": "74aaa24e915020f978f0525ff1141b7ae1bd331cc8bd542e33e10d01e1c65445",
+      "size": 3112
+    },
+    {
+      "name": "databricks.fbl",
+      "role": "document",
+      "sha256": "736c94c94ca587282dd377590bb26bfb8e82c356dc33692c65d6489b351a294d",
+      "size": 14843
+    },
+    {
+      "name": "dependency-graph.fbl",
+      "role": "document",
+      "sha256": "2e19421afc8866c54c0a06ab23581f47dc4227f9fefc0561f544ea4ea72c85ef",
+      "size": 3485
+    },
+    {
+      "name": "dotnet-dependency-graph.fbl",
+      "role": "document",
+      "sha256": "ff308e35bad8ba43c52383afb1bf517d3f66549c5c829b8b1c2bdbf2a650b4ea",
+      "size": 1646
+    },
+    {
+      "name": "FBL-specification.md",
+      "role": "prose",
+      "sha256": "39bdc586952f17fad30bac0a80c80e6a0c83ffa3aaafa457104ad76568d493f5",
+      "size": 205879
+    },
+    {
+      "name": "fbl.schema.json",
+      "role": "schema",
+      "sha256": "d9f9f266240e5b9533a4e3c56c50c5bbeb14d42957db59177818c81f5e4466d1",
+      "size": 125253
+    },
+    {
+      "name": "helm-chart.fbl",
+      "role": "document",
+      "sha256": "48d78a4b871873f7073eb924b3ed8c8e3bccc1d188ac8e6cc2911f2bf06c0bc1",
+      "size": 2434
+    },
+    {
+      "name": "mindmap.fbl",
+      "role": "document",
+      "sha256": "e51769acede09a39b0906b00049f52fdb3e3b71137be5f96124347564c948950",
+      "size": 2601
+    },
+    {
+      "name": "sankey.fbl",
+      "role": "document",
+      "sha256": "020cab121b0bb67f90790f3a969aff820dcbb16eec7106dc9bd4bb1ebc0c566c",
+      "size": 4974
+    },
+    {
+      "name": "SPEC.md",
+      "role": "other",
+      "sha256": "5e7fb9825aad8af6645eecee29fa22f663f34ca607fbee1f10f9ac199a387caf",
+      "size": 933
+    },
+    {
+      "name": "structurizr.fbl",
+      "role": "document",
+      "sha256": "9c675d55540dba9475aefa5f3894f5e2ef7821d29208ce65109d77edbe99cc5c",
+      "size": 36612
+    },
+    {
+      "name": "structurizr.lark",
+      "role": "other",
+      "sha256": "d5e888baab5305f7fbb87c11714445a0752785aaa8b5367a72bb7e674600214e",
+      "size": 7888
+    },
+    {
+      "name": "supply-chain.fbl",
+      "role": "document",
+      "sha256": "061d3d8bad83b3c3a30e2c6760ef30c308f9908f9a1a91e84b2d18a6e26e62e4",
+      "size": 6874
+    },
+    {
+      "name": "timeline.fbl",
+      "role": "document",
+      "sha256": "89ccc4142a0b6ecb329e9e2fee94f024fab4beb4b60990733d5b70e0a7eb884c",
+      "size": 3249
+    },
+    {
+      "name": "w3c-sparql-query.fbl",
+      "role": "document",
+      "sha256": "5c19f26681ffb7f4d3de2b59d8b73aa967c0a78e4684ccac79a612cd0bc75ee9",
+      "size": 1776
+    },
+    {
+      "name": "w3c-turtle-grammar.fbl",
+      "role": "document",
+      "sha256": "922d3391729034b73d6fc95a6cc42ad9d7a5875d6406bcc4efa40ffe5e79a208",
+      "size": 26884
+    },
+    {
+      "name": "w3c-turtle.fbl",
+      "role": "document",
+      "sha256": "c2041f9487296d9b8683e6ebf7c05b7ed7973c13ff6d9f66c1c42c67d356a30f",
+      "size": 3313
+    },
+    {
+      "name": "w3c-turtle.lark",
+      "role": "other",
+      "sha256": "d648dbaeb8ce8180c9b1d7f626b93d3aa2e8c2356b5c96e08bf6d26221b7043b",
+      "size": 3658
+    },
+    {
+      "name": "wardley-map.fbl",
+      "role": "document",
+      "sha256": "59e660185d7236994f343408b3772fe159406c745da821425fe07c648bd0263d",
+      "size": 23945
+    },
+    {
+      "name": "wardley-map.lark",
+      "role": "other",
+      "sha256": "d65c5470a70b39e202da332f2f2c06fd116a574fd2397667b04aeb2b5e80d530",
+      "size": 8442
+    },
+    {
+      "name": "work-board.fbl",
+      "role": "document",
+      "sha256": "92a2f4aff15e51fd418cbe6be51bb1f7616ab7a0e70d5b7245c83cd3e80ebbfd",
+      "size": 7304
+    }
+  ],
+  "retrieved": "2026-11-02T02:12:51Z"
+}
