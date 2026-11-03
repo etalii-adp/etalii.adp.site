@@ -7,7 +7,7 @@
     "kind": "git",
     "repository": "etalii-adp/etalii.adp",
     "path": "specifications/fbl",
-    "revision": "c6fd2ffbe3df8c16dceb949846573c110d5da24c",
+    "revision": "46e5f912338bca4e346830d29f1128c65ae50f31",
     "licence": "Apache-2.0",
     "copyright": "Copyright © Peter Vrenken 2026"
   },
@@ -105,8 +105,8 @@
     {
       "name": "structurizr.fbl",
       "role": "document",
-      "sha256": "9c675d55540dba9475aefa5f3894f5e2ef7821d29208ce65109d77edbe99cc5c",
-      "size": 36612
+      "sha256": "2da202fbe8bbb030c93456eeb6fd2dd05cc15ec864fd2772038398fe87aece71",
+      "size": 37206
     },
     {
       "name": "structurizr.lark",
@@ -153,8 +153,8 @@
     {
       "name": "wardley-map.fbl",
       "role": "document",
-      "sha256": "59e660185d7236994f343408b3772fe159406c745da821425fe07c648bd0263d",
-      "size": 23945
+      "sha256": "4ebfae25e8fd06db2623c5bbc8393d3844967318666c76bf12787ec643e2727c",
+      "size": 24469
     },
     {
       "name": "wardley-map.lark",
@@ -169,5 +169,5 @@
       "size": 7304
     }
   ],
-  "retrieved": "2026-11-02T02:12:51Z"
+  "retrieved": "2026-11-03T02:12:58Z"
 }
