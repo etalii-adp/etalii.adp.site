@@ -1,0 +1,59 @@
+{
+  "language": "desl",
+  "version": "0.3",
+  "status": "Draft",
+  "date": "2026-10-24",
+  "source": {
+    "kind": "git",
+    "repository": "etalii-adp/etalii.adp",
+    "path": "specifications/desl",
+    "revision": "c131c5256782b4e3b12f98f552fbafa4882c6a34",
+    "licence": "Apache-2.0",
+    "copyright": "Copyright © Peter Vrenken 2026"
+  },
+  "files": [
+    {
+      "name": "DESL-specification.md",
+      "role": "prose",
+      "sha256": "360d85a7ec599d9a5d1d9a8e68df5a7fe78016fd82694c7fcd1088e7ff5829bd",
+      "size": 71021
+    },
+    {
+      "name": "desl.schema.json",
+      "role": "schema",
+      "sha256": "9490aa525bb764976d5371745b65ea45f52c2788e0f2fd8f1c05c77f6b857c64",
+      "size": 52584
+    },
+    {
+      "name": "minimal-hierarchy.des",
+      "role": "definition",
+      "sha256": "57634dc433cc5e773d1cc05d3887a9315b406d202dc25ee55bb4fa37add454ee",
+      "size": 4659
+    },
+    {
+      "name": "minimal-hierarchy.fbl",
+      "role": "other",
+      "sha256": "e16eac68fa267d8660f28db851999261ccb6ed480cbef0ebd21632a2cdba6bf5",
+      "size": 4254
+    },
+    {
+      "name": "minimal-table.des",
+      "role": "definition",
+      "sha256": "e8a99366165e0b26c86ac7c93470128dd48922420effedd7a936642ce064cf77",
+      "size": 2507
+    },
+    {
+      "name": "minimal-table.fbl",
+      "role": "other",
+      "sha256": "338799c22ebb3a3b19577d1aa9807028eab56c11521ed7b77cbab34da7afa4e5",
+      "size": 2720
+    },
+    {
+      "name": "SPEC.md",
+      "role": "other",
+      "sha256": "3bbb831c0781dd22f68393972a93a858c82276f4bf35cc2db8b8a8bc1eb1f6d5",
+      "size": 777
+    }
+  ],
+  "retrieved": "2026-11-06T02:11:27Z"
+}
