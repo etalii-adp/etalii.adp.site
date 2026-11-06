@@ -16,7 +16,9 @@ export default defineConfig({
 				...devices['Desktop Chrome'],
 				// Every page loads the header's visitor counter (spec 001 FR-015); the checks must not add to the owner's
 				// count, so hitscounter.dev does not resolve in the test browser. The request is still made and checked.
-				launchOptions: { args: ['--host-resolver-rules=MAP hitscounter.dev ~NOTFOUND'] },
+				// The home page's build and statistics badges (github.com, img.shields.io) do not resolve either: a slow
+				// answer from them held its load event past the test timeout, and no check is about their pictures.
+				launchOptions: { args: ['--host-resolver-rules=MAP hitscounter.dev ~NOTFOUND, MAP github.com ~NOTFOUND, MAP img.shields.io ~NOTFOUND'] },
 			},
 		},
 	],
