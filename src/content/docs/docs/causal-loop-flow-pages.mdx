@@ -7,7 +7,7 @@ section: tools
 
 import { exampleExports } from '../../../data/example-exports';
 
-The desktop host exports a [causal loop diagram](/adp/tools/systems/causal-loop-diagram/) as one self-contained web page, from the **Export flow page** button on its ribbon. Influence flows along the links as dots, delays hold it, and a heatmap shows where it piles up. Each page below is that export of one example. It works offline, and nothing you change in it is written anywhere.
+The desktop host and the VS Code host export a [causal loop diagram](/adp/tools/systems/causal-loop-diagram/) as one self-contained web page: the desktop host from the **Export flow page** button on its ribbon, VS Code from **Export flow page** on the diagram's right-click menu, the Explorer, the editor tab or the ADP menu of the editor's title bar. Both write the same page. Influence flows along the links as dots, delays hold it, and a heatmap shows where it piles up. Each page below is that export of one example. It works offline, and nothing you change in it is written anywhere.
 
 <ul>
 	{exampleExports['systems/causal-loop-diagram'].map((example) => (
