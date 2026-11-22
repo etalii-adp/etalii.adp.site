@@ -46,9 +46,9 @@
   {
     "file": "knowledge.png",
     "origin": "etalii/knowledge",
-    "expectation": "The Cities table in its All cities view, with the Map view's tab beside it, the sort, filter and column chips above, the rows grouped by country with Netherlands unfolded, tags and the province relation as chips; ADP Toolbox empty, since a table offers nothing to place; a cell of one row selected, with that row's fields in ADP Properties. A table has no drawing to centre.",
+    "expectation": "The Cities table in its All cities view, with the Map view's tab and the `+` beside it, the rows grouped by country with Netherlands unfolded, tags as rounded chips in their colours and the province relation as a link by its title, a `+ New` line under each group; ADP Toolbox empty, since a table offers nothing to place; a cell of one row selected, so the bar of the rows selected stands on its own line under the sort and filter, above the headers, with that row's fields in ADP Properties. A table has no drawing to centre.",
     "document": "`knowledge/` → `cities.yaml`",
-    "bytes": 59495,
+    "bytes": 80834,
     "width": 1600,
     "height": 900,
     "budgetBytes": 307200,

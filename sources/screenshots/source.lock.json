@@ -1,12 +1,12 @@
 {
   "procedure": "refresh-screenshots",
-  "refreshedAt": "2026-11-10T02:14:35.952Z",
+  "refreshedAt": "2026-11-22T16:22:27.390Z",
   "sourceHeads": {
     "etalii-adp/etalii.adp.ide.eclipse": "59d855d9f4cd390659fe52746ed29d48309b285f",
     "etalii-adp/etalii.adp.ide.intellij": "4b2c7f3e3206dfada1a5952d17414f45c9106b40",
     "etalii-adp/etalii.adp.ide.notion": "dfadec399f7b91f698b2e2104c43613043d04147",
     "etalii-adp/etalii.adp.ide.standalone": "6da7f5a6c5a83e76edbcbc1d8f82d2db656b83e9",
-    "etalii-adp/etalii.adp.ide.vscode": "905e8a6c1b39be705760420e872a4e3c79926216"
+    "etalii-adp/etalii.adp.ide.vscode": "4806fbb36c90fb8247d5d6b14b298868c9a247ae"
   },
   "releases": {
     "etalii-adp/etalii.adp.ide.eclipse": null,
@@ -495,9 +495,9 @@
       "path": "vscode/knowledge.png",
       "repository": "etalii-adp/etalii.adp.ide.vscode",
       "sourcePath": "docs/screenshots/knowledge.png",
-      "commit": "683d9b05c50ae6d7edb1fecff285d42eab46dc92",
-      "gitBlob": "2e3457ef26b3a71ccbdfc421e49eb7ee5a00a41f",
-      "sha256": "221c8e031bd52196c64f79a86db110df3e2169021224ee4af65954f049fc3e79",
+      "commit": "62279bbe1940d1d2bad24acc6e377fd800ed44d6",
+      "gitBlob": "3546aa17e0edc26244d4edd220a66c49e0790816",
+      "sha256": "3e1e8b23ede2f7edb7987513e1ae8e2f92e7321fddf345f4bdf0bcafb0631419",
       "licence": "Apache-2.0"
     },
     {
@@ -544,8 +544,8 @@
     {
       "repository": "etalii-adp/etalii.adp.ide.vscode",
       "sourcePath": "docs/screenshots/readme.md",
-      "commit": "96e207c70932d4fee325eb18b28402f3e0e6b58e",
-      "gitBlob": "7978ab69053c2a8f66214fc107390b325c9110c2"
+      "commit": "d3e478f975ca16a7c281cec906c3c0a11e3ce1eb",
+      "gitBlob": "f723377b9971a769e47f854b5ea219de69b2c735"
     },
     {
       "repository": "etalii-adp/etalii.adp.ide.vscode",
@@ -569,7 +569,7 @@
     },
     {
       "path": "vscode/screenshots.json",
-      "sha256": "db8826156fd64856ab0e58839ba259f380bdbf96d8c1923102ba418b530272b9"
+      "sha256": "69c6b40d10a0c07383db9abc8e1e30657459b120ef04fb65aeadb923b1b3548d"
     }
   ],
   "withdrawn": []
