@@ -137,6 +137,31 @@
     ]
   },
   {
+    "origin": "systems/causal-loop-diagram",
+    "name": "Causal loop diagram",
+    "kind": "diagram",
+    "group": "Knowledge and informal modelling",
+    "developState": "Prototype",
+    "releaseState": null,
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "Causal loop diagram (Wikipedia)",
+        "href": "https://en.wikipedia.org/wiki/Causal_loop_diagram"
+      }
+    ],
+    "example": [
+      {
+        "label": "definition",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/diagrams/causal-loop-diagram.md"
+      },
+      {
+        "label": "six example diagrams",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/tree/develop/examples/causal-loop-diagram"
+      }
+    ]
+  },
+  {
     "origin": "gartner/hypecycle-graph",
     "name": "Gartner hype cycle graph",
     "kind": "diagram",
