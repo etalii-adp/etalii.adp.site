@@ -103,6 +103,9 @@ jobs:
       - name: npm run refresh -- ${{ matrix.procedure }}
         env:
           GH_TOKEN: ${{ steps.app.outputs.token || secrets.REFRESH_TOKEN }}
+          # Verify's page checks on every core rather than Playwright's default half: delivery after Verify still uses the
+          # App token above, which expires an hour after it is made (the 401s of 9 and 10 November).
+          PAGE_CHECK_WORKERS: '100%'
           # Only the catalogue and screenshot procedures (alone or in "all") read Notion (spec 003 research D9); never build.yml or deploy.yml.
           NOTION_TOKEN: ${{ contains(fromJSON('["all", "catalogue", "screenshots"]'), matrix.procedure) && secrets.NOTION_TOKEN || '' }}
         run: |
