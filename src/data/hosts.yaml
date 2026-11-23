@@ -91,15 +91,15 @@
 - id: notion
   name: Notion
   summary: Notion add-ons, web pages that each show one ADP tool inside a Notion page.
-  state: in-progress
+  state: available
   link: https://etalii.net/adp-notion/
   linkLabel: The Notion add-ons
   illustration: ../assets/illustrations/host-notion.svg
   source:
     repository: etalii-adp/etalii.adp.ide.notion
     path: README.md
-    revision: 8f4671fc8487c0e0a346253aafb6f2f124f718c4
-    taken: 2026-10-08
+    revision: dfadec399f7b91f698b2e2104c43613043d04147
+    taken: 2026-11-23
     method: manual
     licence: Apache-2.0
 
