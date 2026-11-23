@@ -24,6 +24,14 @@ export default defineConfig({
 			favicon: '/favicon.svg',
 			pagefind: false,
 			pagination: false,
+			// One sharing card for every page, so a link posted anywhere shows the mark and the tagline.
+			head: [
+				{ tag: 'meta', attrs: { property: 'og:image', content: 'https://etalii.net/adp/og-image.png' } },
+				{ tag: 'meta', attrs: { property: 'og:image:width', content: '1200' } },
+				{ tag: 'meta', attrs: { property: 'og:image:height', content: '630' } },
+				{ tag: 'meta', attrs: { property: 'og:image:alt', content: 'ADP, A Different Perspective: specialized diagrams, designers and editors' } },
+				{ tag: 'meta', attrs: { name: 'twitter:image', content: 'https://etalii.net/adp/og-image.png' } },
+			],
 			customCss: ['./src/styles/theme.css', './src/styles/reference.css', './src/styles/article.css'],
 			sidebar,
 			components: {
