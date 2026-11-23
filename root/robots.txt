@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://etalii.net/adp/sitemap-index.xml
