@@ -55,7 +55,8 @@
     "agent-activity-diagram.png": "etalii/agent-activity-diagram",
     "knowledge.png": "etalii/knowledge",
     "mindmap.png": "freeplane/mindmap",
-    "hierarchical-requirement.png": "etalii/hierarchical-requirement"
+    "hierarchical-requirement.png": "etalii/hierarchical-requirement",
+    "causal-loop.png": "systems/causal-loop-diagram"
   },
   "eclipse": {},
   "notion": {

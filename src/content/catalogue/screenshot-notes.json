@@ -157,5 +157,8 @@
   },
   "vscode--mindmap": {
     "whyItMatters": "A FreeMind map opens inside VS Code with its root in the middle and its branches to both sides, and the selected node's text, notes and link in ADP Properties, so a map kept beside the code is read and edited without leaving the editor."
+  },
+  "vscode--causal-loop": {
+    "whyItMatters": "A causal loop diagram kept in a plain .cld text file opens inside VS Code: its variables joined by links that show their polarity and delays, and each claimed loop marked reinforcing or balancing from the signs on its own links, while every change is written back to the file."
   }
 }
