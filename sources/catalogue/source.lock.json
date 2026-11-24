@@ -1,20 +1,23 @@
 {
   "procedure": "refresh-catalogue",
-  "refreshedAt": "2026-11-22T22:30:31.990Z",
+  "refreshedAt": "2026-11-24T03:11:03.410Z",
   "sourceHeads": {
     "etalii-adp/etalii.adp.ide.eclipse": "59d855d9f4cd390659fe52746ed29d48309b285f",
     "etalii-adp/etalii.adp.ide.intellij": "4b2c7f3e3206dfada1a5952d17414f45c9106b40",
-    "etalii-adp/etalii.adp.ide.standalone": "3178d9e37ca1b28623496cfd7e9a091c266b2763",
-    "etalii-adp/etalii.adp.ide.vscode": "6a6f26a6ee89d45d918c2be10cdc3d838eacee85"
+    "etalii-adp/etalii.adp.ide.standalone": "fc564ed080ab46997c887be7fbe629a19cbdb8b2",
+    "etalii-adp/etalii.adp.ide.vscode": "f7394921cd40a1ec28f34561413c04ae0f6674e1"
   },
   "releases": {
     "etalii-adp/etalii.adp.ide.eclipse": null,
     "etalii-adp/etalii.adp.ide.intellij": null,
     "etalii-adp/etalii.adp.ide.standalone": {
-      "tag": "v0.1.3858-alpha",
-      "commit": "3178d9e37ca1b28623496cfd7e9a091c266b2763"
+      "tag": "v0.1.3870-alpha",
+      "commit": "fc564ed080ab46997c887be7fbe629a19cbdb8b2"
     },
-    "etalii-adp/etalii.adp.ide.vscode": null
+    "etalii-adp/etalii.adp.ide.vscode": {
+      "tag": "v0.1.2",
+      "commit": "88de4a28ea38b2a0c60667dd9ef6a271d1fdd48c"
+    }
   },
   "config": {
     "procedures/config/states.json": "d30bec77756dbf5449d20c4d0537be0098b3f5e6ab6f6e0f109be37c366b7d27"
@@ -33,18 +36,18 @@
       "path": "standalone/tools.md",
       "repository": "etalii-adp/etalii.adp.ide.standalone",
       "sourcePath": "docs/tools.md",
-      "commit": "736fc0ddce631f0d70ffddf03c5400e2820d7f43",
-      "gitBlob": "b1b2d9fa5fe3f2ef4b0321e0dc07261cc24637e4",
-      "sha256": "5b9cc3796b1d4cb1484edadcdbd6b33a726af2cb3b51fa902f0a0bd29c058b98",
+      "commit": "3b91dbdd6688bc1091da4975e21b26949e107259",
+      "gitBlob": "24233e91789c7a267e9c1ac7930bc6d08a520238",
+      "sha256": "b9afd4529d7be55f916bbad212cc7ece8c8dc6632fe4288fa409061e239eb9a1",
       "licence": "Apache-2.0"
     },
     {
       "path": "vscode/tools.md",
       "repository": "etalii-adp/etalii.adp.ide.vscode",
       "sourcePath": "docs/tools.md",
-      "commit": "9277c0063c61a5bec2cab478ff49b7203c4e6cec",
-      "gitBlob": "c1cf4c5c68cd2ae7277aee614e3ef1acac56dce7",
-      "sha256": "40a21f6e080271bd16f3de0bb22eab0049f46eb784bf818a01d01d34dfe5a5a6",
+      "commit": "2acbb104e7895e3ca7028520b8701078febb01d6",
+      "gitBlob": "bc6335e76aad35946ea9226617ceffb6fd316354",
+      "sha256": "e18e7267be09383321e3f85e6d744dedafedbc69526ec1e9b4ba369a07f2aa32",
       "licence": "Apache-2.0"
     }
   ],
@@ -55,11 +58,11 @@
     },
     {
       "path": "standalone/catalogue.json",
-      "sha256": "50f0f699f48c5c77871de02fae3680773863957a804f9b384a03298940bff34c"
+      "sha256": "23c831b3ded1e393ce694f151853303201e2cc836816693a287d77475b8a1f7f"
     },
     {
       "path": "vscode/catalogue.json",
-      "sha256": "7e3cf6a1d77330ed688889891df334e4553243a81b465c3e60b9fb7c500b0b6f"
+      "sha256": "9a4c217cbcbdcd040ed013f930bd3372042dccb4a5c11201c4fec936be474b1b"
     }
   ],
   "withdrawn": [

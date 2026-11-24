@@ -1000,6 +1000,35 @@
     ]
   },
   {
+    "origin": "etalii/post-incident-review",
+    "name": "Post-incident review designer",
+    "kind": "designer",
+    "group": "15. Designers",
+    "developState": "Work-in-progress",
+    "releaseState": "Work-in-progress",
+    "state": "in-progress",
+    "theory": [
+      {
+        "label": "A tool defined by the user of this repository, after the blameless post-incident review of ITIL and site reliability engineering, so ADP owns the format and the etalii/ origin",
+        "href": null
+      }
+    ],
+    "example": [
+      {
+        "label": "086-post-incident-review-designer",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/specs/086-post-incident-review-designer/post-incident-review-designer.spec.md"
+      },
+      {
+        "label": "definition",
+        "href": "https://github.com/etalii-adp/etalii.adp/tree/develop/definitions/designers/post-incident-review.des"
+      },
+      {
+        "label": "090-vscode-itil-tools",
+        "href": "https://github.com/etalii-adp/etalii.adp/tree/develop/specs/090-vscode-itil-tools"
+      }
+    ]
+  },
+  {
     "origin": "editor/json",
     "name": "JSON editor",
     "kind": "editor",
@@ -1925,6 +1954,35 @@
     ]
   },
   {
+    "origin": "generic/value-stream-map",
+    "name": "Value stream map",
+    "kind": "diagram",
+    "group": "5. Business process & workflow notation",
+    "developState": "Work-in-progress",
+    "releaseState": "Work-in-progress",
+    "state": "in-progress",
+    "theory": [
+      {
+        "label": "Follows the generic/timeline precedent: no single standard owns the notation, so ADP defines the YAML schema and the extension. Named for the concept rather than a service management framework; the activity and practice lists belong to the document",
+        "href": null
+      }
+    ],
+    "example": [
+      {
+        "label": "084-value-stream-map",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/specs/084-value-stream-map/value-stream-map.spec.md"
+      },
+      {
+        "label": "definition",
+        "href": "https://github.com/etalii-adp/etalii.adp/tree/develop/definitions/diagrams/value-stream-map.dis"
+      },
+      {
+        "label": "090-vscode-itil-tools",
+        "href": "https://github.com/etalii-adp/etalii.adp/tree/develop/specs/090-vscode-itil-tools"
+      }
+    ]
+  },
+  {
     "origin": "iso/flowchart",
     "name": "Flowchart",
     "kind": "diagram",
@@ -2267,6 +2325,39 @@
       {
         "label": "Lucidchart examples",
         "href": "https://www.lucidchart.com/pages/examples/network-diagram-software"
+      }
+    ]
+  },
+  {
+    "origin": "openslo/slo",
+    "name": "SLO map",
+    "kind": "diagram",
+    "group": "8. Infrastructure, network & cloud diagrams",
+    "developState": "Work-in-progress",
+    "releaseState": "Work-in-progress",
+    "state": "in-progress",
+    "theory": [
+      {
+        "label": "openslo.com",
+        "href": "https://openslo.com/"
+      },
+      {
+        "label": "OpenSLO specification",
+        "href": "https://github.com/OpenSLO/OpenSLO"
+      }
+    ],
+    "example": [
+      {
+        "label": "085-openslo-slo-map",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/specs/085-openslo-slo-map/openslo-slo-map.spec.md"
+      },
+      {
+        "label": "definition",
+        "href": "https://github.com/etalii-adp/etalii.adp/tree/develop/definitions/diagrams/openslo-slo.dis"
+      },
+      {
+        "label": "090-vscode-itil-tools",
+        "href": "https://github.com/etalii-adp/etalii.adp/tree/develop/specs/090-vscode-itil-tools"
       }
     ]
   },
