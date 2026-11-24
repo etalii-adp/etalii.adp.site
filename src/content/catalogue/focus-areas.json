@@ -54,5 +54,18 @@
     "problem": "How people and societies respond to change is recorded in articles, surveys and observations, and a generic chart flattens it to a single line. Tools tuned for these insights lay out hype, adoption and feedback in behaviour side by side, so patterns can be discussed rather than assumed.",
     "order": 8,
     "source": null
+  },
+  {
+    "slug": "service-management",
+    "name": "Service management",
+    "problem": "Service teams keep value streams, service levels and incident reviews in spreadsheets, wikis and monitoring consoles, where the flow of work, the promises made and the lessons learned never meet. Tools aligned with ITIL 4 practices show where time goes, which objectives each service carries and what an incident taught, from the files the team already keeps.",
+    "order": 9,
+    "source": {
+      "kind": "notion",
+      "page": "3e7be2fd-05b6-8079-932d-000bfa0609af",
+      "revision": "2026-11-24T21:39:21.984690Z",
+      "retrievedAt": "2026-11-24T21:40:39.483Z",
+      "licence": "Apache-2.0"
+    }
   }
 ]

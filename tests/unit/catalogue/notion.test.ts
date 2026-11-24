@@ -43,12 +43,12 @@ test('--fixture writes notion.json sorted by origin and adds unknown focus areas
 
 	const areas = read(dir, 'focus-areas.json');
 	const added = areas.at(-1);
-	assert.equal(areas.length, 9);
+	assert.equal(areas.length, 10);
 	assert.deepEqual({ slug: added.slug, name: added.name, problem: added.problem, order: added.order, kind: added.source.kind }, {
 		slug: 'diagramming-practice',
 		name: 'Diagramming practice',
 		problem: '',
-		order: 9,
+		order: 10,
 		kind: 'notion',
 	});
 	assert.match(out, /new focus area "Diagramming practice"/);
