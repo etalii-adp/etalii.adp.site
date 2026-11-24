@@ -1,0 +1,77 @@
+{
+  "language": "desl",
+  "version": "0.5",
+  "status": "Draft",
+  "date": "2026-11-23",
+  "source": {
+    "kind": "git",
+    "repository": "etalii-adp/etalii.adp",
+    "path": "specifications/desl",
+    "revision": "927afe7202280e35336f251a60aa22b32dff59a2",
+    "licence": "Apache-2.0",
+    "copyright": "Copyright © Peter Vrenken 2026"
+  },
+  "files": [
+    {
+      "name": "DESL-specification.md",
+      "role": "prose",
+      "sha256": "48311fb3adf472e36d8f13ffdb1852cc5ed6ddeb4b6de9cc573b54961aa94af2",
+      "size": 84270
+    },
+    {
+      "name": "desl.schema.json",
+      "role": "schema",
+      "sha256": "779203996d113b8701956c05b4cbc623fdab5af579b767c5e0800870fb2ea32e",
+      "size": 63404
+    },
+    {
+      "name": "minimal-hierarchy.des",
+      "role": "definition",
+      "sha256": "57634dc433cc5e773d1cc05d3887a9315b406d202dc25ee55bb4fa37add454ee",
+      "size": 4659
+    },
+    {
+      "name": "minimal-hierarchy.fbl",
+      "role": "other",
+      "sha256": "e16eac68fa267d8660f28db851999261ccb6ed480cbef0ebd21632a2cdba6bf5",
+      "size": 4254
+    },
+    {
+      "name": "minimal-sections.des",
+      "role": "definition",
+      "sha256": "dcc574aab549b44d7b08b52b661117cbc35a09126cadf792aa64f90933aaaac1",
+      "size": 3214
+    },
+    {
+      "name": "minimal-sections.fbl",
+      "role": "other",
+      "sha256": "84dbe8fa58a0515cd7eaa829ebdaba87e8dae6ef663614d9550ea50127087c88",
+      "size": 2450
+    },
+    {
+      "name": "minimal-sections.md",
+      "role": "other",
+      "sha256": "b74a16bf653b502f1c260e2712aa208a0c070b38139e5f77ec3e48251dbcc122",
+      "size": 662
+    },
+    {
+      "name": "minimal-table.des",
+      "role": "definition",
+      "sha256": "e8a99366165e0b26c86ac7c93470128dd48922420effedd7a936642ce064cf77",
+      "size": 2507
+    },
+    {
+      "name": "minimal-table.fbl",
+      "role": "other",
+      "sha256": "338799c22ebb3a3b19577d1aa9807028eab56c11521ed7b77cbab34da7afa4e5",
+      "size": 2720
+    },
+    {
+      "name": "SPEC.md",
+      "role": "other",
+      "sha256": "3bbb831c0781dd22f68393972a93a858c82276f4bf35cc2db8b8a8bc1eb1f6d5",
+      "size": 777
+    }
+  ],
+  "retrieved": "2026-11-24T02:12:28Z"
+}
