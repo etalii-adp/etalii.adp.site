@@ -22,6 +22,28 @@
     "status": "accepted"
   },
   {
+    "file": "causal-loop.png",
+    "origin": "systems/causal-loop-diagram",
+    "expectation": "The on-call diagram centred in its tab: its variables as pills joined by curved links with their polarity at the arrow head and the delay mark across a delayed link, and its claimed loops with their R or B; ADP Toolbox showing Variable, Causal link and Feedback loop, ADP Properties the selected variable's rows",
+    "document": "`causal-loop-diagram/on-call/` → `on-call.cld`",
+    "bytes": 80159,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "dependency-graph.png",
+    "origin": "generic/dependencies",
+    "expectation": "The storefront's services as boxes on their rows, each dependency a curve from the dependent's right side to the left side of what it depends on with a filled arrowhead there and its label above the middle, the three dependencies of Order service fanning out to Payment, Inventory and the broker; ADP Toolbox showing Node; the node nearest the middle (Order service) selected, with its dots on both sides and its Label, X and Row in ADP Properties. Light theme.",
+    "document": "`dependency-graph/example-1/` → `services.dgr`",
+    "bytes": 69145,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
     "file": "gartner-hypecycle-graph-light.png",
     "origin": "gartner/hypecycle-graph",
     "expectation": "The digital trends as banners on the year axis, coloured by phase, with the Peak/Trough/Slope/Plateau key and the tag filter above; ADP Toolbox showing Trend, Trigger and Note; the trend nearest the middle selected, with its properties in ADP Properties. Light theme.",
@@ -48,7 +70,7 @@
     "origin": "etalii/knowledge",
     "expectation": "The Cities table in its All cities view, with the Map view's tab and the `+` beside it, the rows grouped by country with Netherlands unfolded, tags as rounded chips in their colours and the province relation as a link by its title, a `+ New` line under each group; ADP Toolbox empty, since a table offers nothing to place; a cell of one row selected, so the bar of the rows selected stands on its own line under the sort and filter, above the headers, with that row's fields in ADP Properties. A table has no drawing to centre.",
     "document": "`knowledge/` → `cities.yaml`",
-    "bytes": 80834,
+    "bytes": 85085,
     "width": 1600,
     "height": 900,
     "budgetBytes": 307200,
@@ -60,6 +82,39 @@
     "expectation": "The rendering engine map centred in its tab, the root in the middle with its branches laid out to both sides and joined by curved lines, each parent with its fold button; ADP Toolbox showing Node; the node nearest the middle (the root, Rendering engine) selected, with its text, notes and link in ADP Properties.",
     "document": "`mindmap/example 1/` → `mindmap.mm`",
     "bytes": 97908,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "post-incident-review.png",
+    "origin": "etalii/post-incident-review",
+    "expectation": "The review as a page of sections: Summary with its four times, Impact, and Timeline with its strip, whose labels stand level on two rows; ADP Toolbox saying that this designer adds nothing from the toolbox; the timeline entry E-0001 selected, with its fields in ADP Properties.",
+    "document": "`post-incident-review/` → `certificate-expiry.md`",
+    "bytes": 124089,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "slo-map.png",
+    "origin": "openslo/slo",
+    "expectation": "The specification's samples as a map: the SLO, its objective, SLI, alert policy, alert condition and notification targets, with dashed placeholders for the service and data source the file only names; ADP Toolbox listing the OpenSLO kinds; Foo SLO selected, with its window, Rolling as a ticked switch and its budgeting method in ADP Properties.",
+    "document": "`openslo-slo/` → `specification-samples.yaml`, opened with **Open as SLO map**",
+    "bytes": 89147,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "value-stream-map.png",
+    "origin": "generic/value-stream-map",
+    "expectation": "The current state of request fulfilment, from the trigger chevron through the steps to the outcome, with no two steps overlapping: Build custom and Check result one row below Fulfil from catalogue, the 80 % and 20 % alternatives and the rework loop between them, each step with its performer and its times; the state's totals and the comparison of the two states to its right. Zoomed out once if needed, so that the trigger and the comparison are both in view. ADP Toolbox listing Trigger, Step, Outcome, Flow, Alternative and Rework; the step Build custom selected, with its process time `PT2H` and wait time `P1D` in ADP Properties.",
+    "document": "`value-stream-map/` → `request-fulfilment.vsm`",
+    "bytes": 72910,
     "width": 1600,
     "height": 900,
     "budgetBytes": 307200,
