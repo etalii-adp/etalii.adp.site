@@ -5,7 +5,7 @@
     "kind": "diagram",
     "group": "Collaboration between people and agents",
     "developState": "Prototype",
-    "releaseState": null,
+    "releaseState": "Prototype",
     "state": "prototype",
     "theory": [
       {
@@ -34,7 +34,7 @@
     "kind": "diagram",
     "group": "Collaboration between people and agents",
     "developState": "Prototype",
-    "releaseState": null,
+    "releaseState": "Prototype",
     "state": "prototype",
     "theory": [
       {
@@ -59,7 +59,7 @@
     "kind": "designer",
     "group": "Collaboration between people and agents",
     "developState": "Prototype",
-    "releaseState": null,
+    "releaseState": "Prototype",
     "state": "prototype",
     "theory": [
       {
@@ -84,7 +84,7 @@
     "kind": "designer",
     "group": "Knowledge and informal modelling",
     "developState": "Prototype",
-    "releaseState": null,
+    "releaseState": "Prototype",
     "state": "prototype",
     "theory": [
       {
@@ -113,7 +113,7 @@
     "kind": "diagram",
     "group": "Knowledge and informal modelling",
     "developState": "Prototype",
-    "releaseState": null,
+    "releaseState": "Prototype",
     "state": "prototype",
     "theory": [
       {
@@ -137,12 +137,45 @@
     ]
   },
   {
+    "origin": "generic/dependencies",
+    "name": "Dependency graph",
+    "kind": "diagram",
+    "group": "Knowledge and informal modelling",
+    "developState": "Prototype",
+    "releaseState": "Work-in-progress",
+    "state": "prototype",
+    "theory": [
+      {
+        "label": "etalii.adp",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/diagrams/dependency-graph.md"
+      }
+    ],
+    "example": [
+      {
+        "label": "disl-support.md",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/blob/develop/docs/disl-support.md"
+      },
+      {
+        "label": "host-tests/dependency-graph.md",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/blob/develop/docs/host-tests/dependency-graph.md"
+      },
+      {
+        "label": "definition",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/diagrams/dependency-graph.md"
+      },
+      {
+        "label": "one example graph",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/tree/develop/examples/dependency-graph"
+      }
+    ]
+  },
+  {
     "origin": "systems/causal-loop-diagram",
     "name": "Causal loop diagram",
     "kind": "diagram",
     "group": "Knowledge and informal modelling",
     "developState": "Prototype",
-    "releaseState": null,
+    "releaseState": "Prototype",
     "state": "prototype",
     "theory": [
       {
@@ -162,12 +195,111 @@
     ]
   },
   {
+    "origin": "etalii/post-incident-review",
+    "name": "Post-incident review designer",
+    "kind": "designer",
+    "group": "Service management",
+    "developState": "Work-in-progress",
+    "releaseState": null,
+    "state": "in-progress",
+    "theory": [
+      {
+        "label": "Blameless post-incident review",
+        "href": "https://sre.google/sre-book/postmortem-culture/"
+      },
+      {
+        "label": "etalii.adp",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/designers/post-incident-review.md"
+      }
+    ],
+    "example": [
+      {
+        "label": "disl-support.md",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/blob/develop/docs/disl-support.md"
+      },
+      {
+        "label": "definition",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/designers/post-incident-review.md"
+      },
+      {
+        "label": "two examples",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/tree/develop/examples/post-incident-review"
+      }
+    ]
+  },
+  {
+    "origin": "generic/value-stream-map",
+    "name": "Value stream map",
+    "kind": "diagram",
+    "group": "Service management",
+    "developState": "Work-in-progress",
+    "releaseState": null,
+    "state": "in-progress",
+    "theory": [
+      {
+        "label": "Value-stream mapping",
+        "href": "https://en.wikipedia.org/wiki/Value-stream_mapping"
+      },
+      {
+        "label": "etalii.adp",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/diagrams/value-stream-map.md"
+      }
+    ],
+    "example": [
+      {
+        "label": "disl-support.md",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/blob/develop/docs/disl-support.md"
+      },
+      {
+        "label": "definition",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/diagrams/value-stream-map.md"
+      },
+      {
+        "label": "two examples",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/tree/develop/examples/value-stream-map"
+      }
+    ]
+  },
+  {
+    "origin": "openslo/slo",
+    "name": "SLO map",
+    "kind": "diagram",
+    "group": "Service management",
+    "developState": "Work-in-progress",
+    "releaseState": null,
+    "state": "in-progress",
+    "theory": [
+      {
+        "label": "OpenSLO",
+        "href": "https://github.com/OpenSLO/OpenSLO"
+      },
+      {
+        "label": "etalii.adp",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/diagrams/openslo-slo.md"
+      }
+    ],
+    "example": [
+      {
+        "label": "disl-support.md",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/blob/develop/docs/disl-support.md"
+      },
+      {
+        "label": "definition",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/diagrams/openslo-slo.md"
+      },
+      {
+        "label": "OpenSLO's examples",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/tree/develop/examples/openslo-slo"
+      }
+    ]
+  },
+  {
     "origin": "gartner/hypecycle-graph",
     "name": "Gartner hype cycle graph",
     "kind": "diagram",
     "group": "Technology assessment",
     "developState": "Prototype",
-    "releaseState": null,
+    "releaseState": "Prototype",
     "state": "prototype",
     "theory": [
       {
