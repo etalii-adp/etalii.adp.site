@@ -160,5 +160,17 @@
   },
   "vscode--causal-loop": {
     "whyItMatters": "A causal loop diagram kept in a plain .cld text file opens inside VS Code: its variables joined by links that show their polarity and delays, and each claimed loop marked reinforcing or balancing from the signs on its own links, while every change is written back to the file."
+  },
+  "vscode--dependency-graph": {
+    "whyItMatters": "A dependency graph kept in a plain .dgr file opens inside VS Code with its named nodes on rows and every depends-on edge drawn with an arrowhead, so what waits on what is read from the picture, and each change is written back to the file."
+  },
+  "vscode--value-stream-map": {
+    "whyItMatters": "A value stream kept in a plain .vsm file opens inside VS Code as one flow from trigger to outcome, each step with its performer, process time and wait time, and the state's totals beside it, so where the time goes, and how two states compare, is read without adding anything up."
+  },
+  "vscode--slo-map": {
+    "whyItMatters": "An OpenSLO YAML file opens inside VS Code as a map of the SLO, its objective, SLI, alert policy and notification targets, with placeholders for what the file only names, so how an objective is measured and who is told when it slips is seen at a glance while the YAML stays the source."
+  },
+  "vscode--post-incident-review": {
+    "whyItMatters": "A post-incident review kept as Markdown opens inside VS Code as a page of sections, its summary times, impact and a timeline strip of the events, so the review is written and read in its shape while the file stays plain Markdown."
   }
 }
