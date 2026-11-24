@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { after, before, describe, it } from 'node:test';
 import { makeRepo } from './fixtures/repo.mjs';
@@ -200,5 +201,68 @@ describe('automatic runs and the "Refresh blocked" issue', () => {
 		const stub = withStub();
 		site.refresh(['stub', '--no-deliver', '--source', arg], { ...stub.env, GITHUB_ACTIONS: '', STUB_MODE: 'decision' });
 		assert.deepEqual(stub.calls(), []);
+	});
+});
+
+describe('delivery in a step of its own (--deliver-later, then --deliver-only)', () => {
+	function withStub() {
+		const log = join(mkdtempSync(join(tmpdir(), 'refresh-gh-')), 'calls.jsonl');
+		cleanups.push(() => rmSync(join(log, '..'), { recursive: true, force: true }));
+		const calls = () => (existsSync(log) ? readFileSync(log, 'utf8').trim().split('\n').filter(Boolean).map((line) => JSON.parse(line)) : []);
+		return { calls, env: { ...env, GITHUB_ACTIONS: 'true', REFRESH_GITHUB_MODULE: join(fixtures, 'github-stub.mjs'), STUB_GITHUB_LOG: log } };
+	}
+
+	it('accepts the two options alone and refuses them together or with a run that does not deliver', async () => {
+		const { parseArgs } = await import('./run.mjs');
+		assert.equal(parseArgs(['hosts', '--deliver-later']).deliverLater, true);
+		assert.equal(parseArgs(['hosts', '--deliver-only']).deliverOnly, true);
+		assert.throws(() => parseArgs(['hosts', '--deliver-later', '--deliver-only']), /two steps of one run/);
+		assert.throws(() => parseArgs(['hosts', '--deliver-later', '--dry-run']), /cannot be used with --dry-run/);
+		assert.throws(() => parseArgs(['hosts', '--deliver-only', '--no-deliver']), /cannot be used with --dry-run or --no-deliver/);
+		assert.throws(() => parseArgs(['all', '--deliver-later']), /one procedure, not all/);
+	});
+
+	it('fails (exit 2) when no run was left to deliver', () => {
+		const { site } = setup();
+		const run = site.refresh(['stub', '--deliver-only'], env);
+		assert.equal(run.code, 2, run.output);
+		assert.match(run.stdout, /no run left to deliver/);
+	});
+
+	it('pushes, opens the pull request with auto-merge and removes what the first step left', () => {
+		const { site } = setup();
+		const origin = mkdtempSync(join(tmpdir(), 'refresh-origin-'));
+		cleanups.push(() => rmSync(origin, { recursive: true, force: true }));
+		execFileSync('git', ['init', '--quiet', '--bare', origin]);
+		site.git(['remote', 'add', 'origin', origin]);
+		const handoff = join(site.dir, '.refresh', 'handoff');
+		mkdirSync(handoff, { recursive: true });
+		site.git(['worktree', 'add', '--quiet', '--detach', join(handoff, 'worktree'), 'develop']);
+		mkdirSync(join(handoff, 'worktree', 'sources', 'stub'), { recursive: true });
+		writeFileSync(join(handoff, 'worktree', 'sources', 'stub', 'a.txt'), 'alpha, delivered\n');
+		writeFileSync(join(handoff, 'pr-body.md'), 'The body\n');
+		writeFileSync(join(handoff, 'handoff.json'), JSON.stringify({ procedure: 'refresh-stub', base: 'develop', changedPaths: ['sources/stub'], title: 'Refresh the stub', draft: false, result: { procedure: 'refresh-stub', outcome: 'delivered', prUrl: null, message: '' } }));
+		const stub = withStub();
+		const run = site.refresh(['stub', '--deliver-only'], stub.env);
+		assert.equal(run.code, 0, run.output);
+		assert.match(run.stdout, /^deliver: opened https:\/\/github\.com\/example\/site\/pull\/1, auto-merge on$/m);
+		const create = stub.calls().find((c) => c.call === 'createPr');
+		assert.deepEqual({ ...create.args[0], labels: undefined }, { base: 'develop', head: 'refresh/stub', title: 'Refresh the stub', body: 'The body\n', draft: false, labels: undefined });
+		assert.ok(stub.calls().some((c) => c.call === 'enableAutoMerge'));
+		assert.equal(execFileSync('git', ['show', 'refresh/stub:sources/stub/a.txt'], { cwd: origin, encoding: 'utf8' }), 'alpha, delivered\n');
+		assert.ok(!existsSync(handoff), 'the handoff is removed');
+		assert.equal(site.git(['worktree', 'list']).split('\n').length, 1);
+		assert.equal(site.json('.refresh/summary.json').prUrl, 'https://github.com/example/site/pull/1');
+	});
+
+	it('pushes with GH_TOKEN in place of the header the checkout stored, through the environment alone', async () => {
+		const { pushEnv } = await import('./run.mjs');
+		assert.deepEqual(pushEnv({ PATH: '/bin' }), { PATH: '/bin' });
+		const env = pushEnv({ GH_TOKEN: 'fresh', GIT_CONFIG_COUNT: '1', GIT_CONFIG_KEY_0: 'a.b', GIT_CONFIG_VALUE_0: 'c' });
+		assert.equal(env.GIT_CONFIG_COUNT, '3');
+		assert.equal(env.GIT_CONFIG_KEY_1, 'http.https://github.com/.extraheader');
+		assert.equal(env.GIT_CONFIG_VALUE_1, '', 'an empty value first drops the stored header');
+		assert.equal(env.GIT_CONFIG_VALUE_2, `AUTHORIZATION: basic ${Buffer.from('x-access-token:fresh').toString('base64')}`);
+		assert.equal(env.GIT_CONFIG_KEY_0, 'a.b');
 	});
 });

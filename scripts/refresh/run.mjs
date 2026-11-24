@@ -13,6 +13,11 @@
 // runs in the worktree once sources/<short>/ is written, before Verify, and may also throw NeedsDecision;
 // `afterVerify` runs after Verify, with `write` set only for a delivered run whose verification passed. Both
 // return Markdown sections for the pull request body.
+//
+// `--deliver-later` stops after Verify and leaves the run in .refresh/<short>/handoff (the worktree and the pull
+// request's title and body); `--deliver-only` then commits, pushes and opens the pull request from it. The Refresh
+// workflow runs the two as separate steps with a freshly minted App token for the second, because the token lasts an
+// hour and Verify alone can take most of that (the 401s of 9 and 10 November, and again on 23 November).
 import { appendFileSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmdirSync, rmSync, statSync, symlinkSync, unlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join, relative, resolve } from 'node:path';
@@ -35,11 +40,13 @@ const CI = process.env.GITHUB_ACTIONS === 'true';
 class Failure extends Error {}
 
 export function parseArgs(argv) {
-	const options = { id: null, dryRun: false, deliver: true, base: 'develop', sources: {} };
+	const options = { id: null, dryRun: false, deliver: true, deliverLater: false, deliverOnly: false, base: 'develop', sources: {} };
 	for (let i = 0; i < argv.length; i++) {
 		const arg = argv[i];
 		if (arg === '--dry-run') options.dryRun = true;
 		else if (arg === '--no-deliver') options.deliver = false;
+		else if (arg === '--deliver-later') options.deliverLater = true;
+		else if (arg === '--deliver-only') options.deliverOnly = true;
 		else if (arg === '--base') options.base = argv[++i];
 		else if (arg === '--source') {
 			const value = argv[++i] ?? '';
@@ -51,6 +58,9 @@ export function parseArgs(argv) {
 		else throw new Failure(`unexpected argument ${arg}`);
 	}
 	if (!options.id) throw new Failure(`name a procedure: one of ${NAMES.join(', ')}`);
+	if (options.deliverLater && options.deliverOnly) throw new Failure('--deliver-later and --deliver-only are two steps of one run; give one');
+	if ((options.deliverLater || options.deliverOnly) && (options.dryRun || !options.deliver)) throw new Failure('--deliver-later and --deliver-only deliver; they cannot be used with --dry-run or --no-deliver');
+	if ((options.deliverLater || options.deliverOnly) && options.id === 'all') throw new Failure('--deliver-later and --deliver-only take one procedure, not all');
 	return options;
 }
 
@@ -155,12 +165,15 @@ export async function runProcedure(procedure, options, { cwd = process.cwd(), ou
 	for (const name of ['decision.json', 'pr-body.md', 'diff.patch']) rmSync(join(out, name), { force: true });
 
 	let worktree = null;
+	let keepWorktree = false;
 	let nodeModulesLink = null;
 	const tmp = mkdtempSync(join(tmpdir(), `refresh-${shortId}-`));
 	const stage = (name, text) => log(`${name}: ${text}`);
 
 	try {
 		if (local && deliver) throw new Failure('a run that reads a local --source can never be delivered; add --dry-run or --no-deliver');
+		// The pull request body names the previous scheduled run; look it up while the token is surely still valid.
+		if (deliver && options.deliverLater) await previousScheduledRun();
 
 		// Resolve: the heads, the watched files with their blobs, and the latest releases; nothing is downloaded.
 		let baseRef = options.base;
@@ -215,7 +228,12 @@ export async function runProcedure(procedure, options, { cwd = process.cwd(), ou
 		// Apply: in a temporary worktree of the base (or, with --no-deliver, the working tree on refresh/<short>).
 		let root = cwd;
 		if (options.dryRun || options.deliver) {
-			root = join(tmp, 'worktree');
+			// A run delivered by a later step keeps its worktree beside the handoff, outside the folder removed below.
+			root = options.deliverLater ? join(out, 'handoff', 'worktree') : join(tmp, 'worktree');
+			if (options.deliverLater) {
+				rmSync(join(out, 'handoff'), { recursive: true, force: true });
+				await git(cwd, ['worktree', 'prune']);
+			}
 			await git(cwd, ['worktree', 'add', '--quiet', '--detach', root, baseRef]);
 			worktree = root;
 		} else {
@@ -303,32 +321,14 @@ export async function runProcedure(procedure, options, { cwd = process.cwd(), ou
 			writeFileSync(join(out, 'diff.patch'), await git(root, ['diff', '--cached', '--', ...changedPaths]).then((d) => `${d}\n`));
 		}
 
-		// Deliver: commit, force-push refresh/<short>, and create or update its one pull request (R6).
-		if (deliver) {
-			const github = await loadGithub();
-			const branch = `refresh/${shortId}`;
-			await github.ensureLabels(['refresh', `refresh:${shortId}`]);
-			await git(root, ['add', '--all', '--', ...changedPaths]);
-			await git(root, ['commit', '--quiet', '-m', `Refresh ${procedure.what}`, '-m', `Refreshed-by: ${procedure.id}`]);
-			await git(root, ['push', '--quiet', '--force', 'origin', `HEAD:refs/heads/${branch}`]);
-			const open = await github.findOpenPr(branch);
-			if (open) {
-				await github.updatePr(open.number, { title: summary.title, body, draft: failedStep, isDraft: open.isDraft });
-				result.prUrl = open.url;
-			} else {
-				result.prUrl = await github.createPr({ base: options.base, head: branch, title: summary.title, body, draft: failedStep, labels: ['refresh', `refresh:${shortId}`] });
-			}
-			// A draft failed verification and waits for a person; anything else merges by itself once its checks pass.
-			let merging = '';
-			if (!failedStep) {
-				try {
-					await github.enableAutoMerge(result.prUrl);
-					merging = ', auto-merge on';
-				} catch (error) {
-					merging = `, auto-merge not enabled (${error.message})`;
-				}
-			}
-			stage('deliver', `${open ? 'updated' : 'opened'} ${result.prUrl}${failedStep ? ' as a draft' : ''}${merging}`);
+		// Deliver: commit, force-push refresh/<short>, and create or update its one pull request (R6), now or in a later step.
+		if (deliver && options.deliverLater) {
+			writeJson(join(out, 'handoff', 'handoff.json'), { procedure: procedure.id, base: options.base, changedPaths, title: summary.title, draft: failedStep, result: { ...result } });
+			writeFileSync(join(out, 'handoff', 'pr-body.md'), body);
+			keepWorktree = true;
+			stage('deliver', `left for --deliver-only in ${posix(relative(cwd, join(out, 'handoff')))}`);
+		} else if (deliver) {
+			result.prUrl = await deliverRun({ procedure, root, base: options.base, changedPaths, title: summary.title, body, draft: failedStep, stage });
 		} else {
 			stage('deliver', options.dryRun ? 'dry run: nothing committed or pushed' : `--no-deliver: changes left in the working tree on refresh/${shortId}`);
 		}
@@ -352,14 +352,100 @@ export async function runProcedure(procedure, options, { cwd = process.cwd(), ou
 	} finally {
 		// On Windows a file the site build still holds open can fail the first removal, so retry, then say so.
 		unlinkDir(nodeModulesLink);
-		if (worktree) await git(cwd, ['worktree', 'remove', '--force', worktree]).catch(() => {});
+		if (worktree && !keepWorktree) await git(cwd, ['worktree', 'remove', '--force', worktree]).catch(() => {});
 		try {
 			rmSync(tmp, { recursive: true, force: true, maxRetries: 10, retryDelay: 500 });
 		} catch (error) {
 			log(`cleanup: could not remove ${tmp}: ${error.message}`);
 		}
-		if (worktree) await git(cwd, ['worktree', 'prune']).catch(() => {});
+		if (worktree && !keepWorktree) await git(cwd, ['worktree', 'prune']).catch(() => {});
 	}
+}
+
+/**
+ * Commits the run in `root`, force-pushes refresh/<short> and creates or updates its one pull request; returns its URL.
+ * The push authenticates with GH_TOKEN where it is set, not with whatever token the checkout stored, so a step given a
+ * fresh token pushes with it.
+ */
+async function deliverRun({ procedure, root, base, changedPaths, title, body, draft, stage }) {
+	const github = await loadGithub();
+	const branch = `refresh/${procedure.short}`;
+	await github.ensureLabels(['refresh', `refresh:${procedure.short}`]);
+	await git(root, ['add', '--all', '--', ...changedPaths]);
+	await git(root, ['commit', '--quiet', '-m', `Refresh ${procedure.what}`, '-m', `Refreshed-by: ${procedure.id}`]);
+	await git(root, ['push', '--quiet', '--force', 'origin', `HEAD:refs/heads/${branch}`], { env: pushEnv() });
+	const open = await github.findOpenPr(branch);
+	let prUrl;
+	if (open) {
+		await github.updatePr(open.number, { title, body, draft, isDraft: open.isDraft });
+		prUrl = open.url;
+	} else {
+		prUrl = await github.createPr({ base, head: branch, title, body, draft, labels: ['refresh', `refresh:${procedure.short}`] });
+	}
+	// A draft failed verification and waits for a person; anything else merges by itself once its checks pass.
+	let merging = '';
+	if (!draft) {
+		try {
+			await github.enableAutoMerge(prUrl);
+			merging = ', auto-merge on';
+		} catch (error) {
+			merging = `, auto-merge not enabled (${error.message})`;
+		}
+	}
+	stage('deliver', `${open ? 'updated' : 'opened'} ${prUrl}${draft ? ' as a draft' : ''}${merging}`);
+	return prUrl;
+}
+
+/**
+ * The environment of the push: with GH_TOKEN set, the github.com header actions/checkout stored is reset and replaced
+ * by one carrying GH_TOKEN (git config through the environment, so the token is in no command line).
+ */
+export function pushEnv(env = process.env) {
+	if (!env.GH_TOKEN) return env;
+	const key = 'http.https://github.com/.extraheader';
+	const basic = Buffer.from(`x-access-token:${env.GH_TOKEN}`).toString('base64');
+	const count = Number(env.GIT_CONFIG_COUNT) || 0;
+	return {
+		...env,
+		GIT_CONFIG_COUNT: String(count + 2),
+		[`GIT_CONFIG_KEY_${count}`]: key,
+		[`GIT_CONFIG_VALUE_${count}`]: '',
+		[`GIT_CONFIG_KEY_${count + 1}`]: key,
+		[`GIT_CONFIG_VALUE_${count + 1}`]: `AUTHORIZATION: basic ${basic}`,
+	};
+}
+
+/** The second step of a `--deliver-later` run: delivers what it left in `out`/handoff, then removes it. */
+export async function deliverHandoff(procedure, { cwd = process.cwd(), out = join(cwd, '.refresh'), log = console.log } = {}) {
+	const dir = join(out, 'handoff');
+	const file = join(dir, 'handoff.json');
+	const stage = (name, text) => log(`${name}: ${text}`);
+	if (!existsSync(file)) {
+		const message = `no run left to deliver: ${posix(relative(cwd, file))} does not exist`;
+		log(`failed: ${message}`);
+		return { procedure: procedure.id, outcome: 'failed', code: EXIT.failed, prUrl: null, message };
+	}
+	const handoff = JSON.parse(readFileSync(file, 'utf8'));
+	const root = join(dir, 'worktree');
+	const result = { ...handoff.result };
+	try {
+		if (handoff.procedure !== procedure.id) throw new Failure(`the run left to deliver is ${handoff.procedure}, not ${procedure.id}`);
+		const body = readFileSync(join(dir, 'pr-body.md'), 'utf8');
+		result.prUrl = await deliverRun({ procedure, root, base: handoff.base, changedPaths: handoff.changedPaths, title: handoff.title, body, draft: handoff.draft, stage });
+	} catch (error) {
+		result.outcome = 'failed';
+		result.message = error.message;
+		log(`failed: ${error.message}`);
+	} finally {
+		await git(cwd, ['worktree', 'remove', '--force', root]).catch(() => {});
+		await git(cwd, ['worktree', 'prune']).catch(() => {});
+		rmSync(dir, { recursive: true, force: true });
+	}
+	result.code = EXIT[result.outcome];
+	const summaryFile = join(out, 'summary.json');
+	const summary = existsSync(summaryFile) ? JSON.parse(readFileSync(summaryFile, 'utf8')) : { procedure: procedure.id };
+	writeJson(summaryFile, { ...summary, outcome: result.outcome, prUrl: result.prUrl, message: result.message });
+	return result;
 }
 
 /** The procedure's site files that differ from the base in `root`, leaving out those already carried in. */
@@ -535,7 +621,7 @@ async function main() {
 			process.exit(code);
 		}
 		const procedure = await loadProcedure(options.id);
-		const result = await runProcedure(procedure, options);
+		const result = options.deliverOnly ? await deliverHandoff(procedure) : await runProcedure(procedure, options);
 		await reportBlocked(procedure, result, options, console.log);
 		console.log(`outcome: ${result.outcome}${result.prUrl ? ` ${result.prUrl}` : ''}${result.outcome === 'current' ? ` (${result.message})` : ''}`);
 		process.exit(result.code);

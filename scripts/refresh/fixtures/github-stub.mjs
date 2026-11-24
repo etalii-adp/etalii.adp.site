@@ -15,3 +15,6 @@ export const closeIssue = recorder('closeIssue', true);
 export const previousScheduledRun = recorder('previousScheduledRun', null);
 export const findOpenPr = recorder('findOpenPr', null);
 export const ensureLabels = recorder('ensureLabels');
+export const createPr = recorder('createPr', 'https://github.com/example/site/pull/1');
+export const updatePr = recorder('updatePr');
+export const enableAutoMerge = recorder('enableAutoMerge');
