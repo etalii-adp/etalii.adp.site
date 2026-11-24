@@ -1,12 +1,12 @@
 {
   "procedure": "refresh-screenshots",
-  "refreshedAt": "2026-11-24T05:08:26.451Z",
+  "refreshedAt": "2026-11-24T12:41:43.079Z",
   "sourceHeads": {
     "etalii-adp/etalii.adp.ide.eclipse": "59d855d9f4cd390659fe52746ed29d48309b285f",
     "etalii-adp/etalii.adp.ide.intellij": "4b2c7f3e3206dfada1a5952d17414f45c9106b40",
     "etalii-adp/etalii.adp.ide.notion": "dfadec399f7b91f698b2e2104c43613043d04147",
     "etalii-adp/etalii.adp.ide.standalone": "1469af623afd153e7b21d91dc6e62a46e67fe378",
-    "etalii-adp/etalii.adp.ide.vscode": "7509a2217c7fd92b258dfe1f161b4821f35cd5f4"
+    "etalii-adp/etalii.adp.ide.vscode": "44f8477fa29c839bea01675ed27b37734c4751c8"
   },
   "releases": {
     "etalii-adp/etalii.adp.ide.eclipse": null,
@@ -17,8 +17,8 @@
       "commit": "1469af623afd153e7b21d91dc6e62a46e67fe378"
     },
     "etalii-adp/etalii.adp.ide.vscode": {
-      "tag": "v0.1.2",
-      "commit": "88de4a28ea38b2a0c60667dd9ef6a271d1fdd48c"
+      "tag": "v0.2.0",
+      "commit": "0f7ecfc1964acd8bf95ae162f645fe2800534d4e"
     }
   },
   "config": {
