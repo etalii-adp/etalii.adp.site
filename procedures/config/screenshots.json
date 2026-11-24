@@ -56,7 +56,11 @@
     "knowledge.png": "etalii/knowledge",
     "mindmap.png": "freeplane/mindmap",
     "hierarchical-requirement.png": "etalii/hierarchical-requirement",
-    "causal-loop.png": "systems/causal-loop-diagram"
+    "causal-loop.png": "systems/causal-loop-diagram",
+    "dependency-graph.png": "generic/dependencies",
+    "value-stream-map.png": "generic/value-stream-map",
+    "slo-map.png": "openslo/slo",
+    "post-incident-review.png": "etalii/post-incident-review"
   },
   "eclipse": {},
   "notion": {
