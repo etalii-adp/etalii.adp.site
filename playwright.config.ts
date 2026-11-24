@@ -7,9 +7,6 @@ export default defineConfig({
 	testMatch: '**/*.spec.ts',
 	// Every test opens its own browser context, so the per-page checks of one file spread over all workers and shards.
 	fullyParallel: true,
-	// Playwright's default is half the machine's cores. The Refresh workflow's Verify sets PAGE_CHECK_WORKERS to 100% so
-	// its page checks end well inside the one-hour App token the delivery after them still needs.
-	workers: process.env.PAGE_CHECK_WORKERS || undefined,
 	forbidOnly: !!process.env.CI,
 	reporter: process.env.CI ? 'github' : 'list',
 	projects: [

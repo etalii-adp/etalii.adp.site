@@ -100,17 +100,37 @@ jobs:
           fi
 
       # Exit 1 (a draft pull request) and 3 (a "Refresh blocked" issue) carry their own signal; only 2 fails the job.
-      - name: npm run refresh -- ${{ matrix.procedure }}
+      # Resolve to Verify run here; the delivery is a step of its own below, with a token of its own: the App token
+      # lasts an hour, and Verify's page checks alone can take most of it (the 401s of 9 and 10 and of 23 November).
+      - name: npm run refresh -- ${{ matrix.procedure }} --deliver-later
         env:
           GH_TOKEN: ${{ steps.app.outputs.token || secrets.REFRESH_TOKEN }}
-          # Verify's page checks on every core rather than Playwright's default half: delivery after Verify still uses the
-          # App token above, which expires an hour after it is made (the 401s of 9 and 10 November).
-          PAGE_CHECK_WORKERS: '100%'
           # Only the catalogue and screenshot procedures (alone or in "all") read Notion (spec 003 research D9); never build.yml or deploy.yml.
           NOTION_TOKEN: ${{ contains(fromJSON('["all", "catalogue", "screenshots"]'), matrix.procedure) && secrets.NOTION_TOKEN || '' }}
         run: |
           set +e
-          npm run --silent refresh -- "${{ matrix.procedure }}"
+          npm run --silent refresh -- "${{ matrix.procedure }}" --deliver-later
+          code=$?
+          if [ "$code" -eq 2 ]; then exit 1; fi
+          exit 0
+
+      # A second App token, minted only now, for the push and the pull request; the first may have expired by now.
+      - id: deliver-app
+        if: env.HAS_APP == 'true' && hashFiles('.refresh/handoff/handoff.json') != ''
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.REFRESH_APP_ID }}
+          private-key: ${{ secrets.REFRESH_APP_PRIVATE_KEY }}
+          owner: etalii-adp
+          repositories: etalii.adp.site
+
+      - name: npm run refresh -- ${{ matrix.procedure }} --deliver-only
+        if: hashFiles('.refresh/handoff/handoff.json') != ''
+        env:
+          GH_TOKEN: ${{ steps.deliver-app.outputs.token || secrets.REFRESH_TOKEN }}
+        run: |
+          set +e
+          npm run --silent refresh -- "${{ matrix.procedure }}" --deliver-only
           code=$?
           if [ "$code" -eq 2 ]; then exit 1; fi
           exit 0
