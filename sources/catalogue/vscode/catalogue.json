@@ -142,7 +142,7 @@
     "kind": "diagram",
     "group": "Knowledge and informal modelling",
     "developState": "Prototype",
-    "releaseState": "Work-in-progress",
+    "releaseState": "Prototype",
     "state": "prototype",
     "theory": [
       {
@@ -200,7 +200,7 @@
     "kind": "designer",
     "group": "Service management",
     "developState": "Work-in-progress",
-    "releaseState": null,
+    "releaseState": "Work-in-progress",
     "state": "in-progress",
     "theory": [
       {
@@ -233,7 +233,7 @@
     "kind": "diagram",
     "group": "Service management",
     "developState": "Work-in-progress",
-    "releaseState": null,
+    "releaseState": "Work-in-progress",
     "state": "in-progress",
     "theory": [
       {
@@ -266,7 +266,7 @@
     "kind": "diagram",
     "group": "Service management",
     "developState": "Work-in-progress",
-    "releaseState": null,
+    "releaseState": "Work-in-progress",
     "state": "in-progress",
     "theory": [
       {
