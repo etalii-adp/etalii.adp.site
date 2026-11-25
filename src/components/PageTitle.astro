@@ -1,6 +1,6 @@
 ---
 // Replaces Starlight's PageTitle: breadcrumbs (part › section › page) above the <h1> on every page
-// that belongs to a section (US2 AS3, contracts/site-navigation.md item 4), and a page's date, if it has one, under
+// that belongs to a section (US2 AS3, contracts/site-navigation.md item 4), with a sub page's parent before it, and a page's date, if it has one, under
 // the <h1> in plain English: "28 September 2026" (Peter, 2026-09-30).
 import { partOf, sectionById } from '../data/sections';
 import { longDate } from '../lib/dates';
@@ -12,7 +12,7 @@ const here = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.ur
 // Levels that share an address (a section's start page is its part's start page, or the page itself) appear once.
 const trail: { label: string; href: string }[] = [];
 if (section) {
-	for (const level of [partOf(section.part), section, { label: data.title, href: here }]) {
+	for (const level of [partOf(section.part), section, ...(data.parent ? [data.parent] : []), { label: data.title, href: here }]) {
 		if (!trail.some((crumb) => crumb.href === level.href)) trail.push({ label: level.label, href: level.href });
 	}
 }

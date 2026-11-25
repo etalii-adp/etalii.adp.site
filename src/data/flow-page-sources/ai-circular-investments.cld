@@ -1,0 +1,130 @@
+causal-loop 1
+title "Circular investments in AI hardware and software (November 2026)"
+flow strength=2 delay=4 heatmap=pressure
+
+# Companies and what moves between them. A link reads: when the cause rises, the effect rises (+) or falls (-).
+# Each link's note names the arrangement it stands for; the page beside this diagram gives the sources.
+
+# ---- chip makers ----
+variable nv_rev "Nvidia data-centre revenue" start=0.7
+variable nv_inv "Nvidia investments and guarantees" start=0.6
+variable amd_rev "AMD GPU revenue" start=0.3
+variable amd_share "AMD share price" start=0.5
+variable avgo_rev "Broadcom custom accelerator revenue" start=0.4
+
+# ---- model developers ----
+variable oa_cap "OpenAI capital raised" start=0.6
+variable oa_warrant "Value of OpenAI's AMD warrant" start=0.2
+variable oa_comp "OpenAI compute commitments" start=0.7
+variable an_cap "Anthropic capital raised" start=0.5
+variable an_comp "Anthropic compute commitments" start=0.6
+
+# ---- cloud providers ----
+variable ms_azure "Microsoft Azure AI revenue" start=0.6
+variable ms_inv "Microsoft investments in model developers" start=0.5
+variable amzn_aws "Amazon AWS AI revenue" start=0.5
+variable amzn_inv "Amazon investments in model developers" start=0.5
+variable goog_cloud "Google Cloud TPU revenue" start=0.4
+variable goog_inv "Google investment in Anthropic" start=0.3
+variable orcl_backlog "Oracle contracted backlog" start=0.7
+variable orcl_build "Oracle data-centre build-out" start=0.5
+variable orcl_debt "Oracle borrowing" start=0.5
+variable cw_contracts "CoreWeave contracted revenue" start=0.6
+variable cw_build "CoreWeave GPU purchases" start=0.5
+variable cw_debt "CoreWeave borrowing" start=0.6
+
+# ---- markets and the world outside the circle ----
+variable confidence "Investor confidence in AI valuations" start=0.7
+variable end_rev "Revenue from AI end users" start=0.3 push=0.5
+variable gap "Gap between commitments and end-user revenue" start=0.5
+variable credit "Cost of credit for the build-out" start=0.4
+variable power "Power and construction delays" start=0.3
+
+# ---- Nvidia ----
+link nv_rev -> nv_inv + "chip earnings fund stakes in customers"
+link nv_inv -> oa_cap + "letter of intent for up to $100B (Sept 2025); $30B in the Feb 2026 round"
+link nv_inv -> an_cap + "up to $10B (Nov 2025)"
+link nv_inv -> cw_contracts + "$6.3B order for unsold capacity to 2032; $2B equity (Jan 2026)"
+link nv_inv -> credit + "guarantees of partners' leases and capacity"
+link nv_rev -> confidence + "chip sales read as proof of demand"
+
+# ---- OpenAI ----
+link oa_cap -> oa_comp + "capital is committed to compute"
+link oa_comp -> nv_rev + "Nvidia systems: 10 GW intent, 5 GW Vera Rubin (Feb 2026)"
+link oa_comp -> orcl_backlog + "about $300B over five years from 2027 (Stargate)"
+link oa_comp -> cw_contracts + "up to $22.4B in three contracts (2025)"
+link oa_comp -> ms_azure + "incremental $250B of Azure (Oct 2025)"
+link oa_comp -> amzn_aws + "$38B (Nov 2025), plus $100B over eight years (Feb 2026)"
+link oa_comp -> amd_rev + "6 GW of Instinct GPUs (Oct 2025)"
+link oa_comp -> avgo_rev + "10 GW of custom accelerators, 2026 to 2029"
+link oa_comp -> gap + "commitments run ahead of revenue"
+link oa_comp -> end_rev + delayed "compute becomes products"
+
+# ---- AMD and the warrant ----
+link amd_rev -> amd_share + "AMD's own sales lift its stock"
+link amd_share -> oa_warrant + "warrant for up to 160M AMD shares, vesting on price targets"
+link oa_warrant -> oa_cap + "the warrant's value adds to OpenAI's resources"
+link amd_rev -> an_cap + "up to $5B tied to deployment milestones (July 2026)"
+
+# ---- Anthropic ----
+link an_cap -> an_comp + "capital is committed to compute"
+link an_comp -> ms_azure + "$30B of Azure compute (Nov 2025)"
+link an_comp -> nv_rev + "up to 1 GW of Grace Blackwell and Vera Rubin"
+link an_comp -> amzn_aws + "more than $100B over ten years, up to 5 GW (2026)"
+link an_comp -> goog_cloud + "multiple gigawatts of TPUs from 2027 (Apr 2026)"
+link an_comp -> amd_rev + "up to 2 GW of MI450 GPUs (July 2026)"
+link an_comp -> gap + "commitments run ahead of revenue"
+link an_comp -> end_rev + delayed "compute becomes products"
+
+# ---- cloud providers ----
+link ms_azure -> ms_inv + "cloud earnings fund stakes"
+link ms_inv -> oa_cap + "more than $13B since 2019; about 27% after the 2025 restructuring"
+link ms_inv -> an_cap + "up to $5B (Nov 2025)"
+link amzn_aws -> amzn_inv + "cloud earnings fund stakes"
+link amzn_inv -> an_cap + "$8B before 2026; $5B and up to $20B more (2026)"
+link amzn_inv -> oa_cap + "$15B, with $35B conditional (Feb 2026)"
+link goog_cloud -> goog_inv + "cloud earnings fund stakes"
+link goog_inv -> an_cap + "minority stake since 2023"
+link goog_cloud -> avgo_rev + "Broadcom builds Google's TPUs; supply agreement to 2031"
+link orcl_backlog -> orcl_build + "backlog is turned into data centres"
+link orcl_backlog -> confidence + "backlog disclosures move Oracle's stock"
+link orcl_build -> nv_rev + delayed "data centres are filled with Nvidia GPUs"
+link orcl_build -> orcl_debt + "the build-out is financed with debt"
+link orcl_build -> power + "sites wait on power and construction"
+link power -> orcl_build - delayed "delays slow the build-out"
+link cw_contracts -> cw_build + "contracts secure loans for GPUs"
+link cw_build -> nv_rev + "CoreWeave buys Nvidia GPUs"
+link cw_build -> cw_debt + "GPUs are financed with debt"
+
+# ---- credit, confidence and the outside world ----
+link orcl_debt -> credit + "wider spreads on Oracle's debt"
+link cw_debt -> credit + "high-yield loans and bonds"
+link credit -> orcl_build - "dearer credit slows the build-out"
+link credit -> cw_build - "dearer credit slows GPU purchases"
+link credit -> confidence - "credit stress weighs on valuations"
+link confidence -> oa_cap + "valuations set the price of new rounds"
+link confidence -> an_cap + "valuations set the price of new rounds"
+link end_rev -> gap - "real demand closes the gap"
+link end_rev -> confidence + "end-user revenue validates valuations"
+link gap -> confidence - "an open gap erodes confidence"
+
+loop R1 "Nvidia funds its own customers" nv_rev nv_inv oa_cap oa_comp
+loop R2 "Nvidia, Anthropic and the clouds" nv_rev nv_inv an_cap an_comp
+loop R3 "Nvidia underwrites CoreWeave" nv_rev nv_inv cw_contracts cw_build
+loop R4 "OpenAI through Oracle to Nvidia" nv_rev nv_inv oa_cap oa_comp orcl_backlog orcl_build
+loop R5 "Microsoft and OpenAI" ms_azure ms_inv oa_cap oa_comp
+loop R6 "Microsoft and Anthropic" ms_azure ms_inv an_cap an_comp
+loop R7 "Amazon and Anthropic" amzn_aws amzn_inv an_cap an_comp
+loop R8 "Amazon and OpenAI" amzn_aws amzn_inv oa_cap oa_comp
+loop R9 "Google and Anthropic" goog_cloud goog_inv an_cap an_comp
+loop R10 "AMD's warrant pays for AMD's chips" amd_rev amd_share oa_warrant oa_cap oa_comp
+loop R11 "AMD invests in its customer" amd_rev an_cap an_comp
+loop R12 "Valuations feed rounds feed chip sales" confidence oa_cap oa_comp nv_rev
+loop R13 "Backlog lifts confidence" confidence oa_cap oa_comp orcl_backlog
+loop R14 "Products earn revenue" oa_cap oa_comp end_rev confidence
+loop B1 "Commitments outrun revenue" confidence oa_cap oa_comp gap
+loop B2 "Anthropic's commitments outrun revenue" confidence an_cap an_comp gap
+loop B3 "Debt makes credit dearer" orcl_build orcl_debt credit
+loop B4 "CoreWeave's debt" cw_build cw_debt credit
+loop B5 "Power limits the build-out" orcl_build power
+loop B6 "Guarantees raise Nvidia's risk" nv_rev nv_inv credit confidence oa_cap oa_comp

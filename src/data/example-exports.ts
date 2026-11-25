@@ -18,12 +18,21 @@ export interface ExampleExport {
 	 * licence does not grant reuse, redrawn as cited academic content (Peter, 2026-10-31).
 	 */
 	source?: { authors: string; title: string; href: string; published: string };
+	/** A page of its own under the tool page, with the example's sources and its document, linked after the text (Peter, 2026-11-25). */
+	page?: string;
 }
 
 const flowPage = (file: string) => `/adp/docs/causal-loop-flow-pages/${file}.html`;
 
 export const exampleExports: Readonly<Record<string, readonly ExampleExport[]>> = {
 	'systems/causal-loop-diagram': [
+		{
+			name: 'Circular investments in AI',
+			href: flowPage('ai-circular-investments'),
+			about:
+				'How chip makers, cloud providers and the developers of AI models invest in one another and buy from one another, as reported up to November 2026: twenty-seven quantities of ten companies and the market around them, fifty-six links and twenty named loops.',
+			page: '/adp/tools/systems/causal-loop-diagram/ai-circular-investments/',
+		},
 		{
 			name: 'Business philosophy',
 			href: flowPage('business-philosophy'),
