@@ -1,0 +1,216 @@
+---
+// An example of the causal loop diagram, under its tool page and in no menu (Peter, 2026-11-25): the circular
+// investments among the companies that make, rent out and use AI hardware, drawn from public reporting. The tool page
+// links here from its example exports; the flow page beside it is the VS Code host's export of the same document.
+import { Image } from 'astro:assets';
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { Code } from '@astrojs/starlight/components';
+import { exampleExports } from '../../../../data/example-exports';
+import document from '../../../../data/flow-page-sources/ai-circular-investments.cld?raw';
+import TableScroll from '../../../../components/catalogue/TableScroll.astro';
+import picture from '../../../../assets/examples/ai-circular-investments.png';
+
+const example = exampleExports['systems/causal-loop-diagram'].find((entry) => entry.href.endsWith('/ai-circular-investments.html'))!;
+const tool = { label: 'Causal loop diagram', href: '/adp/tools/systems/causal-loop-diagram/' };
+
+interface Source {
+	publisher: string;
+	title: string;
+	href: string;
+	date: string;
+}
+
+interface Arrangement {
+	parties: string;
+	terms: string;
+	link: string;
+	sources: Source[];
+}
+
+/** What each link of the diagram stands for, as the companies or the press reported it, oldest first within each pair. */
+const arrangements: Arrangement[] = [
+	{
+		parties: 'Nvidia → OpenAI',
+		terms: 'A letter of intent of September 2025 for Nvidia to invest up to $100 billion as OpenAI deploys at least 10 gigawatts of Nvidia systems. It was not finalised in that form; Nvidia put $30 billion into OpenAI\'s round of February 2026, in which OpenAI committed to 3 gigawatts of inference and 2 gigawatts of training capacity on Vera Rubin systems.',
+		link: 'Nvidia investments → OpenAI capital; OpenAI compute → Nvidia revenue',
+		sources: [
+			{ publisher: 'TechCrunch', title: 'OpenAI raises $110B in one of the largest private funding rounds in history', href: 'https://techcrunch.com/2026/02/27/openai-raises-110b-in-one-of-the-largest-private-funding-rounds-in-history/', date: '27 February 2026' },
+		],
+	},
+	{
+		parties: 'Microsoft, Nvidia → Anthropic',
+		terms: 'Nvidia up to $10 billion and Microsoft up to $5 billion invested in Anthropic; Anthropic committed to buy $30 billion of Azure compute and up to 1 gigawatt more, on Nvidia Grace Blackwell and Vera Rubin systems.',
+		link: 'Nvidia and Microsoft investments → Anthropic capital; Anthropic compute → Azure and Nvidia revenue',
+		sources: [
+			{ publisher: 'Microsoft', title: 'Microsoft, NVIDIA and Anthropic announce strategic partnerships', href: 'https://blogs.microsoft.com/blog/2025/11/18/microsoft-nvidia-and-anthropic-announce-strategic-partnerships/', date: '18 November 2025' },
+		],
+	},
+	{
+		parties: 'Nvidia → CoreWeave',
+		terms: 'A $6.3 billion order under which Nvidia buys any cloud capacity CoreWeave cannot sell, through April 2032, and $2 billion of CoreWeave stock bought in January 2026.',
+		link: 'Nvidia investments → CoreWeave contracted revenue',
+		sources: [
+			{ publisher: 'Bloomberg', title: 'CoreWeave says Nvidia cloud contract valued at $6.3 billion', href: 'https://www.bloomberg.com/news/articles/2025-09-15/coreweave-says-nvidia-cloud-contract-valued-at-6-3-billion', date: '15 September 2025' },
+			{ publisher: 'NVIDIA', title: 'NVIDIA and CoreWeave strengthen collaboration to accelerate buildout of AI factories', href: 'https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories', date: '26 January 2026' },
+		],
+	},
+	{
+		parties: 'OpenAI → CoreWeave',
+		terms: 'Three contracts in 2025, of up to $11.9 billion, $4 billion and $6.5 billion, together about $22.4 billion of capacity for training OpenAI\'s models.',
+		link: 'OpenAI compute → CoreWeave contracted revenue',
+		sources: [{ publisher: 'CoreWeave', title: 'CoreWeave expands agreement with OpenAI by up to $6.5B', href: 'https://www.coreweave.com/news/coreweave-expands-agreement-with-openai-by-up-to-6-5b', date: '25 September 2025' }],
+	},
+	{
+		parties: 'OpenAI → Oracle',
+		terms: 'About $300 billion of computing power over roughly five years from 2027, part of the Stargate data-centre programme. Oracle\'s backlog disclosure that quarter moved its shares by more than 40% in a day.',
+		link: 'OpenAI compute → Oracle backlog → Oracle build-out → Nvidia revenue',
+		sources: [{ publisher: 'TechCrunch', title: 'OpenAI and Oracle reportedly ink historic cloud computing deal', href: 'https://techcrunch.com/2025/09/10/openai-and-oracle-reportedly-ink-historic-cloud-computing-deal/', date: '10 September 2025' }],
+	},
+	{
+		parties: 'Microsoft ↔ OpenAI',
+		terms: 'Microsoft has invested more than $13 billion since 2019 and held about 27% of OpenAI after its 2025 restructuring, when OpenAI committed to buy an incremental $250 billion of Azure services.',
+		link: 'Microsoft investments → OpenAI capital; OpenAI compute → Azure revenue',
+		sources: [{ publisher: 'Microsoft', title: 'The next chapter of the Microsoft–OpenAI partnership', href: 'https://blogs.microsoft.com/blog/2025/10/28/the-next-chapter-of-the-microsoft-openai-partnership/', date: '28 October 2025' }],
+	},
+	{
+		parties: 'Amazon ↔ OpenAI',
+		terms: 'A $38 billion AWS agreement of November 2025, expanded by $100 billion over eight years, with about 2 gigawatts of Trainium capacity; Amazon invests $50 billion, $15 billion of it at once and $35 billion when conditions are met.',
+		link: 'Amazon investments → OpenAI capital; OpenAI compute → AWS revenue',
+		sources: [{ publisher: 'Amazon', title: 'OpenAI and Amazon announce strategic partnership', href: 'https://press.aboutamazon.com/2026/2/openai-and-amazon-announce-strategic-partnership', date: '27 February 2026' }],
+	},
+	{
+		parties: 'Amazon ↔ Anthropic',
+		terms: 'Amazon invested $8 billion before 2026, then $5 billion with up to $20 billion more tied to commercial milestones; Anthropic committed more than $100 billion over ten years to AWS, for up to 5 gigawatts on Trainium chips.',
+		link: 'Amazon investments → Anthropic capital; Anthropic compute → AWS revenue',
+		sources: [{ publisher: 'Anthropic', title: 'Anthropic and Amazon expand compute collaboration', href: 'https://www.anthropic.com/news/anthropic-amazon-compute', date: '20 April 2026' }],
+	},
+	{
+		parties: 'Google ↔ Anthropic, with Broadcom',
+		terms: 'Google is a minority investor in Anthropic. Anthropic agreed in October 2025 to more than a gigawatt of Google TPU capacity, and in April 2026 to multiple gigawatts more from 2027; Broadcom, which builds the TPUs, agreed a supply arrangement with Google through 2031.',
+		link: 'Google investment → Anthropic capital; Anthropic compute → Google Cloud revenue → Broadcom revenue',
+		sources: [{ publisher: 'Anthropic', title: 'Anthropic expands Google and Broadcom compute deal', href: 'https://www.anthropic.com/news/google-broadcom-partnership-compute', date: '6 April 2026' }],
+	},
+	{
+		parties: 'AMD ↔ OpenAI',
+		terms: 'OpenAI to deploy 6 gigawatts of AMD Instinct GPUs; AMD granted OpenAI a warrant for up to 160 million AMD shares, vesting as deployments grow and as AMD\'s share price reaches set targets.',
+		link: 'OpenAI compute → AMD revenue → AMD share price → OpenAI\'s warrant → OpenAI capital',
+		sources: [{ publisher: 'AMD', title: 'AMD and OpenAI announce strategic partnership to deploy 6 gigawatts of AMD GPUs', href: 'https://newsroom.amd.com/news/amd-and-openai-announce-strategic-partnership-to-d/', date: '6 October 2025' }],
+	},
+	{
+		parties: 'AMD ↔ Anthropic',
+		terms: 'Anthropic to deploy up to 2 gigawatts of AMD Instinct MI450 GPUs from 2027; AMD to invest up to $5 billion in Anthropic, tied to deployment milestones.',
+		link: 'AMD revenue → Anthropic capital; Anthropic compute → AMD revenue',
+		sources: [{ publisher: 'AMD', title: 'AMD and Anthropic announce strategic partnership to deploy up to 2 gigawatts of AMD Instinct MI450 Series GPUs', href: 'https://newsroom.amd.com/news/amd-anthropic-strategic-partnership/', date: '22 July 2026' }],
+	},
+	{
+		parties: 'OpenAI → Broadcom',
+		terms: '10 gigawatts of accelerators designed by OpenAI and built with Broadcom, deployed from the second half of 2026 to the end of 2029.',
+		link: 'OpenAI compute → Broadcom revenue',
+		sources: [{ publisher: 'OpenAI', title: 'OpenAI and Broadcom announce strategic collaboration', href: 'https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/', date: '13 October 2025' }],
+	},
+	{
+		parties: 'Nvidia → its partners\' landlords and lenders',
+		terms: 'Guarantees of defined parts of the lease and power payments of data centres built for its customers, capped at $108.5 billion in Nvidia\'s quarterly report of August 2026.',
+		link: 'Nvidia investments → cost of credit',
+		sources: [{ publisher: 'NVIDIA', title: 'Quarterly reports on Form 10-Q', href: 'https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001045810&type=10-Q', date: 'August 2026' }],
+	},
+	{
+		parties: 'Oracle, CoreWeave → credit markets',
+		terms: 'The cost of insuring Oracle\'s debt against default rose as it borrowed to build data centres for its AI contracts, and traders bought that insurance as a hedge against the AI build-out as a whole. CoreWeave finances its GPUs largely with debt secured on its contracts.',
+		link: 'Oracle and CoreWeave borrowing → cost of credit',
+		sources: [
+			{ publisher: 'Bloomberg', title: 'Oracle bond risk jumps on concerns over AI spending spree', href: 'https://www.bloomberg.com/news/articles/2025-10-29/oracle-default-swaps-jump-on-concerns-over-ai-spending-spree', date: '29 October 2025' },
+			{ publisher: 'Bloomberg', title: 'A hedge against AI crash emerges as Oracle CDS market explodes', href: 'https://www.bloomberg.com/news/articles/2025-11-20/a-hedge-against-ai-crash-emerges-as-oracle-cds-market-explodes', date: '20 November 2025' },
+			{ publisher: 'TechCrunch', title: 'Nvidia invests $2B to help debt-ridden CoreWeave add 5GW of AI compute', href: 'https://techcrunch.com/2026/01/26/nvidia-invests-2b-to-help-debt-ridden-coreweave-add-5gw-of-ai-compute', date: '26 January 2026' },
+		],
+	},
+];
+---
+
+<StarlightPage
+	frontmatter={{
+		title: 'Circular investments in AI',
+		description: 'A causal loop diagram of the circular investments among the companies that make, rent out and use AI hardware, as reported up to November 2026.',
+		part: 'documentation',
+		section: 'tools',
+		parent: tool,
+	}}
+	headings={[
+		{ depth: 2, slug: 'the-diagram', text: 'The diagram' },
+		{ depth: 2, slug: 'the-loops', text: 'The loops' },
+		{ depth: 2, slug: 'the-arrangements', text: 'The arrangements' },
+		{ depth: 2, slug: 'what-it-leaves-out', text: 'What it leaves out' },
+		{ depth: 2, slug: 'the-document', text: 'The document' },
+	]}
+>
+	<p class="adp-lede">
+		Chip makers invest in the developers of AI models, the developers commit the money to cloud capacity, and the clouds fill their data centres with the investors' chips. This example draws that circle as a <a href={tool.href}>causal loop diagram</a>: what each company earns, invests, commits and borrows, and how a change in one travels round to the others.
+	</p>
+
+	<h2 id="the-diagram">The diagram</h2>
+	<p>
+		<a href={example.href}>Open the diagram as a flow page</a>: influence moves along the links as dots, and you can push a variable, change a link or follow a loop. It is the VS Code host's export of the document at the foot of this page, and nothing you change in it is kept.
+	</p>
+	<figure>
+		<Image src={picture} alt="The flow page of the diagram: the chip makers along the top, OpenAI on the left and Anthropic on the right of the centre, Oracle and CoreWeave at the far left, Amazon and Google at the far right, and investor confidence, the gap between commitments and end-user revenue and the cost of credit along the bottom, with the named loops listed beside the drawing." widths={[800, 1600]} sizes="(min-width: 50rem) 50rem, 100vw" />
+		<figcaption>The flow page as it opens.</figcaption>
+	</figure>
+	<p>
+		Each company is drawn as a few quantities that can rise or fall, such as Nvidia's data-centre revenue and the investments and guarantees it makes, or OpenAI's capital and the compute it commits to. A link with <code>+</code> means the two move together, and one with <code>-</code> means they move apart. Twenty-seven quantities and fifty-six links stand for the arrangements in the table below, together with three quantities outside the circle: what end users pay for AI, the gap between commitments and that revenue, and the cost of credit.
+	</p>
+
+	<h2 id="the-loops">The loops</h2>
+	<p>
+		The links close 153 cycles, of which the document names twenty. Fourteen reinforce a change. R1 to R4 run from Nvidia's revenue through its investments to OpenAI, Anthropic and CoreWeave, and back through their purchases of Nvidia systems, directly or through Oracle's data centres. R5 to R9 are the same circle for the clouds: Microsoft, Amazon and Google invest in a model developer that commits the money to their own capacity. R10 and R11 are AMD's: a warrant whose value rises with AMD's share price, and so with OpenAI's own purchases, and an investment in Anthropic tied to Anthropic's deployment of AMD chips. R12 to R14 run through investor confidence, which sets the price of each new funding round.
+	</p>
+	<p>
+		Six balance. Commitments that run ahead of end-user revenue erode confidence (B1, B2). Borrowing for the build-out makes credit dearer and slows it (B3, B4), as do power and construction delays at the sites (B5). Nvidia's guarantees of its partners' leases add to the cost of credit, which weighs on the confidence its own customers raise money on (B6).
+	</p>
+	<p>The only money entering the circle from outside it is what end users pay for AI: in the flow page it is the one variable with an outside push. Every reinforcing loop speeds up a rise and a fall alike.</p>
+
+	<h2 id="the-arrangements">The arrangements</h2>
+	<TableScroll label="The arrangements">
+		<table>
+			<thead>
+				<tr>
+					<th scope="col">Parties</th>
+					<th scope="col">What was agreed</th>
+					<th scope="col">Links in the diagram</th>
+					<th scope="col">Reported by</th>
+				</tr>
+			</thead>
+			<tbody>
+				{
+					arrangements.map((arrangement) => (
+						<tr>
+							<th scope="row">{arrangement.parties}</th>
+							<td>{arrangement.terms}</td>
+							<td>{arrangement.link}</td>
+							<td>
+								{arrangement.sources.map((source, index) => (
+									<>
+										{index > 0 && '; '}
+										{source.publisher}, <a href={source.href}><cite>{source.title}</cite></a>, {source.date}
+									</>
+								))}
+							</td>
+						</tr>
+					))
+				}
+			</tbody>
+		</table>
+	</TableScroll>
+
+	<h2 id="what-it-leaves-out">What it leaves out</h2>
+	<ul>
+		<li>Sizes. A link says which way a change moves its effect, not how much: a $300 billion contract and a $2 billion stake are one link each.</li>
+		<li>Status. Letters of intent, term sheets, conditional tranches and completed investments are drawn alike; the table says which each is.</li>
+		<li>Other companies and arrangements, among them xAI, Meta, SoftBank, the neoclouds other than CoreWeave and the private credit funds behind many data centres.</li>
+		<li>Time. The arrangements are as reported up to 25 November 2026, and several have changed since they were first announced.</li>
+	</ul>
+	<p>The numbers on the flow page come from a simple model of the diagram's structure. They are not measurements or forecasts.</p>
+
+	<h2 id="the-document">The document</h2>
+	<p>The diagram is this <code>.cld</code> document. The positions of its variables are kept beside it, in the registration a host reads.</p>
+	<Code code={document} lang="text" title="ai-circular-investments.cld" />
+</StarlightPage>

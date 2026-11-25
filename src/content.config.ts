@@ -206,6 +206,9 @@ export const collections = {
 				description: z.string().trim().min(1, 'Every page needs a non-empty description.'),
 				part: z.enum(['about', 'documentation']),
 				section: z.enum(sectionIds).optional(),
+				// The page a sub page sits under, shown as the last level of its breadcrumbs before the page itself: an example under
+				// its tool's page, which no menu lists (Peter, 2026-11-25).
+				parent: z.object({ label: z.string().min(1), href: z.string().regex(/^\/adp\/.*\/$/) }).strict().optional(),
 				// The date an article was written, shown under its title (Peter, 2026-09-30). YAML reads a bare
 				// 2026-09-28 as a date, so both forms are accepted and kept as the ISO day.
 				date: z
