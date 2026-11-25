@@ -174,9 +174,9 @@
     "name": "Timeline diagram",
     "kind": "diagram",
     "group": "Knowledge and informal modelling",
-    "developState": "Work-in-progress",
-    "releaseState": null,
-    "state": "in-progress",
+    "developState": "Prototype",
+    "releaseState": "Prototype",
+    "state": "prototype",
     "theory": [
       {
         "label": "etalii.adp",
