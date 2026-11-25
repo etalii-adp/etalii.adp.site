@@ -1,22 +1,25 @@
 {
   "procedure": "refresh-hosts",
-  "refreshedAt": "2026-11-24T23:05:14.238Z",
+  "refreshedAt": "2026-11-25T05:29:26.878Z",
   "sourceHeads": {
     "etalii-adp/etalii.adp.ide.eclipse": "59d855d9f4cd390659fe52746ed29d48309b285f",
-    "etalii-adp/etalii.adp.ide.intellij": "4b2c7f3e3206dfada1a5952d17414f45c9106b40",
-    "etalii-adp/etalii.adp.ide.standalone": "ce1dff513390d7d1b81c020544cf59dc68bc0e69",
-    "etalii-adp/etalii.adp.ide.vscode": "9dc206c74bfc0e500665a2235ef812dfe7c59f6e"
+    "etalii-adp/etalii.adp.ide.intellij": "06f4c08d19bfcb5a736ff21f5b59f1eda15353b9",
+    "etalii-adp/etalii.adp.ide.standalone": "dcd22bdf37ce7b593524639f20a4cd2e3a52d110",
+    "etalii-adp/etalii.adp.ide.vscode": "ef8f7f094e9cb9ede20fdb5278ff569f075adc96"
   },
   "releases": {
     "etalii-adp/etalii.adp.ide.eclipse": null,
-    "etalii-adp/etalii.adp.ide.intellij": null,
+    "etalii-adp/etalii.adp.ide.intellij": {
+      "tag": "v0.1.0",
+      "commit": "ca25447faa5c6ffdb79dbbc1d288edc05b1a632f"
+    },
     "etalii-adp/etalii.adp.ide.standalone": {
-      "tag": "v0.1.3874-alpha",
-      "commit": "ce1dff513390d7d1b81c020544cf59dc68bc0e69"
+      "tag": "v0.1.3880-alpha",
+      "commit": "dcd22bdf37ce7b593524639f20a4cd2e3a52d110"
     },
     "etalii-adp/etalii.adp.ide.vscode": {
-      "tag": "v0.2.2",
-      "commit": "90d80ddb6b49cb23075f26cd90332d6cec8b5ba4"
+      "tag": "v0.2.3",
+      "commit": "e82bc9d86514550df0ee6fc5b6a352a0d3c3bc64"
     }
   },
   "config": {
@@ -39,14 +42,14 @@
     {
       "repository": "etalii-adp/etalii.adp.ide.vscode",
       "sourcePath": "docs/tools.md",
-      "commit": "2acbb104e7895e3ca7028520b8701078febb01d6",
-      "gitBlob": "bc6335e76aad35946ea9226617ceffb6fd316354"
+      "commit": "3b21f9a86e7480cb29f9771db9c8ed4f7f8ac04b",
+      "gitBlob": "27617f45ee160cf8ab80119d070664dda8c669e7"
     }
   ],
   "derived": [
     {
       "path": "hosts.json",
-      "sha256": "458104fe4b8f6ef21174cc4db68d4c65a56f36964a134c7dfd7ff76233526422"
+      "sha256": "cc7ceb887777b9977ba9aa2283bea9979f68792150578dfd47ccf02f08081b4d"
     }
   ],
   "withdrawn": []
