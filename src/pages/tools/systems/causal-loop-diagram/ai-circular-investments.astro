@@ -4,7 +4,6 @@
 // links here from its example exports; the flow page beside it is the VS Code host's export of the same document.
 import { Image } from 'astro:assets';
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
-import { Code } from '@astrojs/starlight/components';
 import { exampleExports } from '../../../../data/example-exports';
 import document from '../../../../data/flow-page-sources/ai-circular-investments.cld?raw';
 import TableScroll from '../../../../components/catalogue/TableScroll.astro';
@@ -212,5 +211,5 @@ const arrangements: Arrangement[] = [
 
 	<h2 id="the-document">The document</h2>
 	<p>The diagram is this <code>.cld</code> document. The positions of its variables are kept beside it, in the registration a host reads.</p>
-	<Code code={document} lang="text" title="ai-circular-investments.cld" />
+	<pre tabindex="0" aria-label="ai-circular-investments.cld"><code>{document}</code></pre>
 </StarlightPage>
