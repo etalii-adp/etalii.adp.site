@@ -36,16 +36,16 @@
     "repository": "etalii-adp/etalii.adp.ide.vscode",
     "state": "available",
     "facts": {
-      "catalogueCommit": "3b21f9a86e7480cb29f9771db9c8ed4f7f8ac04b",
-      "usableTools": 8,
+      "catalogueCommit": "44d71e260a2a4228f583fd1303dd2ff8a6980e03",
+      "usableTools": 9,
       "toolsInProgress": 12,
       "latestRelease": {
-        "tag": "v0.2.3",
-        "commit": "e82bc9d86514550df0ee6fc5b6a352a0d3c3bc64"
+        "tag": "v0.2.5",
+        "commit": "06b4bc774fc7dc42d6579ad4ec016b8a196e41c5"
       },
-      "developHead": "ef8f7f094e9cb9ede20fdb5278ff569f075adc96"
+      "developHead": "06b4bc774fc7dc42d6579ad4ec016b8a196e41c5"
     },
-    "link": "https://github.com/etalii-adp/etalii.adp.ide.vscode/releases/tag/v0.2.3"
+    "link": "https://github.com/etalii-adp/etalii.adp.ide.vscode/releases/tag/v0.2.5"
   },
   {
     "host": "eclipse",
