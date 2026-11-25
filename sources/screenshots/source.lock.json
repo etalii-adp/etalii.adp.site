@@ -1,28 +1,31 @@
 {
   "procedure": "refresh-screenshots",
-  "refreshedAt": "2026-11-24T23:05:57.465Z",
+  "refreshedAt": "2026-11-25T02:15:26.532Z",
   "sourceHeads": {
     "etalii-adp/etalii.adp.ide.eclipse": "59d855d9f4cd390659fe52746ed29d48309b285f",
-    "etalii-adp/etalii.adp.ide.intellij": "4b2c7f3e3206dfada1a5952d17414f45c9106b40",
+    "etalii-adp/etalii.adp.ide.intellij": "06f4c08d19bfcb5a736ff21f5b59f1eda15353b9",
     "etalii-adp/etalii.adp.ide.notion": "dfadec399f7b91f698b2e2104c43613043d04147",
-    "etalii-adp/etalii.adp.ide.standalone": "ce1dff513390d7d1b81c020544cf59dc68bc0e69",
-    "etalii-adp/etalii.adp.ide.vscode": "9dc206c74bfc0e500665a2235ef812dfe7c59f6e"
+    "etalii-adp/etalii.adp.ide.standalone": "dcd22bdf37ce7b593524639f20a4cd2e3a52d110",
+    "etalii-adp/etalii.adp.ide.vscode": "1563e5f2d0cde1e57d33352bd08908a6a98f2081"
   },
   "releases": {
     "etalii-adp/etalii.adp.ide.eclipse": null,
-    "etalii-adp/etalii.adp.ide.intellij": null,
+    "etalii-adp/etalii.adp.ide.intellij": {
+      "tag": "v0.1.0",
+      "commit": "ca25447faa5c6ffdb79dbbc1d288edc05b1a632f"
+    },
     "etalii-adp/etalii.adp.ide.notion": null,
     "etalii-adp/etalii.adp.ide.standalone": {
-      "tag": "v0.1.3874-alpha",
-      "commit": "ce1dff513390d7d1b81c020544cf59dc68bc0e69"
+      "tag": "v0.1.3876-alpha",
+      "commit": "9555565b585dcd55d23d16c5b7008aa59ba30c1c"
     },
     "etalii-adp/etalii.adp.ide.vscode": {
-      "tag": "v0.2.2",
-      "commit": "90d80ddb6b49cb23075f26cd90332d6cec8b5ba4"
+      "tag": "v0.2.3",
+      "commit": "e82bc9d86514550df0ee6fc5b6a352a0d3c3bc64"
     }
   },
   "config": {
-    "procedures/config/screenshots.json": "fed6db2946981f1d2aabcb47d067cf14fd1c05110d6c2a5b372e578548bb148f",
+    "procedures/config/screenshots.json": "d474c8f5ccff81d46da2c5a0eaff1d675b680c6ddf580635d4a9b6120421dd21",
     "procedures/config/states.json": "d30bec77756dbf5449d20c4d0537be0098b3f5e6ab6f6e0f109be37c366b7d27"
   },
   "files": [
@@ -414,6 +417,24 @@
       "licence": "Apache-2.0"
     },
     {
+      "path": "standalone/timeline-marvel-universe-overview.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/timeline-marvel-universe-overview.png",
+      "commit": "ece384fdf92e26bc87290cec0149433eec1b3f19",
+      "gitBlob": "b453753961a065e068c2e6fc87993f363bf50886",
+      "sha256": "5c30b033a743c846632531a972ff4f1f47f83460af9b71a4b073323e6ddad7e1",
+      "licence": "Apache-2.0"
+    },
+    {
+      "path": "standalone/timeline-marvel-universe.png",
+      "repository": "etalii-adp/etalii.adp.ide.standalone",
+      "sourcePath": "docs/screenshots/timeline-marvel-universe.png",
+      "commit": "ece384fdf92e26bc87290cec0149433eec1b3f19",
+      "gitBlob": "c04054dae18c40ec8aff723cbd479903b3ef426b",
+      "sha256": "fa893267c1b672f6b6869ecfb3a6d2b77662e29186527a3ffac2da516ac08c44",
+      "licence": "Apache-2.0"
+    },
+    {
       "path": "standalone/timeline.png",
       "repository": "etalii-adp/etalii.adp.ide.standalone",
       "sourcePath": "docs/screenshots/timeline.png",
@@ -580,8 +601,8 @@
     {
       "repository": "etalii-adp/etalii.adp.ide.standalone",
       "sourcePath": "docs/screenshots/readme.md",
-      "commit": "600f6cb16b7b33a5cac13e33c84348d381a3d1a6",
-      "gitBlob": "ca4df1a4abcceffa1e724ca83dec1661e87eb2dd"
+      "commit": "f0c057c6165af3d7eae20176b280111f9ada511f",
+      "gitBlob": "603daf0695d5c087bf0a3ff4eda07d5d7f692e32"
     },
     {
       "repository": "etalii-adp/etalii.adp.ide.standalone",
@@ -598,8 +619,8 @@
     {
       "repository": "etalii-adp/etalii.adp.ide.vscode",
       "sourcePath": "docs/tools.md",
-      "commit": "2acbb104e7895e3ca7028520b8701078febb01d6",
-      "gitBlob": "bc6335e76aad35946ea9226617ceffb6fd316354"
+      "commit": "c5c5e53435d75dd244db5ab641f2e297744206bd",
+      "gitBlob": "1a8ee913dad5be4ba3b0a224c014b3b4b056a636"
     }
   ],
   "derived": [
@@ -613,7 +634,7 @@
     },
     {
       "path": "standalone/screenshots.json",
-      "sha256": "367e9a9692ca86a0eee5ad153d0554b269f9cdef7227db8703b399f810c99b88"
+      "sha256": "10ff032a1b9bc1087e4c844e6a75e1818a723b0ad91e8db768a6441535b5deda"
     },
     {
       "path": "vscode/screenshots.json",

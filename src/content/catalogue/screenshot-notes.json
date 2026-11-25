@@ -131,6 +131,12 @@
   "standalone--timeline": {
     "whyItMatters": "Periods and moments sit on rows against a year ruler, with connections between them, so a multi-year roadmap shows what overlaps and what waits on what."
   },
+  "standalone--timeline-marvel-universe": {
+    "whyItMatters": "More than four hundred linked events stay readable: related events sit beside each other on neighbouring rows and connections rarely cross, so even a very large timeline can be followed from one event to the next."
+  },
+  "standalone--timeline-marvel-universe-overview": {
+    "whyItMatters": "The key events of a whole film saga on one timeline, each box as long as its label and every event linked to what follows from it, so a large story reads as a sequence of causes rather than a list of dates."
+  },
   "standalone--wardley-map": {
     "whyItMatters": "Every component sits on the two axes that give a Wardley map its meaning, visibility in the value chain and evolution from genesis to commodity, which a generic canvas cannot enforce."
   },

@@ -418,6 +418,28 @@
     "status": "accepted"
   },
   {
+    "file": "timeline-marvel-universe-overview.png",
+    "origin": "generic/timeline",
+    "expectation": "The Marvel story's key events as boxes that each hold their whole label, most connections running from the right end of one box to the left end of the next; fitted and then **wheeled in one step at the top middle**, so the bottom rows are cut off. Nothing selected.",
+    "document": "`diagrams/timeline/marvel-universe-overview/` → `marvel-universe-overview.tml` → `marvel-universe-overview.adp`",
+    "bytes": 257362,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
+    "file": "timeline-marvel-universe.png",
+    "origin": "generic/timeline",
+    "expectation": "The start of the full Marvel story, from Odin's war on the Frost Giants onwards, every label whole inside its box and most connections running left to right; fitted, which shows a tall column, and then **wheeled in ten steps at its top**. Nothing selected.",
+    "document": "`diagrams/timeline/marvel-universe/` → `marvel-universe.tml` → `marvel-universe.adp`",
+    "bytes": 285852,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
     "file": "timeline.png",
     "origin": "generic/timeline",
     "expectation": "Periods and moments on rows, the year ruler along the bottom, connections drawn; Toolbox showing Element and Moment. Nothing selected.",

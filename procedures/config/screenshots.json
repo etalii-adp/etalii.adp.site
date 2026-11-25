@@ -42,7 +42,9 @@
     "c4-dynamic.png": "c4/dynamic",
     "knowledge.png": "etalii/knowledge",
     "skos.png": "w3c/skos",
-    "hierarchical-requirement.png": "etalii/hierarchical-requirement"
+    "hierarchical-requirement.png": "etalii/hierarchical-requirement",
+    "timeline-marvel-universe.png": "generic/timeline",
+    "timeline-marvel-universe-overview.png": "generic/timeline"
   },
   "intellij": {
     "drawio-activity.png": "jgraph/drawio",
