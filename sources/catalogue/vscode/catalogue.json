@@ -170,6 +170,43 @@
     ]
   },
   {
+    "origin": "generic/timeline",
+    "name": "Timeline diagram",
+    "kind": "diagram",
+    "group": "Knowledge and informal modelling",
+    "developState": "Work-in-progress",
+    "releaseState": null,
+    "state": "in-progress",
+    "theory": [
+      {
+        "label": "etalii.adp",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/diagrams/timeline.md"
+      }
+    ],
+    "example": [
+      {
+        "label": "disl-support.md",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/blob/develop/docs/disl-support.md"
+      },
+      {
+        "label": "parity.md",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/blob/develop/docs/parity.md"
+      },
+      {
+        "label": "host-tests/timeline.md",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/blob/develop/docs/host-tests/timeline.md"
+      },
+      {
+        "label": "definition",
+        "href": "https://github.com/etalii-adp/etalii.adp/blob/develop/definitions/diagrams/timeline.md"
+      },
+      {
+        "label": "four examples",
+        "href": "https://github.com/etalii-adp/etalii.adp.ide.vscode/tree/develop/examples/timeline"
+      }
+    ]
+  },
+  {
     "origin": "systems/causal-loop-diagram",
     "name": "Causal loop diagram",
     "kind": "diagram",
