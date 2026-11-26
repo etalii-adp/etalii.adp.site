@@ -464,3 +464,15 @@ test.describe('example exports', () => {
 		expect(requests.filter((url) => !url.endsWith(examples[0].href))).toEqual([]);
 	});
 });
+
+test.describe('creating a file with an AI agent', () => {
+	test('the causal loop tool page links to the guide and the grammar an agent writes a .cld file with', async ({ page }) => {
+		const { agentGuides } = await import('../src/data/agent-guides.ts');
+		const guide = agentGuides['systems/causal-loop-diagram'];
+		await page.goto('/adp/tools/systems/causal-loop-diagram/');
+		const section = page.locator('section[aria-labelledby="with-an-ai-agent"]');
+		await expect(section.locator('h2')).toHaveText('Creating a file with an AI agent');
+		await expect(section.locator(`a[href="${guide.guide.href}"]`)).toHaveText(guide.guide.title);
+		await expect(section.locator(`a[href="${guide.grammar.href}"]`)).toHaveText(guide.grammar.title);
+	});
+});
