@@ -7,7 +7,7 @@
     "kind": "git",
     "repository": "etalii-adp/etalii.adp",
     "path": "specifications/disl",
-    "revision": "927afe7202280e35336f251a60aa22b32dff59a2",
+    "revision": "25a1e9e867a3befe9f72dd12b6a87484e797aab4",
     "licence": "Apache-2.0",
     "copyright": "Copyright © Peter Vrenken 2026"
   },
@@ -33,8 +33,8 @@
     {
       "name": "DISL-specification.md",
       "role": "prose",
-      "sha256": "97d08410b8349cad8adab8cdda01f171d3efc7f1e4a09150144e66ceda5fd454",
-      "size": 752999
+      "sha256": "f7480d75d0560dda9850b94da56ca0281dae71ed2d6109d05adba8455fa7c714",
+      "size": 753730
     },
     {
       "name": "disl.schema.json",
@@ -163,5 +163,5 @@
       "size": 12069
     }
   ],
-  "retrieved": "2026-11-24T02:12:25Z"
+  "retrieved": "2026-11-26T02:11:42Z"
 }
