@@ -7,7 +7,7 @@
     "kind": "git",
     "repository": "etalii-adp/etalii.adp",
     "path": "specifications/atd",
-    "revision": "1561e1bf690c8061e8daa0c33dd3e2eb3090071e",
+    "revision": "25a1e9e867a3befe9f72dd12b6a87484e797aab4",
     "licence": "Apache-2.0",
     "copyright": "Copyright © Peter Vrenken 2026"
   },
@@ -21,8 +21,8 @@
     {
       "name": "ATD-specification.md",
       "role": "prose",
-      "sha256": "180cd0d681e10ce86c4bd174f48d4aa71ba36b32859669a946d301272c053d12",
-      "size": 401560
+      "sha256": "cfb38d3f1d6dc4ccc5e0904eb6455b9185838def0096ca39fa83191a095a49f6",
+      "size": 402955
     },
     {
       "name": "atd.schema.json",
@@ -103,5 +103,5 @@
       "size": 1344
     }
   ],
-  "retrieved": "2026-11-25T02:11:38Z"
+  "retrieved": "2026-11-26T02:11:46Z"
 }
