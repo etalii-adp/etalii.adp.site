@@ -110,6 +110,17 @@
     "status": "accepted"
   },
   {
+    "file": "timeline.png",
+    "origin": "generic/timeline",
+    "expectation": "The overview's periods as bars on their rows under the ruler of years (1990 to 2040), their labels readable, joined by connections that enter each target from the left with an arrowhead; ADP Toolbox showing Element and Moment; the period nearest the middle (Nations sign Sokovia Accords) selected, with its label, begin, end and row in ADP Properties. Light theme.",
+    "document": "`timeline/marvel-universe-overview/` → `marvel-universe-overview.tml`",
+    "bytes": 128890,
+    "width": 1600,
+    "height": 900,
+    "budgetBytes": 307200,
+    "status": "accepted"
+  },
+  {
     "file": "value-stream-map.png",
     "origin": "generic/value-stream-map",
     "expectation": "The current state of request fulfilment, from the trigger chevron through the steps to the outcome, with no two steps overlapping: Build custom and Check result one row below Fulfil from catalogue, the 80 % and 20 % alternatives and the rework loop between them, each step with its performer and its times; the state's totals and the comparison of the two states to its right. Zoomed out once if needed, so that the trigger and the comparison are both in view. ADP Toolbox listing Trigger, Step, Outcome, Flow, Alternative and Rework; the step Build custom selected, with its process time `PT2H` and wait time `P1D` in ADP Properties.",

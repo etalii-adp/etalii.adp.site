@@ -1,12 +1,12 @@
 {
   "procedure": "refresh-screenshots",
-  "refreshedAt": "2026-11-25T02:15:26.532Z",
+  "refreshedAt": "2026-11-26T11:01:41.733Z",
   "sourceHeads": {
     "etalii-adp/etalii.adp.ide.eclipse": "59d855d9f4cd390659fe52746ed29d48309b285f",
     "etalii-adp/etalii.adp.ide.intellij": "06f4c08d19bfcb5a736ff21f5b59f1eda15353b9",
     "etalii-adp/etalii.adp.ide.notion": "dfadec399f7b91f698b2e2104c43613043d04147",
-    "etalii-adp/etalii.adp.ide.standalone": "dcd22bdf37ce7b593524639f20a4cd2e3a52d110",
-    "etalii-adp/etalii.adp.ide.vscode": "1563e5f2d0cde1e57d33352bd08908a6a98f2081"
+    "etalii-adp/etalii.adp.ide.standalone": "4ee356c7af5b3c4cd858e061fd909ea1771bfdec",
+    "etalii-adp/etalii.adp.ide.vscode": "60f35ef8f2f30bdb85e9fcaa171fe8ba03949d44"
   },
   "releases": {
     "etalii-adp/etalii.adp.ide.eclipse": null,
@@ -16,16 +16,16 @@
     },
     "etalii-adp/etalii.adp.ide.notion": null,
     "etalii-adp/etalii.adp.ide.standalone": {
-      "tag": "v0.1.3876-alpha",
-      "commit": "9555565b585dcd55d23d16c5b7008aa59ba30c1c"
+      "tag": "v0.1.3936-alpha",
+      "commit": "4ee356c7af5b3c4cd858e061fd909ea1771bfdec"
     },
     "etalii-adp/etalii.adp.ide.vscode": {
-      "tag": "v0.2.3",
-      "commit": "e82bc9d86514550df0ee6fc5b6a352a0d3c3bc64"
+      "tag": "v0.2.5",
+      "commit": "06b4bc774fc7dc42d6579ad4ec016b8a196e41c5"
     }
   },
   "config": {
-    "procedures/config/screenshots.json": "d474c8f5ccff81d46da2c5a0eaff1d675b680c6ddf580635d4a9b6120421dd21",
+    "procedures/config/screenshots.json": "bc16f55ee027f3df33e297626df3a45cbe5a970164177dbd53dd963e27cd7b01",
     "procedures/config/states.json": "d30bec77756dbf5449d20c4d0537be0098b3f5e6ab6f6e0f109be37c366b7d27"
   },
   "files": [
@@ -570,6 +570,15 @@
       "licence": "Apache-2.0"
     },
     {
+      "path": "vscode/timeline.png",
+      "repository": "etalii-adp/etalii.adp.ide.vscode",
+      "sourcePath": "docs/screenshots/timeline.png",
+      "commit": "e83920f6c2b6f21ed2fb9064b4fc524a6f8c17c7",
+      "gitBlob": "3e0e58461e75a1ea4a57b8ce742ec4b79001fc12",
+      "sha256": "ba10abc7a68da8d41828cede791607f9ee332c4b20a3e8de99e3a0b159bf73c9",
+      "licence": "Apache-2.0"
+    },
+    {
       "path": "vscode/value-stream-map.png",
       "repository": "etalii-adp/etalii.adp.ide.vscode",
       "sourcePath": "docs/screenshots/value-stream-map.png",
@@ -607,20 +616,20 @@
     {
       "repository": "etalii-adp/etalii.adp.ide.standalone",
       "sourcePath": "docs/tools.md",
-      "commit": "0012c7ddc8333c836ba9b08548c2bcc7dc58ad3a",
-      "gitBlob": "400c875cbc5ff87c4cc6c2c3d3ca7d9cc326dbd0"
+      "commit": "b4a752b5de548d33c7074121e7d7c9c484efa03f",
+      "gitBlob": "fa583a70623408a7629df166dcea4538dc2cf22d"
     },
     {
       "repository": "etalii-adp/etalii.adp.ide.vscode",
       "sourcePath": "docs/screenshots/readme.md",
-      "commit": "2e9c25896160f5689fe9ea6384705d0b5066b004",
-      "gitBlob": "c74b30d41238923019e114c66ae21289730b91b2"
+      "commit": "e83920f6c2b6f21ed2fb9064b4fc524a6f8c17c7",
+      "gitBlob": "4c7fd6efa1c79a44822f5eeecc15370c7af1de2a"
     },
     {
       "repository": "etalii-adp/etalii.adp.ide.vscode",
       "sourcePath": "docs/tools.md",
-      "commit": "c5c5e53435d75dd244db5ab641f2e297744206bd",
-      "gitBlob": "1a8ee913dad5be4ba3b0a224c014b3b4b056a636"
+      "commit": "44d71e260a2a4228f583fd1303dd2ff8a6980e03",
+      "gitBlob": "f1f00ddf1fd36aed804499e63b612e4b930f6c28"
     }
   ],
   "derived": [
@@ -638,7 +647,7 @@
     },
     {
       "path": "vscode/screenshots.json",
-      "sha256": "42103ff742654158f5c6a5525e6b989d063a0907904a45c01e1b73246263b514"
+      "sha256": "fe493f26bb191561855041e3ed4483787b9dbf6efb83968ca8b17d89a19cfb2b"
     }
   ],
   "withdrawn": []
