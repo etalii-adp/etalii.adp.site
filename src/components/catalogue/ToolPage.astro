@@ -2,6 +2,7 @@
 // One page per tool (FR-003 to FR-009, FR-012, FR-015), in the order of contracts/site-addresses.md § A tool
 // page. Every git source is named in an adp:source meta for spec 004's source-record check.
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { agentGuides } from '../../data/agent-guides';
 import { exampleExports } from '../../data/example-exports';
 import AvailabilityTable from './AvailabilityTable.astro';
 import { bestState, filterHref, isUsable, showsScreenshots } from './data';
@@ -20,6 +21,7 @@ const usable = isUsable(bestState(tool.hosts));
 const withScreenshots = showsScreenshots(bestState(tool.hosts));
 const screenshots = tool.screenshots.filter((screenshot) => screenshot.publishable);
 const exports = exampleExports[tool.origin] ?? [];
+const agentGuide = agentGuides[tool.origin];
 const areas = tool.focusAreas.map((slug) => focusAreas.find((area) => area.slug === slug)).filter((area) => area !== undefined);
 const kinds = { diagram: 'Diagram', designer: 'Designer', editor: 'Editor' } as const;
 const notDescribed = 'Not described yet.';
@@ -35,6 +37,7 @@ const headings = [
 	{ depth: 2, slug: 'what-it-is-for', text: 'What it is for' },
 	{ depth: 2, slug: 'why-specialized', text: 'Why a specialized view helps' },
 	{ depth: 2, slug: 'file-formats', text: 'File formats' },
+	...(agentGuide ? [{ depth: 2, slug: 'with-an-ai-agent', text: 'Creating a file with an AI agent' }] : []),
 	...(withScreenshots ? [{ depth: 2, slug: 'screenshots', text: 'Screenshots' }] : []),
 	...(exports.length > 0 ? [{ depth: 2, slug: 'example-exports', text: 'Example exports' }] : []),
 	{ depth: 2, slug: 'background', text: 'Background' },
@@ -97,6 +100,23 @@ const headings = [
 			)
 		}
 	</section>
+
+	{
+		agentGuide && (
+			<section aria-labelledby="with-an-ai-agent">
+				<h2 id="with-an-ai-agent">Creating a file with an AI agent</h2>
+				<p>{agentGuide.about}</p>
+				<ul>
+					<li>
+						<a href={agentGuide.guide.href}>{agentGuide.guide.title}</a>: {agentGuide.guide.about}
+					</li>
+					<li>
+						<a href={agentGuide.grammar.href}><code>{agentGuide.grammar.title}</code></a>: {agentGuide.grammar.about}
+					</li>
+				</ul>
+			</section>
+		)
+	}
 
 	{
 		withScreenshots && (
