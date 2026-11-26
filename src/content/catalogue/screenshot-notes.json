@@ -178,5 +178,8 @@
   },
   "vscode--post-incident-review": {
     "whyItMatters": "A post-incident review kept as Markdown opens inside VS Code as a page of sections, its summary times, impact and a timeline strip of the events, so the review is written and read in its shape while the file stays plain Markdown."
+  },
+  "vscode--timeline": {
+    "whyItMatters": "A timeline kept in a plain .tml file opens inside VS Code with its periods as bars on their rows under a ruler of years and the connections between them drawn with arrowheads, so what happened when, and what led to what, is read from one picture while the file stays the source."
   }
 }

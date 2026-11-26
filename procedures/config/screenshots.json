@@ -62,7 +62,8 @@
     "dependency-graph.png": "generic/dependencies",
     "value-stream-map.png": "generic/value-stream-map",
     "slo-map.png": "openslo/slo",
-    "post-incident-review.png": "etalii/post-incident-review"
+    "post-incident-review.png": "etalii/post-incident-review",
+    "timeline.png": "generic/timeline"
   },
   "eclipse": {},
   "notion": {
