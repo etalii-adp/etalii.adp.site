@@ -1,11 +1,11 @@
 {
   "procedure": "refresh-catalogue",
-  "refreshedAt": "2026-11-26T01:49:50.465Z",
+  "refreshedAt": "2026-11-26T11:00:51.594Z",
   "sourceHeads": {
     "etalii-adp/etalii.adp.ide.eclipse": "59d855d9f4cd390659fe52746ed29d48309b285f",
     "etalii-adp/etalii.adp.ide.intellij": "06f4c08d19bfcb5a736ff21f5b59f1eda15353b9",
-    "etalii-adp/etalii.adp.ide.standalone": "8145e74363f7ec063bbc7fcc97c9e9e186a2825f",
-    "etalii-adp/etalii.adp.ide.vscode": "b38bc20c5bb1924c9e7d9bb5ee7b178f75ef8123"
+    "etalii-adp/etalii.adp.ide.standalone": "4ee356c7af5b3c4cd858e061fd909ea1771bfdec",
+    "etalii-adp/etalii.adp.ide.vscode": "60f35ef8f2f30bdb85e9fcaa171fe8ba03949d44"
   },
   "releases": {
     "etalii-adp/etalii.adp.ide.eclipse": null,
@@ -14,8 +14,8 @@
       "commit": "ca25447faa5c6ffdb79dbbc1d288edc05b1a632f"
     },
     "etalii-adp/etalii.adp.ide.standalone": {
-      "tag": "v0.1.3903-alpha",
-      "commit": "8145e74363f7ec063bbc7fcc97c9e9e186a2825f"
+      "tag": "v0.1.3936-alpha",
+      "commit": "4ee356c7af5b3c4cd858e061fd909ea1771bfdec"
     },
     "etalii-adp/etalii.adp.ide.vscode": {
       "tag": "v0.2.5",
@@ -39,9 +39,9 @@
       "path": "standalone/tools.md",
       "repository": "etalii-adp/etalii.adp.ide.standalone",
       "sourcePath": "docs/tools.md",
-      "commit": "0012c7ddc8333c836ba9b08548c2bcc7dc58ad3a",
-      "gitBlob": "400c875cbc5ff87c4cc6c2c3d3ca7d9cc326dbd0",
-      "sha256": "9af035ba41dd94b2132ad486e5feb24fb9cba98e2e9cdc9e319eaa69fd6cb654",
+      "commit": "b4a752b5de548d33c7074121e7d7c9c484efa03f",
+      "gitBlob": "fa583a70623408a7629df166dcea4538dc2cf22d",
+      "sha256": "a95cd0a7c03bc1e0a5eb691d652bd4bd765345fa3c18a999ec1305f36a29194d",
       "licence": "Apache-2.0"
     },
     {
@@ -61,7 +61,7 @@
     },
     {
       "path": "standalone/catalogue.json",
-      "sha256": "23c831b3ded1e393ce694f151853303201e2cc836816693a287d77475b8a1f7f"
+      "sha256": "ef0e6f7c75069a2739a85315983fcdcf452331ac2ba4daf8ffd6f35ff453276f"
     },
     {
       "path": "vscode/catalogue.json",

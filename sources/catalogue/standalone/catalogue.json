@@ -38,6 +38,10 @@
       {
         "label": "Freeplane example maps",
         "href": "https://www.freeplane.org/wiki/index.php/Gallery"
+      },
+      {
+        "label": "092-standalone-links",
+        "href": "https://github.com/etalii-adp/etalii.adp/tree/develop/specs/092-standalone-links"
       }
     ]
   },
@@ -994,8 +998,8 @@
     ],
     "example": [
       {
-        "label": "Row and column based knowledge in local YAML, XML or JSON files: typed properties (text, number, date and time, selection, multiple selection), (multi) directional relations between files, and views that set property visibility, sorting, filtering and row grouping",
-        "href": null
+        "label": "092-standalone-links",
+        "href": "https://github.com/etalii-adp/etalii.adp/tree/develop/specs/092-standalone-links"
       }
     ]
   },
@@ -1906,8 +1910,8 @@
     ],
     "example": [
       {
-        "label": "Dependency graph (named nodes and directed depends-on edges, freely placed and freely connected; .dgr — ADP's own YAML schema and extension, on the generic/timeline model with every time-related aspect removed: authored placement, directed depends-on edges drawn with an arrowhead, one command per edit); dependency-graph (specification removed from the tree; in history before d573ad87)",
-        "href": null
+        "label": "092-standalone-links",
+        "href": "https://github.com/etalii-adp/etalii.adp/tree/develop/specs/092-standalone-links"
       }
     ]
   },
@@ -1948,8 +1952,8 @@
     ],
     "example": [
       {
-        "label": "Timeline diagram (left-to-right, elements spanning begin→end on snap-to rows, bezier connections; .tml — Timeline Markup Language); timeline-diagram (specification removed from the tree; in history before ece03c36)",
-        "href": null
+        "label": "092-standalone-links",
+        "href": "https://github.com/etalii-adp/etalii.adp/tree/develop/specs/092-standalone-links"
       }
     ]
   },
