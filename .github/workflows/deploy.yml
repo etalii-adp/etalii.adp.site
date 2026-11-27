@@ -9,7 +9,8 @@
 # Build checked for develop's head with the add-ons of that moment.
 #
 # The same run adds the hosted experiment of etalii.adp (its hosts/_experiments/hosted) at /adp/experiment/hosting,
-# as it is on etalii.adp's develop at that moment (Peter, 2026-11-27). Nothing links to it.
+# as it is on etalii.adp's develop at that moment, and puts the experiment's start page at /adp as well (Peter,
+# 2026-11-27). The site's own start page is /adp/about/.
 name: deploy
 
 on:
@@ -89,9 +90,8 @@ jobs:
         working-directory: .notion-addons
         run: node scripts/build.mjs --out "$GITHUB_WORKSPACE/dist/adp-notion"
       # The hosted experiment of etalii.adp (hosts/_experiments/hosted): pages written in TypeScript, checked and
-      # built here by that folder's own npm run check, and published from its dist at /adp/experiment/hosting. No
-      # page of the site links to it. The first line of the copy fails the run if the site itself ever grows a page
-      # at /adp/experiment.
+      # built here by that folder's own npm run check, and published from its dist at /adp/experiment/hosting. The
+      # first line of the copy fails the run if the site itself ever grows a page at /adp/experiment.
       - if: steps.find.outputs.run != ''
         name: Check out the hosted experiment
         uses: actions/checkout@v7
@@ -112,9 +112,19 @@ jobs:
           test ! -e dist/adp/experiment
           mkdir -p dist/adp/experiment
           cp -R .adp/hosts/_experiments/hosted/dist dist/adp/experiment/hosting
+      # The experiment's start page is the page at /adp too: a copy of its index.html with a <base> that points at
+      # /adp/experiment/hosting/, so its style sheets, its script and its links resolve there. It takes the place of
+      # the page the site builds at /adp/, which only redirects to /adp/about/; the first line fails the run if that
+      # ever becomes a page of its own.
+      - if: steps.find.outputs.run != ''
+        name: Put the start page of the hosted experiment at /adp
+        run: |
+          grep -q 'http-equiv="refresh"' dist/adp/index.html
+          sed 's|<head>|<head>\n<base href="/adp/experiment/hosting/">|' dist/adp/experiment/hosting/index.html > dist/adp/index.html
+          grep -q '<base href="/adp/experiment/hosting/">' dist/adp/index.html
       - if: steps.find.outputs.run != ''
         name: Check the site, the add-on index and the hosted experiment are there
-        run: test -f dist/index.html && test -f dist/adp/index.html && test -f dist/adp-notion/index.html && test -f dist/adp/experiment/hosting/index.html
+        run: test -f dist/index.html && test -f dist/adp/index.html && test -f dist/adp/about/index.html && test -f dist/adp-notion/index.html && test -f dist/adp/experiment/hosting/index.html
       - if: steps.find.outputs.run != ''
         uses: actions/upload-pages-artifact@v5
         with:

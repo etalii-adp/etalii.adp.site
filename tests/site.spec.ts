@@ -80,11 +80,13 @@ async function expectNoViolations(page: Page) {
 
 test('the build contains the pages of this feature', () => {
 	test.skip(only !== undefined, 'CHECK_PAGES_ONLY narrows the page list on purpose');
-	expect(pages).toEqual(expect.arrayContaining(['/404.html', '/adp/', '/adp/docs/', '/adp/docs/specification-and-definition/', '/adp/disl/', '/adp/did/', '/adp/tools/']));
+	expect(pages).toEqual(expect.arrayContaining(['/404.html', '/adp/about/', '/adp/docs/', '/adp/docs/specification-and-definition/', '/adp/disl/', '/adp/did/', '/adp/tools/']));
 });
 
 for (const address of checkOrder) {
-	const isHome = address === '/adp/';
+	// The site's start page is /adp/about/ (Peter, 2026-11-27). /adp/ itself only redirects there in this build; the
+	// published site has the start page of etalii.adp's hosted experiment at /adp/ (deploy.yml).
+	const isHome = address === '/adp/about/';
 	const isNotFound = address.endsWith('404.html');
 
 	test.describe(address, () => {
@@ -185,7 +187,8 @@ test.describe('addresses (contracts/site-addresses.md)', () => {
 		// The home page's badges come from github.com and img.shields.io; its load event waits for them, which is not
 		// what these address tests are about, so they wait for the document alone.
 		await page.goto('/', { waitUntil: 'domcontentloaded' });
-		await page.waitForURL('**/adp/', { waitUntil: 'domcontentloaded' });
+		// The root leads to /adp/, which by itself leads on to the site's start page at /adp/about/.
+		await page.waitForURL('**/adp/about/', { waitUntil: 'domcontentloaded' });
 		await expect(page.locator('h1')).toHaveText('A Different Perspective');
 	});
 
@@ -194,7 +197,7 @@ test.describe('addresses (contracts/site-addresses.md)', () => {
 		await expect(page.locator('h1')).toHaveText('Page not found');
 		await expect(page.getByRole('navigation', { name: 'Site parts' })).toBeVisible();
 		await expect(page.getByRole('navigation', { name: 'Site map' })).toBeAttached();
-		await expect(page.getByRole('main').getByRole('link', { name: 'Go to the home page' })).toHaveAttribute('href', '/adp/');
+		await expect(page.getByRole('main').getByRole('link', { name: 'Go to the home page' })).toHaveAttribute('href', '/adp/about/');
 	});
 
 	test('one sidebar: the reference of each language is a collapsible group under Specification & Definition (Peter, 2026-09-29)', async ({ page }) => {
@@ -236,7 +239,7 @@ test.describe('addresses (contracts/site-addresses.md)', () => {
 		const page = await context.newPage();
 		// The counter never arrives: its slot must already have its final size.
 		await page.route(`${visitorCounterOrigin}/**`, () => {});
-		await page.goto('/adp/', { waitUntil: 'domcontentloaded' });
+		await page.goto('/adp/about/', { waitUntil: 'domcontentloaded' });
 		const slot = await page.locator('.adp-visitors').boundingBox();
 		expect(slot?.width).toBe(120);
 		expect(slot?.height).toBe(20);
@@ -269,7 +272,7 @@ test.describe('addresses (contracts/site-addresses.md)', () => {
 
 	test('the part marker follows the page', async ({ page }) => {
 		const current = page.getByRole('navigation', { name: 'Site parts' }).locator('[aria-current="true"]');
-		await page.goto('/adp/', { waitUntil: 'domcontentloaded' });
+		await page.goto('/adp/about/', { waitUntil: 'domcontentloaded' });
 		await expect(current).toHaveText('About');
 		for (const address of ['/adp/docs/', '/adp/docs/specification-and-definition/', '/adp/disl/', '/adp/did/', '/adp/tools/']) {
 			await page.goto(address);
