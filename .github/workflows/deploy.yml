@@ -88,9 +88,10 @@ jobs:
         name: Build the Notion add-ons
         working-directory: .notion-addons
         run: node scripts/build.mjs --out "$GITHUB_WORKSPACE/dist/adp-notion"
-      # The hosted experiment of etalii.adp (hosts/_experiments/hosted): plain pages that need no build, copied as
-      # they are to /adp/experiment/hosting, without their readme. No page of the site links to it. The first line
-      # of the copy fails the run if the site itself ever grows a page at /adp/experiment.
+      # The hosted experiment of etalii.adp (hosts/_experiments/hosted): pages written in TypeScript, checked and
+      # built here by that folder's own npm run check, and published from its dist at /adp/experiment/hosting. No
+      # page of the site links to it. The first line of the copy fails the run if the site itself ever grows a page
+      # at /adp/experiment.
       - if: steps.find.outputs.run != ''
         name: Check out the hosted experiment
         uses: actions/checkout@v7
@@ -100,12 +101,17 @@ jobs:
           path: .adp
           sparse-checkout: hosts/_experiments/hosted
       - if: steps.find.outputs.run != ''
+        name: Build the hosted experiment
+        working-directory: .adp/hosts/_experiments/hosted
+        run: |
+          npm ci
+          npm run check
+      - if: steps.find.outputs.run != ''
         name: Add the hosted experiment
         run: |
           test ! -e dist/adp/experiment
           mkdir -p dist/adp/experiment
-          cp -R .adp/hosts/_experiments/hosted dist/adp/experiment/hosting
-          rm dist/adp/experiment/hosting/README.md
+          cp -R .adp/hosts/_experiments/hosted/dist dist/adp/experiment/hosting
       - if: steps.find.outputs.run != ''
         name: Check the site, the add-on index and the hosted experiment are there
         run: test -f dist/index.html && test -f dist/adp/index.html && test -f dist/adp-notion/index.html && test -f dist/adp/experiment/hosting/index.html
