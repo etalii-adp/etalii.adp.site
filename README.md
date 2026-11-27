@@ -27,6 +27,8 @@ Nothing is published by hand. Every pull request into `develop` and every push t
 
 When `Build` passes on a push to `develop`, that is on every merged pull request, it starts the `deploy` workflow (`.github/workflows/deploy.yml`). `deploy` takes the site `Build` built and checked, adds the Notion add-ons of `etalii.adp.ide.notion` at `/adp-notion`, and deploys `dist/` to GitHub Pages, in about a minute. It publishes only the head of `develop`, so an older commit's `Build` leaves the publishing to the newer one; if `Build` fails, nothing is published and the site stays as it was. On `develop`, `Build` does not wait for the page checks, which the pull request already passed: `page-checks` runs on the same built site when `Build` passes, beside `deploy`, so a merge is live in about three minutes, and a page check that fails only on the merged result shows as a red `page-checks` run on `develop` rather than as an unpublished site. A merge in `etalii.adp.ide.notion` starts `deploy` by hand (`workflow_dispatch`), which republishes the checked site of `develop`'s head with the new add-ons.
 
+`deploy` also copies the hosted experiment of `etalii.adp` (its `hosts/_experiments/hosted`, plain pages that need no build) to `/adp/experiment/hosting`, as it is on that repository's `develop` when `deploy` runs. No page of the site links to it. A change to it is live after the next `deploy`, which can be started by hand.
+
 The workflows run in the Playwright container image of the version `package-lock.json` pins (`mcr.microsoft.com/playwright:v<version>-noble`), so a Playwright upgrade bumps that image tag in `build.yml` and `page-checks.yml` in the same change.
 
 ## How work is done here
