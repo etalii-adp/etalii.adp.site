@@ -30,12 +30,13 @@ export interface Section {
 }
 
 export const parts: readonly Part[] = [
-	{ id: 'about', label: 'About', href: '/adp/' },
+	{ id: 'about', label: 'About', href: '/adp/about/' },
 	{ id: 'documentation', label: 'Documentation', href: '/adp/docs/' },
 ];
 
 export const sections: readonly Section[] = [
-	{ id: 'home', label: 'Home', part: 'about', href: '/adp/', status: 'available', deliveredBy: '001' },
+	// The site's own start page. It was at /adp/ until 2026-11-27; the published /adp/ is the start page of etalii.adp's hosted experiment since (see README.md, Publishing).
+	{ id: 'home', label: 'Home', part: 'about', href: '/adp/about/', status: 'available', deliveredBy: '001' },
 	{ id: 'docs', label: 'Introduction', part: 'documentation', href: '/adp/docs/', status: 'available', deliveredBy: '001' },
 	// The six languages in which tools are specified and stored (etalii.adp spec 002, research R7).
 	{ id: 'specification', label: 'Specification & Definition', part: 'documentation', href: '/adp/docs/specification-and-definition/', status: 'available', deliveredBy: 'etalii.adp 002' },

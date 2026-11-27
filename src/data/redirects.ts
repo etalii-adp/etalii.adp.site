@@ -10,6 +10,9 @@ import { movedReferenceRedirects } from '../lib/reference/moved.ts';
  * a redirect, so no chain forms (etalii.adp spec 002, T050).
  */
 export const redirects: Record<string, string> = {
+	// The site's start page moved to /adp/about/ (Peter, 2026-11-27). By itself the site sends /adp/ there; in the
+	// published site, deploy puts the start page of etalii.adp's hosted experiment at /adp/ in its place.
+	'/': '/adp/about/',
 	...facetRedirects(),
 	...designerRedirects(),
 	...movedReferenceRedirects(),

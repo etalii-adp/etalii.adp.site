@@ -129,7 +129,7 @@ test.describe('overview', () => {
 	});
 
 	test('each host heading on the home page opens the overview filtered on that host, Notion included', async ({ page }) => {
-		await page.goto('/adp/');
+		await page.goto('/adp/about/');
 		const headings = page.locator('.adp-hosts h3 a');
 		await expect(headings).toHaveText(catalogueHosts.map((host) => host.name));
 		for (const [index, host] of catalogueHosts.entries()) await expect(headings.nth(index)).toHaveAttribute('href', `/adp/tools/?hosts=${host.id}`);
