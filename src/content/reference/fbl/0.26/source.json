@@ -1,0 +1,173 @@
+{
+  "language": "fbl",
+  "version": "0.26",
+  "status": "Draft",
+  "date": "2026-11-23",
+  "source": {
+    "kind": "git",
+    "repository": "etalii-adp/etalii.adp",
+    "path": "specifications/fbl",
+    "revision": "05a29537979906ef3281a75b1f85240a1d94b94c",
+    "licence": "Apache-2.0",
+    "copyright": "Copyright © Peter Vrenken 2026"
+  },
+  "files": [
+    {
+      "name": "ansible-structure.fbl",
+      "role": "document",
+      "sha256": "9ac5a765cb7072bf3a263b27a954b385054f25ea947a8fb9a2d34705052db577",
+      "size": 2313
+    },
+    {
+      "name": "azure-devops-pipeline.fbl.draft",
+      "role": "other",
+      "sha256": "027da0587928d171355ccf1908f264ec5b8f613dd2c976760a3753a6106b1bf1",
+      "size": 11738
+    },
+    {
+      "name": "behavior-tree.fbl",
+      "role": "document",
+      "sha256": "dbe681837b1f41d71ea7f6895f6bc05961b1d1f7c32016f2d6c868fb43c9f9d7",
+      "size": 16941
+    },
+    {
+      "name": "causal-loop-diagram.fbl",
+      "role": "document",
+      "sha256": "8a7156489a6135c2a93d162e807ea068c83c45babcd240b5853fbc63680ac69b",
+      "size": 9255
+    },
+    {
+      "name": "databricks-job.fbl",
+      "role": "document",
+      "sha256": "aa9cd05009b738075b7091cc839c2e55111140b7e3906774edb20b701c78583f",
+      "size": 4161
+    },
+    {
+      "name": "databricks-pipeline.fbl",
+      "role": "document",
+      "sha256": "74aaa24e915020f978f0525ff1141b7ae1bd331cc8bd542e33e10d01e1c65445",
+      "size": 3112
+    },
+    {
+      "name": "databricks.fbl",
+      "role": "document",
+      "sha256": "736c94c94ca587282dd377590bb26bfb8e82c356dc33692c65d6489b351a294d",
+      "size": 14843
+    },
+    {
+      "name": "dependency-graph.fbl",
+      "role": "document",
+      "sha256": "65f2f45b7a0e7024ca723ea3046f97b8ca5922ea322b31468c91667df3cc114c",
+      "size": 4514
+    },
+    {
+      "name": "dotnet-dependency-graph.fbl",
+      "role": "document",
+      "sha256": "ff308e35bad8ba43c52383afb1bf517d3f66549c5c829b8b1c2bdbf2a650b4ea",
+      "size": 1646
+    },
+    {
+      "name": "FBL-specification.md",
+      "role": "prose",
+      "sha256": "bd008d0599d552a74832dee4cc799958bdd4fa996f139069ff3dfb44048bf73e",
+      "size": 231371
+    },
+    {
+      "name": "fbl.schema.json",
+      "role": "schema",
+      "sha256": "c870854631f5584154c4c97763bf7c926c4c6c79a86f3e3490700d8a7c843f8b",
+      "size": 131683
+    },
+    {
+      "name": "helm-chart.fbl",
+      "role": "document",
+      "sha256": "ca8c89be695f6a2ab5328e04639ae9c3445c907de961c4a3af301b74ca2b82fa",
+      "size": 2480
+    },
+    {
+      "name": "mindmap.fbl",
+      "role": "document",
+      "sha256": "cb4091aec0186a472964dfbffabe6c43ea413cdb634044a884f3b4b42823ba5b",
+      "size": 2994
+    },
+    {
+      "name": "sankey.fbl",
+      "role": "document",
+      "sha256": "020cab121b0bb67f90790f3a969aff820dcbb16eec7106dc9bd4bb1ebc0c566c",
+      "size": 4974
+    },
+    {
+      "name": "SPEC.md",
+      "role": "other",
+      "sha256": "5e7fb9825aad8af6645eecee29fa22f663f34ca607fbee1f10f9ac199a387caf",
+      "size": 933
+    },
+    {
+      "name": "structurizr.fbl",
+      "role": "document",
+      "sha256": "2da202fbe8bbb030c93456eeb6fd2dd05cc15ec864fd2772038398fe87aece71",
+      "size": 37206
+    },
+    {
+      "name": "structurizr.lark",
+      "role": "other",
+      "sha256": "d5e888baab5305f7fbb87c11714445a0752785aaa8b5367a72bb7e674600214e",
+      "size": 7888
+    },
+    {
+      "name": "supply-chain.fbl",
+      "role": "document",
+      "sha256": "061d3d8bad83b3c3a30e2c6760ef30c308f9908f9a1a91e84b2d18a6e26e62e4",
+      "size": 6874
+    },
+    {
+      "name": "timeline.fbl",
+      "role": "document",
+      "sha256": "26ba65c568e480f9d4fb166a8a124b3a03acc0d4f8ccb4785ec310d2c42df81a",
+      "size": 5025
+    },
+    {
+      "name": "w3c-sparql-query.fbl",
+      "role": "document",
+      "sha256": "5c19f26681ffb7f4d3de2b59d8b73aa967c0a78e4684ccac79a612cd0bc75ee9",
+      "size": 1776
+    },
+    {
+      "name": "w3c-turtle-grammar.fbl",
+      "role": "document",
+      "sha256": "922d3391729034b73d6fc95a6cc42ad9d7a5875d6406bcc4efa40ffe5e79a208",
+      "size": 26884
+    },
+    {
+      "name": "w3c-turtle.fbl",
+      "role": "document",
+      "sha256": "c2041f9487296d9b8683e6ebf7c05b7ed7973c13ff6d9f66c1c42c67d356a30f",
+      "size": 3313
+    },
+    {
+      "name": "w3c-turtle.lark",
+      "role": "other",
+      "sha256": "d648dbaeb8ce8180c9b1d7f626b93d3aa2e8c2356b5c96e08bf6d26221b7043b",
+      "size": 3658
+    },
+    {
+      "name": "wardley-map.fbl",
+      "role": "document",
+      "sha256": "bb1ea927a6e2eb44164a249e1e60f9730c24d0b476a543972489dfc0d5f0907b",
+      "size": 28531
+    },
+    {
+      "name": "wardley-map.lark",
+      "role": "other",
+      "sha256": "d65c5470a70b39e202da332f2f2c06fd116a574fd2397667b04aeb2b5e80d530",
+      "size": 8442
+    },
+    {
+      "name": "work-board.fbl",
+      "role": "document",
+      "sha256": "92a2f4aff15e51fd418cbe6be51bb1f7616ab7a0e70d5b7245c83cd3e80ebbfd",
+      "size": 7304
+    }
+  ],
+  "retrieved": "2026-11-27T02:11:44Z"
+}

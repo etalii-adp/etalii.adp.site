@@ -7,7 +7,7 @@
     "kind": "git",
     "repository": "etalii-adp/etalii.adp",
     "path": "specifications/did",
-    "revision": "25a1e9e867a3befe9f72dd12b6a87484e797aab4",
+    "revision": "05a29537979906ef3281a75b1f85240a1d94b94c",
     "licence": "Apache-2.0",
     "copyright": "Copyright © Peter Vrenken 2026"
   },
@@ -43,5 +43,5 @@
       "size": 2172
     }
   ],
-  "retrieved": "2026-11-26T02:11:44Z"
+  "retrieved": "2026-11-27T02:11:44Z"
 }
